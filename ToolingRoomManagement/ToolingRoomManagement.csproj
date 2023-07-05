@@ -107,6 +107,8 @@
     <Content Include="Areas\PurchaseOrderManager\Content\Custom\Login\DynamicBackgroud.js" />
     <Content Include="Areas\PurchaseOrderManager\Content\Custom\Login\Login.js" />
     <Content Include="Areas\PurchaseOrderManager\Content\Custom\Login\LoginStyle.css" />
+    <Content Include="Areas\PurchaseOrderManager\Content\Custom\PurchaseOrderManager\JavaScript.js" />
+    <Content Include="Areas\PurchaseOrderManager\Content\Custom\PurchaseOrderManager\StyleSheet.css" />
     <Content Include="Areas\PurchaseOrderManager\Content\Image\Double-Ring-loading.gif" />
     <Content Include="Areas\PurchaseOrderManager\Content\Image\favicon.ico" />
     <Content Include="Areas\PurchaseOrderManager\Content\Image\fii-logo.jpg" />

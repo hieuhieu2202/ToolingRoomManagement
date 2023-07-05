@@ -6,26 +6,207 @@
 <!-- Css -->
 @section styles{
     <!-- Vendor -->
-
+    <link href="~/Areas/PurchaseOrderManager/Content/vendor/DataTables/datatables.min.css" rel="stylesheet" />
+    <link href="~/Areas/PurchaseOrderManager/Content/vendor/confetti-button/style.css" rel="stylesheet" />
     <!-- Custom-->
-
+    <link href="~/Areas/PurchaseOrderManager/Content/Custom/PurchaseOrderManager/StyleSheet.css" rel="stylesheet" />
 }
 
 <!-- Breadcrumb -->
 <div class="pagetitle">
-    <h1>Employees</h1>
+    <h1>Purchase Order Request</h1>
     <nav>
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-            <li class="breadcrumb-item active">Employees Management</li>
+            <li class="breadcrumb-item active">Purchase Order Manager</li>
         </ol>
     </nav>
+</div>
+
+<!-- Container -->
+<section class="section">
+    <div class="card">
+        <div class="card-body">
+            <div class="card-title row d-flex justify-content-between m-0">
+                <button class="btn btn-primary btn-new-request" title="New Purchase Order Request" data-bs-toggle="modal" data-bs-target="#NewPurchaseOrderRequest">
+                    <i class="bi bi-star me-1"></i>
+                    New Request
+                </button>
+                <div class="header header-table-search col-4">
+                    <div class="search-bar">
+                        <div class="search-form d-flex align-items-center">
+                            <input class="dataTable-input" type="text" name="query" placeholder="Search ..." title="Enter search keyword" id="table_employees_search">
+                            <button type="submit" title="Search"><i class="bi bi-search"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Table -->
+            <table class="table" id="table_employees">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Card ID</th>
+                        <th>Vietnamese Name</th>
+                        <th>Chinese Name</th>
+                        <th>Hire Date</th>
+                        <th>Leave Date</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="table_employees_tbody">
+                </tbody>
+            </table>
+            <!-- End Dark Table -->
+        </div>
+    </div>
+</section>
+
+
+<!-- Modal -->
+<div class="modal fade" id="NewPurchaseOrderRequest" tabindex="-1" style="display: none;" aria-hidden="true" data-bs-backdrop="static">
+    <div class="modal-dialog modal-fullscreen">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title fw-bold text-center text-uppercase vw-100">詢價需求提報表</br>ĐƠN YÊU CẦU HỎI GIÁ</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th class="text-center required">需求單位/費用代碼</br>Đơn vị nhu cầu/mã bộ phận</th>
+                            <td class="table-cell-edit" list="list_department">
+                                <input type="text" class="border-0" list="list_department" />
+                                <datalist id="list_department">
+                                    <option>TE</option>
+                                    <option>AUTO</option>
+                                </datalist>
+                            </td>
+                            <th class="text-center required">需求單位</br>Mã bộ phận sử dụng</th>
+                            <td class="table-cell-edit">
+                                <input type="text" class="border-0" list="list_department" />
+                            </td>
+                            <th class="text-center required">需求單位費用代碼</br>Mã chi phí</thclass="text-center">
+                            <td contenteditable="true" class="table-cell-edit"></td>
+                            <th colspan="2" class="text-center required">下單法人</br>Pháp nhân mua hàng</th>
+                            <td colspan="2" contenteditable="true" class="table-cell-edit">FUYU</td>
+                        </tr>
+                        <tr>
+                            <th class="text-center required">交貨地點</br>Địa điểm giao hàng</th>
+                            <td contenteditable="true" class="table-cell-edit"></td>
+                            <th class="text-center required">最晚需到廠日期</br>Ngày tháng dự định cần giao hàng</th>
+                            <td class="table-cell-edit">
+                                <input type="date" class="border-0"/>
+                            </td>
+                            <th class="text-center required">需求人</br>Người yêu cầu</th>
+                            <td contenteditable="true" class="table-cell-edit"></td>
+                            <th class="text-center required">電話</br>Số máy lẻ</th>
+                            <td contenteditable="true" class="table-cell-edit"></td>
+                            <th class="text-center required">郵箱</br>Hòm thư</th>
+                            <td contenteditable="true" class="table-cell-edit">cpeii-vn-te-toolingroom@mail.foxconn.com</td>
+                        </tr>
+                    </thead>
+                </table>
+
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th rowspan="2" class="text-center">No.</th>
+                            <th rowspan="2" class="text-center required">品名</br>Tên sản phẩm</th>
+                            <th rowspan="2" class="text-center required">品牌</br>Nhãn hiệu</th>
+                            <th rowspan="2" class="text-center required">型號/規格說明</br>Thông tin kỹ thuật/Quy cách</th>
+                            <th rowspan="2" class="text-center required">單位</br>Đơn vị</th>
+                            <th rowspan="2" class="text-center required">需求數量</br>SL yêu cầu</th>
+                            <th rowspan="1" colspan="2" class="text-center required">需求類型</br>Loại hình nhu cầu</th>
+                            <th rowspan="2" class="text-center required">料號/歷史採購單</br>Mã liệu/Đơn mua lịch sử</th>
+                            <th rowspan="2" class="text-center required">網上價格參考鏈接</br>Link BU tham khảo giá</th>
+                            <th rowspan="2" class="text-center required">图片</br>Hình ảnh</th>
+                            <th rowspan="2" class="text-center required">其它備註說明</br>Những ghi chú khác</br>(ngày cần giao hàng)</th>
+                            <th rowspan="2" class="text-center">採購回復</br>THU MUA PHẢN HỒI</th>
+                            <th rowspan="2" class="text-center">Action</th>
+                        </tr>
+                        <tr>
+                            <th rowspan="1" colspan="1" class="text-center">一次性需求</br>Một lần
+                            </th>
+                            <th rowspan="1" colspan="1" class="text-center">每月需求</br>Hàng tháng</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="text-center align-middle">1</td>
+                            <td contenteditable="true"></td>
+                            <td contenteditable="true"></td>
+                            <td contenteditable="true"></td>
+                            <td contenteditable="true"></td>
+                            <td contenteditable="true"></td>
+                            <td class="cell-radio"><label><input type="radio" name="group1" /></label></td>
+                            <td class="cell-radio"><label><input type="radio" name="group1" /></label></td>
+                            <td contenteditable="true"></td>
+                            <td contenteditable="true"></td>
+                            <td contenteditable="true"></td>
+                            <td contenteditable="true"></td>
+                            <td contenteditable="true"></td>
+                        </tr>
+                        <tr>
+                            <td class="text-center align-middle">2</td>
+                            <td contenteditable="true"></td>
+                            <td contenteditable="true"></td>
+                            <td contenteditable="true"></td>
+                            <td contenteditable="true"></td>
+                            <td contenteditable="true"></td>
+                            <td contenteditable="true"></td>
+                            <td contenteditable="true"></td>
+                            <td contenteditable="true"></td>
+                            <td contenteditable="true"></td>
+                            <td contenteditable="true"></td>
+                            <td contenteditable="true"></td>
+                            <td contenteditable="true"></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p class="small fst-italic">
+                    特別注意詢價要求:</br>
+                    1.所有詢價請詳細填好需求詢價表，資訊不完整不予處理！ （內容如是越南文或英文，請和中文一起描述）</br>
+                    2.詢價表必須使用部門部級以上主管簽字確認。（現在先簽紙檔，采購已與IT在開發系統簽核流程中）</br>
+                    3.加工非標訂製，必須提供完整2D或3D圖紙。</br>
+                    4.PR單品牌規格型號標示清楚，不可以寫訂製或NA，提PR時，必須請關務審核產品名稱、規格型號、單位是否符合關務進口條件，關務審核OK之後BU才能開PR，避免后期下完訂單報關異常及結報異常。</br>
+                    5.使用單位需要 三份報價才能開PR，或要議完價格才能開PR ，或要有中國廠商報價比對才能開PR, 請特別備註說明提出. .採購可以配合. 并請BU給予足夠時間作業（如急件，請特別特別說明，并備註原因及最晚到貨時間）</br>
+                    6.排插,風扇,空調 - 下PO時,需附上經工務最高主管核準的書面規範書，否則退單 (1.詳細規格, 2. 安裝商及人員資質要求;3. .施工工藝及材料要求;4.驗收要求)</br>
+                    7.所有固資請購和設備維修，系統采購窗口請選：李明或黃氏理，否則采購收不到需求。（VN采購代碼 BBBVNJP7）如系統中窗口無黃氏理，請找經管添加。</br>
+                    8.系統提PR跑流程時，請附件上所有附件 (報價單，規格書，客戶PO，NRE及付款明細，投資計劃書等)</br>
+                </p>
+            </div>
+            <div class="modal-footer justify-content-center">
+                <button id="buttonNewRequest" class="btn-confetti ready">
+                    <div class="message submitMessage">
+                        <span class="btn-confetti-text">Send Request</span>
+                    </div>
+                    <div class="message loadingMessage">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19 17">
+                            <circle class="loadingCircle" cx="2.2" cy="10" r="1.6" />
+                            <circle class="loadingCircle" cx="9.5" cy="10" r="1.6" />
+                            <circle class="loadingCircle" cx="16.8" cy="10" r="1.6" />
+                        </svg>
+                    </div>
+                    <div class="message successMessage">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 13 11">
+                            <polyline stroke="currentColor" points="1.4,5.8 5.1,9.5 11.6,2.1 " />
+                        </svg> <span class="btn-confetti-text">Success</span>
+                    </div>
+                </button>
+                <canvas id="canvasNewRequest" class="canvas-confetti"></canvas>
+            </div>
+        </div>
+    </div>
 </div>
 
 <!-- Js -->
 @section scripts{
     <!-- Vendor -->
-    <script src="~/Content/vendor/DataTables/datatables.min.js"></script>
+    <script src="~/Areas/PurchaseOrderManager/Content/vendor/DataTables/datatables.min.js"></script>
+    <script src="~/Areas/PurchaseOrderManager/Content/vendor/confetti-button/script.js"></script>
     <!-- Custom -->
-
+    <script src="~/Areas/PurchaseOrderManager/Content/Custom/PurchaseOrderManager/JavaScript.js"></script>
 }
