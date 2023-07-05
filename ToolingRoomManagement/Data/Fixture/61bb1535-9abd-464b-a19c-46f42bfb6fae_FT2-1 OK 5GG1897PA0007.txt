@@ -1,0 +1,58 @@
+MAC : a4 11 62 c5 46 26 
+SERIAL_NUM : A4520B78A0419
+MODEL_NUM : VMC5040
+HW_REV : H10
+BLE_MAC : a4 11 62 c5 46 27 
+2G_SSID : testgen5
+2G_PASSWD : 123456a@123456
+5G_SSID : 
+5G_PASSWD : 
+WLAN_BAND_PREF : 0 0 0 0 
+ENC_KEY : 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+AUTH_KEY : 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+WRAP_KEY : 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+WRAP_DATA : 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+ALS_LLUX : 16.51%
+ALS_HLUX : 000162
+ALS_THLUX : 
+SN send to sfis: A4520B78A0419
+Time UI-SFIS: 2020/12/13 08:07:56
+
+ShowUIChecking ABA status...
+No record, test directly
+iaba :-1
+===[ USB mode already ... ]===
+
+======Start check audio==========
+Close CaliTool 
+Send: STARTTEST
+AutoTest: 
+AutoTest: 
+AutoTest: Current state:Waiting for the entry of SN
+Send: SNA4520B78A0419
+AutoTest: Current state:SN input OK
+Delete folder 2020_12_13 
+Delete folder AOutput_1.wav 
+Delete folder DOutput_1.wav 
+Current state:is tesing 
+Last Result:test PASS 
+Close success
+D:\AutoTest_MP\TestReport\2020_12_13
+Copy D:\AutoTest_MP\TestReport\2020_12_13to D:\Arlo_Logs\U12I386T01\MODEL NAME \FT2-1_AudioLogs\2020_12_13
+D:\AutoTest_MP\TestReport\2020_12_13\Pass\Test\A4520B78A0419TestDate.xlsx
+===[ AudioTest passed ... ]===
+Delay 0 MiliSecond
+==============Start show pass================
+TEST PROGRAM VERSION:2.3.2.8  TEST CYCLE TIME:40
+
+----------------Summary all test item--------------
+Test item name                Result  Test time
+ 1.OpenCaliModeGen5            PASS    0.04s 
+ 2.AudioTest                   PASS    39.27s
+ 3.SendSfis                    -Skip-        
+---------------------------------------------------
+Write summary log server: F:\lsy\ID\U12I386T01\MODEL NAME \FT2-1 -> OK
+Write summary log localD:\Arlo_Logs\U12I386T01\MODEL NAME \FT2-1\13-12-2020 -> OK
+Details log local folder: D:\Arlo_Logs\U12I386T01\MODEL NAME \FT2-1\13-12-2020\PASS
+Details log server folder: F:\lsy\ID\Detail\U12I386T01\MODEL NAME \FT2-1\13-12-2020\PASS
+UserName Test OfG: 

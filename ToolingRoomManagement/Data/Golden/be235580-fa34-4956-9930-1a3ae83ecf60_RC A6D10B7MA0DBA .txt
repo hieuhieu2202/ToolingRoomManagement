@@ -1,0 +1,495 @@
+ShowUIChecking ABA status...
+No record, test directly
+iaba :-1
+===[ Connect to BASE ]===
+Telnet use SSH
+Ping reply from: 192.168.1.2 size:32 Time:0 TTL:64
+Ping reply from: 192.168.1.2 size:32 Time:1 TTL:64
+MAC: A4116276E27A
+--> Telnet SSH: 192.168.1.2 A4116276E27A
+
+
+BusyBox v1.23.2 (2019-05-06 20:04:49 PDT) built-in shell (ash)
+
+export PATH=$PATH:/usr/sbin:/sbin
+
+     MM           NM                    MMMMMMM          M       M
+   $MMMMM        MMMMM                MMMMMMMMMMM      MMM     MMM
+  MMMMMMMM     MM MMMMM.              MMMMM:MMMMMM:   MMMM   MMMMM
+MMMM= MMMMMM  MMM   MMMM       MMMMM   MMMM  MMMMMM   MMMM  MMMMM'
+MMMM=  MMMMM MMMM    MM       MMMMM    MMMM    MMMM   MMMMNMMMMM
+MMMM=   MMMM  MMMMM          MMMMM     MMMM    MMMM   MMMMMMMM
+MMMM=   MMMM   MMMMMM       MMMMM      MMMM    MMMM   MMMMMMMMM
+MMMM=   MMMM     MMMMM,    NMMMMMMMM   MMMM    MMMM   MMMMMMMMMMM
+MMMM=   MMMM      MMMMMM   MMMMMMMM    MMMM    MMMM   MMMM  MMMMMM
+MMMM=   MMMM   MM    MMMM    MMMM      MMMM    MMMM   MMMM    MMMM
+MMMM$ ,MMMMM  MMMMM  MMMM    MMM       MMMM   MMMMM   MMMM    MMMM
+  MMMMMMM:      MMMMMMM     M         MMMMMMMMMMMM  MMMMMMM MMMMMMM
+    MMMMMM       MMMMN     M           MMMMMMMMM      MMMM    MMMM
+     MMMM          M                    MMMMMMM        M       M
+       M
+ ---------------------------------------------------------------
+   For those about to rock... (Chaos Calmer, unknown)
+ ---------------------------------------------------------------
+root@VMB5000:~# export PATH=$PATH:/usr/sbin:/sbin
+root@VMB5000:~# 
+root@VMB5000:~# export PATH=$PATH:/usr/sbin:/sbin
+root@VMB5000:~# 
+root@VMB5000:~# Connect to Base PASS...
+
+===[Check infomation  ]===
+REG key path= SOFTWARE\Netgear\STATION\RC\RequireCloseBox10
+RequireCloseBox= Don't need close box to start test
+===[ Check Camera connect to base station ]===
+=======CHECK CONNECT DUT TIME 1==============
+rm /tmp/system-log
+rm /tmp/system-log
+rm /tmp/system-log
+root@VMB5000:~# 
+root@VMB5000:~# uci set wireless.@wifi-device[0].disabled=0
+uci set wireless.@wifi-device[0].disabled=0
+uci set wireless.@wifi-device[0].disabled=0
+root@VMB5000:~# 
+root@VMB5000:~# uci set wireless.@wifi-device[1].disabled=0
+uci set wireless.@wifi-device[1].disabled=0
+uci set wireless.@wifi-device[1].disabled=0
+root@VMB5000:~# 
+root@VMB5000:~# uci set wireless.@wifi-iface[0].key=123456a@123456
+uci set wireless.@wifi-iface[0].key=123456a@123456
+uci set wireless.@wifi-iface[0].key=123456a@123456
+root@VMB5000:~# 
+root@VMB5000:~# uci set wireless.@wifi-iface[1].key=123456a@123456
+uci set wireless.@wifi-iface[1].key=123456a@123456
+uci set wireless.@wifi-iface[1].key=123456a@123456
+root@VMB5000:~# 
+root@VMB5000:~# uci set wireless.@wifi-iface[1].encryption='none'
+uci set wireless.@wifi-iface[1].encryption='none'
+uci set wireless.@wifi-iface[1].encryption='none'
+root@VMB5000:~# 
+root@VMB5000:~# uci set wireless.@wifi-iface[0].encryption='none'
+uci set wireless.@wifi-iface[0].encryption='none'
+uci set wireless.@wifi-iface[0].encryption='none'
+root@VMB5000:~# 
+root@VMB5000:~# echo 1 > /proc/sys/net/ipv4/ip_forward
+echo 1 > /proc/sys/net/ipv4/ip_forward
+echo 1 > /proc/sys/net/ipv4/ip_forward
+root@VMB5000:~# 
+root@VMB5000:~# uci set wireless.wifi0.txpower=10
+uci set wireless.wifi0.txpower=10
+uci set wireless.wifi0.txpower=10
+root@VMB5000:~# 
+root@VMB5000:~# uci set wireless.wifi1.txpower=10
+uci set wireless.wifi1.txpower=10
+uci set wireless.wifi1.txpower=10
+root@VMB5000:~# 
+root@VMB5000:~# uci commit wireless
+uci commit wireless
+uci commit wireless
+root@VMB5000:~# 
+root@VMB5000:~# wifi
+wifi
+wifi
+killall: iface-mgr: no process killed
+OK
+OK
+Invalid command : obss_rx_rssi_th
+Interface doesn't accept private ioctl...
+stafwd (8BE0): Invalid argument
+sh: 0: unknown operand
+sh: 0: unknown operand
+OK
+Interface doesn't accept private ioctl...
+setHwaddr (8BE4): Device or resource busy
+Invalid command : obss_rx_rssi_th
+Interface doesn't accept private ioctl...
+stafwd (8BE0): Invalid argument
+sh: 0: unknown operand
+sh: 0: unknown operand
+OK
+Interface doesn't accept private ioctl...
+setHwaddr (8BE4): Device or resource busy
+root@VMB5000:~# 
+root@VMB5000:~# 
+uci set wireless.@wifi-iface[0].ssid=testgen5
+root@VMB5000:~# 
+root@VMB5000:~# SFIS Cam MAC:A41162BA1634
+SFIS Cam MAC after change to lower: a4:11:62:ba:16:34
+arp -d 172.14.1.228
+IP address       HW type     Flags       HW address            Mask     Device
+192.168.1.1      0x1         0x2         10:da:43:75:52:da     *        eth0
+192.168.1.200    0x1         0x2         50:3e:aa:07:7e:e6     *        eth0
+root@VMB5000:~# 
+root@VMB5000:~# cat /proc/net/arp | grep a4:11:62:ba:16:34
+root@VMB5000:~# 
+root@VMB5000:~# cat /proc/net/arp | grep a4:11:62:ba:16:34
+root@VMB5000:~# 
+root@VMB5000:~# cat /proc/net/arp | grep a4:11:62:ba:16:34
+root@VMB5000:~# 
+root@VMB5000:~# cat /proc/net/arp | grep a4:11:62:ba:16:34
+root@VMB5000:~# 
+root@VMB5000:~# cat /proc/net/arp | grep a4:11:62:ba:16:34
+root@VMB5000:~# 
+root@VMB5000:~# cat /proc/net/arp | grep a4:11:62:ba:16:34
+root@VMB5000:~# 
+root@VMB5000:~# cat /proc/net/arp | grep a4:11:62:ba:16:34
+root@VMB5000:~# 
+root@VMB5000:~# cat /proc/net/arp | grep a4:11:62:ba:16:34
+root@VMB5000:~# 
+root@VMB5000:~# cat /proc/net/arp | grep a4:11:62:ba:16:34
+root@VMB5000:~# 
+root@VMB5000:~# cat /proc/net/arp | grep a4:11:62:ba:16:34
+root@VMB5000:~# 
+root@VMB5000:~# cat /proc/net/arp | grep a4:11:62:ba:16:34
+root@VMB5000:~# 
+root@VMB5000:~# cat /proc/net/arp | grep a4:11:62:ba:16:34
+root@VMB5000:~# 
+root@VMB5000:~# cat /proc/net/arp | grep a4:11:62:ba:16:34
+root@VMB5000:~# 
+root@VMB5000:~# cat /proc/net/arp | grep a4:11:62:ba:16:34
+root@VMB5000:~# 
+root@VMB5000:~# cat /proc/net/arp | grep a4:11:62:ba:16:34
+root@VMB5000:~# 
+root@VMB5000:~# cat /proc/net/arp | grep a4:11:62:ba:16:34
+root@VMB5000:~# 
+root@VMB5000:~# cat /proc/net/arp | grep a4:11:62:ba:16:34
+root@VMB5000:~# 
+root@VMB5000:~# cat /proc/net/arp | grep a4:11:62:ba:16:34
+root@VMB5000:~# 
+root@VMB5000:~# cat /proc/net/arp | grep a4:11:62:ba:16:34
+root@VMB5000:~# 
+root@VMB5000:~# cat /proc/net/arp | grep a4:11:62:ba:16:34
+root@VMB5000:~# 
+root@VMB5000:~# cat /proc/net/arp | grep a4:11:62:ba:16:34
+root@VMB5000:~# 
+root@VMB5000:~# cat /proc/net/arp | grep a4:11:62:ba:16:34
+root@VMB5000:~# 
+root@VMB5000:~# cat /proc/net/arp | grep a4:11:62:ba:16:34
+root@VMB5000:~# 
+root@VMB5000:~# cat /proc/net/arp | grep a4:11:62:ba:16:34
+root@VMB5000:~# 
+root@VMB5000:~# cat /proc/net/arp | grep a4:11:62:ba:16:34
+root@VMB5000:~# 
+root@VMB5000:~# cat /proc/net/arp | grep a4:11:62:ba:16:34
+root@VMB5000:~# 
+root@VMB5000:~# cat /proc/net/arp | grep a4:11:62:ba:16:34
+root@VMB5000:~# 
+root@VMB5000:~# cat /proc/net/arp | grep a4:11:62:ba:16:34
+root@VMB5000:~# 
+root@VMB5000:~# cat /proc/net/arp | grep a4:11:62:ba:16:34
+root@VMB5000:~# 
+root@VMB5000:~# cat /proc/net/arp | grep a4:11:62:ba:16:34
+root@VMB5000:~# 
+root@VMB5000:~# cat /proc/net/arp | grep a4:11:62:ba:16:34
+root@VMB5000:~# 
+root@VMB5000:~# cat /proc/net/arp | grep a4:11:62:ba:16:34
+root@VMB5000:~# 
+root@VMB5000:~# cat /proc/net/arp | grep a4:11:62:ba:16:34
+root@VMB5000:~# 
+root@VMB5000:~# cat /proc/net/arp | grep a4:11:62:ba:16:34
+root@VMB5000:~# 
+root@VMB5000:~# cat /proc/net/arp | grep a4:11:62:ba:16:34
+root@VMB5000:~# 
+root@VMB5000:~# cat /proc/net/arp | grep a4:11:62:ba:16:34
+root@VMB5000:~# 
+root@VMB5000:~# Delay 0 seconds
+=======CHECK CONNECT DUT TIME 2==============
+rm /tmp/system-log
+rm /tmp/system-log
+rm /tmp/system-log
+root@VMB5000:~# 
+root@VMB5000:~# uci set wireless.@wifi-device[0].disabled=0
+uci set wireless.@wifi-device[0].disabled=0
+uci set wireless.@wifi-device[0].disabled=0
+root@VMB5000:~# 
+root@VMB5000:~# uci set wireless.@wifi-device[1].disabled=0
+uci set wireless.@wifi-device[1].disabled=0
+uci set wireless.@wifi-device[1].disabled=0
+root@VMB5000:~# 
+root@VMB5000:~# uci set wireless.@wifi-iface[0].key=123456a@123456
+uci set wireless.@wifi-iface[0].key=123456a@123456
+uci set wireless.@wifi-iface[0].key=123456a@123456
+root@VMB5000:~# 
+root@VMB5000:~# uci set wireless.@wifi-iface[1].key=123456a@123456
+uci set wireless.@wifi-iface[1].key=123456a@123456
+uci set wireless.@wifi-iface[1].key=123456a@123456
+root@VMB5000:~# 
+root@VMB5000:~# uci set wireless.@wifi-iface[1].encryption='none'
+uci set wireless.@wifi-iface[1].encryption='none'
+uci set wireless.@wifi-iface[1].encryption='none'
+root@VMB5000:~# 
+root@VMB5000:~# uci set wireless.@wifi-iface[0].encryption='none'
+uci set wireless.@wifi-iface[0].encryption='none'
+uci set wireless.@wifi-iface[0].encryption='none'
+root@VMB5000:~# 
+root@VMB5000:~# echo 1 > /proc/sys/net/ipv4/ip_forward
+echo 1 > /proc/sys/net/ipv4/ip_forward
+echo 1 > /proc/sys/net/ipv4/ip_forward
+root@VMB5000:~# 
+root@VMB5000:~# uci set wireless.wifi0.txpower=10
+uci set wireless.wifi0.txpower=10
+uci set wireless.wifi0.txpower=10
+root@VMB5000:~# 
+root@VMB5000:~# uci set wireless.wifi1.txpower=10
+uci set wireless.wifi1.txpower=10
+uci set wireless.wifi1.txpower=10
+root@VMB5000:~# 
+root@VMB5000:~# uci commit wireless
+uci commit wireless
+uci commit wireless
+root@VMB5000:~# 
+root@VMB5000:~# wifi
+wifi
+wifi
+killall: iface-mgr: no process killed
+OK
+OK
+Invalid command : obss_rx_rssi_th
+Interface doesn't accept private ioctl...
+stafwd (8BE0): Invalid argument
+sh: 0: unknown operand
+sh: 0: unknown operand
+OK
+Interface doesn't accept private ioctl...
+setHwaddr (8BE4): Device or resource busy
+Invalid command : obss_rx_rssi_th
+Interface doesn't accept private ioctl...
+stafwd (8BE0): Invalid argument
+sh: 0: unknown operand
+sh: 0: unknown operand
+OK
+Interface doesn't accept private ioctl...
+setHwaddr (8BE4): Device or resource busy
+root@VMB5000:~# 
+root@VMB5000:~# 
+uci set wireless.@wifi-iface[0].ssid=testgen5
+root@VMB5000:~# 
+root@VMB5000:~# SFIS Cam MAC:A41162BA1634
+SFIS Cam MAC after change to lower: a4:11:62:ba:16:34
+arp -d 172.14.1.228
+IP address       HW type     Flags       HW address            Mask     Device
+192.168.1.1      0x1         0x2         10:da:43:75:52:da     *        eth0
+192.168.1.200    0x1         0x2         50:3e:aa:07:7e:e6     *        eth0
+root@VMB5000:~# 
+root@VMB5000:~# cat /proc/net/arp | grep a4:11:62:ba:16:34
+root@VMB5000:~# 
+root@VMB5000:~# cat /proc/net/arp | grep a4:11:62:ba:16:34
+root@VMB5000:~# 
+root@VMB5000:~# cat /proc/net/arp | grep a4:11:62:ba:16:34
+root@VMB5000:~# 
+root@VMB5000:~# cat /proc/net/arp | grep a4:11:62:ba:16:34
+root@VMB5000:~# 
+root@VMB5000:~# cat /proc/net/arp | grep a4:11:62:ba:16:34
+root@VMB5000:~# 
+root@VMB5000:~# cat /proc/net/arp | grep a4:11:62:ba:16:34
+root@VMB5000:~# 
+root@VMB5000:~# cat /proc/net/arp | grep a4:11:62:ba:16:34
+root@VMB5000:~# 
+root@VMB5000:~# cat /proc/net/arp | grep a4:11:62:ba:16:34
+root@VMB5000:~# 
+root@VMB5000:~# cat /proc/net/arp | grep a4:11:62:ba:16:34
+root@VMB5000:~# 
+root@VMB5000:~# cat /proc/net/arp | grep a4:11:62:ba:16:34
+root@VMB5000:~# 
+root@VMB5000:~# cat /proc/net/arp | grep a4:11:62:ba:16:34
+root@VMB5000:~# 
+root@VMB5000:~# cat /proc/net/arp | grep a4:11:62:ba:16:34
+root@VMB5000:~# 
+root@VMB5000:~# cat /proc/net/arp | grep a4:11:62:ba:16:34
+root@VMB5000:~# 
+root@VMB5000:~# cat /proc/net/arp | grep a4:11:62:ba:16:34
+root@VMB5000:~# 
+root@VMB5000:~# cat /proc/net/arp | grep a4:11:62:ba:16:34
+root@VMB5000:~# 
+root@VMB5000:~# cat /proc/net/arp | grep a4:11:62:ba:16:34
+root@VMB5000:~# 
+root@VMB5000:~# cat /proc/net/arp | grep a4:11:62:ba:16:34
+root@VMB5000:~# 
+root@VMB5000:~# cat /proc/net/arp | grep a4:11:62:ba:16:34
+root@VMB5000:~# 
+root@VMB5000:~# cat /proc/net/arp | grep a4:11:62:ba:16:34
+root@VMB5000:~# 
+root@VMB5000:~# cat /proc/net/arp | grep a4:11:62:ba:16:34
+root@VMB5000:~# 
+root@VMB5000:~# cat /proc/net/arp | grep a4:11:62:ba:16:34
+root@VMB5000:~# 
+root@VMB5000:~# cat /proc/net/arp | grep a4:11:62:ba:16:34
+root@VMB5000:~# 
+root@VMB5000:~# cat /proc/net/arp | grep a4:11:62:ba:16:34
+root@VMB5000:~# 
+root@VMB5000:~# cat /proc/net/arp | grep a4:11:62:ba:16:34
+root@VMB5000:~# 
+root@VMB5000:~# cat /proc/net/arp | grep a4:11:62:ba:16:34
+172.14.1.116     0x1         0x6         a4:11:62:ba:16:34     *        br-lan
+root@VMB5000:~# 
+root@VMB5000:~# Found br-lan or wlan0 or eth1 
+IP camera have ipaddress: 172.14.1.116
+Start check ping to Cam
+Ping reply from: 172.14.1.116 size:32 Time:2 TTL:254
+Ping reply from: 172.14.1.116 size:32 Time:1 TTL:254
+Ping to cammera Pass
+===[ IP camera connect to base station OK ]===
+===[ Check information of camera ]===
+Config Base Version:1.9.0.0_14639,1.9.0.0_13722,1.12.1.2_27956,1.12.2.0_33535
+Config Arlo FW Version:1.070.50.4_223_df6cd69
+Config ModelName:VMC5040
+Config HW version:H10
+vzdaemon --version
+	version = "1.12.2.0_33535"
+root@VMB5000:~# 
+root@VMB5000:~# Check version of Base Pass
+vzcmd --expandJson PassThru='{"action":"get","resource":"diagnos tics/cameraRegisters","properties":{"cameraId":"A6D10B7MA0DBA","registers":["Sys temSerialNumber","SystemModelNumber","SystemFirmwareVersion","HardwareRevision", "MACAddress"]}}'
+{
+	"resource" : "diagnostics/cameraRegisters",
+	"action" : "get",
+	"properties" : {
+		"cameraId" : "A6D10B7MA0DBA",
+		"registers" : {
+			"SystemSerialNumber" : "A6D10B7MA0DBA",
+			"SystemModelNumber" : "VMC5040",
+			"SystemFirmwareVersion" : "1.070.50.4_223_df6cd69",
+			"HardwareRevision" : "H10",
+			"MACAddress" : "a4:11:62:ba:16:34"
+		}
+	}
+}
+semaphore closed by peer
+root@VMB5000:~# 
+root@VMB5000:~# DATAINFO: vzcmd --expandJson PassThru='{"action":"get","resource":"diagnos tics/cameraRegisters","properties":{"cameraId":"A6D10B7MA0DBA","registers":["Sys temSerialNumber","SystemModelNumber","SystemFirmwareVersion","HardwareRevision", "MACAddress"]}}'
+vzcmd --expandJson PassThru='{"action":"get","resource":"diagnos tics/cameraRegisters","properties":{"cameraId":"A6D10B7MA0DBA","registers":["Sys temSerialNumber","SystemModelNumber","SystemFirmwareVersion","HardwareRevision", "MACAddress"]}}'
+{
+	"resource" : "diagnostics/cameraRegisters",
+	"action" : "get",
+	"properties" : {
+		"cameraId" : "A6D10B7MA0DBA",
+		"registers" : {
+			"SystemSerialNumber" : "A6D10B7MA0DBA",
+			"SystemModelNumber" : "VMC5040",
+			"SystemFirmwareVersion" : "1.070.50.4_223_df6cd69",
+			"HardwareRevision" : "H10",
+			"MACAddress" : "a4:11:62:ba:16:34"
+		}
+	}
+}vzcmd --expandJson PassThru='{"action":"get","resource":"diagnos tics/cameraRegisters","properties":{"cameraId":"A6D10B7MA0DBA","registers":["Sys temSerialNumber","SystemModelNumber","SystemFirmwareVersion","HardwareRevision", "MACAddress"]}}'
+{
+	"resource" : "diagnostics/cameraRegisters",
+	"action" : "get",
+	"properties" : {
+		"cameraId" : "A6D10B7MA0DBA",
+		"registers" : {
+			"SystemSerialNumber" : "A6D10B7MA0DBA",
+			"SystemModelNumber" : "VMC5040",
+			"SystemFirmwareVersion" : "1.070.50.4_223_df6cd69",
+			"HardwareRevision" : "H10",
+			"MACAddress" : "a4:11:62:ba:16:34"
+		}
+	}
+}
+vzcmd --expandJson PassThru='{"action":"get","resource":"diagnos tics/cameraRegisters","properties":{"cameraId":"A6D10B7MA0DBA","registers":["Sys temSerialNumber","SystemModelNumber","SystemFirmwareVersion","HardwareRevision", "MACAddress"]}}'
+{
+	"resource" : "diagnostics/cameraRegisters",
+	"action" : "get",
+	"properties" : {
+		"cameraId" : "A6D10B7MA0DBA",
+		"registers" : {
+			"SystemSerialNumber" : "A6D10B7MA0DBA",
+			"SystemModelNumber" : "VMC5040",
+			"SystemFirmwareVersion" : "1.070.50.4_223_df6cd69",
+			"HardwareRevision" : "H10",
+			"MACAddress" : "a4:11:62:ba:16:34"
+		}
+	}
+}
+semaphore closed by peer
+vzcmd --expandJson PassThru='{"action":"get","resource":"diagnos tics/cameraRegisters","properties":{"cameraId":"A6D10B7MA0DBA","registers":["Sys temSerialNumber","SystemModelNumber","SystemFirmwareVersion","HardwareRevision", "MACAddress"]}}'
+{
+	"resource" : "diagnostics/cameraRegisters",
+	"action" : "get",
+	"properties" : {
+		"cameraId" : "A6D10B7MA0DBA",
+		"registers" : {
+			"SystemSerialNumber" : "A6D10B7MA0DBA",
+			"SystemModelNumber" : "VMC5040",
+			"SystemFirmwareVersion" : "1.070.50.4_223_df6cd69",
+			"HardwareRevision" : "H10",
+			"MACAddress" : "a4:11:62:ba:16:34"
+		}
+	}
+}
+semaphore closed by peer
+root@VMB5000:~# 
+root@VMB5000:~# 
+Check infomation pass .....
+===[ Check NOISE]===
+NOISE TYPE= VLC
+C:\Program Files\VideoLAN\VLC>vlc.exe -vvv rtsp://172.14.1.116 :sout=#transcode{acodec=s16l,channels=2,ab=16,samplerate=16000}:standard{access=file,mux=wav,dst="D:\RC(U12I386T01)\Audio.wav"} 
+RUNBAT:System.Diagnostics.ProcessStartInfo
+duration 000:00:13.....
+Wait record audio...
+Wait record audio...
+Wait record audio...
+Wait record audio...
+Wait record audio...
+Wait record audio...
+Wait record audio...
+Wait record audio...
+Wait record audio...
+Wait record audio...
+Wait record audio...
+Wait record audio...
+Wait record audio...
+Record audio finish...
+PASS
+
+[RMS]
+MAX = -59.670502
+AVERAGE = -64.545237
+===[ Test NOISE  passed ... ]===
+
+RMS Value:-59.670502,-64.545237
+Pinging 172.14.1.116 request timed out.
+Reply from 172.14.1.116: bytes=128 time=2 TTL=254
+Reply from 172.14.1.116: bytes=128 time=20 TTL=254
+Reply from 172.14.1.116: bytes=128 time=2 TTL=254
+Pinging 172.14.1.116 request timed out.
+Pinging 172.14.1.116 request timed out.
+Reply from 172.14.1.116: bytes=128 time=2 TTL=254
+Reply from 172.14.1.116: bytes=128 time=2 TTL=254
+Reply from 172.14.1.116: bytes=128 time=2 TTL=254
+Reply from 172.14.1.116: bytes=128 time=1 TTL=254
+Reply from 172.14.1.116: bytes=128 time=2 TTL=254
+Reply from 172.14.1.116: bytes=128 time=2 TTL=254
+Reply from 172.14.1.116: bytes=128 time=8 TTL=254
+Reply from 172.14.1.116: bytes=128 time=2 TTL=254
+
+[LAN-WAN]
+FailCount=1
+Result=1
+[LAN-LAN]
+Result=1
+
+Ping times fail= 1
+==== Check ping stable pass====
+Check noise OK...
+Close CaliTool 
+Delay 2000 MiliSecond
+==============Start show pass================
+TEST PROGRAM VERSION:2.3.2.8  TEST CYCLE TIME:222
+ps | grep dhcpd
+ 9921 root      1340 R    grep dhcpd
+root@VMB5000:~# 
+root@VMB5000:~#  udhcpd /tmp/udhcpd.conf
+-ash: udhcpd: not found
+root@VMB5000:~# 
+root@VMB5000:~# 
+----------------Summary all test item--------------
+Test item name                Result  Test time
+ 1.ConnectToDut                PASS    2.6s  
+ 2.CheckInfor1_Gen5            PASS    195.27s
+ 3.CheckNoise2                 PASS    21.02s
+ 4.SendSfis                    -Skip-        
+---------------------------------------------------
+Write summary log server: F:\lsy\ID\U12I386T01\MODEL NAME \RC -> OK
+Write summary log localD:\Arlo_Logs\U12I386T01\MODEL NAME \RC\25-11-2020 -> OK
+Details log local folder: D:\Arlo_Logs\U12I386T01\MODEL NAME \RC\25-11-2020\PASS
+Details log server folder: F:\lsy\ID\Detail\U12I386T01\MODEL NAME \RC\25-11-2020\PASS
+UserName Test Off: TE========Show pass finish=============

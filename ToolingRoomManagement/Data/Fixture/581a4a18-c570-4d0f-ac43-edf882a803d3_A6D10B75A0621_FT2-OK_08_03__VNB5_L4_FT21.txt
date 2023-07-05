@@ -1,0 +1,235 @@
+SN send to sfis: A6D1067RA083F
+Time UI-SFIS: 2020/12/13 08:02:55
+
+ShowUIChecking ABA status...
+No record, test directly
+iaba :-1
+Wait to have OVTI Serial Port
+.
+Start connect !
+Start Open COM !
+221 0
+Host2Dev Length [0]!!!
+control signal: 0x0
+Setup: 2221 0
+Host2Dev Length [0]!!!
+control signal: 0x0
+Setup: 21a1 70000
+Get: rate 115200
+Setup: 21a1 70000
+Get: rate 115200
+Setup: 21a1 70000
+Get: rate 115200
+Setup: 21a1 70000
+Get: rate 115200
+Setup: 2021 70000
+Set: rate 115200, Stop 0, Parity 0, Data 8
+Setup: 21a1 70000
+Get: rate 115200
+Setup: 2221 0
+Host2Dev Length [0]!!!
+control signal: 0x0
+Setup: 2021 70000
+Set: rate 115200, Stop 0, Parity 0, Data 8
+Setup: 21a1 70000
+Get: rate 115200
+Setup: 21a1 70000
+Get: rate 115200
+Setup: 21a1 70000
+Get: rate 115200
+Setup: 2021 70000
+Set: rate 115200, Stop 0, Parity 0, Data 8
+Setup: 21a1 70000
+Get: rate 115200
+Setup: 2221 0
+Host2Dev Length [0]!!!
+control signal: 0x0
+Setup: 2021 70000
+Set: rate 115200, Stop 0, Parity 0, Data 8
+Setup: 21a1 70000
+Get: rate 115200
+Setup: 2221 0
+Host2Dev Length [0]!!!
+control signal: 0x0
+
+Wait # !
+
+
+# 
+
+
+# 
+Connect DUT sussess.
+Default IP DUT: 192.168.1.250
+Ping reply from: 192.168.1.250 size:32 Time:1 TTL:64
+Ping reply from: 192.168.1.250 size:32 Time:1 TTL:64
+MAC: 78D2941607EC
+--> Telnet: 192.168.1.250 78D2941607EC
+????!????=== IMPORTANT ============================
+ Use 'passwd' to set your login password
+ this will disable telnet and enable SSH
+------------------------------------------
+
+
+BusyBox v1.23.2 (2018-08-09 19:07:08 CST) built-in shell (ash)
+
+                                                 
+      ###        #    #   #   #       #          
+     #  ##       #        #  #                   
+    #    #  ###  ###  #   #  #   ###  #  ###  ## 
+    #   #   #   ## # #    # #   #  # #  #    # # 
+    #   #  #    #  # #     ##   #  # #  #    ### 
+     ###   #    ###  #     #    ###  #  ###  ### 
+
+ 2018
+ ---------------------------------------------------------------
+   For those about to rock... (Chaos Calmer, r117639)
+ ---------------------------------------------------------------
+root@RBS40V:/# admin
+/bin/ash: admin: not found
+root@RBS40V:/# 
+root@RBS40V:/# password
+/bin/ash: password: not found
+root@RBS40V:/# 
+root@RBS40V:/# Telnet DUT pass!!!
+===[ Telnet to DUT OK ... ]===
+
+===[ Check wake up by mic]===
+=========Check HIGH level ==============
+using OBV
+export mic_min=2100
+
+# 
+Set range of mic detection: mic_min=2100
+export mic_max=2700
+
+# 
+Set range of mic detection: mic_max=2700
+????!????=== IMPORTANT ============================
+ Use 'passwd' to set your login password
+ this will disable telnet and enable SSH
+------------------------------------------
+
+
+BusyBox v1.23.2 (2018-08-09 19:07:08 CST) built-in shell (ash)
+
+                                                 
+      ###        #    #   #   #       #          
+     #  ##       #        #  #                   
+    #    #  ###  ###  #   #  #   ###  #  ###  ## 
+    #   #   #   ## # #    # #   #  # #  #    # # 
+    #   #  #    #  # #     ##   #  # #  #    ### 
+     ###   #    ###  #     #    ###  #  ###  ### 
+
+ 2018
+ ---------------------------------------------------------------
+   For those about to rock... (Chaos Calmer, r117639)
+ ---------------------------------------------------------------
+admin
+
+root@RBS40V:/# admin
+/bin/ash: admin: not found
+root@RBS40V:/# 
+root@RBS40V:/# password
+/bin/ash: password: not found
+root@RBS40V:/# 
+root@RBS40V:/# Re-Telnet O
+Start check Path#2: MIC ADC INT
+08:03:03
+fmcu MICstop
+
+# 
+Open .wav file from OBV to make sound level: aplay 95dBSPL.wav
+fmcu MICstart 2 4
+aplay 95dBSPL.wav
+Playing WAVE '95dBSPL.wav' : Signed 16 bit Little Endian, Rate 48000 Hz, Mono
+MIC Value:1
+MIC ADC INT: PASS
+
+# 
+close Telnet2
+Stop play file level: aplay 95dBSPL.wav
+=========Check LOW level ==============
+using OBV
+export mic_min=2100
+
+# 
+Set range of mic detection: mic_min=2100
+export mic_max=2700
+
+# 
+Set range of mic detection: mic_max=2700
+????!????=== IMPORTANT ============================
+ Use 'passwd' to set your login password
+ this will disable telnet and enable SSH
+------------------------------------------
+
+
+BusyBox v1.23.2 (2018-08-09 19:07:08 CST) built-in shell (ash)
+
+                                                 
+      ###        #    #   #   #       #          
+     #  ##       #        #  #                   
+    #    #  ###  ###  #   #  #   ###  #  ###  ## 
+    #   #   #   ## # #    # #   #  # #  #    # # 
+    #   #  #    #  # #     ##   #  # #  #    ### 
+     ###   #    ###  #     #    ###  #  ###  ### 
+
+ 2018
+ ---------------------------------------------------------------
+   For those about to rock... (Chaos Calmer, r117639)
+ ---------------------------------------------------------------
+Re-Telnet O
+root@RBS40V:/# Start check Path#1: MIC VM1010
+08:03:07
+fmcu MICstop
+
+# 
+Open .wav file from OBV to make sound level: version
+fmcu MICstart 1 4
+version
+                  U12H380T01/V2.2.0.52/1.0.35
+           Time : Aug  9 2018 19:59:52
+    CFE version : V1.0.15
+root@RBS40V:/# 
+root@RBS40V:/# MIC Value:0
+MIC Value:0
+MIC Value:0
+MIC Value:0
+MIC Value:0
+MIC Value:0
+MIC Value:0
+MIC Value:0
+MIC Value:0
+MIC Value:0
+MIC Value:0
+MIC Value:0
+MIC Value:0
+MIC Value:0
+MIC Value:0
+MIC Value:0
+MIC Value:0
+MIC Value:0
+MIC Value:0
+MIC Value:0
+
+# 
+close Telnet2
+Stop play file level: version
+Delay 0 MiliSecond
+==============Start show pass================
+TEST PROGRAM VERSION:2.3.2.8  TEST CYCLE TIME:18
+PASS Close COM ...
+
+----------------Summary all test item--------------
+Test item name                Result  Test time
+ 1.ConnectDUT                  PASS    2.55s 
+ 2.TelnetDUT                   PASS    2.44s 
+ 3.Falcon_CheckWakeUpByMic     PASS    12.89s
+ 4.SendSfis                    -Skip-        
+---------------------------------------------------
+Write summary log server: F:\lsy\ID\U12I386T01\MODEL NAME \FT2 -> OK
+Write summary log localD:\Arlo_Logs\U12I386T01\MODEL NAME \FT2\13-12-2020 -> OK
+Details log local folder: D:\Arlo_Logs\U12I386T01\MODEL NAME \FT2\13-12-2020\PASS
+Details log server folder: F:\lsy\ID\Detail\U12I386T01\MODEL NAME \FT2\13-12-2020\PASS
+UserName Test OfG: 

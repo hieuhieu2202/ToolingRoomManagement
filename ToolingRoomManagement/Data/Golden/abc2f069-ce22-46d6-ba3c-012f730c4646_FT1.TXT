@@ -1,0 +1,682 @@
+ShowUIWait to have OVTI Serial Port
+.
+Start connect !
+Start Open COM !
+usb serial baud rate(DEF): 1c200
+++ libusb_init
+01: [0] 0
+02: [90907760] ffffffff
+03: [800300c1] 33c200
+libusb_init desc: 0x430209
+set csr(0): 0x30000 0x40002000
+set csr(1): 0x1 0x50000000
+set csr(2): 0x2 0x2000080
+set csr(3): 0x30003 0x0
+set csr(4): 0x30004 0x200000f1
+set csr(5): 0x30005 0x100000d4
+set csr(6): 0x30006 0x100000c3
+++suspend: 1051
+ctrl: 40006 0
+++resume
+libusb init done
+1: 0 [0]
+2: 90907760 [ffffffff]
+3: 812300c1 [33c200]
+4: c10 8ce9e000
+5: 4c007060
+id2:13 addr = 2238c8, len = 88cb0
+
+Uart Initial!!
+hassflash 1
+flash name MX25U6435E
+calib hdlen : 1000, area size : 19000 area addr : 767000
+Camera devsn: 00005442550a6bf6 devpw: SbVwPXQO macaddr: 9c-3d-cf-75-b0-e2.
+Init MCU interface.
+wifi_ssid :test2
+wifi_key :abcdef1234
+wifi_security not set in para.txt, using auto
+Wlan SSID: test2 PW: abcdef1234 SECURITY: auto
+# Init GPIO interface.
+Init myburnin_init.
+Init mymcu_init.
+Init switchmode_init.
+Init myrssi_init.
+Init myversion_init.
+Please setup easycam SSID/KEY by UART(shell) or WPS, audio
+Setup: 1000680 400000
+Setup: 1000680 120000
+Setup: 2000680 ff0000
+Setup: 3000680 ff0000
+Setup: 3020680 ff0409
+Setup: 1000680 120000
+Setup: 2000680 1090000
+Set config: 1
+++ HS
+ep 3 cfg1: 8100030, maxpkt: 200
+ep 84 cfg1: 8100030, maxpkt: 200
+ep 81 cfg1: 8020010, maxpkt: 40
+Setup: 21a1 70000
+Get: rate 115200
+Setup: 2221 0
+Host2Device with wLength = 0
+control signal: 0x0
+Setup: 21a1 70000
+Get: rate 115200
+Setup: 21a1 70000
+Get: rate 115200
+Setup: 21a1 70000
+Get: rate 115200
+Setup: 21a1 70000
+Get: rate 115200
+Setup: 2021 70000
+Set: rate 115200, Stop 0, Parity 0, Data 8
+Setup: 21a1 70000
+Get: rate 115200
+Setup: 22221 0
+Host2Device with wLength = 0
+control signal: 0x2
+Setup: 2021 70000
+Set: rate 115200, Stop 0, Parity 0, Data 8
+Setup: 21a1 70000
+Get: rate 115200
+Setup: 21a1 70000
+Get: rate 115200
+Setup: 21a1 70000
+Get: rate 115200
+Setup: 2021 70000
+Set: rate 115200, Stop 0, Parity 0, Data 8
+Setup: 21a1 70000
+Get: rate 115200
+Setup: 22221 0
+Host2Device with wLength = 0
+control signal: 0x2
+Setup: 2021 70000
+Set: rate 115200, Stop 0, Parity 0, Data 8
+Setup: 21a1 70000
+....Setup: 2....Setup: 2....Setup: 21a1 ....Setup: 2........Setup: 2....Setup: 2....Setup: 2........Setup: 2....
+Wait # !
+
+
+# 
+
+
+# 
+Connect DUT sussess.
+13:16:11
+set
+
+wifi_ssid=test2
+wifi_key=abcdef1234
+wifi_ipaddr=192.168.0.100
+wifi_netmask=255.255.255.0
+wifi_gateway=192.168.0.1
+smode=0
+
+smode_by_command=false
+usb_console=1
+M_boottest=2
+M_bootfail=0
+
+# 
+Collect data save to server
+wifi_ssid=test2&&&wifi_key=abcdef1234&&&wifi_ipaddr=192.168.0.100&&&wifi_netmask=255.255.255.0&&&wifi_gateway=192.168.0.1&&&smode=0&&&smode_by_command=false&&&usb_console=1&&&M_boottest=2&&&M_bootfail=0
+===[ Check burn in passed ... ]===
+
+===[ Check ALS Loop ]===
+13:16:11
+unset burnin
+
+# 
+============CHECK ALS 2 LUX============= 
+
+set_lux_216
+OK-4
+set_lux_216
+OK-4
+
+
+=============Start check 2Lux_IROff=============
+======Check mode 2Lux_IROff time 1=====
+13:16:12
+gpio ir_en off
+
+# 
+13:16:12
+fmcu ALSstop
+
+# 
+13:16:13
+fmcu ALSstart
+
+# 
+Delay 2 seconds before read...
+13:16:15
+fmcu read
+Dec:122
+Hex:0x07a
+
+Voltage:0.0358
+
+
+# 
+fmcu read
+Dec:122
+Hex:0x07a
+
+Voltage:0.0358
+
+
+# 
+ 
+13:16:16
+fmcu read
+Dec:121
+Hex:0x079
+
+Voltage:0.0355
+
+
+# 
+fmcu read
+Dec:121
+Hex:0x079
+
+Voltage:0.0355
+
+
+# 
+ 
+13:16:16
+fmcu read
+Dec:122
+Hex:0x07a
+
+Voltage:0.0358
+
+
+# 
+fmcu read
+Dec:122
+Hex:0x07a
+
+Voltage:0.0358
+
+
+# 
+ 
+13:16:16
+fmcu read
+Dec:124
+Hex:0x07c
+
+Voltage:0.0363
+
+
+# 
+fmcu read
+Dec:124
+Hex:0x07c
+
+Voltage:0.0363
+
+
+# 
+ 
+13:16:16
+fmcu read
+Dec:125
+Hex:0x07d
+
+Voltage:0.0366
+
+
+# 
+fmcu read
+Dec:125
+Hex:0x07d
+
+Voltage:0.0366
+
+
+# 
+ 
+============CHECK ALS 5 LUX============= 
+
+set_lux_178
+OK-4
+Set light 5lux pass. 
+
+
+=============Start check 5Lux_IROff=============
+======Check mode 5Lux_IROff time 1=====
+13:16:17
+gpio ir_en off
+
+# 
+13:16:17
+fmcu ALSstop
+
+# 
+13:16:17
+fmcu ALSstart
+
+# 
+Delay 2 seconds before read...
+13:16:20
+fmcu read
+Dec:401
+Hex:0x191
+
+Voltage:0.1175
+
+
+# 
+fmcu read
+Dec:401
+Hex:0x191
+
+Voltage:0.1175
+
+
+# 
+ 
+13:16:20
+fmcu read
+Dec:404
+Hex:0x194
+
+Voltage:0.1184
+
+
+# 
+fmcu read
+Dec:404
+Hex:0x194
+
+Voltage:0.1184
+
+
+# 
+ 
+13:16:20
+fmcu read
+Dec:402
+Hex:0x192
+
+Voltage:0.1178
+
+
+# 
+fmcu read
+Dec:402
+Hex:0x192
+
+Voltage:0.1178
+
+
+# 
+ 
+13:16:20
+fmcu read
+Dec:402
+Hex:0x192
+
+Voltage:0.1178
+
+
+# 
+fmcu read
+Dec:402
+Hex:0x192
+
+Voltage:0.1178
+
+
+# 
+ 
+13:16:20
+fmcu read
+Dec:402
+Hex:0x192
+
+Voltage:0.1178
+
+
+# 
+fmcu read
+Dec:402
+Hex:0x192
+
+Voltage:0.1178
+
+
+# 
+ 
+
+
+=============Start check 5Lux_IROn=============
+======Check mode 5Lux_IROn time 1=====
+13:16:20
+gpio ir_en on
+
+
+# 
+13:16:20
+fmcu ALSstop
+
+# 
+13:16:21
+fmcu ALSstart
+
+
+# 
+Delay 2 seconds before read...
+13:16:23
+fmcu read
+Dec:1027
+Hex:0x403
+
+Voltage:0.3010
+
+
+# 
+fmcu read
+Dec:1027
+Hex:0x403
+
+Voltage:0.3010
+
+
+# 
+ 
+13:16:23
+fmcu read
+Dec:1027
+Hex:0x403
+
+Voltage:0.3010
+
+
+# 
+fmcu read
+Dec:1027
+Hex:0x403
+
+Voltage:0.3010
+
+
+# 
+ 
+13:16:23
+fmcu read
+Dec:1022
+Hex:0x3fe
+
+Voltage:0.2995
+
+
+# 
+fmcu read
+Dec:1022
+Hex:0x3fe
+
+Voltage:0.2995
+
+
+# 
+ 
+13:16:23
+fmcu read
+Dec:1028
+Hex:0x404
+
+Voltage:0.3012
+
+
+# 
+fmcu read
+Dec:1028
+Hex:0x404
+
+Voltage:0.3012
+
+
+# 
+ 
+13:16:23
+fmcu read
+Dec:1027
+Hex:0x403
+
+Voltage:0.3010
+
+
+# 
+fmcu read
+Dec:1027
+Hex:0x403
+
+Voltage:0.3010
+
+
+# 
+ 
+============CHECK ALS 10 LUX============= 
+
+set_lux_127
+OK-4
+set light 10lux pass 
+
+
+=============Start check 10Lux_IROn=============
+======Check mode 10Lux_IROn time 1=====
+13:16:24
+gpio ir_en on
+
+# 
+13:16:24
+fmcu ALSstop
+
+# 
+13:16:25
+fmcu ALSstart
+
+# 
+Delay 2 seconds before read...
+13:16:27
+fmcu read
+Dec:1461
+Hex:0x5b5
+
+Voltage:0.4281
+
+
+# 
+fmcu read
+Dec:1461
+Hex:0x5b5
+
+Voltage:0.4281
+
+
+# 
+ 
+13:16:27
+fmcu read
+Dec:1468
+Hex:0x5bc
+
+Voltage:0.4302
+
+
+# 
+fmcu read
+Dec:1468
+Hex:0x5bc
+
+Voltage:0.4302
+
+
+# 
+ 
+13:16:27
+fmcu read
+Dec:1471
+Hex:0x5bf
+
+Voltage:0.4311
+
+
+# 
+fmcu read
+Dec:1471
+Hex:0x5bf
+
+Voltage:0.4311
+
+
+# 
+ 
+13:16:27
+fmcu read
+Dec:1467
+Hex:0x5bb
+
+Voltage:0.4299
+
+
+# 
+fmcu read
+Dec:1467
+Hex:0x5bb
+
+Voltage:0.4299
+
+
+# 
+ 
+13:16:27
+fmcu read
+Dec:1473
+Hex:0x5c1
+
+Voltage:0.4316
+
+
+# 
+fmcu read
+Dec:1473
+Hex:0x5c1
+
+Voltage:0.4316
+
+
+# 
+ 
+=============Start calculate  ALS slope && offset =============
+slope = (5 lux off - 2 lux off)/3: (273 - 83) / 3 = 63 
+offset = 5 lux off - slop * 5: 273 - 63 * 5 = -42  
+=============Calculate  ALS 10lux IR_OFF=============
+10Lux ir off = 10 * slope + offset:  10 * 63 + -42 = 588 
+============ Calculate  ALS 1 lux IR_OFF=============
+1Lux ir off = 1 * slope + offset:  1 * 63 + -42 = 21 
+=============START CALCULATE AVG=============  
+=============start Calculate AVG 2lux ir_off=============  
+122  121  122  124  125    
+Avg =122 
+Convert =83
+
+=============start Calculate AVG 5lux ir_off=============  
+401  404  402  402  402    
+Avg =402 
+Convert =273
+
+=============start Calculate AVG 5lux ir_on=============  
+1027  1027  1022  1028  1027    
+Avg =1026 
+Convert =698
+
+=============start Calculate AVG 10lux ir_on=============  
+1461  1468  1471  1467  1473    
+Avg =1468 
+Convert =998
+
+=============start Calculate AVG 10lux ir_oFF=============  
+Avg =865 
+Convert = 588 
+=============start Calculate AVG 1lux =============  
+Avg =31 
+Convert = 21 
+/////Check lux value method 1///// 
+ AVG 2Lux IR_OFF (100,440): 122 pass 
+/////Check lux value method 6///// 
+  (5lux on - 2lux off) ( 750- 2250) : 1026 - 122 = 904 pass 
+============ Check ALS 1 lux IR_OFF=============
+ALS1 check 1 lux value  > 10: 21  pass 
+/////Check lux value method 2///// 
+  E-C IR_OFF(10lux - 5lux) > 300: 865 - 402 = 463 pass 
+/////Check lux value method 3///// 
+  D-B IR_ON(10lux - 5lux) > 300: 1468 - 1026 = 442 pass 
+Copy standard script.
+13:16:28
+smode 4
+
+Calfw
+
+# 
+PASS Close COM ...
+Power off/on by mcu
+UI->MCU: POWER_ON
+POWER_ON_OK
+UI->MCU: POWER_OFF
+POWER_OFF_OK
+--------- Wait for Libusb --------
+....
+===[ Change to cali mode passed ... ]===
+
+Check Image 5lux10lux in Calimode time 1
+Before is already it 10 lux, don't need Set light box to 10 lux...
+Copy standard script.
+===[ open calitool passed ... ]===
+
+===[ Check 5lux 10lux ]===
+==========Start check 10lux image =========
+13:16:35 : start click10LUX, 0x2025, OK
+13:16:36  : click 10lux button success...
+Close: OV798 CaliTool
+========== set  5lux light==========
+set_lux_178
+OK-4
+Set light 5lux success...
+Power off/on by mcu
+UI->MCU: POWER_ON
+POWER_ON_OK
+UI->MCU: POWER_OFF
+POWER_OFF_OK
+.....copy standard script.
+===[ open calitool passed ... ]===
+
+=========Check 5lux image===========
+13:16:43 : start click5LUX, 0xbc1, OK
+13:16:45Auto click 5lux button success...
+ALScali:0x0bc10x2025
+Check 10Lux -5Lux cali value in (2500 - 6500):  8229- 3009 = 5220  pass 
+===[ Test 5lux,10lux passed ... ]===
+Delay 0 MiliSecond
+==============Start show pass================
+TEST PROGRAM VERSION:2.3.2.8  TEST CYCLE TIME:35
+
+----------------Summary all test item--------------
+Test item name                Result  Test time
+ 1.ConnectDUT                  PASS    1.68s 
+ 2.CheckBurnIn                 PASS    0.12s 
+ 3.CheckALSLoopAuto1           PASS    16.59s
+ 4.OpenCaliMode                PASS    5.74s 
+ 5.Check5lux10lux1             PASS    11.41s
+ 6.SendSfis                    -Skip-        
+---------------------------------------------------
+Write summary log server: F:\lsy\ID\U12I370\MODEL NAME \FT1 -> OK
+Write summary log localD:\Arlo_Logs\U12I370\MODEL NAME \FT1\03-03-2021 -> OK
+Details log local folder: D:\Arlo_Logs\U12I370\MODEL NAME \FT1\03-03-2021\PASS
+Details log server folder: F:\lsy\ID\Detail\U12I370\MODEL NAME \FT1\03-03-2021\PASS
+UserName Test Off: te

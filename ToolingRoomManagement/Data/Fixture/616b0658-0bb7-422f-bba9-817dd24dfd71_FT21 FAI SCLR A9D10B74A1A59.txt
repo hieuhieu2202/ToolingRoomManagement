@@ -1,0 +1,68 @@
+ShowUI===[ USB mode already ... ]===
+
+Delete file: .\CaliTool\audio_stream 
+Copy standard script before open
+***************Check AMIC FR THD****************
+Modify script: Func_Mic_CH: 0
+Read value script: Func_Mic_CH: 0
+Modify script: Func_Mic: 1
+Read value script: Func_Mic: 1
+Modify script: Func_Mic: 0
+Read value script: Func_Mic: 0
+Close CaliTool 
+Convert D:\FT2_1(U12I393T20)_CTR\\audio_stream to D:\AutoTestFalconCostDown\SplitterFile\AOutput_1.wav
+Try Test:1--------------------------------	
+AFR-Level:315.004785624812|1000.00764837477|4000.031746273	
+AFR-Level:-14.2159816404109|-9.28888003586907|-15.3702183053837	
+AFR-THD Ratio:315.004785624812|1000.00764837477|4000.031746273	
+AFR-THD Ratio:0.144385998019953|0.0806318612549761|0.00508117342705056	
+AFR-Level:Pass
+AFR-THD Ratio:Pass
+***************Start Check SpkFRTHD ABTEC****************
+Try Test:1--------------------------------	
+Copy standard script before open
+Modify script: Func_Speaker_Dir: Spk_Play.wav
+Read value script: Func_Speaker_Dir: Spk_Play.wav
+Modify script: Func_Speaker: 1
+Read value script: Func_Speaker: 1
+Modify script: Func_Speaker: 0
+Read value script: Func_Speaker: 0
+Close CaliTool 
+Try Test:2--------------------------------	
+Copy standard script before open
+Modify script: Func_Speaker_Dir: Spk_Play.wav
+Read value script: Func_Speaker_Dir: Spk_Play.wav
+Modify script: Func_Speaker: 1
+Read value script: Func_Speaker: 1
+Modify script: Func_Speaker: 0
+Read value script: Func_Speaker: 0
+Close CaliTool 
+Delay 0 MiliSecond
+==============Start show fail=================
+TEST PROGRAM VERSION:2.3.2.8  TEST CYCLE TIME:47
+===[ SCLR Not Check List Report Ext ... ]===
+
+----------------Summary all test item--------------
+Test item name                Result  Test time
+ 1.OpenCaliModeGen5            PASS    0.04s 
+ 2.AMic_ABTEC                  PASS    16.49s
+ 3.Spk_ABTEC                   FAIL    30.78s
+ 4.SendSfis                                  
+---------------------------------------------------
+Delete file: D:\AutoTestFalconCostDown\SplitterFile\AOutput_1.wav 
+Write summary log server: F:\lsy\ID\U12I393T20\MODEL NAME \FT2-1 -> OK
+Write summary log localD:\Arlo_Logs\U12I393T20\MODEL NAME \FT2-1\24-11-2020 -> OK
+Write  Megasig log to server folder: F:\lsy\ID\U12I393T20\MODEL NAME \FT2-1\L3-B05-FT2-7 -> OK
+Details log local folder: D:\Arlo_Logs\U12I393T20\MODEL NAME \FT2-1\24-11-2020\FAIL
+Write Detail log local pass 
+Write detail log server pass 
+Start copy D:\FT2_1(U12I393T20)_CTR\CaliTool\output to D:\Arlo_CaliTool\FAIL\SPK_03_22_59.
+Datetime (yyyy-MM-dd HH:mm:ss): 2020-11-24 15:22:59
+Start copy D:\FT2_1(U12I393T20)_CTR\CaliTool\output\Info to D:\Arlo_CaliTool\FAIL\SPK_03_22_59\Info.
+Datetime (yyyy-MM-dd HH:mm:ss): 2020-11-24 15:22:59
+Start copy D:\FT2_1(U12I393T20)_CTR\CaliTool\output\Info\dutinfo.txt to D:\Arlo_CaliTool\FAIL\SPK_03_22_59\Info\dutinfo.txt.
+Copy success...
+end show fail
+==================End show fail=================..............................
+....DUT is Disconnected!
+S

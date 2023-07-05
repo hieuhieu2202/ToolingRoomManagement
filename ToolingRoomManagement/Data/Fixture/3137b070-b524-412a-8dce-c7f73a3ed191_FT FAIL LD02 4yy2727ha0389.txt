@@ -1,0 +1,269 @@
+ShowUI===[ Connect DUT ]===
+Wait to have OVTI Serial Port
+Wait to have OVTI Serial Port
+..Have OVTI!
+
+Start connect !
+
+Start connect !
+Start Open COM !
+Setup: 21a1 70000
+Get: rate 115200
+Setup: 21a1 70000
+Get: rate 115200
+Setup: 21a1 70000
+Get: rate 115200
+Setup: 21a1 70000
+Get: rate 115200
+Setup: 2021 70000
+Set: rate 115200, Stop 0, Parity 0, Data 8
+Setup: 21a1 70000
+Get: rate 115200
+Setup: 2221 0
+Host2Device with wLength = 0
+control signal: 0x0
+Setup: 2021 70000
+Set: rate 115200, Stop 0, Parity 0, Data 8
+Setup: 21a1 70000
+Get: rate 115200
+Setup: 21a1 70000
+Get: rate 115200
+Setup: 21a1 70000
+Get: rate 115200
+Setup: 2021 70000
+Set: rate 115200, Stop 0, Parity 0, Data 8
+Setup: 21a1 70000
+Get: rate 115200
+Setup: 2221 0
+Host2Device with wLength = 0
+control signal: 0x0
+Setup: 2021 70000
+Set: rate 115200, Stop 0, Parity 0, Data 8
+Setup: 21a1 70000
+Get: rate 115200
+Setup: 2221 0
+Host2Device with wLength = 0
+control signal: 0x0
+
+Wait # !
+
+
+# 
+
+
+# 
+delay 2 sec wait com port really open !
+Connect DUT sussess.
+===[ Check Y3RTC ]===
+
+
+
+# 
+fmcu Y3RTC
+fmcu Y3RTC
+Y3SCREEN:2a
+RTC Y3 Check Pass
+
+# 
+===[ Test Y3 WIFI RTC passed ... ]===
+
+info
+Build Time: 11:46:04 Jul 10 2017
+
+FXCN version: 170710@092_2B_1.2.2.101564
+
+IQC version: 2.1.4
+
+MAC: a4:11:62:af:cd:82, id2 0
+
+SERIAL_NUM: 51D2097FA0526
+
+MODEL_NUM: VML4030
+
+HW_REV: H6
+
+NV_EN_TH: 
+
+NV_EX_TH: 
+
+NV_IR_OFF_EX_TH: 
+
+NV_LUX_ENTER_TH: 
+
+IG_5lux_IR_OFF_TH: 0x0000
+
+IG_10lux_IR_OFF_TH: 0x0000
+
+# 
+DUTMAC: a4:11:62:af:cd:82
+===[ Check firmware version passed ... ]===
+
+===[ Check LED FT0 ]===
+delay 2 sec wait com port really open !
+
+Wait # !
+Setup: 21a1 70000
+Get: rate 115200
+Setup: 21a1 70000
+Get: rate 115200
+Setup: 21a1 70000
+Get: rate 115200
+Setup: 21a1 70000
+Get: rate 115200
+Setup: 2021 70000
+Set: rate 115200, Stop 0, Parity 0, Data 8
+Setup: 21a1 70000
+Get: rate 115200
+Setup: 2221 0
+Host2Device with wLength = 0
+control signal: 0x0
+Setup: 2021 70000
+Set: rate 115200, Stop 0, Parity 0, Data 8
+Setup: 21a1 70000
+Get: rate 115200
+Setup: 21a1 70000
+Get: rate 115200
+Setup: 21a1 70000
+Get: rate 115200
+Setup: 2021 70000
+Set: rate 115200, Stop 0, Parity 0, Data 8
+Setup: 21a1 70000
+Get: rate 115200
+Setup: 2221 0
+Host2Device with wLength = 0
+control signal: 0x0
+Setup: 2021 70000
+Set: rate 115200, Stop 0, Parity 0, Data 8
+
+Setup: 21a1 70000
+Get: rate 115200
+Setup: 2221 0
+Host2Device with wLength = 0
+control signal: 0x0
+
+
+# 
+NumberLEDCheck= 2
+Delete file .\CCDResult.ini 
+LED Amber,	gpio ir_en off;gpio blue_led off;gpio amber_led on;gpio amber_led on,	#,	2000,100
+***** Start check  LED Amber. *****
+Log:	gpio ir_en off
+09:29:14
+gpio ir_en off
+
+# 
+Delay 100 MiliSecond
+Log:gpio blue_led off
+09:29:15
+gpio blue_led off
+
+# 
+Delay 100 MiliSecond
+Log:gpio amber_led on
+09:29:15
+gpio amber_led on
+
+# 
+Delay 100 MiliSecond
+Log:gpio amber_led on
+09:29:15
+gpio amber_led on
+
+# 
+Delay 100 MiliSecond
+writeCCDControl.ini
+Write test flag CCDControl.ini: 1
+
+
+# 
+info
+Build Time: 11:46:04 Jul 10 2017
+
+FXCN version: 170710@092_2B_1.2.2.101564
+
+IQC version: 2.1.4
+
+MAC: a4:11:62:af:cd:82, id2 0
+
+SERIAL_NUM: 51D2097FA0526
+
+MODEL_NUM: VML4030
+
+HW_REV: H6
+
+NV_EN_TH: 
+
+NV_EX_TH: 
+
+NV_IR_OFF_EX_TH: 
+
+NV_LUX_ENTER_TH: 
+
+IG_5lux_IR_OFF_TH: 0x0000
+
+IG_10lux_IR_OFF_TH: 0x0000
+
+# 
+Wait new DutHH come...
+CCD v2.0.0.8,Status-Amber:140-120-4,
+Retry function check FT0... 
+Delay 100 MiliSecond
+Delay 100 MiliSecond
+===[ Check LED FT0 again ]===
+NumberLEDCheck= 2
+Delete file .\CCDResult.ini 
+LED Amber,	gpio ir_en off;gpio blue_led off;gpio amber_led on;gpio amber_led on,	#,	2000,100
+***** Start check  LED Amber. *****
+Log:	gpio ir_en off
+09:29:22
+gpio ir_en off
+
+# 
+Delay 100 MiliSecond
+Log:gpio blue_led off
+09:29:22
+gpio blue_led off
+
+# 
+Delay 100 MiliSecond
+Log:gpio amber_led on
+09:29:23
+gpio amber_led on
+
+# 
+Delay 100 MiliSecond
+Log:gpio amber_led on
+09:29:23
+gpio amber_led on
+
+# 
+Delay 100 MiliSecond
+writeCCDControl.ini
+Write test flag CCDControl.ini: 1
+CCD v2.0.0.8,Status-Amber:144-171-3,
+===[ LD02 LED amber failed... ... ]===
+Delay 100 MiliSecond
+Delay 100 MiliSecond
+Delay 0 MiliSecond
+==============Start show fail=================
+TEST PROGRAM VERSION:2.3.2.8  TEST CYCLE TIME:16
+===[ LD02 LED amber failed... ... ]===
+
+----------------Summary all test item--------------
+Test item name                Result  Test time
+ 1.ConnectDUT                  PASS    1.37s 
+ 2.CheckY3RTC                  PASS    0.22s 
+ 3.CheckFWVersion              PASS    0.11s 
+ 4.CheckLEDFT0                 FAIL    15s   
+ 5.SendSfis                                  
+---------------------------------------------------
+FAIL. Close COM sucessful....
+Write summary log server: F:\lsy\ID\U12I345T99\MODEL NAME \FT -> OK
+Write summary log localD:\Arlo_Logs\U12I345T99\MODEL NAME \FT\27-11-2020 -> OK
+Kill iperf
+Details log local folder: D:\Arlo_Logs\U12I345T99\MODEL NAME \FT\27-11-2020\FAIL
+Write Detail log local pass 
+Details log server folder: F:\lsy\ID\Detail\U12I345T99\MODEL NAME \FT\27-11-2020\FAIL
+Write detail log server pass 
+end show fail
+==================End show fail=================..........DUT is Disconnected!

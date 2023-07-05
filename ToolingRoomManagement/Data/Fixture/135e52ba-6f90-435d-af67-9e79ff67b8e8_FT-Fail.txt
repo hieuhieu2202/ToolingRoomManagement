@@ -1,0 +1,197 @@
+SFIS->UI: @ZUV6UIR                 VML4030-FXN-1VZS         A41162C9855B51B40C7JA05B4  3584170722600562140017851     V0919299    FT        PASS
+
+ShowUIModel VML4030-FXN-1VZS accepted
+Program still running !
+Wait to have OVTI Serial Port
+.Have OVTI!
+
+Start connect !
+COM DUT OPENED!
+
+Wait # !
+
+
+# 
+
+
+# 
+Connect DUT sussess.
+===[ Check Y3RTC ]===
+
+
+
+# 
+fmcu Y3RTC
+fmcu Y3RTC
+Y3SCREEN:aa
+
+RTC Y3 Check Pass
+
+# 
+===[ Test Y3 WIFI RTC passed ... ]===
+
+info
+Build Time: 11:46:04 Jul 10 2017
+
+FXCN version: 170710@092_2B_1.2.2.101564
+
+IQC version: 2.1.4
+
+MAC: a4:11:62:c9:85:5b, id2 0
+
+SERIAL_NUM: 51B40C7JA05B4
+
+MODEL_NUM: VML4030
+
+HW_REV: H6
+
+NV_EN_TH: 
+
+NV_EX_TH: 
+
+NV_IR_OFF_EX_TH: 
+
+NV_LUX_ENTER_TH: 
+
+IG_5lux_IR_OFF_TH: 0x0000
+
+IG_10lux_IR_OFF_TH: 0x0000
+
+# 
+DUTMAC: a4:11:62:c9:85:5b
+===[ Check firmware version passed ... ]===
+
+===[ Check LED FT0 ]===
+NumberLEDCheck= 2
+Delete file .\CCDResult.ini 
+LED Amber,	gpio ir_en off;gpio blue_led off;gpio amber_led on;gpio amber_led on,	#,	2000,100
+***** Start check  LED Amber. *****
+Log:	gpio ir_en off
+23:10:33
+gpio ir_en off
+
+# 
+Delay 100 MiliSecond
+Log:gpio blue_led off
+23:10:33
+gpio blue_led off
+
+
+# 
+Delay 100 MiliSecond
+Log:gpio amber_led on
+23:10:33
+gpio amber_led on
+
+
+# 
+Delay 100 MiliSecond
+Log:gpio amber_led on
+23:10:33
+gpio amber_led on
+
+
+# 
+Delay 100 MiliSecond
+writeCCDControl.ini
+Write test flag CCDControl.ini: 1
+CCD v2.0.0.8,Status-Amber:27-231-168,
+Test time of : 3.2903565
+Delete file .\CCDResult.ini 
+LED Blue,	gpio amber_led off;gpio blue_led on,	#,	2000,100
+***** Start check  LED Blue. *****
+Log:	gpio amber_led off
+23:10:36
+gpio amber_led off
+
+# 
+Delay 100 MiliSecond
+Log:gpio blue_led on
+23:10:36
+gpio blue_led on
+
+# 
+Delay 100 MiliSecond
+writeCCDControl.ini
+Write test flag CCDControl.ini: 2
+CCD v2.0.0.8,Status-Blue:145-192-5,
+Retry function check FT0... 
+Delay 100 MiliSecond
+Delay 100 MiliSecond
+===[ Check LED FT0 again ]===
+NumberLEDCheck= 2
+Delete file .\CCDResult.ini 
+LED Amber,	gpio ir_en off;gpio blue_led off;gpio amber_led on;gpio amber_led on,	#,	2000,100
+***** Start check  LED Amber. *****
+Log:	gpio ir_en off
+23:10:43
+gpio ir_en off
+
+# 
+Delay 100 MiliSecond
+Log:gpio blue_led off
+23:10:43
+gpio blue_led off
+
+# 
+Delay 100 MiliSecond
+Log:gpio amber_led on
+23:10:43
+gpio amber_led on
+
+# 
+Delay 100 MiliSecond
+Log:gpio amber_led on
+23:10:44
+gpio amber_led on
+
+# 
+Delay 100 MiliSecond
+writeCCDControl.ini
+Write test flag CCDControl.ini: 1
+CCD v2.0.0.8,Status-Amber:27-231-168,
+Test time of : 3.2916625
+Delete file .\CCDResult.ini 
+LED Blue,	gpio amber_led off;gpio blue_led on,	#,	2000,100
+***** Start check  LED Blue. *****
+Log:	gpio amber_led off
+23:10:46
+gpio amber_led off
+
+# 
+Delay 100 MiliSecond
+Log:gpio blue_led on
+23:10:46
+gpio blue_led on
+
+# 
+Delay 100 MiliSecond
+writeCCDControl.ini
+Write test flag CCDControl.ini: 2
+CCD v2.0.0.8,Status-Blue:142-196-5,
+===[ LD01 LED blue failed... ... ]===
+Delay 100 MiliSecond
+Delay 100 MiliSecond
+Delay 0 MiliSecond
+==============Start show fail=================
+TEST PROGRAM VERSION:2.3.2.8  TEST CYCLE TIME:21
+===[ LD01 LED blue failed... ... ]===
+
+----------------Summary all test item--------------
+Test item name                Result  Test time
+ 1.ConnectDUT                  PASS    0.83s 
+ 2.CheckY3RTC                  PASS    0.25s 
+ 3.CheckFWVersion              PASS    0.12s 
+ 4.CheckLEDFT0                 FAIL    20.13s
+ 5.SendSfis                                  
+---------------------------------------------------
+FAIL. Close COM sucessful....
+Write summary log server: F:\lsy\ID\U12I345T99\VML4030-FXN-1VZS\FT -> OK
+Write summary log localD:\Arlo_Logs\U12I345T99\VML4030-FXN-1VZS\FT\17-12-2020 -> OK
+Kill iperf
+  ,SMO 2140017851,,SEMPID V0919299,CCD v2.0.0.8,Status-Amber:27-231-168,CCD v2.0.0.8,Status-Blue:145-192-5,CCD v2.0.0.8,Status-Amber:27-231-168,CCD v2.0.0.8,Status-Blue:142-196-5,
+Start send data to mydas !
+SENDTOMYDAS:     10.224.84.104,SMO 2140017851,,SEMPID V0919299,CCD v2.0.0.8,Status-Amber:27-231-168,CCD v2.0.0.8,Status-Blue:145-192-5,CCD v2.0.0.8,Status-Amber:27-231-168,CCD v2.0.0.8,Status-Blue:142-196-5,,,LD01,LD01 LED blue failed...,|@ZUV6UIR,0,D:\Arlo,2.3.2.8,L3-B05-FT-01,21,2020-12-17 11:10:52,A41162C9855B,51B40C7JA05B4,   :SENDTOMYDASFINISH
+
+ Send mydas Fail...
+Details log local folder: D:\Arlo_Logs\U12I345T99\VML4030-FXN-1VZS\FT\17-12-2020\FAIL

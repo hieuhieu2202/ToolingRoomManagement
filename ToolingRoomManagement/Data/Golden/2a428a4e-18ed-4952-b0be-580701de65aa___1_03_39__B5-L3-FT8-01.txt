@@ -1,0 +1,69 @@
+ShowUIUI->MCU: POWER_OFF
+POWER_OFF_OK
+Copy standard script.
+Waiting for plug USB cable! 
+.Time waiting for plug USB cable: 0.1021313  
+USB cable plug sucessful! 
+--------- Wait for Libusb --------
+
+2021/04/08 15:39:13 begin open CaliTool
+Run CaliTool !
+===[ Change to cali mode passed ... ]===
+
+===[ Verify focus day mode ]===
+UI->MCU: CLOSE
+CLOSE_OK
+
+
+ Delay 13000 mili seconds for values stable ...
+Wait log file create ...
+=================Capture image time 1==================
+.
+
+ Delay 13000 mili seconds for values stable ...
+Wait log file create ...
+Waiting create folder...
+Waiting create folder...
+Waiting create folder...
+Waiting create folder...
+Create folder success...
+Create txt file success...
+get focus value sucess..
+000000
+MTF[0],MTF[1],MTF[2],MTF[3],MTF[4],MTF[5],MTF[6],MTF[7],MTF[8],MTF[9]
+374, 391, 454, 425, 563, 575, 456, 474, 471, 501
+ROI[0], x=302, y=136, w=80, h=60
+ROI[1], x=256, y=185, w=60, h=80
+ROI[2], x=1559, y=147, w=80, h=60
+ROI[3], x=1622, y=193, w=60, h=80
+ROI[4], x=999, y=508, w=80, h=60
+ROI[5], x=972, y=431, w=60, h=80
+ROI[6], x=304, y=907, w=80, h=60
+ROI[7], x=258, y=840, w=60, h=80
+ROI[8], x=1561, y=909, w=80, h=60
+ROI[9], x=1627, y=840, w=60, h=80
+PASS, PASS, PASS, PASS, PASS, PASS, PASS, PASS, PASS, PASS, 
+PASS
+
+===[ Test focus passed ... ]===
+
+Close CaliTool 
+UI->MCU: OPEN
+OPEN_OK
+UI->MCU: POWER_OFF
+POWER_OFF_OK
+Delay 0 MiliSecond
+==============Start show pass================
+TEST PROGRAM VERSION:2.3.2.8  TEST CYCLE TIME:40
+
+----------------Summary all test item--------------
+Test item name                Result  Test time
+ 1.OpenCaliModeGen5            PASS    1.63s 
+ 2.VerifyFocusDayMode_Falcon   PASS    36.81s
+ 3.SendSfis                    -Skip-        
+---------------------------------------------------
+Write summary log server: F:\lsy\ID\U12I438\MODEL NAME \FT6 -> OK
+Write summary log localD:\Arlo_Logs\U12I438\MODEL NAME \FT6\08-04-2021 -> OK
+Details log local folder: D:\Arlo_Logs\U12I438\MODEL NAME \FT6\08-04-2021\PASS
+Details log server folder: F:\lsy\ID\Detail\U12I438\MODEL NAME \FT6\08-04-2021\PASS
+UserName Test Off: 

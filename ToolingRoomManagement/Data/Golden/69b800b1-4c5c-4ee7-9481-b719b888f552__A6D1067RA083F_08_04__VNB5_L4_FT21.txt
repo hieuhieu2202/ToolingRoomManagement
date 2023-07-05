@@ -1,0 +1,374 @@
+ShowUIChecking ABA status...
+No record, test directly
+iaba :-1
+Wait to have OVTI Serial Port
+.
+Start connect !
+Start Open COM !
+usb serial baud rate(DEF): 1c200
+set csr(0): 0x30000 0x40002000
+set csr(1): 0x1 0x50000000
+set csr(2): 0x2 0x2000080
+set csr(3): 0x30003 0x0
+set csr(4): 0x30004 0x200000f1
+set csr(5): 0x30005 0x100000d4
+set csr(6): 0x30006 0x100000c3
+id2:23 addr = 5ad370, len = c5c0
+libuart_init returns 0
+id2:13 addr = 30c970, len = 138300
+
+Uart Initial!!
+Current Board ID:239319911
+Set GPIO14 output
+Set GPIO14 high
+# Setup: 1000680 400000
+Setup: 1000680 120000
+Setup: 2000680 ff0000
+Setup: 3000680 ff0000
+Setup: 3020680 ff0409
+Setup: 1000680 120000
+Setup: 2000680 90000
+Warning: Descriptor length(43) > request.wLength(9)
+Setup: 2000680 430000
+Setup: 2000680 1090000
+Set config: 1
+++ HS
+ep[3] cfg0: a3024200, cfg1: 8100030, maxpkt: 200
+ep[84] cfg0: e4124200, cfg1: 8100030, maxpkt: 200
+ep[81] cfg0: f1221040, cfg1: 8020010, maxpkt: 40
+Setup: 21a1 70000
+Get: rate 115200
+Setup: 2221 0
+Host2Dev Length [0]!!!
+control signal: 0x0
+DL:1
+MCU not running
+Setup: 2021 70000
+Set: rate 115200, Stop 0, Parity 0, Data 8
+Setup: 21a1 70000
+Get: rate 115200
+get from from flash
+MCU type:0
+id2:8 addr = 1bb1b0, len = 152c0
+Load mcu.bin from SFlash.
+wiced_hci: HCI_RESET success.
+wiced_hci: UPDATE_BAUDRATE success.
+wiced_hci: DOWNLOAD_MINIDRIVER success.
+.................................................................................................................................................................................................................................................................................................................................................................wiced_hci: WRITE_RAM success.
+wiced_hci: LAUNCH_RAM success.
+uart0 flow[Y] init!!!
+hassflash 1
+flash name W25Q128F
+calib hdlen : 1000, area size : 19000 area addr : fa5000
+Current Board ID:12
+Init GPIO interface.
+Init FXCN_burnin_init.
+Init FXCN_mcu_init.
+Init switchmode_init.
+Init workmode_init.
+Init FXCN_rssi_init.
+Init FXCN_version_init.
+Init param area.
+FXCN throughput test init done.
+FXCN debug param init done.
+
+<Dev Info>
+	sn: 00005442550a6bf6
+	pw: SbVwPXQO
+	mac: a4-11-62-b9-df-f2
+<WiFi Info>
+	ssid: testap
+	key: abcdef1234
+	country_code: CN
+	security: auto
+Easycam is initialized.
+
+work_mode:0
+[INFO]: Work mode:0.
+Misc thread start!!!
+Setup: 21a1 70000
+Get: rate 115200
+Setup: 21a1 70000
+Get: rate 115200
+Setup: 21a1 70000
+Get: rate 115200
+Setup: 21a1 70000
+Get: rate 115200
+Setup: 2021 70000
+Set: rate 115200, Stop 0, Parity 0, Data 8
+Setup: 21a1 70000
+Get: rate 115200
+Setup: 22221 0
+Host2Dev Length [0]!!!
+control signal: 0x2
+Setup: 2021 70000
+Set: rate 115200, Stop 0, Parity 0, Data 8
+Setup: 21a1 70000
+Get: rate 115200
+Setup: 21a1 70000
+Get: rate 115200
+Setup: 21a1 70000
+Get: rate 115200
+Setup: 2021 70000
+Set: rate 115200, Stop 0, Parity 0, Data 8
+Setup: 21a1 70000
+Get: rate 115200
+Setup: 22221 0
+Host2Dev Length [0]!!!
+control signal: 0x2
+Setup: 2021 70000
+
+Set: rate 115200, Stop 0, Parity 0, Data 8
+Setup: 21a1 70000
+Get: rate 115200
+Setup: 22221 0
+Host2Dev Length [0]!!!
+control signal: 0x2
+Setup: 21a1 70000
+Get: rate 115200
+Setup: 21a1 70000
+Get: rate 115200
+Setup: 2021 70000
+Set: rate 115200, Stop 0, Parity 0, Data 8
+Setup: 21a1 70000
+Get: rate 115200
+Setup: 2221 0
+Host2Dev Length [0]!!!
+control signal: 0x0
+Setup: 2021 70000
+Set: rate 115200, Stop 0, Parity 0, Data 8
+Setup: 21a1 70000
+Get: rate 115200
+
+Wait # !
+
+
+# 
+
+
+# 
+Connect DUT sussess.
+Default IP DUT: 192.168.1.250
+MAC: 78D2941607EC
+--> Telnet: 192.168.1.250 78D2941607EC
+????!????=== IMPORTANT ============================
+ Use 'passwd' to set your login password
+ this will disable telnet and enable SSH
+------------------------------------------
+
+
+BusyBox v1.23.2 (2018-08-09 19:07:08 CST) built-in shell (ash)
+
+                                                 
+      ###        #    #   #   #       #          
+     #  ##       #        #  #                   
+    #    #  ###  ###  #   #  #   ###  #  ###  ## 
+    #   #   #   ## # #    # #   #  # #  #    # # 
+    #   #  #    #  # #     ##   #  # #  #    ### 
+     ###   #    ###  #     #    ###  #  ###  ### 
+
+ 2018
+ ---------------------------------------------------------------
+   For those about to rock... (Chaos Calmer, r117639)
+ ---------------------------------------------------------------
+admin
+
+root@RBS40V:/# admin
+/bin/ash: admin: not found
+root@RBS40V:/# 
+root@RBS40V:/# password
+/bin/ash: password: not found
+root@RBS40V:/# 
+root@RBS40V:/# Telnet DUT pass!!!
+===[ Telnet to DUT OK ... ]===
+
+===[ Check wake up by mic]===
+=========Check HIGH level ==============
+using OBV
+export mic_min=2100
+
+# 
+Set range of mic detection: mic_min=2100
+export mic_max=2700
+
+# 
+Set range of mic detection: mic_max=2700
+????!????=== IMPORTANT ============================
+ Use 'passwd' to set your login password
+ this will disable telnet and enable SSH
+------------------------------------------
+
+
+BusyBox v1.23.2 (2018-08-09 19:07:08 CST) built-in shell (ash)
+
+                                                 
+      ###        #    #   #   #       #          
+     #  ##       #        #  #                   
+    #    #  ###  ###  #   #  #   ###  #  ###  ## 
+    #   #   #   ## # #    # #   #  # #  #    # # 
+    #   #  #    #  # #     ##   #  # #  #    ### 
+     ###   #    ###  #     #    ###  #  ###  ### 
+
+ 2018
+ ---------------------------------------------------------------
+   For those about to rock... (Chaos Calmer, r117639)
+ ---------------------------------------------------------------
+admin
+
+root@RBS40V:/# admin
+/bin/ash: admin: not found
+root@RBS40V:/# 
+root@RBS40V:/# password
+/bin/ash: password: not found
+root@RBS40V:/# 
+root@RBS40V:/# Re-Telnet O
+Start check Path#2: MIC ADC INT
+08:04:21
+fmcu MICstop
+
+# 
+Open .wav file from OBV to make sound level: aplay 95dBSPL.wav
+fmcu MICstart 2 4
+aplay 95dBSPL.wav
+Playing WAVE '95dBSPL.wav' : Signed 16 bit Little Endian, Rate 48000 Hz, Mono
+MIC Value:1
+MIC ADC INT: PASS
+
+# 
+close Telnet2
+Stop play file level: aplay 95dBSPL.wav
+=========Check LOW level ==============
+using OBV
+export mic_min=2100
+
+# 
+Set range of mic detection: mic_min=2100
+export mic_max=2700
+
+# 
+Set range of mic detection: mic_max=2700
+????!????=== IMPORTANT ============================
+ Use 'passwd' to set your login password
+ this will disable telnet and enable SSH
+------------------------------------------
+
+
+BusyBox v1.23.2 (2018-08-09 19:07:08 CST) built-in shell (ash)
+
+                                                 
+      ###        #    #   #   #       #          
+     #  ##       #        #  #                   
+    #    #  ###  ###  #   #  #   ###  #  ###  ## 
+    #   #   #   ## # #    # #   #  # #  #    # # 
+    #   #  #    #  # #     ##   #  # #  #    ### 
+     ###   #    ###  #     #    ###  #  ###  ### 
+
+ 2018
+ ---------------------------------------------------------------
+   For those about to rock... (Chaos Calmer, r117639)
+ ---------------------------------------------------------------
+Re-Telnet O
+Start check Path#1: MIC VM1010
+08:04:26
+root@RBS40V:/# fmcu MICstop
+
+# 
+Open .wav file from OBV to make sound level: version
+fmcu MICstart 1 4
+version
+                  U12H380T01/V2.2.0.52/1.0.35
+           Time : Aug  9 2018 19:59:52
+    CFE version : V1.0.15
+root@RBS40V:/# 
+root@RBS40V:/# MIC Value:1
+MIC VM1010: PASS
+
+# 
+close Telnet2
+Stop play file level: version
+using OBV
+export mic_min=2100
+
+# 
+Set range of mic detection: mic_min=2100
+export mic_max=2700
+
+# 
+Set range of mic detection: mic_max=2700
+????!????=== IMPORTANT ============================
+ Use 'passwd' to set your login password
+ this will disable telnet and enable SSH
+------------------------------------------
+
+
+BusyBox v1.23.2 (2018-08-09 19:07:08 CST) built-in shell (ash)
+
+                                                 
+      ###        #    #   #   #       #          
+     #  ##       #        #  #                   
+    #    #  ###  ###  #   #  #   ###  #  ###  ## 
+    #   #   #   ## # #    # #   #  # #  #    # # 
+    #   #  #    #  # #     ##   #  # #  #    ### 
+     ###   #    ###  #     #    ###  #  ###  ### 
+
+ 2018
+ ---------------------------------------------------------------
+   For those about to rock... (Chaos Calmer, r117639)
+ ---------------------------------------------------------------
+Re-Telnet O
+Start check Path#1: MIC VM1010
+08:04:29
+fmcu MICstop
+
+# 
+root@RBS40V:/# Open .wav file from OBV to make sound level: version
+fmcu MICstart 1 4
+version
+                  U12H380T01/V2.2.0.52/1.0.35
+           Time : Aug  9 2018 19:59:52
+    CFE version : V1.0.15
+root@RBS40V:/# 
+root@RBS40V:/# MIC Value:0
+MIC Value:0
+MIC Value:0
+MIC Value:0
+MIC Value:0
+MIC Value:0
+MIC Value:0
+MIC Value:0
+MIC Value:0
+MIC Value:0
+MIC Value:0
+MIC Value:0
+MIC Value:0
+MIC Value:0
+MIC Value:0
+
+MIC Value:0
+
+MIC Value:0
+MIC Value:0
+MIC Value:0
+MIC Value:0
+
+
+# 
+close Telnet2
+Stop play file level: version
+Delay 0 MiliSecond
+==============Start show pass================
+TEST PROGRAM VERSION:2.3.2.8  TEST CYCLE TIME:19
+PASS Close COM ...
+
+----------------Summary all test item--------------
+Test item name                Result  Test time
+ 1.ConnectDUT                  PASS    1.47s 
+ 2.TelnetDUT                   PASS    1.36s 
+ 3.Falcon_CheckWakeUpByMic     PASS    16.47s
+ 4.SendSfis                    -Skip-        
+---------------------------------------------------
+Write summary log server: F:\lsy\ID\U12I386T01\MODEL NAME \FT2 -> OK
+Write summary log localD:\Arlo_Logs\U12I386T01\MODEL NAME \FT2\13-12-2020 -> OK
+Details log local folder: D:\Arlo_Logs\U12I386T01\MODEL NAME \FT2\13-12-2020\PASS
+Details log server folder: F:\lsy\ID\Detail\U12I386T01\MODEL NAME \FT2\13-12-2020\PASS
+UserName Test OfG: 

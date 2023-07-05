@@ -1,0 +1,162 @@
+ShowUI===[ Check AWB ]===
+***Begin open CaliTool****
+Copy standard script before open
+script.ini: modify IQcal_Display = 0 .
+open CaliTool.exe file !
+***open CaliTool successful****
+delete old log outpout folder 
+Set IQcal_Erase=0,then delay 0.3 sec 
+Set IQcal_Erase=1,then delay 2 sec 
+wait 2 sec for image stable
+Wait other testers for test 5000K...
+Wait other testers for test 5000K...
+ServerStatus_0
+ServerStatus_1
+&&& Server available for test 5000K 
+
+&&&===[ Start check 5000-LENC-AWB ]===
+Delay 4000 MiliSecond
+10:53:36 : waiting get awb value...
+10:53:37 : waiting get awb value...
+10:53:38 : waiting get awb value...
+10:53:39 : waiting get awb value...
+Finish get awb value..
+SNa4116220e76
+Setup, CT, Result, Dust, DarkCorner, BG, RG
+Setup, NONE, 6500K, 0, 0, 0, 0
+Setup, 5000K, PASS, 0, 0, 0, 0
+Setup, NONE, 3100K, 0, 0, 0, 0
+Shading, CT, Result, LUM(CE), LUM(LT), LUM(RT), LUM(LB), LUM(RB)
+Pre-Shading, 6500K, NONE, 0, 0, 0, 0, 0
+Pre-Shading, 5000K, PASS, 137.29, 92.88, 93.44, 92.38, 94.20
+Pre-Shading, 3100K, NONE, 0, 0, 0, 0, 0
+Shading, 6500K, NONE, 0, 0, 0, 0, 0
+Shading, 5000K, PASS, 132.11, 131.83, 131.25, 132.10, 131.28
+Shading, 3100K, NONE, 0, 0, 0, 0, 0
+AWB, CT, Result, RG(CE), BG(CE), RG(LT), BG(LT), RG(RT), BG(RT), RG(LB), BG(LB), RG(RB), BG(RG)
+Pre-AWB, 6500K, NONE, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+Pre-AWB, 5000K, NONE, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+Pre-AWB, 3100K, NONE, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+AWB, 6500K, NONE, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+AWB, 5000K, PASS, 1.01, 1.01, 1.01, 1.02, 1.01, 1.02, 1.01, 1.02, 1.01, 1.01
+AWB, 3100K, NONE, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+AE Target, CT, Result, Value
+AE, 6500K, NONE, 0
+AE, 5000K, PASS, 132
+AE, 3100K, NONE, 0
+PASS
+
+Value for 5000K: Setup, 5000K, PASS, 0, 0, 0, 0,Pre-Shading, 5000K, PASS, 137.29, 92.88, 93.44, 92.38, 94.20,Shading, 5000K, PASS, 132.11, 131.83, 131.25, 132.10, 131.28,AWB, 5000K, PASS, 1.01, 1.01, 1.01, 1.02, 1.01, 1.02, 1.01, 1.02, 1.01, 1.01,AE, 5000K, PASS, 132,
+===[ Check 5000-LENC-AWB  PASS]===
+===[ Start check 6500-LENC-AWB ]===
+Wait other testers for test 6500K...
+Wait other testers for test 6500K...
+ServerStatus_1
+Wait other testers for test 6500K...
+ServerStatus_3
+&&& Server available for test 6500K 
+
+ServerStatus_3
+&&&===[ Start check 6500-LENC-AWB ]===
+Delay 4000 MiliSecond
+10:53:48 : waiting get awb value...
+10:53:49 : waiting get awb value...
+10:53:50 : waiting get awb value...
+Finish get awb value..
+SNa4116220e76
+Setup, CT, Result, Dust, DarkCorner, BG, RG
+Setup, 6500K, PASS, 0, 0, 0, 0
+Setup, 5000K, PASS, 0, 0, 0, 0
+Setup, NONE, 3100K, 0, 0, 0, 0
+Shading, CT, Result, LUM(CE), LUM(LT), LUM(RT), LUM(LB), LUM(RB)
+Pre-Shading, 6500K, PASS, 136.88, 136.97, 136.27, 137.27, 136.19
+Pre-Shading, 5000K, PASS, 137.29, 92.88, 93.44, 92.38, 94.20
+Pre-Shading, 3100K, NONE, 0, 0, 0, 0, 0
+Shading, 6500K, PASS, 132.01, 131.73, 131.15, 132.02, 131.16
+Shading, 5000K, PASS, 132.11, 131.83, 131.25, 132.10, 131.28
+Shading, 3100K, NONE, 0, 0, 0, 0, 0
+AWB, CT, Result, RG(CE), BG(CE), RG(LT), BG(LT), RG(RT), BG(RT), RG(LB), BG(LB), RG(RB), BG(RG)
+Pre-AWB, 6500K, NONE, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+Pre-AWB, 5000K, NONE, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+Pre-AWB, 3100K, NONE, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+AWB, 6500K, PASS, 1.00, 1.00, 1.00, 1.01, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00
+AWB, 5000K, PASS, 1.01, 1.01, 1.01, 1.02, 1.01, 1.02, 1.01, 1.02, 1.01, 1.01
+AWB, 3100K, NONE, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+AE Target, CT, Result, Value
+AE, 6500K, PASS, 132
+AE, 5000K, PASS, 132
+AE, 3100K, NONE, 0
+PASS
+
+Value 6500K: Setup, 6500K, PASS, 0, 0, 0, 0,Pre-Shading, 6500K, PASS, 136.88, 136.97, 136.27, 137.27, 136.19,Shading, 6500K, PASS, 132.01, 131.73, 131.15, 132.02, 131.16,AWB, 6500K, PASS, 1.00, 1.00, 1.00, 1.01, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00,AE, 6500K, PASS, 132,
+===[ Check 6500-LENC-AWB  PASS]===
+===[ Start check 3100-LENC-AWB ]===
+Wait other testers for test 3100K...
+Wait other testers for test 3100K...
+ServerStatus_3
+Wait other testers for test 3100K...
+ServerStatus_2
+&&& Server available for test 3100K 
+
+ServerStatus_2
+&&&===[ Start check 3100-LENC-AWB ]===
+Delay 4000 MiliSecond
+10:54:00 : waiting get awb value...
+10:54:01 : waiting get awb value...
+10:54:02 : waiting get awb value...
+Finish get awb value..
+SNa4116220e76
+Setup, CT, Result, Dust, DarkCorner, BG, RG
+Setup, 6500K, PASS, 0, 0, 0, 0
+Setup, 5000K, PASS, 0, 0, 0, 0
+Setup, 3100K, PASS, 0, 0, 0, 0
+Shading, CT, Result, LUM(CE), LUM(LT), LUM(RT), LUM(LB), LUM(RB)
+Pre-Shading, 6500K, PASS, 136.88, 136.97, 136.27, 137.27, 136.19
+Pre-Shading, 5000K, PASS, 137.29, 92.88, 93.44, 92.38, 94.20
+Pre-Shading, 3100K, PASS, 132.76, 131.85, 130.94, 132.45, 131.43
+Shading, 6500K, PASS, 132.01, 131.73, 131.15, 132.02, 131.16
+Shading, 5000K, PASS, 132.11, 131.83, 131.25, 132.10, 131.28
+Shading, 3100K, PASS, 132.51, 132.49, 131.66, 132.65, 131.86
+AWB, CT, Result, RG(CE), BG(CE), RG(LT), BG(LT), RG(RT), BG(RT), RG(LB), BG(LB), RG(RB), BG(RG)
+Pre-AWB, 6500K, NONE, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+Pre-AWB, 5000K, NONE, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+Pre-AWB, 3100K, NONE, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+AWB, 6500K, PASS, 1.00, 1.00, 1.00, 1.01, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00
+AWB, 5000K, PASS, 1.01, 1.01, 1.01, 1.02, 1.01, 1.02, 1.01, 1.02, 1.01, 1.01
+AWB, 3100K, PASS, 1.00, 1.00, 1.00, 1.00, 1.00, 1.01, 1.00, 1.00, 1.00, 1.00
+AE Target, CT, Result, Value
+AE, 6500K, PASS, 132
+AE, 5000K, PASS, 132
+AE, 3100K, PASS, 132
+PASS
+
+Value 3100K: Setup, 3100K, PASS, 0, 0, 0, 0,Shading, 3100K, PASS, 132.51, 132.49, 131.66, 132.65, 131.86,Pre-Shading, 3100K, PASS, 132.76, 131.85, 130.94, 132.45, 131.43,AWB, 3100K, PASS, 1.00, 1.00, 1.00, 1.00, 1.00, 1.01, 1.00, 1.00, 1.00, 1.00,AE, 3100K, PASS, 132,
+===[ Check 3100-LENC-AWB  PASS]===
+===[ Test AWB passed ... ]===
+
+===[ Check Dust by Foxccon Tool]===
+Found image file...
+Delete old folder...
+Delete old bmp file in dest folder...
+Delete file .\FoxconnDustChk\dustImage.bmp 
+Open Tool check dust!
+2020/11/20 10:54:05, dustImage.bmp
+Pass
+Dust: DustSize_ 0,MaxDiameter_0,
+===[ Test Dust by Foxconn Tool pass]===
+Delay 0 MiliSecond
+==============Start show pass================
+TEST PROGRAM VERSION:2.3.2.8  TEST CYCLE TIME:42
+Close CaliTool 
+
+----------------Summary all test item--------------
+Test item name                Result  Test time
+ 1.AWBCalibration              PASS    40.56s
+ 2.CheckDustFT3                PASS    2.07s 
+ 3.SendSfis                    -Skip-        
+---------------------------------------------------
+Write summary log server: F:\lsy\ID\U12I393\MODEL NAME \FT3 -> OK
+Write summary log localD:\Arlo_Logs\U12I393\MODEL NAME \FT3\20-11-2020 -> OK
+Details log local folder: D:\Arlo_Logs\U12I393\MODEL NAME \FT3\20-11-2020\PASS
+Details log server folder: F:\lsy\ID\Detail\U12I393\MODEL NAME \FT3\20-11-2020\PASS
+UserName Test Off: 

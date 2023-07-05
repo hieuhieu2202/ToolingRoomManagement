@@ -1,0 +1,168 @@
+MAC : a0 40 a0 9a 38 d3 
+SERIAL_NUM : 52M17C7TAFFB6
+
+ShowUISERIAL_NUM :52M17C7TAFFB6
+===[ Check AWB ]===
+Set IQcal_Erase=0,then delay 0.3 sec 
+Set IQcal_Erase=1,then delay 2 sec 
+SN from log: 52M17C7TAFFB6
+SN send to sfis: 52M17C7TAFFB6
+Error read SN to send SFIS:The port is closed.
+Wait other testers for test 5000K...
+Wait other testers for test 5000K...
+Wait other testers for test 5000K...
+Wait other testers for test 5000K...
+Wait other testers for test 5000K...
+&&& Server available for test 5000K 
+
+&&&===[ Start check 5000-LENC-AWB ]===
+Delay 4000 MiliSecond
+09:10:49 : waiting get awb value...
+09:10:50 : waiting get awb value...
+09:10:51 : waiting get awb value...
+09:10:52 : waiting get awb value...
+09:10:53 : waiting get awb value...
+09:10:54 : waiting get awb value...
+09:10:55 : waiting get awb value...
+09:10:56 : waiting get awb value...
+Finish get awb value..
+SNa040a09a38d3
+Setup, CT, Result, Dust, DarkCorner, BG, RG
+Setup, NONE, 6500K, 0, 0, 0, 0
+Setup, 5000K, PASS, 0, 0, 0, 0
+Setup, NONE, 3100K, 0, 0, 0, 0
+Shading, CT, Result, LUM(CE), LUM(LT), LUM(RT), LUM(LB), LUM(RB)
+Pre-Shading, 6500K, NONE, 0, 0, 0, 0, 0
+Pre-Shading, 5000K, NONE, 0, 0, 0, 0, 0
+Pre-Shading, 3100K, NONE, 0, 0, 0, 0, 0
+Shading, 6500K, NONE, 0, 0, 0, 0, 0
+Shading, 5000K, PASS, 127.98, 124.97, 125.31, 124.85, 125.10
+Shading, 3100K, NONE, 0, 0, 0, 0, 0
+AWB, CT, Result, RG(CE), BG(CE), RG(LT), BG(LT), RG(RT), BG(RT), RG(LB), BG(LB), RG(RB), BG(RG)
+Pre-AWB, 6500K, NONE, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+Pre-AWB, 5000K, NONE, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+Pre-AWB, 3100K, NONE, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+AWB, 6500K, NONE, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+AWB, 5000K, PASS, 1.00, 0.99, 0.98, 0.98, 0.99, 0.98, 0.98, 0.98, 0.99, 0.99
+AWB, 3100K, NONE, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+AE Target, CT, Result, Value
+AE, 6500K, NONE, 0
+AE, 5000K, PASS, 128
+AE, 3100K, NONE, 0
+PASS
+
+Value for 5000K: Setup, 5000K, PASS, 0, 0, 0, 0,Pre-Shading, 5000K, NONE, 0, 0, 0, 0, 0,Shading, 5000K, PASS, 127.98, 124.97, 125.31, 124.85, 125.10,AWB, 5000K, PASS, 1.00, 0.99, 0.98, 0.98, 0.99, 0.98, 0.98, 0.98, 0.99, 0.99,AE, 5000K, PASS, 128,
+===[ Check 5000-LENC-AWB  PASS]===
+===[ Start check 6500-LENC-AWB ]===
+Wait other testers for test 6500K...
+Wait other testers for test 6500K...
+Wait other testers for test 6500K...
+Wait other testers for test 6500K...
+Wait other testers for test 6500K...
+&&& Server available for test 6500K 
+
+&&&===[ Start check 6500-LENC-AWB ]===
+Delay 4000 MiliSecond
+09:11:05 : waiting get awb value...
+09:11:06 : waiting get awb value...
+09:11:07 : waiting get awb value...
+09:11:08 : waiting get awb value...
+09:11:09 : waiting get awb value...
+09:11:10 : waiting get awb value...
+09:11:11 : waiting get awb value...
+09:11:12 : waiting get awb value...
+09:11:13 : waiting get awb value...
+Finish get awb value..
+SNa040a09a38d3
+Setup, CT, Result, Dust, DarkCorner, BG, RG
+Setup, 6500K, PASS, 0, 0, 0, 0
+Setup, 5000K, PASS, 0, 0, 0, 0
+Setup, NONE, 3100K, 0, 0, 0, 0
+Shading, CT, Result, LUM(CE), LUM(LT), LUM(RT), LUM(LB), LUM(RB)
+Pre-Shading, 6500K, NONE, 0, 0, 0, 0, 0
+Pre-Shading, 5000K, NONE, 0, 0, 0, 0, 0
+Pre-Shading, 3100K, NONE, 0, 0, 0, 0, 0
+Shading, 6500K, PASS, 135.09, 130.83, 131.47, 131.36, 131.37
+Shading, 5000K, PASS, 127.98, 124.97, 125.31, 124.85, 125.10
+Shading, 3100K, NONE, 0, 0, 0, 0, 0
+AWB, CT, Result, RG(CE), BG(CE), RG(LT), BG(LT), RG(RT), BG(RT), RG(LB), BG(LB), RG(RB), BG(RG)
+Pre-AWB, 6500K, NONE, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+Pre-AWB, 5000K, NONE, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+Pre-AWB, 3100K, NONE, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+AWB, 6500K, PASS, 1.00, 1.00, 0.96, 0.99, 0.97, 0.99, 0.96, 0.99, 0.97, 0.97
+AWB, 5000K, PASS, 1.00, 0.99, 0.98, 0.98, 0.99, 0.98, 0.98, 0.98, 0.99, 0.99
+AWB, 3100K, NONE, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+AE Target, CT, Result, Value
+AE, 6500K, PASS, 135
+AE, 5000K, PASS, 128
+AE, 3100K, NONE, 0
+PASS
+
+Value 6500K: Setup, 6500K, PASS, 0, 0, 0, 0,Pre-Shading, 6500K, NONE, 0, 0, 0, 0, 0,Shading, 6500K, PASS, 135.09, 130.83, 131.47, 131.36, 131.37,AWB, 6500K, PASS, 1.00, 1.00, 0.96, 0.99, 0.97, 0.99, 0.96, 0.99, 0.97, 0.97,AE, 6500K, PASS, 135,
+===[ Check 6500-LENC-AWB  PASS]===
+===[ Start check 3100-LENC-AWB ]===
+Wait other testers for test 3100K...
+Wait other testers for test 3100K...
+Wait other testers for test 3100K...
+Wait other testers for test 3100K...
+Wait other testers for test 3100K...
+Wait other testers for test 3100K...
+&&& Server available for test 3100K 
+
+&&&===[ Start check 3100-LENC-AWB ]===
+Delay 4000 MiliSecond
+09:11:22 : waiting get awb value...
+09:11:23 : waiting get awb value...
+09:11:24 : waiting get awb value...
+09:11:25 : waiting get awb value...
+09:11:26 : waiting get awb value...
+09:11:27 : waiting get awb value...
+09:11:28 : waiting get awb value...
+09:11:29 : waiting get awb value...
+09:11:30 : waiting get awb value...
+Finish get awb value..
+SNa040a09a38d3
+Setup, CT, Result, Dust, DarkCorner, BG, RG
+Setup, 6500K, PASS, 0, 0, 0, 0
+Setup, 5000K, PASS, 0, 0, 0, 0
+Setup, 3100K, PASS, 0, 0, 0, 0
+Shading, CT, Result, LUM(CE), LUM(LT), LUM(RT), LUM(LB), LUM(RB)
+Pre-Shading, 6500K, NONE, 0, 0, 0, 0, 0
+Pre-Shading, 5000K, NONE, 0, 0, 0, 0, 0
+Pre-Shading, 3100K, NONE, 0, 0, 0, 0, 0
+Shading, 6500K, PASS, 135.09, 130.83, 131.47, 131.36, 131.37
+Shading, 5000K, PASS, 127.98, 124.97, 125.31, 124.85, 125.10
+Shading, 3100K, PASS, 132.11, 127.75, 128.47, 128.12, 128.51
+AWB, CT, Result, RG(CE), BG(CE), RG(LT), BG(LT), RG(RT), BG(RT), RG(LB), BG(LB), RG(RB), BG(RG)
+Pre-AWB, 6500K, NONE, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+Pre-AWB, 5000K, NONE, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+Pre-AWB, 3100K, NONE, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+AWB, 6500K, PASS, 1.00, 1.00, 0.96, 0.99, 0.97, 0.99, 0.96, 0.99, 0.97, 0.97
+AWB, 5000K, PASS, 1.00, 0.99, 0.98, 0.98, 0.99, 0.98, 0.98, 0.98, 0.99, 0.99
+AWB, 3100K, PASS, 1.00, 1.00, 0.99, 0.97, 0.99, 0.98, 0.98, 0.97, 0.99, 0.99
+AE Target, CT, Result, Value
+AE, 6500K, PASS, 135
+AE, 5000K, PASS, 128
+AE, 3100K, PASS, 132
+PASS
+
+Value 3100K: Setup, 3100K, PASS, 0, 0, 0, 0,Shading, 3100K, PASS, 132.11, 127.75, 128.47, 128.12, 128.51,Pre-Shading, 3100K, NONE, 0, 0, 0, 0, 0,AWB, 3100K, PASS, 1.00, 1.00, 0.99, 0.97, 0.99, 0.98, 0.98, 0.97, 0.99, 0.99,AE, 3100K, PASS, 132,
+===[ Check 3100-LENC-AWB  PASS]===
+===[ Test AWB passed ... ]===
+
+Close CaliTool 
+Delay 0 MiliSecond
+==============Start show pass================
+TEST PROGRAM VERSION:2.3.2.8  TEST CYCLE TIME:54
+
+----------------Summary all test item--------------
+Test item name                Result  Test time
+ 1.AWBCalibration              PASS    53.79s
+ 2.SendSfis                    -Skip-        
+---------------------------------------------------
+ContentSummary:N/A,
+Write summary log server: F:\lsy\ID\U12I370\VMC4030P-FXN\FT3 -> OK
+Write summary log localD:\Arlo_Logs\U12I370\VMC4030P-FXN\FT3\04-03-2021 -> OK
+Details log local folder: D:\Arlo_Logs\U12I370\VMC4030P-FXN\FT3\04-03-2021\PASS
+Details log server folder: F:\lsy\ID\Detail\U12I370\VMC4030P-FXN\FT3\04-03-2021\PASS
+UserName Test Off: 

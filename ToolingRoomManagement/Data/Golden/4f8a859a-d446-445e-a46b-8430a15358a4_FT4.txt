@@ -1,0 +1,106 @@
+MAC : 9c 3d cf 75 a9 da 
+SERIAL_NUM : 52M1797RA1C72
+MODEL_NUM : VMC4030P
+HW_REV : H4
+NV_EN_TH : 420
+NV_EX_TH : 1245
+NV_IR_OFF_EX_TH : 885
+NV_LUX_ENTER_TH : 769
+IG_5lux_IR_OFF_TH : 26 1f 0 0 0 0 
+IG_10lux_IR_OFF_TH : 26 1f 0 0 0 0 
+SN send to sfis: 52M1797RA1C72
+Time UI-SFIS: 2021/03/06 16:46:06
+
+ShowUI===[ Check Color full ]===
+Check DL65 ...
+=================Capture image time 0==================
+Waiting create folder...
+Waiting create folder...
+Waiting create folder...
+Waiting create folder...
+Waiting create folder...
+Create folder sucess...
+Create file sucess...
+get color value sucess..
+Result-Num : BG-RG-DeltaC-SNR
+OK-0 : 1.01-2.17-12.79
+OK-1 : 1.01-1.49-11.96
+OK-2 : 1.29-0.52-5.73
+OK-3 : 0.38-0.75-2.06
+OK-4 : 1.44-0.94-3.62
+OK-5 : 0.89-0.21-2.21
+OK-6 : 0.02-4.93-21.71
+OK-7 : 1.87-0.30-8.19
+OK-8 : 10.76-28.71-11.58
+OK-9 : 3.90-2.60-5.36
+OK-10 : 0.00-0.79-4.76
+OK-11 : 0.01-1.72-16.37
+OK-12 : 3.28-0.20-5.26
+OK-13 : 0.22-0.16-6.17
+OK-14 : 2957.75-27573.75-10.94
+OK-15 : 0.00-1.27-20.59
+OK-16 : 8.01-10.95-3.39
+OK-17 : 1.30-0.00-13.73
+OK-19 : 1.00-1.00-0.66
+OK-20 : 1.00-1.00-0.78
+OK-21 : 1.04-1.01-1.68
+OK-22 : 1.12-1.03-1.63
+OK-Calibrated : 1, 1, 1, 1, 1, 1
+PASS
+Result-Num : BG-RG-DeltaC-SNR
+OK-0 : 1.01-2.17-12.79
+OK-1 : 1.01-1.49-11.96
+OK-2 : 1.29-0.52-5.73
+OK-3 : 0.38-0.75-2.06
+OK-4 : 1.44-0.94-3.62
+OK-5 : 0.89-0.21-2.21
+OK-6 : 0.02-4.93-21.71
+OK-7 : 1.87-0.30-8.19
+OK-8 : 10.76-28.71-11.58
+OK-9 : 3.90-2.60-5.36
+OK-10 : 0.00-0.79-4.76
+OK-11 : 0.01-1.72-16.37
+OK-12 : 3.28-0.20-5.26
+OK-13 : 0.22-0.16-6.17
+OK-14 : 2957.75-27573.75-10.94
+OK-15 : 0.00-1.27-20.59
+OK-16 : 8.01-10.95-3.39
+OK-17 : 1.30-0.00-13.73
+OK-19 : 1.00-1.00-0.66
+OK-20 : 1.00-1.00-0.78
+OK-21 : 1.04-1.01-1.68
+OK-22 : 1.12-1.03-1.63
+OK-Calibrated : 1, 1, 1, 1, 1, 1
+PASS
+===[ Test color passed ... ]===
+
+Delay 0 MiliSecond
+==============Start show pass================
+TEST PROGRAM VERSION:2.3.2.8  TEST CYCLE TIME:5
+
+----------------Summary all test item--------------
+Test item name                Result  Test time
+ 1.CheckColorfull              PASS    4.91s 
+ 2.SendSfis                    -Skip-        
+---------------------------------------------------
+Write summary log server: F:\lsy\ID\U12I370T00\VMC4030P-FXN\FT4 -> OK
+Write summary log localD:\Arlo_Logs\U12I370T00\VMC4030P-FXN\FT4\06-03-2021 -> OK
+Details log local folder: D:\Arlo_Logs\U12I370T00\VMC4030P-FXN\FT4\06-03-2021\PASS
+Details log server folder: F:\lsy\ID\Detail\U12I370T00\VMC4030P-FXN\FT4\06-03-2021\PASS
+UserName Test Off: Start copy D:\FT4(U12I370T00)\CaliTool\output to D:\Arlo_CaliTool\PASS\@ZRV0WC7_04_46_12.
+Datetime (yyyy-MM-dd HH:mm:ss): 2021-03-06 16:46:12
+Start copy D:\FT4(U12I370T00)\CaliTool\output\BootTest to D:\Arlo_CaliTool\PASS\@ZRV0WC7_04_46_12\BootTest.
+Datetime (yyyy-MM-dd HH:mm:ss): 2021-03-06 16:46:12
+Start copy D:\FT4(U12I370T00)\CaliTool\output\BootTest\9c3dcf75a9da.txt to D:\Arlo_CaliTool\PASS\@ZRV0WC7_04_46_12\BootTest\9c3dcf75a9da.txt.
+Copy success...
+Start copy D:\FT4(U12I370T00)\CaliTool\output\Color to D:\Arlo_CaliTool\PASS\@ZRV0WC7_04_46_12\Color.
+Datetime (yyyy-MM-dd HH:mm:ss): 2021-03-06 16:46:12
+Start copy D:\FT4(U12I370T00)\CaliTool\output\Color\9c3dcf75a9da.bmp to D:\Arlo_CaliTool\PASS\@ZRV0WC7_04_46_12\Color\9c3dcf75a9da.bmp.
+Copy success...
+Start copy D:\FT4(U12I370T00)\CaliTool\output\Color\9c3dcf75a9da.txt to D:\Arlo_CaliTool\PASS\@ZRV0WC7_04_46_12\Color\9c3dcf75a9da.txt.
+Copy success...
+Start copy D:\FT4(U12I370T00)\CaliTool\output\Info to D:\Arlo_CaliTool\PASS\@ZRV0WC7_04_46_12\Info.
+Datetime (yyyy-MM-dd HH:mm:ss): 2021-03-06 16:46:12
+Start copy D:\FT4(U12I370T00)\CaliTool\output\Info\dutinfo.txt to D:\Arlo_CaliTool\PASS\@ZRV0WC7_04_46_12\Info\dutinfo.txt.
+Copy success...
+========Show pass finish=============

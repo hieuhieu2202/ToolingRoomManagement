@@ -1,0 +1,119 @@
+ShowUI
+
+# 
+Wait to have OVTI Serial Port
+.info
+Build Time: 11:46:04 Jul 10 2017
+
+FXCN version: 170710@092_2B_1.2.2.101564
+
+IQC version: 2.1.4
+
+MAC: a0:04:60:78:6b:d4, id2 0
+
+SERIAL_NUM: 4RF16C7AA004B
+
+MODEL_NUM: VML4030
+
+HW_REV: H4
+
+NV_EN_TH: 494
+
+NV_EX_TH: 1464
+
+NV_IR_OFF_EX_TH: 1039
+
+NV_LUX_ENTER_TH: 910
+
+IG_5lux_IR_OFF_TH: 0x1e64
+
+IG_10lux_IR_OFF_TH: 0x2b70
+
+# 
+Have OVTI!
+Can not get SN send to SFIS
+
+Start connect !
+COM DUT OPENED!
+
+Wait # !
+
+
+# 
+
+
+# 
+Connect DUT sussess.
+info
+Build Time: 11:46:04 Jul 10 2017
+
+FXCN version: 170710@092_2B_1.2.2.101564
+
+IQC version: 2.1.4
+
+MAC: a0:04:60:78:6b:d4, id2 0
+
+SERIAL_NUM: 4RF16C7AA004B
+
+MODEL_NUM: VML4030
+
+HW_REV: H4
+
+NV_EN_TH: 494
+
+NV_EX_TH: 1464
+
+NV_IR_OFF_EX_TH: 1039
+
+NV_LUX_ENTER_TH: 910
+
+IG_5lux_IR_OFF_TH: 0x1e64
+
+IG_10lux_IR_OFF_TH: 0x2b70
+
+# 
+DUTMAC: a0:04:60:78:6b:d4
+===[ Check firmware version passed ... ]===
+
+===[ Check PIR ]===
+Total Retry :2
+========================Retry time :0========================
+10:48:47
+fmcu PIRstart 130 0
+PIR Reg(bit0-bit24):6088
+PIR Value(bit25-bit40):782
+data(1922)
+PIR Fail, Please check Ground ping and component
+
+# 
+10:48:48
+fmcu PIRstop
+
+# 
+[Auto close dialog]
+ -- Window not found
+===[ Test PIR failed ... ]===
+Delay 0 MiliSecond
+==============Start show fail=================
+TEST PROGRAM VERSION:2.3.2.7  TEST CYCLE TIME:1
+===[ GPAC PIR Fail, check Ground ping and component ... ]===
+
+----------------Summary all test item--------------
+Test item name                Result  Test time
+ 1.ConnectDUT                  PASS    0.89s 
+ 2.CheckFWVersion              PASS    0.12s 
+ 3.CheckPIR                    FAIL    0.38s 
+ 4.CheckPIR                                  
+ 5.SetParameter1                             
+ 6.CheckButton                               
+ 7.SendSfis                                  
+---------------------------------------------------
+FAIL. Close COM sucessful....
+Write summary log server: F:\lsy\ID\U12I345T99\VML4030-FXN-1VZS\FT8 -> OK
+Write summary log localD:\Arlo_Logs\U12I345T99\VML4030-FXN-1VZS\FT8\27-11-2020 -> OK
+Details log local folder: D:\Arlo_Logs\U12I345T99\VML4030-FXN-1VZS\FT8\27-11-2020\FAIL
+Write Detail log local pass 
+Details log server folder: F:\lsy\ID\Detail\U12I345T99\VML4030-FXN-1VZS\FT8\27-11-2020\FAIL
+Write detail log server pass 
+end show fail
+==================End show fail=================

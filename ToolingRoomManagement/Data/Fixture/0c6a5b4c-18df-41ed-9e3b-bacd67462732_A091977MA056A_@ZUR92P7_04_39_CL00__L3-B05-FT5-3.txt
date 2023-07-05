@@ -1,0 +1,25 @@
+ShowUIChecking ABA status...
+No record, test directly
+iaba :-1
+===[ Check Grey wall Night ]===
+Close CaliTool 
+Overwrite cal_FT5_Night.ini file to \CaliTool\cal.ini
+Copy standard script before open
+===[ CL00 Can not found DUT ... ]===
+Close CaliTool 
+Delay 0 MiliSecond
+==============Start show fail=================
+TEST PROGRAM VERSION:2.3.2.8  TEST CYCLE TIME:3
+===[ CL00 Can not found DUT ... ]===
+
+----------------Summary all test item--------------
+Test item name                Result  Test time
+ 1.CheckGreyWallGen5_Night1    FAIL    2.45s 
+ 2.CheckGreyWallGen5_ICR                     
+ 3.CheckGreyWallGen5_SportLight1              
+ 4.CheckColorUniformity                      
+ 5.SendSfis                                  
+---------------------------------------------------
+Write summary log server: F:\lsy\ID\U12I386T01\VMC5040-FXN\FT5 -> OK
+Write summary log localD:\Arlo_Logs\U12I386T01\VMC5040-FXN\FT5\20-11-2020 -> OK
+Details log local folder: D:\Arlo_Logs\U12I386T01\VMC5040-FXN\FT5\20-11-2020\FAIL

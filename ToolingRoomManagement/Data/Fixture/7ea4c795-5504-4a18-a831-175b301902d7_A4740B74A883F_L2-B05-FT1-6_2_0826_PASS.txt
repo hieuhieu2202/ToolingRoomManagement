@@ -1,0 +1,562 @@
+******** Function [ConnectDUT] ********
+
+===[ Connect DUT Passed ... ]===
+
+******** Function [CheckALSLLUX] ********
+===[ Check ALS LLUX ]===
+unset burnin
+=================>sub_addr =f40000, para_addr=f20000 block_size=20000
+553 
+554 
+555 
+556 
+
+max 556, min 553, max2 -1, min2 -1
+oldest item 0, latest item 3
+blk_no:0x7a
+real_row_adr:0x1e80
+blk_no:0x7b
+real_row_adr:0x1ec0
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x1ec0 src_adr=0x203c5480
+bbt magic num
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=1231  page_count=1
+col_adr=0x0 row_adr=0x1ec1 src_adr=0x203c5c80
+bbt magic num
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=4  page_count=1
+col_adr=0x0 row_adr=0x1e80 src_adr=0x203c52a8
+bbt magic num
+save address 0xf40000, new version=557
+
+# 
+
+============CHECK ALS 2 LUX============= 
+
+AT+LST=1,001
+AT+LST=1,001
+OK
+AT+LST=2,053
+AT+LST=2,053
+OK
+
+
+=============Start check 2Lux_IROff=============
+======Check mode 2Lux_IROff time 1=====
+gpio ir_en off
+
+# 
+
+fmcu ALSstop
+FXCN_mcu_write hci data cmd=5
+
+# 
+
+fmcu ALSstart
+FXCN_mcu_write hci data cmd=4
+
+# 
+
+Delay 2 seconds before read...
+fmcu ALSread
+
+ALS Value(lux):0.990
+
+# 
+
+fmcu ALSread
+ALS Value(lux):0.990
+
+# 
+ 
+fmcu ALSread
+
+ALS Value(lux):0.990
+
+# 
+
+fmcu ALSread
+ALS Value(lux):0.990
+
+# 
+ 
+fmcu ALSread
+ALS Value(lux):0.990
+
+# 
+
+fmcu ALSread
+ALS Value(lux):0.990
+
+# 
+ 
+fmcu ALSread
+
+ALS Value(lux):0.990
+
+# 
+
+fmcu ALSread
+ALS Value(lux):0.990
+
+# 
+ 
+fmcu ALSread
+
+ALS Value(lux):0.990
+
+# 
+
+fmcu ALSread
+ALS Value(lux):0.990
+
+# 
+ 
+fmcu ALSstop
+FXCN_mcu_write hci data cmd=5
+
+# 
+
+============CHECK ALS 5 LUX============= 
+
+AT+LST=1,001
+AT+LST=1,001
+OK
+AT+LST=2,107
+AT+LST=2,107
+OK
+Set light 5lux pass. 
+
+
+=============Start check 5Lux_IROff=============
+======Check mode 5Lux_IROff time 1=====
+gpio ir_en off
+
+# 
+
+fmcu ALSstop
+FXCN_mcu_write hci data cmd=5
+
+# 
+
+fmcu ALSstart
+FXCN_mcu_write hci data cmd=4
+
+# 
+
+Delay 2 seconds before read...
+fmcu ALSread
+
+ALS Value(lux):2.666
+
+# 
+
+fmcu ALSread
+ALS Value(lux):2.666
+
+# 
+ 
+fmcu ALSread
+ALS Value(lux):2.669
+
+# 
+
+fmcu ALSread
+ALS Value(lux):2.669
+
+# 
+ 
+fmcu ALSread
+
+ALS Value(lux):2.670
+
+# 
+
+fmcu ALSread
+ALS Value(lux):2.670
+
+# 
+ 
+fmcu ALSread
+
+ALS Value(lux):2.670
+
+# 
+
+fmcu ALSread
+ALS Value(lux):2.670
+
+# 
+ 
+fmcu ALSread
+
+ALS Value(lux):2.670
+
+# 
+
+fmcu ALSread
+ALS Value(lux):2.670
+
+# 
+ 
+fmcu ALSstop
+FXCN_mcu_write hci data cmd=5
+
+# 
+
+============CHECK ALS 10 LUX============= 
+
+AT+LST=1,001
+AT+LST=1,001
+OK
+AT+LST=2,171
+AT+LST=2,171
+OK
+set light 10lux pass 
+Read 10lux IR OFF 
+
+
+=============Start check 10Lux_IROff=============
+======Check mode 10Lux_IROff time 1=====
+gpio ir_en off
+
+# 
+
+fmcu ALSstop
+FXCN_mcu_write hci data cmd=5
+
+# 
+
+fmcu ALSstart
+FXCN_mcu_write hci data cmd=4
+
+# 
+
+Delay 2 seconds before read...
+fmcu ALSread
+
+ALS Value(lux):5.176
+
+# 
+
+fmcu ALSread
+ALS Value(lux):5.176
+
+# 
+ 
+fmcu ALSread
+
+ALS Value(lux):5.179
+
+# 
+
+fmcu ALSread
+ALS Value(lux):5.179
+
+# 
+ 
+fmcu ALSread
+
+ALS Value(lux):5.180
+
+# 
+
+fmcu ALSread
+ALS Value(lux):5.180
+
+# 
+ 
+fmcu ALSread
+
+ALS Value(lux):5.180
+
+# 
+
+fmcu ALSread
+ALS Value(lux):5.180
+
+# 
+ 
+fmcu ALSread
+ALS Value(lux):5.180
+
+# 
+
+fmcu ALSread
+ALS Value(lux):5.180
+
+# 
+ 
+fmcu ALSstop
+FXCN_mcu_write hci data cmd=5
+
+# 
+
+Average ALS_2LUX:0.99
+Average ALS_5LUX:2.67
+Average ALS_10LUX:5.18
+LLUX:0.515666666666667
+ALS_LLUX:51.57%
+ALS2LuxOff compenstation: 1.91984486102133  - Spec: (1.8 - 2.2)
+============CHECK ALS 2 LUX OFF PASS============= 
+ALS5LuxOff compenstation: 5.17776341305753  - Spec: (4.5 - 5.5)
+============CHECK ALS 5 LUX OFF PASS============= 
+ALS10LuxOff compenstation: 10.0452488687783  - Spec: (9 - 11)
+============CHECK ALS 10 LUX OFF PASS============= 
+CHECK VALUE ALS_LLUX [40%,75%] : 51.567% ----> PASS
+===[ Check ALS LLUX pass ]===
+******** Function [CheckALSHLUX] ********
+===[ Check ALS HLUX ]===
+unset burnin
+=================>sub_addr =f40000, para_addr=f20000 block_size=20000
+557 
+554 
+555 
+556 
+
+max 557, min 554, max2 -1, min2 -1
+oldest item 1, latest item 0
+blk_no:0x7c
+real_row_adr:0x1f00
+blk_no:0x7d
+real_row_adr:0x1f40
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x1f40 src_adr=0x203c5480
+bbt magic num
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=1231  page_count=1
+col_adr=0x0 row_adr=0x1f41 src_adr=0x203c5c80
+bbt magic num
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=4  page_count=1
+col_adr=0x0 row_adr=0x1f00 src_adr=0x203c52a8
+bbt magic num
+save address 0xf80000, new version=558
+
+# 
+
+============CHECK ALS 1000 LUX============= 
+
+AT+LST=1,529
+AT+LST=1,529
+OK
+AT+LST=2,500
+AT+LST=2,500
+OK
+
+
+=============Start check 1000Lux_IROff=============
+======Check mode 1000Lux_IROff time 1=====
+gpio ir_en off
+
+# 
+
+fmcu ALSstop
+FXCN_mcu_write hci data cmd=5
+
+# 
+
+fmcu ALSstart
+FXCN_mcu_write hci data cmd=4
+
+# 
+
+Delay 2 seconds before read...
+fmcu ALSread
+
+ALS Value(lux):523.690
+
+# 
+
+fmcu ALSread
+ALS Value(lux):523.690
+
+# 
+ 
+fmcu ALSread
+
+ALS Value(lux):523.630
+
+# 
+
+fmcu ALSread
+ALS Value(lux):523.630
+
+# 
+ 
+fmcu ALSread
+
+ALS Value(lux):523.580
+
+# 
+
+fmcu ALSread
+ALS Value(lux):523.580
+
+# 
+ 
+fmcu ALSread
+
+ALS Value(lux):523.550
+
+# 
+
+fmcu ALSread
+ALS Value(lux):523.550
+
+# 
+ 
+fmcu ALSread
+
+ALS Value(lux):523.520
+
+# 
+
+fmcu ALSread
+ALS Value(lux):523.520
+
+# 
+ 
+fmcu ALSstop
+FXCN_mcu_write hci data cmd=5
+
+# 
+
+============CHECK ALS 2000 LUX============= 
+
+AT+LST=1,988
+AT+LST=1,988
+OK
+AT+LST=2,175
+AT+LST=2,175
+OK
+Set light 2000lux pass. 
+
+
+=============Start check 2000Lux_IROff=============
+======Check mode 2000Lux_IROff time 1=====
+gpio ir_en off
+
+# 
+
+fmcu ALSstop
+FXCN_mcu_write hci data cmd=5
+
+# 
+
+fmcu ALSstart
+FXCN_mcu_write hci data cmd=4
+
+# 
+
+Delay 2 seconds before read...
+fmcu ALSread
+
+ALS Value(lux):1007.980
+
+# 
+
+fmcu ALSread
+ALS Value(lux):1007.980
+
+# 
+ 
+fmcu ALSread
+
+ALS Value(lux):1007.860
+
+# 
+
+fmcu ALSread
+ALS Value(lux):1007.860
+
+# 
+ 
+fmcu ALSread
+
+ALS Value(lux):1007.880
+
+# 
+
+fmcu ALSread
+ALS Value(lux):1007.880
+
+# 
+ 
+fmcu ALSread
+
+ALS Value(lux):1007.940
+
+# 
+
+fmcu ALSread
+ALS Value(lux):1007.940
+
+# 
+ 
+fmcu ALSread
+
+ALS Value(lux):1008.000
+
+# 
+
+fmcu ALSread
+ALS Value(lux):1008.000
+
+# 
+ 
+fmcu ALSstop
+FXCN_mcu_write hci data cmd=5
+
+# 
+
+Average ALS_1000LUX:523.55
+Average ALS_2000LUX:1007.94
+HLUX:0.51376
+ALS_HLUX:51.38%
+ALS1000LuxOff compenstation: 1019.05559015883  - Spec: (900 - 1100)
+============CHECK ALS 1000 LUX OFF PASS============= 
+ALS2000LuxOff compenstation: 1961.88881968234  - Spec: (1900 - 2100)
+============CHECK ALS 2000 LUX OFF PASS============= 
+CHECK VALUE ALS_HLUX [40%,75%] : 51.376% ----> PASS
+ Check  -10%  < ((ALS_HLUX - ALS_LLUX)/ALS_HLUX) * 100 < 10%: -0.372% --> Pass 
+===[ Check ALS HLUX pass ]===
+******** Function [BurnALSTHLUX] ********
+===[ Burn ALS THRES LUX ]===
+ALS_THRES_LUX = 160 * (ALS_LLUX/100) = 82.507
+Format burn: ALS_THRES_LUX = 082507
+===[  Burn ALS THRES LUX pass ]===
+******** Function [SendSfis] ********
+
+===[ Send Sfis ]===
+EnableShipMode=1
+fmcu LED blue on
+FXCN_mcu_write hci data cmd=1
+
+# 
+
+fmcu ship_mode
+FXCN_mcu_write hci data cmd=64
+
+# 
+
+
+[================Summary =================]
+
+ConnectDUT                    PASS      0s   
+CheckALSLLUX                  PASS      21.79s
+CheckALSHLUX                  PASS      12.35s
+BurnALSTHLUX                  PASS      0.01s
+SendSfis                      PASS      0s   
+
+Test Time : 34s
+
+============================================
+
+Start save detail log pass ...
+Path log server : F:\lsy\ID\Detail\Arlo_Logs\U12I394\MODEL NAME\FT1\21-11-2020\PASS\
+Path log local : D:\Arlo_Logs\U12I394\MODEL NAME\FT1\21-11-2020\PASS\
+Skip save log pass to server..

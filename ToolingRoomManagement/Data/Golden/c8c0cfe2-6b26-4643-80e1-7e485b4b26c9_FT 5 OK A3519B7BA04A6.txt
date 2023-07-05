@@ -1,0 +1,181 @@
+ShowUI===[ Check Grey wall Night ]===
+Close CaliTool 
+Overwrite cal_FT5_Night.ini file to \CaliTool\cal.ini
+Copy standard script before open
+***Begin open CaliTool****
+script.ini: modify IQcal_Display = 0 .
+open CaliTool.exe file !
+***open CaliTool successful****
+
+ wait 7000 secs for image stable ...
+=================Capture image time 0==================
+Waiting create folder...
+Waiting create folder...
+Create folder sucess...
+Create file sucess...
+NGFinish get GreyWall value..
+
+LUM:
+Rect[0], Rect[1], Rect[2], Rect[3], Rect[4], Result[0], Result[1], Result[2], Result[3], Result[4], Exthemum Result
+63, 63, 111, 41, 41, PASS, PASS, PASS, PASS, PASS, PASS
+
+Brightness Uniformity:
+Rect[0], Rect[1], Rect[2], Rect[3], Rect[4], Result[0], Result[1], Result[2], Result[3], Result[4]
+56.76, 56.76, 100.00, 36.94, 36.94, PASS, PASS, *, PASS, PASS, 
+
+NG-Calibrated : 0, 0, 0, 0, 0, 0
+
+NG
+
+LUM:
+Rect[0], Rect[1], Rect[2], Rect[3], Rect[4], Result[0], Result[1], Result[2], Result[3], Result[4], Exthemum Result
+63, 63, 111, 41, 41, PASS, PASS, PASS, PASS, PASS, PASS
+
+Brightness Uniformity:
+Rect[0], Rect[1], Rect[2], Rect[3], Rect[4], Result[0], Result[1], Result[2], Result[3], Result[4]
+56.76, 56.76, 100.00, 36.94, 36.94, PASS, PASS, *, PASS, PASS, 
+
+NG-Calibrated : 0, 0, 0, 0, 0, 0
+
+NG
+Wait close Display...
+===[ Test Grey wall passed ... ]===
+
+===[ Check Grey wall sport light ]===
+Close CaliTool 
+Overwrite cal_FT5_Day.ini file to \CaliTool\cal.ini
+Copy standard script before open
+***Begin open CaliTool****
+script.ini: modify IQcal_Display = 0 .
+open CaliTool.exe file !
+***open CaliTool successful****
+
+ wait 5000 secs for image stable ...
+=================Capture image time 0==================
+Start copy .\CaliTool\output\GreyWall to .\CaliTool\output\GreyWall_backup_day1.
+Datetime (yyyy-MM-dd HH:mm:ss): 2020-11-26 14:40:16
+Start copy D:\FT5(U12I420)\CaliTool\output\GreyWall\.bpp to .\CaliTool\output\GreyWall_backup_day1\.bpp.
+Copy success...
+Start copy D:\FT5(U12I420)\CaliTool\output\GreyWall\.txt to .\CaliTool\output\GreyWall_backup_day1\.txt.
+Copy success...
+Delete folder image, txt before capture ...
+Waiting create folder...
+Waiting create folder...
+Waiting create folder...
+Create folder sucess...
+Create file sucess...
+Finish get GreyWall value..
+
+LUM:
+Rect[0], Rect[1], Rect[2], Rect[3], Rect[4], Result[0], Result[1], Result[2], Result[3], Result[4], Exthemum Result
+86, 89, 141, 96, 94, PASS, PASS, PASS, PASS, PASS, PASS
+
+Brightness Uniformity:
+Rect[0], Rect[1], Rect[2], Rect[3], Rect[4], Result[0], Result[1], Result[2], Result[3], Result[4]
+60.99, 63.12, 100.00, 68.09, 66.67, PASS, PASS, *, PASS, PASS, 
+
+NG-Calibrated : 0, 0, 0, 0, 0, 0
+
+NG
+
+LUM:
+Rect[0], Rect[1], Rect[2], Rect[3], Rect[4], Result[0], Result[1], Result[2], Result[3], Result[4], Exthemum Result
+86, 89, 141, 96, 94, PASS, PASS, PASS, PASS, PASS, PASS
+
+Brightness Uniformity:
+Rect[0], Rect[1], Rect[2], Rect[3], Rect[4], Result[0], Result[1], Result[2], Result[3], Result[4]
+60.99, 63.12, 100.00, 68.09, 66.67, PASS, PASS, *, PASS, PASS, 
+
+NG-Calibrated : 0, 0, 0, 0, 0, 0
+
+NG
+===[ Test Grey wall sport light passed ... ]===
+
+===[ Check Color Unifomity]===
+Source file: D:\FT5(U12I420)\CaliTool\output\2560_1440\Capture\20201126_144017.bmp
+Found image file...
+Delete old folder...
+Delete old bmp file in dest folder...
+Delete file .\ColorUniformityTest\TestImage.bmp 
+Open Tool check color uniformity!
+PASS, 
+y_MIN_LUM_VALUE: 125.198
+y_MAX_LUM_VALUE: 149.367
+y_LS_MAX_MIN_VALUE: 24.1691
+y_Corner_MAX_MIN_VALUE: 16.5464
+u_MIN_LUM_VALUE: 127.397
+u_MAX_LUM_VALUE: 127.972
+u_LS_MAX_MIN_VALUE: 0.130222
+u_Corner_MAX_MIN_VALUE: 0.445067
+v_MIN_LUM_VALUE: 127.106
+v_MAX_LUM_VALUE: 127.966
+v_LS_MAX_MIN_VALUE: 0.0595556
+v_Corner_MAX_MIN_VALUE: 0.8008
+
+ROI number, y, u, v :
+0, 127.834, 127.908, 127.451
+1, 134.999, 127.972, 127.754
+2, 125.198, 127.928, 127.844
+3, 141.744, 127.932, 127.696
+4, 149.367, 127.397, 127.106
+5, 138.005, 127.598, 127.165
+6, 135.686, 127.871, 127.966
+7, 0, 0, 0
+8, 132.58, 127.527, 127.462
+
+===[ Test Color Unifomity pass]===
+Close CaliTool 
+Delay 0 MiliSecond
+==============Start show pass================
+TEST PROGRAM VERSION:2.3.2.8  TEST CYCLE TIME:28
+
+----------------Summary all test item--------------
+Test item name                Result  Test time
+ 1.CheckGreyWallGen5_Night1    PASS    13.5s 
+ 2.CheckGreyWallGen5_SportLight1PASS    11.81s
+ 3.CheckColorUniformity        PASS    2.08s 
+ 4.SendSfis                    -Skip-        
+---------------------------------------------------
+Write summary log server: F:\lsy\ID\U12I420\MODEL NAME \FT5 -> OK
+Write summary log localD:\Arlo_Logs\U12I420\MODEL NAME \FT5\26-11-2020 -> OK
+Details log local folder: D:\Arlo_Logs\U12I420\MODEL NAME \FT5\26-11-2020\PASS
+Details log server folder: F:\lsy\ID\Detail\U12I420\MODEL NAME \FT5\26-11-2020\PASS
+UserName Test Off: Start copy D:\FT5(U12I420)\CaliTool\output to D:\Arlo_CaliTool\PASS\1111_02_40_23.
+Datetime (yyyy-MM-dd HH:mm:ss): 2020-11-26 14:40:23
+Start copy D:\FT5(U12I420)\CaliTool\output\2560_1440 to D:\Arlo_CaliTool\PASS\1111_02_40_23\2560_1440.
+Datetime (yyyy-MM-dd HH:mm:ss): 2020-11-26 14:40:23
+Start copy D:\FT5(U12I420)\CaliTool\output\2560_1440\Capture to D:\Arlo_CaliTool\PASS\1111_02_40_23\2560_1440\Capture.
+Datetime (yyyy-MM-dd HH:mm:ss): 2020-11-26 14:40:23
+Start copy D:\FT5(U12I420)\CaliTool\output\2560_1440\Capture\20201126_144005.bpp to D:\Arlo_CaliTool\PASS\1111_02_40_23\2560_1440\Capture\20201126_144005.bpp.
+Copy success...
+Start copy D:\FT5(U12I420)\CaliTool\output\2560_1440\Capture\20201126_144005.jpg to D:\Arlo_CaliTool\PASS\1111_02_40_23\2560_1440\Capture\20201126_144005.jpg.
+Copy success...
+Start copy D:\FT5(U12I420)\CaliTool\output\2560_1440\Capture\20201126_144005.txt to D:\Arlo_CaliTool\PASS\1111_02_40_23\2560_1440\Capture\20201126_144005.txt.
+Copy success...
+Start copy D:\FT5(U12I420)\CaliTool\output\2560_1440\Capture\20201126_144017.bmp to D:\Arlo_CaliTool\PASS\1111_02_40_23\2560_1440\Capture\20201126_144017.bmp.
+Copy success...
+Start copy D:\FT5(U12I420)\CaliTool\output\2560_1440\Capture\20201126_144017.jpg to D:\Arlo_CaliTool\PASS\1111_02_40_23\2560_1440\Capture\20201126_144017.jpg.
+Copy success...
+Start copy D:\FT5(U12I420)\CaliTool\output\2560_1440\Capture\20201126_144017.txt to D:\Arlo_CaliTool\PASS\1111_02_40_23\2560_1440\Capture\20201126_144017.txt.
+Copy success...
+Start copy D:\FT5(U12I420)\CaliTool\output\2560_1440\Capture\sensor.raw to D:\Arlo_CaliTool\PASS\1111_02_40_23\2560_1440\Capture\sensor.raw.
+Copy success...
+Start copy D:\FT5(U12I420)\CaliTool\output\GreyWall to D:\Arlo_CaliTool\PASS\1111_02_40_23\GreyWall.
+Datetime (yyyy-MM-dd HH:mm:ss): 2020-11-26 14:40:23
+Start copy D:\FT5(U12I420)\CaliTool\output\GreyWall\.bmp to D:\Arlo_CaliTool\PASS\1111_02_40_23\GreyWall\.bmp.
+Copy success...
+Start copy D:\FT5(U12I420)\CaliTool\output\GreyWall\.txt to D:\Arlo_CaliTool\PASS\1111_02_40_23\GreyWall\.txt.
+Copy success...
+Start copy D:\FT5(U12I420)\CaliTool\output\GreyWall_backup_day1 to D:\Arlo_CaliTool\PASS\1111_02_40_23\GreyWall_backup_day1.
+Datetime (yyyy-MM-dd HH:mm:ss): 2020-11-26 14:40:23
+Start copy D:\FT5(U12I420)\CaliTool\output\GreyWall_backup_day1\.bpp to D:\Arlo_CaliTool\PASS\1111_02_40_23\GreyWall_backup_day1\.bpp.
+Copy success...
+Start copy D:\FT5(U12I420)\CaliTool\output\GreyWall_backup_day1\.txt to D:\Arlo_CaliTool\PASS\1111_02_40_23\GreyWall_backup_day1\.txt.
+Copy success...
+Start copy D:\FT5(U12I420)\CaliTool\output\Info to D:\Arlo_CaliTool\PASS\1111_02_40_23\Info.
+Datetime (yyyy-MM-dd HH:mm:ss): 2020-11-26 14:40:23
+Start copy D:\FT5(U12I420)\CaliTool\output\Info\dutinfo.txt to D:\Arlo_CaliTool\PASS\1111_02_40_23\Info\dutinfo.txt.
+Copy success...
+Start copy D:\FT5(U12I420)\CaliTool\output\video to D:\Arlo_CaliTool\PASS\1111_02_40_23\video.
+Datetime (yyyy-MM-dd HH:mm:ss): 2020-11-26 14:40:23
+========Show pass finish=============

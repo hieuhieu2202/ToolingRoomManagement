@@ -1,0 +1,57 @@
+MAC : 0 11 22 33 44 55 
+SERIAL_NUM : ZU519ZH
+MODEL_NUM : 
+HW_REV : 
+BLE_MAC : 
+DEF_SSID : 
+DEF_PASSWD : 
+NV_EN_TH : 
+NV_EX_TH : 
+NV_IR_OFF_EX_TH : 
+NV_LUX_ENTER_TH : 
+IG_5lux_IR_OFF_TH : 0 0 0 0 0 0 
+IG_10lux_IR_OFF_TH : 0 0 0 0 0 0 
+SN send to sfis: ZU519ZH
+Time UI-SFIS: 2020/11/23 10:18:30
+
+ShowUIChecking ABA status...
+No record, test directly
+iaba :-1
+===[ Verify focus day mode ]===
+
+ Delay 7000 mili seconds for values stable ...
+Wait log file create ...
+=================Capture image time 1==================
+Waiting create folder...
+Waiting create folder...
+Waiting create folder...
+Waiting create folder...
+Waiting create folder...
+Waiting create folder...
+Create folder success...
+Create file success...
+get focus value sucess..
+01122334455
+mtf[0], mtf[1], mtf[2], mtf[3], mtf[4], Result[0], Result[1], Result[2], Result[3], Result[4], brightness[0], brightness[1], brightness[2], brightness[3], brightness[4], Result[0], Result[1], Result[2], Result[3], Result[4], barea_avg_y[0], warea_avg_y[0], barea_avg_y[1], warea_avg_y[1], barea_avg_y[2], warea_avg_y[2], barea_avg_y[3], warea_avg_y[3], barea_avg_y[4], warea_avg_y[4], Exthemum Result, Fool proof Result, Result1, Result2, Result
+5422, 5049, 6273, 5440, 5183, PASS, PASS, PASS, PASS, PASS, 14277, 14342, 15230, 14297, 14405, OK, OK, OK, OK, OK, 6497, 21891, 7001, 21282, 5578, 24362, 6496, 21997, 6853, 21605, OK, OK, OK, OK, PASS
+MTF values
+01122334455
+mtf[0], mtf[1], mtf[2], mtf[3], mtf[4], Result[0], Result[1], Result[2], Result[3], Result[4], brightness[0], brightness[1], brightness[2], brightness[3], brightness[4], Result[0], Result[1], Result[2], Result[3], Result[4], barea_avg_y[0], warea_avg_y[0], barea_avg_y[1], warea_avg_y[1], barea_avg_y[2], warea_avg_y[2], barea_avg_y[3], warea_avg_y[3], barea_avg_y[4], warea_avg_y[4], Exthemum Result, Fool proof Result, Result1, Result2, Result
+5422, 5049, 6273, 5440, 5183, PASS, PASS, PASS, PASS, PASS, 14277, 14342, 15230, 14297, 14405, OK, OK, OK, OK, OK, 6497, 21891, 7001, 21282, 5578, 24362, 6496, 21997, 6853, 21605, OK, OK, OK, OK, PASS
+===[ Test focus passed ... ]===
+
+Close CaliTool 
+Delay 0 MiliSecond
+==============Start show pass================
+TEST PROGRAM VERSION:2.3.2.8  TEST CYCLE TIME:13
+
+----------------Summary all test item--------------
+Test item name                Result  Test time
+ 1.VerifyFocusDayMode_Gen5     PASS    12.08s
+ 2.SendSfis                    -Skip-        
+---------------------------------------------------
+Write summary log server: F:\lsy\ID\U12I386T01\VMC5040-FXN\FT6 -> OK
+Write summary log localD:\Arlo_Logs\U12I386T01\VMC5040-FXN\FT6\23-11-2020 -> OK
+Details log local folder: D:\Arlo_Logs\U12I386T01\VMC5040-FXN\FT6\23-11-2020\PASS
+Details log server folder: F:\lsy\ID\Detail\U12I386T01\VMC5040-FXN\FT6\23-11-2020\PASS
+UserName Test Off: 

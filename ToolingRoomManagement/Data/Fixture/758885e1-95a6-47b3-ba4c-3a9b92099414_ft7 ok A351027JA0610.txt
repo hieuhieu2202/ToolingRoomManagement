@@ -1,0 +1,593 @@
+Wait to have OVTI Serial Port
+.
+Start connect !
+COM DUT OPENED!
+
+Wait # !
+
+
+# 
+
+
+# 
+Connect DUT sussess.
+info
+FXCN version: OWL_MFG_V000.03.02.004_mfg 
+Build Time: 08:16:11 Feb 24 2020
+
+IQC version: 20191209 V0.0.3
+Board ID: 4
+
+MAC: A4:11:62:71:6D:FE, id2 0
+
+SERIAL_NUM: A351027JA0610
+
+MODEL_NUM: FB1001
+
+HW_REV: H4
+
+BLE_MAC: A4:11:62:71:6D:FF, id2 5
+
+ALS_LLUX: 33.70%
+
+ALS_THRES_LUX: 053920
+
+ALS_HLUX: 34.44%
+
+2g_ssid: testgen5
+
+2g_passwd: 123456a@123456
+error: data length is forbidden as 0 when read serial flash
+
+wl_bd_pref: 0x00 0x00 0x00 0x00 
+error: data length is forbidden as 0 when read serial flash
+
+enc_key: 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 
+error: data length is forbidden as 0 when read serial flash
+
+auth_key: 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 
+error: data length is forbidden as 0 when read serial flash
+
+wrap_key: 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 
+error: data length is forbidden as 0 when read serial flash
+
+wrap_data: 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 
+
+ALS_IR_LEAKAGE: 000150
+
+# 
+DUTMAC: A4:11:62:71:6D:FE
+===[ Check firmware version passed ... ]===
+
+===Start check PIR trigger 2G===
+Ping reply from: 192.168.1.1 size:32 Time:0 TTL:64
+Ping reply from: 192.168.1.1 size:32 Time:0 TTL:64
+MAC: 789456123321
+--> Telnet: 192.168.1.1 789456123321
+telnetenable_new.exe 192.168.1.1 789456123321 admin password
+????!????
+
+BusyBox v1.7.2 (2018-06-29 17:44:33 CST) built-in shell (ash)
+Enter 'help' for a list of built-in commands.
+
+# ????!????
+
+BusyBox v1.7.2 (2018-06-29 17:44:33 CST) built-in shell (ash)
+Enter 'help' for a list of built-in commands.
+
+# 
+Enable Golden WiFi 2G and disable wifi 5G on Golden_5G ...
+wl -i eth2 down
+# 
+# wl radio on
+# 
+# wl up
+# 
+# wl isup
+1
+# 
+# stop4
+
+stop ok
+start1
+===[ START TO TEST CHANNEL 6 - 2G]===
+wl down
+# 
+# Chanspec set to 0x1000
+#wl up
+# 
+# wl isup
+1
+# 
+# SETOKiperfiperfServerwindowPtr: 2491318
+Found window iperft test 
+15:41:03
+wl --init
+Load wifi para from SFlash
+select scio 2
+scio_init: enter scio init, mode:4
+sdio_change_clk: read SCIO_HIGH_SPEED_REG failed, err 0x1
+scio_init: pre_init failed, try again
+sdio_change_clk: read SCIO_HIGH_SPEED_REG failed, err 0x1
+scio_init: pre_init failed, try again
+sdio_change_clk: read SCIO_HIGH_SPEED_REG failed, err 0x1
+scio_init: pre_init failed, try again
+sdio_change_clk: read SCIO_HIGH_SPEED_REG failed, err 0x1
+scio_init: pre_init failed, try again
+sdio_change_clk: read SCIO_HIGH_SPEED_REG failed, err 0x1
+scio_init: pre_init failed, try again
+sdio_change_clk: read SCIO_HIGH_SPEED_REG failed, err 0x1
+scio_init: pre_init failed, try again
+sdio_change_clk: read SCIO_HIGH_SPEED_REG failed, err 0x1
+scio_init: pre_init failed, got to reset init
+sdio_change_clk: read SCIO_HIGH_SPEED_REG = 0x1
+sdio_change_clk: set sdio clock 25000000
+sdio_change_clk: read again SCIO_HIGH_SPEED_REG = 0x1
+sdio_set_buswidth_4bit: card_bus_width_switch to 4bit
+sdio function num=3, wifi_run_flag=0, err = 0
+Getting WIFI mfg FW(FW1)
+id2:15 addr = 6c0580, len = 71080
+start2
+ len 462976...board_bcm4334fw_get len 462976
+free wifi_fw_buf
+Getting WIFI FW(FW2) by 16
+id2:16 addr = 756580, len = e40
+board_firmware_get len 3648
+free wifi_nvram_buf
+Getting WIFI FW(FW3) by 33
+id2:33 addr = 952940, len = 1e40
+board_clmdata_get len 7744
+Could not set Country code
+need download clm data
+WWD interface initialization FAILED: result 2002
+Wlan init for brcm wl fail, fatal error!
+
+# 
+15:41:04
+wl band b
+Please init wlan with before running wl cmd!!("wl --init")
+
+# 
+15:41:04
+wl 2g_rate -r 2
+Please init wlan with before running wl cmd!!("wl --init")
+
+# 
+15:41:05
+wl mpc 0
+Please init wlan with before running wl cmd!!("wl --init")
+
+# 
+15:41:05
+wl antdiv_en 0
+Please init wlan with before running wl cmd!!("wl --init")
+
+# 
+15:41:05
+wl antdiv 0
+Please init wlan with before running wl cmd!!("wl --init")
+
+# 
+Golden 2G SSID:NETGEAR7-02 
+Setting DUT WiFi connection  
+15:41:05
+ov wifi_connect NETGEAR7-02 abcdef1234
+select scio 2
+scio_init: enter scio init, mode:4
+sdio_change_clk: read SCIO_HIGH_SPEED_REG = 0x1
+sdio_change_clk: set sdio clock 25000000
+sdio_change_clk: read again SCIO_HIGH_SPEED_REG = 0x1
+sdio_set_buswidth_4bit: card_bus_width_switch to 4bit
+sdio function num=3, wifi_run_flag=1, err = 0
+WLAN MAC Address : A4:11:62:71:6D:FE
+WLAN Firmware    : wl0: May 15 2019 16:03:10 version 13.18.17 (r714950 WLTEST) FWID 01-5f7f7106
+WLAN CLM         : API: 18.2 Data: 9.10.0 Compiler: 1.36.1 ClmImport: 1.34.1 Creation: 2019-03-29 18:48:42 
+disable autoarp mode
+wwd_arp_offload_enable: successfully enabed ARP offload to 0
+wlan_is_connected: not associated!
+wlan_is_connected: not associated!
+Delete file ssummary.txt 
+Send error: Could not find file 'D:\FT7(U12I420)\Output.txt'.
+iTestResult: 0
+Joining : NETGEAR7-02, channel 6
+wlan_msg_hdl_cb(1)
+Successfully joined : NETGEAR7-02
+WIFI Connected!
+wl0: addr:192.168.1.134
+ Mask:255.255.255.0
+ gw:192.168.1.1
+ dns:192.168.1.1
+wl0 DHCP Done!!
+IpAddr: 192.168.1.134
+NetMask: 255.255.255.0
+GateWay: 192.168.1.1
+
+# 
+Connect to Golden successful...
+Check ping cameraIP 
+Check ping cameraIP round: 0
+Ping reply from: 192.168.1.134 size:32 Time:3 TTL:255
+Ping reply from: 192.168.1.134 size:32 Time:1 TTL:255
+15:41:11
+wl rssi
+-66
+
+# 
+
+...-66
+Check RSSI pass
+
+
+15:41:11
+iperf -c 192.168.1.200 -u -b 3M -t 1
+iperf v2.0.5
+setting:c, 192.168.1.200
+setting:u, NULL
+setting:b, 3M
+setting:t, 1
+
+# 
+------------------------------------------------------------
+Client connecting to 192.168.1.200, UDP port 5001
+Sending 1470 byte datagrams
+UDP buffer size: -1.00 Byte (default)
+------------------------------------------------------------
+[  3] local 0.0.0.0 port 55674 connected with 192.168.1.200 port 5001
+====Start check PIR false trigger 2G level 1 ======
+15:41:12
+[ ID] Interval       Transfer     Bandwidth
+[  3]  0.0- 1.0 sec  366 KBytes  2.99 Mbits/sec
+[  3] Sent 255 datagrams
+fmcu PIRINT_test 15
+Start PIR interrupt with sensitivity: 15
+FXCN_mcu_write hci data cmd=43
+[  3] Server Report:
+[  3]  0.0- 1.0 sec  366 KBytes  2.95 Mbits/sec   5.848 ms    1/  256 (0.39%)
+iperf done
+FXCN_mcu_write hci data cmd=43
+
+# 
+Wait 20 seconds and check result...
+0 seconds 
+15:41:14
+fmcu PIRINT_read
+PIR Value:0
+PIR1:failed;
+
+# 
+Count time: 1121
+1 seconds 
+15:41:15
+fmcu PIRINT_read
+PIR Value:0
+
+PIR1:failed;
+
+# 
+Count time: 2246
+15:41:15
+iperf -c 192.168.1.200 -u -b 3M -t 1
+iperf v2.0.5
+setting:c, 192.168.1.200
+setting:u, NULL
+setting:b, 3M
+setting:t, 1
+
+# 
+------------------------------------------------------------
+Client connecting to 192.168.1.200, UDP port 5001
+Sending 1470 byte datagrams
+UDP buffer size: -1.00 Byte (default)
+------------------------------------------------------------
+[  3] local 0.0.0.0 port 55675 connected with 192.168.1.200 port 5001
+2 seconds 
+15:41:16
+fmcu PIRINT_read
+PIR Value:0
+PIR1:failed;
+
+# 
+Count time: 3386
+[  3]  0.0- 1.0 sec  366 KBytes  2.98 Mbits/sec
+[  3] Sent 255 datagrams
+[  3] Server Report:
+[  3]  0.0- 1.0 sec  366 KBytes  3.10 Mbits/sec   2.906 ms    1/  256 (0.39%)
+iperf done
+3 seconds 
+15:41:17
+fmcu PIRINT_read
+PIR Value:0
+PIR1:failed;
+
+# 
+Count time: 4511
+4 seconds 
+15:41:18
+fmcu PIRINT_read
+PIR Value:0
+PIR1:failed;
+
+# 
+Count time: 5637
+15:41:20
+iperf -c 192.168.1.200 -u -b 3M -t 1
+iperf v2.0.5
+setting:c, 192.168.1.200
+setting:u, NULL
+setting:b, 3M
+setting:t, 1
+
+# 
+------------------------------------------------------------
+Client connecting to 192.168.1.200, UDP port 5001
+Sending 1470 byte datagrams
+UDP buffer size: -1.00 Byte (default)
+------------------------------------------------------------
+[  3] local 0.0.0.0 port 55676 connected with 192.168.1.200 port 5001
+5 seconds 
+15:41:20
+fmcu PIRINT_read
+PIR Value:0
+
+PIR1:failed;
+
+# 
+Count time: 6762
+[  3]  0.0- 1.0 sec  366 KBytes  3.00 Mbits/sec
+[  3] Sent 255 datagrams
+[  3] Server Report:
+[  3]  0.0- 1.0 sec  366 KBytes  2.86 Mbits/sec   5.352 ms    1/  256 (0.39%)
+iperf done
+6 seconds 
+15:41:21
+fmcu PIRINT_read
+PIR Value:0
+PIR1:failed;
+
+# 
+Count time: 7918
+7 seconds 
+15:41:22
+fmcu PIRINT_read
+PIR Value:0
+PIR1:failed;
+
+# 
+Count time: 9059
+8 seconds 
+15:41:23
+fmcu PIRINT_read
+PIR Value:0
+PIR1:failed;
+
+# 
+Count time: 10200
+15:41:24
+iperf -c 192.168.1.200 -u -b 3M -t 1
+iperf v2.0.5
+setting:c, 192.168.1.200
+setting:u, NULL
+setting:b, 3M
+setting:t, 1
+
+# 
+------------------------------------------------------------
+Client connecting to 192.168.1.200, UDP port 5001
+Sending 1470 byte datagrams
+UDP buffer size: -1.00 Byte (default)
+------------------------------------------------------------
+[  3] local 0.0.0.0 port 55677 connected with 192.168.1.200 port 5001
+9 seconds 
+15:41:24
+fmcu PIRINT_read
+PIR Value:0
+PIR1:failed;
+
+# 
+Count time: 11325
+[  3]  0.0- 1.0 sec  366 KBytes  2.99 Mbits/sec
+[  3] Sent 255 datagrams
+[  3] Server Report:
+[  3]  0.0- 1.0 sec  366 KBytes  3.09 Mbits/sec   4.263 ms    1/  256 (0.39%)
+iperf done
+10 seconds 
+15:41:25
+fmcu PIRINT_read
+PIR Value:0
+PIR1:failed;
+
+# 
+Count time: 12466
+11 seconds 
+15:41:26
+fmcu PIRINT_read
+PIR Value:0
+PIR1:failed;
+
+# 
+Count time: 13591
+12 seconds 
+15:41:28
+fmcu PIRINT_read
+PIR Value:0
+PIR1:failed;
+
+# 
+Count time: 14716
+15:41:28
+iperf -c 192.168.1.200 -u -b 3M -t 1
+iperf v2.0.5
+setting:c, 192.168.1.200
+setting:u, NULL
+setting:b, 3M
+setting:t, 1
+
+# 
+------------------------------------------------------------
+Client connecting to 192.168.1.200, UDP port 5001
+Sending 1470 byte datagrams
+UDP buffer size: -1.00 Byte (default)
+------------------------------------------------------------
+[  3] local 0.0.0.0 port 55678 connected with 192.168.1.200 port 5001
+13 seconds 
+15:41:29
+fmcu PIRINT_read
+PIR Value:0
+PIR1:failed;
+
+# 
+[  3]  0.0- 1.0 sec  365 KBytes  2.98 Mbits/sec
+[  3] Sent 254 datagrams
+[  3] Server Report:
+[  3]  0.0- 1.0 sec  365 KBytes  3.08 Mbits/sec   4.973 ms    1/  255 (0.39%)
+iperf done
+Count time: 15872
+14 seconds 
+15:41:30
+fmcu PIRINT_read
+PIR Value:0
+PIR1:failed;
+
+# 
+Count time: 16998
+15 seconds 
+15:41:31
+fmcu PIRINT_read
+PIR Value:0
+PIR1:failed;
+
+# 
+Count time: 18138
+15:41:32
+iperf -c 192.168.1.200 -u -b 3M -t 1
+iperf v2.0.5
+setting:c, 192.168.1.200
+setting:u, NULL
+setting:b, 3M
+setting:t, 1
+
+# 
+------------------------------------------------------------
+Client connecting to 192.168.1.200, UDP port 5001
+Sending 1470 byte datagrams
+UDP buffer size: -1.00 Byte (default)
+------------------------------------------------------------
+[  3] local 0.0.0.0 port 55679 connected with 192.168.1.200 port 5001
+16 seconds 
+15:41:32
+fmcu PIRINT_read
+PIR Value:0
+PIR1:failed;
+
+# 
+Count time: 19279
+========Check PIR false trigger 2G level 1 pass!========
+
+[  3]  0.0- 1.0 sec  365 KBytes  2.98 Mbits/sec
+[  3] Sent 254 datagrams
+[  3] Server Report:
+[  3]  0.0- 1.0 sec  365 KBytes  3.03 Mbits/sec   3.019 ms    1/  255 (0.39%)
+iperf done
+check ipert log ......
+ipert log : ------------------------------------------------------------
+Server listening on UDP port 5001
+Receiving 1470 byte datagrams
+UDP buffer size: 64.0 KByte (default)
+------------------------------------------------------------
+[192] local 192.168.1.200 port 5001 connected with 192.168.1.134 port 55674
+[ ID] Interval       Transfer     Bandwidth       Jitter   Lost/Total Datagrams
+[192]  0.0- 1.0 sec   363 KBytes  2.98 Mbits/sec  3.115 ms 1835365491/  253 (7.3e+008%)
+[192]  0.0- 1.0 sec   366 KBytes  2.95 Mbits/sec  5.849 ms    1/  256 (0.39%)
+[192] local 192.168.1.200 port 5001 connected with 192.168.1.134 port 55675
+[ ID] Interval       Transfer     Bandwidth       Jitter   Lost/Total Datagrams
+[192]  0.0- 1.0 sec   366 KBytes  3.10 Mbits/sec  2.907 ms    1/  256 (0.39%)
+[192] local 192.168.1.200 port 5001 connected with 192.168.1.134 port 55676
+[ ID] Interval       Transfer     Bandwidth       Jitter   Lost/Total Datagrams
+[192]  0.0- 1.0 sec   362 KBytes  2.96 Mbits/sec  2.934 ms    0/  252 (0%)
+[192]  0.0- 1.0 sec   366 KBytes  2.86 Mbits/sec  5.353 ms    1/  256 (0.39%)
+[192] local 192.168.1.200 port 5001 connected with 192.168.1.134 port 55677
+[ ID] Interval       Transfer     Bandwidth       Jitter   Lost/Total Datagrams
+[192]  0.0- 1.0 sec   366 KBytes  3.09 Mbits/sec  4.264 ms    1/  256 (0.39%)
+[192] local 192.168.1.200 port 5001 connected with 192.168.1.134 port 55678
+[ ID] Interval       Transfer     Bandwidth       Jitter   Lost/Total Datagrams
+[192]  0.0- 1.0 sec   365 KBytes  3.08 Mbits/sec  4.974 ms    1/  255 (0.39%)
+[192] local 192.168.1.200 port 5001 connected with 192.168.1.134 port 55679
+[ ID] Interval       Transfer     Bandwidth       Jitter   Lost/Total Datagrams
+[192]  0.0- 1.0 sec   365 KBytes  3.03 Mbits/sec  3.020 ms    1/  255 (0.39%)
+
+PassRate2G = 100%
+========Check throughput 2G pass========
+mydas_detail5: ,SMO ,,SEMPID , rssi:, -66,3.00625,100,Channel 6,Ant1_Level_15,1,Ant1_Level_15,1,Ant1_Level_20,1,Ant1_Level_25,1,Ant1_Level_30,1,Time1,19.2882706,
+===[ Test PIR false trigger 2G Ant1 passed... ]===
+
+Ant2 done
+15:41:38
+smode 1
+Easycam Foxconn MFG
+wlan_msg_hdl_cb(2)
+WARN: mpu_cmd(0x4030a) before mpu_start()
+R[0xe0033f18]=0x0
+R[0xe0033f1c]=0x0
+R[0xe0033f20]=0x0
+R[0xe0033f24]=0x0
+R[0xe0033f28]=0x0
+R[0xe0033f2c]=0x0
+R[0xe0033f30]=0x0
+R[0xe0033f34]=0x0
+R[0xe0033f38]=0x0
+R[0xe0033f3c]=0x0
+R[0xe0033f40]=0x0
+R[0xe0033f44]=0x0
+R[0xe0033f48]=0x0
+R[0xe0033f4c]=0x0
+R[0xe0033f50]=0x0
+R[0xe0033f54]=0x0
+R[0xe0033f58]=0x0
+R[0xe0033f5c]=0x0
+R[0xe0033f60]=0x0
+R[0xe0033f64]=0x0
+R[0xe0033f68]=0x0
+R[0xe0033f6c]=0x0
+R[0xe0033f70]=0x0
+R[0xe0033f74]=0x0
+R[0xe0032838]=0x0
+R[0xe003283c]=0x0
+R[0xe0032840]=0x0
+R[0xe0032844]=0x0
+R[0xe0032848]=0x0
+R[0xe003284c]=0x0
+R[0xe0032850]=0x0
+R[0xe0032854]=0x0
+R[0xe0032858]=0x0
+R[0xe003285c]=0x0
+R[0xe0032860]=0x0
+R[0xe0032864]=0x0
+R[0xe0032868]=0x0
+R[0xe003286c]=0x0
+R[0xe0032870]=0x0
+R[0xe0032874]=0x0
+R[0xe0032878]=0x0
+R[0xe003287c]=0x0
+
+# 
+Close CaliTool 
+Delay 0 MiliSecond
+==============Start show pass================
+TEST PROGRAM VERSION:2.3.2.8  TEST CYCLE TIME:41
+PASS Close COM ...
+
+----------------Summary all test item--------------
+Test item name                Result  Test time
+ 1.ConnectDUT                  PASS    0.81s 
+ 2.CheckFWVersion_Gen5         PASS    0.12s 
+ 3.CheckFalseTrigger_Falcon_2G_Ant_Multi_LevelPASS    39.22s
+ 4.SendSfis                    -Skip-        
+---------------------------------------------------
+Write summary log server: F:\lsy\ID\U12I420\MODEL NAME \FT7 -> OK
+Write summary log localD:\Arlo_Logs\U12I420\MODEL NAME \FT7\26-11-2020 -> OK
+Details log local folder: D:\Arlo_Logs\U12I420\MODEL NAME \FT7\26-11-2020\PASS
+Details log server folder: F:\lsy\ID\Detail\U12I420\MODEL NAME \FT7\26-11-2020\PASS
+UserName Test Off: ========Show pass finish=============
+This tester already tested 23 pcs after reboot golden
+stop4
+stop ok

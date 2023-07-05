@@ -1,0 +1,250 @@
+arpd.bat already run
+
+===[ Upgrade Firmwave Subgig time ]===
+17:03:21
+MCU.Send:PIN4_OFF
+PIN4_OFF_OK
+
+
+Microsoft Windows XP [Version 6.2.9200]
+(C) Copyright 1985-2001 Microsoft Corp.
+
+D:\PT2(U12H383)\commander>commander adapter dbgmode out
+WARNING: No serial number or IP address given, cannot lock access to adapter.
+Setting debug mode to OUT...
+DONE
+
+D:\PT2(U12H383)\commander>commander flash --device efr32 BRD4257A_915_BR100_De50CT304_DUT.hex$$
+Parsing file BRD4257A_915_BR100_De50CT304_DUT.hex...
+Device "efr32" seems to be unsupported by JLink, falling back to legacy flashloader.
+Flashing 110592 bytes to address 0x00000000
+Resetting...$
+Uploading flash loader...
+Waiting for flashloader to become ready...
+ERROR: Unknown error in flashloader.
+Finished!
+DONE
+
+D:\PT2(U12H383)\commander>
+ExcuteCMDTime =2.9822485
+Retry upgrade Subgig test firmware
+
+Microsoft Windows XP [Version 6.2.9200]
+(C) Copyright 1985-2001 Microsoft Corp.
+
+D:\PT2(U12H383)\commander>commander adapter dbgmode out
+WARNING: No serial number or IP address given, cannot lock access to adapter.
+Setting debug mode to OUT...
+DONE
+
+D:\PT2(U12H383)\commander>commander flash --device efr32 BRD4257A_915_BR100_De50CT304_DUT.hex$
+Parsing file BRD4257A_915_BR100_De50CT304_DUT.hex...
+Device "efr32" seems to be unsupported by JLink, falling back to legacy flashloader.
+Flashing 110592 bytes to address 0x00000000
+Resetting...
+Uploading flash loader...$
+Waiting for flashloader to become ready...
+Erasing flash...
+Flashing...$
+ERROR: Unknown error in flashloader.
+Finished!
+
+D:\PT2(U12H383)\commander>
+
+DONE
+
+D:\PT2(U12H383)\commander>
+ExcuteCMDTime =2.9669979
+Retry upgrade Subgig test firmware
+
+Microsoft Windows XP [Version 6.2.9200]
+(C) Copyright 1985-2001 Microsoft Corp.
+
+D:\PT2(U12H383)\commander>commander adapter dbgmode out
+WARNING: No serial number or IP address given, cannot lock access to adapter.
+Setting debug mode to OUT...
+DONE
+
+D:\PT2(U12H383)\commander>commander flash --device efr32 BRD4257A_915_BR100_De50CT304_DUT.hex$
+Parsing file BRD4257A_915_BR100_De50CT304_DUT.hex...$
+Device "efr32" seems to be unsupported by JLink, falling back to legacy flashloader.
+Flashing 110592 bytes to address 0x00000000
+Resetting...$
+Uploading flash loader...
+Waiting for flashloader to become ready...
+ERROR: Unknown error in flashloader.
+Finished!
+DONE
+
+D:\PT2(U12H383)\commander>
+ExcuteCMDTime =3.0337503
+Retry upgrade Subgig test firmware
+OPEN_OK
+Close: Upgrade FW
+CLOSE_OK
+
+Microsoft Windows XP [Version 6.2.9200]
+(C) Copyright 1985-2001 Microsoft Corp.
+
+D:\PT2(U12H383)\commander>commander adapter dbgmode out
+WARNING: No serial number or IP address given, cannot lock access to adapter.$
+Setting debug mode to OUT...
+DONE
+
+D:\PT2(U12H383)\commander>commander flash --device efr32 BRD4257A_915_BR100_De50CT304_DUT.hex$
+Parsing file BRD4257A_915_BR100_De50CT304_DUT.hex...
+Device "efr32" seems to be unsupported by JLink, falling back to legacy flashloader.
+Flashing 110592 bytes to address 0x00000000
+Resetting...
+Uploading flash loader...
+Waiting for flashloader to become ready...
+Erasing flash...
+Flashing...$$
+Verifying written data...$
+Resetting...$
+Finished!
+DONE
+
+D:\PT2(U12H383)\commander>
+ExcuteCMDTime =4.5577667
+17:04:00
+SDUT.Send:
+
+
+D:\PT2(U12H383)\commander>
+
+> ===[ Upgrade Firmwave Subgig finished ... ]===
+===[ Check Frequency + Power Subgig ]===
+17:04:01
+SDUT.Send:settxtone 1
+settxtone 1
+> {{(setTxTone)}{Tone:Enabled}{None:Disabled}{Time:2564559}}
+
+
+D:\PT2(U12H383)\commander>
+D:\PT2(U12H383)\commander>
+
+
+
+ wait server!
+##Startasdsa
+
+Setting Spectrum success!
+Freq Value:915202500 Hz
+Power Value:-47.436 dBm
+Delay 200 MiliSecond
+Freq Value:915202500 Hz
+Power Value:-47.436 dBm
+Delay 200 MiliSecond
+Freq Value:915007500 Hz
+Power Value:19.605 dBm
+Delay 200 MiliSecond
+Begin send OK to server
+Send OK to server finished
+17:04:07
+SDUT.Send:settxtone 0
+settxtone 0
+> {{(setTxTone)}{None:Enabled}{Tone:Disabled}{Time:7338348}}
+{{(txEnd)}{txStatus:Error}{transmitted:0}{lastTxTime:0}{failed:1}{lastTxStatus:0x200000}{isAck:False}}
+===[ Check Frequency Subgig passed ... ]===
+
+===[ Check Subgig ]===
+Connect to Subgig EVB Server:192.168.100.125
+
+ wait server!
+##Startasdsa
+17:04:07
+SDUT.Send:RX 0
+RX 0
+{{(rx)}{Rx:Disabled}{Idle:Enabled}{Time:7564726}}
+> 17:04:07
+SDUT.Send:Setberconfig 10000
+Setberconfig 10000
+{{(setBerConfig)}{NumBytes:10000}}
+> 17:04:08
+SDUT.Send:Berrx 1
+Berrx 1
+{{(berRx)}{BER:Enabled}{None:Disabled}{Time:8355007}}
+{{(berRx)}{UserTxCount:0}{AckTxCount:0}{UserTxAborted:0}{AckTxAborted:0}{UserTxBlocked:0}{AckTxBlocked:0}{UserTxUnderflow:0}{AckTxUnderflow:0}{RxCount:0}{SyncDetect:0}{NoRxBuffer:0}{RfSensed:0}{ackTimeout:0}{RfState:Idle}{RAIL_state_active:1}{RAIL_state_rx:0}{RAIL_state_tx:0}{Channel:0}{AppMode:BER}{TimingLost:0}{TimingDetect:0}{FrameErrors:0}{RxOverflow:0}{AddrFilt:0}{Aborted:0}{Calibrations:0}{TxChannelBusy:0}{TxClear:0}{TxCca:0}{TxRetry:0}}
+
+> Delay 3000 MiliSecond
+17:04:11
+SDUT.Send:Berstatus
+Berstatus
+{{(berStatus)}{BitsToTest:80000}{BitsTested:80000}{PercentDone:100.00}{RSSI:-57}{BitErrors:0}{PercentBitError:0.00}}
+
+> ===[ Check Subgig value ... ]===
+BitsToTest: 80000
+BitsTested: 80000
+PercentDone: 100
+RSSI: -57
+BitErrors: 0
+PercentBitError: 0
+Begin send OK to Server
+Send OK to Server finished
+===[ Check Subgig passed ... ]===
+
+
+===[ Upgrade Firmwave Subgig time ]===
+17:04:11
+MCU.Send:PIN4_ON
+17:04:14
+MCU.Send:PIN4_ON
+PIN4_ON_OK
+
+Microsoft Windows XP [Version 6.2.9200]
+(C) Copyright 1985-2001 Microsoft Corp.
+
+D:\PT2(U12H383)\commander>commander adapter dbgmode out
+WARNING: No serial number or IP address given, cannot lock access to adapter.
+Setting debug mode to OUT...
+DONE
+
+D:\PT2(U12H383)\commander>commander flash --device efr32 Connect-ncp-uart-hw-FG14P231M32_915.hex ultrahub-connect-bootloader-uart-combined.s37$
+Parsing file Connect-ncp-uart-hw-FG14P231M32_915.hex...
+Parsing file ultrahub-connect-bootloader-uart-combined.s37...
+Device "efr32" seems to be unsupported by JLink, falling back to legacy flashloader.
+Flashing 104448 bytes to address 0x00000000
+Resetting...
+Uploading flash loader...
+Waiting for flashloader to become ready...
+Erasing flash...$$
+Flashing...$$$
+Verifying written data...$
+Finished!
+Flashing 14336 bytes to address 0x0fe10000
+Resetting...
+Uploading flash loader...
+Waiting for flashloader to become ready...
+Erasing flash...
+Flashing...
+Verifying written data...
+Resetting...
+Finished!
+DONE
+
+D:\PT2(U12H383)\commander>
+ExcuteCMDTime =5.0374433
+===[ Upgrade Firmwave Subgig finished ... ]===
+Delay 0 MiliSecond
+==============Start show pass================
+TEST PROGRAM VERSION:2.3.2.8  TEST CYCLE TIME:65
+
+----------------Summary all test item--------------
+Test item name                Result  Test time
+ 1.UpgradeFirmwaveSubgig_Base5 PASS    40.04s
+ 2.CheckFrequency_Subgig       PASS    5.75s 
+ 3.Check_Subgig_EVB            PASS    4.23s 
+ 4.UpgradeFirmwaveSubgig2_Base5PASS    15.67s
+ 5.SendSfis                    -Skip-        
+---------------------------------------------------
+Write summary log server: F:\lsy\ID\U12H383\VMB5000-FXN-NA-H6\PT2 -> OK
+Write summary log localD:\Arlo_Logs\U12H383\VMB5000-FXN-NA-H6\PT2\30-11-2020 -> OK
+
+
+D:\PT2(U12H383)\commander>
+Details log local folder: D:\Arlo_Logs\U12H383\VMB5000-FXN-NA-H6\PT2\30-11-2020\PASS
+Details log server folder: F:\lsy\ID\Detail\U12H383\VMB5000-FXN-NA-H6\PT2\30-11-2020\PASS
+UserName Test Off: ========Show pass finish=============
+FAIL. Close COM sucessful....
+OPEN_OK

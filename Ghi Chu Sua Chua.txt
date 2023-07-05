@@ -1,0 +1,13 @@
+2023-04-25:
+Sua db => V0931625: Nguyen The Toan => Role: 1
+2023-04-26:
+Sua: giao dien => Cho phep sua ma thiet bi khi user them moi bi sai (StaffPage)
+Sua: Controller/DeviceController/CreateDevice: Luu lai ma thiet bi sau khi bam sua
+2023-05-03:
+Sua: Them kho toolingroom
+Sua db: => V0939593: Nguyen van son => Role: 1
+2023-05-25: tat ca code trong VIEW: C:\IIS WEB\Ban Nguyen\ToolingRoomManagement\ToolingRoomManagement\Areas\Admin\Views\BorrowProduct\AccountantPD.cshtml
+Sua: function loadData
+Sua: ham onchange #select_shift
+
+2023-07-05: Them moi he thong quan ly don mua (PR,PO...): Purchase Order Manager System (../Area/PurchaseOrderManager/)

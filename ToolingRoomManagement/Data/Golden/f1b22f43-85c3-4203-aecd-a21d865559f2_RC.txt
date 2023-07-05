@@ -1,0 +1,847 @@
+SFIS->UI: @ZUVCUMO                 FB1001-FXN               A41162CBFDFCA3540C7PA041A  H4        40.23%39.81%064373000210      2140017723     V0929250    RC        PASS
+
+ShowUIProgram still running !
+===[ Connect to BASE ]===
+Telnet use SSH
+Ping reply from: 192.168.1.3 size:32 Time:0 TTL:64
+Ping reply from: 192.168.1.3 size:32 Time:0 TTL:64
+MAC: A41162768E43
+--> Telnet SSH: 192.168.1.3 A41162768E43
+
+
+BusyBox v1.25.1 (2018-11-09 18:41:06 PST) built-in shell (ash)
+
+export PATH=$PATH:/usr/sbin:/sbin
+
+     MM           NM                    MMMMMMM          M       M
+   $MMMMM        MMMMM                MMMMMMMMMMM      MMM     MMM
+  MMMMMMMM     MM MMMMM.              MMMMM:MMMMMM:   MMMM   MMMMM
+MMMM= MMMMMM  MMM   MMMM       MMMMM   MMMM  MMMMMM   MMMM  MMMMM'
+MMMM=  MMMMM MMMM    MM       MMMMM    MMMM    MMMM   MMMMNMMMMM
+MMMM=   MMMM  MMMMM          MMMMM     MMMM    MMMM   MMMMMMMM
+MMMM=   MMMM   MMMMMM       MMMMM      MMMM    MMMM   MMMMMMMMM
+MMMM=   MMMM     MMMMM,    NMMMMMMMM   MMMM    MMMM   MMMMMMMMMMM
+MMMM=   MMMM      MMMMMM   MMMMMMMM    MMMM    MMMM   MMMM  MMMMMM
+MMMM=   MMMM   MM    MMMM    MMMM      MMMM    MMMM   MMMM    MMMM
+MMMM$ ,MMMMM  MMMMM  MMMM    MMM       MMMM   MMMMM   MMMM    MMMM
+  MMMMMMM:      MMMMMMM     M         MMMMMMMMMMMM  MMMMMMM MMMMMMM
+    MMMMMM       MMMMN     M           MMMMMMMMM      MMMM    MMMM
+     MMMM          M                    MMMMMMM        M       M
+       M
+ ---------------------------------------------------------------
+   For those about to rock... (NHSS.ILQ, unknown)
+ ---------------------------------------------------------------
+root@OpenWrt:~# export PATH=$PATH:/usr/sbin:/sbin
+root@OpenWrt:~# 
+root@OpenWrt:~# export PATH=$PATH:/usr/sbin:/sbin
+root@OpenWrt:~# 
+root@OpenWrt:~# Connect to Base PASS...
+===[Check infomation  ]===
+Config HW ver: H4
+REG key path= SOFTWARE\Netgear\STATION\RC\RequireCloseBox10
+RequireCloseBox= Don't need close box to start test
+===[ Check Camera connect to base station ]===
+=======CHECK CONNECT DUT TIME 1==============
+rm /tmp/system-log
+rm /tmp/system-log
+rm /tmp/system-log
+rm /tmp/system-log
+root@OpenWrt:~# 
+root@OpenWrt:~# uci set wireless.@wifi-device[0].disabled=0
+uci set wireless.@wifi-device[0].disabled=0
+uci set wireless.@wifi-device[0].disabled=0
+uci set wireless.@wifi-device[0].disabled=0
+root@OpenWrt:~# 
+root@OpenWrt:~# uci set wireless.@wifi-device[0].channel
+uci set wireless.@wifi-device[0].channel=8
+uci set wireless.@wifi-device[0].channel=8
+uci set wireless.@wifi-device[0].channel=8
+root@OpenWrt:~# 
+root@OpenWrt:~# uci set wireless.@wifi-device[0].disabled=0
+uci set wireless.@wifi-device[0].disabled=0
+uci set wireless.@wifi-device[0].disabled=0
+uci set wireless.@wifi-device[0].disabled=0
+root@OpenWrt:~# 
+root@OpenWrt:~# uci set wireless.radio0.txpower='5'
+uci set wireless.radio0.txpower='5'
+uci set wireless.radio0.txpower='5'
+uci set wireless.radio0.txpower='5'
+root@OpenWrt:~# 
+root@OpenWrt:~# uci commit wireless
+uci commit wireless
+uci commit wireless
+uci commit wireless
+root@OpenWrt:~# 
+root@OpenWrt:~# wifi
+wifi
+wifi
+wifi
+root@OpenWrt:~# 
+root@OpenWrt:~# ps | grep dhcpd
+ 3499 root      1428 S    grep dhcpd
+root@OpenWrt:~# 
+root@OpenWrt:~#  udhcpd /tmp/udhcpd.conf
+-ash: udhcpd: not found
+root@OpenWrt:~# 
+root@OpenWrt:~# ps | grep dhcpd
+ 3547 root      1428 S    grep dhcpd
+root@OpenWrt:~# 
+root@OpenWrt:~#  udhcpd /tmp/udhcpd.conf
+-ash: udhcpd: not found
+root@OpenWrt:~# 
+root@OpenWrt:~# ps | grep dhcpd
+ 3561 root      1428 S    grep dhcpd
+root@OpenWrt:~# 
+root@OpenWrt:~#  udhcpd /tmp/udhcpd.conf
+-ash: udhcpd: not found
+root@OpenWrt:~# 
+root@OpenWrt:~# SY55 Send command failed....SFIS Cam MAC:A41162CBFDFC
+SFIS Cam MAC after change to lower: a4:11:62:cb:fd:fc
+arp -d 172.14.1.146
+IP address       HW type     Flags       HW address            Mask     Device
+192.168.1.200    0x1         0x2         c0:25:e9:10:50:3c     *        eth0
+192.168.1.1      0x1         0x2         50:6a:03:ad:4b:1e     *        eth0
+root@OpenWrt:~# 
+root@OpenWrt:~# cat /proc/net/arp | grep a4:11:62:cb:fd:fc
+root@OpenWrt:~# 
+root@OpenWrt:~# cat /proc/net/arp | grep a4:11:62:cb:fd:fc
+root@OpenWrt:~# 
+root@OpenWrt:~# cat /proc/net/arp | grep a4:11:62:cb:fd:fc
+root@OpenWrt:~# 
+root@OpenWrt:~# cat /proc/net/arp | grep a4:11:62:cb:fd:fc
+root@OpenWrt:~# 
+root@OpenWrt:~# cat /proc/net/arp | grep a4:11:62:cb:fd:fc
+root@OpenWrt:~# 
+root@OpenWrt:~# Send command press stop sync button on base
+vzcmd --expandJson PassThru='{"action":"stopWPSListener","resour ce":"wifi/camera"}'
+{
+	"resource" : "wifi/camera",
+	"action" : "stopWPSListener"
+}
+root@OpenWrt:~# 
+root@OpenWrt:~# Send command press sync button on base
+vzcmd --expandJson PassThru='{"action":"startWPSListener","resou rce":"wifi/camera"}'
+{
+	"resource" : "wifi/camera",
+	"action" : "startWPSListener"
+}
+root@OpenWrt:~# 
+root@OpenWrt:~# cat /proc/net/arp | grep a4:11:62:cb:fd:fc
+root@OpenWrt:~# 
+root@OpenWrt:~# cat /proc/net/arp | grep a4:11:62:cb:fd:fc
+root@OpenWrt:~# 
+root@OpenWrt:~# cat /proc/net/arp | grep a4:11:62:cb:fd:fc
+root@OpenWrt:~# 
+root@OpenWrt:~# cat /proc/net/arp | grep a4:11:62:cb:fd:fc
+root@OpenWrt:~# 
+root@OpenWrt:~# cat /proc/net/arp | grep a4:11:62:cb:fd:fc
+root@OpenWrt:~# 
+root@OpenWrt:~# cat /proc/net/arp | grep a4:11:62:cb:fd:fc
+root@OpenWrt:~# 
+root@OpenWrt:~# cat /proc/net/arp | grep a4:11:62:cb:fd:fc
+root@OpenWrt:~# 
+root@OpenWrt:~# cat /proc/net/arp | grep a4:11:62:cb:fd:fc
+root@OpenWrt:~# 
+root@OpenWrt:~# cat /proc/net/arp | grep a4:11:62:cb:fd:fc
+root@OpenWrt:~# 
+root@OpenWrt:~# cat /proc/net/arp | grep a4:11:62:cb:fd:fc
+root@OpenWrt:~# 
+root@OpenWrt:~# cat /proc/net/arp | grep a4:11:62:cb:fd:fc
+root@OpenWrt:~# 
+root@OpenWrt:~# cat /proc/net/arp | grep a4:11:62:cb:fd:fc
+root@OpenWrt:~# 
+root@OpenWrt:~# cat /proc/net/arp | grep a4:11:62:cb:fd:fc
+root@OpenWrt:~# 
+root@OpenWrt:~# cat /proc/net/arp | grep a4:11:62:cb:fd:fc
+root@OpenWrt:~# 
+root@OpenWrt:~# cat /proc/net/arp | grep a4:11:62:cb:fd:fc
+root@OpenWrt:~# 
+root@OpenWrt:~# cat /proc/net/arp | grep a4:11:62:cb:fd:fc
+root@OpenWrt:~# 
+root@OpenWrt:~# cat /proc/net/arp | grep a4:11:62:cb:fd:fc
+root@OpenWrt:~# 
+root@OpenWrt:~# cat /proc/net/arp | grep a4:11:62:cb:fd:fc
+root@OpenWrt:~# 
+root@OpenWrt:~# cat /proc/net/arp | grep a4:11:62:cb:fd:fc
+root@OpenWrt:~# 
+root@OpenWrt:~# cat /proc/net/arp | grep a4:11:62:cb:fd:fc
+root@OpenWrt:~# 
+root@OpenWrt:~# cat /proc/net/arp | grep a4:11:62:cb:fd:fc
+root@OpenWrt:~# 
+root@OpenWrt:~# cat /proc/net/arp | grep a4:11:62:cb:fd:fc
+root@OpenWrt:~# 
+root@OpenWrt:~# cat /proc/net/arp | grep a4:11:62:cb:fd:fc
+root@OpenWrt:~# 
+root@OpenWrt:~# cat /proc/net/arp | grep a4:11:62:cb:fd:fc
+root@OpenWrt:~# 
+root@OpenWrt:~# cat /proc/net/arp | grep a4:11:62:cb:fd:fc
+root@OpenWrt:~# 
+root@OpenWrt:~# cat /proc/net/arp | grep a4:11:62:cb:fd:fc
+root@OpenWrt:~# 
+root@OpenWrt:~# cat /proc/net/arp | grep a4:11:62:cb:fd:fc
+root@OpenWrt:~# 
+root@OpenWrt:~# cat /proc/net/arp | grep a4:11:62:cb:fd:fc
+root@OpenWrt:~# 
+root@OpenWrt:~# cat /proc/net/arp | grep a4:11:62:cb:fd:fc
+root@OpenWrt:~# 
+root@OpenWrt:~# cat /proc/net/arp | grep a4:11:62:cb:fd:fc
+root@OpenWrt:~# 
+root@OpenWrt:~# cat /proc/net/arp | grep a4:11:62:cb:fd:fc
+root@OpenWrt:~# 
+root@OpenWrt:~# ps | grep dhcpd
+ 3924 root      1428 S    grep dhcpd
+root@OpenWrt:~# 
+root@OpenWrt:~# =======CHECK CONNECT DUT TIME 2==============
+rm /tmp/system-log
+rm /tmp/system-log
+rm /tmp/system-log
+rm /tmp/system-log
+root@OpenWrt:~# 
+root@OpenWrt:~# uci set wireless.@wifi-device[0].disabled=0
+uci set wireless.@wifi-device[0].disabled=0
+uci set wireless.@wifi-device[0].disabled=0
+uci set wireless.@wifi-device[0].disabled=0
+root@OpenWrt:~# 
+root@OpenWrt:~# uci set wireless.@wifi-device[0].channel
+uci set wireless.@wifi-device[0].channel=8
+uci set wireless.@wifi-device[0].channel=8
+uci set wireless.@wifi-device[0].channel=8
+root@OpenWrt:~# 
+root@OpenWrt:~# uci set wireless.@wifi-device[0].disabled=0
+uci set wireless.@wifi-device[0].disabled=0
+uci set wireless.@wifi-device[0].disabled=0
+uci set wireless.@wifi-device[0].disabled=0
+root@OpenWrt:~# 
+root@OpenWrt:~# uci set wireless.radio0.txpower='5'
+uci set wireless.radio0.txpower='5'
+uci set wireless.radio0.txpower='5'
+uci set wireless.radio0.txpower='5'
+root@OpenWrt:~# 
+root@OpenWrt:~# uci commit wireless
+uci commit wireless
+uci commit wireless
+uci commit wireless
+root@OpenWrt:~# 
+root@OpenWrt:~# wifi
+wifi
+wifi
+wifi
+root@OpenWrt:~# 
+root@OpenWrt:~# ps | grep dhcpd
+ 3951 root      1428 S    grep dhcpd
+root@OpenWrt:~# 
+root@OpenWrt:~#  udhcpd /tmp/udhcpd.conf
+-ash: udhcpd: not found
+root@OpenWrt:~# 
+root@OpenWrt:~# ps | grep dhcpd
+ 3984 root      1428 S    grep dhcpd
+root@OpenWrt:~# 
+root@OpenWrt:~#  udhcpd /tmp/udhcpd.conf
+-ash: udhcpd: not found
+root@OpenWrt:~# 
+root@OpenWrt:~# ps | grep dhcpd
+ 4039 root      1428 S    grep dhcpd
+root@OpenWrt:~# 
+root@OpenWrt:~#  udhcpd /tmp/udhcpd.conf
+-ash: udhcpd: not found
+root@OpenWrt:~# 
+root@OpenWrt:~# SY55 Send command failed....SFIS Cam MAC:A41162CBFDFC
+SFIS Cam MAC after change to lower: a4:11:62:cb:fd:fc
+arp -d 172.14.1.146
+IP address       HW type     Flags       HW address            Mask     Device
+192.168.1.200    0x1         0x2         c0:25:e9:10:50:3c     *        eth0
+192.168.1.1      0x1         0x2         50:6a:03:ad:4b:1e     *        eth0
+root@OpenWrt:~# 
+root@OpenWrt:~# cat /proc/net/arp | grep a4:11:62:cb:fd:fc
+root@OpenWrt:~# 
+root@OpenWrt:~# cat /proc/net/arp | grep a4:11:62:cb:fd:fc
+root@OpenWrt:~# 
+root@OpenWrt:~# cat /proc/net/arp | grep a4:11:62:cb:fd:fc
+root@OpenWrt:~# 
+root@OpenWrt:~# cat /proc/net/arp | grep a4:11:62:cb:fd:fc
+root@OpenWrt:~# 
+root@OpenWrt:~# cat /proc/net/arp | grep a4:11:62:cb:fd:fc
+root@OpenWrt:~# 
+root@OpenWrt:~# Send command press stop sync button on base
+vzcmd --expandJson PassThru='{"action":"stopWPSListener","resour ce":"wifi/camera"}'
+{
+	"resource" : "wifi/camera",
+	"action" : "stopWPSListener"
+}
+root@OpenWrt:~# 
+root@OpenWrt:~# Send command press sync button on base
+vzcmd --expandJson PassThru='{"action":"startWPSListener","resou rce":"wifi/camera"}'
+{
+	"resource" : "wifi/camera",
+	"action" : "startWPSListener"
+}
+root@OpenWrt:~# 
+root@OpenWrt:~# cat /proc/net/arp | grep a4:11:62:cb:fd:fc
+root@OpenWrt:~# 
+root@OpenWrt:~# cat /proc/net/arp | grep a4:11:62:cb:fd:fc
+root@OpenWrt:~# 
+root@OpenWrt:~# cat /proc/net/arp | grep a4:11:62:cb:fd:fc
+root@OpenWrt:~# 
+root@OpenWrt:~# cat /proc/net/arp | grep a4:11:62:cb:fd:fc
+root@OpenWrt:~# 
+root@OpenWrt:~# cat /proc/net/arp | grep a4:11:62:cb:fd:fc
+root@OpenWrt:~# 
+root@OpenWrt:~# cat /proc/net/arp | grep a4:11:62:cb:fd:fc
+root@OpenWrt:~# 
+root@OpenWrt:~# cat /proc/net/arp | grep a4:11:62:cb:fd:fc
+root@OpenWrt:~# 
+root@OpenWrt:~# cat /proc/net/arp | grep a4:11:62:cb:fd:fc
+root@OpenWrt:~# 
+root@OpenWrt:~# cat /proc/net/arp | grep a4:11:62:cb:fd:fc
+root@OpenWrt:~# 
+root@OpenWrt:~# cat /proc/net/arp | grep a4:11:62:cb:fd:fc
+root@OpenWrt:~# 
+root@OpenWrt:~# cat /proc/net/arp | grep a4:11:62:cb:fd:fc
+172.14.1.184     0x1         0x2         a4:11:62:cb:fd:fc     *        wlan0
+root@OpenWrt:~# 
+root@OpenWrt:~# Found wlan0 
+====Configuration information===========Base version:1.12.2.4_2773,1.12.1.2_27956,1.12.1.0_184_1f92b57
+Base SKU:0x0001
+HW version:H4
+FW Version:1.070.19.2_20
+ModelName:1.070.19.2_20
+IP camera have ipaddress: 172.14.1.184
+===[ Check information of camera ]===
+vzdaemon --version
+	version = "1.12.1.2_27956"
+root@OpenWrt:~# 
+root@OpenWrt:~# Check version of Base Pass
+burnsku
+region_num - 0x0001
+sku_name - NA
+language - English
+wl_region - 11
+timezone - -8
+root@OpenWrt:~# 
+root@OpenWrt:~# Check Base SKU Pass
+vzcmd --expandJson PassThru='{"action":"get","resource":"diagnos tics/cameraRegisters","properties":{"cameraId":"A3540C7PA041A","registers":["Sys temSerialNumber","SystemModelNumber","SystemFirmwareVersion","HardwareRevision", "MACAddress"]}}'
+{
+	"resource" : "diagnostics/cameraRegisters",
+	"action" : "get",
+	"properties" : {
+		"cameraId" : "A3540C7PA041A",
+		"registers" : {
+			"SystemSerialNumber" : "A3540C7PA041A",
+			"SystemModelNumber" : "FB1001B",
+			"SystemFirmwareVersion" : "1.070.19.2_20_d19c2ceb",
+			"HardwareRevision" : "H4",
+			"MACAddress" : "a4:11:62:cb:fd:fc"
+		}
+	}
+}
+root@OpenWrt:~# 
+root@OpenWrt:~# DATAINFO: vzcmd --expandJson PassThru='{"action":"get","resource":"diagnos tics/cameraRegisters","properties":{"cameraId":"A3540C7PA041A","registers":["Sys temSerialNumber","SystemModelNumber","SystemFirmwareVersion","HardwareRevision", "MACAddress"]}}'
+vzcmd --expandJson PassThru='{"action":"get","resource":"diagnos tics/cameraRegisters","properties":{"cameraId":"A3540C7PA041A","registers":["Sys temSerialNumber","SystemModelNumber","SystemFirmwareVersion","HardwareRevision", "MACAddress"]}}'
+{
+	"resource" : "diagnostics/cameraRegisters",
+	"action" : "get",
+	"properties" : {
+		"cameraId" : "A3540C7PA041A",
+		"registers" : {
+			"SystemSerialNumber" : "A3540C7PA041A",
+			"SystemModelNumber" : "FB1001B",
+			"SystemFirmwareVersion" : "1.070.19.2_20_d19c2ceb",
+			"HardwareRevision" : "H4",
+			"MACAddress" : "a4:11:62:cb:fd:fc"
+		}
+	}
+}vzcmd --expandJson PassThru='{"action":"get","resource":"diagnos tics/cameraRegisters","properties":{"cameraId":"A3540C7PA041A","registers":["Sys temSerialNumber","SystemModelNumber","SystemFirmwareVersion","HardwareRevision", "MACAddress"]}}'
+{
+	"resource" : "diagnostics/cameraRegisters",
+	"action" : "get",
+	"properties" : {
+		"cameraId" : "A3540C7PA041A",
+		"registers" : {
+			"SystemSerialNumber" : "A3540C7PA041A",
+			"SystemModelNumber" : "FB1001B",
+			"SystemFirmwareVersion" : "1.070.19.2_20_d19c2ceb",
+			"HardwareRevision" : "H4",
+			"MACAddress" : "a4:11:62:cb:fd:fc"
+		}
+	}
+}
+vzcmd --expandJson PassThru='{"action":"get","resource":"diagnos tics/cameraRegisters","properties":{"cameraId":"A3540C7PA041A","registers":["Sys temSerialNumber","SystemModelNumber","SystemFirmwareVersion","HardwareRevision", "MACAddress"]}}'
+{
+	"resource" : "diagnostics/cameraRegisters",
+	"action" : "get",
+	"properties" : {
+		"cameraId" : "A3540C7PA041A",
+		"registers" : {
+			"SystemSerialNumber" : "A3540C7PA041A",
+			"SystemModelNumber" : "FB1001B",
+			"SystemFirmwareVersion" : "1.070.19.2_20_d19c2ceb",
+			"HardwareRevision" : "H4",
+			"MACAddress" : "a4:11:62:cb:fd:fc"
+		}
+	}
+}
+root@OpenWrt:~# 
+root@OpenWrt:~# 
+Send command factory reset:
+vzcmd --expandJson PassThru='{ "action":"set", "resource":"diagn ostics/cameraRegisters", "properties":{"cameraId":"A3540C7PA041A", "registers":{ "FactoryReset":2}}}'
+{
+	"resource" : "diagnostics/cameraRegisters",
+	"action" : "set"
+}
+root@OpenWrt:~# 
+root@OpenWrt:~# Delay 8000 MiliSecond
+cat /tmp/system-log
+Nov 10 03:45:44 OpenWrt daemon.notice netifd: Network device 'wlan0' link is down
+Nov 10 03:45:44 OpenWrt daemon.notice netifd: Interface 'lan' has link connectivity loss
+Nov 10 03:45:44 OpenWrt daemon.notice netifd: Interface 'lan' is now down
+Nov 10 03:45:44 OpenWrt daemon.notice netifd: Interface 'lan' is disabled
+Nov 10 03:45:45 OpenWrt daemon.notice netifd: radio0 (3966): ./mac80211.sh: eval: line 1: config_load: not found
+Nov 10 03:45:46 OpenWrt daemon.notice netifd: radio0 (3966): Configuration file: /var/run/hostapd-phy0.conf
+Nov 10 03:45:46 OpenWrt daemon.notice netifd: radio0 (3966): wlan0: interface state UNINITIALIZED->COUNTRY_UPDATE
+Nov 10 03:45:46 OpenWrt daemon.notice netifd: radio0 (3966): Using interface wlan0 with hwaddr a4:11:62:76:8e:42 and ssid "NTGR_VMB_1541819953"
+Nov 10 03:45:46 OpenWrt daemon.notice netifd: radio0 (3966): WPS: Converting push_button to virtual_push_button for WPS 2.0 compliance
+Nov 10 03:45:46 OpenWrt daemon.notice netifd: radio0 (3966): wlan0: interface state COUNTRY_UPDATE->ENABLED
+Nov 10 03:45:46 OpenWrt daemon.notice netifd: radio0 (3966): wlan0: AP-ENABLED 
+Nov 10 03:45:46 OpenWrt daemon.notice netifd: Network device 'wlan0' link is up
+Nov 10 03:45:46 OpenWrt daemon.notice netifd: Interface 'lan' is enabled
+Nov 10 03:45:46 OpenWrt daemon.notice netifd: Interface 'lan' is setting up now
+Nov 10 03:45:46 OpenWrt daemon.notice netifd: Interface 'lan' is now up
+Nov 10 03:45:46 OpenWrt daemon.notice netifd: Interface 'lan' has link connectivity 
+Nov 10 03:45:46 OpenWrt user.notice firewall: Reloading firewall due to ifup of lan (wlan0)
+Nov 10 03:45:52 OpenWrt user.debug syslog: ++ 19TypedListenerThreadI16HttpWorkerThreadE (4168)
+Nov 10 03:45:52 OpenWrt user.debug syslog: thread/ListenerThread.cpp:listen opened listen socket on interface lo, port 4040
+Nov 10 03:45:52 OpenWrt user.debug syslog: thread/ListenerThread.cpp:listen bound to address 127.0.0.1, port 4040
+Nov 10 03:45:52 OpenWrt user.debug syslog: thread/ListenerThread.cpp:listen listening on port 4040
+Nov 10 03:45:52 OpenWrt user.debug syslog: ++ 12LoggerThread (4167)
+Nov  9 19:45:53 OpenWrt user.debug syslog: ++ 20PresenceWorkerThread (4169)
+Nov  9 19:45:53 OpenWrt user.info syslog: backend rx [7:0]: {"action":"stopWPSListener","resource":"wifi/camera","responseUrl":"http://127.0.0.1:4040/test"}
+Nov  9 19:45:53 OpenWrt user.debug syslog: basestation/BasestationConfiguration.cpp:restoreAuthToken Restoring authToken
+Nov 10 03:45:53 OpenWrt user.debug syslog: ++ 16HttpWorkerThread (4170)
+Nov 10 03:45:53 OpenWrt user.debug syslog: -- 16HttpWorkerThread (4170)
+Nov  9 19:45:53 OpenWrt user.debug syslog: getAuthTokenBackup
+Nov  9 19:45:53 OpenWrt user.debug syslog: basestation/BasestationConfiguration.cpp:restoreAuthToken authToken NOT present in NVRAM
+Nov  9 19:45:53 OpenWrt user.info syslog: backend tx [6:0]: {"resource":"wifi/camera","action":"stopWPSListener"}
+Nov  9 19:45:53 OpenWrt user.debug syslog: sys/HttpUtils.cpp::perform-8 url="http://127.0.0.1:4040/test"
+Nov  9 19:45:53 OpenWrt user.debug syslog: sys/HttpUtils.cpp::perform-8 message="{"resource":"wifi/camera","action":"stopWPSListener"}"
+Nov 10 03:45:53 OpenWrt user.debug syslog: ++ 16HttpWorkerThread (4180)
+Nov  9 19:45:53 OpenWrt user.debug syslog: sys/HttpUtils.cpp::perform-8 timing: dns=0.000s connect=0.001s ssl=-0.001s http=0.004s total=0.004s
+Nov  9 19:45:53 OpenWrt user.info syslog: backend/BackendHttpConnection.cpp:perform result0=200, responsePayload=""
+Nov  9 19:45:53 OpenWrt user.debug syslog: -- 20PresenceWorkerThread (4169)
+Nov 10 03:45:53 OpenWrt user.info syslog: thread/ListenerThread.cpp:listen Socket Closed Internally
+Nov 10 03:45:53 OpenWrt user.debug syslog: -- 19TypedListenerThreadI16HttpWorkerThreadE (4168)
+Nov 10 03:45:53 OpenWrt user.debug syslog: -- 16HttpWorkerThread (4180)
+Nov 10 03:45:53 OpenWrt user.debug syslog: -- 12LoggerThread (4167)
+Nov 10 03:45:54 OpenWrt user.debug syslog: ++ 19TypedListenerThreadI16HttpWorkerThreadE (4183)
+Nov 10 03:45:54 OpenWrt user.debug syslog: thread/ListenerThread.cpp:listen opened listen socket on interface lo, port 4040
+Nov 10 03:45:54 OpenWrt user.debug syslog: thread/ListenerThread.cpp:listen bound to address 127.0.0.1, port 4040
+Nov 10 03:45:54 OpenWrt user.debug syslog: thread/ListenerThread.cpp:listen listening on port 4040
+Nov 10 03:45:54 OpenWrt user.debug syslog: ++ 12LoggerThread (4182)
+Nov  9 19:45:54 OpenWrt user.debug syslog: ++ 20PresenceWorkerThread (4184)
+Nov  9 19:45:54 OpenWrt user.info syslog: backend rx [8:0]: {"action":"startWPSListener","resource":"wifi/camera","responseUrl":"http://127.0.0.1:4040/test"}
+Nov  9 19:45:54 OpenWrt user.debug syslog: basestation/BasestationConfiguration.cpp:restoreAuthToken Restoring authToken
+Nov 10 03:45:54 OpenWrt user.debug syslog: ++ 16HttpWorkerThread (4185)
+Nov 10 03:45:54 OpenWrt user.debug syslog: -- 16HttpWorkerThread (4185)
+Nov  9 19:45:54 OpenWrt user.debug syslog: getAuthTokenBackup
+Nov  9 19:45:54 OpenWrt user.debug syslog: ++ 17WpsListenerThread (4186)
+Nov  9 19:45:54 OpenWrt user.info syslog: CameraWpsLedMessage payload = true
+Nov  9 19:45:54 OpenWrt user.info syslog: WpsWorker: wps transition, prev="", curr="Active"
+Nov  9 19:45:54 OpenWrt user.debug syslog: basestation/BasestationConfiguration.cpp:restoreAuthToken authToken NOT present in NVRAM
+Nov  9 19:45:54 OpenWrt user.info syslog: backend tx [7:0]: {"resource":"wifi/camera","action":"startWPSListener"}
+Nov  9 19:45:54 OpenWrt user.debug syslog: sys/HttpUtils.cpp::perform-9 url="http://127.0.0.1:4040/test"
+Nov  9 19:45:54 OpenWrt user.debug syslog: sys/HttpUtils.cpp::perform-9 message="{"resource":"wifi/camera","action":"startWPSListener"}"
+Nov 10 03:45:54 OpenWrt user.debug syslog: ++ 16HttpWorkerThread (4200)
+Nov  9 19:45:54 OpenWrt user.debug syslog: sys/HttpUtils.cpp::perform-9 timing: dns=0.000s connect=0.001s ssl=-0.001s http=0.004s total=0.004s
+Nov  9 19:45:54 OpenWrt user.info syslog: backend/BackendHttpConnection.cpp:perform result0=200, responsePayload=""
+Nov  9 19:45:54 OpenWrt user.debug syslog: -- 20PresenceWorkerThread (4184)
+Nov 10 03:45:54 OpenWrt user.info syslog: thread/ListenerThread.cpp:listen Socket Closed Internally
+Nov 10 03:45:54 OpenWrt user.debug syslog: -- 19TypedListenerThreadI16HttpWorkerThreadE (4183)
+Nov 10 03:45:54 OpenWrt user.debug syslog: -- 16HttpWorkerThread (4200)
+Nov 10 03:45:54 OpenWrt user.debug syslog: -- 12LoggerThread (4182)
+Nov 10 03:45:54 OpenWrt daemon.info hostapd: wlan0: STA a4:11:62:cb:fd:fc IEEE 802.11: authenticated
+Nov 10 03:45:54 OpenWrt daemon.info hostapd: wlan0: STA a4:11:62:cb:fd:fc IEEE 802.11: associated (aid 1)
+Nov  9 19:45:55 OpenWrt user.debug syslog: ******* changed camera state from 3 to 1
+Nov 10 03:45:59 OpenWrt daemon.warn hostapd: wlan0: STA a4:11:62:cb:fd:fc IEEE 802.1X: authentication failed - EAP type: 0 (unknown)
+Nov 10 03:45:59 OpenWrt daemon.info hostapd: wlan0: STA a4:11:62:cb:fd:fc IEEE 802.1X: Supplicant used different EAP type: 254 (expanded)
+Nov  9 19:45:59 OpenWrt user.info syslog: WpsWorker: wps transition, prev="Active", curr="Disabled"
+Nov  9 19:45:59 OpenWrt user.info syslog: WpsWorker: wps camera connect success, mac_addr=a4:11:62:cb:fd:fc
+Nov  9 19:45:59 OpenWrt user.info syslog: removed blacklist entry with macAddr="A4:11:62:CB:FD:FC"
+Nov  9 19:45:59 OpenWrt user.info syslog: DevicePairedEvent macAddr a4:11:62:cb:fd:fc
+Nov 10 03:46:00 OpenWrt daemon.info hostapd: wlan0: STA a4:11:62:cb:fd:fc IEEE 802.11: disassociated
+Nov 10 03:46:01 OpenWrt daemon.info hostapd: wlan0: STA a4:11:62:cb:fd:fc IEEE 802.11: deauthenticated due to inactivity (timer DEAUTH/REMOVE)
+Nov 10 03:46:05 OpenWrt daemon.info hostapd: wlan0: STA a4:11:62:cb:fd:fc IEEE 802.11: authenticated
+Nov 10 03:46:05 OpenWrt daemon.info hostapd: wlan0: STA a4:11:62:cb:fd:fc IEEE 802.11: associated (aid 1)
+Nov 10 03:46:05 OpenWrt daemon.info hostapd: wlan0: STA a4:11:62:cb:fd:fc RADIUS: starting accounting session D656A9A1-00000001
+Nov 10 03:46:05 OpenWrt daemon.info hostapd: wlan0: STA a4:11:62:cb:fd:fc WPA: pairwise key handshake completed (RSN)
+Nov 10 03:46:08 OpenWrt daemon.info dnsmasq-dhcp[3831]: DHCPDISCOVER(wlan0) a4:11:62:cb:fd:fc 
+Nov 10 03:46:08 OpenWrt daemon.info dnsmasq-dhcp[3831]: DHCPOFFER(wlan0) 172.14.1.184 a4:11:62:cb:fd:fc 
+Nov 10 03:46:08 OpenWrt daemon.info dnsmasq-dhcp[3831]: DHCPDISCOVER(wlan0) a4:11:62:cb:fd:fc 
+Nov 10 03:46:08 OpenWrt daemon.info dnsmasq-dhcp[3831]: DHCPOFFER(wlan0) 172.14.1.184 a4:11:62:cb:fd:fc 
+Nov 10 03:46:08 OpenWrt daemon.info dnsmasq-dhcp[3831]: DHCPREQUEST(wlan0) 172.14.1.184 a4:11:62:cb:fd:fc 
+Nov 10 03:46:08 OpenWrt daemon.info dnsmasq-dhcp[3831]: DHCPACK(wlan0) 172.14.1.184 a4:11:62:cb:fd:fc FB1001-A041A
+Nov  9 19:46:09 OpenWrt user.debug syslog: ++ 17CameraInputThread (4295)
+Nov  9 19:46:09 OpenWrt user.info syslog: camera rx from 172.14.1.184 [12:0]: {"ID":1,"Type":"registration","SystemSerialNumber":"A3540C7PA041A","SystemModelNumber":"FB1001B","SystemFirmwareVersion":"1.070.19.2_20_d19c2ceb","CommProtocolVersion":1,"BatPercent":87,"SignalStrengt
+Nov  9 19:46:09 OpenWrt user.info syslog: camera rx from 172.14.1.184 [12:1]: hIndicator":5,"LogFrequency":2,"BatTech":"Rechargeable","ChargerTech":"None","ChargingState":"Off","ThermalShutdownRechargeMaxTemp":60,"Temperature":23,"InterfaceVersion":1,"Capabilities":["IRLED","IR
+Nov  9 19:46:09 OpenWrt user.info syslog: camera rx from 172.14.1.184 [12:2]: CutFilter","PirMotion","NightVision","Temperature","BatteryLevel","Microphone","Speaker","SignalStrength","Solar","BatteryCharging","H.264Streaming","JPEGSnapshot","AutomatedStop","BEC","RaParams","Ic
+Nov  9 19:46:09 OpenWrt user.info syslog: camera rx from 172.14.1.184 [12:3]: mpOffload"],"HardwareRevision":"H4","Sync":true,"BattChargeMinTemp":0,"BattChargeMaxTemp":60,"ThermalShutdownMinTemp":-20,"ThermalShutdownMaxTemp":74,"BootSeconds":70}
+Nov  9 19:46:09 OpenWrt user.info syslog: ip_address [172.14.1.184], MacAddr [A4:11:62:CB:FD:FC]
+Nov  9 19:46:09 OpenWrt user.info syslog: Camera A3540C7PA041A not currently in database. Adding.
+Nov  9 19:46:09 OpenWrt user.info syslog: bcsm/CameraConfigurationTable.cpp:remove "A3540C7PA041A"
+Nov  9 19:46:09 OpenWrt user.info syslog: bcsm/CameraConfigurationTable.cpp:add "A3540C7PA041A"
+Nov  9 19:46:09 OpenWrt user.info syslog: ip_address [172.14.1.184], MacAddr [A4:11:62:CB:FD:FC]
+Nov  9 19:46:09 OpenWrt user.info syslog: Camera connected: A3540C7PA041A, modelId: FB1001B, hwRevision: H4, swVersion: 1.070.19.2_20_d19c2ceb
+Nov  9 19:46:09 OpenWrt user.info syslog: cameraAssociatedLedMessage payload = true
+Nov  9 19:46:09 OpenWrt user.debug syslog: ++ 20PresenceWorkerThread (4298)
+Nov  9 19:46:09 OpenWrt user.info syslog: backend rx [9:0]: {"action":"stopWPSListener","resource":"wifi/camera"}
+Nov  9 19:46:09 OpenWrt user.debug syslog: ++ 19PublishWorkerThread (4299)
+Nov  9 19:46:09 OpenWrt user.debug syslog: -- 19PublishWorkerThread (4299)
+Nov  9 19:46:09 OpenWrt user.debug syslog: -- 17WpsListenerThread (4186)
+Nov  9 19:46:09 OpenWrt user.debug syslog: -- 20PresenceWorkerThread (4298)
+Nov  9 19:46:09 OpenWrt user.info syslog: Camera A3540C7PA041A: Connection state changed to "available" (from "unavailable")
+Nov  9 19:46:09 OpenWrt user.debug syslog: ++ 19PublishWorkerThread (4301)
+Nov  9 19:46:09 OpenWrt user.debug syslog: ++ 19PublishWorkerThread (4300)
+Nov  9 19:46:09 OpenWrt user.debug syslog: -- 19PublishWorkerThread (4300)
+Nov  9 19:46:09 OpenWrt user.debug syslog: -- 19PublishWorkerThread (4301)
+Nov  9 19:46:09 OpenWrt user.debug syslog: NewCameraEvent from A3540C7PA041A
+Nov  9 19:46:09 OpenWrt user.debug syslog: ++ 18CameraOutputThread (4306)
+Nov  9 19:46:09 OpenWrt user.debug syslog: Check for update for deviceId=A3540C7PA041A model=FB1001BerH4 version=1.070.19.2_20_d19c2ceb initialRegistration=true forceUpgrade=false
+Nov  9 19:46:09 OpenWrt user.warn syslog: update/UpdateRules.cpp::getVersionStatus no matching entry for modelId="FB1001BerH4"
+Nov  9 19:46:09 OpenWrt user.debug syslog: update/UpdateRules.cpp::getVersionStatus version status=3 for modelId="FB1001BerH4", version="1.070.19.2_20_d19c2ceb"
+Nov  9 19:46:09 OpenWrt user.warn syslog: update/UpdateRules.cpp::getVersionStatus no matching entry for modelId="VMB4500er2"
+Nov  9 19:46:09 OpenWrt user.debug syslog: update/UpdateRules.cpp::getVersionStatus version status=3 for modelId="VMB4500er2", version="1.12.1.2_27956"
+Nov  9 19:46:09 OpenWrt user.debug syslog: Sent Message To A3540C7PA041A: {"Type":"registerSet","ID":6,"SetValues":{"VideoExposureCompensation":0,"VideoMirror":false,"VideoFlip":false,"VideoWindowStartX":0,"VideoWindowStartY":0,"VideoWindowEndX":1280,"VideoWindowEndY":720,"VideoOutputResolution":"360p","VideoTargetBitrate":300,"MaxMissedBeaconTime":10,"MaxStreamTimeLimit":1800,"MaxUserStreamTimeLimit":1800,"MaxMotionStreamTimeLimit":120,"VideoAntiFlickerRate":60,"WifiCountryCode":"US","NightVisionMode":true,"JPEGOutputResolution":"","VideoMode":"superWide","HdrControl":"off"}}
+Nov  9 19:46:09 OpenWrt user.debug syslog: ******* changed camera state from 1 to 6
+Nov  9 19:46:10 OpenWrt user.info syslog: [Automation] Adding new local device A3540C7PA041A
+Nov  9 19:46:10 OpenWrt user.info syslog: camera rx from A3540C7PA041A [13:0]: {"Type":"response","ID":6,"Response":"Ack"}
+Nov  9 19:46:10 OpenWrt user.debug syslog: -- 18CameraOutputThread (4306)
+Nov  9 19:46:10 OpenWrt user.debug syslog: ++ 18CameraOutputThread (4308)
+Nov  9 19:46:10 OpenWrt user.info syslog: A3540C7PA041A: Sending signal strength event. Signal strength to 4
+Nov  9 19:46:10 OpenWrt user.debug syslog: ++ 19PublishWorkerThread (4321)
+Nov  9 19:46:10 OpenWrt user.debug syslog: -- 19PublishWorkerThread (4321)
+Nov  9 19:46:10 OpenWrt user.debug syslog: A3540C7PA041A: ConnectionRate=1964015024 RSSI=-13
+Nov  9 19:46:10 OpenWrt user.debug syslog: Sent Message To A3540C7PA041A: {"Type":"response","ID":1,"Response":"Ack"}
+Nov  9 19:46:10 OpenWrt user.debug syslog: -- 17CameraInputThread (4295)
+Nov  9 19:46:10 OpenWrt user.debug syslog: Sent Message To A3540C7PA041A: {"Type":"statusRequest","ID":7}
+Nov  9 19:46:10 OpenWrt user.info syslog: camera rx from A3540C7PA041A [14:0]: {"Type":"response","ID":7,"Response":"Ack"}
+Nov  9 19:46:10 OpenWrt user.debug syslog: -- 18CameraOutputThread (4308)
+Nov  9 19:46:10 OpenWrt user.debug syslog: ++ 17CameraInputThread (4325)
+Nov  9 19:46:10 OpenWrt user.info syslog: camera rx from A3540C7PA041A [15:0]: {"ID":2,"Type":"status","SystemFirmwareVersion":"1.070.19.2_20_d19c2ceb","HardwareRevision":"H4","SystemSerialNumber":"A3540C7PA041A","BatPercent":87,"BatTech":"Rechargeable","ChargerTech":"None","Cha
+Nov  9 19:46:10 OpenWrt user.info syslog: camera rx from A3540C7PA041A [15:1]: rgingState":"Off","SecureType":"Production","WifiCountryDetails":"US/0","WifiChannel":8,"Bat1Volt":4.047,"Temperature":23,"Battery1CaliVoltage":4.047,"SignalStrengthIndicator":5,"Streamed":0,"UserStre
+Nov  9 19:46:10 OpenWrt user.info syslog: camera rx from A3540C7PA041A [15:2]: amed":0,"MotionStreamed":0,"IRLEDsOn":0,"PoweredOn":78,"CameraOnline":0,"CameraOffline":78,"WifiConnectionCount":1,"WifiConnectionAttempts":1,"PIREvents":0,"PIRConfigFails":0,"PIRTriggers":0,"PIROOREv
+Nov  9 19:46:10 OpenWrt user.info syslog: camera rx from A3540C7PA041A [15:3]: ents":0,"AudioEvents":0,"FailedStreams":0,"FailedUpgrades":0,"SnapshotCount":0,"LogFrequency":2,"CriticalBatStatus":0,"ISPOn":76,"TimeAtPlug":0,"TimeAtUnPlug":0,"PercentAtPlug":0,"PercentAtUnPlug":0,"
+Nov  9 19:46:10 OpenWrt user.info syslog: camera rx from A3540C7PA041A [15:4]: ISPWatchdogCount":0,"ISPWatchdogCount2":0,"SecsPerPercentCurr":0,"SecsPerPercentAvg":0,"RtcpDiscCnt":0,"InitialLSValue":0,"VPkt":0,"VErr":0,"VEmp":0,"VFrm":0,"VRet":0,"AaPkt":0,"AaErr":0,"AaEmp":0,"Aa
+Nov  9 19:46:10 OpenWrt user.info syslog: camera rx from A3540C7PA041A [15:5]: Ret":0,"AoPkt":0,"AoErr":0,"AoEmp":0,"AoRet":0,"ADrp":0,"V2Pkt":0,"V2Err":0,"V2Emp":0,"V2Frm":0,"V2Ret":0,"Aa2Pkt":0,"Aa2Err":0,"Aa2Emp":0,"Aa2Ret":0,"Ao2Pkt":0,"Ao2Err":0,"Ao2Emp":0,"Ao2Ret":0,"A2Drp
+Nov  9 19:46:10 OpenWrt user.info syslog: camera rx from A3540C7PA041A [15:6]: ":0,"TxErr":0,"TxFail":0,"TxPhyE1":0,"TxPhyE2":0,"MinFb0":0,"MaxFb0":0,"AvgFb0":0,"MinFb1":0,"MaxFb1":0,"AvgFb1":0,"MinDr0":0,"MaxDr0":0,"AvgDr0":0,"MinDr1":0,"MaxDr1":0,"AvgDr1":0,"BattChargeMaxTemp"
+Nov  9 19:46:10 OpenWrt user.info syslog: camera rx from A3540C7PA041A [15:7]: :60,"SpotlightEnabled":false,"WifiAntDiv":0,"WifiInitFails":0,"MaAlertTriggerCnt":0,"MaAlertExtendCnt":0,"MaBlackoutCnt":0,"MaOutsideActivityZoneCnt":0,"MaNoPirComboCnt":0,"MaNoMaComboCnt":0,"McuCrash
+Nov  9 19:46:10 OpenWrt user.info syslog: camera rx from A3540C7PA041A [15:8]: Count":0,"WifiRSSI":-23,"ApMacAddress":"A4:11:62:76:8E:42","GwMacAddress":"A4:11:62:76:8E:42","DhcpMacAddress":"00:00:00:00:00:00","ApMacCount":1}
+Nov  9 19:46:10 OpenWrt user.info syslog: A3540C7PA041A: Sending battery level change event: level=87
+Nov  9 19:46:10 OpenWrt user.debug syslog: [truncated] Received STATUS From A3540C7PA041A: {"ID":2,"Type":"status","SystemFirmwareVersion":"1.070.19.2_20_d19c2ceb","HardwareRevision":"H4","SystemSerialNumber":"A3540C7PA041A","BatPercent":87,"BatTech":"Rechargeable","ChargerTech":"None","ChargingState":"Off","SecureType":"Production","WifiCountryDetails":"US/0","WifiChannel":8,"Bat1Volt":4.047,"Temperature":23,"Battery1CaliVoltage":4.047,"SignalStrengthIndicator":5,"Streamed":0,"UserStreamed":0,"MotionStreamed":0,"IRLEDsOn":0,"PoweredOn":78,"CameraOnline":0,"CameraOffline":78,"WifiConnectionCount":1,"WifiConnectionAttempts":1,"PIREvents":0,"PIRConfigFails":0,"PIRTriggers":0,"PIROOREvents":0,"AudioEvents":0,"FailedStreams":0,"FailedUpgrades":0,"SnapshotCount":0,"LogFrequency":2,"CriticalBatStatus":0,"ISPOn":76,"TimeAtPlug":0,"TimeAtUnPlug":0,"PercentAtPlug":0,"PercentAtUnPlug":0,"ISPWatchdogCount":0,"ISPWatchdogCount2":0,"SecsPerPercentCurr":0,"SecsPerPercentAvg":0,"RtcpDiscCnt":0,"InitialLSValue":0,"VPkt":0,"VErr":0,"VEmp"
+Nov  9 19:46:10 OpenWrt user.debug syslog: A3540C7PA041A-CAM_STATS1: BatteryPercentage: 87, Battery1Voltage: 4.05, Battery2Voltage: -1.00, Temperature: 23, Battery1CaliVoltage: 4.05, Battery2CaliVoltage: -1.00, ActiveBattery: -1
+Nov  9 19:46:10 OpenWrt user.debug syslog: A3540C7PA041A-CAM_STATS2: AmountOfTimeStreamed: 0, AmountOfTimeUserStreamed: 0, AmountOfTimeMotionStreamed: 0, AmountOfTimeIRLEDsOn: 0, AmountOfTimeSystemPoweredOn: 78, AmountOfTimeCameraOnline: 0, AmountOfTimeCameraOffline: 78
+Nov  9 19:46:10 OpenWrt user.debug syslog: A3540C7PA041A-CAM_STATS3: WifiConnectionCount: 1, PIREvents: 0, FailedStreams: 0, FailedUpgrades: 0, SnapshotCount: 0, OVBrownoutCount: -1, OVBrownoutResetCount: -1, NTGRTCPDbgReg1: -1, NTGRTCPDbgReg2: -1, NTGRTCPDbgReg3: -1, IRCutFailedCnts: -1, IRCutFailFlag: -1
+Nov  9 19:46:10 OpenWrt user.debug syslog: ++ 19PublishWorkerThread (4326)
+Nov  9 19:46:10 OpenWrt user.debug syslog: -- 19PublishWorkerThread (4326)
+Nov  9 19:46:10 OpenWrt user.debug syslog: Check for update for deviceId=A3540C7PA041A model=FB1001BerH4 version=1.070.19.2_20_d19c2ceb initialRegistration=false forceUpgrade=false
+Nov  9 19:46:10 OpenWrt user.warn syslog: update/UpdateRules.cpp::getVersionStatus no matching entry for modelId="FB1001BerH4"
+Nov  9 19:46:10 OpenWrt user.debug syslog: update/UpdateRules.cpp::getVersionStatus version status=3 for modelId="FB1001BerH4", version="1.070.19.2_20_d19c2ceb"
+Nov  9 19:46:10 OpenWrt user.warn syslog: update/UpdateRules.cpp::getVersionStatus no matching entry for modelId="VMB4500er2"
+Nov  9 19:46:10 OpenWrt user.debug syslog: update/UpdateRules.cpp::getVersionStatus version status=3 for modelId="VMB4500er2", version="1.12.1.2_27956"
+Nov  9 19:46:10 OpenWrt user.warn syslog: update/UpdateManagementThread.cpp:areWeWithinTheUpdateTimePeriod invalid update time, startTime 1541761200, endTime 1541768400, now 1541821570
+Nov  9 19:46:10 OpenWrt user.debug syslog: ++ 18CameraOutputThread (4332)
+Nov  9 19:46:10 OpenWrt user.debug syslog: ++ 25PublishMetricWorkerThread (4331)
+Nov 10 03:46:10 OpenWrt user.debug syslog: ++ 12LoggerThread (4334)
+Nov 10 03:46:10 OpenWrt user.debug syslog: ++ 19TypedListenerThreadI16HttpWorkerThreadE (4335)
+Nov 10 03:46:10 OpenWrt user.debug syslog: thread/ListenerThread.cpp:listen opened listen socket on interface lo, port 4040
+Nov 10 03:46:10 OpenWrt user.debug syslog: thread/ListenerThread.cpp:listen bound to address 127.0.0.1, port 4040
+Nov 10 03:46:10 OpenWrt user.debug syslog: thread/ListenerThread.cpp:listen listening on port 4040
+Nov  9 19:46:10 OpenWrt user.debug syslog: ++ 17CameraInputThread (4340)
+Nov  9 19:46:10 OpenWrt user.info syslog: metricServer tx [2:0]: FB1001B	1541821570660	INFO	A3540C7PA041A		-	statusInfo	{"Type":"status","HardwareRevision":"H4","BatPercent":87,"BatTech":"Rechargeable","ChargerTech":"None","ChargingState":"Off","SecureType":"Produc
+Nov  9 19:46:10 OpenWrt user.info syslog: metricServer tx [2:1]: tion","WifiCountryDetails":"US/0","WifiChannel":8,"Bat1Volt":4.047,"Temperature":23,"Battery1CaliVoltage":4.047,"SignalStrengthIndicator":5,"Streamed":0,"UserStreamed":0,"MotionStreamed":0,"IRLEDsOn":
+Nov  9 19:46:10 OpenWrt user.info syslog: metricServer tx [2:2]: 0,"PoweredOn":78,"CameraOnline":0,"CameraOffline":78,"WifiConnectionCount":1,"WifiConnectionAttempts":1,"PIREvents":0,"PIRConfigFails":0,"PIRTriggers":0,"PIROOREvents":0,"AudioEvents":0,"FailedStreams
+Nov  9 19:46:10 OpenWrt user.info syslog: metricServer tx [2:3]: ":0,"FailedUpgrades":0,"SnapshotCount":0,"LogFrequency":2,"CriticalBatStatus":0,"ISPOn":76,"TimeAtPlug":0,"TimeAtUnPlug":0,"PercentAtPlug":0,"PercentAtUnPlug":0,"ISPWatchdogCount":0,"ISPWatchdogCount2
+Nov  9 19:46:10 OpenWrt user.info syslog: metricServer tx [2:4]: ":0,"SecsPerPercentCurr":0,"SecsPerPercentAvg":0,"RtcpDiscCnt":0,"InitialLSValue":0,"VPkt":0,"VErr":0,"VEmp":0,"VFrm":0,"VRet":0,"AaPkt":0,"AaErr":0,"AaEmp":0,"AaRet":0,"AoPkt":0,"AoErr":0,"AoEmp":0,"
+Nov  9 19:46:10 OpenWrt user.info syslog: metricServer tx [2:5]: AoRet":0,"ADrp":0,"V2Pkt":0,"V2Err":0,"V2Emp":0,"V2Frm":0,"V2Ret":0,"Aa2Pkt":0,"Aa2Err":0,"Aa2Emp":0,"Aa2Ret":0,"Ao2Pkt":0,"Ao2Err":0,"Ao2Emp":0,"Ao2Ret":0,"A2Drp":0,"TxErr":0,"TxFail":0,"TxPhyE1":0,"
+Nov  9 19:46:10 OpenWrt user.info syslog: metricServer tx [2:6]: TxPhyE2":0,"MinFb0":0,"MaxFb0":0,"AvgFb0":0,"MinFb1":0,"MaxFb1":0,"AvgFb1":0,"MinDr0":0,"MaxDr0":0,"AvgDr0":0,"MinDr1":0,"MaxDr1":0,"AvgDr1":0,"BattChargeMaxTemp":60,"SpotlightEnabled":false,"WifiAntD
+Nov  9 19:46:10 OpenWrt user.info syslog: metricServer tx [2:7]: iv":0,"WifiInitFails":0,"MaAlertTriggerCnt":0,"MaAlertExtendCnt":0,"MaBlackoutCnt":0,"MaOutsideActivityZoneCnt":0,"MaNoPirComboCnt":0,"MaNoMaComboCnt":0,"McuCrashCount":0,"WifiRSSI":-23,"ApMacAddress"
+Nov  9 19:46:10 OpenWrt user.info syslog: metricServer tx [2:8]: :"A4:11:62:76:8E:42","GwMacAddress":"A4:11:62:76:8E:42","DhcpMacAddress":"00:00:00:00:00:00","ApMacCount":1,"ID":3,"SystemFirmwareVersion":"1.070.19.2_20_d19c2ceb","HardwareVersion":"H4","SystemSerial
+Nov  9 19:46:10 OpenWrt user.info syslog: metricServer tx [2:9]: Number":"A3540C7PA041A","TimeStamp":"2018-11-10T19:46:10.660+0000"}
+Nov  9 19:46:10 OpenWrt user.debug syslog: sys/HttpUtils.cpp::perform-10 url="https://mcsdev.arlo.com?r=arlo"
+Nov  9 19:46:10 OpenWrt user.debug syslog: [truncated] sys/HttpUtils.cpp::perform-10 message="FB1001B	1541821570660	INFO	A3540C7PA041A		-	statusInfo	{"Type":"status","HardwareRevision":"H4","BatPercent":87,"BatTech":"Rechargeable","ChargerTech":"None","ChargingState":"Off","SecureType":"Production","WifiCountryDetails":"US/0","WifiChannel":8,"Bat1Volt":4.047,"Temperature":23,"Battery1CaliVoltage":4.047,"SignalStrengthIndicator":5,"Streamed":0,"UserStreamed":0,"MotionStreamed":0,"IRLEDsOn":0,"PoweredOn":78,"CameraOnline":0,"CameraOffline":78,"WifiConnectionCount":1,"WifiConnectionAttempts":1,"PIREvents":0,"PIRConfigFails":0,"PIRTriggers":0,"PIROOREvents":0,"AudioEvents":0,"FailedStreams":0,"FailedUpgrades":0,"SnapshotCount":0,"LogFrequency":2,"CriticalBatStatus":0,"ISPOn":76,"TimeAtPlug":0,"TimeAtUnPlug":0,"PercentAtPlug":0,"PercentAtUnPlug":0,"ISPWatchdogCount":0,"ISPWatchdogCount2":0,"SecsPerPercentCurr":0,"SecsPerPercentAvg":0,"RtcpDiscCnt":0,"InitialLSValue":0,"VPkt":0,"VErr":0,"VEmp":0,"VFrm":0,"VRet":0,"AaPkt":0,"AaE
+Nov  9 19:46:10 OpenWrt user.debug syslog: A3540C7PA041A: ConnectionRate=1964015024 RSSI=-8
+Nov  9 19:46:10 OpenWrt user.debug syslog: Sent Message To A3540C7PA041A: {"Type":"response","ID":2,"Response":"Ack"}
+Nov  9 19:46:10 OpenWrt user.debug syslog: -- 17CameraInputThread (4325)
+Nov  9 19:46:10 OpenWrt user.info syslog: camera rx from A3540C7PA041A [16:0]: {"Type":"logMessage","ID":3,"LogFrequency":1,"LogType":"MSP","LogString":"0 Log Initialized\n0 PIR_L ok\n0 regw 72 00000002\n0 regw 38 ffffffff\n0 regw 33 0000001c\n0 pm_accessory_id: ID: 1653, Volt: 
+Nov  9 19:46:10 OpenWrt user.info syslog: camera rx from A3540C7PA041A [16:1]: 5100\n0 PM_BATTERY_RECHARGEABLE\n0 BattSerial#: 006198AJ0010E\n0 Gas gauge: DesignCap: 32c8, ChemID: 2380\n0 regw 1a 00000002\n0 pm_accessory_id: ID: 1651, Volt: 5100\n0 pm_adapter_indoor_detected\n0 
+Nov  9 19:46:10 OpenWrt user.info syslog: camera rx from A3540C7PA041A [16:2]: regw 1a 00000082\n0 regw 1a 00000002\n0 sm_exit_por 1\n1 pm_accessory_id: ID: 1654, Volt: 5200\nregw 38 00000f0b\nregw 33 00000018\nregw 3b 00000040\nsm_enter_init 1\npm_accessory_id: ID: 1653, Volt: 
+Nov  9 19:46:10 OpenWrt user.info syslog: camera rx from A3540C7PA041A [16:3]: 5200\npm_adapter_indoor_detected\nregw 1a 00000082\n2 pm_monitor_charge: Charge Start\nregw 21 00000003\nsm_exit_init 4\nregw 0b 00000008\n130 0 784410 1 0 1010\nDAYMODE (change)\nregw 0b 00000808\nsm
+Nov  9 19:46:10 OpenWrt user.info syslog: camera rx from A3540C7PA041A [16:4]: _enter_active 4\n3 regw 0e 00000006\n4 EPOCH_BS_TIME: 4\n0 Log Initialized\n0 PIR_L ok\n0 regw 72 00000002\n0 PM_BATTERY_RECHARGEABLE\n0 BattSerial#: 006198A10003T\n0 Gas gauge: DesignCap: 32c8, ChemI
+Nov  9 19:46:10 OpenWrt user.info syslog: camera rx from A3540C7PA041A [16:5]: D: 2380\n0 regw 1a 00000002\n0 regw 38 00000fcf\n0 regw 33 00000017\n0 regw 3b 00000057\n0 sm_exit_por 1\n1 sm_enter_init 1\n2 sm_exit_init 4\n130 0 0 1 0 1010\nNIGHTMODE (no change)\nregw 0b 00000800
+Nov  9 19:46:10 OpenWrt user.info syslog: camera rx from A3540C7PA041A [16:6]: \nsm_enter_active 4\n3 regw 0e 00000006\nEPOCH_BS_TIME: 3\n"}
+Nov  9 19:46:10 OpenWrt user.debug syslog: Sent Message To A3540C7PA041A: {"Type":"registerSet","ID":8,"SetValues":{"EpochBsTime":1541821570}}
+Nov  9 19:46:10 OpenWrt user.debug syslog: Logging from camera A3540C7PA041A with LogFreq 1
+Nov  9 19:46:10 OpenWrt user.debug syslog: ++ 20PresenceWorkerThread (4361)
+Nov 10 03:46:10 OpenWrt user.debug syslog: ++ 16HttpWorkerThread (4360)
+Nov  9 19:46:10 OpenWrt user.info syslog: backend rx [10:0]: {"action":"get","resource":"diagnostics/cameraRegisters","properties":{"cameraId":"A3540C7PA041A","registers":["SystemSerialNumber","SystemModelNumber","SystemFirmwareVersion","HardwareRevision","MACA
+Nov 10 03:46:10 OpenWrt user.debug syslog: -- 16HttpWorkerThread (4360)
+Nov  9 19:46:10 OpenWrt user.info syslog: backend rx [10:1]: ddress"]},"responseUrl":"http://127.0.0.1:4040/test"}
+Nov  9 19:46:10 OpenWrt user.debug syslog: A3540C7PA041A: ConnectionRate=1964015024 RSSI=-8
+Nov  9 19:46:10 OpenWrt user.debug syslog: Sent Message To A3540C7PA041A: {"Type":"response","ID":3,"Response":"Ack"}
+Nov  9 19:46:10 OpenWrt user.debug syslog: -- 17CameraInputThread (4340)
+Nov  9 19:46:10 OpenWrt user.info syslog: camera rx from A3540C7PA041A [17:0]: {"Type":"response","ID":8,"Response":"Ack"}
+Nov  9 19:46:10 OpenWrt user.debug syslog: -- 18CameraOutputThread (4332)
+Nov  9 19:46:10 OpenWrt user.debug syslog: Sent Message To A3540C7PA041A: {"Type":"registerGet","ID":9,"GetValues":["SystemSerialNumber","SystemModelNumber","SystemFirmwareVersion","HardwareRevision","MACAddress"]}
+Nov  9 19:46:10 OpenWrt user.debug syslog: ++ 17CameraInputThread (4364)
+Nov  9 19:46:10 OpenWrt user.info syslog: camera rx from A3540C7PA041A [18:0]: {"Type":"logMessage","ID":4,"LogFrequency":1,"LogType":"MSP","LogString":"70 regw 0e 00000001\n74 regw 0e 00000002\n77 regw 0e 00000003\n78 regw 1b 00000001\nregw 0e 00000005\n79 EPOCH_BS_TIME: 79\n"}
+Nov  9 19:46:10 OpenWrt user.debug syslog: Logging from camera A3540C7PA041A with LogFreq 1
+Nov  9 19:46:10 OpenWrt user.debug syslog: A3540C7PA041A: ConnectionRate=1964015024 RSSI=-9
+Nov  9 19:46:10 OpenWrt user.debug syslog: Sent Message To A3540C7PA041A: {"Type":"response","ID":4,"Response":"Ack"}
+Nov  9 19:46:10 OpenWrt user.debug syslog: -- 17CameraInputThread (4364)
+Nov  9 19:46:10 OpenWrt user.info syslog: camera rx from A3540C7PA041A [19:0]: {"Type":"response","ID":9,"Response":"Ack","GetReturn":{"SystemSerialNumber":"A3540C7PA041A","SystemModelNumber":"FB1001B","SystemFirmwareVersion":"1.070.19.2_20_d19c2ceb","HardwareRevision":"H4","MAC
+Nov  9 19:46:10 OpenWrt user.info syslog: camera rx from A3540C7PA041A [19:1]: Address":"a4:11:62:cb:fd:fc"}}
+Nov  9 19:46:10 OpenWrt user.debug syslog: basestation/BasestationConfiguration.cpp:restoreAuthToken Restoring authToken
+Nov  9 19:46:10 OpenWrt user.debug syslog: getAuthTokenBackup
+Nov  9 19:46:11 OpenWrt user.debug syslog: ++ 17CameraInputThread (4378)
+Nov  9 19:46:11 OpenWrt user.info syslog: camera rx from A3540C7PA041A [20:0]: {"Type":"logMessage","ID":5,"LogFrequency":1,"LogType":"OV","LogString":"error: data length is forbidden as 0 when read serial flash\n[OV_DBG read_checksum_spi]: checksum pass\n\ndspg_fw_version = 0x0
+Nov  9 19:46:11 OpenWrt user.info syslog: camera rx from A3540C7PA041A [20:1]: \ndspg_asrp_engine_version = 0x0\ndspg_audio_reg_table_version = \ndspg .c reference file version = 0.75\ndspg FW file name = Orange_D2_ver_4195_ASR_A041.bin\ndspg load file does not contain a version
+Nov  9 19:46:11 OpenWrt user.info syslog: camera rx from A3540C7PA041A [20:2]: . Original file version= Reg0002_AsrpParams_Arlo_Falcon_VC_vA04x_T02_P35_Ver.bin\nAnalog gain register = 0x0\nDigital gain register = 0x0\n\nTDM to speaker: 32bits configuration\nset volume to 2048\n3
+Nov  9 19:46:11 OpenWrt user.info syslog: camera rx from A3540C7PA041A [20:3]: :\"cimkv_get_passphrase invalid passphrase length 0\"\n3:\"cimkv_read Cannot get value by key ('WLAN_PASSPHRASE') from vault [fffffdfd]\"\n6:\"sm_ertos_timer_create: timeout = 1000\"\n6:\"sm_ertos_tim
+Nov  9 19:46:11 OpenWrt user.info syslog: camera rx from A3540C7PA041A [20:4]: er_create: timeout = 50\"\n6:\"sm_ertos_timer_create: timeout = 2500\"\n6:\"sm_ertos_timer_create: timeout = 1000\"\n6:\"sm_ertos_timer_create: timeout = 1000\"\n6:\"sm_ertos_timer_create: timeout = 1
+Nov  9 19:46:11 OpenWrt user.info syslog: camera rx from A3540C7PA041A [20:5]: 0\"\n6:\"sm_ertos_timer_create: timeout = 180000\"\n6:\"sm_ertos_timer_create: timeout = 180000\"\n6:\"sm_ertos_timer_create: timeout = 6553600\"\n6:\"sm_ertos_timer_create: timeout = 6553\"\n6:\"sm_e
+Nov  9 19:46:11 OpenWrt user.info syslog: camera rx from A3540C7PA041A [20:6]: rtos_timer_create: timeout = 30000\"\n6:\"sm_ertos_timer_create: timeout = 30000\"\n6:\"sm_ertos_timer_create: timeout = 300\"\n6:\"sm_ertos_timer_create: timeout = 30000\"\n6:\"sm_ertos_timer_create:
+Nov  9 19:46:11 OpenWrt user.info syslog: camera rx from A3540C7PA041A [20:7]:  timeout = 200\"\n6:\"sm_ertos_timer_create: timeout = 20\"\n6:\"sm_ertos_timer_create: timeout = 1000\"\n6:\"sm_ertos_timer_create: timeout = 20\"\n6:\"sm_ertos_timer_create: timeout = 30000\"\n6:\"s
+Nov  9 19:46:11 OpenWrt user.info syslog: camera rx from A3540C7PA041A [20:8]: m_ertos_timer_create: timeout = 30000\"\n6:\"sm_ertos_timer_create: timeout = 800\"\n6:\"sm_ertos_timer_create: timeout = 200\"\n6:\"sm_ertos_timer_create: timeout = 200\"\n6:\"LS task initialized\"\n
+Nov  9 19:46:11 OpenWrt user.info syslog: camera rx from A3540C7PA041A [20:9]: 6:\"starting ALS blackout timer for light state change with duration: 0 sec\"\n6:\"Started timer 0x26c01508 1\"\n6:\"Event"}
+Nov  9 19:46:11 OpenWrt user.debug syslog: Logging from camera A3540C7PA041A with LogFreq 1
+Nov  9 19:46:11 OpenWrt user.debug syslog: basestation/BasestationConfiguration.cpp:restoreAuthToken authToken NOT present in NVRAM
+Nov  9 19:46:11 OpenWrt user.debug syslog: ++ 17CameraInputThread (4388)
+Nov  9 19:46:11 OpenWrt user.info syslog: backend tx [8:0]: {"resource":"diagnostics/cameraRegisters","action":"get","properties":{"cameraId":"A3540C7PA041A","registers":{"SystemSerialNumber":"A3540C7PA041A","SystemModelNumber":"FB1001B","SystemFirmwareVersion
+Nov  9 19:46:11 OpenWrt user.info syslog: backend tx [8:1]: ":"1.070.19.2_20_d19c2ceb","HardwareRevision":"H4","MACAddress":"a4:11:62:cb:fd:fc"}}}
+Nov  9 19:46:11 OpenWrt user.debug syslog: sys/HttpUtils.cpp::perform-11 url="http://127.0.0.1:4040/test"
+Nov  9 19:46:11 OpenWrt user.debug syslog: sys/HttpUtils.cpp::perform-11 message="{"resource":"diagnostics/cameraRegisters","action":"get","properties":{"cameraId":"A3540C7PA041A","registers":{"SystemSerialNumber":"A3540C7PA041A","SystemModelNumber":"FB1001B","SystemFirmwareVersion":"1.070.19.2_20_d19c2ceb","HardwareRevision":"H4","MACAddress":"a4:11:62:cb:fd:fc"}}}"
+Nov 10 03:46:11 OpenWrt user.debug syslog: ++ 16HttpWorkerThread (4394)
+Nov  9 19:46:11 OpenWrt user.debug syslog: sys/HttpUtils.cpp::perform-11 timing: dns=0.000s connect=0.001s ssl=-0.001s http=0.005s total=0.005s
+Nov  9 19:46:11 OpenWrt user.info syslog: backend/BackendHttpConnection.cpp:perform result0=200, responsePayload=""
+Nov  9 19:46:11 OpenWrt user.debug syslog: -- 20PresenceWorkerThread (4361)
+Nov 10 03:46:11 OpenWrt user.info syslog: thread/ListenerThread.cpp:listen Socket Closed Internally
+Nov 10 03:46:11 OpenWrt user.debug syslog: -- 19TypedListenerThreadI16HttpWorkerThreadE (4335)
+Nov 10 03:46:11 OpenWrt user.debug syslog: -- 16HttpWorkerThread (4394)
+Nov 10 03:46:11 OpenWrt user.debug syslog: -- 12LoggerThread (4334)
+Nov  9 19:46:11 OpenWrt user.debug syslog: A3540C7PA041A: ConnectionRate=1964015024 RSSI=-8
+Nov  9 19:46:11 OpenWrt user.debug syslog: Sent Message To A3540C7PA041A: {"Type":"response","ID":5,"Response":"Ack"}
+Nov  9 19:46:11 OpenWrt user.debug syslog: -- 17CameraInputThread (4378)
+Nov  9 19:46:11 OpenWrt user.info syslog: camera rx from A3540C7PA041A [21:0]: {"Type":"logMessage","ID":6,"LogFrequency":1,"LogType":"OV","LogString":" SM_BOOT_EVENT processed in SM_BOOT_STATE state\"\n6:\"PEND_IRQ=0x1010 (PEND_COLD_BOOT,PEND_POWER_ALERT)\"\n6:\"SAVED_STATE=000
+Nov  9 19:46:11 OpenWrt user.info syslog: camera rx from A3540C7PA041A [21:1]: 0 (SM_BOOT_STATE)\"\n6:\"APP_STATE=00\"\n6:\"PEND_COLD_BOOT and Saved state = 0\"\n6:\"Cold Boot, Check Credentials\\n\"\n6:\"Failed to find Dynamic Item:0x0069 Status:0\"\n6:\"Failed to find Mfg item
+Nov  9 19:46:11 OpenWrt user.info syslog: camera rx from A3540C7PA041A [21:2]: :0x015c Status:1\"\n6:\"cimkv_read id=564 entry=0x202a54c0 attr=03 data_ptr=0x202e8d98 data_size=221\"\nERROR: aplayd udp socket() fail.\n6:\"cimkv_get buf=0x202e8ac0 len=44 key={ASLV_DEK}\"\n6:\"cimk
+Nov  9 19:46:11 OpenWrt user.info syslog: camera rx from A3540C7PA041A [21:3]: v_get_dek buf=0x202e8ac0 len=44\"\nkvstore offset 0x1eed000, size 10240\n6:\"cimkv_get_dek return 44\"\n6:\"cimkv_get return 44\"\n6:\"cimkv_get buf=0x26c02a40 len=249 key={WLAN_PASSPHRASE}\"\n6:\"cim
+Nov  9 19:46:11 OpenWrt user.info syslog: camera rx from A3540C7PA041A [21:4]: kv_get_passphrase buf=0x26c02a40 len=249\"\n6:\"cimkv_get_passphrase cim_read(CIM_ENC_WLAN_PASSPHRASE_I)...\"\n6:\"cimkv_get_passphrase cim_read(CIM_ENC_WLAN_PASS_LEN_I)...\"\n6:\"cimkv_get_passphrase
+Nov  9 19:46:11 OpenWrt user.info syslog: camera rx from A3540C7PA041A [21:5]:  invalid passphrase length 0\"\n6:\"cimkv_get_passphrase return -1\"\n6:\"cimkv_get return -1\"\n6:\"cimkv_read Cannot get value by key ('WLAN_PASSPHRASE') from vault [fffffdfd]\"\n6:\"Failed to find 
+Nov  9 19:46:11 OpenWrt user.info syslog: camera rx from A3540C7PA041A [21:6]: Dynamic Item:0x0235 Status:0\"\n6:\"Auto Setup Activated\\n\"\n1 \niv \niv \niv \niv \niv \n\nmax 1, min 1, max2 -1, min2 -1\noldest item 1, latest item 0\nsave address 0xf4a000, new version=2\n6:\"Rx
+Nov  9 19:46:11 OpenWrt user.info syslog: camera rx from A3540C7PA041A [21:7]: ed app to switch = 4\"\n1 \n2 \niv \niv \niv \niv \n\nmax 2, min 1, max2 -1, min2 -1\noldest item 2, latest item 1\nsave address 0xf52000, new version=3\n6:\"nm_send_command: Stop WPM\"\n6:\"nm_send_c
+Nov  9 19:46:11 OpenWrt user.info syslog: camera rx from A3540C7PA041A [21:8]: ommand: Exit easycam\"\n6:\"easycam_exit _network_exit()...\"\n6:\"_network_exit network_stop()...\"\n6:\"_network_exit network_exit()...\"\nnetwork_exit start\n[OV_DBG read_checksum_spi]: checksum pa
+Nov  9 19:46:11 OpenWrt user.info syslog: camera rx from A3540C7PA041A [21:9]: ss\n\ndspg_fw_version = 0x0\ndspg_asrp_engine_version = 0x0\ndspg_audio_reg_table_version = \ndspg .c reference file version = 0.75\ndspg FW"}
+Nov  9 19:46:11 OpenWrt user.debug syslog: Logging from camera A3540C7PA041A with LogFreq 1
+Nov  9 19:46:11 OpenWrt user.debug syslog: ++ 17CameraInputThread (4405)
+Nov  9 19:46:11 OpenWrt user.debug syslog: A3540C7PA041A: ConnectionRate=1964015024 RSSI=-11
+Nov  9 19:46:11 OpenWrt user.debug syslog: Sent Message To A3540C7PA041A: {"Type":"response","ID":6,"Response":"Ack"}
+Nov  9 19:46:11 OpenWrt user.debug syslog: -- 17CameraInputThread (4388)
+Nov  9 19:46:11 OpenWrt user.info syslog: camera rx from A3540C7PA041A [22:0]: {"Type":"logMessage","ID":7,"LogFrequency":1,"LogType":"OV","LogString":" file name = Orange_D2_ver_4195_ASR_A041.bin\ndspg load file does not contain a version. Original file version= Reg0002_AsrpPar
+Nov  9 19:46:11 OpenWrt user.info syslog: camera rx from A3540C7PA041A [22:1]: ams_Arlo_Falcon_VC_vA04x_T02_P35_Ver.bin\nAnalog gain register = 0x0\nDigital gain register = 0x0\n\nTDM to speaker: 32bits configuration\nset volume to 2048\n2:\"cimkv_get_passphrase invalid passphra
+Nov  9 19:46:11 OpenWrt user.info syslog: camera rx from A3540C7PA041A [22:2]: se length 0\"\n2:\"cimkv_read Cannot get value by key ('WLAN_PASSPHRASE') from vault [fffffdfd]\"\nERROR: Can't get value by the key('2G_PASSWD') from vault[fffffdfd].\n3:\"cimi_read_enc_mfg decrypt c
+Nov  9 19:46:11 OpenWrt user.info syslog: camera rx from A3540C7PA041A [22:3]: ali 27 error!\"\n6:\"sm_ertos_timer_create: timeout = 1000\"\n6:\"sm_ertos_timer_create: timeout = 50\"\n6:\"sm_ertos_timer_create: timeout = 2500\"\n6:\"sm_ertos_timer_create: timeout = 1000\"\n6:\"s
+Nov  9 19:46:11 OpenWrt user.info syslog: camera rx from A3540C7PA041A [22:4]: m_ertos_timer_create: timeout = 1000\"\n6:\"sm_ertos_timer_create: timeout = 10\"\n6:\"sm_ertos_timer_create: timeout = 180000\"\n6:\"sm_ertos_timer_create: timeout = 180000\"\n6:\"sm_ertos_timer_crea
+Nov  9 19:46:11 OpenWrt user.info syslog: camera rx from A3540C7PA041A [22:5]: te: timeout = 6553600\"\n6:\"sm_ertos_timer_create: timeout = 6553\"\n6:\"sm_ertos_timer_create: timeout = 30000\"\n6:\"sm_ertos_timer_create: timeout = 30000\"\n6:\"sm_ertos_timer_create: timeout = 3
+Nov  9 19:46:11 OpenWrt user.info syslog: camera rx from A3540C7PA041A [22:6]: 00\"\n6:\"sm_ertos_timer_create: timeout = 30000\"\n6:\"sm_ertos_timer_create: timeout = 200\"\n6:\"sm_ertos_timer_create: timeout = 20\"\n6:\"sm_ertos_timer_create: timeout = 1000\"\n6:\"sm_ertos_tim
+Nov  9 19:46:11 OpenWrt user.info syslog: camera rx from A3540C7PA041A [22:7]: er_create: timeout = 20\"\n6:\"sm_ertos_timer_create: timeout = 30000\"\n6:\"sm_ertos_timer_create: timeout = 30000\"\n6:\"sm_ertos_timer_create: timeout = 800\"\n6:\"sm_ertos_timer_create: timeout = 
+Nov  9 19:46:11 OpenWrt user.info syslog: camera rx from A3540C7PA041A [22:8]: 200\"\n6:\"sm_ertos_timer_create: timeout = 200\"\n6:\"LS task initialized\"\n6:\"starting ALS blackout timer for light state change with duration: 0 sec\"\n6:\"Started timer 0x26c03ac8 1\"\n6:\"Event
+Nov  9 19:46:11 OpenWrt user.info syslog: camera rx from A3540C7PA041A [22:9]:  SM_BOOT_EVENT processed in SM_BOOT_STATE state\"\n6:\"PEND_IRQ=0x1010 (PEND_COLD_BOOT,PEND_POWER_ALERT)\"\n6:\"SAVED_STATE=0"}
+Nov  9 19:46:11 OpenWrt user.debug syslog: Logging from camera A3540C7PA041A with LogFreq 1
+Nov  9 19:46:11 OpenWrt user.debug syslog: ++ 17CameraInputThread (4416)
+Nov  9 19:46:11 OpenWrt user.debug syslog: A3540C7PA041A: ConnectionRate=1964015024 RSSI=-10
+Nov  9 19:46:11 OpenWrt user.debug syslog: Sent Message To A3540C7PA041A: {"Type":"response","ID":7,"Response":"Ack"}
+Nov  9 19:46:11 OpenWrt user.debug syslog: -- 17CameraInputThread (4405)
+Nov  9 19:46:11 OpenWrt user.info syslog: camera rx from A3540C7PA041A [23:0]: {"Type":"logMessage","ID":8,"LogFrequency":1,"LogType":"OV","LogString":"000 (SM_BOOT_STATE)\"\n6:\"APP_STATE=00\"\n6:\"PEND_COLD_BOOT and Saved state = 0\"\n6:\"Cold Boot, Check Credentials\\n\"\n6:\
+Nov  9 19:46:11 OpenWrt user.info syslog: camera rx from A3540C7PA041A [23:1]: "Failed to find Dynamic Item:0x0069 Status:0\"\n6:\"Failed to find Mfg item:0x015c Status:1\"\n6:\"cimkv_read id=564 entry=0x202a54c0 attr=03 data_ptr=0x202e8d98 data_size=221\"\nERROR: aplayd udp soc
+Nov  9 19:46:11 OpenWrt user.info syslog: camera rx from A3540C7PA041A [23:2]: ket() fail.\n6:\"cimkv_get buf=0x202e8ac0 len=44 key={ASLV_DEK}\"\n6:\"cimkv_get_dek buf=0x202e8ac0 len=44\"\nkvstore offset 0x1eed000, size 10240\n6:\"cimkv_get_dek return 44\"\n6:\"cimkv_get return 
+Nov  9 19:46:11 OpenWrt user.info syslog: camera rx from A3540C7PA041A [23:3]: 44\"\n6:\"cimkv_get buf=0x26c02638 len=249 key={WLAN_PASSPHRASE}\"\n6:\"cimkv_get_passphrase buf=0x26c02638 len=249\"\n6:\"cimkv_get_passphrase cim_read(CIM_ENC_WLAN_PASSPHRASE_I)...\"\n6:\"cimkv_get_
+Nov  9 19:46:11 OpenWrt user.info syslog: camera rx from A3540C7PA041A [23:4]: passphrase cim_read(CIM_ENC_WLAN_PASS_LEN_I)...\"\n6:\"cimkv_get_passphrase invalid passphrase length 0\"\n6:\"cimkv_get_passphrase return -1\"\n6:\"cimkv_get return -1\"\n6:\"cimkv_read Cannot get va
+Nov  9 19:46:11 OpenWrt user.info syslog: camera rx from A3540C7PA041A [23:5]: lue by key ('WLAN_PASSPHRASE') from vault [fffffdfd]\"\n6:\"Failed to find Dynamic Item:0x0235 Status:0\"\nERROR: Can't get value by the key('2G_PASSWD') from vault[fffffdfd].\n6:\"cimi_read_enc_mfg d
+Nov  9 19:46:11 OpenWrt user.info syslog: camera rx from A3540C7PA041A [23:6]: ecrypt cali 27 error!\"\n6:\"Failed to find Mfg item:0x015d Status:1\"\n6:\"Auto Setup Activated\\n\"\n6:\"Rxed app to switch = 4\"\n1 \n2 \n3 \n4 \niv \niv \n\nmax 4, min 1, max2 -1, min2 -1\noldest 
+Nov  9 19:46:11 OpenWrt user.info syslog: camera rx from A3540C7PA041A [23:7]: item 4, latest item 3\nsave address 0xf62000, new version=5\n6:\"nm_send_command: Stop WPM\"\n6:\"nm_send_command: Exit easycam\"\n6:\"easycam_exit _network_exit()...\"\n6:\"_network_exit network_stop
+Nov  9 19:46:11 OpenWrt user.info syslog: camera rx from A3540C7PA041A [23:8]: ()...\"\n6:\"_network_exit network_exit()...\"\nnetwork_exit start\nsflash found: W25Q256JW\nid2:23 addr = 624220, len = f400\nid2:16 addr = 5314a0, len = 69280\n0:\"Netgear Setup App version: 1.070.1
+Nov  9 19:46:11 OpenWrt user.info syslog: camera rx from A3540C7PA041A [23:9]: 9.2_20_d19c2ceb\"\n0:\"Netgear Setup App build: /home/jenkins/agent/workspace/e_FB1001_1.070.19.0_278_4b720e72/omnivision\"\n0:\"Netgea"}
+Nov  9 19:46:11 OpenWrt user.debug syslog: Logging from camera A3540C7PA041A with LogFreq 1
+Nov  9 19:46:11 OpenWrt user.debug syslog: ++ 17CameraInputThread (4427)
+Nov  9 19:46:11 OpenWrt user.debug syslog: A3540C7PA041A: ConnectionRate=1964015024 RSSI=-8
+Nov  9 19:46:11 OpenWrt user.debug syslog: Sent Message To A3540C7PA041A: {"Type":"response","ID":8,"Response":"Ack"}
+Nov  9 19:46:11 OpenWrt user.debug syslog: -- 17CameraInputThread (4416)
+Nov  9 19:46:11 OpenWrt user.info syslog: camera rx from A3540C7PA041A [24:0]: {"Type":"logMessage","ID":9,"LogFrequency":1,"LogType":"OV","LogString":"r Setup App date: Wed Sep 23 20:56:53 UTC 2020\"\n0:\"Netgear Setup App GIT ID: d19c2ceb30bcd6c7dafbb471eb49bf8adfc6e405\"\n\nU
+Nov  9 19:46:11 OpenWrt user.info syslog: camera rx from A3540C7PA041A [24:1]: art Initial!!\n  Exiting cimd_ddr_init\n\n<Dev Info>\n\tsn: 00005442550a6bf6\n\tpw: SbVwPXQO\n      mac: a4-11-62-cb-fd-fc\ndefault WiFi SSID: OmniVision\n0:\"cimkv_get_passphrase invalid passphrase l
+Nov  9 19:46:11 OpenWrt user.info syslog: camera rx from A3540C7PA041A [24:2]: ength 0\"\n0:\"cimkv_read Cannot get value by key ('WLAN_PASSPHRASE') from vault [fffffdfd]\"\nERROR: Can't get value by the key('2G_PASSWD') from vault[fffffdfd].\n0:\"cimi_read_enc_mfg decrypt cali 
+Nov  9 19:46:11 OpenWrt user.info syslog: camera rx from A3540C7PA041A [24:3]: 27 error!\"\ndefault WiFi key\nwifi_security:open\nWlan SSID: OmniVision PW: ***** SECURITY: open\nid2:26 addr = 6ab420, len = 41fc0\nDCPC bin load ok\nEasycam is initialized.\n\n0:\"no permanent mode
+Nov Check infomation pass .....
+ 9 19:46:11 OpenWrt user.info syslog: camera rx from A3540C7PA041A [24:4]: . Return default value\"\n0:\"Camera temporary mode cleared.\"\nLoad wifi para from SFlash\nInit WPS setup\n0:\"Invalid wifi country code  setting XZ\"\nselect scio 2\nscio_init: enter scio init, mode
+Nov  9 19:46:11 OpenWrt user.info syslog: camera rx from A3540C7PA041A [24:5]: :4\nsdio_change_clk: read SCIO_HIGH_SPEED_REG failed, err 0x1\nscio_init: pre_init failed, try again\nsdio_change_clk: read SCIO_HIGH_SPEED_REG failed, err 0x1\nscio_init: pre_init failed, try again\n
+Nov  9 19:46:11 OpenWrt user.info syslog: camera rx from A3540C7PA041A [24:6]: sdio_change_clk: read SCIO_HIGH_SPEED_REG failed, err 0x1\nscio_init: pre_init failed, try again\nsdio_change_clk: read SCIO_HIGH_SPEED_REG failed, err 0x1\nscio_init: pre_init failed, try again\nsdio
+Nov  9 19:46:11 OpenWrt user.info syslog: camera rx from A3540C7PA041A [24:7]: _change_clk: read SCIO_HIGH_SPEED_REG failed, err 0x1\nscio_init: pre_init failed, try again\nsdio_change_clk: read SCIO_HIGH_SPEED_REG failed, err 0x1\nscio_init: pre_init failed, try again\nsdio_cha
+Nov  9 19:46:11 OpenWrt user.info syslog: camera rx from A3540C7PA041A [24:8]: nge_clk: read SCIO_HIGH_SPEED_REG failed, err 0x1\nscio_init: pre_init failed, got to reset init\nsdio_change_clk: read SCIO_HIGH_SPEED_REG = 0x1\nsdio_change_clk: set sdio clock 25000000\nsdio_change
+Nov  9 19:46:11 OpenWrt user.info syslog: camera rx from A3540C7PA041A [24:9]: _clk: read again SCIO_HIGH_SPEED_REG = 0x1\nsdio_set_buswidth_4bit: card_bus_width_swi"}
+Nov  9 19:46:11 OpenWrt user.debug syslog: Logging from camera A3540C7PA041A with LogFreq 1
+Nov  9 19:46:11 OpenWrt user.debug syslog: ++ 17CameraInputThread (4438)
+Nov  9 19:46:11 OpenWrt user.debug syslog: A3540C7PA041A: ConnectionRate=1964015024 RSSI=-9
+Nov  9 19:46:11 OpenWrt user.debug syslog: Sent Message To A3540C7PA041A: {"Type":"response","ID":9,"Response":"Ack"}
+Nov  9 19:46:11 OpenWrt user.debug syslog: -- 17CameraInputThread (4427)
+Nov  9 19:46:11 OpenWrt user.info syslog: camera rx from A3540C7PA041A [25:0]: {"Type":"logMessage","ID":10,"LogFrequency":1,"LogType":"OV","LogString":"tch to 4bit\nsdio function num=3, wifi_run_flag=0, err = 0\nid2:6 addr = 248d60, len = 57580\nboard_bcm4334fw_get len 357760\n
+Nov  9 19:46:11 OpenWrt user.info syslog: camera rx from A3540C7PA041A [25:1]: id2:7 addr = 2ded60, len = fc0\nboard_firmware_get len 4032\nid2:32 addr = 773de0, len = 440\nboard_clmdata_get len 1088\nWLAN MAC Address : A4:11:62:CB:FD:FC\r\nWLAN Firmware    : wl0: Jun 22 2020 14
+Nov  9 19:46:11 OpenWrt user.info syslog: camera rx from A3540C7PA041A [25:2]: :03:30 version 13.18.33 (r726175) FWID 01-3fc6faaa\r\nid2:7 addr = 2ded60, len = fc0\nWLAN ARLO NV RAM : FB1001_H2-02.00.00.00 \nWLAN CLM         : API: 18.2 Data: Arlo.Owl Compiler: 1.36.1 ClmImport:
+Nov  9 19:46:11 OpenWrt user.info syslog: camera rx from A3540C7PA041A [25:3]:  1.36.3 Customization: v3 20200207 Creation: 2020-02-07 17:13:33 \r\nwlan_is_connected: not associated!\n1:\"wps_process libwifi_iovar_setint(lrl,15)\"\n1:\"wps_process libwifi_iovar_setint(srl,15)\"\
+Nov  9 19:46:11 OpenWrt user.info syslog: camera rx from A3540C7PA041A [25:4]: nwlan_wps_scanconnect: wps_scan()...\nwps_scan: wws_set_escan()...\nqrcode scan find no result\nqrcode scan find no result\nwps_scan: wws_set_escan(),num_2g=1\nwps scan find one 2.4G ap result\nwlan_w
+Nov  9 19:46:11 OpenWrt user.info syslog: camera rx from A3540C7PA041A [25:5]: ps_scanconnect: wps_scan, ret=1\nwlan_wps_scanconnect: wps_connect()...\nwlan_wps_scanconnect: wps_connect, ret=0, ssid:NTGR_VMB_1541819953, ch=8\nwlan_wps_scanconnect: wwd_eapol_register_receive_hand
+Nov  9 19:46:11 OpenWrt user.info syslog: camera rx from A3540C7PA041A [25:6]: ler()...\nwlan_wps_scanconnect: ok\nWPS find AP(ssid NTGR_VMB_1541819953, bssid a4:11:62:76:8e:42)\nqrcode scan find no result\n2:\"cafw_log_packet (23)\"\n2:\"0000: a4 11 62 cb fd fc a4 11 62 76 8e 4
+Nov  9 19:46:11 OpenWrt user.info syslog: camera rx from A3540C7PA041A [25:7]: 2 88 8e 02 00\"\n2:\"0010:===[ Send Sfis ]===
+ 00 05 01 c6 00 05 01\"\nqrcode scan find no result\nqrcode scan find no result\nqrcode scan find no result\nqrcode scan find no result\nqrcode scan find no result\nqrcode sc
+Nov  9 19:46:11 OpenWrt user.info syslog: camera rx from A3540C7PA041A [25:8]: an find no result\nqrcode scan find no result\nqrcode scan find no result\nqrcode scan find no result\nqrcode scan find no result\nqrcode scan find no result\nqrcode scan find no result\nqrcode scan f
+Nov  9 19:46:11 OpenWrt user.info syslog: camera rx from A3540C7PA041A [25:9]: ind no result\nqrcode scan find no result\nqrcode scan find no result\nqrcode scan f"}
+Nov  9 19:46:11 OpenWrt user.debug syslog: Logging from camera A3540C7PA041A with LogFreq 1
+Nov  9 19:46:11 OpenWrt user.debug syslog: ++ 17CameraInputThread (4449)
+Nov 10 03:46:11 OpenWrt user.debug syslog: ++ 19TypedListenerThreadI16HttpWorkerThreadE (4452)
+Nov 10 03:46:11 OpenWrt user.debug syslog: thread/ListenerThread.cpp:listen opened listen socket on interface lo, port 4040
+Nov 10 03:46:11 OpenWrt user.debug syslog: thread/ListenerThread.cpp:listen bound to address 127.0.0.1, port 4040
+Nov 10 03:46:11 OpenWrt user.debug syslog: thread/ListenerThread.cpp:listen listening on port 4040
+Nov 10 03:46:11 OpenWrt user.debug syslog: ++ 12LoggerThread (4451)
+Nov  9 19:46:11 OpenWrt user.debug syslog: A3540C7PA041A: ConnectionRate=1964015024 RSSI=-9
+Nov  9 19:46:11 OpenWrt user.debug syslog: Sent Message To A3540C7PA041A: {"Type":"response","ID":10,"Response":"Ack"}
+Nov  9 19:46:11 OpenWrt user.debug syslog: -- 17CameraInputThread (4438)
+Nov  9 19:46:11 OpenWrt user.info syslog: camera rx from A3540C7PA041A [26:0]: {"Type":"logMessage","ID":11,"LogFrequency":1,"LogType":"OV","LogString":"ind no result\nqrcode scan find no result\nqrcode scan find no result\nqrcode scan find no result\nqrcode scan find no result\
+Nov  9 19:46:11 OpenWrt user.info syslog: camera rx from A3540C7PA041A [26:1]: nqrcode scan find no result\nqrcode scan find no result\nqrcode scan find no result\nqrcode scan find no result\nqrcode scan find no result\nqrcode scan find no result\nqrcode scan find no result\nqrc
+Nov  9 19:46:11 OpenWrt user.info syslog: camera rx from A3540C7PA041A [26:2]: ode scan find no result\nqrcode scan find no result\nqrcode scan find no result\nqrcode scan find no result\nqrcode scan find no result\nqrcode scan find no result\nqrcode scan find no result\nqrcode 
+Nov  9 19:46:11 OpenWrt user.info syslog: camera rx from A3540C7PA041A [26:3]: scan find no result\nWPS : process abandoned, too many retries\nqrcode scan find no result\nqrcode scan find no result\nqrcode scan find no result\n[ERROR]: Input ssid/key failed.\nRedo setup...\nqrco
+Nov  9 19:46:11 OpenWrt user.info syslog: camera rx from A3540C7PA041A [26:4]: de scan find no result\n16:\"no permanent mode. Return default value\"\n16:\"Camera temporary mode cleared.\"\nLoad wifi para from SFlash\nInit WPS setup\n16:\"Invalid wifi country code  setting XZ\"\
+Nov  9 19:46:11 OpenWrt user.info syslog: camera rx from A3540C7PA041A [26:5]: nwlan_is_connected: not associated!\n16:\"wps_process libwifi_iovar_setint(lrl,15)\"\n16:\"wps_process libwifi_iovar_setint(srl,15)\"\nwlan_wps_scanconnect: wps_scan()...\nwps_scan: wws_set_escan()...
+Nov  9 19:46:11 OpenWrt user.info syslog: camera rx from A3540C7PA041A [26:6]: \nqrcode scan find no result\nqrcode scan find no result\nwps_scan: wws_set_escan(),num_2g=0\nwps scan find no result\nwlan_wps_scanconnect: wps_scan, ret=0\n16:\"WPS: No APs doing WPS, restart wps\\n
+Nov  9 19:46:11 OpenWrt user.info syslog: camera rx from A3540C7PA041A [26:7]: \"\nwlan_wps_scanconnect: wps_scan()...\nwps_scan: wws_set_escan()...\nqrcode scan find no result\nqrcode scan find no result\nwps_scan: wws_set_escan(),num_2g=0\nwps scan find no result\nwlan_wps_sca
+Nov  9 19:46:11 OpenWrt user.info syslog: camera rx from A3540C7PA041A [26:8]: nconnect: wps_scan, ret=0\n17:\"WPS: No APs doing WPS, restart wps\\n\"\nwlan_wps_scanconnect: wps_scan()...\nwps_scan: wws_set_escan()...\nqrcode scan find no result\nqrcode scan find Send command close_base
+no result\nqrco
+Nov  9 19:46:11 OpenWrt user.info syslog: camera rx from A3540C7PA041A [26:9]: de scan find no result\nwps_scan: wws_set_escan(),num_2g=0\nwps scan find no result\nwlan_wps_scan"}
+Nov  9 19:46:11 OpenWrt user.debug syslog: Logging from camera A3540C7PA041A with LogFreq 1
+Nov  9 19:46:11 OpenWrt user.debug syslog: ++ 17CameraInputThread (4463)
+Nov  9 19:46:11 OpenWrt user.debug syslog: A3540C7PA041A: ConnectionRate=1964015024 RSSI=-9
+Nov  9 19:46:11 OpenWrt user.debug syslog: Sent Message To A3540C7PA041A: {"Type":"response","ID":11,"Response":"Ack"}
+Nov  9 19:46:11 OpenWrt user.debug syslog: -- 17CameraInputThread (4449)
+Nov  9 19:46:11 OpenWrt user.info syslog: camera rx from A3540C7PA041A [27:0]: {"Type":"logMessage","ID":12,"LogFrequency":1,"LogType":"OV","LogString":"connect: wps_scan, ret=0\n18:\"WPS: No APs doing WPS, restart wps\\n\"\nwlan_wps_scanconnect: wps_scan()...\nwps_scan: wws_set
+Nov  9 19:46:11 OpenWrt user.info syslog: camera rx from A3540C7PA041A [27:1]: _escan()...\nqrcode scan find no result\nqrcode scan find no result\nwps_scan: wws_set_escan(),num_2g=0\nwps scan find no result\nwlan_wps_scanconnect: wps_scan, ret=0\n19:\"WPS: No APs doing WPS, res
+Nov  9 19:46:11 OpenWrt user.info syslog: camera rx from A3540C7PA041A [27:2]: tart wps\\n\"\nwlan_wps_scanconnect: wps_scan()...\nwps_scan: wws_set_escan()...\nqrcode scan find no result\nqrcode scan find no result\nwps_scan: wws_set_escan(),num_2g=0\nwps scan find no result\nw
+Nov  9 19:46:11 OpenWrt user.info syslog: camera rx from A3540C7PA041A [27:3]: lan_wps_scanconnect: wps_scan, ret=0\n20:\"WPS: No APs doing WPS, restart wps\\n\"\nwlan_wps_scanconnect: wps_scan()...\nwps_scan: wws_set_escan()...\nqrcode scan find no result\nqrcode scan find no r
+Nov  9 19:46:11 OpenWrt user.info syslog: camera rx from A3540C7PA041A [27:4]: esult\nqrcode scan find no result\nwps_scan: wws_set_escan(),num_2g=0\nwps scan find no result\nwlan_wps_scanconnect: wps_scan, ret=0\n20:\"WPS: No APs doing WPS, restart wps\\n\"\nwlan_wps_scanconnec
+Nov  9 19:46:11 OpenWrt user.info syslog: camera rx from A3540C7PA041A [27:5]: t: wps_scan()...\nwps_scan: wws_set_escan()...\nqrcode scan find no result\nqrcode scan find no result\nwps_scan: wws_set_escan(),num_2g=0\nwps scan find no result\nwlan_wps_scanconnect: wps_scan, ret
+Nov  9 19:46:11 OpenWrt user.info syslog: camera rx from A3540C7PA041A [27:6]: =0\n21:\"WPS: No APs doing WPS, restart wps\\n\"\nwlan_wps_scanconnect: wps_scan()...\nwps_scan: wws_set_escan()...\nqrcode scan find no result\nqrcode scan find no result\nwps_scan: wws_set_escan(),n
+Nov  9 19:46:11 OpenWrt user.info syslog: camera rx from A3540C7PA041A [27:7]: um_2g=0\nwps scan find no result\nwlan_wps_scanconnect: wps_scan, ret=0\n22:\"WPS: No APs doing WPS, restart wps\\n\"\nwlan_wps_scanconnect: wps_scan()...\nwps_scan: wws_set_escan()...\nqrcode scan fi
+Nov  9 19:46:11 OpenWrt user.info syslog: camera rx from A3540C7PA041A [27:8]: nd no result\nqrcode scan find no result\nqrcode scan find no result\nwps_scan: wws_set_escan(),num_2g=0\nwps scan find no result\nwlan_wps_scanconnect: wps_scan, ret=0\n23:\"WPS: No APs doing WPS, re
+Nov  9 19:46:11 OpenWrt user.info syslog: camera rx from A3540C7PA041A [27:9]: start wps\\n\"\nwlan_wps_scanconnect: wps_scan()...\nwps_scan: wws_set_escan()...\nqrcode scan find"}
+Nov  9 19:46:11 OpenWrt user.debug syslog: Logging from camera A3540C7PA041A with LogFreq 1
+Nov  9 19:46:11 OpenWrt user.debug syslog: ++ 17CameraInputThread (4474)
+Nov  9 19:46:11 OpenWrt user.debug syslog: A3540C7PA041A: ConnectionRate=1964015024 RSSI=-10
+Nov  9 19:46:11 OpenWrt user.debug syslog: Sent Message To A3540C7PA041A: {"Type":"response","ID":12,"Response":"Ack"}
+Nov  9 19:46:11 OpenWrt user.debug syslog: -- 17CameraInputThread (4463)
+Nov  9 19:46:11 OpenWrt user.info syslog: camera rx from A3540C7PA041A [28:0]: {"Type":"logMessage","ID":13,"LogFrequency":1,"LogType":"OV","LogString":" no result\nqrcode scan find no result\nwps_scan: wws_set_escan(),num_2g=0\nwps scan find no result\nwlan_wps_scanconnect: wuci set wireless.@wifi-device[0].disabled=1
+ps
+Nov  9 19:46:11 OpenWrt user.info syslog: camera rx from A3540C7PA041A [28:1]: _scan, ret=0\n24:\"WPS: No APs doing WPS, restart wps\\n\"\nwlan_wps_scanconnect: wps_scan()...\nwps_scan: wws_set_escan()...\nqrcode scan find no result\nqrcode scan find no result\nqrcode scan find 
+Nov  9 19:46:11 OpenWrt user.info syslog: camera rx from A3540C7PA041A [28:2]: no result\nwps_scan: wws_set_escan(),num_2g=0\nwps scan find no result\nwlan_wps_scanconnect: wps_scan, ret=0\n24:\"WPS: No APs doing WPS, restart wps\\n\"\nwlan_wps_scanconnect: wps_scan()...\nwps_sc
+Nov  9 19:46:11 OpenWrt user.info syslog: camera rx from A3540C7PA041A [28:3]: an: wws_set_escan()...\nqrcode scan find no result\nqrcode scan find no result\nwps_scan: wws_set_escan(),num_2g=0\nwps scan find no result\nwlan_wps_scanconnect: wps_scan, ret=0\n25:\"WPS: No APs doi
+Nov  9 19:46:11 OpenWrt user.info syslog: camera rx from A3540C7PA041A [28:4]: ng WPS, restart wps\\n\"\nwlan_wps_scanconnect: wps_scan()...\nwps_scan: wws_set_escan()...\nqrcode scan find no result\nqrcode scan find no result\nwps_scan: wws_set_escan(),num_2g=0\nwps scan find n
+Nov  9 19:46:11 OpenWrt user.info syslog: camera rx from A3540C7PA041A [28:5]: o result\nwlan_wps_scanconnect: wps_scan, ret=0\n26:\"WPS: No APs doing WPS, restart wps\\n\"\nwlan_wps_scanconnect: wps_scan()...\nwps_scan: wws_set_escan()...\nqrcode scan find no result\nqrcode sca
+Nov  9 19:46:11 OpenWrt user.info syslog: camera rx from A3540C7PA041A [28:6]: n find no result\nqrcode scan find no result\nwps_scan: wws_set_escan(),num_2g=0\nwps scan find no result\nwlan_wps_scanconnect: wps_scan, ret=0\n27:\"WPS: No APs doing WPS, restart wps\\n\"\nwlan_wps
+Nov  9 19:46:11 OpenWrt user.info syslog: camera rx from A3540C7PA041A [28:7]: _scanconnect: wps_scan()...\nwps_scan: wws_set_escan()...\nqrcode scan find no result\nqrcode scan find no result\nwps_scan: wws_set_escan(),num_2g=0\nwps scan find no result\nwlan_wps_scanconnect: wp
+Nov  9 19:46:11 OpenWrt user.info syslog: camera rx from A3540C7PA041A [28:8]: s_scan, ret=0\n27:\"WPS: No APs doing WPS, restart wps\\n\"\nwlan_wps_scanconnect: wps_scan()...\nwps_scan: wws_set_escan()...\nqrcode scan find no result\nqrcode scan find no result\nqrcode scan find
+Nov  9 19:46:11 OpenWrt user.info syslog: camera rx from A3540C7PA041A [28:9]:  no result\nwps_scan: wws_set_escan(),num_2g=0\nwps scan find no result\nwlan_wps_scanconnect: wp"}
+Nov  9 19:46:11 OpenWrt user.debug syslog: Logging from camera A3540C7PA041A with LogFreq 1
+Nov  9 19:46:11 OpenWrt user.debug syslog: ++ 20PresenceWorkerThread (4478)
+Nov  9 19:46:11 OpenWrt user.info syslog: backend rx [11:0]: {"action":"set","resource":"diagnostics/cameraRegisters","properties":{"cameraId":"A3540C7PA041A","registers":{"FactoryReset":2}},"responseUrl":"http://127.0.0.1:4040/test"}
+Nov 10 03:46:11 OpenWrt user.debug syslog: ++ 16HttpWorkerThread (4477)
+Nov 10 03:46:11 OpenWrt user.debug syslog: -- 16HttpWorkerThread (4477)
+Nov  9 19:46:11 OpenWrt user.debug syslog: basestation/BasestationConfiguration.cpp:restoreAuthToken Restoring authToken
+Nov  9 19:46:11 OpenWrt user.debug syslog: getAuthTokenBackup
+Nov  9 19:46:11 OpenWrt user.debug syslog: ++ 18CameraOutputThread (4480)
+Nov  9 19:46:11 OpenWrt user.debug syslog: ++ 17CameraInputThread (4491)
+Nov  9 19:46:11 OpenWrt user.debug syslog: basestation/BasestationConfiguration.cpp:restoreAuthToken authToken NOT present in NVRAM
+Nov  9 19:46:11 OpenWrt user.debug syslog: A3540C7PA041A: ConnectionRate=1964015024 RSSI=-10
+Nov  9 19:46:11 OpenWrt user.debug syslog: Sent Message To A3540C7PA041A: {"Type":"response","ID":13,"Response":"Ack"}
+Nov  9 19:46:11 OpenWrt user.debug syslog: -- 17CameraInputThread (4474)
+Nov  9 19:46:11 OpenWrt user.info syslog: camera rx from A3540C7PA041A [29:0]: {"Type":"logMessage","ID":14,"LogFrequency":1,"LogType":"OV","LogString":"s_scan, ret=0\n28:\"WPS: No APs doing WPS, restart wps\\n\"\nwlan_wps_scanconnect: wps_scan()...\nwps_scan: wws_set_escan()...
+Nov  9 19:46:11 OpenWrt user.info syslog: camera rx from A3540C7PA041A [29:uci set wireless.@wifi-device[0].disabled=1
+1]: \nqrcode scan find no result\nqrcode scan find no result\nwps_scan: wws_set_escan(),num_2g=0\nwps scan find no result\nwlan_wps_scanconnect: wps_scan, ret=0\n29:\"WPS: No APs doing WPS, restart wps\\n
+Nov  9 19:46:11 OpenWrt user.info syslog: camera rx from A3540C7PA041A [29:2]: \"\nwlan_wps_scanconnect: wps_scan()...\nwps_scan: wws_set_escan()...\nqrcode scan find no result\nqrcode scan find no result\nwps_scan: wws_set_escan(),num_2g=0\nwps scan find no result\nwlan_wps_sca
+Nov  9 19:46:11 OpenWrt user.info syslog: camera rx from A3540C7PA041A [29:3]: nconnect: wps_scan, ret=0\n30:\"WPS: No APs doing WPS, restart wps\\n\"\nwlan_wps_scanconnect: wps_scan()...\nwps_scan: wws_set_escan()...\nqrcode scan find no result\nqrcode scan find no result\nwps_
+Nov  9 19:46:11 OpenWrt user.info syslog: camera rx from A3540C7PA041A [29:4]: scan: wws_set_escan(),num_2g=0\nwps scan find no result\nwlan_wps_scanconnect: wps_scan, ret=0\n31:\"WPS: No APs doing WPS, restart wps\\n\"\nwlan_wps_scanconnect: wps_scan()...\nwps_scan: wws_set_esc
+Nov  9 19:46:11 OpenWrt user.info syslog: camera rx from A3540C7PA041A [29:5]: an()...\nqrcode scan find no result\nqrcode scan find no result\nqrcode scan find no result\nwps_scan: wws_set_escan(),num_2g=0\nwps scan find no result\nwlan_wps_scanconnect: wps_scan, ret=0\n31:\"WP
+Nov  9 19:46:11 OpenWrt user.info syslog: camera rx from A3540C7PA041A [29:6]: S: No APs doing WPS, restart wps\\n\"\nwlan_wps_scanconnect: wps_scan()...\nwps_scan: wws_set_escan()...\nqrcode scan find no result\nqrcode scan find no result\nwps_scan: wws_set_escan(),num_2g=0\nwp
+Nov  9 19:46:11 OpenWrt user.info syslog: camera rx from A3540C7PA041A [29:7]: s scan find no result\nwlan_wps_scanconnect: wps_scan, ret=0\n32:\"WPS: No APs doing WPS, restart wps\\n\"\nwlan_wps_scanconnect: wps_scan()...\nwps_scan: wws_set_escan()...\nqrcode scan find no resul
+Nov  9 19:46:11 OpenWrt user.info syslog: camera rx from A3540C7PA041A [29:8]: t\nqrcode scan find no result\nwps_scan: wws_set_escan(),num_2g=0\nwps scan find no result\nwlan_wps_scanconnect: wps_scan, ret=0\nqrcode scan find no result\n33:\"WPS: No APs doing WPS, restart wps\\
+Nov  9 19:46:11 OpenWrt user.info syslog: camera rx from A3540C7PA041A [29:9]: n\"\nwlan_wps_scanconnect: wps_scan()...\nwps_scan: wws_set_escan()...\nqrcode scan find no result\n"}
+Nov  9 19:46:11 OpenWrt user.debug syslog: Logging from camera A3540C7PA041A with LogFreq 1
+Nov  9 19:46:11 OpenWrt user.debug syslog: Sent Message To A3540C7PA041A: {"Type":"registerSet","ID":10,"SetValues":{"FactoryReset":2}}
+Nov  9 19:46:11 OpenWrt user.info syslog: backend tx [9:0]: {"resource":"diagnostics/cameraRegisters","action":"set"}
+Nov  9 19:46:11 OpenWrt user.debug syslog: sys/HttpUtils.cpp::perform-12 url="http://127.0.0.1:4040/test"
+Nov  9 19:46:11 OpenWrt user.debug syslog: sys/HttpUtils.cpp::perform-12 message="{"resource":"diagnostics/cameraRegisters","action":"set"}"
+Nov 10 03:46:11 OpenWrt user.debug syslog: ++ 16HttpWorkerThread (4501)
+Nov  9 19:46:11 OpenWrt user.debug syslog: sys/HttpUtils.cpp::perform-12 timing: dns=0.000s connect=0.001s ssl=-0.001s http=0.010s total=0.010s
+Nov  9 19:46:11 OpenWrt user.info syslog: backend/BackendHttpConnection.cpp:perform result0=200, responsePayload=""
+Nov  9 19:46:11 OpenWrt user.debug syslog: -- 20PresenceWorkerThread (4478)
+Nov 10 03:46:11 OpenWrt user.info syslog: thread/ListenerThread.cpp:listen Socket Closed Internally
+Nov 10 03:46:11 OpenWrt user.debug syslog: -- 19TypedListenerThreadI16HttpWorkerThreadE (4452)
+Nov 10 03:46:11 OpenWrt user.debug syslog: -- 16HttpWorkerThread (4501)
+Nov 10 03:46:11 OpenWrt user.debug syslog: -- 12LoggerThread (4451)
+Nov  9 19:46:11 OpenWrt user.debug syslog: A3540C7PA041A: ConnectionRate=1964015024 RSSI=-10
+Nov  9 19:46:11 OpenWrt user.debug syslog: Sent Message To A3540C7PA041A: {"Type":"response","ID":14,"Response":"Ack"}
+Nov  9 19:46:11 OpenWrt user.debug syslog: -- 17CameraInputThread (4491)
+Nov  9 19:46:13 OpenWrt user.info syslog: CameraWpsLedMessage payload = false
+Nov  9 19:46:14 OpenWrtuci set wireless.@wifi-device[0].disabled=1
+ user.debug syslog: ******* changed camera state from 6 to 3
+Nov  9 19:46:16 OpenWrt user.err syslog: bcsm/CameraCommunication.cpp:recvAll Socket read error: Resource temporarily unavailable
+Nov  9 19:46:16 OpenWrt user.warn syslog: bcsm/CameraCommunication.cpp:sendMessage No ACK recevied, retry sending message
+root@OpenWrt:~# 
+root@OpenWrt:~# uci set wireless.@wifi-device[0].disabled=1
+root@OpenWrt:~# 
+root@OpenWrt:~# uci set wireless.@wifi-device[0].disabled=1
+uci set wireless.@wifi-device[0].disabled=1
+uci set wireless.@wifi-device[0].disabled=1
+uci set wireless.@wifi-device[0].disabled=1
+root@OpenWrt:~# 
+root@OpenWrt:~# uci set wireless.@wifi-device[0].disabled=1
+uci set wireless.@wifi-device[0].disabled=1
+uci set wireless.@wifi-device[0].disabled=1
+uci set wireless.@wifi-device[0].disabled=1
+root@OpenWrt:~# 
+root@OpenWrt:~# Sfis_length=158 ALSValueFlag=0 ALSCali5lux_10luxFlag=0  SendSFISFW=0   SendSFISHW=0
+SEND PASS TO SFIS: 
+UI->SFIS: @ZUVCUMO                 A41162CBFDFCA3540C7PA041A  1.070.19.2_20                 VNB5_L1_RC_2
+Time UI->SFIS PASS/FAIL: 2020/12/24 09:54:46
+SFIS->UI: @ZUVCUMO                 A41162CBFDFCA3540C7PA041A  1.070.19.2_20                 VNB5_L1_RC_2PASS
+Time SFIS->UI: 2020/12/24 09:54:46
+Time UI->SFIS RR-YR: 2020/12/24 09:54:46
+Close CaliTool 
+SFIS->UI: RR-YRFB1001-FXN               VNB5_L1_RC_2000.00000.00100.00PASS
+Time SFIS->UI: 2020/12/24 09:54:46
+Delay 0 MiliSecond
+==============Start show pass================
+TEST PROGRAM VERSION:2.3.2.8  TEST CYCLE TIME:98
+ps | grep dhcpd
+ 4516 root      1428 S    grep dhcpd
+root@OpenWrt:~# 
+root@OpenWrt:~#  udhcpd /tmp/udhcpd.conf
+-ash: udhcpd: not found
+root@OpenWrt:~# 
+root@OpenWrt:~# 
+----------------Summary all test item--------------
+Test item name                Result  Test time
+ 1.ConnectToDut                PASS    3.42s 
+ 2.CheckInfor_Falcon           PASS    93.01s
+ 3.SendSfis                    PASS    0.5s  
+---------------------------------------------------
+Write summary log server: F:\lsy\ID\U12I420\FB1001-FXN\RC -> OK
+Write summary log localD:\Arlo_Logs\U12I420\FB1001-FXN\RC\24-12-2020 -> OK
+Details log local folder: D:\Arlo_Logs\U12I420\FB1001-FXN\RC\24-12-2020\PASS
+Details log server folder: F:\lsy\ID\Detail\U12I420\FB1001-FXN\RC\24-12-2020\PASS
+  SendSfis , 0.5 , ,SMO 2140017723,,SEMPID V0929250,RebootDUT_1,1.12.2.4_2773,1.12.1.2_27956,1.12.1.0_184_1f92b57,0x0001,H4,1.070.19.2_20,FB1001B,172.14.1.184,,ConnectToDut , 3.42 , CheckInfor_Falcon , 93.01 , 2020/11/19 8:40:00 AM,
+Start send data to mydas !
+SENDTOMYDAS:     10.224.84.104SendSfis , 0.5 , ,SMO 2140017723,,SEMPID V0929250,RebootDUT_1,1.12.2.4_2773,1.12.1.2_27956,1.12.1.0_184_1f92b57,0x0001,H4,1.070.19.2_20,FB1001B,172.14.1.184,,ConnectToDut , 3.42 , CheckInfor_Falcon , 93.01 , 2020/11/19 8:40:00 AM,,,,,|@ZUVCUMO,1,D:\Arlo,2.3.2.8,VNB5_L1_RC_2,98,2020-12-24 09:54:48,A41162CBFDFC,A3540C7PA041A,   :SENDTOMYDASFINISH
+
+ Send mydas Fail...

@@ -1,0 +1,895 @@
+******** Function [ConnectDUT] ********
+
+===[ Connect DUT Passed ... ]===
+
+******** Function [CheckMac] ********
+===[ Check MAC ]===
+burn read_mac
+
+MAC: A4:11:62:C7:5B:A8, id2 0
+
+# 
+
+===[ Check mac passed ... ]===
+******** Function [CheckSerialNumber] ********
+===[ Check Serial Number ]===
+burn read_sn
+
+SERIAL_NUM: A4320C7VA0B4F
+
+# 
+
+===[ Check serial number passed ... ]===
+******** Function [CheckModel] ********
+===[ Check Model ]===VMC5040
+burn read_model_num
+
+MODEL_NUM: VMC5040
+
+# 
+
+===[ Check model passed ... ]===
+******** Function [CheckHwRev] ********
+===[ Check Hw rev ]===
+burn read_hw_rev
+
+HW_REV: H10
+
+# 
+
+===[ Check Hw rev passed ... ]===
+******** Function [CheckCertKey] ********
+Read cert key
+burn check_cert
+Cert CRC16:8173
+
+# 
+
+MD5Sum Read = 8173
+
+#
+SFIS MD5Sum:8173
+Check CRC16 is correct
+burn read_cert
+
+cert_json: {"caCert": "MIICfTCCAiSgAwIBAgIJAJkXUokMBL2tMAoGCCqGSM49BAMCMIGQMQswCQYDVQQGEwJVUzETMBEGA1UECAwKQ2FsaWZvcm5pYTERMA8GA1UEBwwIU2FuIEpvc2UxIDAeBgNVBAoMF0FybG8gVGVjaG5vbG9naWVzLCBJbmMuMQswCQYDVQQLDAJJVDEqMCgGA1UEAwwhQXJsbyBUZWNobm9sb2dpZXMgRmFjdG9yeSBSb290IENBMCAXDTE4MDYyOTIyMzcyN1oYDzIwNjgwNjE2MjIzNzI3WjCBkDELMAkGA1UEBhMCVVMxEzARBgNVBAgMCkNhbGlmb3JuaWExETAPBgNVBAcMCFNhbiBKb3NlMSAwHgYDVQQKDBdBcmxvIFRlY2hub2xvZ2llcywgSW5jLjELMAkGA1UECwwCSVQxKjAoBgNVBAMMIUFybG8gVGVjaG5vbG9naWVzIEZhY3RvcnkgUm9vdCBDQTBZMBMGByqGSM49AgEGCCqGSM49AwEHA0IABBU7zYeEf+XXwBa39qxbmwaZalomZfmyNEETpx/Wzq2qnIxCXoZZg4I0c0cLh8aoRiWFbUicded317NwctHfzMWjYzBhMB0GA1UdDgQWBBTG1zzdVjEICxSx4RTQgUFmGSEWGzAfBgNVHSMEGDAWgBTG1zzdVjEICxSx4RTQgUFmGSEWGzAPBgNVHRMBAf8EBTADAQH/MA4GA1UdDwEB/wQEAwIBhjAKBggqhkjOPQQDAgNHADBEAiAbSkXyruEl0HkpDNUJboNC70jfEMEoTC/QTgNOci6VYwIgGXK84beIklL7L6sVKCl1aOYlV2oyaLlJWBbw3aO8blI=", "certId": "aed5677f76aa4d49af2bbc49e9ccb1c1", "privateKey": "MIGTAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBHkwdwIBAQQgoKCGTLtOI8cIRg0CIql7Sr8viq5FSDxcP51oflJuwJmgCgYIKoZIzj0DAQehRANCAATp5aqYN1Im6vHlJ+29tjyEU4206yWK/rHLWuv0CSaF60Di83nyZELtEBWZ80texGdKAMMYuRGmyDE2/G4ySqk9", "certData": ["MIIDOzCCAuGgAwIBAgIBATAKBggqhkjOPQQDAjCBhTELMAkGA1UEBhMCVVMxEzARBgNVBAgMCkNhbGlmb3JuaWExIDAeBgNVBAoMF0FybG8gVGVjaG5vbG9naWVzLCBJbmMuMQswCQYDVQQLDAJJVDEyMDAGA1UEAwwpQXJsbyBUZWNobm9sb2dpZXMgRmFjdG9yeSBJbnRlcm1lZGlhdGUgQ0EwHhcNMjAxMDIwMDk1OTI1WhcNNDAxMDIxMDk1OTI1WjCBgjELMAkGA1UEBhMCVVMxIDAeBgNVBAoMF0FybG8gVGVjaG5vbG9naWVzLCBJbmMuMREwDwYDVQQHDAhTYW4gSm9zZTETMBEGA1UECAwKQ2FsaWZvcm5pYTEpMCcGA1UEAwwgYWVkNTY3N2Y3NmFhNGQ0OWFmMmJiYzQ5ZTljY2IxYzEwWTATBgcqhkjOPQIBBggqhkjOPQMBBwNCAATp5aqYN1Im6vHlJ+29tjyEU4206yWK/rHLWuv0CSaF60Di83nyZELtEBWZ80texGdKAMMYuRGmyDE2/G4ySqk9o4IBQTCCAT0wDAYDVR0TAQH/BAIwADAdBgNVHQ4EFgQU61l1jNOBuheR/9x1Mml672z/jSYwgb4GA1UdIwSBtjCBs4AUTDP2+9Dyzk8jbQaNuun5ZuqfJ2mhgZakgZMwgZAxCzAJBgNVBAYTAlVTMRMwEQYDVQQIDApDYWxpZm9ybmlhMREwDwYDVQQHDAhTYW4gSm9zZTEgMB4GA1UECgwXQXJsbyBUZWNobm9sb2dpZXMsIEluYy4xCzAJBgNVBAsMAklUMSowKAYDVQQDDCFBcmxvIFRlY2hub2xvZ2llcyBGYWN0b3J5IFJvb3QgQ0GCAhABMCAGA1UdJQEB/wQWMBQGCCsGAQUFBwMCBggrBgEFBQcDATArBgNVHREEJDAigiBhZWQ1Njc3Zjc2YWE0ZDQ5YWYyYmJjNDllOWNjYjFjMTAKBggqhkjOPQQDAgNIADBFAiBFan8CIRxHJ0IF7CFJCJUNG0+zYsgUVQMmCQieOzCqIgIhAN4INsjw69WxUutMIqOwj2TZxssjtuJWdmHGS5Tp6UsK", "MIICbTCCAhOgAwIBAgICEAEwCgYIKoZIzj0EAwIwgZAxCzAJBgNVBAYTAlVTMRMwEQYDVQQIDApDYWxpZm9ybmlhMREwDwYDVQQHDAhTYW4gSm9zZTEgMB4GA1UECgwXQXJsbyBUZWNobm9sb2dpZXMsIEluYy4xCzAJBgNVBAsMAklUMSowKAYDVQQDDCFBcmxvIFRlY2hub2xvZ2llcyBGYWN0b3J5IFJvb3QgQ0EwHhcNMTgwNjI5MjI0MTI1WhcNNDMwNjIzMjI0MTI1WjCBhTELMAkGA1UEBhMCVVMxEzARBgNVBAgMCkNhbGlmb3JuaWExIDAeBgNVBAoMF0FybG8gVGVjaG5vbG9naWVzLCBJbmMuMQswCQYDVQQLDAJJVDEyMDAGA1UEAwwpQXJsbyBUZWNobm9sb2dpZXMgRmFjdG9yeSBJbnRlcm1lZGlhdGUgQ0EwWTATBgcqhkjOPQIBBggqhkjOPQMBBwNCAAQqIxvvvyTE4KzqpSKiTslr6TyHZQTf0D8VidOlcdZR9WbTr5qS3C4k6b0V06HlyCcjYaTzTSdm0QebuTrtaPqGo2YwZDAdBgNVHQ4EFgQUTDP2+9Dyzk8jbQaNuun5ZuqfJ2kwHwYDVR0jBBgwFoAUxtc83VYxCAsUseEU0IFBZhkhFhswEgYDVR0TAQH/BAgwBgEB/wIBADAOBgNVHQ8BAf8EBAMCAYYwCgYIKoZIzj0EAwIDSAAwRQIgbaY7q2Dqxjr3XcWBHUsCLt4zNyiMm16NqEqgwrguK9oCIQDzBKvBEx4+o3WHQpLatEBHsneyCN9D8zxONDUHKNtsUw=="]}
+
+# 
+
+CertID Read = aed5677f76aa4d49af2bbc49e9ccb1c1
+SFIS CertID:aed5677f76aa4d49af2bbc49e9ccb1c1
+Check CertID correct
+******** Function [SetSSID_Gen5] ********
+===[ Set SSID ]===
+burn 2g_ssid testgen5
+
+ [DBG]: argv[2]=testgen5
+buf 20145ae1, len 8, id2 6
+
+# 
+
+burn 2g_passwd 123456a@123456
+
+ [DBG]: argv[2]=123456a@123456
+buf 20145ae3, len e, id2 7
+
+# 
+
+===[ Set SSID passed ... ]===
+
+******** Function [CheckTemperature_Gen5] ********
+===[ Check System Temperature ]===
+fmcu SYSTEMPstart
+
+# 
+
+fmcu SYSTEMPread
+Main board Temp:19.82,Resistant:12175
+
+# 
+
+Temp Result:19.82 spec: (16 - 40)
+Check System Temperature pass
+fmcu SYSTEMPstop
+
+# 
+
+===[ Check System Temperature ]===
+******** Function [CheckTemperatureIR_Gen5] ********
+===[ Check IR Temperature]===
+fmcu IRTEMPstart
+
+# 
+
+fmcu IRTEMPread
+IR board Temp:22.40,Resistant:11081
+
+# 
+
+Temp Result:22.40 spec: (16 - 40)
+Check IR Temperature pass...
+fmcu IRTEMPstop
+
+# 
+
+===[ Check IR Temperature pass]===
+******** Function [CheckALSReal] ********
+===[ Check ALS Loop ]===
+unset burnin
+
+# 
+
+============CHECK ALS 2000 LUX============= 
+
+AT+LST=1,265
+AT+LST=1,265
+OK
+AT+LST=2,001
+AT+LST=2,001
+OK
+Set light 2000lux pass. 
+
+
+=============Start check 2000Lux_IROff=============
+======Check mode 2000Lux_IROff time 1=====
+gpio ir_en off
+
+# 
+
+fmcu ALSstop
+
+# 
+
+fmcu ALSstart
+
+# 
+
+Delay 2 seconds before read...
+fmcu ALSread
+ALS Value(lux):240.530
+
+# 
+
+fmcu ALSread
+ALS Value(lux):240.530
+
+# 
+ 
+fmcu ALSread
+ALS Value(lux):240.545
+
+# 
+
+fmcu ALSread
+ALS Value(lux):240.545
+
+# 
+ 
+fmcu ALSread
+ALS Value(lux):240.555
+
+# 
+
+fmcu ALSread
+ALS Value(lux):240.555
+
+# 
+ 
+fmcu ALSread
+ALS Value(lux):240.560
+
+# 
+
+fmcu ALSread
+ALS Value(lux):240.560
+
+# 
+ 
+fmcu ALSread
+ALS Value(lux):240.545
+
+# 
+
+fmcu ALSread
+ALS Value(lux):240.545
+
+# 
+ 
+fmcu ALSstop
+
+# 
+
+============CHECK ALS 5000 LUX============= 
+
+AT+LST=1,650
+AT+LST=1,650
+OK
+AT+LST=2,001
+AT+LST=2,001
+OK
+set light 5000lux pass 
+Read 5000lux IR OFF 
+
+
+=============Start check 5000Lux_IROff=============
+======Check mode 5000Lux_IROff time 1=====
+gpio ir_en off
+
+# 
+
+fmcu ALSstop
+
+# 
+
+fmcu ALSstart
+
+# 
+
+Delay 2 seconds before read...
+fmcu ALSread
+ALS Value(lux):617.720
+
+# 
+
+fmcu ALSread
+ALS Value(lux):617.720
+
+# 
+ 
+fmcu ALSread
+ALS Value(lux):617.700
+
+# 
+
+fmcu ALSread
+ALS Value(lux):617.700
+
+# 
+ 
+fmcu ALSread
+ALS Value(lux):617.680
+
+# 
+
+fmcu ALSread
+ALS Value(lux):617.680
+
+# 
+ 
+fmcu ALSread
+ALS Value(lux):617.640
+
+# 
+
+fmcu ALSread
+ALS Value(lux):617.640
+
+# 
+ 
+fmcu ALSread
+ALS Value(lux):617.620
+
+# 
+
+fmcu ALSread
+ALS Value(lux):617.620
+
+# 
+ 
+fmcu ALSstop
+
+# 
+
+per2000LuxOff:0.1202735
+per5000LuxOff:0.1235344
+numCheckLux:2
+perAll:0.12190395
+ALS_Burn:12.19
+2000LuxOff value: 1973.25025153  - Spec: (1900 - 2100)
+============CHECK ALS 2000 LUX OFF PASS============= 
+5000LuxOff value: 5066.87437117501  - Spec: (4800 - 5200)
+============CHECK ALS 5000 LUX OFF PASS============= 
+CHECK BURN VALUE [9%,25%] : 12.19% ----> PASS
+burn als_llux 12.19%
+
+ [DBG]: argv[2]=12.19%
+buf 20145ae2, len 6, id2 14
+
+# 
+
+Burn data into DUT success!
+******** Function [CheckALSVerify] ********
+===[ Check ALS Verify ]===
+unset burnin
+
+# 
+
+============CHECK ALS 2 LUX============= 
+
+AT+LST=1,001
+AT+LST=1,001
+OK
+AT+LST=2,017
+AT+LST=2,017
+OK
+
+
+=============Start check 2Lux_IROff=============
+======Check mode 2Lux_IROff time 1=====
+gpio ir_en off
+
+# 
+
+fmcu ALSstop
+
+# 
+
+fmcu ALSstart
+
+# 
+
+Delay 2 seconds before read...
+fmcu ALSread
+ALS Value(lux):0.223
+
+# 
+
+fmcu ALSread
+ALS Value(lux):0.223
+
+# 
+ 
+fmcu ALSread
+ALS Value(lux):0.226
+
+# 
+
+fmcu ALSread
+ALS Value(lux):0.226
+
+# 
+ 
+fmcu ALSread
+ALS Value(lux):0.227
+
+# 
+
+fmcu ALSread
+ALS Value(lux):0.227
+
+# 
+ 
+fmcu ALSread
+ALS Value(lux):0.230
+
+# 
+
+fmcu ALSread
+ALS Value(lux):0.230
+
+# 
+ 
+fmcu ALSread
+ALS Value(lux):0.228
+
+# 
+
+fmcu ALSread
+ALS Value(lux):0.228
+
+# 
+ 
+fmcu ALSstop
+
+# 
+
+============CHECK ALS 5 LUX============= 
+
+AT+LST=1,001
+AT+LST=1,001
+OK
+AT+LST=2,032
+AT+LST=2,032
+OK
+Set light 5lux pass. 
+
+
+=============Start check 5Lux_IROff=============
+======Check mode 5Lux_IROff time 1=====
+gpio ir_en off
+
+# 
+
+fmcu ALSstop
+
+# 
+
+fmcu ALSstart
+
+# 
+
+Delay 2 seconds before read...
+fmcu ALSread
+ALS Value(lux):0.566
+
+# 
+
+fmcu ALSread
+ALS Value(lux):0.566
+
+# 
+ 
+fmcu ALSread
+ALS Value(lux):0.567
+
+# 
+
+fmcu ALSread
+ALS Value(lux):0.567
+
+# 
+ 
+fmcu ALSread
+ALS Value(lux):0.568
+
+# 
+
+fmcu ALSread
+ALS Value(lux):0.568
+
+# 
+ 
+fmcu ALSread
+ALS Value(lux):0.569
+
+# 
+
+fmcu ALSread
+ALS Value(lux):0.569
+
+# 
+ 
+fmcu ALSread
+ALS Value(lux):0.570
+
+# 
+
+fmcu ALSread
+ALS Value(lux):0.570
+
+# 
+ 
+fmcu ALSstop
+
+# 
+
+============CHECK ALS 10 LUX============= 
+
+AT+LST=1,001
+AT+LST=1,001
+OK
+AT+LST=2,054
+AT+LST=2,054
+OK
+set light 10lux pass 
+Read 10lux IR OFF 
+
+
+=============Start check 10Lux_IROff=============
+======Check mode 10Lux_IROff time 1=====
+gpio ir_en off
+
+# 
+
+fmcu ALSstop
+
+# 
+
+fmcu ALSstart
+
+# 
+
+Delay 2 seconds before read...
+fmcu ALSread
+ALS Value(lux):1.186
+
+# 
+
+fmcu ALSread
+ALS Value(lux):1.186
+
+# 
+ 
+fmcu ALSread
+ALS Value(lux):1.187
+
+# 
+
+fmcu ALSread
+ALS Value(lux):1.187
+
+# 
+ 
+fmcu ALSread
+ALS Value(lux):1.189
+
+# 
+
+fmcu ALSread
+ALS Value(lux):1.189
+
+# 
+ 
+fmcu ALSread
+ALS Value(lux):1.190
+
+# 
+
+fmcu ALSread
+ALS Value(lux):1.190
+
+# 
+ 
+fmcu ALSread
+ALS Value(lux):1.190
+
+# 
+
+fmcu ALSread
+ALS Value(lux):1.190
+
+# 
+ 
+fmcu ALSstop
+
+# 
+
+per2LuxOff:0.1134
+per5LuxOff:0.1136
+per10LuxOff:0.11884
+numCheckLux:3
+perAll:0.11528
+2LuxOff value: 1.96738376127689  - Spec: (1.8 - 2.2)
+============CHECK ALS 2 LUX OFF PASS============= 
+5LuxOff value: 4.92713393476752  - Spec: (4.5 - 5.5)
+============CHECK ALS 5 LUX OFF PASS============= 
+10LuxOff value: 10.3088133240805  - Spec: (9 - 11)
+============CHECK ALS 10 LUX OFF PASS============= 
+ Check  -10%  < ((AVG Cali - AVG Verify)/AVG Cali) * 100 < 10%: -5.434% --> Pass 
+===[ Check ALS Verify pass ]===
+******** Function [CheckALSVerifyWithLED] ********
+===[ Check ALS WLED on or IRLED on ]===
+============SET ALS 0 LUX============= 
+
+AT+LST=1,000
+AT+LST=1,000
+OK
+AT+LST=2,000
+AT+LST=2,000
+OK
+led ir off
+
+# 
+
+led w off
+
+# 
+
+========Collect data IRLED OFF and WLED OFF=============
+fmcu ALSstop
+
+# 
+
+fmcu ALSstart
+
+# 
+
+Delay 2 seconds before read...
+fmcu ALSread
+ALS Value(lux):0.000
+
+# 
+
+fmcu ALSread
+ALS Value(lux):0.000
+
+# 
+ 
+fmcu ALSread
+ALS Value(lux):0.000
+
+# 
+
+fmcu ALSread
+ALS Value(lux):0.000
+
+# 
+ 
+fmcu ALSread
+ALS Value(lux):0.000
+
+# 
+
+fmcu ALSread
+ALS Value(lux):0.000
+
+# 
+ 
+fmcu ALSread
+ALS Value(lux):0.000
+
+# 
+
+fmcu ALSread
+ALS Value(lux):0.000
+
+# 
+ 
+fmcu ALSread
+ALS Value(lux):0.000
+
+# 
+
+fmcu ALSread
+ALS Value(lux):0.000
+
+# 
+ 
+fmcu ALSstop
+
+# 
+
+========Collect data IRLED ON and WLED OFF=============
+Turn on IR LED
+led ir set 78000
+
+# 
+
+led ir on
+
+# 
+
+led ir set 78000
+
+# 
+
+fmcu ALSstop
+
+# 
+
+fmcu ALSstart
+
+# 
+
+Delay 2 seconds before read...
+fmcu ALSread
+ALS Value(lux):0.191
+
+# 
+
+fmcu ALSread
+ALS Value(lux):0.191
+
+# 
+ 
+fmcu ALSread
+ALS Value(lux):0.195
+
+# 
+
+fmcu ALSread
+ALS Value(lux):0.195
+
+# 
+ 
+fmcu ALSread
+ALS Value(lux):0.197
+
+# 
+
+fmcu ALSread
+ALS Value(lux):0.197
+
+# 
+ 
+fmcu ALSread
+ALS Value(lux):0.200
+
+# 
+
+fmcu ALSread
+ALS Value(lux):0.200
+
+# 
+ 
+fmcu ALSread
+ALS Value(lux):0.198
+
+# 
+
+fmcu ALSread
+ALS Value(lux):0.198
+
+# 
+ 
+fmcu ALSstop
+
+# 
+
+led ir off
+
+# 
+
+======Collect data IRLED OFF and WLED ON==========
+led ir set 56000
+
+# 
+
+led w on
+
+# 
+
+led ir set 56000
+
+# 
+
+fmcu ALSstop
+
+# 
+
+fmcu ALSstart
+
+# 
+
+Delay 2 seconds before read...
+fmcu ALSread
+ALS Value(lux):0.000
+
+# 
+
+fmcu ALSread
+ALS Value(lux):0.000
+
+# 
+ 
+fmcu ALSread
+ALS Value(lux):0.000
+
+# 
+
+fmcu ALSread
+ALS Value(lux):0.000
+
+# 
+ 
+fmcu ALSread
+ALS Value(lux):0.000
+
+# 
+
+fmcu ALSread
+ALS Value(lux):0.000
+
+# 
+ 
+fmcu ALSread
+ALS Value(lux):0.000
+
+# 
+
+fmcu ALSread
+ALS Value(lux):0.000
+
+# 
+ 
+fmcu ALSread
+ALS Value(lux):0.000
+
+# 
+
+fmcu ALSread
+ALS Value(lux):0.000
+
+# 
+ 
+fmcu ALSstop
+
+# 
+
+led w off
+
+# 
+
+AVG IRLED OFF: 0
+AVG IRLED ON : 0.1962
+AVG WLED OFF : 0
+AVG WLED ON  : 0
+Offset (IRLED ON - IRLED OFF) * 1000  : 196
+Offset (WLED ON - WLED OFF) * 1000  : 0
+Check spot light Leakage < 0.1: 0 --> Pass
+Check IR Leakage < 0.8: 0.1962 --> Pass
+Value burn to als_hlux: 000196
+burn als_hlux 000196
+
+ [DBG]: argv[2]=000196
+buf 20145ae2, len 6, id2 15
+
+# 
+
+Burn data into DUT success!
+===[ Check ALS WLED on or IRLED pass ]===
+******** Function [CheckTemperatureIR2_Gen5] ********
+===[ Check IR 2 Temperature]===
+fmcu IRTEMPstart
+
+# 
+
+fmcu IRTEMPread
+IR board Temp:24.27,Resistant:10305
+
+# 
+
+Delta[0,10] : 24.27 - 22.4 = 1.87 --> Pass
+Check IR Temperature pass...
+fmcu IRTEMPstop
+
+# 
+
+===[ Check IR 2 Temperature pass]===
+******** Function [CheckTemperature2_Gen5] ********
+===[ Check System Temperature 2]===
+fmcu SYSTEMPstart
+
+# 
+
+fmcu SYSTEMPread
+Main board Temp:20.89,Resistant:11709
+
+# 
+
+Temp Result:20.89
+Delta[0,10] : 20.89 - 19.82 = 1.07 --> Pass
+fmcu SYSTEMPstop
+
+# 
+
+===[ Check System Temperature 2 ]===
+******** Function [SendSfis] ********
+
+===[ Send Sfis ]===
+SEND PASS TO SFIS: 
+UI->SFIS: @ZUT5C8Y                 A41162C75BA8A41162C75BA9A4320C7VA0B4F             V000.00.03.020@_mfgH10       12.19%    000196              L3-FAC-FT1-1
+Time UI->SFIS PASS/FAIL: 2020/11/29 22:11:17
+SFIS->UI: @ZUT5C8Y                 A41162C75BA8A41162C75BA9A4320C7VA0B4F             V000.00.03.020@_mfgH10       12.19%    000196              L3-FAC-FT1-1PASS
+
+Time SFIS->UI PASS/FAIL: 2020/11/29 22:11:17
+Time UI->SFIS RR-YR: 2020/11/29 22:11:17
+
+[================Summary =================]
+
+ConnectDUT                    PASS      0s   
+CheckMac                      PASS      0.21s
+CheckSerialNumber             PASS      0.11s
+CheckModel                    PASS      0.11s
+CheckHwRev                    PASS      0.11s
+CheckCertKey                  PASS      0.45s
+SetSSID_Gen5                  PASS      1.4s 
+CheckTemperature_Gen5         PASS      0.87s
+CheckTemperatureIR_Gen5       PASS      0.87s
+CheckALSReal                  PASS      10.58s
+CheckALSVerify                PASS      15.85s
+CheckALSVerifyWithLED         PASS      15.91s
+CheckTemperatureIR2_Gen5      PASS      0.89s
+CheckTemperature2_Gen5        PASS      0.88s
+SendSfis                      PASS      0.16s
+
+Test Time : 48s
+
+============================================
+
+Start save detail log pass ...
+Path log server : F:\lsy\ID\Detail\Arlo_Logs\U12I386T01\VMC5040-FXN-FEM\FT1\29-11-2020\PASS\
+Path log local : D:\Arlo_Logs\U12I386T01\VMC5040-FXN-FEM\FT1\29-11-2020\PASS\
+Skip save log pass to server..
+Write summary log server: F:\lsy\ID\U12I386T01\VMC5040-FXN-FEM\FT1 -> OK
+Write summary log local: D:\Arlo_Logs\U12I386T01\VMC5040-FXN-FEM\FT1\29-11-2020 -> OK

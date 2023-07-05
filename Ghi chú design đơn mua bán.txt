@@ -1,0 +1,32 @@
+Đơn yêu cầu hỏi giá:
+- Đơn vị yêu cầu/Mã bộ phận
+- Mã bộ phận sử dụng:
+- Mã chi phí
+- Pháp nhân mua hàng
+- Địa điểm giao hàng
+- Ngày tháng dự định cần giao
+- Người yêu cầu
+- Số máy bàn
+- Email
+- Người duyệt
+- Người thẩm duyệt
+
+Item Đơn yêu cầu hỏi giá
+- Tên sản phẩm:
+- Nhãn hiệu
+- Thông tin kỹ thuật/quy cách
+- Đơn vị
+- Số lượng yêu cầu
+- Loại hình: một lần/Hàng tháng
+- Mã liệu/Đơn mua lịch sử
+- Link Bu tham khảo giá
+- Hình ảnh(nhiều ảnh)
+- Ghi chú
+- Phản hồi
+
+Bộ phận
+- Mã bộ phận
+- Email
+- Số máy lẻ
+
+

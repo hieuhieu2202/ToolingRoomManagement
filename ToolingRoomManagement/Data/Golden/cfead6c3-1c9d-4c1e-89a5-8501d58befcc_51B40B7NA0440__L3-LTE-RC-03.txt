@@ -1,0 +1,814 @@
+SFIS->UI: @ZUS3XDG                 VML4030-FXN-1VZS         A41162C6085151B40B7KA03EC  1.8.14.0_10741                ARLO.FX.0.6.5.4.VZ.007   H6        16030651226113260x1e640x2fd2  358417072251022                         2140017452     V0919299    RC        PASS
+
+ShowUIProgram still running !
+Scaned:358417072251022
+
+
+=======================[ Start check LTE Mode ... ]=======================
+
+Start waiting DUT ...
+.
+Waiting for system stable ...
+
+Microsoft Windows XP [Version 6.1.7601]
+(C) Copyright 1985-2001 Microsoft Corp.
+
+D:\RC(U12I345T99)_NEWFW>adb shell....
+* daemon not running. starting it now on port 5037 *
+error: device not found
+* daemon started successfully *
+
+'uptime' is not recognized as an internal or external command,
+D:\RC(U12I345T99)_NEWFW>uptime
+operable program or batch file.
+Device not connected ! 
+Device not connected ! 
+Device not connected ! 
+
+D:\RC(U12I345T99)_NEWFW>exit
+
+
+ExcuteADBMultiCMDTime =14.1625405
+Return: Microsoft Windows XP [Version 6.1.7601] (C) Copyright 1985-2001 Microsoft Corp.  D:\RC(U12I345T99)_NEWFW>adb shell * daemon not running. starting it now on port 5037 * * daemon started successfully *  D:\RC(U12I345T99)_NEWFW>uptime  D:\RC(U12I345T99)_NEWFW>exit  
+Wait uptime return 30 seconds...
+
+Waiting for system stable ...
+
+Microsoft Windows XP [Version 6.1.7601]
+(C) Copyright 1985-2001 Microsoft Corp.
+
+D:\RC(U12I345T99)_NEWFW>adb shell....
+* daemon not running. starting it now on port 5037 *
+* daemon started successfully *
+uptime
+
+/ # uptime
+
+ 00:00:13 up 0 min, load average: 0.54, 0.11, 0.03
+
+/ # exit
+
+
+ExcuteADBMultiCMDTime =5.4684079
+Return: Microsoft Windows XP [Version 6.1.7601] (C) Copyright 1985-2001 Microsoft Corp.  D:\RC(U12I345T99)_NEWFW>adb shell * daemon not running. starting it now on port 5037 * * daemon started successfully * uptime  / # uptime   00:00:13 up 0 min, load average: 0.54, 0.11, 0.03  / # exit   
+Result = 13  -->fail
+Wait uptime return 30 seconds...
+
+Waiting for system stable ...
+
+Microsoft Windows XP [Version 6.1.7601]
+(C) Copyright 1985-2001 Microsoft Corp.
+
+D:\RC(U12I345T99)_NEWFW>adb shell..
+
+D:\RC(U12I345T99)_NEWFW>
+
+
+'uptime' is not recognized as an internal or external command,
+D:\RC(U12I345T99)_NEWFW>uptime
+operable program or batch file.
+
+
+
+D:\RC(U12I345T99)_NEWFW>exitExcuteADBMultiCMDTime =3.8891283
+
+Return: Microsoft Windows XP [Version 6.1.7601] (C) Copyright 1985-2001 Microsoft Corp.  D:\RC(U12I345T99)_NEWFW>adb shell D:\RC(U12I345T99)_NEWFW>   D:\RC(U12I345T99)_NEWFW>uptime  D:\RC(U12I345T99)_NEWFW>exit  
+Wait uptime return 30 seconds...
+
+Waiting for system stable ...
+
+Microsoft Windows XP [Version 6.1.7601]
+(C) Copyright 1985-2001 Microsoft Corp.
+
+D:\RC(U12I345T99)_NEWFW>adb shell...
+* daemon not running. starting it now on port 5037 *
+* daemon started successfully *
+uptime
+
+/ # uptime
+
+ 00:00:24 up 0 min, load average: 1.07, 0.24, 0.08
+
+/ # exit
+
+
+ExcuteADBMultiCMDTime =4.666358
+Return: Microsoft Windows XP [Version 6.1.7601] (C) Copyright 1985-2001 Microsoft Corp.  D:\RC(U12I345T99)_NEWFW>adb shell * daemon not running. starting it now on port 5037 * * daemon started successfully * uptime  / # uptime   00:00:24 up 0 min, load average: 1.07, 0.24, 0.08  / # exit   
+Result = 24  -->fail
+Wait uptime return 30 seconds...
+
+Waiting for system stable ...
+
+Microsoft Windows XP [Version 6.1.7601]
+(C) Copyright 1985-2001 Microsoft Corp.
+
+D:\RC(U12I345T99)_NEWFW>adb shell....
+* daemon not running. starting it now on port 5037 *
+* daemon started successfully *
+uptime
+
+/ # uptime
+
+ 00:00:30 up 0 min, load average: 1.22, 0.28, 0.09
+
+/ # exit
+
+ExcuteADBMultiCMDTime =5.4740471
+
+Return: Microsoft Windows XP [Version 6.1.7601] (C) Copyright 1985-2001 Microsoft Corp.  D:\RC(U12I345T99)_NEWFW>adb shell * daemon not running. starting it now on port 5037 * * daemon started successfully * uptime  / # uptime   00:00:30 up 0 min, load average: 1.22, 0.28, 0.09  / # exit   
+Result = 30  -->fail
+Wait uptime return 30 seconds...
+
+Waiting for system stable ...
+
+Microsoft Windows XP [Version 6.1.7601]
+(C) Copyright 1985-2001 Microsoft Corp.
+
+D:\RC(U12I345T99)_NEWFW>adb shell....
+* daemon not running. starting it now on port 5037 *
+* daemon started successfully *
+uptime
+
+/ # uptime
+
+ 00:00:37 up 0 min, load average: 1.26, 0.32, 0.11
+
+/ # exit
+
+
+ExcuteADBMultiCMDTime =5.4638701
+Return: Microsoft Windows XP [Version 6.1.7601] (C) Copyright 1985-2001 Microsoft Corp.  D:\RC(U12I345T99)_NEWFW>adb shell * daemon not running. starting it now on port 5037 * * daemon started successfully * uptime  / # uptime   00:00:37 up 0 min, load average: 1.26, 0.32, 0.11  / # exit   
+Result = 37 -->pass
+
+Waiting for system stable ...
+
+Microsoft Windows XP [Version 6.1.7601]
+(C) Copyright 1985-2001 Microsoft Corp.
+
+D:\RC(U12I345T99)_NEWFW>adb shell....
+
+D:\RC(U12I345T99)_NEWFW>
+D:\RC(U12I345T99)_NEWFW>
+
+
+D:\RC(U12I345T99)_NEWFW>
+
+* daemon not running. starting it now on port 5037 *
+
+
+* daemon started successfully *
+/ # /mnt/netgear/arlo/usr/bin/vzcmd SerialNum=51B40B7KA03EC --stopUsbTimer
+
+sending set usbStateTimer register command!!
+
+/ # exit
+
+
+ExcuteADBMultiCMDTime =5.4655662
+Start waiting DUT ...
+Check LTE Mode passed ...
+
+ Waiting for system stable ...
+
+Microsoft Windows XP [Version 6.1.7601]
+(C) Copyright 1985-2001 Microsoft Corp.
+
+D:\RC(U12I345T99)_NEWFW>adb shell ifconfig
+* daemon not running. starting it now on port 5037 *
+* daemon started successfully *
+bridge0   Link encap:Ethernet  HWaddr C6:AF:73:C9:70:1B  
+
+          inet addr:192.168.225.1  Bcast:192.168.225.255  Mask:255.255.255.0
+
+          inet6 addr: fe80::c4af:73ff:fec9:701b/64 Scope:Link
+
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+
+          RX packets:0 errors:0 dropped:0 overruns:0 frame:0
+
+          TX packets:7 errors:0 dropped:0 overruns:0 carrier:0
+
+          collisions:0 txqueuelen:0 
+
+          RX bytes:0 (0.0 B)  TX bytes:456 (456.0 B)
+
+
+
+eth0      Link encap:Ethernet  HWaddr E6:57:FF:F2:D1:C4  
+
+          inet addr:192.168.0.1  Bcast:192.168.0.255  Mask:255.255.255.0
+
+          inet6 addr: fe80::e457:ffff:fef2:d1c4/64 Scope:Link
+
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+
+ExcuteADBCMDTime1 =4.4210879
+
+          RX packets:46 errors:0 dropped:0 overruns:0 frame:0Microsoft Windows XP [Version 6.1.7601] (C) Copyright 1985-2001 Microsoft Corp.  D:\RC(U12I345T99)_NEWFW>adb shell ifconfig * daemon not running. starting it now on port 5037 * * daemon started successfully * bridge0   Link encap:Ethernet  HWaddr C6:AF:73:C9:70:1B              inet addr:192.168.225.1  Bcast:192.168.225.255  Mask:255.255.255.0            inet6 addr: fe80::c4af:73ff:fec9:701b/64 Scope:Link            UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1            RX packets:0 errors:0 dropped:0 overruns:0 frame:0            TX packets:7 errors:0 dropped:0 overruns:0 carrier:0            collisions:0 txqueuelen:0             RX bytes:0 (0.0 B)  TX bytes:456 (456.0 B)    eth0      Link encap:Ethernet  HWaddr E6:57:FF:F2:D1:C4              inet addr:192.168.0.1  Bcast:192.168.0.255  Mask:255.255.255.0            inet6 addr: fe80::e457:ffff:fef2:d1c4/64 Scope:Link            UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1  
+
+
+          TX packets:60 errors:0 dropped:0 overruns:0 carrier:0
+
+          collisions:0 txqueuelen:1000 
+
+          RX bytes:5064 (4.9 KiB)  TX bytes:3987 (3.8 KiB)
+
+          Interrupt:180 
+
+
+
+lo        Link encap:Local Loopback  
+
+          inet addr:127.0.0.1  Mask:255.0.0.0
+
+          inet6 addr: ::1/128 Scope:Host
+
+          UP LOOPBACK RUNNING  MTU:16436  Metric:1
+
+          RX packets:55 errors:0 dropped:0 overruns:0 frame:0
+
+          TX packets:55 errors:0 dropped:0 overruns:0 carrier:0
+
+          collisions:0 txqueuelen:0 
+
+          RX bytes:4233 (4.1 KiB)  TX bytes:4233 (4.1 KiB)
+
+
+
+
+D:\RC(U12I345T99)_NEWFW>adb shell ifconfig
+bridge0   Link encap:Ethernet  HWaddr C6:AF:73:C9:70:1B  
+
+          inet addr:192.168.225.1  Bcast:192.168.225.255  Mask:255.255.255.0
+
+          inet6 addr: fe80::c4af:73ff:fec9:701b/64 Scope:Link
+
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+
+          RX packets:0 errors:0 dropped:0 overruns:0 frame:0
+
+          TX packets:7 errors:0 dropped:0 overruns:0 carrier:0
+
+          collisions:0 txqueuelen:0 
+
+          RX bytes:0 (0.0 B)  TX bytes:456 (456.0 B)
+
+
+
+eth0      Link encap:Ethernet  HWaddr E6:57:FF:F2:D1:C4  
+
+          inet addr:192.168.0.1  Bcast:192.168.0.255  Mask:255.255.255.0
+
+          inet6 addr: fe80::e457:ffff:fef2:d1c4/64 Scope:Link
+
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+
+          RX packets:46 errors:0 dropped:0 overruns:0 frame:0
+
+          TX packets:60 errors:0 dropped:0 overruns:0 carrier:0
+
+          collisions:0 txqueuelen:1000 
+
+          RX bytes:5064 (4.9 KiB)  TX bytes:3987 (3.8 KiB)
+
+          Interrupt:180 
+
+
+
+lo        Link encap:Local Loopback  
+
+          inet addr:127.0.0.1  Mask:255.0.0.0
+
+          inet6 addr: ::1/128 Scope:Host
+
+          UP LOOPBACK RUNNING  MTU:16436  Metric:1
+
+          RX packets:55 errors:0 dropped:0 overruns:0 frame:0
+
+          TX packets:55 errors:0 dropped:0 overruns:0 carrier:0
+
+          collisions:0 txqueuelen:0 
+
+          RX bytes:4233 (4.1 KiB)  TX bytes:4233 (4.1 KiB)
+
+
+
+
+ Waiting for system stable ...
+
+Microsoft Windows XP [Version 6.1.7601]
+(C) Copyright 1985-2001 Microsoft Corp.
+
+D:\RC(U12I345T99)_NEWFW>adb shell "ls tmp/media/nand/vzdaemon/conf/cameras/"
+51B40B7KA03EC.json
+
+
+ExcuteADBCMDTime1 =0.3220303
+Microsoft Windows XP [Version 6.1.7601] (C) Copyright 1985-2001 Microsoft Corp.  D:\RC(U12I345T99)_NEWFW>adb shell "ls tmp/media/nand/vzdaemon/conf/cameras/" 51B40B7KA03EC.json   
+Check LTE SN.json file Pass ...
+Check Insert SimCard time : 1
+at+cpin?
+at+cpin?
+
++CPIN: READY
+
+OK
+
+D:\RC(U12I345T99)_NEWFW>
+
+LTE Close error: The port is closed.
+Check Sim ready pass...
+Key1: +DMACC: (Current) URL: https://4g.vzwdm.com  PORT: 443
+Key2: (Tree) URL: https://4g.vzwdm.com  PORT: 443
+===[ Set check DMACC command ]===
+15:37:42
+at+dmacc?
+
++DMACC: (Current) URL: https://4g.vzwdm.com  PORT: 443
+	  (Tree) URL: https://4g.vzwdm.com  PORT: 443
+
+OK
+===[ Check DMACC passed ... ]===
+
+close LTE COM ok 
+
+
+=======================[ Start Check Lock SIM Status... ]=======================
+
+Delete file .\key.txt 
+Delete file .\done.txt 
+Delete file .\checkstatus.bat 
+03:37:43
+RUNBAT:System.Diagnostics.ProcessStartInfo
+
+
+D:\RC(U12I345T99)_NEWFW>
+Cmd text:
+D:\RC(U12I345T99)_NEWFW>title Cmd.exe
+List of devices attached
+70f7ed5e96e7    device
+
+adbd is already running as root
+823 KB/s (25288 bytes in 0.030s)
+517 KB/s (10592 bytes in 0.020s)
+mkdir: can't create directory '/etc/fx/': File exists
+Mode=2,V=8.0
+Get SIM Lock Status:
+SIM Lock is not active
+3 KB/s (33 bytes in 0.010s)
+'a' is not recognized as an internal or external command,
+operable program or batch file.
+Press any key to continue . . .
+03:37:45
+Close: Cmd.exe
+Sim_Lock_Status is unlock
+===Get SIM Lock Key Passed===
+
+
+D:\RC(U12I345T99)_NEWFW>
+
+
+
+=======================[ Start checking LTE Information ... ]=======================
+
+  DUTLTE.IMEI =358417072251022
+  DUTLTE.BaseVersion =1.096.3.1_1.8.63.0_4
+  DUTLTE.BaseStation =1.8.63.0_14
+  DUTLTE.FxVersion =ARLO.FX.0.6.5.4.VZ.007
+  DUTLTE.CamMainBoardFw =1.096.3.1_15
+  DUTLTE.HwVersion =H6
+  DUTLTE.ModelId =VML4030
+  DUTLTE.txtMAC =A41162C60851
+  DUTLTE.ALS =16030651226113260x1e640x2fd2
+  DUTLTE.APN =vzwinternet
+Sfis Data: IMEI:"358417072251022" BaseVersion:"1.096.3.1_1.8.63.0_4" ModemFW:"ARLO.FX.0.6.5.4.VZ.007" SystemFw: 3.4.0 - ARLO.FX.0.6.5.4 ALS:16030651226113260x1e640x2fd2 ICCID:"" CameraMainBoardFw:"1.096.3.1_15" HwVersion:"H6" ModelId:"VML4030" MAC:"A4:11:62:C6:08:51"
+
+SendCMD: adb.exe shell "./mnt/netgear/arlo/usr/bin/vzcmd --expandJson PassThru=\"{\\\"action\\\":\\\"get\\\",\\\"resource\\\":\\\"basestation\\\"}\"
+ExcuteADBSingleCMDTime =4.3627944
+
+Result: * daemon not running. starting it now on port 5037 *
+* daemon started successfully *
+Set responseUrls { 	"resource" : "basestation", 	"properties" : { 		"interfaceVersion" : 2, 		"apiVersion" : 1, 		"state" : "idle", 		"swVersion" : "1.096.3.1_1.8.63.0_4", 		"hwVersion" : "H6", 		"modelId" : "VML4030", 		"capabilities" : [ 			"ltecam", 			{ 				"type" : "connectivity", 				"interfaces" : [ 					"lte" 				] 			} 		], 		"resources" : [ 			{ 				"type" : "lte", 				"roamingAllowed" : [ 					"true", 					"false" 				], 				"networkMode" : [ 					"auto", 					"wcdmaOnly", 					"lteOnly" 				] 			}, 			{ 				"type" : "storage", 				"mediaTypes" : [ 					"SD" 				] 			}, 			{ 				"type" : "siren", 				"ID" : 1, 				"sirenState" : [ 					"on", 					"off", 					{ 						"default" : "off" 					} 				], 				"pattern" : [ 					"alarm", 					"alert", 					{ 						"default" : "alarm" 					} 				], 				"volume" : [ 					4, 					{ 						"default" : 4 					} 				], 				"duration" : [ 					60, 					180, 					300, 					{ 						"default" : 180 					} 				], 				"sirenType" : [ 					"PCM" 				] 			} 		], 		"mcsEnabled" : true, 		"autoUpdateEnabled" : true, 		"timeZone" : "PST8PDT,M3.2.0,M11.1.0", 		"olsonTimeZone" : "America/Los_Angeles", 		"uploadBandwidthSaturated" : false, 		"antiFlicker" : { 			"mode" : 0, 			"autoDefault" : 2 		}, 		"lowBatteryAlert" : { 			"enabled" : true 		}, 		"lowSignalAlert" : { 			"enabled" : false 		}, 		"claimed" : false, 		"timeSyncState" : "unsynchronized", 		"restrictedMode" : false, 		"connectivity" : [ 			{ 				"type" : "lte", 				"connected" : true, 				"roaming" : false, 				"roamingAllowed" : false, 				"msisdn" : "0000000000", 				"apn" : "vzwinternet", 				"apnUname" : "", 				"apnAuth" : "NONE", 				"imei" : "358417072251022", 				"iccid" : "89148000006067058139", 				"signalStrength" : 2, 				"rfBand" : 0, 				"wwanIpAddr" : "", 				"activeNetwork" : "none", 				"networkName" : "", 				"networkMode" : "lteOnly", 				"fwVersion" : "ARLO.FX.0.6.5.4.VZ.007", 				"carrierFw" : "Verizon", 				"featureRevision" : 1, 				"mepStatus" : "unknown" 			} 		] 	}, 	"action" : "is" } 
+
+Check IMEI Passed "358417072251022" !
+Check Base Version Firmware Passed "1.096.3.1_1.8.63.0_4" !
+Check Modem Firmware Passed "ARLO.FX.0.6.5.4.VZ.007" !
+Check APN Passed vzwinternet !
+This model require mepStatus:notLocked
+Check mepStatus Passed!
+Check sim with prefix 8914800000 pass 
+ SFIS ICCID : 
+Obtain ICCID Passed (0): 89148000006067058139 !
+SIM not in list SIM fixture
+ 
+SendCMD: adb.exe shell  cat /proc/version
+
+ExcuteADBSingleCMDTime =4.1661613
+Result: * daemon not running. starting it now on port 5037 *
+* daemon started successfully *
+Linux version 3.4.0 - ARLO.FX.0.6.5.4  
+
+Check System Firmware Passed !
+
+Sendcmd: adb.exe shell "/mnt/netgear/arlo/usr/bin/vzcmd --expandJson PassThru=\"{\\\"action\\\":\\\"get\\\",\\\"resource\\\":\\\"diagnostics\/cameraRegisters\\\",\\\"properties\\\":{\\\"cameraId\\\":\\\""51B40B7KA03EC"\\\",\\\"registers\\\":[\\\"SystemSerialNumber\\\",\\\"SystemModelNumber\\\",\\\"SystemFirmwareVersion\\\",\\\"MACAddress\\\",\\\"LowIROff\\\",\\\"HighIROff\\\",\\\"LowIROn\\\",\\\"HighIROn\\\",\\\"HardwareRevision\\\"]}}\""
+
+ExcuteADBSingleCMDTime =7.9104272
+Return: * daemon not running. starting it now on port 5037 *
+* daemon started successfully *
+Set responseUrls { 	"resource" : "diagnostics/cameraRegisters", 	"action" : "get", 	"properties" : { 		"cameraId" : "51B40B7KA03EC", 		"registers" : { 			"SystemSerialNumber" : "51B40B7KA03EC", 			"SystemModelNumber" : "VML4030", 			"SystemFirmwareVersion" : "1.096.3.1_15_fa203a7", 			"MACAddress" : "a4:11:62:c6:08:51", 			"LowIROff" : 651, 			"HighIROff" : 1326, 			"LowIROn" : 1603, 			"HighIROn" : 2261, 			"HardwareRevision" : "H6" 		} 	} } 
+
+Check ALS Passed: HighIROn:2261 HighIROff:1326 LowIROn:1603 LowIROff:651
+Check Camera Main Board Fw Passed !
+Check Hardware Version Passed !
+Check ModelId Passed !
+Check SN Passed !
+Check MAC Passed !
+CheckBaseStation = 1
+
+SendCMD: adb.exe shell /mnt/netgear/arlo/usr/bin/vzdaemon --version
+
+ExcuteADBSingleCMDTime =4.2098455
+Result: * daemon not running. starting it now on port 5037 *
+* daemon started successfully *
+	version = "1.8.63.0_14_9ae8a78" 
+
+Check Base Station: 1.8.63.0_14 Passed !
+===[ Test LTE Info Passed ... ]===
+
+
+
+=======================[ Start Check LTE Load Default ... ]=======================
+
+Waiting system run stable ...
+Model: VML4030-FXN-1VZS
+Key check load default: export vz_update_url=https://updates.arlo.com/arlo/fw/vml4030/production
+
+ Waiting for system stable ...
+
+Microsoft Windows XP [Version 6.1.7601]
+(C) Copyright 1985-2001 Microsoft Corp.
+
+D:\RC(U12I345T99)_NEWFW>adb.exe shell cat /var/volatile/tmp/media/nand/vzdaemon/vzdaemon.env
+* daemon not running. starting it now on port 5037 *
+* daemon started successfully *
+export vz_server_url=https://arlo-device.messaging.arlo.com
+
+export vz_update_url=https://updates.arlo.com/arlo/fw/vml4030/production
+
+export vz_mcs_url=https://mcs.arlo.com?r
+
+export vz_log_level=DEBUG
+
+
+ExcuteADBCMDTime1 =4.3351212
+Check Load default Passed !
+===Check LTE Load Default Passed===
+
+
+
+=======================[ Start Switch LTE Video Mode ... ]=======================
+
+Timeout:2
+
+Waiting for system stable ...
+
+Microsoft Windows XP [Version 6.1.7601]
+(C) Copyright 1985-2001 Microsoft Corp.
+
+D:\RC(U12I345T99)_NEWFW>adb shell
+
+D:\RC(U12I345T99)_NEWFW>
+....
+* daemon not running. starting it now on port 5037 *
+* daemon started successfully *
+/mnt/netgear/arlo/usr/bin/vzcmd SerialNum="51B40B7KA03EC" --stopUsbTimer
+
+/ # /mnt/netgear/arlo/usr/bin/vzcmd SerialNum="51B40B7KA03EC" --stopUsbTimer
+
+sending set usbStateTimer register command!!
+
+/ # /usr/bin/usb_composition 902D n n y
+
+Switching to composition number 0x902D
+
+/ # exit
+
+
+ExcuteADBMultiCMDTime =5.4774797
+
+ Waiting for system stable ...
+
+Microsoft Windows XP [Version 6.1.7601]
+(C) Copyright 1985-2001 Microsoft Corp.
+
+D:\RC(U12I345T99)_NEWFW>ipconfig
+
+Windows IP Configuration
+
+
+Ethernet adapter 3.162:
+
+   Connection-specific DNS Suffix  . : 
+   Link-local IPv6 Address . . . . . : fe80::25cf:3218:96c2:9ff6%12
+   IPv4 Address. . . . . . . . . . . : 138.101.3.162
+   Subnet Mask . . . . . . . . . . . : 255.255.248.0
+   Default Gateway . . . . . . . . . : 138.101.0.1
+
+Tunnel adapter Local Area Connection* 6:
+
+   Media State . . . . . . . . . . . : Media disconnected
+   Connection-specific DNS Suffix  . : 
+
+ExcuteADBCMDTime1 =0.5680377
+
+ Waiting for system stable ...
+Device not connected ! 
+
+Microsoft Windows XP [Version 6.1.7601]
+(C) Copyright 1985-2001 Microsoft Corp.
+Device not connected ! 
+
+
+D:\RC(U12I345T99)_NEWFW>
+
+D:\RC(U12I345T99)_NEWFW>
+
+Device not connected ! 
+Device not connected ! 
+
+ExcuteADBCMDTime3 =11.2901611
+
+ Waiting for system stable ...
+
+Microsoft Windows XP [Version 6.1.7601]
+(C) Copyright 1985-2001 Microsoft Corp.
+
+D:\RC(U12I345T99)_NEWFW>ipconfig
+
+Windows IP Configuration
+
+
+Ethernet adapter Local Area Connection 221:
+
+   Connection-specific DNS Suffix  . : 
+   Link-local IPv6 Address . . . . . : fe80::3553:f6a3:7f34:5327%248
+   IPv4 Address. . . . . . . . . . . : 192.168.225.31
+   Subnet Mask . . . . . . . . . . . : 255.255.255.0
+   Default Gateway . . . . . . . . . : 192.168.225.1
+
+Ethernet adapter 3.162:
+
+   Connection-specific DNS Suffix  . : 
+   Link-local IPv6 Address . . . . . : fe80::25cf:3218:96c2:9ff6%12
+   IPv4 Address. . . . . . . . . . . : 138.101.3.162
+   Subnet Mask . . . . . . . . . . . : 255.255.248.0
+   Default Gateway . . . . . . . . . : 138.101.0.1
+
+Tunnel adapter Local Area Connection* 6:
+
+   Media State . . . . . . . . . . . : Media disconnected
+   Connection-specific DNS Suffix  . : 
+
+ExcuteADBCMDTime1 =0.4127028
+
+D:\RC(U12I345T99)_NEWFW>Check ip NDIS ok !
+
+
+
+Waiting for system stable ...
+
+
+D:\RC(U12I345T99)_NEWFW>
+
+Microsoft Windows XP [Version 6.1.7601]
+(C) Copyright 1985-2001 Microsoft Corp.
+
+D:\RC(U12I345T99)_NEWFW>adb.exe shell....
+* daemon not running. starting it now on port 5037 *
+* daemon started successfully *
+cd /bin
+
+/ # cd /bin
+
+/bin # exit
+
+
+ExcuteADBMultiCMDTime =5.520089
+route add 192.168.0.0 MASK 255.255.255.0 192.168.225.1
+ExcuteADBSingleCMDTime =0.2665564
+ OK!
+
+
+Waiting for system stable ...
+
+Microsoft Windows XP [Version 6.1.7601]
+(C) Copyright 1985-2001 Microsoft Corp.
+
+D:\RC(U12I345T99)_NEWFW>adb shell....
+
+D:\RC(U12I345T99)_NEWFW>
+
+* daemon not running. starting it now on port 5037 *
+* daemon started successfully *
+iptables -D FORWARD 2
+
+/ # iptables -D FORWARD 2
+
+/ # exit
+
+
+ExcuteADBMultiCMDTime =5.5294687
+Start check Ping to: 192.168.0.100
+Ping reply from: 192.168.0.100 size:32 Time:544 TTL:254
+Ping reply from: 192.168.0.100 size:32 Time:5 TTL:254
+Check ping LTE.IP passed !
+===[ LTE Video Switch Mode Passed ... ]===
+
+===[ Check VIDEO in day mode LTE]===
+CamView.\CamView.exenot exist,run again...
+CamView.\CamView.exe run again OK...
+Open socket connect to server
+Connect socket to server ok. start listen...
+Delay 6000 seconds 
+
+
+D:\RC(U12I345T99)_NEWFW>
+Waiting Labview calculate....
+Waiting Labview calculate....
+Waiting Labview calculate....
+Waiting Labview calculate....
+Waiting Labview calculate....
+Waiting Labview calculate....
+Waiting Labview calculate....
+Waiting Labview calculate....
+Waiting Labview calculate....
+Waiting Labview calculate....
+Waiting Labview calculate....
+Waiting Labview calculate....
+Waiting Labview calculate....
+Waiting Labview calculate....
+Waiting Labview calculate....
+Waiting Labview calculate....
+Waiting Labview calculate....
+Waiting Labview calculate....
+Waiting Labview calculate....
+Waiting Labview calculate....
+Waiting Labview calculate....
+Waiting Labview calculate....
+Waiting Labview calculate....
+Waiting Labview calculate....
+Waiting Labview calculate....
+Waiting Labview calculate....
+Waiting Labview calculate....
+H=0, S=0, L=128, S_deviation=0, Total Particle=0
+Start copy D:\RC(U12I345T99)_NEWFW\Image\ to D:\RC(U12I345T99)_NEWFW\51B40B7KA03EC\Day2_Time0\.
+Datetime (yyyy-MM-dd HH:mm:ss): 2020-11-27 15:39:05
+Start copy D:\RC(U12I345T99)_NEWFW\Image\Image 0.jpg to D:\RC(U12I345T99)_NEWFW\51B40B7KA03EC\Day2_Time0\Image 0.jpg.
+Copy success...
+Start copy D:\RC(U12I345T99)_NEWFW\Image\Image 1.jpg to D:\RC(U12I345T99)_NEWFW\51B40B7KA03EC\Day2_Time0\Image 1.jpg.
+Copy success...
+Drop connection...
+CamView.\CamView.exenot exist,run again...
+CamView.\CamView.exe run again OK...
+Open socket connect to server
+Connect socket to server ok. start listen...
+Delay 6000 seconds 
+Waiting Labview calculate....
+Waiting Labview calculate....
+Waiting Labview calculate....
+Waiting Labview calculate....
+Waiting Labview calculate....
+Waiting Labview calculate....
+Waiting Labview calculate....
+Waiting Labview calculate....
+Waiting Labview calculate....
+Waiting Labview calculate....
+Waiting Labview calculate....
+Waiting Labview calculate....
+Waiting Labview calculate....
+Waiting Labview calculate....
+Waiting Labview calculate....
+Waiting Labview calculate....
+Waiting Labview calculate....
+Waiting Labview calculate....
+Waiting Labview calculate....
+Waiting Labview calculate....
+Waiting Labview calculate....
+Waiting Labview calculate....
+Waiting Labview calculate....
+Waiting Labview calculate....
+H=0, S=0, L=0, S_deviation=0, Total Particle=0
+Start copy D:\RC(U12I345T99)_NEWFW\Image\ to D:\RC(U12I345T99)_NEWFW\51B40B7KA03EC\Day2_Time1\.
+Datetime (yyyy-MM-dd HH:mm:ss): 2020-11-27 15:39:26
+Drop connection...
+CamView.\CamView.exenot exist,run again...
+CamView.\CamView.exe run again OK...
+Open socket connect to server
+Connect socket to server ok. start listen...
+Delay 6000 seconds 
+Waiting Labview calculate....
+Waiting Labview calculate....
+Waiting Labview calculate....
+Waiting Labview calculate....
+Waiting Labview calculate....
+Waiting Labview calculate....
+Waiting Labview calculate....
+Waiting Labview calculate....
+Waiting Labview calculate....
+Waiting Labview calculate....
+Waiting Labview calculate....
+Waiting Labview calculate....
+Waiting Labview calculate....
+Waiting Labview calculate....
+Waiting Labview calculate....
+Waiting Labview calculate....
+Waiting Labview calculate....
+Waiting Labview calculate....
+Waiting Labview calculate....
+Waiting Labview calculate....
+Waiting Labview calculate....
+Waiting Labview calculate....
+Waiting Labview calculate....
+Waiting Labview calculate....
+H=0, S=0, L=0, S_deviation=0, Total Particle=0
+Start copy D:\RC(U12I345T99)_NEWFW\Image\ to D:\RC(U12I345T99)_NEWFW\51B40B7KA03EC\Day2_Time2\.
+Datetime (yyyy-MM-dd HH:mm:ss): 2020-11-27 15:39:48
+Drop connection...
+CamView.\CamView.exenot exist,run again...
+CamView.\CamView.exe run again OK...
+Open socket connect to server
+Connect socket to server ok. start listen...
+Delay 6000 seconds 
+Waiting Labview calculate....
+Waiting Labview calculate....
+Waiting Labview calculate....
+Waiting Labview calculate....
+Waiting Labview calculate....
+Waiting Labview calculate....
+Waiting Labview calculate....
+Waiting Labview calculate....
+Waiting Labview calculate....
+Waiting Labview calculate....
+Waiting Labview calculate....
+Waiting Labview calculate....
+Waiting Labview calculate....
+Waiting Labview calculate....
+Waiting Labview calculate....
+Waiting Labview calculate....
+Waiting Labview calculate....
+Waiting Labview calculate....
+Waiting Labview calculate....
+Waiting Labview calculate....
+Waiting Labview calculate....
+Waiting Labview calculate....
+Waiting Labview calculate....
+Waiting Labview calculate....
+H=0, S=0, L=0, S_deviation=0, Total Particle=0
+Start copy D:\RC(U12I345T99)_NEWFW\Image\ to D:\RC(U12I345T99)_NEWFW\51B40B7KA03EC\Day2_Time3\.
+Datetime (yyyy-MM-dd HH:mm:ss): 2020-11-27 15:40:09
+Drop connection...
+===[ Test VIDEO in day mode failed ... ]===
+Delay 0 MiliSecond
+==============Start show fail=================
+TEST PROGRAM VERSION:2.3.2.7  TEST CYCLE TIME:210
+===[ VDD2 Test VIDEO in day mode the second time failed ... ]===
+
+----------------Summary all test item--------------
+Test item name                Result  Test time
+ 1.CheckLTEMode                PASS    60.2s 
+ 2.CheckSimInsert              PASS    0.16s 
+ 3.CheckDMACCRC2               PASS    1.05s 
+ 4.GetSimLockKeySendSFIS       PASS    2.55s 
+ 5.CheckLTEInfo                PASS    21.76s
+ 6.CheckLTELoadDefault         PASS    4.43s 
+ 7.CheckLTEVideoSwitchMode     PASS    36.35s
+ 8.CheckVideoInDayModeLTE      Run ...       
+ 9.CheckVideoInNightMode                     
+10.SendSfis                                  
+---------------------------------------------------
+route delete 192.168.0.0
+Write summary log server: F:\lsy\ID\U12I345T99\VML4030-FXN-1VZS\RC -> OK
+Write summary log localD:\Arlo_Logs\U12I345T99\VML4030-FXN-1VZS\RC\27-11-2020 -> OK
+Start copy D:\RC(U12I345T99)_NEWFW\51B40B7KA03EC to D:\Arlo_Logs\U12I345T99\VML4030-FXN-1VZS\RC\27-11-2020\FAIL\51B40B7KA03EC.
+Datetime (yyyy-MM-dd HH:mm:ss): 2020-11-27 15:40:15
+Start copy D:\RC(U12I345T99)_NEWFW\51B40B7KA03EC\Day2_Time0 to D:\Arlo_Logs\U12I345T99\VML4030-FXN-1VZS\RC\27-11-2020\FAIL\51B40B7KA03EC\Day2_Time0.
+Datetime (yyyy-MM-dd HH:mm:ss): 2020-11-27 15:40:15
+Start copy D:\RC(U12I345T99)_NEWFW\51B40B7KA03EC\Day2_Time0\Camera_Result.ini to D:\Arlo_Logs\U12I345T99\VML4030-FXN-1VZS\RC\27-11-2020\FAIL\51B40B7KA03EC\Day2_Time0\Camera_Result.ini.
+Copy success...
+Start copy D:\RC(U12I345T99)_NEWFW\51B40B7KA03EC\Day2_Time0\Image 0.jpg to D:\Arlo_Logs\U12I345T99\VML4030-FXN-1VZS\RC\27-11-2020\FAIL\51B40B7KA03EC\Day2_Time0\Image 0.jpg.
+Copy success...
+Start copy D:\RC(U12I345T99)_NEWFW\51B40B7KA03EC\Day2_Time0\Image 1.jpg to D:\Arlo_Logs\U12I345T99\VML4030-FXN-1VZS\RC\27-11-2020\FAIL\51B40B7KA03EC\Day2_Time0\Image 1.jpg.
+Copy success...
+Start copy D:\RC(U12I345T99)_NEWFW\51B40B7KA03EC\Day2_Time1 to D:\Arlo_Logs\U12I345T99\VML4030-FXN-1VZS\RC\27-11-2020\FAIL\51B40B7KA03EC\Day2_Time1.
+Datetime (yyyy-MM-dd HH:mm:ss): 2020-11-27 15:40:15
+Start copy D:\RC(U12I345T99)_NEWFW\51B40B7KA03EC\Day2_Time1\Camera_Result.ini to D:\Arlo_Logs\U12I345T99\VML4030-FXN-1VZS\RC\27-11-2020\FAIL\51B40B7KA03EC\Day2_Time1\Camera_Result.ini.
+Copy success...
+Start copy D:\RC(U12I345T99)_NEWFW\51B40B7KA03EC\Day2_Time2 to D:\Arlo_Logs\U12I345T99\VML4030-FXN-1VZS\RC\27-11-2020\FAIL\51B40B7KA03EC\Day2_Time2.
+Datetime (yyyy-MM-dd HH:mm:ss): 2020-11-27 15:40:15
+Start copy D:\RC(U12I345T99)_NEWFW\51B40B7KA03EC\Day2_Time2\Camera_Result.ini to D:\Arlo_Logs\U12I345T99\VML4030-FXN-1VZS\RC\27-11-2020\FAIL\51B40B7KA03EC\Day2_Time2\Camera_Result.ini.
+Copy success...
+Start copy D:\RC(U12I345T99)_NEWFW\51B40B7KA03EC\Day2_Time3 to D:\Arlo_Logs\U12I345T99\VML4030-FXN-1VZS\RC\27-11-2020\FAIL\51B40B7KA03EC\Day2_Time3.
+Datetime (yyyy-MM-dd HH:mm:ss): 2020-11-27 15:40:15
+Start copy D:\RC(U12I345T99)_NEWFW\51B40B7KA03EC\Day2_Time3\Camera_Result.ini to D:\Arlo_Logs\U12I345T99\VML4030-FXN-1VZS\RC\27-11-2020\FAIL\51B40B7KA03EC\Day2_Time3\Camera_Result.ini.
+Copy success...
+Details log local folder: D:\Arlo_Logs\U12I345T99\VML4030-FXN-1VZS\RC\27-11-2020\FAIL

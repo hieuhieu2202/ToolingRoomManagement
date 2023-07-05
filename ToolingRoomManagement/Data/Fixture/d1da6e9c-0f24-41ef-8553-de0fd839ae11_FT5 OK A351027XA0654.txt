@@ -1,0 +1,144 @@
+ShowUI===[ Check Grey wall Night ]===
+Close CaliTool 
+Overwrite cal_FT5_Night.ini file to \CaliTool\cal.ini
+Copy standard script before open
+***Begin open CaliTool****
+script.ini: modify IQcal_Display = 0 .
+open CaliTool.exe file !
+***open CaliTool successful****
+
+ wait 7000 secs for image stable ...
+=================Capture image time 0==================
+Waiting create folder...
+Waiting create folder...
+Waiting create folder...
+Create folder sucess...
+Create file sucess...
+NGFinish get GreyWall value..
+
+LUM:
+Rect[0], Rect[1], Rect[2], Rect[3], Rect[4], Result[0], Result[1], Result[2], Result[3], Result[4], Exthemum Result
+66, 61, 110, 45, 40, PASS, PASS, PASS, PASS, PASS, PASS
+
+Brightness Uniformity:
+Rect[0], Rect[1], Rect[2], Rect[3], Rect[4], Result[0], Result[1], Result[2], Result[3], Result[4]
+60.00, 55.45, 100.00, 40.91, 36.36, PASS, PASS, *, PASS, PASS, 
+
+NG-Calibrated : 0, 0, 0, 0, 0, 0
+
+NG
+
+LUM:
+Rect[0], Rect[1], Rect[2], Rect[3], Rect[4], Result[0], Result[1], Result[2], Result[3], Result[4], Exthemum Result
+66, 61, 110, 45, 40, PASS, PASS, PASS, PASS, PASS, PASS
+
+Brightness Uniformity:
+Rect[0], Rect[1], Rect[2], Rect[3], Rect[4], Result[0], Result[1], Result[2], Result[3], Result[4]
+60.00, 55.45, 100.00, 40.91, 36.36, PASS, PASS, *, PASS, PASS, 
+
+NG-Calibrated : 0, 0, 0, 0, 0, 0
+
+NG
+Wait close Display...
+===[ Test Grey wall passed ... ]===
+
+===[ Check Grey wall sport light ]===
+Close CaliTool 
+Overwrite cal_FT5_Day.ini file to \CaliTool\cal.ini
+Copy standard script before open
+***Begin open CaliTool****
+script.ini: modify IQcal_Display = 0 .
+open CaliTool.exe file !
+***open CaliTool successful****
+
+ wait 5000 secs for image stable ...
+=================Capture image time 0==================
+Start copy .\CaliTool\output\GreyWall to .\CaliTool\output\GreyWall_backup_day1.
+Datetime (yyyy-MM-dd HH:mm:ss): 2020-11-26 15:16:18
+Start copy D:\FT5(U12I420)\CaliTool\output\GreyWall\.bpp to .\CaliTool\output\GreyWall_backup_day1\.bpp.
+Copy success...
+Start copy D:\FT5(U12I420)\CaliTool\output\GreyWall\.txt to .\CaliTool\output\GreyWall_backup_day1\.txt.
+Copy success...
+Delete folder image, txt before capture ...
+Waiting create folder...
+Waiting create folder...
+Waiting create folder...
+Create folder sucess...
+Create file sucess...
+Finish get GreyWall value..
+
+LUM:
+Rect[0], Rect[1], Rect[2], Rect[3], Rect[4], Result[0], Result[1], Result[2], Result[3], Result[4], Exthemum Result
+91, 87, 140, 99, 89, PASS, PASS, PASS, PASS, PASS, PASS
+
+Brightness Uniformity:
+Rect[0], Rect[1], Rect[2], Rect[3], Rect[4], Result[0], Result[1], Result[2], Result[3], Result[4]
+65.00, 62.14, 100.00, 70.71, 63.57, PASS, PASS, *, PASS, PASS, 
+
+NG-Calibrated : 0, 0, 0, 0, 0, 0
+
+NG
+
+LUM:
+Rect[0], Rect[1], Rect[2], Rect[3], Rect[4], Result[0], Result[1], Result[2], Result[3], Result[4], Exthemum Result
+91, 87, 140, 99, 89, PASS, PASS, PASS, PASS, PASS, PASS
+
+Brightness Uniformity:
+Rect[0], Rect[1], Rect[2], Rect[3], Rect[4], Result[0], Result[1], Result[2], Result[3], Result[4]
+65.00, 62.14, 100.00, 70.71, 63.57, PASS, PASS, *, PASS, PASS, 
+
+NG-Calibrated : 0, 0, 0, 0, 0, 0
+
+NG
+===[ Test Grey wall sport light passed ... ]===
+
+===[ Check Color Unifomity]===
+Source file: D:\FT5(U12I420)\CaliTool\output\2560_1440\Capture\20201126_151619.bmp
+Found image file...
+Delete old folder...
+Delete old bmp file in dest folder...
+Delete file .\ColorUniformityTest\TestImage.bmp 
+Open Tool check color uniformity!
+PASS, 
+y_MIN_LUM_VALUE: 124.645
+y_MAX_LUM_VALUE: 148.184
+y_LS_MAX_MIN_VALUE: 23.5386
+y_Corner_MAX_MIN_VALUE: 19.7339
+u_MIN_LUM_VALUE: 127.323
+u_MAX_LUM_VALUE: 127.982
+u_LS_MAX_MIN_VALUE: 0.587467
+u_Corner_MAX_MIN_VALUE: 0.0712444
+v_MIN_LUM_VALUE: 127.286
+v_MAX_LUM_VALUE: 127.927
+v_LS_MAX_MIN_VALUE: 0.150133
+v_Corner_MAX_MIN_VALUE: 0.491022
+
+ROI number, y, u, v :
+0, 131.337, 127.922, 127.436
+1, 137.744, 127.982, 127.672
+2, 124.645, 127.954, 127.849
+3, 144.379, 127.957, 127.577
+4, 148.184, 127.323, 127.286
+5, 136.947, 127.96, 127.739
+6, 136.702, 127.911, 127.927
+7, 0, 0, 0
+8, 130.089, 127.962, 127.863
+
+===[ Test Color Unifomity pass]===
+Close CaliTool 
+Delay 0 MiliSecond
+==============Start show pass================
+TEST PROGRAM VERSION:2.3.2.8  TEST CYCLE TIME:29
+
+----------------Summary all test item--------------
+Test item name                Result  Test time
+ 1.CheckGreyWallGen5_Night1    PASS    14.07s
+ 2.CheckGreyWallGen5_SportLight1PASS    11.82s
+ 3.CheckColorUniformity        PASS    2.08s 
+ 4.SendSfis                    -Skip-        
+---------------------------------------------------
+Write summary log server: F:\lsy\ID\U12I420\MODEL NAME \FT5 -> OK
+Write summary log localD:\Arlo_Logs\U12I420\MODEL NAME \FT5\26-11-2020 -> OK
+Details log local folder: D:\Arlo_Logs\U12I420\MODEL NAME \FT5\26-11-2020\PASS
+Details log server folder: F:\lsy\ID\Detail\U12I420\MODEL NAME \FT5\26-11-2020\PASS
+UserName Test Off: 

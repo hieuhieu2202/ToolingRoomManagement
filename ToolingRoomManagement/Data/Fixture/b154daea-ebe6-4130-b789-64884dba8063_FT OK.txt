@@ -1,0 +1,806 @@
+SN send to sfis: A4230A7BA09B5
+Time UI-SFIS: 2020/12/03 13:54:15
+
+Checking ABA status...
+No record, test directly
+iaba :-1
+Wait to have OVTI Serial Port
+.
+Start connect !
+COM DUT OPENED!
+
+Wait # !
+
+
+# 
+
+
+# 
+Connect DUT sussess.
+info
+FXCN version: V000.00.03.015@_generic 
+Build Time: 10:51:17 May 15 2019
+
+FXCN version: V000.00.03.015@79838
+
+IQC version: 1.0.12 E.1
+
+MAC: A4:11:62:B3:B8:B4, id2 0
+
+SERIAL_NUM: A4230A7BA09B5
+
+MODEL_NUM: VMC5040
+
+HW_REV: H8
+
+BLE_MAC: A4:11:62:B3:B8:B5, id2 5
+
+ALS_LLUX: 21.20%
+
+ALS_THRES_LUX: 
+
+ALS_HLUX: 000130
+
+2g_ssid: testgen5
+
+2g_passwd: 123456a@123456
+
+5g_ssid: 
+
+5g_passwd: 
+
+wl_bd_pref: 0x00 0x00 0x00 0x00 
+
+enc_key: 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 
+
+auth_key: 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 
+
+wrap_key: 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 
+
+wrap_data: 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 
+
+# 
+DUT is generic FW => switch to mfg FW
+13:54:18
+export wifi_fw=mfg
+
+# 
+info
+FXCN version: V000.00.03.015@_mfg 
+Build Time: 10:51:17 May 15 2019
+
+FXCN version: V000.00.03.015@79838
+
+IQC version: 1.0.12 E.1
+
+MAC: A4:11:62:B3:B8:B4, id2 0
+
+SERIAL_NUM: A4230A7BA09B5
+
+MODEL_NUM: VMC5040
+
+HW_REV: H8
+
+BLE_MAC: A4:11:62:B3:B8:B5, id2 5
+
+ALS_LLUX: 21.20%
+
+ALS_THRES_LUX: 
+
+ALS_HLUX: 000130
+
+2g_ssid: testgen5
+
+2g_passwd: 123456a@123456
+
+5g_ssid: 
+
+5g_passwd: 
+
+wl_bd_pref: 0x00 0x00 0x00 0x00 
+
+enc_key: 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 
+
+auth_key: 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 
+
+wrap_key: 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 
+
+wrap_data: 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 
+
+# 
+Skip check build time and IQC version
+DUTMAC: A4:11:62:B3:B8:B4
+===[ Check firmware version passed ... ]===
+
+skip check setting of fixture file
+===[ Check LED]===
+NumberLEDCheck= 4
+Delete file .\CCDResult.ini 
+White LED,	ov led BLUE OFF;ov led AMBER OFF;fmcu LED blue off;fmcu LED amber off;led ir set 35000;led w on;led ir set 35000,	#,	300,100
+***** Start check  White LED. *****
+Log:	ov led BLUE OFF
+13:54:20
+ov led BLUE OFF
+
+
+# 
+Delay 100 MiliSecond
+Log:ov led AMBER OFF
+13:54:20
+ov led AMBER OFF
+
+# 
+Delay 100 MiliSecond
+Log:fmcu LED blue off
+13:54:20
+fmcu LED blue off
+
+# 
+Delay 100 MiliSecond
+Log:fmcu LED amber off
+13:54:20
+fmcu LED amber off
+
+# 
+Delay 100 MiliSecond
+Log:led ir set 35000
+13:54:20
+led ir set 35000
+
+# 
+Delay 100 MiliSecond
+Log:led w on
+13:54:21
+led w on
+
+# 
+Delay 100 MiliSecond
+Log:led ir set 35000
+13:54:21
+led ir set 35000
+
+# 
+Delay 100 MiliSecond
+writeCCDControl.ini
+Write test flag CCDControl.ini: 1
+CCD v2.0.0.8,Status-White:60-60-236,
+Test time of : 3.1457641
+Delete file .\CCDResult.ini 
+Blue ov LED,	led w off;fmcu LED amber off;fmcu LED blue off;ov led AMBER OFF;ov led BLUE ON,	#,	300,100
+***** Start check  Blue ov LED. *****
+Log:	led w off
+13:54:23
+led w off
+
+# 
+Delay 100 MiliSecond
+Log:fmcu LED amber off
+13:54:23
+fmcu LED amber off
+
+# 
+Delay 100 MiliSecond
+Log:fmcu LED blue off
+13:54:23
+fmcu LED blue off
+
+# 
+Delay 100 MiliSecond
+Log:ov led AMBER OFF
+13:54:23
+ov led AMBER OFF
+
+# 
+Delay 100 MiliSecond
+Log:ov led BLUE ON
+13:54:24
+ov led BLUE ON
+
+# 
+Delay 100 MiliSecond
+writeCCDControl.ini
+Write test flag CCDControl.ini: 2
+CCD v2.0.0.8,Status-Blue:114-240-203,
+Test time of : 3.5120341
+Delete file .\CCDResult.ini 
+AmberFMCU LED,	led w off;ov led BLUE OFF;ov led AMBER OFF;fmcu LED blue off;fmcu LED amber on;fmcu LED amber on,	#,	300,100
+***** Start check  AmberFMCU LED. *****
+Log:	led w off
+13:54:26
+led w off
+
+# 
+Delay 100 MiliSecond
+Log:ov led BLUE OFF
+13:54:27
+ov led BLUE OFF
+
+# 
+Delay 100 MiliSecond
+Log:ov led AMBER OFF
+13:54:27
+ov led AMBER OFF
+
+# 
+Delay 100 MiliSecond
+Log:fmcu LED blue off
+13:54:27
+fmcu LED blue off
+
+# 
+Delay 100 MiliSecond
+Log:fmcu LED amber on
+13:54:27
+fmcu LED amber on
+
+# 
+Delay 100 MiliSecond
+Log:fmcu LED amber on
+13:54:27
+fmcu LED amber on
+
+# 
+Delay 100 MiliSecond
+writeCCDControl.ini
+Write test flag CCDControl.ini: 3
+CCD v2.0.0.8,Status-Amber:40-204-177,
+Test time of : 3.7746341
+Delete file .\CCDResult.ini 
+Blue FMCU LED,	led w off;ov led AMBER OFF;fmcu LED amber off;fmcu LED blue on,	#,	300,100
+***** Start check  Blue FMCU LED. *****
+Log:	led w off
+13:54:30
+led w off
+
+
+# 
+Delay 100 MiliSecond
+Log:ov led AMBER OFF
+13:54:30
+ov led AMBER OFF
+
+# 
+Delay 100 MiliSecond
+Log:fmcu LED amber off
+13:54:30
+fmcu LED amber off
+
+# 
+Delay 100 MiliSecond
+Log:fmcu LED blue on
+13:54:31
+fmcu LED blue on
+
+# 
+Delay 100 MiliSecond
+writeCCDControl.ini
+Write test flag CCDControl.ini: 4
+CCD v2.0.0.8,Status-Blue:114-240-203,
+Test time of : 3.3283758
+13:54:33
+ov led AMBER OFF
+
+# 
+13:54:33
+ov led BLUE OFF
+
+
+# 
+13:54:34
+led w off
+
+# 
+Delay 100 MiliSecond
+Delay 100 MiliSecond
+===[ Set parameter ]===
+13:54:34
+wl --init
+Load wifi para from SFlash
+WiFi FW Type:mfg
+select scio 2
+scio_init: enter scio init, mode:4
+scio_init: card_bus_width_switch failed, reset sdio
+sdio function num=3, wifi_run_flag=0
+Getting WIFI mfg FW(FW1)
+id2:15 addr = 4b19b0, len = 70fc0
+ len 462784...board_bcm4334fw_get len 462784
+Getting WIFI FW(FW2) by 16
+id2:16 addr = 522970, len = c00
+board_firmware_get len 3072
+Could not set Country code
+need download clm data
+Getting WIFI FW(FW3) by 33
+id2:33 addr = 77e430, len = 1e40
+board_clmdata_get len 7744
+WLAN MAC Address : 00:90:4C:2A:0A:00
+WLAN Firmware    : wl0: May 14 2019 13:32:24 version 13.18 (TOB) (r714365 WLTEST) FWID 01-6e35b1a8
+WLAN CLM         : API: 18.2 Data: 9.10.0 Compiler: 1.36.1 ClmImport: 1.34.1 Creation: 2018-09-21 16:18:59 
+
+# 
+===[ Set parameter passed ... ]===
+
+===[ Check Wifi NFT ]===
+REG key path= SOFTWARE\Netgear\STATION\FT\NFT_MULTI11
+NFT_MULTI= Test with IQ Server
+==========TEST NFT MULTI============= 
+Start connect IQ_SERVER 
+Bind socket IQServer  sucess
+Read test item....
+13:54:36
+wl pkteng_stop tx
+
+# 
+13:54:36
+wl --init
+Wlan is inited already for brcm wl !
+
+# 
+13:54:36
+wl ver
+7/19/2017 build 0
+wl0: May 14 2019 13:32:24 version 13.18 (TOB) (r714365 WLTEST) FWID 01-6e35b1a8
+
+# 
+13:54:36
+wl mpc 0
+
+# 
+13:54:36
+wl up
+
+# 
+13:54:36
+wl phy_watchdog 0
+
+# 
+13:54:37
+wl country ALL
+
+# 
+13:54:37
+wl country
+#a (#a/0) <unknown>
+
+# 
+TX_VERIFY_POWER 2437 DSSS-1 HT20 #21 @1
+Cmd: wl pkteng_stop tx 
+Cmd: wl band b
+Cmd: wl channel 6
+Cmd: wl up
+Cmd: wl phy_forcecal 1
+Cmd: wl scansuppress 1
+Cmd: wl 2g_rate -r 1
+Cmd: wl phy_txpwrctrl 1
+Cmd: wl txpwr1 -o -d 20
+Cmd: wl pkteng_start 10:20:30:40:50:60 tx 100 1024 0
+Cmd: 
+ Try send command time 0
+13:54:37
+wl pkteng_stop tx 
+
+# 
+13:54:37
+wl band b
+
+# 
+13:54:38
+wl channel 6
+
+# 
+13:54:38
+wl up
+
+# 
+13:54:38
+wl phy_forcecal 1
+
+# 
+13:54:38
+wl scansuppress 1
+
+# 
+13:54:39
+wl 2g_rate -r 1
+
+# 
+13:54:39
+wl phy_txpwrctrl 1
+
+# 
+13:54:39
+wl txpwr1 -o -d 20
+
+# 
+13:54:40
+wl pkteng_start 10:20:30:40:50:60 tx 100 1024 0
+
+# 
+Start send item to server: TX_VERIFY_POWER 2437 DSSS-1 HT20 #21 @1
+Send iTems: TX_VERIFY_POWER 2437 DSSS-1 HT20 #21 @1 to server success...
+Start get value from server
+Value get from Server: PASS, [Step 352] TX_VERIFY_POWER 2437 DSSS-1 HT20 #21 @1, Value: 17.87
+TX_VERIFY_POWER 5785 OFDM-6 HT20 #17 @1
+Cmd: wl pkteng_stop tx 
+Cmd: wl band a
+Cmd: wl channel 157
+Cmd: wl up
+Cmd: wl phy_forcecal 1
+Cmd: wl scansuppress 1
+Cmd: wl 5g_rate -r 6
+Cmd: wl phy_txpwrctrl 1
+Cmd: wl txpwr1 -o -d 17
+Cmd: wl pkteng_start 10:20:30:40:50:60 tx 100 1024 0
+Cmd: 
+ Try send command time 0
+13:54:42
+wl pkteng_stop tx 
+
+# 
+13:54:42
+wl band a
+
+# 
+13:54:42
+wl channel 157
+
+# 
+13:54:43
+wl up
+
+# 
+13:54:43
+wl phy_forcecal 1
+
+# 
+13:54:43
+wl scansuppress 1
+
+# 
+13:54:44
+wl 5g_rate -r 6
+
+# 
+13:54:44
+wl phy_txpwrctrl 1
+
+# 
+13:54:44
+wl txpwr1 -o -d 17
+
+# 
+13:54:44
+wl pkteng_start 10:20:30:40:50:60 tx 100 1024 0
+
+# 
+Start send item to server: TX_VERIFY_POWER 5785 OFDM-6 HT20 #17 @1
+Send iTems: TX_VERIFY_POWER 5785 OFDM-6 HT20 #17 @1 to server success...
+Start get value from server
+Value get from Server: PASS, [Step 353] TX_VERIFY_POWER 5785 OFDM-6 HT20 #17 @1, Value: 17.59
+==========TEST NFT MULTI PASS============= 
+iperfFound  iperft.exe exist..... 
+===[ Check OpenIperfServer passed ... ]===
+
+===[ Set DTIM ]===
+Allready telneted
+wl down
+# 
+# wl -i eth1 dtim 10
+# 
+# wl up
+# 
+# wl isup
+1
+# 
+# ===[ Set DTIM passed ... ]===
+
+info
+FXCN version: V000.00.03.015@_mfg 
+Build Time: 10:51:17 May 15 2019
+
+FXCN version: V000.00.03.015@79838
+
+IQC version: 1.0.12 E.1
+
+MAC: A4:11:62:B3:B8:B4, id2 0
+
+SERIAL_NUM: A4230A7BA09B5
+
+MODEL_NUM: VMC5040
+
+HW_REV: H8
+
+BLE_MAC: A4:11:62:B3:B8:B5, id2 5
+
+ALS_LLUX: 21.20%
+
+ALS_THRES_LUX: 
+
+ALS_HLUX: 000130
+
+2g_ssid: testgen5
+
+2g_passwd: 123456a@123456
+
+
+5g_ssid: 
+
+5g_passwd: 
+
+wl_bd_pref: 0x00 0x00 0x00 0x00 
+
+enc_key: 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 
+
+auth_key: 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 
+
+wrap_key: 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 
+
+wrap_data: 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 
+
+# 
+Skip check build time and IQC version
+DUTMAC: A4:11:62:B3:B8:B4
+===[ Check firmware version passed ... ]===
+
+===[ SFIS OFF. No burn Certkey ... ]===
+
+On/OFF DUT before test idle current 
+UI->MCU: POWER_ON
+POWER_ON_OK
+UI->MCU: POWER_OFF
+POWER_OFF_OK
+....===[ Switch to idle Mode Gen5 ]===
+Check switch to idle mode time0 
+13:54:51
+usb serial baud rate(DEF): 1c200
+set csr(0): 0x30000 0x40002000
+set csr(1): 0x1 0x50000000
+set csr(2): 0x2 0x2000080
+set csr(3): 0x30003 0x0
+set csr(4): 0x30004 0x200000f1
+set csr(5): 0x30005 0x100000d4
+set csr(6): 0x30006 0x100000c3
+id2:23 addr = 597cf0, len = c5c0
+libuart_init returns 0
+id2:13 addr = 309e70, len = 137ec0
+
+Uart Initial!!
+Current Board ID:172211047
+Set GPIO14 output
+Set GPIO14 high
+# Setup: 1000680 400000
+Setup: 1000680 120000
+Setup: 2000680 ff0000
+Setup: 3000680 ff0000
+Setup: 3020680 ff0409
+DL:1
+MCU not running
+Setup: 1000680 120000
+Setup: 2000680 90000
+Warning: Descriptor length(43) > request.wLength(9)
+Setup: 2000680 430000
+Setup: 2000680 1090000
+Set config: 1
+++ HS
+ep[3] cfg0: a3024200, cfg1: 8100030, maxpkt: 200
+ep[84] cfg0: e4124200, cfg1: 8100030, maxpkt: 200
+ep[81] cfg0: f1221040, cfg1: 8020010, maxpkt: 40
+Setup: 21a1 70000
+Get: rate 115200
+Setup: 2221 0
+Host2Dev Length [0]!!!
+control signal: 0x0
+Setup: 2021 70000
+Set: rate 115200, Stop 0, Parity 0, Data 8
+Setup: 21a1 70000
+Get: rate 115200
+get from from flash
+MCU type:0
+id2:8 addr = 1b9330, len = 14700
+Load mcu.bin from SFlash.
+wiced_hci: HCI_RESET success.
+wiced_hci: UPDATE_BAUDRATE success.
+wiced_hci: DOWNLOAD_MINIDRIVER success.
+.....................................................................................................................................................................................................................................................................................................................................................wiced_hci: WRITE_RAM success.
+wiced_hci: LAUNCH_RAM success.
+Setup: 21a1 70000
+Get: rate 115200
+Setup: 21a1 70000
+Get: rate 115200
+Setup: 21a1 70000
+Get: rate 115200
+Setup: 21a1 70000
+Get: rate 115200
+Setup: 2021 70000
+Set: rate 115200, Stop 0, Parity 0, Data 8
+Setup: 21a1 70000
+Get: rate 115200
+Setup: 22221 0
+Host2Dev Length [0]!!!
+control signal: 0x2
+Setup: 2021 70000
+Set: rate 115200, Stop 0, Parity 0, Data 8
+Setup: 21a1 70000
+Get: rate 115200
+Setup: 21a1 70000
+Get: rate 115200
+Setup: 21a1 70000
+Get: rate 115200
+Setup: 2021 70000
+Set: rate 115200, Stop 0, Parity 0, Data 8
+Setup: 21a1 70000
+Get: rate 115200
+Setup: 22221 0
+Host2Dev Length [0]!!!
+control signal: 0x2
+Setup: 2021 70000
+Set: rate 115200, Stop 0, Parity 0, Data 8
+Setup: 21a1 70000
+Get: rate 115200
+Setup: 22221 0
+Host2Dev Length [0]!!!
+control signal: 0x2
+Setup: 21a1 70000
+Get: rate 115200
+Setup: 21a1 70000
+Get: rate 115200
+Setup: 2021 70000
+Set: rate 115200, Stop 0, Parity 0, Data 8
+Setup: 21a1 70000
+Get: rate 115200
+Setup: 2221 0
+Host2Dev Length [0]!!!
+control signal: 0x0
+Setup: 2021 70000
+Set: rate 115200, Stop 0, Parity 0, Data 8
+Setup: 21a1 70000
+Get: rate 115200
+uart0 flow[Y] init!!!
+hassflash 1
+flash name W25Q128F
+calib hdlen : 1000, area size : 19000 area addr : fa5000
+Current Board ID:4
+Init GPIO interface.
+Init FXCN_burnin_init.
+Init FXCN_mcu_init.
+Init switchmode_init.
+Init workmode_init.
+Init FXCN_rssi_init.
+Init FXCN_version_init.
+Init param area.
+FXCN throughput test init done.
+FXCN debug param init done.
+
+<Dev Info>
+	sn: 00005442550a6bf6
+	pw: SbVwPXQO
+	mac: a4-11-62-b3-b8-b4
+<WiFi Info>
+	ssid: NETGEAR21
+	key: abcdef1234
+	country_code: CN
+	security: auto
+Easycam is initialized.
+
+work_mode:0
+[INFO]: Work mode:0.
+Misc thread start!!!
+PASS Close COM ...
+Waiting DUT idle...
+Waiting DUT idle...
+Waiting DUT idle...
+Waiting DUT idle...
+Waiting DUT idle...
+Waiting DUT idle...
+Waiting DUT idle...
+Waiting DUT idle...
+Waiting DUT idle...
+Waiting DUT idle...
+Waiting DUT idle...
+Waiting DUT idle...
+Waiting DUT idle...
+Waiting DUT idle...
+Waiting DUT idle...
+Waiting DUT idle...
+Waiting DUT idle...
+Waiting DUT idle...
+Waiting DUT idle...
+Waiting DUT idle...
+Waiting DUT idle...
+Waiting DUT idle...
+Waiting DUT idle...
+Waiting DUT idle...
+Waiting DUT idle...
+Can not switch to idle mode
+Check switch to idle mode time1 
+13:55:20
+Send error: A device attached to the system is not functioning.
+
+Waiting DUT idle...
+Waiting DUT idle...
+Waiting DUT idle...
+Waiting DUT idle...
+Waiting DUT idle...
+Waiting DUT idle...
+Waiting DUT idle...
+Waiting DUT idle...
+Waiting DUT idle...
+Waiting DUT idle...
+Waiting DUT idle...
+Waiting DUT idle...
+Waiting DUT idle...
+Waiting DUT idle...
+Switch to idle mode successful
+===[  Switch to idle Mode passed ... ]===
+
+===[ Check idle current Gen5 ]===
+FLUKE TYPE= Victor 8246
+#*INS240
+#*switch fluke to Ample sucessful
+#*RD?
+#*RD+0.0000+0000.?
+
+Current time 0: 0 micro ample --> Fail
+#*RD?
+#*RD+0.0000+0000.?
+Current time 1: 0 micro ample --> Fail
+#*RD?
+#*RD+0.0000+0000.?
+
+Current time 2: 0 micro ample --> Fail
+#*RD?
+#*RD+0.0000+0000.?
+Current time 3: 0 micro ample --> Fail
+#*RD?
+#*RD+0.0000+0000.?
+Current time 4: 0 micro ample --> Fail
+#*RD?
+#*RD+0.0000+0000.?
+Current time 5: 0 micro ample --> Fail
+#*RD?
+#*RD+0.0001+0000.?
+Current time 6: 100 micro ample --> Pass
+===[ Test current Idle passed ... ]===
+
+Waiting for wakeup! 
+.................Time waiting for wakeup: 8.2767012  
+====Test Wakeup pass==== 
+===[ Check current wakeup ]===
+FLUKE TYPE= Victor 8246
+#*INS240
+#Switch Victor to mA mode successful...
+*#*RD?
+#*RD+0.1113+0000.?
+Current (0.09,0.195): 0.1113 A -->Pass
+===[ Test current wakeup passed ... ]===
+
+Delay 0 MiliSecond
+==============Start show pass================
+TEST PROGRAM VERSION:2.3.2.8  TEST CYCLE TIME:141
+
+----------------Summary all test item--------------
+Test item name                Result  Test time
+ 1.ConnectDUT                  PASS    0.79s 
+ 2.CheckFWVersion_Gen5         PASS    0.48s 
+ 3.BurnMac                     -Skip-        
+ 4.BurnBLEMac                  -Skip-        
+ 5.BurnSerialNumber            -Skip-        
+ 6.BurnHwRev                   -Skip-        
+ 7.BurnModel                   -Skip-        
+ 8.CheckLED_Gen5               PASS    15.34s
+ 9.SetParameter1               PASS    2.02s 
+10.CheckNFT                    PASS    10.36s
+11.OpenIperfServer             PASS    0.02s 
+12.SetDTIM                     PASS    0.51s 
+13.CheckFWVersion_Gen5         PASS    0.12s 
+14.DUTBurnCertKey              PASS    0s    
+15.SwitchToIdleMode_Gen5       PASS    100.56s
+16.CheckCurrentIdle_Gen5       PASS    1.39s 
+17.WakeupDUTFromIdleMode       PASS    8.29s 
+18.CheckCurrentWakeup_Gen5     PASS    1.32s 
+19.SendSfis                    -Skip-        
+---------------------------------------------------
+Write summary log server: F:\lsy\ID\U12I386T01\VMC5040-FXN-FEM\FT -> OK
+Write summary log localD:\Arlo_Logs\U12I386T01\VMC5040-FXN-FEM\FT\03-12-2020 -> OK
+Details log local folder: D:\Arlo_Logs\U12I386T01\VMC5040-FXN-FEM\FT\03-12-2020\PASS
+Details log server folder: F:\lsy\ID\Detail\U12I386T01\VMC5040-FXN-FEM\FT\03-12-2020\PASS
+UserName Test Off: ========Show pass finish=============

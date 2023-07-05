@@ -1,0 +1,187 @@
+ShowUI===[ USB mode already ... ]===
+
+***************Check AMIC FR THD****************
+Delete file: .\CaliTool\audio_stream 
+Copy standard script before open
+Delay 2000 MiliSecond
+Modify script: Func_Mic_CH: 2
+Read value script: Func_Mic_CH: 2
+Modify script: Func_Mic: 1
+Read value script: Func_Mic: 1
+14:27:46$006#
+$006^0^OK#
+$006_over,Status:'OK'^0^OK#
+Modify script: Func_Mic: 0
+Read value script: Func_Mic: 0
+Convert D:\FT2_1(U12I420)\\audio_stream to D:\FT2_1(U12I420)\Audio\amic-fr-thd.wav
+14:27:59$007#
+$007^0^OK#
+$007_over,Status:'OK'^0^OK#
+26/11/2020 02:27:59: Goto Checkchoac!!!
+SN																			
+Time			2020_11_26_14_27_59																
+Overall TestResult			PASS																
+01_AMIC Analysis 100-8000 wav-Frequency reponse																		
+Test Result:	Pass																	
+Frequency (Hz):	160.000	200.000	250.000	315.000	400.000	500.000	630.000	800.000	1000.000	1250.000	1600.000	2000.000	2500.000	3150.000	4000.000	5000.000	6300.000	7500.000
+Data (dBFS):	-20.135	-12.316	-11.681	-12.287	-12.145	-12.890	-11.991	-9.996	-11.228	-8.214	-10.047	-9.199	-13.171	-15.223	-19.788	-18.206	-24.210	-24.089
+																		
+01_AMIC Analysis 100-8000 wav-THD																		
+Test Result:	Pass																	
+Frequency (Hz):	160.000	200.000	250.000	315.000	400.000	500.000	630.000	800.000	1000.000	1250.000	1600.000	2000.000	2500.000	3150.000	4000.000	5000.000	6300.000	7500.000
+Data (%):	4.105	3.884	3.156	4.252	1.569	1.082	0.348	0.375	1.171	0.692	0.467	0.301	0.643	0.094	0.041	0.045	0.166	1.087
+																		
+
+ start to move
+Item: C:\Users\Administrator\Desktop\AudioExpert_AES\Result\_20201126142759_PASS.txt
+***************Start Check SpkFRTHD****************
+Delete file: .\CaliTool\audio_stream 
+Modify script: DRC_EN: 0
+Read value script: DRC_EN: 0
+Copy standard script before open
+Modify script: Func_Speaker_Dir: 630-6300.wav
+Read value script: Func_Speaker_Dir: 630-6300.wav
+Modify script: Func_Speaker: 1
+Read value script: Func_Speaker: 1
+14:28:02$013#
+$013^0^OK#
+Record time: 11000
+$013_over,Status:'OK'^0^OK#
+Modify script: Func_Speaker: 0
+Read value script: Func_Speaker: 0
+14:28:13$014#
+$014^0^OK#
+$014_over,Status:'OK'^0^OK#
+26/11/2020 02:28:14: Goto Checkchoac!!!
+SN													
+Time			2020_11_26_14_28_14										
+Overall TestResult			PASS										
+check spk_FR-Checked Curve												
+Test Result:	Pass											
+Frequency (Hz):	630.000	800.000	1000.000	1250.000	1600.000	2000.000	2500.000	3150.000	4000.000	5000.000	6300.000	7500.000
+Data ():	79.784	88.411	91.852	92.261	90.635	92.341	86.953	90.141	92.641	98.168	100.118	92.197
+												
+05_spk FR THD-THD												
+Test Result:	Pass											
+Frequency (Hz):	630.000	800.000	1000.000	1250.000	1600.000	2000.000	2500.000	3150.000	4000.000	5000.000	6300.000	7500.000
+Data (%):	1.627	1.453	2.738	1.736	1.148	1.156	1.410	0.762	1.412	0.088	0.212	0.146
+												
+
+ start to move
+Item: C:\Users\Administrator\Desktop\AudioExpert_AES\Result\_20201126142814_PASS.txt
+Modify script: DRC_EN: 1
+Read value script: DRC_EN: 1
+***************Start Check SpkSensitivity****************
+Delete file: .\CaliTool\audio_stream 
+Copy standard script before open
+Modify script: Func_Speaker_Dir: Noise_pink2.wav
+Read value script: Func_Speaker_Dir: Noise_pink2.wav
+$025#
+$025^0^OK#
+$025_over^0^OK#
+Modify script: Func_Speaker: 1
+Read value script: Func_Speaker: 1
+Record time: 5000
+$026#
+$026^0^OK#
+$026_over^0^OK#
+Goto Checkchoac!!!
+
+ start to move
+Item: C:\Users\Administrator\Desktop\AudioExpert_AES\Result\_PASS.txt
+***************Check AMIC SENSITIVITY****************
+Delete file: .\CaliTool\audio_stream 
+Copy standard script before open
+Modify script: Func_Mic_CH: 0
+Read value script: Func_Mic_CH: 0
+Modify script: Func_Mic: 1
+Read value script: Func_Mic: 1
+$001#
+$001^0^OK#
+$001_over^0^OK#
+Modify script: Func_Mic: 0
+Read value script: Func_Mic: 0
+Convert D:\FT2_1(U12I393)\\audio_stream to D:\FT2_1(U12I393)\Audio\amicsensitivity.wav
+$002#
+$002^0^OK#
+$002_over^0^OK#
+Goto Checkchoac!!!
+
+ start to move
+Item: C:\Users\Administrator\Desktop\AudioExpert_AES\Result\_PASS.txt
+***************Check AMIC NOISE FLOOR****************
+Delete file: .\CaliTool\audio_stream 
+Copy standard script before open
+Modify script: Func_Mic_CH: 0
+Read value script: Func_Mic_CH: 0
+Modify script: Func_Mic: 1
+Read value script: Func_Mic: 1
+Modify script: Func_Mic: 0
+Read value script: Func_Mic: 0
+Convert D:\FT2_1(U12I393)\\audio_stream to D:\FT2_1(U12I393)\Audio\amic-noisefloor.wav
+$004#
+$004^0^OK#
+$004_over^0^OK#
+Goto Checkchoac!!!
+
+ start to move
+Item: C:\Users\Administrator\Desktop\AudioExpert_AES\Result\_PASS.txt
+===[ Start Enable OTP ]===
+
+============OPEN CALITOOL OTP============
+Close CaliTool 
+--------- Wait for Libusb --------
+
+2020/11/26 14:28:16 begin open CaliTool
+Run CaliTool !
+===[ OPEN CALITOOL OTP PASSED ... ]===
+
+Wait log file create ...
+Create folder success...
+Create file success...
+Get value sucess..
+OTP
+Detail:[Err-1]OTP couldn't be writed, it has data or DDR inited failed.
+
+NG
+Enable OTP fail!
+===[ Enable OTP passed ... ]===
+
+14:28:17$999#
+$999^0^OK#
+$999_over,Status:'OK'^0^OK#
+Move wav file: D:\FT2_1(U12I420)\\Audio\amic-fr-thd.wav
+Move wav file: D:\FT2_1(U12I420)\\Audio\_(05_Acquire  spk FR THD-Acquired Signal)_20201126142814.wav
+Move wav file: D:\FT2_1(U12I420)\\Audio\_(10_Acquire  spk noise pink-Acquired Signal)_20191125155747.wav
+Move wav file: D:\FT2_1(U12I420)\\Audio\_20201126142817_NG.csv
+Delay 0 MiliSecond
+==============Start show pass================
+TEST PROGRAM VERSION:2.3.2.8  TEST CYCLE TIME:69
+
+----------------Summary all test item--------------
+Test item name                Result  Test time
+ 1.OpenCaliModeGen5            PASS    0.04s 
+ 2.AMicFRTHD                   PASS    21.69s
+ 3.SpkFRTHD                    PASS    15.14s
+ 4.SpkSensitivity              PASS    9.09s 
+ 5.AMicSensitivity             PASS    11.38s
+ 6.AMicNoiseFloor              PASS    7.75s 
+ 7.EnableOTP                   PASS    2.82s 
+ 8.SendSfis                    -Skip-        
+---------------------------------------------------
+Write summary log server: F:\lsy\ID\U12I420\MODEL NAME \FT2-1 -> OK
+Write summary log localD:\Arlo_Logs\U12I420\MODEL NAME \FT2-1\26-11-2020 -> OK
+Write  Megasig log to server folder: F:\lsy\ID\U12I420\MODEL NAME \FT2-1\L3-B05-FT2-9 -> OK
+Details log local folder: D:\Arlo_Logs\U12I420\MODEL NAME \FT2-1\26-11-2020\PASS
+Details log server folder: F:\lsy\ID\Detail\U12I420\MODEL NAME \FT2-1\26-11-2020\PASS
+UserName Test OfG: Start copy D:\FT2_1(U12I420)\CaliTool\output to D:\Arlo_CaliTool\PASS\AAAAAAAAAAAA_02_28_25.
+Datetime (yyyy-MM-dd HH:mm:ss): 2020-11-26 14:28:25
+Start copy D:\FT2_1(U12I420)\CaliTool\output\Info to D:\Arlo_CaliTool\PASS\AAAAAAAAAAAA_02_28_25\Info.
+Datetime (yyyy-MM-dd HH:mm:ss): 2020-11-26 14:28:25
+Start copy D:\FT2_1(U12I420)\CaliTool\output\Info\dutinfo.txt to D:\Arlo_CaliTool\PASS\AAAAAAAAAAAA_02_28_25\Info\dutinfo.txt.
+Copy success...
+Start copy D:\FT2_1(U12I420)\CaliTool\output\video to D:\Arlo_CaliTool\PASS\AAAAAAAAAAAA_02_28_25\video.
+Datetime (yyyy-MM-dd HH:mm:ss): 2020-11-26 14:28:25
+========Show pass finish=============
+..........OK
+...........DUT is Disconnected!

@@ -1,0 +1,136 @@
+SFIS->UI: @ZUR6UF2                 VMC4050P-FXN-NAS         A41162C60EB3A9D10B7BA1CA0  2140017438     V0919546    FT8       PASS
+
+ShowUIWait to have OVTI Serial Port
+.
+Start connect !
+COM DUT OPENED!
+
+Wait # !
+
+
+# 
+
+
+# 
+Connect DUT sussess.
+===[ Check PIR ]===
+UI->MCU: TEST_ON
+TEST_ON_OK
+08:29:46
+fmcu PIRINTstart 40 3 5
+Start PIR interrupt with sensitivity: 40 id:3
+FXCN_mcu_write hci data cmd=44
+PIR Value:0
+PIR Value:0
+PIR Value:0
+PIR Value:0
+PIR Value:1
+PIR1:PASS;
+
+
+# 
+===[ Test PIR passed ... ]===
+
+===[ Send Sfis ]===
+Sfis_length=118 ALSValueFlag=0 ALSCali5lux_10luxFlag=0  SendSFISFW=0   SendSFISHW=0
+08:29:51
+smode 4
+
+Calfw
+19 
+20 
+21 
+22 
+23 
+18 
+
+max 23, min 18, max2 -1, min2 -1
+oldest item 5, latest item 4
+save address 0xf6a000, new version=24
+Set DTIM=10
+WARN: mpu_cmd(0x4030a) before mpu_start()
+R[0xe0033f18]=0x0
+R[0xe0033f1c]=0x0
+R[0xe0033f20]=0x0
+R[0xe0033f24]=0x0
+R[0xe0033f28]=0x0
+R[0xe0033f2c]=0x0
+R[0xe0033f30]=0x0
+R[0xe0033f34]=0x0
+R[0xe0033f38]=0x0
+R[0xe0033f3c]=0x0
+R[0xe0033f40]=0x0
+R[0xe0033f44]=0x0
+R[0xe0033f48]=0x0
+R[0xe0033f4c]=0x0
+R[0xe0033f50]=0x0
+R[0xe0033f54]=0x0
+R[0xe0033f58]=0x0
+R[0xe0033f5c]=0x0
+R[0xe0033f60]=0x0
+R[0xe0033f64]=0x0
+R[0xe0033f68]=0x0
+R[0xe0033f6c]=0x0
+R[0xe0033f70]=0x0
+R[0xe0033f74]=0x0
+R[0xe0032838]=0x0
+R[0xe003283c]=0x0
+R[0xe0032840]=0x0
+R[0xe0032844]=0x0
+R[0xe0032848]=0x0
+R[0xe003284c]=0x0
+R[0xe0032850]=0x0
+R[0xe0032854]=0x0
+R[0xe0032858]=0x0
+R[0xe003285c]=0x0
+R[0xe0032860]=0x0
+R[0xe0032864]=0x0
+R[0xe0032868]=0x0
+R[0xe003286c]=0x0
+R[0xe0032870]=0x0
+R[0xe0032874]=0x0
+R[0xe0032878]=0x0
+R[0xe003287c]=0x0
+19 
+20 
+21 
+22 
+23 
+24 
+
+max 24, min 19, max2 -1, min2 -1
+oldest item 0, latest item 5
+save address 0xf42000, new version=25
+
+# 
+SEND PASS TO SFIS: 
+UI->SFIS: @ZUR6UF2                 A41162C60EB3A9D10B7BA1CA0  L1-FAC-FT8-1
+Time UI->SFIS PASS/FAIL: 2020/11/24 08:29:51
+SFIS->UI: @ZUR6UF2                 A41162C60EB3A9D10B7BA1CA0  L1-FAC-FT8-1PASS
+Time SFIS->UI: 2020/11/24 08:29:52
+SFIS.Length: 70
+Time UI->SFIS RR-YR: 2020/11/24 08:29:52
+UI->MCU: TEST_OFF
+SFIS->UI: RR-YRVMC4050P-FXN-NAS         L1-FAC-FT8-1000.00000.00100.00PASS
+Time SFIS->UI: 2020/11/24 08:29:52
+SFIS.Length: 66
+TEST_OFF_OK
+Delay 0 MiliSecond
+==============Start show pass================
+TEST PROGRAM VERSION:2.3.2.8  TEST CYCLE TIME:6
+PASS Close COM ...
+
+----------------Summary all test item--------------
+Test item name                Result  Test time
+ 1.ConnectDUT                  PASS    0.81s 
+ 2.CheckPIRFALCON              PASS    4.85s 
+ 3.SendSfis                    PASS    0.51s 
+---------------------------------------------------
+Write summary log server: F:\lsy\ID\U12I393T20\VMC4050P-FXN-NAS\FT8 -> OK
+Write summary log localD:\Arlo_Logs\U12I393T20\VMC4050P-FXN-NAS\FT8\24-11-2020 -> OK
+Details log local folder: D:\Arlo_Logs\U12I393T20\VMC4050P-FXN-NAS\FT8\24-11-2020\PASS
+Details log server folder: F:\lsy\ID\Detail\U12I393T20\VMC4050P-FXN-NAS\FT8\24-11-2020\PASS
+  SendSfis , 0.51 , ,SMO 2140017438,,SEMPID V0919546,ConnectDUT , 0.81 , CheckPIRFALCON , 4.85 , 08082020145302,
+Start send data to mydas !
+
+Not enable mydas..

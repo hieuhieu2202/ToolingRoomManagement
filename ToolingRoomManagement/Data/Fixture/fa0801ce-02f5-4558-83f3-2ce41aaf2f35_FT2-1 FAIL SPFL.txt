@@ -1,0 +1,67 @@
+MAC : 0 11 22 33 44 55 
+SERIAL_NUM : ZUT5APZ
+MODEL_NUM : 
+HW_REV : 
+BLE_MAC : 0 0 0 0 0 0 
+2G_SSID : 
+2G_PASSWD : 
+5G_SSID : 
+5G_PASSWD : 
+WLAN_BAND_PREF : 0 0 0 0 
+ENC_KEY : 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+AUTH_KEY : 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+WRAP_KEY : 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+WRAP_DATA : 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+ALS_LLUX : 
+ALS_HLUX : 
+ALS_THLUX : 
+SN send to sfis: ZUT5APZ
+Time UI-SFIS: 2020/12/03 02:32:53
+SFIS->UI: @ZUT5APZ                 VMC5040-FXN-FEM          A41162C760EEA4320C7BA0DF2  @ZUT1T92                 ZUS6E90                  ZUT7XPX                  ZUT2RS0                  2140017632     V0919299    FT2-1     PASS
+
+Time SFIS->UI: 2020/12/03 02:32:53
+
+ShowUIChecking ABA status...
+No record, test directly
+iaba :-1
+Program still running !
+===[ USB mode already ... ]===
+
+======Start check audio==========
+Close CaliTool 
+Send: STARTTEST
+AutoTest: 
+AutoTest: 
+AutoTest: Current state:Waiting for the entry of SN
+Send: SNA4320C7BA0DF2
+AutoTest: Current state:SN input OK
+Delete folder 2020_12_3 
+Delete folder AOutput_1.wav 
+Delete folder DOutput_1.wav 
+Current state:is tesing 
+Last Result:test FAIL:SPK-LEVEL/THD 
+Get fail from audiotest
+Close success
+D:\AutoTest_MP\TestReport\2020_12_3
+Copy D:\AutoTest_MP\TestReport\2020_12_3to D:\Arlo_Logs\U12I386T01\VMC5040-FXN-FEM\FT2-1_AudioLogs\2020_12_03
+Show fail 
+===[ SPFL SPK Frequency Response Level/THD ... ]===
+Delay 0 MiliSecond
+==============Start show fail=================
+TEST PROGRAM VERSION:2.3.2.8  TEST CYCLE TIME:39
+===[ SPFL SPK Frequency Response Level/THD ... ]===
+
+----------------Summary all test item--------------
+Test item name                Result  Test time
+ 1.OpenCaliModeGen5            PASS    0.04s 
+ 2.AudioTest                   FAIL    38.94s
+ 3.SendSfis                                  
+---------------------------------------------------
+Write summary log server: F:\lsy\ID\U12I386T01\VMC5040-FXN-FEM\FT2-1 -> OK
+Write summary log localD:\Arlo_Logs\U12I386T01\VMC5040-FXN-FEM\FT2-1\03-12-2020 -> OK
+  SendSfis ,  0 , ,SMO 2140017632,,SEMPID V0919299,	DFR-Level: -17.2988|-11.7272|-16.6308	DFR-THD Ratio: 0.012652|0.126825|0.238013	AFR-Level: -17.6496|-12.1152|-17.1658	AFR-THD Ratio: 0.014956|0.126756|0.250844	SPFR-Level: 87.57188|91.87607|70.75762	SPFR-THD Ratio: 29.45458|20.21749|10.64389OpenCaliModeGen5 , 0.04 , AudioTest , 38.94 , 2020/05/26 12:00:00 AM,
+Start send data to mydas !
+SENDTOMYDAS:     10.224.84.104SendSfis ,  0 , ,SMO 2140017632,,SEMPID V0919299,	DFR-Level: -17.2988|-11.7272|-16.6308	DFR-THD Ratio: 0.012652|0.126825|0.238013	AFR-Level: -17.6496|-12.1152|-17.1658	AFR-THD Ratio: 0.014956|0.126756|0.250844	SPFR-Level: 87.57188|91.87607|70.75762	SPFR-THD Ratio: 29.45458|20.21749|10.64389OpenCaliModeGen5 , 0.04 , AudioTest , 38.94 , 2020/05/26 12:00:00 AM,,,SPFL,SPFL SPK Frequency Response Level/THD,|@ZUT5APZ,0,D:\Arlo,2.3.2.8,L1GEN5-FT2-8,39,2020-12-03 02:33:33,A41162C760EE,A4320C7BA0DF2,   :SENDTOMYDASFINISH
+
+ Send mydas OK...
+Details log local folder: D:\Arlo_Logs\U12I386T01\VMC5040-FXN-FEM\FT2-1\03-12-2020\FAIL

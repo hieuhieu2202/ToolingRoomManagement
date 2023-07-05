@@ -1,0 +1,44 @@
+SFIS->UI: @ZUQ7BL0                 VMC4040P-FXN             A41162C3BF84A6P20B76A5D64  H10       39.67%40.29%063467000807      2140017312     V0919299    RC2       PASS
+
+ShowUIProgram still running !
+===[ Check Charing ]===
+FLUKE TYPE= Victor 8246
+#*INS250
+#*
+#*RD?
+#*RD+01.058+0000.?
+
+Current: 1.06A
+===[ Test Charing passed... ]===
+===[ Send Sfis ]===
+Send command close_base
+Sfis_length=158 ALSValueFlag=0 ALSCali5lux_10luxFlag=0  SendSFISFW=0   SendSFISHW=0
+SEND PASS TO SFIS: 
+UI->SFIS: @ZUQ7BL0                 A41162C3BF84A6P20B76A5D64  H4        39.67%40.29%063467000807      L1-B05-FT011
+Time UI->SFIS PASS/FAIL: 2020/11/28 14:27:29
+SFIS->UI: @ZUQ7BL0                 A41162C3BF84A6P20B76A5D64  H4        39.67%40.29%063467000807      L1-B05-FT011PASS
+Time SFIS->UI: 2020/11/28 14:27:29
+Time UI->SFIS RR-YR: 2020/11/28 14:27:29
+Close CaliTool 
+SFIS->UI: RR-YRVMC4040P-FXN             L1-B05-FT011000.74000.00100.00PASS
+Time SFIS->UI: 2020/11/28 14:27:29
+Delay 0 MiliSecond
+==============Start show pass================
+TEST PROGRAM VERSION:2.3.2.8  TEST CYCLE TIME:3
+
+----------------Summary all test item--------------
+Test item name                Result  Test time
+ 1.WaitDUT                     PASS    1.25s 
+ 2.CheckCharing                PASS    1.22s 
+ 3.SendSfis                    PASS    0.13s 
+---------------------------------------------------
+Write summary log server: F:\lsy\ID\U12I393\VMC4040P-FXN\RC2 -> OK
+Write summary log localD:\Arlo_Logs\U12I393\VMC4040P-FXN\RC2\28-11-2020 -> OK
+Details log local folder: D:\Arlo_Logs\U12I393\VMC4040P-FXN\RC2\28-11-2020\PASS
+Details log server folder: F:\lsy\ID\Detail\U12I393\VMC4040P-FXN\RC2\28-11-2020\PASS
+  SendSfis , 0.13 , ,SMO 2140017312,,SEMPID V0919299,1.06,,WaitDUT , 1.25 , CheckCharing , 1.22 , 2019/01/05 9:31:24 AM,
+Start send data to mydas !
+SENDTOMYDAS:     10.224.84.104SendSfis , 0.13 , ,SMO 2140017312,,SEMPID V0919299,1.06,,WaitDUT , 1.25 , CheckCharing , 1.22 , 2019/01/05 9:31:24 AM,,,,,|@ZUQ7BL0,1,D:\Arlo,2.3.2.8,L1-B05-FT011,3,2020-11-28 02:27:30,A41162C3BF84,A6P20B76A5D64,   :SENDTOMYDASFINISH
+
+ Send mydas OK...
+========Show pass finish=============

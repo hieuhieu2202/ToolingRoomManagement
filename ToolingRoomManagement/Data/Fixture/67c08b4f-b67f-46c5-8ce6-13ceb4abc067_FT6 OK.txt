@@ -1,0 +1,61 @@
+ShowUIChecking ABA status...
+No record, test directly
+iaba :-1
+===[ Verify focus day mode ]===
+Program still running !
+***Begin open CaliTool****
+Copy standard script before open
+script.ini: modify IQcal_Display = 0 .
+open CaliTool.exe file !
+***open CaliTool successful****
+
+ Delay 8000 mili seconds for values stable ...
+Wait log file create ...
+=================Capture image time 1==================
+Waiting create folder...
+Waiting create folder...
+Waiting create folder...
+Waiting create folder...
+Create folder success...
+Create file success...
+get focus value sucess..
+01122334455
+mtf[0], mtf[1], mtf[2], mtf[3], mtf[4], Result[0], Result[1], Result[2], Result[3], Result[4], brightness[0], brightness[1], brightness[2], brightness[3], brightness[4], Result[0], Result[1], Result[2], Result[3], Result[4], barea_avg_y[0], warea_avg_y[0], barea_avg_y[1], warea_avg_y[1], barea_avg_y[2], warea_avg_y[2], barea_avg_y[3], warea_avg_y[3], barea_avg_y[4], warea_avg_y[4], Exthemum Result, Fool proof Result, Result1, Result2, Result
+5666, 5531, 3541, 5053, 5075, PASS, PASS, PASS, PASS, PASS, 12964, 12996, 14121, 12900, 13023, OK, OK, OK, OK, OK, 5527, 19983, 5682, 19748, 8861, 18578, 6173, 18786, 6223, 19055, OK, OK, OK, OK, PASS
+MTF values
+01122334455
+mtf[0], mtf[1], mtf[2], mtf[3], mtf[4], Result[0], Result[1], Result[2], Result[3], Result[4], brightness[0], brightness[1], brightness[2], brightness[3], brightness[4], Result[0], Result[1], Result[2], Result[3], Result[4], barea_avg_y[0], warea_avg_y[0], barea_avg_y[1], warea_avg_y[1], barea_avg_y[2], warea_avg_y[2], barea_avg_y[3], warea_avg_y[3], barea_avg_y[4], warea_avg_y[4], Exthemum Result, Fool proof Result, Result1, Result2, Result
+5666, 5531, 3541, 5053, 5075, PASS, PASS, PASS, PASS, PASS, 12964, 12996, 14121, 12900, 13023, OK, OK, OK, OK, OK, 5527, 19983, 5682, 19748, 8861, 18578, 6173, 18786, 6223, 19055, OK, OK, OK, OK, PASS
+===[ Test focus passed ... ]===
+
+Close CaliTool 
+Delay 0 MiliSecond
+==============Start show pass================
+TEST PROGRAM VERSION:2.3.2.8  TEST CYCLE TIME:16
+
+----------------Summary all test item--------------
+Test item name                Result  Test time
+ 1.VerifyFocusDayMode_Gen5     PASS    15.03s
+ 2.SendSfis                    -Skip-        
+---------------------------------------------------
+Write summary log server: F:\lsy\ID\U12I386\MODEL NAME \FT6 -> OK
+Write summary log localD:\Arlo_Logs\U12I386\MODEL NAME \FT6\03-12-2020 -> OK
+Details log local folder: D:\Arlo_Logs\U12I386\MODEL NAME \FT6\03-12-2020\PASS
+Details log server folder: F:\lsy\ID\Detail\U12I386\MODEL NAME \FT6\03-12-2020\PASS
+UserName Test Off: teStart copy D:\FT6(U12I386)\CaliTool\output to D:\Arlo_CaliTool\PASS\111111111111_01_52_28.
+Datetime (yyyy-MM-dd HH:mm:ss): 2020-12-03 13:52:28
+Start copy D:\FT6(U12I386)\CaliTool\output\01122334455 to D:\Arlo_CaliTool\PASS\111111111111_01_52_28\01122334455.
+Datetime (yyyy-MM-dd HH:mm:ss): 2020-12-03 13:52:28
+Start copy D:\FT6(U12I386)\CaliTool\output\01122334455\3840_2160 to D:\Arlo_CaliTool\PASS\111111111111_01_52_28\01122334455\3840_2160.
+Datetime (yyyy-MM-dd HH:mm:ss): 2020-12-03 13:52:28
+Start copy D:\FT6(U12I386)\CaliTool\output\01122334455\3840_2160\Capture to D:\Arlo_CaliTool\PASS\111111111111_01_52_28\01122334455\3840_2160\Capture.
+Datetime (yyyy-MM-dd HH:mm:ss): 2020-12-03 13:52:28
+Start copy D:\FT6(U12I386)\CaliTool\output\FocusDayMode to D:\Arlo_CaliTool\PASS\111111111111_01_52_28\FocusDayMode.
+Datetime (yyyy-MM-dd HH:mm:ss): 2020-12-03 13:52:28
+Start copy D:\FT6(U12I386)\CaliTool\output\FocusDayMode\01122334455.txt to D:\Arlo_CaliTool\PASS\111111111111_01_52_28\FocusDayMode\01122334455.txt.
+Copy success...
+Start copy D:\FT6(U12I386)\CaliTool\output\Info to D:\Arlo_CaliTool\PASS\111111111111_01_52_28\Info.
+Datetime (yyyy-MM-dd HH:mm:ss): 2020-12-03 13:52:28
+Start copy D:\FT6(U12I386)\CaliTool\output\Info\dutinfo.txt to D:\Arlo_CaliTool\PASS\111111111111_01_52_28\Info\dutinfo.txt.
+Copy success...
+========Show pass finish=============

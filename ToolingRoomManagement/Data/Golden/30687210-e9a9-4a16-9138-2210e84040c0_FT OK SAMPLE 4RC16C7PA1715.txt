@@ -1,0 +1,137 @@
+ShowUICan not get SN send to SFIS
+Wait to have OVTI Serial Port
+.Have OVTI!
+
+Start connect !
+COM DUT OPENED!
+
+Wait # !
+
+
+# 
+
+
+# 
+Connect DUT sussess.
+===[ Check Y3RTC ]===
+
+
+
+# 
+fmcu Y3RTC
+fmcu Y3RTC
+Y3SCREEN:aa
+RTC Y3 Check Pass
+
+# 
+===[ Test Y3 WIFI RTC passed ... ]===
+
+info
+Build Time: 11:46:04 Jul 10 2017
+
+FXCN version: 170710@092_2B_1.2.2.101564
+
+IQC version: 2.1.4
+
+MAC: a0:04:60:80:84:33, id2 0
+
+SERIAL_NUM: 4RF16C7PA1715
+
+MODEL_NUM: VML4030
+
+HW_REV: H4
+
+NV_EN_TH: 647
+
+NV_EX_TH: 2398
+
+NV_IR_OFF_EX_TH: 1337
+
+NV_LUX_ENTER_TH: 1638
+
+IG_5lux_IR_OFF_TH: 0x1a24
+
+IG_10lux_IR_OFF_TH: 0x2b70
+
+# 
+DUTMAC: a0:04:60:80:84:33
+===[ Check firmware version passed ... ]===
+
+===[ Check LED FT0 ]===
+NumberLEDCheck= 2
+Delete file .\CCDResult.ini 
+LED Amber,	gpio ir_en off;gpio blue_led off;gpio amber_led on;gpio amber_led on,	#,	2000,100
+***** Start check  LED Amber. *****
+Log:	gpio ir_en off
+10:51:52
+gpio ir_en off
+
+# 
+Delay 100 MiliSecond
+Log:gpio blue_led off
+10:51:52
+gpio blue_led off
+
+# 
+Delay 100 MiliSecond
+Log:gpio amber_led on
+10:51:52
+gpio amber_led on
+
+# 
+Delay 100 MiliSecond
+Log:gpio amber_led on
+10:51:52
+gpio amber_led on
+
+# 
+Delay 100 MiliSecond
+writeCCDControl.ini
+Write test flag CCDControl.ini: 1
+CCD v2.0.0.8,Status-Amber:13-240-148,
+Test time of : 3.2277822
+Delete file .\CCDResult.ini 
+LED Blue,	gpio amber_led off;gpio blue_led on,	#,	2000,100
+***** Start check  LED Blue. *****
+Log:	gpio amber_led off
+10:51:55
+gpio amber_led off
+
+# 
+Delay 100 MiliSecond
+Log:gpio blue_led on
+10:51:55
+gpio blue_led on
+
+# 
+Delay 100 MiliSecond
+writeCCDControl.ini
+Write test flag CCDControl.ini: 2
+CCD v2.0.0.8,Status-Blue:134-238-144,
+Test time of : 2.4167144
+10:51:57
+gpio ir_en off
+
+# 
+Delay 100 MiliSecond
+Delay 100 MiliSecond
+Delay 0 MiliSecond
+==============Start show pass================
+TEST PROGRAM VERSION:2.3.2.8  TEST CYCLE TIME:8
+PASS Close COM ...
+Write summary log server: F:\lsy\ID\U12I345T99\VML4030-FXN-1VZS\FT -> OK
+Write summary log localD:\Arlo_Logs\U12I345T99\VML4030-FXN-1VZS\FT\27-11-2020 -> OK
+Kill iperf
+
+----------------Summary all test item--------------
+Test item name                Result  Test time
+ 1.ConnectDUT                  PASS    1.03s 
+ 2.CheckY3RTC                  PASS    0.22s 
+ 3.CheckFWVersion              PASS    0.11s 
+ 4.CheckLEDFT0                 PASS    6.96s 
+ 5.SendSfis                    -Skip-        
+---------------------------------------------------
+Details log local folder: D:\Arlo_Logs\U12I345T99\VML4030-FXN-1VZS\FT\27-11-2020\PASS
+Details log server folder: F:\lsy\ID\Detail\U12I345T99\VML4030-FXN-1VZS\FT\27-11-2020\PASS
+UserName Test Off: ========Show pass finish=============
+...............DUT is Disconnected!

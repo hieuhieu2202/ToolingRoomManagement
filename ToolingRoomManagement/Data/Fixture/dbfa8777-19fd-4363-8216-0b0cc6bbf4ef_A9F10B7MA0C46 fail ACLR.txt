@@ -1,0 +1,44 @@
+ShowUI===[ USB mode already ... ]===
+
+Delete file: .\CaliTool\audio_stream 
+Copy standard script before open
+***************Check AMIC FR THD****************
+Modify script: Func_Mic_CH: 0
+Read value script: Func_Mic_CH: 0
+Modify script: Func_Mic: 1
+Read value script: Func_Mic: 1
+Modify script: Func_Mic: 0
+Read value script: Func_Mic: 0
+Close CaliTool 
+Convert D:\FT2_1(U12I393T20)_CTR\\audio_stream to D:\AutoTestFalconCostDown\SplitterFile\AOutput_1.wav
+Try Test:1--------------------------------	
+Try Test:2--------------------------------	
+Try Test:3--------------------------------	
+Delay 0 MiliSecond
+==============Start show fail=================
+TEST PROGRAM VERSION:2.3.2.8  TEST CYCLE TIME:17
+===[ ACLR Not Check List Report Ext ... ]===
+
+----------------Summary all test item--------------
+Test item name                Result  Test time
+ 1.OpenCaliModeGen5            PASS    0.05s 
+ 2.AMic_ABTEC                  FAIL    17.08s
+ 3.Spk_ABTEC                                 
+ 4.SendSfis                                  
+---------------------------------------------------
+Delete file: D:\AutoTestFalconCostDown\SplitterFile\AOutput_1.wav 
+Write summary log server: F:\lsy\ID\U12I393T20\MODEL NAME \FT2-1 -> OK
+Write summary log localD:\Arlo_Logs\U12I393T20\MODEL NAME \FT2-1\24-11-2020 -> OK
+Write  Megasig log to server folder: F:\lsy\ID\U12I393T20\MODEL NAME \FT2-1\L3-B05-FT2-7 -> OK
+Details log local folder: D:\Arlo_Logs\U12I393T20\MODEL NAME \FT2-1\24-11-2020\FAIL
+Write Detail log local pass 
+Write detail log server pass 
+Start copy D:\FT2_1(U12I393T20)_CTR\CaliTool\output to D:\Arlo_CaliTool\FAIL\MI_03_25_44.
+Datetime (yyyy-MM-dd HH:mm:ss): 2020-11-24 15:25:44
+Start copy D:\FT2_1(U12I393T20)_CTR\CaliTool\output\Info to D:\Arlo_CaliTool\FAIL\MI_03_25_44\Info.
+Datetime (yyyy-MM-dd HH:mm:ss): 2020-11-24 15:25:44
+Start copy D:\FT2_1(U12I393T20)_CTR\CaliTool\output\Info\dutinfo.txt to D:\Arlo_CaliTool\FAIL\MI_03_25_44\Info\dutinfo.txt.
+Copy success...
+end show fail
+==================End show fail=================..............................
+...........................DUT is Disconnected!

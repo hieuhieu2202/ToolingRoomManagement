@@ -1,0 +1,509 @@
+ShowUIWait to have OVTI Serial Port
+.
+Start connect !
+COM DUT OPENED!
+
+Wait # !
+
+
+# 
+
+
+# 
+Connect DUT sussess.
+===[ Switch to LTE mode ]===
+Write data error - The port is closed.
+0
+Host2Device with wLength = 0
+control signal: 0x0
+Setup: 2221 0
+Host2Device with wLength = 0
+control signal: 0x0
+Setup: 21a1 70000
+Get: rate 115200
+Setup: 21a1 70000
+Get: rate 115200
+Setup: 21a1 70000
+Get: rate 115200
+Setup: 21a1 70000
+Get: rate 115200
+Setup: 2021 70000
+Set: rate 115200, Stop 0, Parity 0, Data 8
+Setup: 21a1 70000
+Get: rate 115200
+Setup: 2221 0
+Host2Device with wLength = 0
+control signal: 0x0
+Setup: 2021 70000
+Set: rate 115200, Stop 0, Parity 0, Data 8
+Setup: 21a1 70000
+Get: rate 115200
+Setup: 21a1 70000
+Get: rate 115200
+Setup: 21a1 70000
+Get: rate 115200
+Setup: 2021 70000
+Set: rate 115200, Stop 0, Parity 0, Data 8
+Setup: 21a1 70000
+Get: rate 115200
+Setup: 2221 0
+Host2Device with wLength = 0
+control signal: 0x0
+Setup: 2021 70000
+Set: rate 115200, Stop 0, Parity 0, Data 8
+Setup: 21a1 70000
+Get: rate 115200
+Setup: 2221 0
+Host2Device with wLength = 0
+control signal: 0x0
+
+
+# 
+info
+Build Time: 11:46:04 Jul 10 2017
+
+FXCN version: 170710@092_2B_1.2.2.101564
+
+IQC version: 2.1.4
+
+MAC: a0:04:60:7b:b4:94, id2 0
+
+SERIAL_NUM: 4RF16C7FA0F51
+
+MODEL_NUM: VML4030
+
+
+HW_REV: H4
+
+NV_EN_TH: 
+
+NV_EX_TH: 
+
+NV_IR_OFF_EX_TH: 
+
+NV_LUX_ENTER_TH: 
+
+IG_5lux_IR_OFF_TH: 0x0000
+
+IG_10lux_IR_OFF_TH: 0x0000
+
+# 
+SN send to sfis: 4RF16C7FA0F51
+Can not get SN send to SFIS
+Open Com Failed:System.InvalidOperationException: The port is already open.
+   at System.IO.Ports.SerialPort.Open()
+   at DynamicTest.Form1.SwitchToLTEMode()
+15:39:52
+Send => fmcu LTEENon
+fmcu LTEENon
+
+# 
+.===[ Switch to LTE mode pass]===
+
+===[ Test Power start ... ]===
+
+List Band Test: BAND4
+======================Band Testing: BAND4======================
+15:40:04
+COM1.Send:*ind?
+15:40:04
+COM1.Send:init:cont on
+15:40:05
+COM1.Send:INIT1:CONT OFF
+15:40:05
+COM1.Send:INIT1:CONT ON
+adb shell,/mnt/netgear/arlo/usr/bin/vzcmd SerialNum=51B40B7FA0304 --stopUsbTimer,killall vzwatchdog,
+
+Waiting for system stable ...
+
+Microsoft Windows XP [Version 6.2.9200]
+(C) Copyright 1985-2001 Microsoft Corp.
+
+D:\NFT(U12I345T99)>adb shell....
+* daemon not running. starting it now on port 5037 *
+* daemon started successfully *
+/mnt/netgear/arlo/usr/bin/vzcmd SerialNum=51B40B7FA0304 --stopUsbTimer
+
+/ # /mnt/netgear/arlo/usr/bin/vzcmd SerialNum=51B40B7FA0304 --stopUsbTimer
+
+sending set usbStateTimer register command!!
+
+/ # killall vzwatchdog
+
+/ # 
+
+/ # exit
+
+
+ExcuteADBMultiCMDTime =6.3271143
+RUNBAT:System.Diagnostics.ProcessStartInfo
+title LTEPower
+adb wait-for-device
+v3_SetLteTxPower_v1.exe 42 20175 23
+
+15:40:12
+Delay 4000 MiliSecond
+15:40:17
+COM1.Send:FETCH?
+-3.73257258E+001
+Return: -3.73257258E+001
+
+Loop 1: -37.33
+
+BAND4 Power is :-13.58 SPEC_LOW: 20.5  SPEC_HIGH: 25.7
+
+Power BAND4 FAIL ... ]===
+
+15:40:18
+COM1.Send:FETCH?
+-3.16238008E+001
+Return: -3.16238008E+001
+
+Loop 2: -31.62
+
+BAND4 Power is :-7.87 SPEC_LOW: 20.5  SPEC_HIGH: 25.7
+
+Power BAND4 FAIL ... ]===
+
+15:40:19
+COM1.Send:FETCH?
+-3.15474722E+001
+Return: -3.15474722E+001
+
+Loop 3: -31.55
+
+BAND4 Power is :-7.8 SPEC_LOW: 20.5  SPEC_HIGH: 25.7
+
+Power BAND4 FAIL ... ]===
+
+15:40:20
+COM1.Send:FETCH?
+-3.15165671E+001
+Return: -3.15165671E+001
+
+Loop 4: -31.52
+
+BAND4 Power is :-7.77 SPEC_LOW: 20.5  SPEC_HIGH: 25.7
+
+Power BAND4 FAIL ... ]===
+
+15:40:22
+COM1.Send:FETCH?
+-3.15260937E+001
+Return: -3.15260937E+001
+
+Loop 5: -31.53
+
+BAND4 Power is :-7.78 SPEC_LOW: 20.5  SPEC_HIGH: 25.7
+
+Power BAND4 FAIL ... ]===
+
+15:40:23
+COM1.Send:FETCH?
+-3.15442323E+001
+Return: -3.15442323E+001
+
+Loop 6: -31.54
+
+BAND4 Power is :-7.79 SPEC_LOW: 20.5  SPEC_HIGH: 25.7
+
+Power BAND4 FAIL ... ]===
+
+15:40:24
+COM1.Send:FETCH?
+-3.16152103E+001
+Return: -3.16152103E+001
+
+Loop 7: -31.62
+
+BAND4 Power is :-7.87 SPEC_LOW: 20.5  SPEC_HIGH: 25.7
+
+Power BAND4 FAIL ... ]===
+
+15:40:25
+COM1.Send:FETCH?
+-3.17101145E+001
+Return: -3.17101145E+001
+
+Loop 8: -31.71
+
+BAND4 Power is :-7.96 SPEC_LOW: 20.5  SPEC_HIGH: 25.7
+
+Power BAND4 FAIL ... ]===
+
+15:40:27
+COM1.Send:FETCH?
+-3.17306562E+001
+Return: -3.17306562E+001
+
+Loop 9: -31.73
+
+BAND4 Power is :-7.98 SPEC_LOW: 20.5  SPEC_HIGH: 25.7
+
+Power BAND4 FAIL ... ]===
+
+15:40:28
+COM1.Send:FETCH?
+-3.17572574E+001
+
+D:\NFT(U12I345T99)>
+
+Return: -3.17572574E+001
+
+Loop 10: -31.76
+
+BAND4 Power is :-8.01 SPEC_LOW: 20.5  SPEC_HIGH: 25.7
+
+Power BAND4 FAIL ... ]===
+
+15:40:29
+COM1.Send:FETCH?
+-3.17416298E+001
+Return: -3.17416298E+001
+
+Loop 11: -31.74
+
+BAND4 Power is :-7.99 SPEC_LOW: 20.5  SPEC_HIGH: 25.7
+
+Power BAND4 FAIL ... ]===
+
+15:40:30
+COM1.Send:FETCH?
+-3.17471919E+001
+Return: -3.17471919E+001
+
+Loop 12: -31.75
+
+BAND4 Power is :-8 SPEC_LOW: 20.5  SPEC_HIGH: 25.7
+
+Power BAND4 FAIL ... ]===
+
+15:40:32
+COM1.Send:FETCH?
+-3.17800087E+001
+Return: -3.17800087E+001
+
+Loop 13: -31.78
+
+BAND4 Power is :-8.03 SPEC_LOW: 20.5  SPEC_HIGH: 25.7
+
+Power BAND4 FAIL ... ]===
+
+15:40:33
+COM1.Send:FETCH?
+-3.17611558E+001
+Return: -3.17611558E+001
+
+Loop 14: -31.76
+
+BAND4 Power is :-8.01 SPEC_LOW: 20.5  SPEC_HIGH: 25.7
+
+Power BAND4 FAIL ... ]===
+
+15:40:34
+COM1.Send:FETCH?
+-3.18201241E+001
+Return: -3.18201241E+001
+
+Loop 15: -31.82
+
+BAND4 Power is :-8.07 SPEC_LOW: 20.5  SPEC_HIGH: 25.7
+
+Power BAND4 FAIL ... ]===
+
+15:40:37
+Close Batch file to set LTE Power again!
+RUNBAT:System.Diagnostics.ProcessStartInfo
+title LTEPower
+adb wait-for-device
+v3_SetLteTxPower_v1.exe 42 20175 23
+
+15:40:38
+Delay 4000 MiliSecond
+15:40:42
+COM1.Send:FETCH?
+-3.75863349E+001
+Return: -3.75863349E+001
+
+Loop 1: -37.59
+
+BAND4 Power is :-13.84 SPEC_LOW: 20.5  SPEC_HIGH: 25.7
+
+Power BAND4 FAIL ... ]===
+
+15:40:43
+COM1.Send:FETCH?
+-3.14123095E+001
+Return: -3.14123095E+001
+
+Loop 2: -31.41
+
+BAND4 Power is :-7.66 SPEC_LOW: 20.5  SPEC_HIGH: 25.7
+
+Power BAND4 FAIL ... ]===
+
+15:40:44
+COM1.Send:FETCH?
+-3.16120251E+001
+Return: -3.16120251E+001
+
+Loop 3: -31.61
+
+BAND4 Power is :-7.86 SPEC_LOW: 20.5  SPEC_HIGH: 25.7
+
+Power BAND4 FAIL ... ]===
+
+15:40:46
+COM1.Send:FETCH?
+-3.16169515E+001
+Return: -3.16169515E+001
+
+Loop 4: -31.62
+
+BAND4 Power is :-7.87 SPEC_LOW: 20.5  SPEC_HIGH: 25.7
+
+Power BAND4 FAIL ... ]===
+
+15:40:47
+COM1.Send:FETCH?
+-3.15851334E+001
+Return: -3.15851334E+001
+
+Loop 5: -31.59
+
+BAND4 Power is :-7.84 SPEC_LOW: 20.5  SPEC_HIGH: 25.7
+
+Power BAND4 FAIL ... ]===
+
+15:40:48
+COM1.Send:FETCH?
+-3.16114868E+001
+Return: -3.16114868E+001
+
+Loop 6: -31.61
+
+BAND4 Power is :-7.86 SPEC_LOW: 20.5  SPEC_HIGH: 25.7
+
+Power BAND4 FAIL ... ]===
+
+15:40:49
+COM1.Send:FETCH?
+-3.16522941E+001
+Return: -3.16522941E+001
+
+Loop 7: -31.65
+
+BAND4 Power is :-7.9 SPEC_LOW: 20.5  SPEC_HIGH: 25.7
+
+Power BAND4 FAIL ... ]===
+
+15:40:51
+COM1.Send:FETCH?
+-3.17276869E+001
+Return: -3.17276869E+001
+
+Loop 8: -31.73
+
+BAND4 Power is :-7.98 SPEC_LOW: 20.5  SPEC_HIGH: 25.7
+
+Power BAND4 FAIL ... ]===
+
+15:40:52
+COM1.Send:FETCH?
+-3.17352614E+001
+Return: -3.17352614E+001
+
+Loop 9: -31.74
+
+BAND4 Power is :-7.99 SPEC_LOW: 20.5  SPEC_HIGH: 25.7
+
+Power BAND4 FAIL ... ]===
+
+15:40:53
+COM1.Send:FETCH?
+-3.16994692E+001
+Return: -3.16994692E+001
+
+Loop 10: -31.7
+
+BAND4 Power is :-7.95 SPEC_LOW: 20.5  SPEC_HIGH: 25.7
+
+Power BAND4 FAIL ... ]===
+
+15:40:54
+COM1.Send:FETCH?
+-3.17032103E+001
+Return: -3.17032103E+001
+
+Loop 11: -31.7
+
+BAND4 Power is :-7.95 SPEC_LOW: 20.5  SPEC_HIGH: 25.7
+
+Power BAND4 FAIL ... ]===
+
+15:40:56
+COM1.Send:FETCH?
+-3.16928319E+001
+Return: -3.16928319E+001
+
+Loop 12: -31.69
+
+BAND4 Power is :-7.94 SPEC_LOW: 20.5  SPEC_HIGH: 25.7
+
+Power BAND4 FAIL ... ]===
+
+15:40:57
+COM1.Send:FETCH?
+-3.17166508E+001
+Return: -3.17166508E+001
+
+Loop 13: -31.72
+
+BAND4 Power is :-7.97 SPEC_LOW: 20.5  SPEC_HIGH: 25.7
+
+Power BAND4 FAIL ... ]===
+
+15:40:58
+COM1.Send:FETCH?
+-3.17377921E+001
+Return: -3.17377921E+001
+
+Loop 14: -31.74
+
+BAND4 Power is :-7.99 SPEC_LOW: 20.5  SPEC_HIGH: 25.7
+
+Power BAND4 FAIL ... ]===
+
+15:40:59
+COM1.Send:FETCH?
+-3.17393280E+001
+Return: -3.17393280E+001
+
+Loop 15: -31.74
+
+BAND4 Power is :-7.99 SPEC_LOW: 20.5  SPEC_HIGH: 25.7
+
+Power BAND4 FAIL ... ]===
+
+15:41:03
+Close Batch file to set LTE Power again!
+Delay 0 MiliSecond
+==============Start show fail=================
+TEST PROGRAM VERSION:2.3.2.8  TEST CYCLE TIME:74
+===[ PW01 Power Lower than spec. ... ]===
+
+----------------Summary all test item--------------
+Test item name                Result  Test time
+ 1.ConnectDUT                  PASS    0.83s 
+ 2.SwitchToLTEMode             PASS    13.12s
+ 3.CheckLTEPower               FAIL    60.6s 
+ 4.SendSfis                                  
+---------------------------------------------------
+Write summary log server: F:\lsy\ID\U12I345T99\VML4030-FXN-1VZS\NFT -> OK
+Write summary log localD:\Arlo_Logs\U12I345T99\VML4030-FXN-1VZS\NFT\27-11-2020 -> OK
+Details log local folder: D:\Arlo_Logs\U12I345T99\VML4030-FXN-1VZS\NFT\27-11-2020\FAIL
+Write Detail log local pass 
+Details log server folder: F:\lsy\ID\Detail\U12I345T99\VML4030-FXN-1VZS\NFT\27-11-2020\FAIL
+Write detail log server pass 
+end show fail
+==================End show fail=================

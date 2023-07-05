@@ -1,0 +1,149 @@
+ShowUI===[ USB mode already ... ]===
+
+***************Check AMIC FR THD****************
+Delete file: .\CaliTool\audio_stream 
+Copy standard script before open
+Modify script: Func_Mic_CH: 2
+Read value script: Func_Mic_CH: 2
+Modify script: Func_Mic: 1
+Read value script: Func_Mic: 1
+11:04:27$006#
+$006^0^OK#
+$006_over,Status:'OK'^0^OK#
+Modify script: Func_Mic: 0
+Read value script: Func_Mic: 0
+Convert D:\FT2_1(U12I393)\\audio_stream to D:\FT2_1(U12I393)\Audio\amic-fr-thd.wav
+11:04:35$007#
+$007^0^OK#
+$007_over,Status:'OK'^0^OK#
+20/11/2020 11:04:35: Goto Checkchoac!!!
+
+ start to move
+Item: C:\Users\Administrator\Desktop\AudioExpert_AES\Result\_20201120110435_PASS.txt
+***************Start Check SpkFRTHD****************
+Delete file: .\CaliTool\audio_stream 
+Copy standard script before open
+11:04:38$013#
+$013^0^OK#
+$013_over,Status:'OK'^0^OK#
+Modify script: Func_Speaker_Dir: 630-6300.wav
+Read value script: Func_Speaker_Dir: 630-6300.wav
+Modify script: Func_Speaker: 1
+Read value script: Func_Speaker: 1
+Record time: 6000
+Modify script: Func_Speaker: 0
+Read value script: Func_Speaker: 0
+11:04:44$014#
+$014^0^OK#
+$014_over,Status:'OK'^0^OK#
+20/11/2020 11:04:45: Goto Checkchoac!!!
+
+ start to move
+Item: C:\Users\Administrator\Desktop\AudioExpert_AES\Result\_20201120110445_PASS.txt
+***************Start Check SpkSensitivity****************
+Delete file: .\CaliTool\audio_stream 
+Copy standard script before open
+Modify script: Func_Speaker_Dir: Noise_pink2.wav
+Read value script: Func_Speaker_Dir: Noise_pink2.wav
+$025#
+$025^0^OK#
+$025_over^0^OK#
+Modify script: Func_Speaker: 1
+Read value script: Func_Speaker: 1
+Record time: 5000
+$026#
+$026^0^OK#
+$026_over^0^OK#
+Goto Checkchoac!!!
+
+ start to move
+Item: C:\Users\Administrator\Desktop\AudioExpert_AES\Result\_PASS.txt
+***************Check AMIC SENSITIVITY****************
+Delete file: .\CaliTool\audio_stream 
+Copy standard script before open
+Modify script: Func_Mic_CH: 0
+Read value script: Func_Mic_CH: 0
+Modify script: Func_Mic: 1
+Read value script: Func_Mic: 1
+$001#
+$001^0^OK#
+$001_over^0^OK#
+Modify script: Func_Mic: 0
+Read value script: Func_Mic: 0
+Convert D:\FT2_1(U12I393)\\audio_stream to D:\FT2_1(U12I393)\Audio\amicsensitivity.wav
+$002#
+$002^0^OK#
+$002_over^0^OK#
+Goto Checkchoac!!!
+
+ start to move
+Item: C:\Users\Administrator\Desktop\AudioExpert_AES\Result\_PASS.txt
+***************Check AMIC NOISE FLOOR****************
+Delete file: .\CaliTool\audio_stream 
+Copy standard script before open
+Modify script: Func_Mic_CH: 0
+Read value script: Func_Mic_CH: 0
+Modify script: Func_Mic: 1
+Read value script: Func_Mic: 1
+Modify script: Func_Mic: 0
+Read value script: Func_Mic: 0
+Convert D:\FT2_1(U12I393)\\audio_stream to D:\FT2_1(U12I393)\Audio\amic-noisefloor.wav
+$004#
+$004^0^OK#
+$004_over^0^OK#
+Goto Checkchoac!!!
+
+ start to move
+Item: C:\Users\Administrator\Desktop\AudioExpert_AES\Result\_PASS.txt
+***************Start Check AEC****************
+Delete file: .\CaliTool\audio_stream 
+Modify script: AEC_EN: 1
+Read value script: AEC_EN: 1
+Copy standard script before open
+Modify script: Func_Speaker_Dir: Pulse-Pink-Noise-500-8K.wav
+Read value script: Func_Speaker_Dir: Pulse-Pink-Noise-500-8K.wav
+Modify script: Func_Mic_CH: 2
+Read value script: Func_Mic_CH: 2
+Modify script: Func_MicSpk: 1
+Read value script: Func_MicSpk: 1
+Record time: 5000
+Modify script: Func_MicSpk: 0
+Read value script: Func_MicSpk: 0
+Convert D:\FT2_1(U12I393)\\audio_stream to D:\FT2_1(U12I393)\Audio\aec.wav
+11:04:56$012#
+$012^0^OK#
+$012_over,Status:'OK'^0^OK#
+20/11/2020 11:04:56: Goto Checkchoac!!!
+
+ start to move
+Item: C:\Users\Administrator\Desktop\AudioExpert_AES\Result\_20201120110456_PASS.txt
+Modify script: AEC_EN: 0
+Read value script: AEC_EN: 0
+11:04:56$999#
+$999^0^OK#
+$999_over,Status:'OK'^0^OK#
+Move wav file: D:\FT2_1(U12I393)\\Audio\aec.wav
+Move wav file: D:\FT2_1(U12I393)\\Audio\amic-fr-thd.wav
+Move wav file: D:\FT2_1(U12I393)\\Audio\_(05_Acquire  spk FR THD-Acquired Signal)_20201120110445.wav
+Move wav file: D:\FT2_1(U12I393)\\Audio\_20201120110457_OK.csv
+Delay 0 MiliSecond
+==============Start show pass================
+TEST PROGRAM VERSION:2.3.2.8  TEST CYCLE TIME:65
+
+----------------Summary all test item--------------
+Test item name                Result  Test time
+ 1.OpenCaliModeGen5            PASS    0.05s 
+ 2.AMicFRTHD                   PASS    14.67s
+ 3.SpkFRTHD                    PASS    9.55s 
+ 4.SpkSensitivity              PASS    9.6s  
+ 5.AMicSensitivity             PASS    11.53s
+ 6.AMicNoiseFloor              PASS    7.9s  
+ 7.AEC                         PASS    11.23s
+ 8.SendSfis                    -Skip-        
+---------------------------------------------------
+Write summary log server: F:\lsy\ID\U12I393\MODEL NAME \FT2-1 -> OK
+Write summary log localD:\Arlo_Logs\U12I393\MODEL NAME \FT2-1\20-11-2020 -> OK
+Write  Megasig log to server folder: F:\lsy\ID\U12I393\MODEL NAME \FT2-1\L3-B05-FT2-1 -> OK
+Details log local folder: D:\Arlo_Logs\U12I393\MODEL NAME \FT2-1\20-11-2020\PASS
+Details log server folder: F:\lsy\ID\Detail\U12I393\MODEL NAME \FT2-1\20-11-2020\PASS
+UserName Test OfG: 

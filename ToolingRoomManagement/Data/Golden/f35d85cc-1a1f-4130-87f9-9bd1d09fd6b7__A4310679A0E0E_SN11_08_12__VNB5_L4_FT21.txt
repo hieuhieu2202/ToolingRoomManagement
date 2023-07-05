@@ -1,0 +1,41 @@
+ShowUIChecking ABA status...
+No record, test directly
+iaba :-1
+===[ USB mode already ... ]===
+
+======Start check audio==========
+Close CaliTool 
+SERIAL_NUM :A4310679A0E0E
+SN from log: A4310679A0E0E
+Wait new DutHH come...
+Send: STARTTEST
+AutoTest: 
+AutoTest: 
+AutoTest: Current state:Waiting for the entry of SN
+Waiting for SFIS responese
+Send: SNA4310679A0E0E
+AutoTest: Current state:is tesing
+Delete folder 2020_12_13 
+Delete folder DOutput_1.wav 
+Current state:is tesing 
+Last Result:test PASS 
+Close success
+D:\AutoTest_MP\TestReport\2020_12_13
+Copy D:\AutoTest_MP\TestReport\2020_12_13to D:\Arlo_Logs\U12I386T01\MODEL NAME \FT2-1_AudioLogs\2020_12_13
+D:\AutoTest_MP\TestReport\2020_12_13\Pass\Test\A4310679A0E0ETestDate.xlsx
+===[ AudioTest passed ... ]===
+Delay 0 MiliSecond
+==============Start show pass================
+TEST PROGRAM VERSION:2.3.2.8  TEST CYCLE TIME:38
+
+----------------Summary all test item--------------
+Test item name                Result  Test time
+ 1.OpenCaliModeGen5            PASS    0.04s 
+ 2.AudioTest                   PASS    38.03s
+ 3.SendSfis                    -Skip-        
+---------------------------------------------------
+Write summary log server: F:\lsy\ID\U12I386T01\MODEL NAME \FT2-1 -> OK
+Write summary log localD:\Arlo_Logs\U12I386T01\MODEL NAME \FT2-1\13-12-2020 -> OK
+Details log local folder: D:\Arlo_Logs\U12I386T01\MODEL NAME \FT2-1\13-12-2020\PASS
+Details log server folder: F:\lsy\ID\Detail\U12I386T01\MODEL NAME \FT2-1\13-12-2020\PASS
+UserName Test OfG: 

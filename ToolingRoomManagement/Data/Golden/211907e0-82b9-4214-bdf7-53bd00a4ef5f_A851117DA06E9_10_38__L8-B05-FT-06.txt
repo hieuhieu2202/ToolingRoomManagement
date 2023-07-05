@@ -1,0 +1,424 @@
+
+
+======Check Microchi Part Number======
+===[ Check EFR UART ]===
+10:38:14
+SDUT.Send:
+ $ Send command command SubG success
+10:38:15
+SDUT.Send:rx 0
+rx 0
+
+{{(rx)}{Rx:Disabled}{Idle:Enabled}{Time:19617881}}
+$ ===[ Check EFR UART passed ... ]===
+
+skip check setting of fixture file
+===[ Check LED]===
+NumberLEDCheck= 3
+Delete file .\CCDResult.ini 
+RED LED,	fmcu rled off 50;fmcu gled off 50;fmcu bled off 50;fmcu rled on 50;fmcu rled on 50,	#,	300,100
+***** Start check  RED LED. *****
+Log:	fmcu rled off 50
+10:38:17
+DUT.Write:fmcu rled off 50
+fmcu rled off 50
+
+# 
+Delay 100 MiliSecond
+Log:fmcu gled off 50
+10:38:17
+DUT.Write:fmcu gled off 50
+fmcu gled off 50
+
+# 
+Delay 100 MiliSecond
+Log:fmcu bled off 50
+10:38:17
+DUT.Write:fmcu bled off 50
+fmcu bled off 50
+
+# 
+Delay 100 MiliSecond
+Log:fmcu rled on 50
+10:38:17
+DUT.Write:fmcu rled on 50
+fmcu rled on 50
+
+
+# 
+Delay 100 MiliSecond
+Log:fmcu rled on 50
+10:38:18
+DUT.Write:fmcu rled on 50
+fmcu rled on 50
+
+
+# 
+Delay 100 MiliSecond
+writeCCDControl.ini
+Write test flag CCDControl.ini: 1
+CCD v2.0.0.8,Status-Red:2-212-152,
+Test time of : 3.9854764
+Delete file .\CCDResult.ini 
+Green LED ,	fmcu rled off 50;fmcu gled off 50;fmcu bled off 50;fmcu gled on 50;fmcu gled on 50,	#,	300,100
+***** Start check  Green LED. *****
+Log:	fmcu rled off 50
+10:38:21
+DUT.Write:fmcu rled off 50
+fmcu rled off 50
+
+# 
+Delay 100 MiliSecond
+Log:fmcu gled off 50
+10:38:21
+DUT.Write:fmcu gled off 50
+fmcu gled off 50
+
+# 
+Delay 100 MiliSecond
+Log:fmcu bled off 50
+10:38:21
+DUT.Write:fmcu bled off 50
+fmcu bled off 50
+
+# 
+Delay 100 MiliSecond
+Log:fmcu gled on 50
+10:38:21
+DUT.Write:fmcu gled on 50
+fmcu gled on 50
+
+# 
+Delay 100 MiliSecond
+Log:fmcu gled on 50
+10:38:22
+DUT.Write:fmcu gled on 50
+fmcu gled on 50
+
+
+# 
+Delay 100 MiliSecond
+writeCCDControl.ini
+Write test flag CCDControl.ini: 2
+CCD v2.0.0.8,Status-Green:105-237-168,
+Test time of : 3.5721184
+Delete file .\CCDResult.ini 
+Blue LED,	fmcu rled off 50;fmcu gled off 50;fmcu bled off 50;fmcu bled on 50;fmcu bled on 50,	#,	300,100
+***** Start check  Blue LED. *****
+Log:	fmcu rled off 50
+10:38:24
+DUT.Write:fmcu rled off 50
+fmcu rled off 50
+
+# 
+Delay 100 MiliSecond
+Log:fmcu gled off 50
+10:38:24
+DUT.Write:fmcu gled off 50
+fmcu gled off 50
+
+# 
+Delay 100 MiliSecond
+Log:fmcu bled off 50
+10:38:25
+DUT.Write:fmcu bled off 50
+fmcu bled off 50
+
+# 
+Delay 100 MiliSecond
+Log:fmcu bled on 50
+10:38:25
+DUT.Write:fmcu bled on 50
+fmcu bled on 50
+
+# 
+Delay 100 MiliSecond
+Log:fmcu bled on 50
+10:38:25
+DUT.Write:fmcu bled on 50
+fmcu bled on 50
+
+# 
+Delay 100 MiliSecond
+writeCCDControl.ini
+Write test flag CCDControl.ini: 3
+CCD v2.0.0.8,Status-Blue:137-229-134,
+Test time of : 3.1599605
+10:38:27
+DUT.Write:fmcu rled off 50
+fmcu rled off 50
+
+# 
+10:38:27
+DUT.Write:fmcu gled off 50
+fmcu gled off 50
+
+# 
+10:38:28
+DUT.Write:fmcu bled off 50
+fmcu bled off 50
+
+# 
+Delay 100 MiliSecond
+===[ Set parameter ]===
+10:38:28
+DUT.Write:wl --init
+===[ Set parameter passed ... ]===
+
+REG key path= SOFTWARE\Netgear\STATION\FT\NFT_MULTI11
+Bind socket IQServer  sucess
+10:38:30
+DUT.Write:wl pkteng_stop tx
+10:38:30
+DUT.Write:wl --init
+10:38:30
+DUT.Write:wl ver
+10:38:30
+DUT.Write:wl mpc 0
+10:38:30
+DUT.Write:wl up
+10:38:30
+DUT.Write:wl phy_watchdog 0
+10:38:30
+DUT.Write:wl country ALL
+10:38:31
+DUT.Write:wl country
+10:38:31
+DUT.Write:wl pkteng_stop tx 
+10:38:31
+DUT.Write:wl band b
+10:38:31
+DUT.Write:wl channel 6
+10:38:32
+DUT.Write:wl up
+10:38:32
+DUT.Write:wl phy_forcecal 1
+10:38:32
+DUT.Write:wl scansuppress 1
+10:38:33
+DUT.Write:wl 2g_rate -r 1
+10:38:33
+DUT.Write:wl phy_txpwrctrl 1
+10:38:33
+DUT.Write:wl txpwr1 -o -d 21.5
+10:38:34
+DUT.Write:wl pkteng_start 00:00:00:00:00:01 tx 100 1024 0
+10:38:35
+DUT.Write:wl pkteng_stop tx
+===[ Check Wifi NFT ]===
+NFT_MULTI= Test with IQ Server
+==========TEST NFT MULTI============= 
+Start connect IQ_SERVER 
+Read test item....
+wl pkteng_stop tx
+
+# 
+wl --init
+Wlan is inited already for brcm wl !
+
+# 
+wl ver
+7/19/2017 build 0
+wl0: Jun 22 2020 14:10:19 version 13.18.33 (r726175 WLTEST) FWID 01-6aeead41
+
+# 
+wl mpc 0
+
+# 
+wl up
+
+# 
+wl phy_watchdog 0
+
+# 
+wl country ALL
+
+# 
+wl country
+#a (#a/0) <unknown>
+
+# 
+TX_VERIFY_POWER 2437 DSSS-1 HT20 #21.5 @1
+Cmd: wl pkteng_stop tx 
+Cmd: wl band b
+Cmd: wl channel 6
+Cmd: wl up
+Cmd: wl phy_forcecal 1
+Cmd: wl scansuppress 1
+Cmd: wl 2g_rate -r 1
+Cmd: wl phy_txpwrctrl 1
+Cmd: wl txpwr1 -o -d 21.5
+Cmd: wl pkteng_start 00:00:00:00:00:01 tx 100 1024 0
+Cmd: 
+ Try send command time 0
+wl pkteng_stop tx 
+
+# 
+wl band b
+
+# 
+wl channel 6
+
+# 
+wl up
+
+# 
+wl phy_forcecal 1
+
+# 
+wl scansuppress 1
+
+# 
+wl 2g_rate -r 1
+
+# 
+wl phy_txpwrctrl 1
+
+# 
+wl txpwr1 -o -d 21.5
+
+# 
+wl pkteng_start 00:00:00:00:00:01 tx 100 1024 0
+
+# 
+Start send item to server: TX_VERIFY_POWER 2437 DSSS-1 HT20 #21.5 @1
+Send iTems: TX_VERIFY_POWER 2437 DSSS-1 HT20 #21.5 @1 to server success...
+Start get value from server
+Value get from Server: PASS, [Step 443] TX_VERIFY_POWER 2437 DSSS-1 HT20 #21.5 @1, Value: 20.02
+wl pkteng_stop tx
+
+# 
+==========TEST NFT MULTI PASS============= 
+
+
+==== Burn DSC3 Key =======[ SFIS OFF. No burn DSC3 key ... ]===
+
+
+==== Burn DSC3 Key passed=======[ Switch to idle Mode Orion ]===
+10:38:35
+SDUT.Send:rx 0
+rx 0
+
+{{(rx)}{Rx:Disabled}{Idle:Enabled}{Time:40616509}}
+$ Check switch to idle mode time0 
+10:38:37
+SDUT.Send:PIRWKUPtest 10
+PIWKUPtest 10 ==============Check: PIR WKUP MODE============== PIR WCFG:sen:0a,mid:00,mode:02,low:10
+
+
+$ start enable
+trigger interrupt 10:38:42
+SDUT.Send:test_sleep
+test_sleep ==============Check: sleep status============== enter EM4H Waiting DUT idle...
+Waiting DUT idle...
+Waiting DUT idle...
+Waiting DUT idle...
+Waiting DUT idle...
+Waiting DUT idle...
+Waiting DUT idle...
+Switch to idle mode successful
+===[  Switch to idle Mode passed ... ]===
+
+===[ Check idle current Orion ]===
+FLUKE TYPE= Victor 8246
+adjust power =4.0VUI->MCU: PIN3_ON
+PIN3_ON_OK
+#*INS210
+#*UI->MCU: PIN2_ON
+PIN2_ON_OK
+UI->MCU: PIN3_OFF
+PIN3_OFF_OK
+#*RD?
+#*RD+0000.0+0000._
+
+Current time 0: 0 micro ample --> Fail
+#*RD?
+#*RD+0023.2+0000._
+
+#*RD?
+#*RD+0022.4+0000._
+
+Current time 2: 22.4 micro ample --> Pass
+UI->MCU: PIN3_ON
+PIN3_ON_OK
+#*INS240
+#*UI->MCU: PIN2_OFF
+PIN2_OFF_OK
+UI->MCU: PIN3_OFF
+PIN3_OFF_OK
+===[ Test current Idle passed ... ]===
+
+Waiting for wakeup! 
+....
+{{(reset)}{App:OrionMFG}{Built:Feb  3 2021 16:05:30}}
+{{(sleepWoke)}{EM:4s}{SerialWakeup:No}{RfSensed:No}}
+$ ..{{(rxPacket)}{len:16}{timeUs:266055}{timePos:4}{crc:Pass}{rssi:-46}{lqi:234}{phy:0}{isAck:False}{syncWordId:0}{antenna:0}{channelHopIdx:254}{payload: 0x0f 0x0e 0x11 0x22 0x33 0x44 0.x55 0x66 0x77 0x88 0x99 0xaa 0xbb 0xcc 0xdd 0xee}}
+{{(rxPacket)}{len:16}{timeUs:494335}{timePos:4}{crc:Pass}{rssi:-65}{lqi:234}{phy:0}{isAck:False}{syncWordId:0}{antenna:0}{channelHopIdx:254}{payload: 0x0f 0x0e 0x11 0x22 0x33 0x44 0x55 0x66 0x77 0x88 0x99 0xaa 0xbb 0xcc 0xdd 0xee}}
+{{(rxPacket)}{len:16}{timeUs:521483}{timePos:4}{crc:Pass}{rssi:-43}{lqi:234}{phy:0}{isAck:False}{syncWordId:0}{antenna:0}{channelHopIdx:254}{payload: 0x0f 0x0e 0x11 0x22 0x33 0x44 0x55 0x66 0x77 0x88 0x99 0xaa 0xbb 0xcc 0xdd 0xee}}
+{{(rxPacket)}{len:16}{timeUs:776907}{timePos:4}{crc:Pass}{rssi:-37}{lqi:234}{phy:0}{isAck:False}{syncWordId:0}{antenna:0}{channelHopIdx:254}{payload: 0x0f 0x0e 0x11 0x22 0x33 0x44 0x55 0x66 0x77 0x88 0x99 0xaa 0xbb 0xcc 0xdd 0xee}}
+Micro-usb plug out  .Time waiting for wakeup: 3.6118972  
+====Test Wakeup pass==== 
+===[ Check current wakeup ]===
+FLUKE TYPE= Victor 8246
+#*INS240
+{{(rxPacket)}{len:16}{timeUs:2000933}{timePos:4}{crc:Pass}{rssi:-60}{lqi:236}{phy:0}{isAck:False}{syncWordId:0}{antenna:0}{channelHopIdx:254}{payload: 0x0f 0x0e 0x11 0x22 0x33 0x44 0x55 0x66 0x77 0x88 0x99 0xaa 0xbb 0xcc 0xdd 0xee}}
+#*
+
+Switch Victor to mA mode successful...
+{{(rxPacket)}{len:16}{timeUs:2256376}{timePos:4}{crc:Pass}{rssi:-59}{lqi:234}{phy:0}{isAck:False}{syncWordId:0}{antenna:0}{channelHopIdx:254}{payload: 0x0f 0x0e 0x11 0x22 0x33 0x44 0x55 0x66 0x77 0x88 0x99 0xaa 0xbb 0xcc 0xdd 0xee}}
+{{(rxPacket)}{len:16}{timeUs:2511807}{timePos:4}{crc:Pass}{rssi:-58}{lqi:234}{phy:0}{isAck:False}{syncWordId:0}{antenna:0}{channelHopIdx:254}{payload: 0x0f 0x0e 0x11 0x22 0x33 0x44 0x55 0x66 0x77 0x88 0x99 0xaa 0xbb 0xcc 0xdd 0xee}}
+{{(rxPacket)}{len:16}{timeUs:2767244}{timePos:4}{crc:Pass}{rssi:-60}{lqi:234}{phy:0}{isAck:False}{syncWordId:0}{antenna:0}{channelHopIdx:254}{payload: 0x0f 0x0e 0x11 0x22 0x33 0x44 0x55 0x66 0x77 0x88 0x99 0xaa 0xbb 0xcc 0xdd 0xee}}
+{{(rxPacket)}{len:16}{timeUs:3022662}{timePos:4}{crc:Pass}{rssi:-62}{lqi:228}{phy:0}{isAck:False}{syncWordId:0}{antenna:0}{channelHopIdx:254}{payload: 0x0f 0x0e 0x11 0x22 0x33 0x44 0x55 0x66 0x77 0x88 0x99 0xaa 0xbb 0xcc 0xdd 0xee}}
+#*RD?
+#*RD+0.1659+0000._
+Current (0.1,0.5): 0.1659 A -->Pass
+===[ Test current wakeup passed ... ]===
+
+{{(rxPacket)}{len:16}{timeUs:3278109}{timePos:4}{crc:Pass}{rssi:-64}{lqi:234}{phy:0}{isAck:False}{syncWordId:0}{antenna:0}{chanUI->MCU: PIN3_ON
+nelHopIdx:254}{payload: 0x0f 0x0e 0x11 0x22 0x33 0x44 0x55 0x66 0x77 0x88 0x99 0xaa 0xbb 0xcc 0xdd 0xee}}
+PIN3_ON_OK
+#*INS240
+{{(rxPacket)}{len:16}{timeUs:3533556}{timePos:4}{crc:Pass}{rssi:-64}{lqi:234}{phy:0}{isAck:False}{syncWordId:0}{antenna:0}{channelHopIdx:254}{payload: 0x0f 0x0e 0x11 0x22 0x33 0x44 0x55 0x66 0x77 0x88 0x99 0xaa 0xbb 0xcc 0xdd 0xee}}
+#*UI->MCU: PIN2_OFF
+{{(rxPacket)}{len:16}{timeUs:3788987}{timePos:4}{crc:Pass}{rssi:-63}{lqi:240}{phy:0}{isAck:False}{syncWordId:0}{antenna:0}{channelHopIdx:254}{payload: 0x0f 0x0e 0x11 0x22 0x33 0x44 0x55 0x66 0x77 0x88 0x99 0xaa 0xbb 0xcc 0xdd 0xee}}
+PIN2_OFF_OK
+{{(rxPacket)}{len:16}{timeUs:4044438}{timePos:4}{crc:Pass}{rssi:-62}{lqi:234}{phy:0}{isAck:False}{syncWordId:0}{antenna:0}{channelHopIdx:254}{payload: 0x0f 0x0e 0x11 0x22 0x33 0x44 0x55 0x66 0x77 0x88 0x99 0xaa 0xbb 0xcc 0xdd 0xee}}
+UI->MCU: PIN3_OFF
+PIN3_OFF_OK
+{{(rxPacket)}{len:16}{timeUs:4299892}{timePos:4}{crc:Pass}{rssi:-65}{lqi:234}{phy:0}{isAck:False}{syncWordId:0}{antenna:0}{channelHopIdx:254}{payload: 0x0f 0x0e 0x11 0x22 0x33 0x44 0x55 0x66 0x77 0x88 0x99 0xaa 0xbb 0xcc 0xdd 0xee}}
+{{(rxPacket)}{len:16}{timeUs:4555322}{timePos:4}{crc:Pass}{rssi:-62}{lqi:234}{phy:0}{isAck:False}{syncWordId:0}{antenna:0}{channelHopIdx:254}{payload: 0x0f 0x0e 0x11 0x22 0x33 0x44 0x55 0x66 0x77 0x88 0x99 0xaa 0xbb 0xcc 0xdd 0xee}}
+close LTE COM ok 
+Delay 0 MiliSecond
+==============Start show pass================
+TEST PROGRAM VERSION:2.3.2.8  TEST CYCLE TIME:52
+
+----------------Summary all test item--------------
+Test item name                Result  Test time
+ 1.ConnectDUT                  PASS    1.87s 
+ 2.CheckFWVersion_Orion        PASS    1.18s 
+ 3.CheckTamperSwitch           PASS    3.61s 
+ 4.CheckOTP                    PASS    0.02s 
+ 5.CheckMicroPartNumber        PASS    0s    
+ 6.BurnMacSubG                 -Skip-        
+ 7.BurnSerialNumber            -Skip-        
+ 8.BurnHwRev_Orion             -Skip-        
+ 9.BurnHwRev_SubG              -Skip-        
+10.BurnModel                   -Skip-        
+11.BurnSubGMagic               -Skip-        
+12.BurnVeriSureSecureKey       -Skip-        
+13.CheckEFRUART                PASS    1.69s 
+14.CheckLED_Orion              PASS    12.53s
+15.SetParameter1               PASS    1.68s 
+16.CheckNFT                    PASS    5.7s  
+17.DUTBurnDSC3Key              PASS    0.02s 
+18.SwitchToIdleMode_Orion      PASS    14.23s
+19.CheckCurrentIdle_Orion      PASS    3.15s 
+20.WakeupDUTFromIdleMode       PASS    3.63s 
+21.CheckCurrentWakeup_Gen5     PASS    1.32s 
+22.SendSfis                    -Skip-        
+---------------------------------------------------
+Write summary log server: F:\lsy\ID\U12I438\VSC1000-FXN\FT -> OK
+Write summary log localD:\Arlo_Logs\U12I438\VSC1000-FXN\FT\04-10-2021 -> OK
+Details log local folder: D:\Arlo_Logs\U12I438\VSC1000-FXN\FT\04-10-2021\PASS
+Details log server folder: F:\lsy\ID\Detail\U12I438\VSC1000-FXN\FT\04-10-2021\PASS
+UserName Test Off: 

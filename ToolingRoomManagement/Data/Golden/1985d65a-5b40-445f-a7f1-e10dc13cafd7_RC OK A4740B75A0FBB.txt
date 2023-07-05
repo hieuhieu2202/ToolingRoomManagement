@@ -1,0 +1,259 @@
+This file test DUT: Base's IP: 192.168.1.2
+
+
+Base's IP: 192.168.1.2
+
+******************BEGIN RC MULTI TEST******************
+
+A41162B7DD69
+09:27:32 PING To DUT...
+
+
+PingTimeout=100
+
+Ping reply from: 192.168.1.2 size:32 Time:1 TTL:64
+
+Ping reply from: 192.168.1.2 size:32 Time:0 TTL:64
+
+09:27:33 Check ping DUT is OK!
+
+09:27:33 ======Telnet DUT SSH======
+
+09:27:36 Telnet SSH finished 
+
+cd /
+root@OpenWrt:/# 
+===[Check infomation  ]===
+
+RequireCloseBox= Don't need close box to start test
+
+===[ Check Camera connect to base station ]===
+
+
+root@OpenWrt:/# 
+root@OpenWrt:/# 
+=======CHECK CONNECT DUT TIME 1==============
+
+rm /tmp/system-log
+root@OpenWrt:/# 
+uci set wireless.@wifi-device[0].disabled=0
+root@OpenWrt:/# 
+root@OpenWrt:/# 
+uci set wireless.@wifi-device[0].channel
+uci: Invalid argument
+root@OpenWrt:/# 
+root@OpenWrt:/# 
+uci set wireless.@wifi-device[0].disabled=0
+root@OpenWrt:/# 
+root@OpenWrt:/# 
+uci set wireless.radio0.txpower='5'
+root@OpenWrt:/# 
+root@OpenWrt:/# 
+uci set wireless.@wifi-iface[0].key='123456a@123456'
+root@OpenWrt:/# 
+uci set wireless.@wifi-iface[0].encryption='psk-mixed'
+root@OpenWrt:/# 
+uci set wireless.@wifi-iface[0].ssid='testgen5'
+root@OpenWrt:/# 
+root@OpenWrt:/# 
+uci commit wireless
+root@OpenWrt:/# 
+root@OpenWrt:/# 
+wifi
+root@OpenWrt:/# 
+root@OpenWrt:/# 
+SFIS Cam MAC:A41162C30FA3
+
+SFIS Cam MAC after change to lower: a4:11:62:b7:dd:69
+
+arp -d 
+IP address       HW type     Flags       HW address            Mask     Device
+192.168.1.200    0x1         0x2         98:de:d0:00:ee:ce     *        eth0
+192.168.1.1      0x1         0x2         28:80:88:28:e3:be     *        eth0
+root@OpenWrt:/# 
+cat /proc/net/arp | grep a4:11:62:b7:dd:69
+root@OpenWrt:/# 
+cat /proc/net/arp | grep a4:11:62:b7:dd:69
+root@OpenWrt:/# 
+cat /proc/net/arp | grep a4:11:62:b7:dd:69
+root@OpenWrt:/# 
+cat /proc/net/arp | grep a4:11:62:b7:dd:69
+root@OpenWrt:/# 
+cat /proc/net/arp | grep a4:11:62:b7:dd:69
+root@OpenWrt:/# 
+cat /proc/net/arp | grep a4:11:62:b7:dd:69
+root@OpenWrt:/# 
+cat /proc/net/arp | grep a4:11:62:b7:dd:69
+root@OpenWrt:/# 
+cat /proc/net/arp | grep a4:11:62:b7:dd:69
+root@OpenWrt:/# 
+cat /proc/net/arp | grep a4:11:62:b7:dd:69
+root@OpenWrt:/# 
+cat /proc/net/arp | grep a4:11:62:b7:dd:69
+root@OpenWrt:/# 
+cat /proc/net/arp | grep a4:11:62:b7:dd:69
+root@OpenWrt:/# 
+cat /proc/net/arp | grep a4:11:62:b7:dd:69
+root@OpenWrt:/# 
+cat /proc/net/arp | grep a4:11:62:b7:dd:69
+root@OpenWrt:/# 
+cat /proc/net/arp | grep a4:11:62:b7:dd:69
+root@OpenWrt:/# 
+cat /proc/net/arp | grep a4:11:62:b7:dd:69
+root@OpenWrt:/# 
+cat /proc/net/arp | grep a4:11:62:b7:dd:69
+root@OpenWrt:/# 
+cat /proc/net/arp | grep a4:11:62:b7:dd:69
+root@OpenWrt:/# 
+cat /proc/net/arp | grep a4:11:62:b7:dd:69
+root@OpenWrt:/# 
+cat /proc/net/arp | grep a4:11:62:b7:dd:69
+root@OpenWrt:/# 
+cat /proc/net/arp | grep a4:11:62:b7:dd:69
+root@OpenWrt:/# 
+rm /tmp/system-log
+root@OpenWrt:/# 
+uci set wireless.@wifi-device[0].disabled=0
+root@OpenWrt:/# 
+root@OpenWrt:/# 
+uci set wireless.@wifi-device[0].channel
+uci: Invalid argument
+root@OpenWrt:/# 
+root@OpenWrt:/# 
+uci set wireless.@wifi-device[0].disabled=0
+root@OpenWrt:/# 
+root@OpenWrt:/# 
+uci set wireless.radio0.txpower='5'
+root@OpenWrt:/# 
+root@OpenWrt:/# 
+uci set wireless.@wifi-iface[0].key='123456a@123456'
+root@OpenWrt:/# 
+uci set wireless.@wifi-iface[0].encryption='psk-mixed'
+root@OpenWrt:/# 
+uci set wireless.@wifi-iface[0].ssid='testgen5'
+root@OpenWrt:/# 
+root@OpenWrt:/# 
+uci commit wireless
+root@OpenWrt:/# 
+root@OpenWrt:/# 
+wifi
+root@OpenWrt:/# 
+root@OpenWrt:/# 
+cat /proc/net/arp | grep a4:11:62:b7:dd:69
+root@OpenWrt:/# 
+cat /proc/net/arp | grep a4:11:62:b7:dd:69
+root@OpenWrt:/# 
+cat /proc/net/arp | grep a4:11:62:b7:dd:69
+root@OpenWrt:/# 
+cat /proc/net/arp | grep a4:11:62:b7:dd:69
+root@OpenWrt:/# 
+cat /proc/net/arp | grep a4:11:62:b7:dd:69
+root@OpenWrt:/# 
+cat /proc/net/arp | grep a4:11:62:b7:dd:69
+172.14.1.207     0x1         0x2         a4:11:62:b7:dd:69     *        wlan0
+root@OpenWrt:/# 
+Found wlan0 
+
+Config HW ver: H8
+
+====Configuration information===========
+Base version:1.12.2.4_2773,1.12.1.2_27956
+
+Base SKU:0x0001
+
+HW version:H8
+
+FW Version:1.080.16.1_301_9d60a82
+
+ModelName:VMC2030
+
+IP camera have ipaddress: 172.14.1.207
+
+===[ Check information of camera ]===
+
+vzdaemon --version
+	version = "1.12.1.2_27956"
+root@OpenWrt:/# 
+Check version of Base Pass
+
+burnsku
+region_num - 0x0001
+sku_name - NA
+language - English
+wl_region - 11
+timezone - -8
+root@OpenWrt:/# 
+Check Base SKU Pass
+
+vzcmd --expandJson PassThru='{"action":"get","resource":"diagnos
+tics/cameraRegisters","properties":{"cameraId":"A4740B75A0FBB","registers":["Sys
+temSerialNumber","SystemModelNumber","SystemFirmwareVersion","HardwareRevision",
+"MACAddress","BatPercent","Bat1Volt"]}}'
+
+DATAINFO: vzcmd --expandJson PassThru='{"action":"get","resource":"diagnos
+tics/cameraRegisters","properties":{"cameraId":"A4740B75A0FBB","registers":["Sys
+temSerialNumber","SystemModelNumber","SystemFirmwareVersion","HardwareRevision",
+"MACAddress","BatPercent","Bat1Volt"]}}'
+
+
+root@OpenWrt:/# vzcmd --expandJson PassThru='{"action":"get","resource":"diagnos
+tics/cameraRegisters","properties":{"cameraId":"A4740B75A0FBB","registers":["Sys
+temSerialNumber","SystemModelNumber","SystemFirmwareVersion","HardwareRevision",
+"MACAddress","BatPercent","Bat1Volt"]}}'
+{
+	"resource" : "diagnostics/cameraRegisters",
+	"action" : "get",
+	"properties" : {
+		"cameraId" : "A4740B75A0FBB",
+		"registers" : {
+			"SystemSerialNumber" : "A4740B75A0FBB",
+			"SystemModelNumber" : "VMC2030B",
+			"SystemFirmwareVersion" : "1.080.16.1_301_9d60a82",
+			"HardwareRevision" : "H8",
+			"MACAddress" : "a4:11:62:b7:dd:69",
+			"BatPercent" : 66,
+			"Bat1Volt" : 3.769
+		}
+	}
+}
+root@OpenWrt:/# 
+DATAINFO: root@OpenWrt:/# vzcmd --expandJson PassThru='{"action":"get","resource":"diagnos
+tics/cameraRegisters","properties":{"cameraId":"A4740B75A0FBB","registers":["Sys
+temSerialNumber","SystemModelNumber","SystemFirmwareVersion","HardwareRevision",
+"MACAddress","BatPercent","Bat1Volt"]}}'
+{
+	"resource" : "diagnostics/cameraRegisters",
+	"action" : "get",
+	"properties" : {
+		"cameraId" : "A4740B75A0FBB",
+		"registers" : {
+			"SystemSerialNumber" : "A4730A7CAF873",
+			"SystemModelNumber" : "VMC2030B",
+			"SystemFirmwareVersion" : "1.080.16.1_301_9d60a82",
+			"HardwareRevision" : "H8",
+			"MACAddress" : "a4:11:62:b7:dd:69",
+			"BatPercent" : 66,
+			"Bat1Volt" : 3.769
+		}
+	}
+}
+root@OpenWrt:/# 
+
+vzcmd --expandJson PassThru='{ "action":"set", "resource":"diagn
+ostics/cameraRegisters", "properties":{"cameraId":"A4740B75A0FBB", "registers":{
+"FactoryReset":2}}}'
+{
+	"resource" : "diagnostics/cameraRegisters",
+	"action" : "set"
+}
+root@OpenWrt:/# 
+Check infomation pass .....
+
+----- Check camera A4730A7CAF873 PASS-----: 
+
+Test DUT Finish.
+
+09:28:54 ***********CHECK RC FINISHED***********
+
+TestTime:83 (s)
+Send to Mysdas OK!

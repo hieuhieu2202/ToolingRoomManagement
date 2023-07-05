@@ -1,0 +1,993 @@
+SFIS->UI: @ZUS6N1A                 VMC4050P-FXN-NAS         A41162C32084A4830B7UA27DC  2140017156     V0919546    FT        PASS
+
+ShowUIModel VMC4050P-FXN-NAS accepted
+Program still running !
+Wait to have OVTI Serial Port
+.
+Start connect !
+COM DUT OPENED!
+
+Wait # !
+
+
+# 
+
+
+# 
+Connect DUT sussess.
+info
+FXCN version: 20200810_mfg 
+Build Time: 14:34:34 Aug 10 2020
+
+FXCN version: 20200810736
+
+IQC version: 20190628 V0.1.2
+Board ID: 1
+
+MAC: 00:11:22:33:44:55, id2 0
+
+SERIAL_NUM: @ZUS6N1A
+error: data length is forbidden as 0 when read serial flash
+
+MODEL_NUM: 
+error: data length is forbidden as 0 when read serial flash
+
+HW_REV: 
+error: data length is forbidden as 0 when read serial flash
+
+ALS_LLUX: 
+error: data length is forbidden as 0 when read serial flash
+
+ALS_THRES_LUX: 
+error: data length is forbidden as 0 when read serial flash
+
+ALS_HLUX: 
+error: data length is forbidden as 0 when read serial flash
+
+2g_ssid: 
+error: data length is forbidden as 0 when read serial flash
+
+ALS_IR_LEAKAGE: 
+
+# 
+DUTMAC: 00:11:22:33:44:55
+===[ Check firmware version passed ... ]===
+
+===[ Check MO]===
+MO in list ALLOW. Continute test...
+No config list MO Not allow testing for this station...
+===[ Burn MAC ]===
+08:51:10
+burn mac A4:11:62:C3:20:84
+
+ [DBG]: argv[2]=A4:11:62:C3:20:84
+
+ setup  FXCN_burn_mac,3770 , mac:A4:11:62:C3:20:84, len 6, id2 0
+buf 203cd2e0, len 6, id2 0
+
+ ret=0
+
+# 
+===[ Burn mac passed ... ]===
+===[ Burn Serial Number ]===
+08:51:10
+burn sn A4830B7UA27DC
+
+ [DBG]: argv[2]=A4830B7UA27DC
+
+FXCN_burn_data,3797, buf=A4830B7UA27DC, len d, id2 2
+buf 2016a544, len d, id2 2
+
+# 
+===[ Burn serial number passed ... ]===
+===[ Burn Hw Rev]===
+Config hw ver: H3
+08:51:11
+burn hw_rev H3
+
+ [DBG]: argv[2]=H3
+
+FXCN_burn_data,3797, buf=H3, len 2, id2 4
+buf 2016a548, len 2, id2 4
+
+# 
+===[ Burn Hw passed ... ]===
+===[ Burn Model ]===
+08:51:11
+burn model_num VMC4041P
+
+ [DBG]: argv[2]=VMC4041P
+
+FXCN_burn_data,3797, buf=VMC4041P, len 8, id2 3
+buf 2016a54b, len 8, id2 3
+
+# 
+===[ Burn model passed ... ]===
+===[ Burn wifi_country_code ]===
+08:51:11
+burn wifi_country_code US
+
+ [DBG]: argv[2]=US
+
+FXCN_burn_data,3797, buf=US, len 2, id2 13
+buf 2016a553, len 2, id2 13
+
+# 
+===[ Burn wifi_country_code passed ... ]===
+
+======Check OTP======
+MO:2140017156 OTP enable
+OTP key check:12-8f-d0-8f-77-b6-80-c8-d6-de-74-f0-7c-f9-77-a7-d2-d4-6b-df-f3-e8-f4-9b-b7-c6-d1-3b-97-70-54-a9-
+OTP key burn:128FD08F77B680C8D6DE74F07CF977A7D2D46BDFF3E8F49BB7C6D13B977054A9
+08:51:11
+burn read_otp
+OTP[WRT] sboot: 0
+pub_key is:
+0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-
+
+# 
+Burn OTP ...
+08:51:11
+burn otp 128FD08F77B680C8D6DE74F07CF977A7D2D46BDFF3E8F49BB7C6D13B977054A9
+
+ [DBG]: argv[2]=128FD08F77B680C8D6DE74F07CF977A7D2D46BDFF3E8F49BB7C6D13B977054A9
+input pub_key is:
+12-8f-d0-8f-77-b6-80-c8-d6-de-74-f0-7c-f9-77-a7-d2-d4-6b-df-f3-e8-f4-9b-b7-c6-d1-3b-97-70-54-a9-
+OTP[WRT] sboot: 0
+before pull low:dvp_level=1
+after pull low:dvp_level=0
+after pull high:dvp_level=1
+OTP[WRT] sboot: c05
+read_pub_key is:
+12-8f-d0-8f-77-b6-80-c8-d6-de-74-f0-7c-f9-77-a7-d2-d4-6b-df-f3-e8-f4-9b-b7-c6-d1-3b-97-70-54-a9-
+Write OTP Success!
+
+# 
+Burn success ...
+Check OTP ...
+08:51:12
+burn read_otp
+OTP[WRT] sboot: c05
+pub_key is:
+12-8f-d0-8f-77-b6-80-c8-d6-de-74-f0-7c-f9-77-a7-d2-d4-6b-df-f3-e8-f4-9b-b7-c6-d1-3b-97-70-54-a9-
+
+# 
+pub_key:12-8f-d0-8f-77-b6-80-c8-d6-de-74-f0-7c-f9-77-a7-d2-d4-6b-df-f3-e8-f4-9b-b7-c6-d1-3b-97-70-54-a9--->OK
+
+======Check OTP Passed ======
+
+
+======Check Microchi Part Number======
+08:51:14
+ate ft_test
+sccb noack
+sccb noack
+sccb noack
+sccb noack
+sccb noack
+sccb noack
+sccb noack
+Device Serial Number: 0x01 0x23 0xd6 0x59 0xd4 0xe6 0x6b 0x82 0x09 
+Device Revision: 0x00 0x00 0x60 0x02 
+sccb noack
+sccb noack
+
+
+ PartNumber:: ATECC608A-MAHAP-T 
+
+sccb noack
+sccb noack
+sccb noack
+sccb noack
+sccb noack
+sccb noack
+sccb noack
+sccb noack
+Device Config Zone:
+
+0x01 0x23 0xD6 0x59 0x00 0x00 0x60 0x02 0xD4 0xE6 0x6B 0x82 0x09 0xC1 0x65 0x00 
+0xC0 0x00 0x00 0x00 0x9F 0x8F 0x8F 0x8F 0x8F 0x8F 0x0F 0x8F 0x8F 0x0F 0x8F 0x8F 
+0x85 0x0F 0x0F 0x0F 0x0F 0x42 0x0F 0x8F 0x0F 0x8F 0x0F 0x8F 0x0F 0x8F 0x0F 0x8F 
+0x87 0x62 0x8F 0x52 0xFF 0xFF 0xFF 0xFF 0x00 0x00 0x00 0x00 0xFF 0xFF 0xFF 0xFF 
+0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 
+0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x7F 0xFF 0x02 0x40 0x00 0x00 0x00 0x00 
+0x18 0x00 0x1C 0x00 0x18 0x00 0x1C 0x00 0x7C 0x00 0x18 0x00 0x13 0x00 0x3C 0x00 
+0x3C 0x00 0x10 0x00 0x10 0x00 0x1C 0x00 0x10 0x00 0x1C 0x00 0x33 0x00 0x3C 0x00 
+
+sccb noack
+sccb noack
+
+
+[Pass] - Configuration zone is locked
+sccb noack
+ReadMGMKID start!
+sccb noack
+
+
+ MGMKID:: 88000001
+ReadMGMKID end!
+
+
+sccb noack
+sccb noack
+
+
+ [Pass] - Device Model ID :: VMC4041P
+
+Generating Random number to test secure element state:
+sccb noack
+sccb noack
+sccb noack
+sccb noack
+sccb noack
+sccb noack
+sccb noack
+[Pass] - Device state good -- random number generated by secure element:
+0xbc 0x3e 0x70 0xe7 0x69 0x08 0x26 0x79 
+0x02 0x40 0x14 0xfe 0x54 0x18 0xf9 0xa3 
+0x6c 0x7f 0xbf 0xbd 0xb2 0x37 0xaa 0x8b 
+0x0a 0x83 0x76 0xb1 0x94 0x5c 0x53 0xda 
+
+
+Done!
+
+# 
+MicroPartNumber:ATECC608A-MAHAP-T
+SE_SN:0x01 0x23 0xd6 0x59 0xd4 0xe6 0x6b 0x82 0x09
+MGMKID:88000001
+
+======Check Microchi Part Number Passed ======
+
+skip check setting of fixture file
+===[ Check LED]===
+NumberLEDCheck= 4
+Delete file .\CCDResult.ini 
+White LED,	ov led BLUE OFF;ov led AMBER OFF;fmcu LED blue off;fmcu LED amber off;led w set 35000;led w on;led w set 35000,	#,	300,100
+***** Start check  White LED. *****
+Log:	ov led BLUE OFF
+08:51:15
+ov led BLUE OFF
+
+# 
+Delay 100 MiliSecond
+Log:ov led AMBER OFF
+08:51:15
+ov led AMBER OFF
+
+# 
+Delay 100 MiliSecond
+Log:fmcu LED blue off
+08:51:16
+fmcu LED blue off
+FXCN_mcu_write hci data cmd=1
+
+# 
+Delay 100 MiliSecond
+Log:fmcu LED amber off
+08:51:16
+fmcu LED amber off
+FXCN_mcu_write hci data cmd=1
+
+# 
+Delay 100 MiliSecond
+Log:led w set 35000
+08:51:16
+led w set 35000
+led brightness 35000
+7 
+8 
+3 
+4 
+5 
+6 
+
+max 8, min 3, max2 -1, min2 -1
+oldest item 2, latest item 1
+save address 0xf52000, new version=9
+
+# 
+Delay 100 MiliSecond
+Log:led w on
+08:51:16
+led w on
+led brightness 35000
+
+# 
+Delay 100 MiliSecond
+Log:led w set 35000
+08:51:17
+led w set 35000
+led brightness 35000
+7 
+8 
+9 
+4 
+5 
+6 
+
+max 9, min 4, max2 -1, min2 -1
+oldest item 3, latest item 2
+save address 0xf5a000, new version=10
+
+# 
+Delay 100 MiliSecond
+writeCCDControl.ini
+Write test flag CCDControl.ini: 1
+CCD v2.0.0.8,Status-White:60-60-236,
+Test time of : 4.1469786
+Delete file .\CCDResult.ini 
+Blue LED ,	fmcu LED amber off;led w off;fmcu LED blue off;ov led AMBER OFF;ov led BLUE ON;ov led BLUE ON,	#,	300,100
+***** Start check  Blue LED. *****
+Log:	fmcu LED amber off
+08:51:19
+fmcu LED amber off
+FXCN_mcu_write hci data cmd=1
+
+# 
+Delay 100 MiliSecond
+Log:led w off
+08:51:20
+led w off
+
+# 
+Delay 100 MiliSecond
+Log:fmcu LED blue off
+08:51:20
+fmcu LED blue off
+FXCN_mcu_write hci data cmd=1
+
+# 
+Delay 100 MiliSecond
+Log:ov led AMBER OFF
+08:51:20
+ov led AMBER OFF
+
+# 
+Delay 100 MiliSecond
+Log:ov led BLUE ON
+08:51:20
+ov led BLUE ON
+
+# 
+Delay 100 MiliSecond
+Log:ov led BLUE ON
+08:51:20
+ov led BLUE ON
+
+# 
+Delay 100 MiliSecond
+writeCCDControl.ini
+Write test flag CCDControl.ini: 2
+CCD v2.0.0.8,Status-Blue ov:123-240-141,
+Test time of : 3.2970759
+Delete file .\CCDResult.ini 
+AmberFMCU LED,	ov led BLUE OFF;ov led AMBER OFF;fmcu LED blue off;fmcu LED amber on;fmcu LED amber on,	#,	300,100
+***** Start check  AmberFMCU LED. *****
+Log:	ov led BLUE OFF
+08:51:23
+ov led BLUE OFF
+
+# 
+Delay 100 MiliSecond
+Log:ov led AMBER OFF
+08:51:23
+ov led AMBER OFF
+
+# 
+Delay 100 MiliSecond
+Log:fmcu LED blue off
+08:51:23
+fmcu LED blue off
+FXCN_mcu_write hci data cmd=1
+
+# 
+Delay 100 MiliSecond
+Log:fmcu LED amber on
+08:51:23
+fmcu LED amber on
+FXCN_mcu_write hci data cmd=1
+
+# 
+Delay 100 MiliSecond
+Log:fmcu LED amber on
+08:51:24
+fmcu LED amber on
+FXCN_mcu_write hci data cmd=1
+
+# 
+Delay 100 MiliSecond
+writeCCDControl.ini
+Write test flag CCDControl.ini: 3
+CCD v2.0.0.8,Status-Amber:10-238-140,
+Test time of : 3.5317142
+Delete file .\CCDResult.ini 
+Blue fmcu LED,	ov led AMBER OFF;fmcu LED amber off;ov led BLUE OFF;fmcu LED blue on,	#,	300,100
+***** Start check  Blue fmcu LED. *****
+Log:	ov led AMBER OFF
+08:51:26
+ov led AMBER OFF
+
+# 
+Delay 100 MiliSecond
+Log:fmcu LED amber off
+08:51:26
+fmcu LED amber off
+FXCN_mcu_write hci data cmd=1
+
+# 
+Delay 100 MiliSecond
+Log:ov led BLUE OFF
+08:51:27
+ov led BLUE OFF
+
+# 
+Delay 100 MiliSecond
+Log:fmcu LED blue on
+08:51:27
+fmcu LED blue on
+FXCN_mcu_write hci data cmd=1
+
+# 
+Delay 100 MiliSecond
+writeCCDControl.ini
+Write test flag CCDControl.ini: 4
+CCD v2.0.0.8,Status-Blue fmcu:124-240-138,
+Test time of : 3.330731
+08:51:30
+ov led AMBER OFF
+
+# 
+08:51:30
+ov led BLUE OFF
+
+
+# 
+08:51:30
+led w off
+
+# 
+Delay 100 MiliSecond
+Delay 100 MiliSecond
+===[ Set parameter ]===
+08:51:30
+wl --init
+Load wifi para from SFlash
+select scio 2
+scio_init: enter scio init, mode:4
+sdio_change_clk: read SCIO_HIGH_SPEED_REG failed, err 0x1
+scio_init: pre_init failed, try again
+sdio_change_clk: read SCIO_HIGH_SPEED_REG failed, err 0x1
+scio_init: pre_init failed, try again
+sdio_change_clk: read SCIO_HIGH_SPEED_REG failed, err 0x1
+scio_init: pre_init failed, try again
+sdio_change_clk: read SCIO_HIGH_SPEED_REG failed, err 0x1
+scio_init: pre_init failed, try again
+sdio_change_clk: read SCIO_HIGH_SPEED_REG failed, err 0x1
+scio_init: pre_init failed, try again
+sdio_change_clk: read SCIO_HIGH_SPEED_REG failed, err 0x1
+scio_init: pre_init failed, try again
+sdio_change_clk: read SCIO_HIGH_SPEED_REG failed, err 0x1
+scio_init: pre_init failed, got to reset init
+sdio_change_clk: read SCIO_HIGH_SPEED_REG = 0x1
+sdio_change_clk: set sdio clock 25000000
+sdio_change_clk: read again SCIO_HIGH_SPEED_REG = 0x1
+sdio_set_buswidth_4bit: card_bus_width_switch to 4bit
+sdio function num=3, wifi_run_flag=0, err = 0
+Getting WIFI mfg FW(FW1)
+id2:15 addr = 5df700, len = 72ac0
+ len 469696...board_bcm4334fw_get len 469696
+free wifi_fw_buf
+Getting WIFI FW(FW2) by 16
+id2:16 addr = 6521c0, len = e40
+board_firmware_get len 3648
+free wifi_nvram_buf
+Getting WIFI FW(FW3) by 33
+id2:33 addr = 818c40, len = 580
+board_clmdata_get len 1408
+WLAN MAC Address : 00:90:4C:2A:0A:00
+WLAN Firmware    : wl0: Apr  6 2020 12:02:16 version 13.18.28 (r725163 WLTEST) FWID 01-a06e3c66
+WLAN CLM         : API: 18.2 Data: Arlo.Caracara Compiler: 1.36.1 ClmImport: 1.39.1 Customization: v1 200608 Creation: 2020-06-08 03:23:34 
+
+# 
+===[ Set parameter passed ... ]===
+
+===[ Check Wifi NFT ]===
+REG key path= SOFTWARE\Netgear\STATION\FT\NFT_MULTI11
+NFT_MULTI= Test with IQ Server
+==========TEST NFT MULTI============= 
+Start connect IQ_SERVER 
+Bind socket IQServer  sucess
+Read test item....
+08:51:32
+wl pkteng_stop tx
+
+# 
+08:51:32
+wl --init
+Wlan is inited already for brcm wl !
+
+# 
+08:51:32
+wl ver
+7/19/2017 build 0
+wl0: Apr  6 2020 12:02:16 version 13.18.28 (r725163 WLTEST) FWID 01-a06e3c66
+
+# 
+08:51:32
+wl mpc 0
+
+# 
+08:51:33
+wl up
+
+# 
+08:51:33
+wl phy_watchdog 0
+
+# 
+08:51:33
+wl country ALL
+One or more parameters have invalid values
+
+# 
+08:51:33
+wl country
+US (US/0) UNITED STATES
+
+# 
+TX_VERIFY_POWER 2437 DSSS-1 HT20 #22 @1
+Cmd: wl pkteng_stop tx 
+Cmd: wl band b
+Cmd: wl channel 6
+Cmd: wl up
+Cmd: wl phy_forcecal 1
+Cmd: wl scansuppress 1
+Cmd: wl 2g_rate -r 1
+Cmd: wl phy_txpwrctrl 1
+Cmd: wl txpwr1 -o -d 22
+Cmd: wl antdiv_en 0
+Cmd: wl antdiv 0
+Cmd: wl pkteng_start 00:00:00:00:00:01 tx 100 1024 0
+Cmd: 
+ Try send command time 0
+08:51:33
+wl pkteng_stop tx 
+
+# 
+08:51:33
+wl band b
+
+# 
+08:51:34
+wl channel 
+#wl channel 
+#08:51:34
+wl up
+
+# 
+08:51:34
+wl phy_forcecal 1
+
+# 
+08:51:35
+wl scansuppress 1
+
+# 
+08:51:35
+wl 2g_rate -r 1
+
+# 
+08:51:35
+wl phy_txpwrctrl 1
+
+# 
+08:51:36
+wl txpwr1 -o -d 22
+
+# 
+08:51:36
+wl antdiv_en 0
+
+# 
+08:51:36
+wl antdiv 0
+
+
+# 
+08:51:37
+wl pkteng_start 00:00:00:00:00:01 tx 100 1024 0
+
+# 
+Start send item to server: TX_VERIFY_POWER 2437 DSSS-1 HT20 #22 @1
+Send iTems: TX_VERIFY_POWER 2437 DSSS-1 HT20 #22 @1 to server success...
+Start get value from server
+Value get from Server: PASS, [Step 37728] TX_VERIFY_POWER 2437 DSSS-1 HT20 #22 @1, Value: 22.01
+TX_VERIFY_POWER 2437 DSSS-1 HT20 #22 @2
+Cmd: wl pkteng_stop tx 
+Cmd: wl --init 
+Cmd: wl antdiv_en 0
+Cmd: wl antdiv 1
+Cmd: wl band b
+Cmd: wl channel 6
+Cmd: wl up
+Cmd: wl phy_forcecal 1
+Cmd: wl scansuppress 1
+Cmd: wl 2g_rate -r 1
+Cmd: wl phy_txpwrctrl 1
+Cmd: wl txpwr1 -o -d 22
+Cmd: wl antdiv_en 0
+Cmd: wl antdiv 1
+Cmd: wl pkteng_start 10:20:30:40:50:60 tx 100 1024 0
+Cmd: 
+ Try send command time 0
+08:51:39
+wl pkteng_stop tx 
+
+# 
+08:51:40
+wl --init 
+Wlan is inited already for brcm wl !
+
+# 
+08:51:40
+wl antdiv_en 0
+
+# 
+08:51:40
+wl antdiv 1
+
+# 
+08:51:41
+wl band b
+
+# 
+08:51:41
+wl channel 
+#wl channel 
+#08:51:41
+wl up
+
+# 
+08:51:42
+wl phy_forcecal 1
+
+# 
+08:51:42
+wl scansuppress 1
+
+# 
+08:51:42
+wl 2g_rate -r 1
+
+# 
+08:51:43
+wl phy_txpwrctrl 1
+
+# 
+08:51:43
+wl txpwr1 -o -d 22
+
+# 
+08:51:43
+wl antdiv_en 0
+
+# 
+08:51:44
+wl antdiv 1
+
+# 
+08:51:44
+wl pkteng_start 10:20:30:40:50:60 tx 100 1024 0
+
+# 
+Start send item to server: TX_VERIFY_POWER 2437 DSSS-1 HT20 #22 @2
+Send iTems: TX_VERIFY_POWER 2437 DSSS-1 HT20 #22 @2 to server success...
+Start get value from server
+Value get from Server: PASS, [Step 37729] TX_VERIFY_POWER 2437 DSSS-1 HT20 #22 @2, Value: 19.40
+==========TEST NFT MULTI PASS============= 
+Del all json file in local finished!
+Copy from server
+copy file start
+index:324
+Move OK
+7fd68131df3e4d6cb6c517da294d23cf.json
+D:\FT(U12I393T20)_RB\CertKey
+{"caCert": "MIICfTCCAiSgAwIBAgIJAJkXUokMBL2tMAoGCCqGSM49BAMCMIGQMQswCQYDVQQGEwJVUzETMBEGA1UECAwKQ2FsaWZvcm5pYTERMA8GA1UEBwwIU2FuIEpvc2UxIDAeBgNVBAoMF0FybG8gVGVjaG5vbG9naWVzLCBJbmMuMQswCQYDVQQLDAJJVDEqMCgGA1UEAwwhQXJsbyBUZWNobm9sb2dpZXMgRmFjdG9yeSBSb290IENBMCAXDTE4MDYyOTIyMzcyN1oYDzIwNjgwNjE2MjIzNzI3WjCBkDELMAkGA1UEBhMCVVMxEzARBgNVBAgMCkNhbGlmb3JuaWExETAPBgNVBAcMCFNhbiBKb3NlMSAwHgYDVQQKDBdBcmxvIFRlY2hub2xvZ2llcywgSW5jLjELMAkGA1UECwwCSVQxKjAoBgNVBAMMIUFybG8gVGVjaG5vbG9naWVzIEZhY3RvcnkgUm9vdCBDQTBZMBMGByqGSM49AgEGCCqGSM49AwEHA0IABBU7zYeEf+XXwBa39qxbmwaZalomZfmyNEETpx/Wzq2qnIxCXoZZg4I0c0cLh8aoRiWFbUicded317NwctHfzMWjYzBhMB0GA1UdDgQWBBTG1zzdVjEICxSx4RTQgUFmGSEWGzAfBgNVHSMEGDAWgBTG1zzdVjEICxSx4RTQgUFmGSEWGzAPBgNVHRMBAf8EBTADAQH/MA4GA1UdDwEB/wQEAwIBhjAKBggqhkjOPQQDAgNHADBEAiAbSkXyruEl0HkpDNUJboNC70jfEMEoTC/QTgNOci6VYwIgGXK84beIklL7L6sVKCl1aOYlV2oyaLlJWBbw3aO8blI=", "certId": "7fd68131df3e4d6cb6c517da294d23cf", "privateKey": "MIGTAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBHkwdwIBAQQgy6UYvNrNW+xVQ7hEEIDeIQB8c4x8qD5iLboXP0ZBWzOgCgYIKoZIzj0DAQehRANCAAQWo2fqh6sn7KGsZZpcsyYvTJTYxptcCekp6Q9J+OJvdMY3g9kg6Eto6MyIOlsUN31dHwmo8JN62Pab03nnVubK", "certData": ["MIIDOjCCAuGgAwIBAgIBATAKBggqhkjOPQQDAjCBhTELMAkGA1UEBhMCVVMxEzARBgNVBAgMCkNhbGlmb3JuaWExIDAeBgNVBAoMF0FybG8gVGVjaG5vbG9naWVzLCBJbmMuMQswCQYDVQQLDAJJVDEyMDAGA1UEAwwpQXJsbyBUZWNobm9sb2dpZXMgRmFjdG9yeSBJbnRlcm1lZGlhdGUgQ0EwHhcNMjAxMDIwMDc0MDU5WhcNNDAxMDIxMDc0MDU5WjCBgjELMAkGA1UEBhMCVVMxIDAeBgNVBAoMF0FybG8gVGVjaG5vbG9naWVzLCBJbmMuMREwDwYDVQQHDAhTYW4gSm9zZTETMBEGA1UECAwKQ2FsaWZvcm5pYTEpMCcGA1UEAwwgN2ZkNjgxMzFkZjNlNGQ2Y2I2YzUxN2RhMjk0ZDIzY2YwWTATBgcqhkjOPQIBBggqhkjOPQMBBwNCAAQWo2fqh6sn7KGsZZpcsyYvTJTYxptcCekp6Q9J+OJvdMY3g9kg6Eto6MyIOlsUN31dHwmo8JN62Pab03nnVubKo4IBQTCCAT0wDAYDVR0TAQH/BAIwADAdBgNVHQ4EFgQUgMn7CTGs/s70DQF5OsczJWJiePUwgb4GA1UdIwSBtjCBs4AUTDP2+9Dyzk8jbQaNuun5ZuqfJ2mhgZakgZMwgZAxCzAJBgNVBAYTAlVTMRMwEQYDVQQIDApDYWxpZm9ybmlhMREwDwYDVQQHDAhTYW4gSm9zZTEgMB4GA1UECgwXQXJsbyBUZWNobm9sb2dpZXMsIEluYy4xCzAJBgNVBAsMAklUMSowKAYDVQQDDCFBcmxvIFRlY2hub2xvZ2llcyBGYWN0b3J5IFJvb3QgQ0GCAhABMCAGA1UdJQEB/wQWMBQGCCsGAQUFBwMCBggrBgEFBQcDATArBgNVHREEJDAigiA3ZmQ2ODEzMWRmM2U0ZDZjYjZjNTE3ZGEyOTRkMjNjZjAKBggqhkjOPQQDAgNHADBEAiBwycDnX98qXW95C/Y6SrVnx1d/ejZFTfleP86mcHHt+gIgSMtMn+bLi/ifWfd8ioKLpqIDu5SG4IE9I6aVip/6BqQ=", "MIICbTCCAhOgAwIBAgICEAEwCgYIKoZIzj0EAwIwgZAxCzAJBgNVBAYTAlVTMRMwEQYDVQQIDApDYWxpZm9ybmlhMREwDwYDVQQHDAhTYW4gSm9zZTEgMB4GA1UECgwXQXJsbyBUZWNobm9sb2dpZXMsIEluYy4xCzAJBgNVBAsMAklUMSowKAYDVQQDDCFBcmxvIFRlY2hub2xvZ2llcyBGYWN0b3J5IFJvb3QgQ0EwHhcNMTgwNjI5MjI0MTI1WhcNNDMwNjIzMjI0MTI1WjCBhTELMAkGA1UEBhMCVVMxEzARBgNVBAgMCkNhbGlmb3JuaWExIDAeBgNVBAoMF0FybG8gVGVjaG5vbG9naWVzLCBJbmMuMQswCQYDVQQLDAJJVDEyMDAGA1UEAwwpQXJsbyBUZWNobm9sb2dpZXMgRmFjdG9yeSBJbnRlcm1lZGlhdGUgQ0EwWTATBgcqhkjOPQIBBggqhkjOPQMBBwNCAAQqIxvvvyTE4KzqpSKiTslr6TyHZQTf0D8VidOlcdZR9WbTr5qS3C4k6b0V06HlyCcjYaTzTSdm0QebuTrtaPqGo2YwZDAdBgNVHQ4EFgQUTDP2+9Dyzk8jbQaNuun5ZuqfJ2kwHwYDVR0jBBgwFoAUxtc83VYxCAsUseEU0IFBZhkhFhswEgYDVR0TAQH/BAgwBgEB/wIBADAOBgNVHQ8BAf8EBAMCAYYwCgYIKoZIzj0EAwIDSAAwRQIgbaY7q2Dqxjr3XcWBHUsCLt4zNyiMm16NqEqgwrguK9oCIQDzBKvBEx4+o3WHQpLatEBHsneyCN9D8zxONDUHKNtsUw=="]}
+
+ Start to burn Certkey
+CertID = 7fd68131df3e4d6cb6c517da294d23cf
+MD5SUM = 44BB
+08:51:46
+burn dsc2_cert_enc {"caCert": "MIICfTCCAiSgAwIBAgIJAJkXUokMBL2tMAoGCCqGSM49BAMCMIGQMQswCQYDVQQGEwJVUzETMBEGA1UECAwKQ2FsaWZvcm5pYTERMA8GA1UEBwwIU2FuIEpvc2UxIDAeBgNVBAoMF0FybG8gVGVjaG5vbG9naWVzLCBJbmMuMQswCQYDVQQLDAJJVDEqMCgGA1UEAwwhQXJsbyBUZWNobm9sb2dpZXMgRmFjdG9yeSBSb290IENBMCAXDTE4MDYyOTIyMzcyN1oYDzIwNjgwNjE2MjIzNzI3WjCBkDELMAkGA1UEBhMCVVMxEzARBgNVBAgMCkNhbGlmb3JuaWExETAPBgNVBAcMCFNhbiBKb3NlMSAwHgYDVQQKDBdBcmxvIFRlY2hub2xvZ2llcywgSW5jLjELMAkGA1UECwwCSVQxKjAoBgNVBAMMIUFybG8gVGVjaG5vbG9naWVzIEZhY3RvcnkgUm9vdCBDQTBZMBMGByqGSM49AgEGCCqGSM49AwEHA0IABBU7zYeEf+XXwBa39qxbmwaZalomZfmyNEETpx/Wzq2qnIxCXoZZg4I0c0cLh8aoRiWFbUicded317NwctHfzMWjYzBhMB0GA1UdDgQWBBTG1zzdVjEICxSx4RTQgUFmGSEWGzAfBgNVHSMEGDAWgBTG1zzdVjEICxSx4RTQgUFmGSEWGzAPBgNVHRMBAf8EBTADAQH/MA4GA1UdDwEB/wQEAwIBhjAKBggqhkjOPQQDAgNHADBEAiAbSkXyruEl0HkpDNUJboNC70jfEMEoTC/QTgNOci6VYwIgGXK84beIklL7L6sVKCl1aOYlV2oyaLlJWBbw3aO8blI=", "certId": "7fd68131df3e4d6cb6c517da294d23cf", "privateKey": "MIGTAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBHkwdwIBAQQgy6UYvNrNW+xVQ7hEEIDeIQB8c4x8qD5iLboXP0ZBWzOgCgYIKoZIzj0DAQehRANCAAQWo2fqh6sn7KGsZZpcsyYvTJTYxptcCekp6Q9J+OJvdMY3g9kg6Eto6MyIOlsUN31dHwmo8JN62Pab03nnVubK", "certData": ["MIIDOjCCAuGgAwIBAgIBATAKBggqhkjOPQQDAjCBhTELMAkGA1UEBhMCVVMxEzARBgNVBAgMCkNhbGlmb3JuaWExIDAeBgNVBAoMF0FybG8gVGVjaG5vbG9naWVzLCBJbmMuMQswCQYDVQQLDAJJVDEyMDAGA1UEAwwpQXJsbyBUZWNobm9sb2dpZXMgRmFjdG9yeSBJbnRlcm1lZGlhdGUgQ0EwHhcNMjAxMDIwMDc0MDU5WhcNNDAxMDIxMDc0MDU5WjCBgjELMAkGA1UEBhMCVVMxIDAeBgNVBAoMF0FybG8gVGVjaG5vbG9naWVzLCBJbmMuMREwDwYDVQQHDAhTYW4gSm9zZTETMBEGA1UECAwKQ2FsaWZvcm5pYTEpMCcGA1UEAwwgN2ZkNjgxMzFkZjNlNGQ2Y2I2YzUxN2RhMjk0ZDIzY2YwWTATBgcqhkjOPQIBBggqhkjOPQMBBwNCAAQWo2fqh6sn7KGsZZpcsyYvTJTYxptcCekp6Q9J+OJvdMY3g9kg6Eto6MyIOlsUN31dHwmo8JN62Pab03nnVubKo4IBQTCCAT0wDAYDVR0TAQH/BAIwADAdBgNVHQ4EFgQUgMn7CTGs/s70DQF5OsczJWJiePUwgb4GA1UdIwSBtjCBs4AUTDP2+9Dyzk8jbQaNuun5ZuqfJ2mhgZakgZMwgZAxCzAJBgNVBAYTAlVTMRMwEQYDVQQIDApDYWxpZm9ybmlhMREwDwYDVQQHDAhTYW4gSm9zZTEgMB4GA1UECgwXQXJsbyBUZWNobm9sb2dpZXMsIEluYy4xCzAJBgNVBAsMAklUMSowKAYDVQQDDCFBcmxvIFRlY2hub2xvZ2llcyBGYWN0b3J5IFJvb3QgQ0GCAhABMCAGA1UdJQEB/wQWMBQGCCsGAQUFBwMCBggrBgEFBQcDATArBgNVHREEJDAigiA3ZmQ2ODEzMWRmM2U0ZDZjYjZjNTE3ZGEyOTRkMjNjZjAKBggqhkjOPQQDAgNHADBEAiBwycDnX98qXW95C/Y6SrVnx1d/ejZFTfleP86mcHHt+gIgSMtMn+bLi/ifWfd8ioKLpqIDu5SG4IE9I6aVip/6BqQ=", "MIICbTCCAhOgAwIBAgICEAEwCgYIKoZIzj0EAwIwgZAxCzAJBgNVBAYTAlVTMRMwEQYDVQQIDApDYWxpZm9ybmlhMREwDwYDVQQHDAhTYW4gSm9zZTEgMB4GA1UECgwXQXJsbyBUZWNobm9sb2dpZXMsIEluYy4xCzAJBgNVBAsMAklUMSowKAYDVQQDDCFBcmxvIFRlY2hub2xvZ2llcyBGYWN0b3J5IFJvb3QgQ0EwHhcNMTgwNjI5MjI0MTI1WhcNNDMwNjIzMjI0MTI1WjCBhTELMAkGA1UEBhMCVVMxEzARBgNVBAgMCkNhbGlmb3JuaWExIDAeBgNVBAoMF0FybG8gVGVjaG5vbG9naWVzLCBJbmMuMQswCQYDVQQLDAJJVDEyMDAGA1UEAwwpQXJsbyBUZWNobm9sb2dpZXMgRmFjdG9yeSBJbnRlcm1lZGlhdGUgQ0EwWTATBgcqhkjOPQIBBggqhkjOPQMBBwNCAAQqIxvvvyTE4KzqpSKiTslr6TyHZQTf0D8VidOlcdZR9WbTr5qS3C4k6b0V06HlyCcjYaTzTSdm0QebuTrtaPqGo2YwZDAdBgNVHQ4EFgQUTDP2+9Dyzk8jbQaNuun5ZuqfJ2kwHwYDVR0jBBgwFoAUxtc83VYxCAsUseEU0IFBZhkhFhswEgYDVR0TAQH/BAgwBgEB/wIBADAOBgNVHQ8BAf8EBAMCAYYwCgYIKoZIzj0EAwIDSAAwRQIgbaY7q2Dqxjr3XcWBHUsCLt4zNyiMm16NqEqgwrguK9oCIQDzBKvBEx4+o3WHQpLatEBHsneyCN9D8zxONDUHKNtsUw=="]}
+
+FXCN_burn_data,3797, buf={"caCert": "MIICfTCCAiSgAwIBAgIJAJkXUokMBL2tMAoGCCqGSM49BAMCMIGQMQswCQYDVQQGEwJVUzETMBEGA1UECAwKQ2FsaWZvcm5pYTERMA8GA1UEBwwIU2FuIEpvc2UxIDAeBgNVBAoMF0FybG8gVGVjaG5vbG9naWVzLCBJbmMuMQswCQYDVQQLDAJJVDEqMCgGA1UEAwwhQXJsbyBUZWNobm9sb2dpZXMgRmFjdG9yeSBSb290IENBMCAXDTE4MDYyOTIyMzcyN1oYDzIwNjgwNjE2MjIzNzI3WjCBkDELMAkGA1UEBhMCVVMxEzARBgNVBAgMCkNhbGlmb3JuaWExETAPBgNVBAcMCFNhbiBKb3NlMSAwHgYDVQQKDBdBcmxvIFRlY2hub2xvZ2llcywgSW5jLjELMAkGA1UECwwCSVQxKjAoBgNVBAMMIUFybG8gVGVjaG5vbG9naWVzIEZhY3RvcnkgUm9vdCBDQTBZMBMGByqGSM49AgEGCCqGSM49AwEHA0IABBU7zYeEf+XXwBa39qxbmwaZalomZfmyNEETpx/Wzq2qnIxCXoZZg4I0c0cLh8aoRiWFbUicded317NwctHfzMWjYzBhMB0GA1UdDgQWBBTG1zzdVjEICxSx4RTQgUFmGSEWGzAfBgNVHSMEGDAWgBTG1zzdVjEICxSx4RTQgUFmGSEWGzAPBgNVHRMBAf8EBTADAQH/MA4GA1UdDwEB/wQEAwIBhjAKBggqhkjOPQQDAgNHADBEAiAbSkXyruEl0HkpDNUJboNC70jfEMEoTC/QTgNOci6VYwIgGXK84beIklL7L6sVKCl1aOYlV2oyaLlJWBbw3aO8blI=", "certId": "7fd68131df3e4d6cb6c517da294d23cf", "privateKey": "MIGTAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBHkwdwIBAQQgy6UYvNrNW+xVQ7hEEIDeIQB8c4x8qD5iLboXP0ZBWzOgCgYIKoZIzj0DAQehRANCAAQWo2fqh6sn7KGsZZpcsyYvTJTYxptcCekp6Q9J+OJvdMY3g9kg6Eto6MyIOlsUN31dHwmo8JN62Pab03nnVubK", "certData": ["MIIDOjCCAuGgAwIBAgIBATAKBggqhkjOPQQDAjCBhTELMAkGA1UEBhMCVVMxEzARBgNVBAgMCkNhbGlmb3JuaWExIDAeBgNVBAoMF0FybG8gVGVjaG5vbG9naWVzLCBJbmMuMQswCQYDVQQLDAJJVDEyMDAGA1UEAwwpQXJsbyBUZWNobm9sb2dpZXMgRmFjdG9yeSBJbnRlcm1lZGlhdGUgQ0EwHhcNMjAxMDIwMDc0MDU5WhcNNDAxMDIxMDc0MDU5WjCBgjELMAkGA1UEBhMCVVMxIDAeBgNVBAoMF0FybG8gVGVjaG5vbG9naWVzLCBJbmMuMREwDwYDVQQHDAhTYW4gSm9zZTETMBEGA1UECAwKQ2FsaWZvcm5pYTEpMCcGA1UEAwwgN2ZkNjgxMzFkZjNlNGQ2Y2I2YzUxN2RhMjk0ZDIzY2YwWTATBgcqhkjOPQIBBggqhkjOPQMBBwNCAAQWo2fqh6sn7KGsZZpcsyYvTJTYxptcCekp6Q9J+OJvdMY3g9kg6Eto6MyIOlsUN31dHwmo8JN62Pab03nnVubKo4IBQTCCAT0wDAYDVR0TAQH/BAIwADAdBgNVHQ4EFgQUgMn7CTGs/s70DQF5OsczJWJiePUwgb4GA1UdIwSBtjCBs4AUTDP2+9Dyzk8jbQaNuun5ZuqfJ2mhgZakgZMwgZAxCzAJBgNVBAYTAlVTMRMwEQYDVQQIDApDYWxpZm9ybmlhMREwDwYDVQQHDAhTYW4gSm9zZTEgMB4GA1UECgwXQXJsbyBUZWNobm9sb2dpZXMsIEluYy4xCzAJBgNVBAsMAklUMSowKAYDVQQDDCFBcmxvIFRlY2hub2xvZ2llcyBGYWN0b3J5IFJvb3QgQ0GCAhABMCAGA1UdJQEB/wQWMBQGCCsGAQUFBwMCBggrBgEFBQcDATArBgNVHREEJDAigiA3ZmQ2ODEzMWRmM2U0ZDZjYjZjNTE3ZGEyOTRkMjNjZjAKBggqhkjOPQQDAgNHADBEAiBwycDnX98qXW95C/Y6SrVnx1d/ejZFTfleP86mcHHt+gIgSMtMn+bLi/ifWfd8ioKLpqIDu5SG4IE9I6aVip/6BqQ=", "MIICbTCCAhOgAwIBAgICEAEwCgYIKoZIzj0EAwIwgZAxCzAJBgNVBAYTAlVTMRMwEQYDVQQIDApDYWxpZm9ybmlhMREwDwYDVQQHDAhTYW4gSm9zZTEgMB4GA1UECgwXQXJsbyBUZWNobm9sb2dpZXMsIEluYy4xCzAJBgNVBAsMAklUMSowKAYDVQQDDCFBcmxvIFRlY2hub2xvZ2llcyBGYWN0b3J5IFJvb3QgQ0EwHhcNMTgwNjI5MjI0MTI1WhcNNDMwNjIzMjI0MTI1WjCBhTELMAkGA1UEBhMCVVMxEzARBgNVBAgMCkNhbGlmb3JuaWExIDAeBgNVBAoMF0FybG8gVGVjaG5vbG9naWVzLCBJbmMuMQswCQYDVQQLDAJJVDEyMDAGA1UEAwwpQXJsbyBUZWNobm9sb2dpZXMgRmFjdG9yeSBJbnRlcm1lZGlhdGUgQ0EwWTATBgcqhkjOPQIBBggqhkjOPQMBBwNCAAQqIxvvvyTE4KzqpSKiTslr6TyHZQTf0D8VidOlcdZR9WbTr5qS3C4k6b0V06HlyCcjYaTzTSdm0QebuTrtaPqGo2YwZDAdBgNVHQ4EFgQUTDP2+9Dyzk8jbQaNuun5ZuqfJ2kwHwYDVR0jBBgwFoAUxtc83VYxCAsUseEU0IFBZhkhFhswEgYDVR0TAQH/BAgwBgEB/wIBADAOBgNVHQ8BAf8EBAMCAYYwCgYIKoZIzj0EAwIDSAAwRQIgbaY7q2Dqxjr3XcWBHUsCLt4zNyiMm16NqEqgwrguK9oCIQDzBKvBEx4+o3WHQpLatEBHsneyCN9D8zxONDUHKNtsUw=="]}, len c1d, id2 12
+sccb noack
+sccb noack
+sccb noack
+sccb noack
+sccb noack
+sccb noack
+sccb noack
+sccb noack
+sccb noack
+sccb noack
+sccb noack
+sccb noack
+sccb noack
+sccb noack
+sccb noack
+sccb noack
+sccb noack
+sccb noack
+sccb noack
+sccb noack
+sccb noack
+sccb noack
+sccb noack
+sccb noack
+sccb noack
+buf 203cd1c4, len 2c, id2 14
+sccb noack
+sccb noack
+sccb noack
+sccb noack
+sccb noack
+buf 26f8cb30, len c39, id2 12
+
+# 
+Read cert key
+08:51:47
+burn read_dsc2_cert_enc
+
+dsc2_cert_enc: ?????'?M????f\??;{???????mhI?	v?(*???p??y[ot{?t?????T???????,Z?P@???PL?kh'?+?????!$??\?S;Nz??b??O2?A?F???O??,?>?=R$(???$???W??
+D?Q?G??s7v??m?????
+??X??2?k?k??1iO8"??&??^?????????@??????Z?{???W??o	*VV1??  ?Ak:?[??iw????2???-??.?
+???.???z;???C???M?[:b??wZ??dp???V;?)Q?}?????5?????6?K?(?????y??G?1z?z?ae???'??e\??4?SB?Te+8[????j\?Q?.?
+??M?|??r???????^?a?i?s?5S?b9?3p?U?G??6R)???_?W???h??'?x?T??o????}`o?P???>	3UQ?%?g?????x
+?^g?	?|t??y-??????'1
+?uq????A?e~m?????Y??????"b?B??Z?;?=?,R??	h@_?????/c????)?u-*??Du&?????D???	???I*??
+
+dsc2_cert_cleartext: sccb noack
+sccb noack
+sccb noack
+sccb noack
+sccb noack
+sccb noack
+sccb noack
+sccb noack
+sccb noack
+sccb noack
+sccb noack
+sccb noack
+sccb noack
+sccb noack
+sccb noack
+
+{"caCert": "MIICfTCCAiSgAwIBAgIJAJkXUokMBL2tMAoGCCqGSM49BAMCMIGQMQswCQYDVQQGEwJVUzETMBEGA1UECAwKQ2FsaWZvcm5pYTERMA8GA1UEBwwIU2FuIEpvc2UxIDAeBgNVBAoMF0FybG8gVGVjaG5vbG9naWVzLCBJbmMuMQswCQYDVQQLDAJJVDEqMCgGA1UEAwwhQXJsbyBUZWNobm9sb2dpZXMgRmFjdG9yeSBSb290IENBMCAXDTE4MDYyOTIyMzcyN1oYDzIwNjgwNjE2MjIzNzI3WjCBkDELMAkGA1UEBhMCVVMxEzARBgNVBAgMCkNhbGlmb3JuaWExETAPBgNVBAcMCFNhbiBKb3NlMSAwHgYDVQQKDBdBcmxvIFRlY2hub2xvZ2llcywgSW5jLjELMAkGA1UECwwCSVQxKjAoBgNVBAMMIUFybG8gVGVjaG5vbG9naWVzIEZhY3RvcnkgUm9vdCBDQTBZMBMGByqGSM49AgEGCCqGSM49AwEHA0IABBU7zYeEf+XXwBa39qxbmwaZalomZfmyNEETpx/Wzq2qnIxCXoZZg4I0c0cLh8aoRiWFbUicded317NwctHfzMWjYzBhMB0GA1UdDgQWBBTG1zzdVjEICxSx4RTQgUFmGSEWGzAfBgNVHSMEGDAWgBTG1zzdVjEICxSx4RTQgUFmGSEWGzAPBgNVHRMBAf8EBTADAQH/MA4GA1UdDwEB/wQEAwIBhjAKBggqhkjOPQQDAgNHADBEAiAbSkXyruEl0HkpDNUJboNC70jfEMEoTC/QTgNOci6VYwIgGXK84beIklL7L6sVKCl1aOYlV2oyaLlJWBbw3aO8blI=", "certId": "7fd68131df3e4d6cb6c517da294d23cf", "privateKey": "MIGTAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBHkwdwIBAQQgy6UYvNrNW+xVQ7hEEIDeIQB8c4x8qD5iLboXP0ZBWzOgCgYIKoZIzj0DAQehRANCAAQWo2fqh6sn7KGsZZpcsyYvTJTYxptcCekp6Q9J+OJvdMY3g9kg6Eto6MyIOlsUN31dHwmo8JN62Pab03nnVubK", "certData": ["MIIDOjCCAuGgAwIBAgIBATAKBggqhkjOPQQDAjCBhTELMAkGA1UEBhMCVVMxEzARBgNVBAgMCkNhbGlmb3JuaWExIDAeBgNVBAoMF0FybG8gVGVjaG5vbG9naWVzLCBJbmMuMQswCQYDVQQLDAJJVDEyMDAGA1UEAwwpQXJsbyBUZWNobm9sb2dpZXMgRmFjdG9yeSBJbnRlcm1lZGlhdGUgQ0EwHhcNMjAxMDIwMDc0MDU5WhcNNDAxMDIxMDc0MDU5WjCBgjELMAkGA1UEBhMCVVMxIDAeBgNVBAoMF0FybG8gVGVjaG5vbG9naWVzLCBJbmMuMREwDwYDVQQHDAhTYW4gSm9zZTETMBEGA1UECAwKQ2FsaWZvcm5pYTEpMCcGA1UEAwwgN2ZkNjgxMzFkZjNlNGQ2Y2I2YzUxN2RhMjk0ZDIzY2YwWTATBgcqhkjOPQIBBggqhkjOPQMBBwNCAAQWo2fqh6sn7KGsZZpcsyYvTJTYxptcCekp6Q9J+OJvdMY3g9kg6Eto6MyIOlsUN31dHwmo8JN62Pab03nnVubKo4IBQTCCAT0wDAYDVR0TAQH/BAIwADAdBgNVHQ4EFgQUgMn7CTGs/s70DQF5OsczJWJiePUwgb4GA1UdIwSBtjCBs4AUTDP2+9Dyzk8jbQaNuun5ZuqfJ2mhgZakgZMwgZAxCzAJBgNVBAYTAlVTMRMwEQYDVQQIDApDYWxpZm9ybmlhMREwDwYDVQQHDAhTYW4gSm9zZTEgMB4GA1UECgwXQXJsbyBUZWNobm9sb2dpZXMsIEluYy4xCzAJBgNVBAsMAklUMSowKAYDVQQDDCFBcmxvIFRlY2hub2xvZ2llcyBGYWN0b3J5IFJvb3QgQ0GCAhABMCAGA1UdJQEB/wQWMBQGCCsGAQUFBwMCBggrBgEFBQcDATArBgNVHREEJDAigiA3ZmQ2ODEzMWRmM2U0ZDZjYjZjNTE3ZGEyOTRkMjNjZjAKBggqhkjOPQQDAgNHADBEAiBwycDnX98qXW95C/Y6SrVnx1d/ejZFTfleP86mcHHt+gIgSMtMn+bLi/ifWfd8ioKLpqIDu5SG4IE9I6aVip/6BqQ=", "MIICbTCCAhOgAwIBAgICEAEwCgYIKoZIzj0EAwIwgZAxCzAJBgNVBAYTAlVTMRMwEQYDVQQIDApDYWxpZm9ybmlhMREwDwYDVQQHDAhTYW4gSm9zZTEgMB4GA1UECgwXQXJsbyBUZWNobm9sb2dpZXMsIEluYy4xCzAJBgNVBAsMAklUMSowKAYDVQQDDCFBcmxvIFRlY2hub2xvZ2llcyBGYWN0b3J5IFJvb3QgQ0EwHhcNMTgwNjI5MjI0MTI1WhcNNDMwNjIzMjI0MTI1WjCBhTELMAkGA1UEBhMCVVMxEzARBgNVBAgMCkNhbGlmb3JuaWExIDAeBgNVBAoMF0FybG8gVGVjaG5vbG9naWVzLCBJbmMuMQswCQYDVQQLDAJJVDEyMDAGA1UEAwwpQXJsbyBUZWNobm9sb2dpZXMgRmFjdG9yeSBJbnRlcm1lZGlhdGUgQ0EwWTATBgcqhkjOPQIBBggqhkjOPQMBBwNCAAQqIxvvvyTE4KzqpSKiTslr6TyHZQTf0D8VidOlcdZR9WbTr5qS3C4k6b0V06HlyCcjYaTzTSdm0QebuTrtaPqGo2YwZDAdBgNVHQ4EFgQUTDP2+9Dyzk8jbQaNuun5ZuqfJ2kwHwYDVR0jBBgwFoAUxtc83VYxCAsUseEU0IFBZhkhFhswEgYDVR0TAQH/BAgwBgEB/wIBADAOBgNVHQ8BAf8EBAMCAYYwCgYIKoZIzj0EAwIDSAAwRQIgbaY7q2Dqxjr3XcWBHUsCLt4zNyiMm16NqEqgwrguK9oCIQDzBKvBEx4+o3WHQpLatEBHsneyCN9D8zxONDUHKNtsUw=="]}
+
+
+# 
+MD5Sum_Read:44BB
+CertID Read = 7fd68131df3e4d6cb6c517da294d23cf
+Check CertID correct
+Check CRC16 is correct
+===[ Burn Certkey Finished ... ]===
+
+iperfiperfServerwindowPtr: 347080074
+Found window iperft test 
+===[ Check OpenIperfServer passed ... ]===
+
+===[ Set DTIM ]===
+Allready telneted
+wl down
+# 
+# wl -i eth1 dtim 10
+# 
+# wl up
+# 
+# wl isup
+1
+# 
+# ===[ Set DTIM passed ... ]===
+
+===[ Check Button ]===
+On/OFF DUT before test idle current 
+UI->MCU: POWER_ON
+POWER_ON_OK
+UI->MCU: POWER_OFF
+POWER_OFF_OK
+.......08:51:55
+usb serial baud rate(DEF): 1c200
+++ libusb_init
+01: [0] 0
+02: [84840761] ffffffff
+03: [80028041] 33c200
+libusb_init desc: 0x430209
+set csr(0): 0x30000 0x40002000
+set csr(1): 0x1 0x50000000
+set csr(2): 0x2 0x2000080
+set csr(3): 0x30003 0x0
+set csr(4): 0x30004 0x200000f1
+set csr(5): 0x30005 0x100000d4
+set csr(6): 0x30006 0x100000c3
+libusb init done
+1: 0 [0]
+2: 84840760 [ffffffff]
+3: 81228041 [23c200]
+4: 2400818 9018a180
+alg: 23c200 9018a180
+5: 4c007060
+id2:23 addr = 6d8680, len = df00
+libuart_init returns 0
+id2:13 addr = 3b9400, len = 1a1780
+# Setup: 1000680 400000
+HSetup: 1000680 120000
+Setup: 2000680 ff0000
+Setup: 3000680 ff0000
+Setup: 3020680 ff0409
+Setup: 1000680 120000
+Setup: 2000680 90000
+Warning: Descriptor length(43) > request.wLength(9)
+Setup: 2000680 430000
+Setup: 2000680 1090000
+Set config: 1
+++ HS
+ep[3] cfg0: a3004200, cfg1: 8100030, maxpkt: 200
+ep[84] cfg0: e4104200, cfg1: 8100030, maxpkt: 200
+ep[81] cfg0: f1201040, cfg1: 8020010, maxpkt: 40
+HSetup: 21a1 70000
+Get: rate 115200
+Setup: 2221 0
+Host2Dev Length [0]!!!
+control signal: 0x0
+Setup: 2021 70000
+Set: rate 115200, Stop 0, Parity 0, Data 8
+Setup: 21a1 70000
+Get: rate 115200
+hassflash 1
+flash name W25Q256JW
+calib hdlen : 1000, area size : 7800 area addr : 1ee5000
+uart0 flow[Y] init!!!
+Current Board ID:2
+FXCN_mcu_write hci data cmd=49
+Init GPIO interface.
+Init FXCN_burnin_init.
+Init FXCN_mcu_init.
+Init switchmode_init.
+Init workmode_init.
+Init FXCN_rssi_init.
+Init FXCN_version_init.
+Init param area.
+FXCN throughput test init done.
+FXCN debug param init done.
+
+<Dev Info>
+	sn: 00005442550a6bf6
+	pw: SbVwPXQO
+	mac: a4-11-62-c3-20-84
+<WiFi Info>
+	ssid: testapp
+	key: abcdef1234
+	country_code: US
+	security: auto
+Easycam is initialized.
+
+work_mode:0
+[INFO]: Work mode:0.
+Misc thread start!!!
+Setup: 21a1 70000
+Get: rate 115200
+Setup: 21a1 70000
+Get: rate 115200
+Setup: 21a1 70000
+Get: rate 115200
+Setup: 21a1 70000
+Get: rate 115200
+Setup: 2021 70000
+Set: rate 115200, Stop 0, Parity 0, Data 8
+Setup: 21a1 70000
+Get: rate 115200
+Setup: 22221 0
+Host2Dev Length [0]!!!
+control signal: 0x2
+Setup: 2021 70000
+Set: rate 115200, Stop 0, Parity 0, Data 8
+Setup: 21a1 70000
+Get: rate 115200
+Setup: 21a1 70000
+Get: rate 115200
+Setup: 21a1 70000
+Get: rate 115200
+Setup: 2021 70000
+Set: rate 115200, Stop 0, Parity 0, Data 8
+Setup: 21a1 70000
+Get: rate 115200
+Setup: 22221 0
+Host2Dev Length [0]!!!
+control signal: 0x2
+Setup: 2021 70000
+Set: rate 115200, Stop 0, Parity 0, Data 8
+Setup: 21a1 70000
+Get: rate 115200
+Setup: 22221 0
+Host2Dev Length [0]!!!
+control signal: 0x2
+Setup: 21a1 70000
+Get: rate 115200
+Setup: 21a1 70000
+Get: rate 115200
+Setup: 2021 70000
+Set: rate 115200, Stop 0, Parity 0, Data 8
+Setup: 21a1 70000
+Get: rate 115200
+Setup: 2221 0
+Host2Dev Length [0]!!!
+control signal: 0x0
+Setup: 2021 70000
+Set: rate 115200, Stop 0, Parity 0, Data 8
+Setup: 21a1 70000
+Get: rate 115200
+fmcu WPS
+Please push WPS button in 10 seconds, 1=high 0=low
+received WPS:0
+Delay 1000 MiliSecond
+UI->MCU: SYNC_ON
+received WPS:0
+SYNC_ON_OK
+received WPS:1
+UI->MCU: SYNC_OFF
+SYNC_OFF_OK
+[Auto close dialog]
+ -- Window not found
+Check press SYNC button pass. 
+Result:True
+===[ Test WPS button passed ... ]===
+
+===[ Send Sfis ]===
+Sfis_length=118 ALSValueFlag=0 ALSCali5lux_10luxFlag=0  SendSFISFW=0   SendSFISHW=0
+SEND PASS TO SFIS: 
+UI->SFIS: @ZUS6N1A                 A41162C32084A4830B7UA27DC  7fd68131df3e4d6cb6c517da294d23cf                                44BB                                                            ATECC608A-MAHAP-T             0x01 0x23 0xd6 0x59 0xd4 0xe6 0x6b 0x82 0x09      88000001  L1-FACO-FT-4
+Time UI->SFIS PASS/FAIL: 2020/11/24 08:51:58
+SFIS->UI: @ZUS6N1A                 A41162C32084A4830B7UA27DC  7fd68131df3e4d6cb6c517da294d23cf                                44BB                                                            ATECC608A-MAHAP-T             0x01 0x23 0xd6 0x59 0xd4 0xe6 0x6b 0x82 0x09      88000001  L1-FACO-FT-4PASS
+Time SFIS->UI: 2020/11/24 08:51:59
+SFIS.Length: 288
+Time UI->SFIS RR-YR: 2020/11/24 08:51:59
+Delay 0 MiliSecond
+==============Start show pass================
+SFIS->UI: RR-YRVMC4050P-FXN-NAS         L1-FACO-FT-4000.00000.00100.00PASS
+Time SFIS->UI: 2020/11/24 08:51:59
+SFIS.Length: 66
+received WPS:0
+TEST PROGRAM VERSION:2.3.2.8  TEST CYCLE TIME:49
+PASS Close COM ...
+
+----------------Summary all test item--------------
+Test item name                Result  Test time
+ 1.ConnectDUT                  PASS    0.81s 
+ 2.CheckFWVersion_Gen5         PASS    0.12s 
+ 3.CheckMO                     PASS    0.02s 
+ 4.BurnMac                     PASS    0.23s 
+ 5.BurnSerialNumber            PASS    0.26s 
+ 6.BurnHwRev_Falcon            PASS    0.24s 
+ 7.BurnModel                   PASS    0.24s 
+ 8.Burn_wifi_country_code      PASS    0.24s 
+ 9.EnableAndCheckOTP           PASS    0.39s 
+10.CheckMicroPartNumber        PASS    2.46s 
+11.CheckLED_Gen5               PASS    15.89s
+12.SetParameter1               PASS    2s    
+13.CheckNFT                    PASS    13.85s
+14.DUTBurnCertKey              PASS    1.27s 
+15.OpenIperfServer             PASS    0.57s 
+16.SetDTIM                     PASS    0.65s 
+17.CheckButton                 PASS    9.71s 
+18.SendSfis                    PASS    0.48s 
+---------------------------------------------------
+Write summary log server: F:\lsy\ID\U12I393T20\VMC4050P-FXN-NAS\FT -> OK
+Write summary log localD:\Arlo_Logs\U12I393T20\VMC4050P-FXN-NAS\FT\24-11-2020 -> OK
+Details log local folder: D:\Arlo_Logs\U12I393T20\VMC4050P-FXN-NAS\FT\24-11-2020\PASS
+Details log server folder: F:\lsy\ID\Detail\U12I393T20\VMC4050P-FXN-NAS\FT\24-11-2020\PASS
+  SendSfis , 0.48 , ,SMO 2140017156,,SEMPID V0919546,US,ATECC608A-MAHAP-T,0x01 0x23 0xd6 0x59 0xd4 0xe6 0x6b 0x82 0x09,88000001,CCD v2.0.0.8,Status-White:60-60-236,CCD v2.0.0.8,Status-Blue ov:123-240-141,CCD v2.0.0.8,Status-Amber:10-238-140,CCD v2.0.0.8,Status-Blue fmcu:124-240-138, 22.01, 19.40,, 7fd68131df3e4d6cb6c517da294d23cf.json, 7fd68131df3e4d6cb6c517da294d23cf, 44BB,ConnectDUT , 0.81 , CheckFWVersion_Gen5 , 0.12 , CheckMO , 0.02 , BurnMac , 0.23 , BurnSerialNumber , 0.26 , BurnHwRev_Falcon , 0.24 , BurnModel , 0.24 , Burn_wifi_country_code , 0.24 , EnableAndCheckOTP , 0.39 , CheckMicroPartNumber , 2.46 , CheckLED_Gen5 , 15.89 , SetParameter1 , 2 , CheckNFT , 13.85 , DUTBurnCertKey , 1.27 , OpenIperfServer , 0.57 , SetDTIM , 0.65 , CheckButton , 9.71 , 21112020140937,
+Start send data to mydas !
+SENDTOMYDAS:     10.224.84.104SendSfis , 0.48 , ,SMO 2140017156,,SEMPID V0919546,US,ATECC608A-MAHAP-T,0x01 0x23 0xd6 0x59 0xd4 0xe6 0x6b 0x82 0x09,88000001,CCD v2.0.0.8,Status-White:60-60-236,CCD v2.0.0.8,Status-Blue ov:123-240-141,CCD v2.0.0.8,Status-Amber:10-238-140,CCD v2.0.0.8,Status-Blue fmcu:124-240-138, 22.01, 19.40,, 7fd68131df3e4d6cb6c517da294d23cf.json, 7fd68131df3e4d6cb6c517da294d23cf, 44BB,ConnectDUT , 0.81 , CheckFWVersion_Gen5 , 0.12 , CheckMO , 0.02 , BurnMac , 0.23 , BurnSerialNumber , 0.26 , BurnHwRev_Falcon , 0.24 , BurnModel , 0.24 , Burn_wifi_country_code , 0.24 , EnableAndCheckOTP , 0.39 , CheckMicroPartNumber , 2.46 , CheckLED_Gen5 , 15.89 , SetParameter1 , 2 , CheckNFT , 13.85 , DUTBurnCertKey , 1.27 , OpenIperfServer , 0.57 , SetDTIM , 0.65 , CheckButton , 9.71 , 21112020140937,,,,,|@ZUS6N1A,1,D:\Arlo,2.3.2.8,L1-FACO-FT-4,50,2020-11-24 08:52:00,A41162C32084,A4830B7UA27DC,   :SENDTOMYDASFINISH
+
+ Send mydas OK...

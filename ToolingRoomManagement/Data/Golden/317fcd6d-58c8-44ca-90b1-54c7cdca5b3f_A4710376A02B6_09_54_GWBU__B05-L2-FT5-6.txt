@@ -1,0 +1,107 @@
+ShowUIChecking ABA status...
+No record, test directly
+iaba :-1
+===[ Check ALS Information ]===
+ALS information from SFIS: 
+SFIS - LLUX: 
+SFIS - HLUX: 
+SFIS - THLUX: 
+SFIS - IRLUX: 
+SFIS OFF-> Skip this item
+===[ Test ALS information passed ... ]===
+
+===[ Check Grey wall Night ]===
+Close CaliTool 
+Overwrite cal_FT5_Night.ini file to \CaliTool\cal.ini
+Copy standard script before open
+***Begin open CaliTool****
+script.ini: modify IQcal_Display = 0 .
+open CaliTool.exe file !
+***open CaliTool successful****
+
+ wait 2000 secs for image stable ...
+=================Capture image time 0==================
+Waiting create folder...
+Waiting create folder...
+Create folder sucess...
+Create file sucess...
+NGFinish get GreyWall value..
+a41162755652
+LUM:
+Rect[0], Rect[1], Rect[2], Rect[3], Rect[4], Result[0], Result[1], Result[2], Result[3], Result[4], Exthemum Result
+52, 117, 121, 49, 108, PASS, NG, PASS, PASS, NG, PASS
+
+Brightness Uniformity:
+Rect[0], Rect[1], Rect[2], Rect[3], Rect[4], Result[0], Result[1], Result[2], Result[3], Result[4]
+42.98, 96.69, 100.00, 40.50, 89.26, PASS, PASS, *, PASS, PASS, 
+
+NG-Calibrated : 1, 0, 0, 1, 1, 1
+
+NG
+Wait close Display...
+=================Capture image time 1==================
+Close calitool before reopen ...
+Close CaliTool 
+***Begin open CaliTool****
+script.ini: modify IQcal_Display = 0 .
+open CaliTool.exe file !
+***open CaliTool successful****
+
+ wait 5000 secs for image stable ...
+Start copy .\CaliTool\output\GreyWall to .\CaliTool\output\GreyWall_backup_night2.
+Datetime (yyyy-MM-dd HH:mm:ss): 2020-11-21 09:54:26
+Start copy D:\FT5(U12I394)\CaliTool\output\GreyWall\a41162755652.bpp to .\CaliTool\output\GreyWall_backup_night2\a41162755652.bpp.
+Copy success...
+Start copy D:\FT5(U12I394)\CaliTool\output\GreyWall\a41162755652.txt to .\CaliTool\output\GreyWall_backup_night2\a41162755652.txt.
+Copy success...
+Delete folder image, txt before capture ...
+Waiting create folder...
+Waiting create folder...
+Waiting create folder...
+Create folder sucess...
+Create file sucess...
+NGFinish get GreyWall value..
+a41162755652
+LUM:
+Rect[0], Rect[1], Rect[2], Rect[3], Rect[4], Result[0], Result[1], Result[2], Result[3], Result[4], Exthemum Result
+82, 131, 110, 77, 121, PASS, NG, NG, PASS, NG, PASS
+
+Brightness Uniformity:
+Rect[0], Rect[1], Rect[2], Rect[3], Rect[4], Result[0], Result[1], Result[2], Result[3], Result[4]
+74.55, 119.09, 100.00, 70.00, 110.00, PASS, NG, *, PASS, NG, 
+
+NG-Calibrated : 1, 0, 0, 1, 1, 1
+
+NG
+a41162755652
+LUM:
+Rect[0], Rect[1], Rect[2], Rect[3], Rect[4], Result[0], Result[1], Result[2], Result[3], Result[4], Exthemum Result
+82, 131, 110, 77, 121, PASS, NG, NG, PASS, NG, PASS
+
+Brightness Uniformity:
+Rect[0], Rect[1], Rect[2], Rect[3], Rect[4], Result[0], Result[1], Result[2], Result[3], Result[4]
+74.55, 119.09, 100.00, 70.00, 110.00, PASS, NG, *, PASS, NG, 
+
+NG-Calibrated : 1, 0, 0, 1, 1, 1
+
+NG
+===[ GWBU Greywall brightness uniformity fail ... ]===
+EnableShipMode=1
+Close CaliTool 
+Delay 0 MiliSecond
+==============Start show fail=================
+TEST PROGRAM VERSION:2.3.2.8  TEST CYCLE TIME:22
+===[ GWBU Greywall brightness uniformity fail ... ]===
+
+----------------Summary all test item--------------
+Test item name                Result  Test time
+ 1.CheckALSInformation         PASS    0s    
+ 2.CheckGreyWallGen5_Night1    FAIL    21.72s
+ 3.CheckGreyWallGen5_SportLight1              
+ 4.CheckColorUniformity                      
+ 5.GetBatteryCapacityCaliTool                
+ 6.SendSfis                                  
+---------------------------------------------------
+Write summary log server: F:\lsy\ID\U12I394\MODEL NAME \FT5 -> OK
+Write summary log localD:\Arlo_Logs\U12I394\MODEL NAME \FT5\21-11-2020 -> OK
+Details log local folder: D:\Arlo_Logs\U12I394\MODEL NAME \FT5\21-11-2020\FAIL

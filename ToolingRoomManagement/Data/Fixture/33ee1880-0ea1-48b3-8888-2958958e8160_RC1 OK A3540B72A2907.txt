@@ -1,0 +1,117 @@
+ShowUI===[ Check Connect DUT Pass ... ]===
+
+===[ Start clean DUT ]===
+
+D:\RC1(U12I420)\Calitool_Clean\rc.exe - 12846780
+result : INFO: output dir:output\
+INFO: board setting dir:lib\
+INFO: prj name : owl_dv2
+INFO: windows system version(1):10.0
+INFO: thread_ovusb here
+INFO: libusb start
+INFO: OVUSB thread start: pid:9268/442762448
+ERR: don't find file: .\calfw_mpu.owl_dv2.bin
+calfw: .\calfw.owl_dv2.bin
+prjcfg: owl_dv2
+INFO: uboot info(vfy 0 :.\calfw.owl_dv2.bin, , -1, -1, 10092000, 0
+INFO: usb boot connect hub -1, port -1, pid 1805
+INFO: usb dev info 0x5a9, 1805, drvtyp winuprint
+INFO: found usb dev vid=5a9, pid=1805 id=5&2108ad5d&0&1, path \\?\usb#vid_05a9&pid_1805#5&2108ad5d&0&1#{a5dcbf10-6530-11d2-901f-00c04fb951ed}
+INFO: find usb device(0):5a9, 1805, *, <h3d8>, 1
+INFO: in script mode for production line, use default file ovusb.key...
+INFO: usb boot connected
+@cv_2000 INFO: This is chip OA805, id 2000.
+INFO: usb boot rd stat...
+INFO: usb boot ready, not check security(3).
+INFO: usb boot will wrt reset reg(0)
+INFO: download file: .\calfw.owl_dv2.bin, address: 0x10000000
+INFO: total download 667592 bytes from .\calfw.owl_dv2.bin
+INFO: PID 0x1805 detached
+INFO: usb cali connect hub -1, port -1, pid b805
+INFO: usb dev info 0x5a9, b805, drvtyp winuprint
+INFO: found usb dev vid=5a9, pid=b805 id=5&2108ad5d&0&1, path \\?\usb#vid_05a9&pid_b805#5&2108ad5d&0&1#{a5dcbf10-6530-11d2-901f-00c04fb951ed}
+INFO: find usb device(0):5a9, b805, *, <h49c>, 1
+INFO: usb cali connected
+INFO: Sync burn base addr 0, state a01c2000, len a01c2004, id2 a01c2008, addr a01c200c, buff a01c2010
+parse prj file
+download file .\prj_cfg.owl_dv2.txt, 0
+>load mcu.owl_dv2.bin
+download file .\mcu.owl_dv2.bin, 0
+#update mcu success
+INFO: RAW mode
+[script] : YUV/RAW/MIMG/V4
+CALI 0, app (null)
+CALI 1, app (null)
+CALI 2, app (null)
+CALI 3, app (null)
+CALI 4, app (null)
+CALI 5, app (null)
+CALI 6, app -e
+item 6 : erase
+CALI 7, app -e
+item 7 : erase
+CALI 8, app (null)
+CALI 9, app (null)
+CALI 10, app (null)
+CALI 11, app (null)
+CALI 12, app (null)
+CALI 13, app (null)
+CALI 14, app (null)
+CALI 15, app (null)
+CALI 16, app (null)
+CALI 17, app (null)
+CALI 18, app (null)
+CALI 19, app (null)
+CALI 20, app (null)
+CALI 21, app (null)
+CALI 22, app (null)
+CALI 23, app (null)
+CALI 24, app (null)
+CALI 25, app (null)
+CALI 26, app (null)
+CALI 27, app -e
+item 27 : erase
+CALI 28, app (null)
+CALI 29, app (null)
+CALI 30, app (null)
+
+Delay 5000 MiliSecond
+===[ Clean DUT Pass ... ]===
+
+===[ Start Check DUT info ]===
+
+MAC : a4 11 62 c3 d9 da 
+SERIAL_NUM : A3540B72A2907
+MODEL_NUM : FB1001
+HW_REV : H4
+BLE_MAC : a4 11 62 c3 d9 db 
+2G_SSID : 
+2G_PASSWD : 
+ALS_LLUX : 37.60%
+ALS_HLUX : 38.70%
+ALS_THLUX : 060160
+ALS_IR_LEAKAGE : 000110
+
+Check Camera SSN:A3540B72A2907 PASS
+Check Camera MAC:A41162C3D9DA PASS
+Check Camera HW REV:H4 PASS
+Check Clean SSID and Password PASS
+===[ Check DUT Pass ... ]===
+
+Close CaliTool 
+Delay 0 MiliSecond
+==============Start show pass================
+TEST PROGRAM VERSION:2.3.2.8  TEST CYCLE TIME:26
+
+----------------Summary all test item--------------
+Test item name                Result  Test time
+ 1.Connect_DUT                 PASS    0.03s 
+ 2.Clean_DUT                   PASS    15.9s 
+ 3.Check_DUT                   PASS    9.54s 
+ 4.SendSfis                    -Skip-        
+---------------------------------------------------
+Write summary log server: F:\lsy\ID\U12I420\MODEL NAME \RC1 -> OK
+Write summary log localD:\Arlo_Logs\U12I420\MODEL NAME \RC1\15-11-2020 -> OK
+Details log local folder: D:\Arlo_Logs\U12I420\MODEL NAME \RC1\15-11-2020\PASS
+Details log server folder: F:\lsy\ID\Detail\U12I420\MODEL NAME \RC1\15-11-2020\PASS
+UserName Test Off: TE

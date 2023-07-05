@@ -1,0 +1,298 @@
+﻿@model List<Model.EF.OrderPurchase>
+@{
+    ViewBag.Title = "OrderPurchase_Manager";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout_AdminPage.cshtml";
+    int dem = 0;
+}
+<script src="/Assets/admin/js/vendor/jquery-1.12.4.min.js"></script>
+<style>
+    @@media (min-width: 900px) {
+        .modal-sm {
+            width: 900px;
+        }
+    }
+
+    @@media (min-width: 900px) {
+        .modal-content {
+            -webkit-box-shadow: 0 5px 15px rgba(0,0,0,.5);
+            box-shadow: 0 5px 15px rgba(0,0,0,.5);
+        }
+    }
+
+    .tblCreate thead tr th {
+        text-align: center;
+    }
+
+    .tblCreate tbody tr td {
+        text-align: center;
+    }
+
+    .zoom {
+        transition: transform .5s;
+    }
+
+        .zoom:hover {
+            transform: scale(1.1); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+        }
+</style>
+<div class="header-advance-area">
+
+    <!-- Mobile Menu start -->
+    <div class="mobile-menu-area">
+        <div class="container">
+            @*<div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="mobile-menu">
+                            <nav id="dropdown">
+                                <ul class="mobile-menu-nav">
+                                    <li>
+                                        <a data-toggle="collapse" data-target="#Charts" href="#">Home <span class="admin-project-icon nalika-icon nalika-down-arrow"></span></a>
+                                        <ul class="collapse dropdown-header-top">
+                                            <li><a href="index.html">Dashboard v.1</a></li>
+                                            <li><a href="index-1.html">Dashboard v.2</a></li>
+                                            <li><a href="index-3.html">Dashboard v.3</a></li>
+                                            <li><a href="product-list.html">Product List</a></li>
+                                            <li><a href="product-edit.html">Product Edit</a></li>
+                                            <li><a href="product-detail.html">Product Detail</a></li>
+                                            <li><a href="product-cart.html">Product Cart</a></li>
+                                            <li><a href="product-payment.html">Product Payment</a></li>
+                                            <li><a href="analytics.html">Analytics</a></li>
+                                            <li><a href="widgets.html">Widgets</a></li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a data-toggle="collapse" data-target="#demo" href="#">Mailbox <span class="admin-project-icon nalika-icon nalika-down-arrow"></span></a>
+                                        <ul id="demo" class="collapse dropdown-header-top">
+                                            <li>
+                                                <a href="mailbox.html">Inbox</a>
+                                            </li>
+                                            <li>
+                                                <a href="mailbox-view.html">View Mail</a>
+                                            </li>
+                                            <li>
+                                                <a href="mailbox-compose.html">Compose Mail</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a data-toggle="collapse" data-target="#others" href="#">Miscellaneous <span class="admin-project-icon nalika-icon nalika-down-arrow"></span></a>
+                                        <ul id="others" class="collapse dropdown-header-top">
+                                            <li><a href="file-manager.html">File Manager</a></li>
+                                            <li><a href="contacts.html">Contacts Client</a></li>
+                                            <li><a href="projects.html">Project</a></li>
+                                            <li><a href="project-details.html">Project Details</a></li>
+                                            <li><a href="blog.html">Blog</a></li>
+                                            <li><a href="blog-details.html">Blog Details</a></li>
+                                            <li><a href="404.html">404 Page</a></li>
+                                            <li><a href="500.html">500 Page</a></li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a data-toggle="collapse" data-target="#Miscellaneousmob" href="#">Interface <span class="admin-project-icon nalika-icon nalika-down-arrow"></span></a>
+                                        <ul id="Miscellaneousmob" class="collapse dropdown-header-top">
+                                            <li>
+                                                <a href="google-map.html">Google Map</a>
+                                            </li>
+                                            <li>
+                                                <a href="data-maps.html">Data Maps</a>
+                                            </li>
+                                            <li>
+                                                <a href="pdf-viewer.html">Pdf Viewer</a>
+                                            </li>
+                                            <li>
+                                                <a href="x-editable.html">X-Editable</a>
+                                            </li>
+                                            <li>
+                                                <a href="code-editor.html">Code Editor</a>
+                                            </li>
+                                            <li>
+                                                <a href="tree-view.html">Tree View</a>
+                                            </li>
+                                            <li>
+                                                <a href="preloader.html">Preloader</a>
+                                            </li>
+                                            <li>
+                                                <a href="images-cropper.html">Images Cropper</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a data-toggle="collapse" data-target="#Chartsmob" href="#">Charts <span class="admin-project-icon nalika-icon nalika-down-arrow"></span></a>
+                                        <ul id="Chartsmob" class="collapse dropdown-header-top">
+                                            <li>
+                                                <a href="bar-charts.html">Bar Charts</a>
+                                            </li>
+                                            <li>
+                                                <a href="line-charts.html">Line Charts</a>
+                                            </li>
+                                            <li>
+                                                <a href="area-charts.html">Area Charts</a>
+                                            </li>
+                                            <li>
+                                                <a href="rounded-chart.html">Rounded Charts</a>
+                                            </li>
+                                            <li>
+                                                <a href="c3.html">C3 Charts</a>
+                                            </li>
+                                            <li>
+                                                <a href="sparkline.html">Sparkline Charts</a>
+                                            </li>
+                                            <li>
+                                                <a href="peity.html">Peity Charts</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a data-toggle="collapse" data-target="#Tablesmob" href="#">Tables <span class="admin-project-icon nalika-icon nalika-down-arrow"></span></a>
+                                        <ul id="Tablesmob" class="collapse dropdown-header-top">
+                                            <li>
+                                                <a href="static-table.html">Static Table</a>
+                                            </li>
+                                            <li>
+                                                <a href="data-table.html">Data Table</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a data-toggle="collapse" data-target="#formsmob" href="#">Forms <span class="admin-project-icon nalika-icon nalika-down-arrow"></span></a>
+                                        <ul id="formsmob" class="collapse dropdown-header-top">
+                                            <li>
+                                                <a href="basic-form-element.html">Basic Form Elements</a>
+                                            </li>
+                                            <li>
+                                                <a href="advance-form-element.html">Advanced Form Elements</a>
+                                            </li>
+                                            <li>
+                                                <a href="password-meter.html">Password Meter</a>
+                                            </li>
+                                            <li>
+                                                <a href="multi-upload.html">Multi Upload</a>
+                                            </li>
+                                            <li>
+                                                <a href="tinymc.html">Text Editor</a>
+                                            </li>
+                                            <li>
+                                                <a href="dual-list-box.html">Dual List Box</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a data-toggle="collapse" data-target="#Appviewsmob" href="#">App views <span class="admin-project-icon nalika-icon nalika-down-arrow"></span></a>
+                                        <ul id="Appviewsmob" class="collapse dropdown-header-top">
+                                            <li>
+                                                <a href="basic-form-element.html">Basic Form Elements</a>
+                                            </li>
+                                            <li>
+                                                <a href="advance-form-element.html">Advanced Form Elements</a>
+                                            </li>
+                                            <li>
+                                                <a href="password-meter.html">Password Meter</a>
+                                            </li>
+                                            <li>
+                                                <a href="multi-upload.html">Multi Upload</a>
+                                            </li>
+                                            <li>
+                                                <a href="tinymc.html">Text Editor</a>
+                                            </li>
+                                            <li>
+                                                <a href="dual-list-box.html">Dual List Box</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a data-toggle="collapse" data-target="#Pagemob" href="#">Pages <span class="admin-project-icon nalika-icon nalika-down-arrow"></span></a>
+                                        <ul id="Pagemob" class="collapse dropdown-header-top">
+                                            <li>
+                                                <a href="login.html">Login</a>
+                                            </li>
+                                            <li>
+                                                <a href="register.html">Register</a>
+                                            </li>
+                                            <li>
+                                                <a href="lock.html">Lock</a>
+                                            </li>
+                                            <li>
+                                                <a href="password-recovery.html">Password Recovery</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>*@
+        </div>
+    </div>
+    <!-- Mobile Menu end -->
+    <div class="breadcome-area" style=" margin-top: 40px;">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="breadcome-list">
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                <div class="breadcomb-wp">
+                                    <div class="breadcomb-icon zoom" data-toggle="tooltip" data-placement="bottom" title="Home">
+                                        <a href="/Admin/Admin/UserPage">
+                                            <i class="icon nalika-home"></i>
+                                        </a>
+                                    </div>
+                                    <div class="breadcomb-ctn">
+                                        <h2>Order Purchase</h2>
+                                        <p>Welcome to Tooling <span class="bread-ntd">Room</span></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                <div class="breadcomb-report">
+                                    <button data-toggle="tooltip" data-placement="left" title="Download Report" class="btn"><i class="icon nalika-download"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="product-sales-area mg-tb-30" style="">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"  style="height: 740px;">
+                <div class="product-sales-chart"  style="height: 710px;">
+                    <div class="portlet-title">
+                        <div class="row">
+                            <div class="content">
+                                <div class="" style="margin-left:190px;width:100%;overflow-y:auto;">
+                                    @if (Model.Count() != 0)
+                                    {
+                                        foreach (var item in Model)
+                                        {
+                                            { dem++; }
+                                            <div class="zoom" style="margin-bottom: 10px;font-size: 1.3rem;border-radius: 13px;border: 1px solid #f39800;background: #152036;width: 75%;padding: 40px 15px 75px 15px;color: #fff;cursor: pointer;font-weight: 600;">
+
+                                                <div style="width:80%;float:left;">
+                                                    <i class="fa fa-hand-pointer-o" aria-hidden="true" style="color: aquamarine;"></i> <a href="/Admin/Admin/OrderPurchase_Detail_Manager?id=@item.id" style="font-size: 1.3rem;color:#41ead4">Đơn @dem: @item.item_name</a>
+                                                    <a>(@item.create_date.Value.ToString("dd/MM/yyyy"))</a>
+                                                </div>
+                                                @*<button style="border: 0;background: #152036;float: right; margin-right: 20px;" onclick="DeleteReceive(@item.id)"><i class="fa fa-trash" style="color:red;"></i></button>*@
+                                            </div>
+
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <h4 style="color:#fff"> Dont have any order!</h4>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+

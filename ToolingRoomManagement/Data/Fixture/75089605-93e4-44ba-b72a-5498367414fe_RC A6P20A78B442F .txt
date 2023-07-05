@@ -1,0 +1,246 @@
+ShowUI===[ Connect to BASE ]===
+Telnet use SSH
+Ping reply from: 192.168.1.5 size:32 Time:0 TTL:64
+Ping reply from: 192.168.1.5 size:32 Time:0 TTL:64
+MAC: A41162623F3F
+--> Telnet SSH: 192.168.1.5 A41162623F3F
+export PATH=$PATH:/usr/sbin:/sbin
+
+
+
+BusyBox v1.25.1 (2018-11-09 18:41:06 PST) built-in shell (ash)
+
+     MM           NM                    MMMMMMM          M       M
+   $MMMMM        MMMMM                MMMMMMMMMMM      MMM     MMM
+  MMMMMMMM     MM MMMMM.              MMMMM:MMMMMM:   MMMM   MMMMM
+MMMM= MMMMMM  MMM   MMMM       MMMMM   MMMM  MMMMMM   MMMM  MMMMM'
+MMMM=  MMMMM MMMM    MM       MMMMM    MMMM    MMMM   MMMMNMMMMM
+MMMM=   MMMM  MMMMM          MMMMM     MMMM    MMMM   MMMMMMMM
+MMMM=   MMMM   MMMMMM       MMMMM      MMMM    MMMM   MMMMMMMMM
+MMMM=   MMMM     MMMMM,    NMMMMMMMM   MMMM    MMMM   MMMMMMMMMMM
+MMMM=   MMMM      MMMMMM   MMMMMMMM    MMMM    MMMM   MMMM  MMMMMM
+MMMM=   MMMM   MM    MMMM    MMMM      MMMM    MMMM   MMMM    MMMM
+MMMM$ ,MMMMM  MMMMM  MMMM    MMM       MMMM   MMMMM   MMMM    MMMM
+  MMMMMMM:      MMMMMMM     M         MMMMMMMMMMMM  MMMMMMM MMMMMMM
+    MMMMMM       MMMMN     M           MMMMMMMMM      MMMM    MMMM
+     MMMM          M                    MMMMMMM        M       M
+       M
+ ---------------------------------------------------------------
+   For those about to rock... (NHSS.ILQ, unknown)
+ ---------------------------------------------------------------
+root@OpenWrt:~# export PATH=$PATH:/usr/sbin:/sbin
+root@OpenWrt:~# 
+root@OpenWrt:~# export PATH=$PATH:/usr/sbin:/sbin
+root@OpenWrt:~# 
+root@OpenWrt:~# Connect to Base PASS...
+===[Check infomation  ]===
+REG key path= SOFTWARE\Netgear\STATION\RC\RequireCloseBox10
+RequireCloseBox= Don't need close box to start test
+===[ Check Camera connect to base station ]===
+=======CHECK CONNECT DUT TIME 1==============
+uci set wireless.@wifi-iface[0].ssid=testgen5
+root@OpenWrt:~# 
+root@OpenWrt:~# rm /tmp/system-log
+rm /tmp/system-log
+rm /tmp/system-log
+rm /tmp/system-log
+root@OpenWrt:~# 
+root@OpenWrt:~# uci set wireless.@wifi-device[0].disabled=0
+uci set wireless.@wifi-device[0].disabled=0
+uci set wireless.@wifi-device[0].disabled=0
+uci set wireless.@wifi-device[0].disabled=0
+root@OpenWrt:~# 
+root@OpenWrt:~# uci set wireless.@wifi-device[0].channel
+uci set wireless.@wifi-device[0].channel=8
+uci set wireless.@wifi-device[0].channel=8
+uci set wireless.@wifi-device[0].channel=8
+root@OpenWrt:~# 
+root@OpenWrt:~# uci set wireless.@wifi-device[0].disabled=0
+uci set wireless.@wifi-device[0].disabled=0
+uci set wireless.@wifi-device[0].disabled=0
+uci set wireless.@wifi-device[0].disabled=0
+root@OpenWrt:~# 
+root@OpenWrt:~# uci set wireless.@wifi-iface[0].key='123456a@123456'
+uci set wireless.@wifi-iface[0].key='123456a@123456'
+uci set wireless.@wifi-iface[0].key='123456a@123456'
+uci set wireless.@wifi-iface[0].key='123456a@123456'
+root@OpenWrt:~# 
+root@OpenWrt:~# uci set wireless.@wifi-iface[0].encryption='psk-mixed'
+uci set wireless.@wifi-iface[0].encryption='psk-mixed'
+uci set wireless.@wifi-iface[0].encryption='psk-mixed'
+uci set wireless.@wifi-iface[0].encryption='psk-mixed'
+root@OpenWrt:~# 
+root@OpenWrt:~# uci set wireless.radio0.txpower='10'
+uci set wireless.radio0.txpower='10'
+uci set wireless.radio0.txpower='10'
+uci set wireless.radio0.txpower='10'
+root@OpenWrt:~# 
+root@OpenWrt:~# uci commit wireless
+uci commit wireless
+uci commit wireless
+uci commit wireless
+root@OpenWrt:~# 
+root@OpenWrt:~# wifi
+wifi
+wifi
+wifi
+root@OpenWrt:~# 
+root@OpenWrt:~# ps | grep dhcpd
+ 3888 root      1428 S    grep dhcpd
+root@OpenWrt:~# 
+root@OpenWrt:~#  udhcpd /tmp/udhcpd.conf
+-ash: udhcpd: not found
+root@OpenWrt:~# 
+root@OpenWrt:~# ps | grep dhcpd
+ 3923 root      1428 S    grep dhcpd
+root@OpenWrt:~# 
+root@OpenWrt:~#  udhcpd /tmp/udhcpd.conf
+-ash: udhcpd: not found
+root@OpenWrt:~# 
+root@OpenWrt:~# ps | grep dhcpd
+ 3971 root      1428 S    grep dhcpd
+root@OpenWrt:~# 
+root@OpenWrt:~#  udhcpd /tmp/udhcpd.conf
+-ash: udhcpd: not found
+root@OpenWrt:~# 
+root@OpenWrt:~# SY55 Send command failed....SFIS Cam MAC:A41162B8055C
+SFIS Cam MAC after change to lower: a4:11:62:b8:05:5c
+arp -d 172.14.1.183
+IP address       HW type     Flags       HW address            Mask     Device
+192.168.1.1      0x1         0x2         9c:3d:cf:8d:1e:89     *        eth0
+192.168.1.200    0x1         0x2         50:3e:aa:0a:31:fb     *        eth0
+root@OpenWrt:~# 
+root@OpenWrt:~# cat /proc/net/arp | grep a4:11:62:b8:05:5c
+root@OpenWrt:~# 
+root@OpenWrt:~# cat /proc/net/arp | grep a4:11:62:b8:05:5c
+root@OpenWrt:~# 
+root@OpenWrt:~# cat /proc/net/arp | grep a4:11:62:b8:05:5c
+root@OpenWrt:~# 
+root@OpenWrt:~# cat /proc/net/arp | grep a4:11:62:b8:05:5c
+root@OpenWrt:~# 
+root@OpenWrt:~# cat /proc/net/arp | grep a4:11:62:b8:05:5c
+root@OpenWrt:~# 
+root@OpenWrt:~# cat /proc/net/arp | grep a4:11:62:b8:05:5c
+root@OpenWrt:~# 
+root@OpenWrt:~# cat /proc/net/arp | grep a4:11:62:b8:05:5c
+root@OpenWrt:~# 
+root@OpenWrt:~# cat /proc/net/arp | grep a4:11:62:b8:05:5c
+root@OpenWrt:~# 
+root@OpenWrt:~# cat /proc/net/arp | grep a4:11:62:b8:05:5c
+root@OpenWrt:~# 
+root@OpenWrt:~# cat /proc/net/arp | grep a4:11:62:b8:05:5c
+root@OpenWrt:~# 
+root@OpenWrt:~# cat /proc/net/arp | grep a4:11:62:b8:05:5c
+root@OpenWrt:~# 
+root@OpenWrt:~# cat /proc/net/arp | grep a4:11:62:b8:05:5c
+root@OpenWrt:~# 
+root@OpenWrt:~# cat /proc/net/arp | grep a4:11:62:b8:05:5c
+172.14.1.248     0x1         0x6         a4:11:62:b8:05:5c     *        wlan0
+root@OpenWrt:~# 
+root@OpenWrt:~# Found wlan0 
+Config HW ver: H10
+====Configuration information===========Base version:1.12.1.2_27956
+Base SKU:0x0001
+HW version:H10
+FW Version:1.060.10.18_749_4b65ff8
+ModelName:1.060.10.18_749_4b65ff8
+IP camera have ipaddress: 172.14.1.248
+===[ Check information of camera ]===
+vzdaemon --version
+	version = "1.12.1.2_27956"
+root@OpenWrt:~# 
+root@OpenWrt:~# Check version of Base Pass
+burnsku
+region_num - 0x0001
+sku_name - NA
+language - English
+wl_region - 11
+timezone - -8
+root@OpenWrt:~# 
+root@OpenWrt:~# Check Base SKU Pass
+vzcmd --expandJson PassThru='{"action":"get","resource":"diagnos tics/cameraRegisters","properties":{"cameraId":"A6P20A78B442F","registers":["Sys temSerialNumber","SystemModelNumber","SystemFirmwareVersion","HardwareRevision", "MACAddress"]}}'
+{
+	"resource" : "diagnostics/cameraRegisters",
+	"action" : "get",
+	"properties" : {
+		"cameraId" : "A6P20A78B442F",
+		"registers" : {
+			"SystemSerialNumber" : "A6P20A78B442F",
+			"SystemModelNumber" : "VMC4040P",
+			"SystemFirmwareVersion" : "1.060.10.18_749_4b65ff8",
+			"HardwareRevision" : "H10",
+			"MACAddress" : "a4:11:62:b8:05:5c"
+		}
+	}
+}
+root@OpenWrt:~# 
+root@OpenWrt:~# DATAINFO: vzcmd --expandJson PassThru='{"action":"get","resource":"diagnos tics/cameraRegisters","properties":{"cameraId":"A6P20A78B442F","registers":["Sys temSerialNumber","Svzcmd --expandJson PassThru='{"action":"get","resource":"diagnos tics/cameraRegisters","properties":{"cameraId":"A6P20A78B442F","registers":["Sys temSerialNumber","Syvzcmd --expandJson PassThru='{"action":"get","resource":"diagnos tics/cameraRegisters","properties":{"cameraId":"A6P20A78B442F","registers":["Sys temSerialNumber","Sysvzcmd --expandJson PassThru='{"action":"get","resource":"diagnos tics/cameraRegisters","properties":{"cameraId":"A6P20A78B442F","registers":["Sys temSerialNumber","Systvzcmd --expandJson PassThru='{"action":"get","resource":"diagnos tics/cameraRegisters","properties":{"cameraId":"A6P20A78B442F","registers":["Sys temSerialNumber","Systevzcmd --expandJson PassThru='{"action":"get","resource":"diagnos tics/cameraRegisters","properties":{"cameraId":"A6P20A78B442F","registers":["Sys temSerialNumber","Systemvzcmd --expandJson PassThru='{"action":"get","resource":"diagnos tics/cameraRegisters","properties":{"cameraId":"A6P20A78B442F","registers":["Sys temSerialNumber","SystemModelNumber","SystemFirmwareVersionvzcmd --expandJson PassThru='{"action":"get","resource":"diagnos tics/cameraRegisters","properties":{"cameraId":"A6P20A78B442F","registers":["Sys temSerialNumber","SystemModelNumber","SystemFirmwareVersion","Havzcmd --expandJson PassThru='{"action":"get","resource":"diagnos tics/cameraRegisters","properties":{"cameraId":"A6P20A78B442F","registers":["Sys temSerialNumber","SystemModelNumber","SystemFirmwareVersion","Hardwarevzcmd --expandJson PassThru='{"action":"get","resource":"diagnos tics/cameraRegisters","properties":{"cameraId":"A6P20A78B442F","registers":["Sys temSerialNumber","SystemModelNumber","SystemFirmwareVersion","HardwareRevision", "MACAvzcmd --expandJson PassThru='{"action":"get","resource":"diagnos tics/cameraRegisters","properties":{"cameraId":"A6P20A78B442F","registers":["Sys temSerialNumber","SystemModelNumber","SystemFirmwareVersion","HardwareRevision", "MACAddress"]}}'
+vzcmd --expandJson PassThru='{"action":"get","resource":"diagnos tics/cameraRegisters","properties":{"cameraId":"A6P20A78B442F","registers":["Sys temSerialNumber","SystemModelNumber","SystemFirmwareVersion","HardwareRevision", "MACAddress"]}}'
+{
+	"resource" : "diagnostics/cameraRegisters",
+	"action" : "get",
+	"properties" : {
+		"cameraId" : "A6P20A78B442F",
+		"registers" : {
+			"SystemSerialNumber" : "A6P20A78B442F",
+			"SystemModelNumber" : "VMC4040P",
+			"SystemFirmwareVersion" : "1.060.10.18_749_4b65ff8",
+			"HardwareRevision" : "H10",
+			"MACAddress" : "a4:11:62:b8:05:5c"
+		}
+	}
+}vzcmd --expandJson PassThru='{"action":"get","resource":"diagnos tics/cameraRegisters","properties":{"cameraId":"A6P20A78B442F","registers":["Sys temSerialNumber","SystemModelNumber","SystemFirmwareVersion","HardwareRevision", "MACAddress"]}}'
+{
+	"resource" : "diagnostics/cameraRegisters",
+	"action" : "get",
+	"properties" : {
+		"cameraId" : "A6P20A78B442F",
+		"registers" : {
+			"SystemSerialNumber" : "A6P20A78B442F",
+			"SystemModelNumber" : "VMC4040P",
+			"SystemFirmwareVersion" : "1.060.10.18_749_4b65ff8",
+			"HardwareRevision" : "H10",
+			"MACAddress" : "a4:11:62:b8:05:5c"
+		}
+	}
+}
+vzcmd --expandJson PassThru='{"action":"get","resource":"diagnos tics/cameraRegisters","properties":{"cameraId":"A6P20A78B442F","registers":["Sys temSerialNumber","SystemModelNumber","SystemFirmwareVersion","HardwareRevision", "MACAddress"]}}'
+{
+	"resource" : "diagnostics/cameraRegisters",
+	"action" : "get",
+	"properties" : {
+		"cameraId" : "A6P20A78B442F",
+		"registers" : {
+			"SystemSerialNumber" : "A6P20A78B442F",
+			"SystemModelNumber" : "VMC4040P",
+			"SystemFirmwareVersion" : "1.060.10.18_749_4b65ff8",
+			"HardwareRevision" : "H10",
+			"MACAddress" : "a4:11:62:b8:05:5c"
+		}
+	}
+}
+root@OpenWrt:~# 
+root@OpenWrt:~# 
+Check infomation pass .....
+Close CaliTool 
+Delay 2000 MiliSecond
+==============Start show pass================
+TEST PROGRAM VERSION:2.3.2.8  TEST CYCLE TIME:33
+ps | grep dhcpd
+ 4477 root      1428 S    grep dhcpd
+root@OpenWrt:~# 
+root@OpenWrt:~#  udhcpd /tmp/udhcpd.conf
+-ash: udhcpd: not found
+root@OpenWrt:~# 
+root@OpenWrt:~# 
+----------------Summary all test item--------------
+Test item name                Result  Test time
+ 1.ConnectToDut                PASS    4.19s 
+ 2.CheckInfor_Falcon           PASS    25.83s
+ 3.SendSfis                    -Skip-        
+---------------------------------------------------
+Write summary log server: F:\lsy\ID\U12I393\MODEL NAME \RC -> OK
+Write summary log localD:\Arlo_Logs\U12I393\MODEL NAME \RC\25-11-2020 -> OK
+Details log local folder: D:\Arlo_Logs\U12I393\MODEL NAME \RC\25-11-2020\PASS
+Details log server folder: F:\lsy\ID\Detail\U12I393\MODEL NAME \RC\25-11-2020\PASS
+UserName Test Off: ========Show pass finish=============

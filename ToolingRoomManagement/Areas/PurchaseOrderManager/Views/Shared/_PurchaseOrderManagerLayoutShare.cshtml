@@ -1,0 +1,189 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <title>@ViewBag.Title - Purchase Order Manager</title>
+
+    <!-- Favicons -->
+    <link href="~/Areas/PurchaseOrderManager/Content/Image/favicon.ico" rel="icon">
+
+    <!-- Google Fonts -->
+    <link href="~/Areas/PurchaseOrderManager/Content/vendor/Font/Rubik/stylesheet.css" rel="stylesheet" />
+
+    <!-- Vendor CSS Files -->
+    <link href="~/Areas/PurchaseOrderManager/Content/vendor/Bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Areas/PurchaseOrderManager/Content/vendor/Bootstrap-icons/bootstrap-icons.css" rel="stylesheet" />
+    <link href="~/Areas/PurchaseOrderManager/Content/vendor/SweetAlert/swal.min.css" rel="stylesheet" />
+    <link href="~/Areas/PurchaseOrderManager/Content/vendor/Font-Awesome-640-Pro/css/all.css" rel="stylesheet" />
+    <!-- Template Main CSS File -->
+    <link href="~/Areas/PurchaseOrderManager/Content/template/NiceAdmin/css/style.css" rel="stylesheet" />
+    <!-- Custom -->
+    <link href="~/Areas/PurchaseOrderManager/Content/Custom/AreasLayoutShared/StyleSheet.css" rel="stylesheet" />
+    @RenderSection("styles", required: false)
+</head>
+<body>
+    <!-- ======= Header ======= -->
+    <header id="header" class="header fixed-top d-flex align-items-center">
+        <div class="d-flex align-items-center justify-content-between">
+            <a href="/Dashboard/Home/Home" class="logo d-flex align-items-center">
+                <img src="~/Areas/PurchaseOrderManager/Content/Image/fii-logo.jpg"alt="logo" />
+                <span class="d-none d-lg-block">Purchase Order Manager</span>
+            </a>
+            <i class="bi bi-list toggle-sidebar-btn"></i>
+        </div><!-- End Logo -->
+        <div class="header-nav d-flex ms-auto">
+            <ul class="d-flex align-items-center">
+                <li class="nav-item dropdown pe-3">
+                    <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+                        @{
+                            @*if (user.RoleId == 3)
+                                {
+                                    <span class="badge bg-danger">
+                                        <i class="bi bi-check-circle me-1"></i>
+                                        <label>IPQC</label>
+                                    </span>
+                                }
+                                if (user.RoleId == 2)
+                                {
+                                    <span class="badge bg-warning">
+                                        <i class="bi bi-check-circle me-1"></i>
+                                        <label>Leader</label>
+                                    </span>
+                                }
+                                if (user.RoleId == 1)
+                                {
+                                    <span class="badge bg-success">
+                                        <i class="bi bi-check-circle me-1"></i>
+                                        <label>Employee</label>
+                                    </span>
+                                }*@
+                        }
+                        <span class="d-none d-md-block dropdown-toggle ps-2" data-typeRole="@*@user.RoleId*@">@*@user.Username*@</span>
+                    </a><!-- End Profile Iamge Icon -->
+
+                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+                        <li class="dropdown-header">
+                            <h6></h6>
+                            <span></span>
+                        </li> <!-- Name -->
+
+                        <li>
+                            <a class="dropdown-item d-flex align-items-center" href="">
+                                <i class="bi bi-person"></i>
+                                <span>Profile</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item d-flex align-items-center" onclick="">
+                                <i class="bi bi-person"></i>
+                                <span>Change Password</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item d-flex align-items-center" href="">
+                                <i class="bi bi-box-arrow-right"></i>
+                                <span>Sign Out</span>
+                            </a>
+                        </li>
+
+                    </ul><!-- End Profile Dropdown Items -->
+                </li><!-- End Profile Nav -->
+
+            </ul>
+        </div><!-- End Icons Navigation -->
+
+    </header><!-- End Header -->
+    <!-- ======= Sidebar ======= -->
+    <aside id="sidebar" class="sidebar">
+        <ul class="sidebar-nav">
+
+            <li class="nav-item">
+                <a class="nav-link" href="#">
+                    <i class="bi bi-house-fill"></i>
+                    <span>Home</span>
+                </a>
+            </li>
+
+            @*<li class="nav-item">
+                <a class="nav-link" data-bs-target="#page-nav" data-bs-toggle="collapse" href="#">
+                    <i class="bi bi-layout-text-window-reverse"></i><span>Employee Management</span><i class="bi bi-chevron-down ms-auto"></i>
+                </a>
+                <ul id="page-nav" class="nav-content" data-bs-parent="#sidebar-nav">
+                    <li>
+                        <a href="/BanDau/BanDau/F06">
+                            <i class="bi bi-circle"></i><span>Add New Employees</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/BanDau/BanDau/F17" class="">
+                            <i class="bi bi-circle"></i><span>Employees</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" data-bs-target="#page-nav" data-bs-toggle="collapse" href="#">
+                    <i class="bi bi-slack"></i><span>QR Code</span><i class="bi bi-chevron-down ms-auto"></i>
+                </a>
+                <ul id="page-nav" class="nav-content" data-bs-parent="#sidebar-nav">
+                    <li>
+                        <a href="/BanDau/BanDau/F06">
+                            <i class="bi bi-circle"></i><span>Scan QR code</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/BanDau/BanDau/F17" class="">
+                            <i class="bi bi-circle"></i><span>Export QR code</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="nav-heading">Account</li>
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="">
+                    <i class="bi bi-box-arrow-in-right"></i>
+                    <span>Sign In</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="">
+                    <i class="bi bi-box-arrow-in-left"></i>
+                    <span>Sign Out</span>
+                </a>
+            </li>*@
+        </ul>
+
+    </aside><!-- End Sidebar-->
+
+    <main id="main" class="main">
+        @RenderBody()
+    </main><!-- End #main -->
+    <!-- loader page -->
+    <footer id="footer" class="footer fixed-bottom" style="background-color: #f5f5f536 !important; padding: 0 ">
+        <div class="col-12 copyright">@DateTime.Now.Year &copy; MBD - Automation | <b>AIOT</b></div>
+    </footer><!-- End Footer -->
+
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+    <!-- loader page -->
+    <div id="loader-page" style="display: none">
+        <img src="~/Content/Image/Double-Ring-loading.gif" alt="loading" />
+    </div><!-- end loader page -->
+    <!-- Vendor JS Files -->
+    <script src="~/Areas/PurchaseOrderManager/Content/vendor/Jquery/jquery-3.4.1.min.js"></script>
+    <script src="~/Areas/PurchaseOrderManager/Content/vendor/Bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/Areas/PurchaseOrderManager/Content/vendor/SweetAlert/swal.min.js"></script>
+    <!-- Template Main JS File -->
+    <script src="~/Areas/PurchaseOrderManager/Content/template/NiceAdmin/js/main.js"></script>
+    <!-- Custom -->
+    @RenderSection("scripts", required: false)
+</body>
+</html>
+
+

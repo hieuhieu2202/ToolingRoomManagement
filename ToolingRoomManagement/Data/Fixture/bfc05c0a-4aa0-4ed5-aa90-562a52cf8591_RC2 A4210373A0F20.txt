@@ -1,0 +1,27 @@
+ShowUIChecking ABA status...
+No record, test directly
+iaba :-1
+===[ Check Charing ]===
+FLUKE TYPE= Victor 8246
+#*INS250
+#*
+#*RD?
+#*RD+01.056+0000.
+Current: 1.06A
+===[ Test Charing passed... ]===
+Close CaliTool 
+Delay 0 MiliSecond
+==============Start show pass================
+TEST PROGRAM VERSION:2.3.2.8  TEST CYCLE TIME:16
+
+----------------Summary all test item--------------
+Test item name                Result  Test time
+ 1.WaitDUT                     PASS    14.49s
+ 2.CheckCharing                PASS    1.24s 
+ 3.SendSfis                    -Skip-        
+---------------------------------------------------
+Write summary log server: F:\lsy\ID\U12I386T01\VMC5040S-FXN\RC2 -> OK
+Write summary log localD:\Arlo_Logs\U12I386T01\VMC5040S-FXN\RC2\13-12-2020 -> OK
+Details log local folder: D:\Arlo_Logs\U12I386T01\VMC5040S-FXN\RC2\13-12-2020\PASS
+Details log server folder: F:\lsy\ID\Detail\U12I386T01\VMC5040S-FXN\RC2\13-12-2020\PASS
+UserName Test Off: ========Show pass finish=============

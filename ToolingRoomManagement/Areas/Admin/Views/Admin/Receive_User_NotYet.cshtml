@@ -1,0 +1,686 @@
+﻿@model List<Model.EF.Receive>
+@{
+    ViewBag.Title = "Receive_User_NotYet";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout_AdminPage.cshtml";
+    var listAllDevice = (List<Model.EF.Device>)ViewBag.listAllDevice;
+    var listAllManager = (List<Model.EF.User>)ViewBag.ListAllManager;
+    int dem1 = 0;
+}
+<link href="/Assets/admin/ekko-lightbox.css" rel="stylesheet" />
+<link href="/Assets/admin/bootstrap-select.css" rel="stylesheet" />
+
+@*<script src="~/Assets/client/vendor/jquery/jquery.min.js"></script>*@
+<script src="/Assets/admin/js/vendor/jquery-1.12.4.min.js"></script>
+<script src="/Assets/admin/bootstrap-select.js"></script>
+<script src="/Assets/admin/ekko-lightbox.js"></script>
+<script src="/Assets/admin/ekko-lightbox.min.js"></script>
+
+<style>
+    @@media (min-width: 1200px) {
+        .modal-sm {
+            width: 1200px;
+        }
+    }
+
+    @@media (min-width: 1200px) {
+        .modal-content {
+            -webkit-box-shadow: 0 5px 15px rgba(0,0,0,.5);
+            box-shadow: 0 5px 15px rgba(0,0,0,.5);
+        }
+    }
+
+    .tblCreate thead tr th {
+        text-align: center;
+    }
+
+    .tblCreate tbody tr td {
+        text-align: center;
+    }
+
+    .zoom {
+        transition: transform .5s;
+    }
+
+        .zoom:hover {
+            transform: scale(1.1); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+        }
+
+    .dropdown-toggle {
+        height: 40px;
+    }
+
+    #tblAddDevice thead tr th {
+        text-align: center;
+    }
+
+    #tblAddDevice tbody tr td {
+        text-align: center;
+    }
+
+    .form-control {
+        background: white;
+        color: black;
+    }
+</style>
+<div class="header-advance-area">
+    <div class="breadcome-area" style=" margin-top: 40px;">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="breadcome-list">
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                <div class="breadcomb-wp">
+                                    <div class="breadcomb-icon zoom" data-toggle="tooltip" data-placement="bottom" title="Home">
+                                        <a href="/Admin/Admin/UserPage">
+                                            <i class="icon nalika-home"></i>
+                                        </a>
+                                    </div>
+                                    <div class="breadcomb-ctn">
+                                        <h2>Order get devices</h2>
+                                        <p>Welcome to Tooling <span class="bread-ntd">Room</span></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                <div class="breadcomb-report">
+                                    <button data-toggle="tooltip" data-placement="left" title="Download Report" class="btn"><i class="icon nalika-download"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="product-sales-area mg-tb-30" style="height:685px;">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="product-sales-chart">
+                    <div class="portlet-title">
+                        <div class="row">
+                            <div class="content">
+                                <div class="" style="margin-left:190px;">
+                                    @foreach (var item in Model)
+                                    {
+                                        { dem1++; }
+                                        <div class="zoom" style="margin-bottom: 10px;font-size: 1.3rem;border-radius: 13px;border: 1px solid #f39800;background: #152036;width: 75%;padding: 40px 15px 75px 15px;color: #fff;cursor: pointer;font-weight: 600;">
+                                            <div onclick="deltail('@item.id','@item.code_receive.Substring(0,1)')" style="width:80%;float:left;"><i class="fa fa-hand-pointer-o" aria-hidden="true" style="color: aquamarine;"></i> <a style="font-size: 1.3rem;color:#41ead4">Đơn @item.code_receive: @item.receive_name</a></div>
+                                            <button style="border: 0;background: #152036;float: right; margin-right: 20px;" onclick="DeleteReceive(@item.id)"><i class="fa fa-trash" style="color:red;"></i></button>
+                                            <button style="border: 0;background: #152036;float: right;"><i class="fa fa-edit" style="color:green;" onclick="EditReceive('@item.id','@item.receive_name','@item.note')"></i></button>
+                                        </div>
+                                    }
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="modal" id="myModal_Receive">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Đơn lĩnh</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <input hidden id="id_receive" />
+                <table class="table table-dark tblReceive">
+                    <tr>
+                        <td>Tên đơn : </td>
+                        <td><input id="receiveName" class="form-control" style="background:#fff;color:black;" /></td>
+                    </tr>
+                    <tr>
+                        <td>Ghi chú : </td>
+                        <td><input id="note" class="form-control" style="background:#fff;color:black;" /></td>
+                    </tr>
+                </table>
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary btnclose">Đóng</button>
+                <button type="button" class="btn btn-secondary" onclick="UpdateReceive()">Cập nhật</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- The Modal -->
+<div class="modal" id="myModal">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Detail Order</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <input hidden id="receive_id" />
+                <table style="border:0; width:1162px;" id="tblAddDevice">
+                    <thead>
+                        <tr style="height:50px;">
+                            <th style="width: 20%;">Tên TB</th>
+                            <th style="width:6%;">Số lượng</th>
+                            <th style="width: 6%;">Lĩnh</th>
+                            <th style="width: 6%;">Đôi</th>
+                            <th style="width: 6%;">Mượn</th>
+                            <th style="width: 10%;">Ngày trả</th>
+                            <th style="width:12%;">Ghi chú</th>
+                            <th style="width:7%;">Hành động</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <select id="device_name_add" class="selectpicker Da_select_model form-control" data-hide-disabled="true" data-live-search="true">
+                                    @foreach (var device in listAllDevice)
+                                    {
+                                        <option value="@device.id">@device.device_name (@device.parameter) Kho: @device.location</option>
+                                    }
+                                </select>
+                            </td>
+                            <td><input type="text" class="form-control QUANTITY quantity_add" style="background-color:white;color:black;width:80%;margin-left:10px;" id=""></td>
+                            <td><input type="radio" name="check" id="check_1_add" value="1" /></td>
+                            <td><input type="radio" name="check" id="check_2_add" value="2" /></td>
+                            <td><input type="radio" name="check" id="check_3_add" value="3" /></td>
+                            <td><input type="date" class="form-control" id="ngaytra" style="width: 153px;"></td>
+                            <td><textarea type="text" class="form-control NOTE note_add" style="background-color:white;color:black;" id=""></textarea></td>
+                            <td style="text-align:center;">
+                                <button onclick="Add_Device()" style="background: aquamarine;border: 1px solid;padding: 5px 15px 5px 15px;border-radius: 20px;">Add</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table class="table table-dark tblCreate">
+                    <thead>
+                        <tr>
+                            <th>STT</th>
+                            <th>Tên TB</th>
+                            <th>Kho</th>
+                            <th>Số luợng</th>
+                            <th>Type</th>
+                            <th>Ghi chú</th>
+
+                        </tr>
+                    </thead>
+                    <tbody id="tblReceive" style="text-align:center;"></tbody>
+                </table>
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary btnclose">Đóng</button>
+                <button type="button" class="btn btn-secondary btnComplete">Hoàn thành</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="modal" id="ModalDeviceBackRoom">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Chi tiết</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <input hidden id="receive_id" />
+
+                <table class="" style="border:0;margin-left: 60px;" id="tblBack">
+                    <tr>
+                        <td style="width: 150px;height: 50px;">Mã Kiểm kê: </td>
+                        <td class="makiemke"></td>
+                    </tr>
+                    <tr>
+                        <td style="width: 150px;height: 50px;">Mã SN: </td>
+                        <td class="maSN"></td>
+                    </tr>
+                    <tr>
+                        <td style="width: 150px;height: 50px;">Tên TB: </td>
+                        <td class="tenTB"></td>
+                    </tr>
+                    <tr>
+                        <td style="width: 150px;height: 50px;">Model: </td>
+                        <td class="model_TB"></td>
+                    </tr>
+                    <tr>
+                        <td style="width: 150px;height: 50px;">Mã Hiệu chuẩn: </td>
+                        <td class="mahieuchuan"></td>
+                    </tr>
+                    <tr>
+                        <td style="width: 150px;height: 50px;">Nhập vào kho : </td>
+                        <td class="kho_TB"></td>
+                    </tr>
+                    <tr>
+                        <td style="width: 150px;height: 50px;">Tình trạng TB: </td>
+                        <td class="statusTB"></td>
+                    </tr>
+                    <tr>
+                        <td style="width: 150px;height: 50px;">Ghi chú: </td>
+                        <td class="noteTB"></td>
+                    </tr>
+                    <tr class="image_TB">
+                        <td style="width: 150px;height: 50px;">Hình ảnh: </td>
+                        <td class="imageTB">
+                            @*<input type="file" class="form-control TYPEDEVICE" style="background-color:white;color:black;border: 1px solid #5c7096;border-radius: 21px;" id="imageTB" multiple>*@
+
+                        </td>
+                    </tr>
+
+
+                </table>
+
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary btnclose">Đóng</button>
+                @*<button type="button" class="btn btn-secondary btnAdd" onclick="CreateReceive()">Cập nhật</button>*@
+
+            </div>
+
+        </div>
+    </div>
+</div>
+@*<script src="/Assets/admin/js/vendor/jquery-1.12.4.min.js"></script>*@
+<script>
+    var modal = document.getElementById("myModal");
+    var modal_EditReceive = document.getElementById("myModal_Receive");
+    var modalEditDevice = document.getElementById("myModal_Device");
+    var modalDeviceBackRoom = document.getElementById("ModalDeviceBackRoom");
+    $(document).on("click", ".close", function () {
+        modal.style.display = "none";
+        modal_EditReceive.style.display = "none";
+    })
+    $(document).on("click", ".close_device", function () {
+        modalEditDevice.style.display = "none";
+    })
+    $(document).on("click", ".btnclose", function () {
+        modal.style.display = "none";
+        modal_EditReceive.style.display = "none";
+        location.reload();
+    })
+    $(document).on("click", ".btnComplete", function () {
+        modal.style.display = "none";
+        location.reload();
+    })
+    function deltail(receive_id, code_receive) {
+        $(".imageTB").empty();
+        if (code_receive == "R") {
+            $("#receive_id").val(receive_id);
+            $("#tblReceive").empty();
+            $.ajax({
+                type: "Post",
+                url: "/Receive/get_ClipOutput_Receive?receive_id=" + receive_id,
+                async: false,
+                contentType: false,
+                processData: false,
+                success: function (data) {
+                    //alert(data);
+                    //debugger
+                    var length = JSON.parse(data).length;
+                    var row = "";
+                    //if (length == 0) {
+                    //    alert("dont have any device!");
+                    //    return;
+                    //}
+                    for (i = 0; i < length; i++) {
+                        var type = "";
+                        if (JSON.parse(data)[i].clipOutput.type == 1) {
+                            type = "Lĩnh";
+                        } else if (JSON.parse(data)[i].clipOutput.type == 2) {
+                            type = "Đôi";
+                        } else {
+                            type = "Mượn";
+                        }
+                        var note = "";
+                        if (JSON.parse(data)[i].clipOutput.note != null) {
+                            note = JSON.parse(data)[i].clipOutput.note;
+                        }
+                        else {
+                            note = "";
+                        }
+
+                        var edit = "'" + JSON.parse(data)[i].clipOutput.quantity + "','" + JSON.parse(data)[i].clipOutput.unit + "','" + JSON.parse(data)[i].clipOutput.device_id + "','" + JSON.parse(data)[i].clipOutput.receive_id + "','" + JSON.parse(data)[i].clipOutput.id + "','" + JSON.parse(data)[i].clipOutput.type + "','" + note + "'";
+                        var delete_device = "'" + JSON.parse(data)[i].clipOutput.id + "','" + JSON.parse(data)[i].clipOutput.receive_id + "'";
+                        row = row + '<tr>' +
+                            '<td>' + (i + 1) + '</td>' +
+                            '<td>' + JSON.parse(data)[i].device_name + '</td>' +
+                            '<td>' + JSON.parse(data)[i].location + '</td>' +
+                            '<td class="quantity">' + JSON.parse(data)[i].clipOutput.quantity + '</td>' +
+                            '<td>' + type + '</td>' +
+                            '<td>' + note + '</td>' +
+                            '<td>' +
+                            '<button style="border: 0;background: #fff;" onclick="DeleteDevice(' + delete_device + ')"><i class="fa fa-trash" style="color:red;"></i></button>' +
+                            '</td>' +
+                            '</tr>';
+                    }
+                    $("#tblReceive").append(row);
+                    modal.style.display = "block";
+                },
+                error: function (err) {
+                    //debugger
+                    alert("FAIL!");
+                }
+            });
+        } else if (code_receive == "I") {
+            $(".makiemke").empty();
+            $(".maSN").empty();
+            $(".tenTB").empty();
+            $(".model_TB").empty();
+            $("#receive_id").empty();
+            $(".mahieuchuan").empty();
+            $(".kho_TB").empty();
+            $(".statusTB").empty();
+            $(".noteTB").empty();
+            $(".imageTB").empty();
+            $.ajax({
+                type: "Post",
+                url: "/Device/get_DeviceBackRoom?receive_id=" + receive_id,
+                async: false,
+                contentType: false,
+                processData: false,
+                success: function (data) {
+                    //alert(data);
+                    //debugger
+                    var row = "";
+                    $(".makiemke").append("<div>" + JSON.parse(data).makiemke + "</div>");
+                    $(".maSN").append("<div>" + JSON.parse(data).produce_SN + "</div>");
+                    $(".tenTB").append("<div>" + JSON.parse(data).device_name + "</div>");
+                    $(".model_TB").append("<div>" + JSON.parse(data).parameter + "</div>");
+                    $("#receive_id").val(JSON.parse(data).receive_id);
+                    var a = "";
+                    if (JSON.parse(data).calibration != null) {
+                        a = JSON.parse(data).calibration;
+                    } else {
+                        a = "N/A";
+                    }
+                    $(".mahieuchuan").append("<div>" + a + "</div>");
+                    $(".kho_TB").append("<div>" + JSON.parse(data).location + "</div>");
+                    if (JSON.parse(data).status == 1) {
+                        $(".statusTB").append("<div>OK</div>");
+                    } else {
+                        $(".statusTB").append("<div>NG</div>");
+                    }
+                    debugger
+                    $(".noteTB").append(JSON.parse(data).note_status);
+                    if (JSON.parse(data).imageTB != null) {
+                        $(".imageTB").append("<div>Không có hình ảnh nào!</div>");
+                    } else {
+                        debugger
+                        var image_ = JSON.parse(JSON.parse(data).image_TB);
+                        var list_image = "";
+                        for (j = 0; j < image_.length; j++) {
+                            list_image += '<a href="/Data/Image/' + image_[j].file + '" data-toggle="lightbox" data-max-width="600" >' +
+                                '   <img style="width:150px;height:100px;border: 1px solid #2c303a" src="/Data/Image/' + image_[j].file + '" class="img-fluid">' +
+                                '</a>';
+                        }
+                        $(".imageTB").append(list_image);
+                    }
+                    modalDeviceBackRoom.style.display = "block";
+                },
+                error: function (err) {
+                    //debugger
+                    alert("FAIL!");
+                }
+            });
+        }
+    }
+
+    function Add_Device() {
+        debugger
+
+
+        var receive_id = document.getElementById("receive_id").value;
+        var device_id;
+        if ($("#device_name_add").val() != 0) {
+            device_id = $("#device_name_add").val();
+            //alert(device_id);
+        } else {
+            alert("Pls Enter Device Name!");
+            return;
+        }
+        var quantity;
+        if ($(".quantity_add").val() != 0) {
+            debugger
+            quantity = $(".quantity_add").val();
+            //var a = check_Quantity(device_id, $(".quantity").val());
+            //alert(a + "      nam");
+            $.ajax({
+                type: "Post",
+                url: "/Device/check_Quantity?device_id=" + device_id + "&quantity=" + quantity,
+                async: false,
+                cache: false,
+                timeout: 30000,
+                contentType: false,
+                processData: false,
+                success: function (data) {
+                    debugger
+                    var a = data;
+                    // return data;
+
+                    if (a == "0") {
+                        alert("Số lượng quá lớn!");
+                        return;
+                    } else {
+                        quantity = $(".quantity_add").val();
+
+                        var check = 0;
+                        var ngaytra;
+                        if ($("input[name=check]:checked").val() != undefined) {
+                            debugger
+                            check = $("input[name=check]:checked").val();
+                            if (check == 3) {
+                                if ($("#ngaytra").val() != "") {
+                                    ngaytra = document.getElementById("ngaytra").value;
+                                } else {
+                                    alert("Vui lòng chọn ngày trả TB cho kho!");
+                                    return;
+                                }
+                            } else {
+                                ngaytra = "";
+                            }
+                        } else {
+                            alert("Anh/chị muốn Lĩnh/Đổi/Mượn?");
+                            return;
+                        }
+                        var note;
+                        if ($(".note_add").val() != 0) {
+                            note = $(".note_add").val();
+                        } else {
+                            note = "";
+                        }
+                        debugger
+                        var data = new FormData;
+                        data.append("id", 0);
+                        data.append("receive_id", receive_id);
+                        data.append("device_id", device_id);
+                        data.append("quantity", quantity);
+                        data.append("type", check);
+                        data.append("status", 1);
+                        data.append("note", note);
+                        data.append("ngaytra", ngaytra);
+                        $.ajax({
+                            type: "Post",
+                            url: "/Receive/Add_Device",
+                            data: data,
+                            async: false,
+                            contentType: false,
+                            processData: false,
+                            success: function (data) {
+                                debugger
+                                if (data > 0) {
+                                    $(".type_device").empty();
+                                    $(".quantity").empty();
+                                    $(".note").empty();
+                                    deltail(parseInt(data),"R");
+                                }
+                            },
+                            error: function (err) {
+                                //debugger
+                                alert("FAIL!");
+                            }
+                        });
+                    }
+
+
+                },
+                error: function (err) {
+                    debugger
+                    alert("FAIL!");
+                }
+            });
+
+
+
+
+            //if (a == "Quantity is too large!") {
+            //    alert("Quantity is too large!");
+            //    return;
+            //} else {
+            //    quantity = $(".quantity").val();
+            //}
+        } else {
+            alert("Pls Enter Quantity Of Device!");
+            return;
+        }
+
+
+
+    }
+    function EditReceive(id, receive_name, note) {
+        $("#id_receive").val(id);
+        $("#receiveName").val(receive_name);
+        $("#note").val(note);
+        modal_EditReceive.style.display = "block";
+    }
+    function UpdateReceive() {
+        var id = document.getElementById("id_receive").value;
+        var receive_name = "";
+        if ($("#receiveName").val() != 0) {
+            receive_name = document.getElementById("receiveName").value;
+        } else {
+            alert("Pls Fill Receive Name!");
+            return;
+        }
+        var note = "";
+        if ($("#note").val() != 0) {
+            note = document.getElementById("note").value;
+        } else {
+            note = "";
+        }
+        var data = new FormData;
+        data.append("id", id);
+        data.append("receive_name", receive_name);
+        data.append("note", note);
+
+        $.ajax({
+            type: "Post",
+            url: "/Receive/Create_Receive",
+            data: data,
+            async: false,
+            contentType: false,
+            processData: false,
+            success: function (data) {
+                debugger
+                //get_Device_Receive(int.parse(data));
+                alert("OK");
+
+                modal_EditReceive.style.display = "none";
+                location.reload();
+            },
+            error: function (err) {
+                //debugger
+                alert("FAIL!");
+            }
+        });
+    }
+    function DeleteReceive(id) {
+        if (confirm("Do you want to delete this row?")) {
+            //alert(id_delete);
+            $.ajax({
+                type: "POST",
+                url: "/Receive/Delete",
+                data: '{id: ' + id + '}',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+
+                    alert("SUCCESS!");
+                    location.reload();
+                }
+            });
+        }
+    }
+    function EditDevice(quantity, unit, device_id, receive_id, id, type, note) {
+        $("#id_clip").val(id);
+        $("#device_name").val(device_id);
+        $("#id_receive").val(receive_id);
+        $(".type_device").val(unit);
+        $(".quantity").val(quantity);
+        if (type == 1) {
+            $("#check_1").prop("checked");
+        } else if (type == 2) {
+            $("#check_2").prop("checked");
+        } else if (type == 3) {
+            $("#check_3").prop("checked");
+        }
+        $(".note").val(note);
+        modalEditDevice.style.display = "block";
+    }
+    function DeleteDevice(id_clip, receive_id) {
+        if (confirm("Do you want to delete this row?")) {
+            //alert(id_delete);
+            $.ajax({
+                type: "POST",
+                url: "/ClipOutput/Delete",
+                data: '{id: ' + id_clip + '}',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    modal.style.display = "none";
+                    alert("SUCCESS!");
+                    deltail(receive_id,"R");
+                }
+            });
+        }
+    }
+    //Check Quantity Of Device
+    function check_Quantity(device_id, quantity) {
+        $.ajax({
+            type: "Post",
+            url: "/Device/check_Quantity?device_id=" + device_id + "&quantity=" + quantity,
+            async: false,
+            contentType: false,
+            processData: false,
+            success: function (data) {
+                debugger
+                return data;
+            },
+            error: function (err) {
+                debugger
+                alert("FAIL!");
+            }
+        });
+    }
+</script>

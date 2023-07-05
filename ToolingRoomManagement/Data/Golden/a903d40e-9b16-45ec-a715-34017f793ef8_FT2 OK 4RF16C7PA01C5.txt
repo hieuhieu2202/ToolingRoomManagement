@@ -1,0 +1,89 @@
+ShowUI===[ CHECK SPEAKER ]===
+***Begin open CaliTool****
+Copy standard script before open
+script.ini: modify IQcal_View_YUV = 0 .
+script.ini: modify IQcal_Display = 0 .
+open CaliTool.exe file !
+***open CaliTool successful****
+=======START CHECK 3500Hz==========
+delete the old Audio.wav file
+Start recording Audio.wav file...
+ soundrecorder /file D:\FT2(U12I345T99)\Audio.wav /duration 000:00:01
+Freq: 3500 - 3500 Amp: 0.157 - 0.158 
+check volume (55-95): 92 pass...
+Check Frequency pass
+start analys volum
+Delete file D:\FT2(U12I345T99)\ffmpeg-20201127-091902.log 
+Delete file .\audio_stream 
+Delete file .\SoundLog.txt 
+command: ffmpeg.exe -i D:\FT2(U12I345T99)\Audio.wav -af "volumedetect" -f null null -report
+RUNBAT:System.Diagnostics.ProcessStartInfo
+Generate file successful. Start check key...
+Delete file D:\FT2(U12I345T99)\SoundLog.txt 
+***Found key success***
+DCB=9
+===================
+MEAN SPK: -7.6 [-12,-5] ---> Pass MAX SPK: -0.1
+===================
+Result [3500]: Freq_Left:3500,  Freq_Right:3500 , Decibel: 92 
+===[ CHECK SPEAKER 3500 PASS ... ]===
+Close CaliTool 
+===[ CHECK SPEAKER PASS ... ]===
+
+===[ CHECK MICROPHONE ]===
+***Begin open CaliTool****
+Copy standard script before open
+script.ini: modify IQcal_View_YUV = 0 .
+script.ini: modify IQcal_Display = 0 .
+open CaliTool.exe file !
+***open CaliTool successful****
+=====START CHECK MICROPHONE 1000Hz...=======
+Play audio from PC side 
+Set Mic to Recording ...
+Stop play audio, Check result ...
+Cycle[0] Play back the audio stream from DUT by calitool 
+check volume (55-100): 94 pass...
+ Freq: 1000.35 - 1000.35 Ampl: 0.224 - 0.224
+check frequency pass...
+start analys volum
+Delete file D:\FT2(U12I345T99)\ffmpeg-20201127-092036.log 
+Delete file .\audio_stream 
+Delete file .\SoundLog.txt 
+Copy audio_tream success
+command: ffmpeg.exe -f s16le -ar 44.1k -ac 2 -i D:\FT2(U12I345T99)\audio_stream -af "volumedetect" -f null null -report
+RUNBAT:System.Diagnostics.ProcessStartInfo
+Generate file successful. Start check key...
+Delete file D:\FT2(U12I345T99)\SoundLog.txt 
+***Found key success***
+DCB=8
+===================
+MEAN MIC: -6.3 [-10,-4] ---> Pass
+ MAX MIC: -3.4 [-8,0] ---> Pass
+ ===================
+Check volume 1000 by FFMPEG pass...
+Result [1000] : Freq_Left:1000.35 , Freq_Right:1000.35, Decibel: 94, 
+Max value [-6.3] : Mean value:-3.4 
+=====CHECK MICROPHONE 1000PASS...=======
+===[ TEST MICROPHONE PASS ... ]===
+
+Delay 0 MiliSecond
+==============Start show pass================
+TEST PROGRAM VERSION:2.3.2.8  TEST CYCLE TIME:20
+
+----------------Summary all test item--------------
+Test item name                Result  Test time
+ 1.CheckSpeakers               PASS    7.48s 
+ 2.CheckMicrophone             PASS    12.44s
+ 3.SendSfis                    -Skip-        
+---------------------------------------------------
+Write summary log server: F:\lsy\ID\U12I345T99\MODEL NAME \FT2 -> OK
+Write summary log localD:\Arlo_Logs\U12I345T99\MODEL NAME \FT2\27-11-2020 -> OK
+Details log local folder: D:\Arlo_Logs\U12I345T99\MODEL NAME \FT2\27-11-2020\PASS
+Details log server folder: F:\lsy\ID\Detail\U12I345T99\MODEL NAME \FT2\27-11-2020\PASS
+UserName Test Off: TEStart copy D:\FT2(U12I345T99)\CaliTool\output to D:\Arlo_CaliTool\PASS\1111111111111_09_20_51.
+Datetime (yyyy-MM-dd HH:mm:ss): 2020-11-27 09:20:51
+Start copy D:\FT2(U12I345T99)\CaliTool\output\Info to D:\Arlo_CaliTool\PASS\1111111111111_09_20_51\Info.
+Datetime (yyyy-MM-dd HH:mm:ss): 2020-11-27 09:20:51
+Start copy D:\FT2(U12I345T99)\CaliTool\output\Info\dutinfo.txt to D:\Arlo_CaliTool\PASS\1111111111111_09_20_51\Info\dutinfo.txt.
+Copy success...
+========Show pass finish=============

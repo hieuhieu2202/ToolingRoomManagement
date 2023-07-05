@@ -1,0 +1,142 @@
+ShowUIWait to have OVTI Serial Port
+.
+Start connect !
+Start Open COM !
+221 0
+Host2Dev Length [0]!!!
+control signal: 0x0
+Setup: 2221 0
+Host2Dev Length [0]!!!
+control signal: 0x0
+Setup: 21a1 70000
+Get: rate 115200
+Setup: 21a1 70000
+Get: rate 115200
+Setup: 21a1 70000
+Get: rate 115200
+Setup: 21a1 70000
+Get: rate 115200
+Setup: 2021 70000
+Set: rate 115200, Stop 0, Parity 0, Data 8
+Setup: 21a1 70000
+Get: rate 115200
+Setup: 2221 0
+Host2Dev Length [0]!!!
+control signal: 0x0
+Setup: 2021 70000
+Set: rate 115200, Stop 0, Parity 0, Data 8
+Setup: 21a1 70000
+Get: rate 115200
+Setup: 21a1 70000
+Get: rate 115200
+Setup: 21a1 70000
+Get: rate 115200
+Setup: 2021 70000
+Set: rate 115200, Stop 0, Parity 0, Data 8
+Setup: 21a1 70000
+Get: rate 115200
+Setup: 2221 0
+Host2Dev Length [0]!!!
+control signal: 0x0
+Setup: 2021 70000
+Set: rate 115200, Stop 0, Parity 0, Data 8
+Setup: 21a1 70000
+Get: rate 115200
+Setup: 2221 0
+Host2Dev Length [0]!!!
+control signal: 0x0
+
+Wait # !
+
+
+# 
+
+
+# 
+Connect DUT sussess.
+===[ Check MO]===
+SFIS not support return MO for this station...
+info
+FXCN version: 20190801_mfg 
+Build Time: 14:52:30 Aug  1 2019
+
+FXCN version: 20190801685
+
+IQC version: 20190628 V0.1.2
+Board ID: 5
+
+MAC: A4:11:62:20:0F:1C, id2 0
+
+SERIAL_NUM: A091977LA03D1
+
+MODEL_NUM: VMC4040P
+
+HW_REV: H8
+
+BLE_MAC: A4:11:62:20:0F:1D, id2 5
+error: data length is forbidden as 0 when read serial flash
+
+ALS_LLUX: 
+error: data length is forbidden as 0 when read serial flash
+
+ALS_THRES_LUX: 
+error: data length is forbidden as 0 when read serial flash
+
+ALS_HLUX: 
+error: data length is forbidden as 0 when read serial flash
+
+2g_ssid: 
+error: data length is forbidden as 0 when read serial flash
+
+2g_passwd: 
+error: data length is forbidden as 0 when read serial flash
+
+wl_bd_pref: 0x00 0x00 0x00 0x00 
+error: data length is forbidden as 0 when read serial flash
+
+enc_key: 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 
+error: data length is forbidden as 0 when read serial flash
+
+auth_key: 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 
+error: data length is forbidden as 0 when read serial flash
+
+wrap_key: 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 
+error: data length is forbidden as 0 when read serial flash
+
+wrap_data: 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 
+error: data length is forbidden as 0 when read serial flash
+
+ALS_IR_LEAKAGE: 
+
+# 
+===[ CC70 Check firmware version failed. ... ]===
+Delay 0 MiliSecond
+==============Start show fail=================
+TEST PROGRAM VERSION:2.3.2.8  TEST CYCLE TIME:1
+===[ CC70 Check firmware version failed. ... ]===
+
+----------------Summary all test item--------------
+Test item name                Result  Test time
+ 1.ConnectDUT                  PASS    1.43s 
+ 2.CheckMO                     PASS    0.01s 
+ 3.CheckFWVersion_Gen5         FAIL    0.11s 
+ 4.BurnMac                                   
+ 5.BurnBLEMac                                
+ 6.BurnSerialNumber                          
+ 7.BurnHwRev_Falcon                          
+ 8.BurnModel                                 
+ 9.CheckPIR_NoMotion                         
+10.CheckLED_Gen5                             
+11.SetParameter1                             
+12.CheckNFT                                  
+13.CheckBLE                                  
+14.DUTBurnCertKey                            
+15.OpenIperfServer                           
+16.SetDTIM                                   
+17.CheckButton                               
+18.SendSfis                                  
+---------------------------------------------------
+FAIL. Close COM sucessful....
+Write summary log server: F:\lsy\ID\U12I393\MODEL NAME \FT -> OK
+Write summary log localD:\Arlo_Logs\U12I393\MODEL NAME \FT\20-11-2020 -> OK
+Details log local folder: D:\Arlo_Logs\U12I393\MODEL NAME \FT\20-11-2020\FAIL

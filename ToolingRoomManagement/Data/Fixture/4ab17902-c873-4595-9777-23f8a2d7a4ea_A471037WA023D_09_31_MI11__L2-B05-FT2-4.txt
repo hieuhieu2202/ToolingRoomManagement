@@ -1,0 +1,105 @@
+ShowUIChecking ABA status...
+No record, test directly
+iaba :-1
+===[ USB mode already ... ]===
+
+Modify .\CaliTool\prj_cfg.rr_dv1.txt: AEC_EN: 0
+Read value .\CaliTool\prj_cfg.rr_dv1.txt: AEC_EN: 0
+Modify .\CaliTool\prj_cfg.rr_dv1.txt: DRC_EN: 0
+Read value .\CaliTool\prj_cfg.rr_dv1.txt: DRC_EN: 0
+Modify .\CaliTool\prj_cfg.rr_dv1.txt: NS_EN: 0
+Read value .\CaliTool\prj_cfg.rr_dv1.txt: NS_EN: 0
+***************Check AMIC FR THD****************
+Delete file: .\CaliTool\audio_stream 
+Copy standard script before open
+***open CaliTool successful****
+Found: .\CaliTool\output\Info\dutinfo.txt
+SERIAL_NUM :ZTS472R
+SN from log: ZTS472R
+1.SN send to sfis: ZTS472R
+Error read SN to send SFIS:The port is closed.
+Delay 2000 MiliSecond
+Modify .\CaliTool\script.ini: Func_Mic_CH: 2
+Read value .\CaliTool\script.ini: Func_Mic_CH: 2
+Modify .\CaliTool\script.ini: Func_Mic: 1
+Read value .\CaliTool\script.ini: Func_Mic: 1
+Status Cali=True
+Close CaliTool 
+09:31:35$006#
+$006^0^OK#
+Close Calitoll pass 
+Wait: .\CaliTool\output\Info\dutinfo.txt
+***Begin open CaliTool****
+Copy standard script before open
+script.ini: modify IQcal_View_YUV = 0 .
+script.ini: modify IQcal_Display = 0 .
+open CaliTool.exe file !
+***open CaliTool successful****
+Found: .\CaliTool\output\Info\dutinfo.txt
+SERIAL_NUM :ZTS472R
+SN from log: ZTS472R
+1.SN send to sfis: ZTS472R
+Error read SN to send SFIS:The port is closed.
+$006_over,Status:'OK'^0^OK#
+Modify .\CaliTool\script.ini: Func_Mic: 0
+Read value .\CaliTool\script.ini: Func_Mic: 0
+Status Cali=True
+Close CaliTool 
+Convert D:\FT2_1(U12I394)\\audio_stream to D:\FT2_1(U12I394)\Audio\amic-fr-thd.wav
+Close Calitoll pass 
+Wait: .\CaliTool\output\Info\dutinfo.txt
+***Begin open CaliTool****
+Copy standard script before open
+script.ini: modify IQcal_View_YUV = 0 .
+script.ini: modify IQcal_Display = 0 .
+open CaliTool.exe file !
+09:31:42$007#
+$007^0^OK#
+$007_over,Status:'NG'^0^OK#
+20/11/2020 09:31:43: Goto Checkchoac!!!
+20/11/2020 09:31:43: Path !!!C:\Users\Administrator\Desktop\AudioExpert_AES\Result
+SN							
+Time			2020_11_20_09_31_43				
+Overall TestResult			FAIL				
+01_AMIC Analysis 100-8000 wav-Frequency reponse						
+Test Result:	Fail					
+FR FAIL
+
+ start to move
+Item: C:\Users\Administrator\Desktop\AudioExpert_AES\Result\_20201120093143_FAIL.txt
+***************Start Change Shipping Mode****************
+09:31:43$999#
+EnableShipMode=1
+Delete file: .\CaliTool\audio_stream 
+Copy standard script before open
+Modify .\CaliTool\script.ini: Func_IRLED: 1
+Read value .\CaliTool\script.ini: Func_IRLED: 1
+Modify .\CaliTool\script.ini: Func_SHIPPING_MODE: 1
+Read value .\CaliTool\script.ini: Func_SHIPPING_MODE: 1
+$999^0^OK#
+$999_over,Status:'OK'^0^OK#
+Delay 0 MiliSecond
+==============Start show fail=================
+TEST PROGRAM VERSION:2.3.2.8  TEST CYCLE TIME:14
+===[ MI11AMicFRTHD ... ]===
+
+----------------Summary all test item--------------
+Test item name                Result  Test time
+ 1.OpenCaliModeGen5            PASS    0.04s 
+ 2.configDSRNSAEC0             PASS    0s    
+ 3.AMicFRTHD                   FAIL    14.15s
+ 4.AMicSensitivity                           
+ 5.configDSRNSAEC1                           
+ 6.SpkFRTHD                                  
+ 7.SpkSensitivity                            
+ 8.AMicNoiseFloor                            
+ 9.SendSfis                                  
+---------------------------------------------------
+***open CaliTool successful****
+Write summary log server: F:\lsy\ID\U12I394\MODEL NAME \FT2-1 -> OK
+Write summary log localD:\Arlo_Logs\U12I394\MODEL NAME \FT2-1\20-11-2020 -> OK
+Write  Megasig log to server folder: F:\lsy\ID\U12I394\MODEL NAME \FT2-1\L2-B05-FT2-4 -> OK
+***************Change Shipping Mode Complete****************
+Close CaliTool 
+Move wav file: D:\FT2_1(U12I394)\\Audio\amic-fr-thd.wav
+Details log local folder: D:\Arlo_Logs\U12I394\MODEL NAME \FT2-1\20-11-2020\FAIL

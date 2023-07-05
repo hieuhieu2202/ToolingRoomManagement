@@ -1,0 +1,23 @@
+﻿@model List<Model.EF.ClipOutput>
+    @{ int dem = 0;}
+@foreach (var item in Model)
+{
+
+    { dem++; }
+    <tr>
+        <td><span>@dem</span></td>
+        <td class="device_name">@item.device_id</td>
+        <td><input type="text" class="form-control TYPEDEVICE type_device" style="background-color:white;color:black;" id=""></td>
+        <td><input type="text" class="form-control QUANTITY quantity" style="background-color:white;color:black;" id=""></td>
+        <td><input type="radio" name="check" id="check_1" value="1" /></td>
+        <td><input type="radio" name="check" id="check_2" value="2" /></td>
+        <td><input type="radio" name="check" id="check_3" value="3" /></td>
+        <td><input type="text" class="form-control NOTE note" style="background-color:white;color:black;" id=""></td>
+        <td style="text-align:center;">
+            <a class="add_row" title="Add" data-toggle="tooltip">
+                <i class="fa fa-plus"></i>
+            </a>
+        </td>
+    </tr>
+}
+

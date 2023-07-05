@@ -1,0 +1,513 @@
+﻿@model ToolingRoomManagement.Models.LoginModel
+@{
+    Layout = null;
+}
+
+<script src="~/Assets/client/vendor/jquery/jquery.min.js"></script>
+<style type="text/css">
+    body {
+        margin: 0;
+        color: #6a6f8c;
+        background-image: url("/Assets/img/thumb-1920-881684.jpg");
+        font: 600 16px/18px 'Open Sans',sans-serif;
+    }
+
+    *, :after, :before {
+        box-sizing: border-box;
+    }
+
+    .clearfix:after, .clearfix:before {
+        content: '';
+        display: table;
+    }
+
+    .clearfix:after {
+        clear: both;
+        display: block;
+    }
+
+    a {
+        color: inherit;
+        text-decoration: none;
+    }
+
+    .login-wrap {
+        width: 100%;
+        margin: auto;
+        max-width: 425px;
+        min-height: 620px;
+        position: relative;
+        /*background: url(https://raw.githubusercontent.com/khadkamhn/day-01-login-form/master/img/bg.jpg) no-repeat center;*/
+        background: url('/Assets/img/bg_LoginForm.jpg') no-repeat center;
+        /*background-image: url('../../../../Assets/img/bg_LoginForm.jpg');*/
+        box-shadow: 0 12px 15px 0 rgba(0,0,0,.24),0 17px 50px 0 rgba(0,0,0,.19);
+    }
+
+    .login-html {
+        width: 100%;
+        height: 109%;
+        position: absolute;
+        padding: 70px 70px 50px 70px;
+        background: rgba(40,57,101,.9);
+    }
+
+        .login-html .sign-in-htm,
+        .login-html .sign-up-htm {
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            position: absolute;
+            transform: rotateY(180deg);
+            backface-visibility: hidden;
+            transition: all .4s linear;
+        }
+
+        .login-html .sign-in,
+        .login-html .sign-up,
+        .login-form .group .check {
+            display: none;
+        }
+
+        .login-html .tab,
+        .login-form .group .label,
+        .login-form .group .button {
+            text-transform: uppercase;
+        }
+
+        .login-html .tab {
+            font-size: 22px;
+            margin-right: 15px;
+            padding-bottom: 5px;
+            margin: 0 15px 10px 0;
+            display: inline-block;
+            border-bottom: 2px solid transparent;
+        }
+
+        .login-html .sign-in:checked + .tab,
+        .login-html .sign-up:checked + .tab {
+            color: #fff;
+            border-color: #1161ee;
+        }
+
+    .login-form {
+        min-height: 345px;
+        position: relative;
+        perspective: 1000px;
+        transform-style: preserve-3d;
+    }
+
+        .login-form .group {
+            margin-bottom: 15px;
+        }
+
+            .login-form .group .label,
+            .login-form .group .input,
+            .login-form .group .button {
+                width: 100%;
+                color: #fff;
+                display: block;
+            }
+
+            .login-form .group .input,
+            .login-form .group .button {
+                border: none;
+                padding: 15px 20px;
+                border-radius: 25px;
+                background: rgba(255,255,255,.1);
+            }
+
+            .login-form .group input[data-type="password"] {
+                text-security: circle;
+                -webkit-text-security: circle;
+            }
+
+            .login-form .group .label {
+                color: #aaa;
+                font-size: 12px;
+            }
+
+            .login-form .group .button {
+                background: #1161ee;
+            }
+
+            .login-form .group label .icon {
+                width: 15px;
+                height: 15px;
+                border-radius: 2px;
+                position: relative;
+                display: inline-block;
+                background: rgba(255,255,255,.1);
+            }
+
+                .login-form .group label .icon:before,
+                .login-form .group label .icon:after {
+                    content: '';
+                    width: 10px;
+                    height: 2px;
+                    background: #fff;
+                    position: absolute;
+                    transition: all .2s ease-in-out 0s;
+                }
+
+                .login-form .group label .icon:before {
+                    left: 3px;
+                    width: 5px;
+                    bottom: 6px;
+                    transform: scale(0) rotate(0);
+                }
+
+                .login-form .group label .icon:after {
+                    top: 6px;
+                    right: 0;
+                    transform: scale(0) rotate(0);
+                }
+
+            .login-form .group .check:checked + label {
+                color: #fff;
+            }
+
+                .login-form .group .check:checked + label .icon {
+                    background: #1161ee;
+                }
+
+                    .login-form .group .check:checked + label .icon:before {
+                        transform: scale(1) rotate(45deg);
+                    }
+
+                    .login-form .group .check:checked + label .icon:after {
+                        transform: scale(1) rotate(-45deg);
+                    }
+
+    .login-html .sign-in:checked + .tab + .sign-up + .tab + .login-form .sign-in-htm {
+        transform: rotate(0);
+    }
+
+    .login-html .sign-up:checked + .tab + .login-form .sign-up-htm {
+        transform: rotate(0);
+    }
+
+    .hr {
+        height: 2px;
+        margin: 10px 0 10px 0;
+        background: rgba(255,255,255,.2);
+    }
+
+    .foot-lnk {
+        text-align: center;
+    }
+</style>
+<div class="login-wrap" style="margin-top:70px;">
+    <div class="login-html">
+        <input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab" langKey="signIn">Sign In</label>
+        <input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab" langKey="signUp">Sign Up</label>
+        <div class="login-form">
+            <div class="sign-in-htm">
+                @using (Html.BeginForm("Login", "Login", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(false, "", new { @class = "text-danger", @style = "color:#bd4646;" });
+                    <div class="group">
+                        @Html.LabelFor(model => model.UserName, new { @class = "label", @for = "user", @id = "userName", @autofocus = "autofocus" ,@langKey="username"})
+                        @Html.TextBoxFor(model => model.UserName, new { @id = "user", @type = "text", @class = "input", @placeholder = "V0123456" })
+                        @*<label for="user" class="label">Username</label>
+                            <input id="user" type="text" class="input">*@
+                    </div>
+                    <div class="group">
+                        @Html.LabelFor(model => model.Password, new { @class = "label", @for = "pass", @id = "passWord", @autofocus = "autofocus", @langKey = "password" })
+                        @Html.TextBoxFor(model => model.Password, new { @id = "pass", @type = "password", @class = "input" })
+                        @*<label for="pass" class="label">Password</label>
+                            <input id="pass" type="password" class="input" data-type="password">*@
+                    </div>
+                    <div class="group">
+                        @*@Html.TextBoxFor(model=>model.UserName, new { @id = "check", @type = "checkbox", @class = "check" })
+                            @Html.Label("Keep me Signed in", new { @class = "icon", @for = "check", @autofocus = "autofocus" })*@
+                        <input id="check" type="checkbox" class="check" checked>
+                        <label for="check"><span class="icon"></span> Keep me Signed in</label>
+                    </div>
+                    <div class="group">
+                        <input type="submit" class="button" value="Sign In">
+                    </div>
+                    <div class="hr"></div>
+                    <div class="foot-lnk">
+                        <a href="#forgot" langKey="forgotPass">Forgot Password?</a>
+                    </div>
+                }
+            </div>
+            <div class="sign-up-htm">
+                <div id="SendCode">
+                    <div class="group" id="Username">
+                        <label for="nameuser" class="label" langKey="username">User name</label>
+                        <input id="nameuser" type="text" class="input">
+                    </div>
+                    <div class="group" id="Mail">
+                        <label for="mail" class="label" >Mail</label>
+                        <input id="mail" type="text" class="input">
+                    </div>
+                    <div class="group" id="sub_GetCode">
+                        <input type="submit" class="button" onclick="sendCode()" value="Get code">
+                    </div>
+                </div>
+                <div id="checkCode">
+                    <div class="group" id="Code">
+                        <label for="code" class="label">Code</label>
+                        <input id="code" type="text" class="input">
+                    </div>
+                    <div class="group" id="sub_CheckCode">
+                        <input type="submit" class="button" onclick="CheckCode()" value="Check code">
+                    </div>
+                </div>
+                <div id="SignUp">
+                    <div class="group" id="UserName">
+                        <label for="username" class="label" langKey="username">Username</label>
+                        <input id="username" type="text" class="input" placeholder="<--V0123456-->">
+                    </div>
+                    <div class="group" id="FullName">
+                        <label for="fullname" class="label" langKey="fullname">Full name</label>
+                        <input id="fullname" type="text" class="input">
+                    </div>
+
+                    <div class="group" id="Phone">
+                        <label for="phone" class="label" langKey="phone">Phone</label>
+                        <input id="phone" type="text" class="input">
+                    </div>
+                    <div class="group" id="Part">
+                        <label for="part" class="label" langKey="part">Part</label>
+                        <select id="part" style="color: white;height: 40px;width: 285px; background: #3c4b75;border: none;border-radius: 35px;">
+                            <option value="1" style="color: black;">Automation</option>
+                            <option value="2" style="color: black;">SetUp</option>
+                            <option value="3" style="color: black;">Thiết bị</option>
+                            <option value="4" style="color: black;">ME</option>
+                            <option value="5" style="color: black;">PE</option>
+                            <option value="6" style="color: black;">TE Pro NG</option>
+                            <option value="7" style="color: black;">QE</option>
+                            <option value="8" style="color: black;">PMC</option>
+                            <option value="9" style="color: black;">LABEL</option>
+                            <option value="10" style="color: black;">RE</option>
+                            @*@foreach (var item in listpart)
+        {
+            <option value="@item.id">@item.part_name</option>
+        }*@
+                        </select>
+                    </div>
+                    <div class="group" id="Pass">
+                        <label for="password" class="label" langKey="password">Password</label>
+                        <input id="password" type="password" class="input" data-type="password">
+                    </div>
+                    <div class="group" id="ConfirmPass">
+                        <label for="confirmPass" class="label" langKey="confirm_pass">Confirm Password</label>
+                        <input id="confirmPass" type="password" class="input" data-type="password">
+                    </div>
+
+                    <div class="group" id="sub_SignUp">
+                        <input type="submit" id="btn_Create" onclick="SignIn()" class="button" langKey="signUp" value="Sign Up">
+                    </div>
+                </div>
+
+                <div class="hr"></div>
+                <div class="foot-lnk">
+                    <label for="tab-1"><a langKey="already">Already Member?</a></label>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<input type="hidden" id="langCode" value="@ViewBag.LangCode" />
+<script>
+    var langCode = $("#langCode").val() || "en";
+    var jsonUrl = "/Assets/lang/" + langCode + ".json";
+    var translate = function (jsdata) {
+        $("[langKey]").each(function (index) {
+            var strTr = jsdata[$(this).attr("langKey")];
+            $(this).html(strTr);
+            $(this).attr("placeholder", strTr);
+        });
+    }
+    $.ajax({
+        url: jsonUrl,
+        dataType: "json",
+        async: false,
+        success: function (jsdata) {
+            $("[langKey]").each(function (index) {
+                var strTr = jsdata[$(this).attr("langKey")];
+                $(this).html(strTr);
+                $(this).attr("placeholder", strTr);
+            });
+        }
+    });
+    $(document).ready(function () {
+        $("#checkCode").hide();
+        $("#SendCode").hide();
+        $("#fullname").prop('disabled', true);
+            $("#username").focusout(function () {
+                var username;
+                if ($("#username").val() != "") {
+                    username = document.getElementById("username").value;
+                } else {
+                    return;
+                }
+               
+                $.ajax({
+                    type: "Post",
+                    url: "/Login/getFullnameUser?code=" + username,
+                    async: false,
+                    contentType: false,
+                    processData: false,
+                    success: function (data) {
+                        debugger
+                        if (data == "NG") {
+                            alert("Mã thẻ k đúng!");
+                            $("#fullname").val("");
+                            //$("#fullname").prop('disabled', true);
+                            $("#fullname").css({ "background-color": "#d2d2d2" });
+                            $("#phone").prop('disabled', true);
+                            $("#phone").css({ "background-color": "#d2d2d2" });
+                            $("#part").prop('disabled', true);
+                            $("#part").css({ "background-color": "#d2d2d2" });
+                            $("#password").prop('disabled', true);
+                            $("#password").css({ "background-color": "#d2d2d2" });
+                            $("#confirmPass").prop('disabled', true);
+                            $("#confirmPass").css({ "background-color": "#d2d2d2" });
+                            $("#submit").prop('disabled', true);
+                            $("#submit").css({ "background-color": "#d2d2d2" });
+
+                        } else {
+
+                            //$("#fullname").prop('disabled', false);
+                            $("#fullname").css({ "background": "rgba(255, 255, 255, .1)" });
+                            $("#phone").prop('disabled', false);
+                            $("#phone").css({ "background": "rgba(255, 255, 255, .1)" });
+                            $("#part").prop('disabled', false);
+                            $("#part").css({ "background": "rgba(255, 255, 255, .1)" });
+                            $("#password").prop('disabled', false);
+                            $("#password").css({ "background": "rgba(255, 255, 255, .1)" });
+                            $("#confirmPass").prop('disabled', false);
+                            $("#confirmPass").css({ "background": "rgba(255, 255, 255, .1)" });
+                            $("#submit").prop('disabled', false);
+                            $("#submit").css({ "background": "rgba(255, 255, 255, .1)" });
+
+                            $("#fullname").val(data);
+                        }
+                    },
+                    error: function (err) {
+                        //debugger
+                        alert("FAIL!");
+                    }
+                });
+            });
+    })
+    
+    //function sendCode() {
+    //    debugger
+    //    if (document.getElementById("mail").value != 0) {
+    //        var nameuser = document.getElementById("nameuser").value;
+    //        var mail = document.getElementById("mail").value;
+    //        debugger
+    //        $.ajax({
+    //            type: "POST",
+    //            url: "/Register/SendCode?mail=" + mail + "&nameuser=" + nameuser,
+    //            contentType: "application/json; charset=utf-8",
+    //            dataType: "json",
+    //            success: function (response) {
+    //                alert(response);
+    //                if (response == "OK") {
+    //                    $("#checkCode").show();
+    //                    $("#SendCode").hide();
+    //                    $("#SignUp").hide();
+    //                }
+
+    //            },
+    //            error: function (err) {
+    //                alert("Fail!");
+    //            }
+    //        });
+    //    } else {
+    //        alert("Please fill your mail!");
+    //    }
+    //}
+    //function CheckCode() {
+    //    if (document.getElementById("code").value != 0) {
+    //        var code = document.getElementById("code").value;
+    //        debugger
+    //        $.ajax({
+    //            type: "POST",
+    //            url: "/Register/CheckCode?code=" + code,
+    //            contentType: "application/json; charset=utf-8",
+    //            dataType: "json",
+    //            success: function (response) {
+    //                alert(response);
+    //                if (response == "OK") {
+    //                    $("#checkCode").hide();
+    //                    $("#SendCode").hide();
+    //                    $("#SignUp").show();
+    //                } else {
+    //                    alert("Your code incorrect!");
+    //                }
+    //            },
+    //            error: function (err) {
+    //                alert("Fail!");
+    //            }
+    //        });
+    //    } else {
+    //        alert("Please fill your mail!");
+    //    }
+    //}
+    function SignIn() {
+        if (document.getElementById("fullname").value != 0) {
+            if (document.getElementById("username").value != 0) {
+                if (document.getElementById("phone").value != 0) {
+                    if (document.getElementById("password").value != 0) {
+                        if (document.getElementById("confirmPass").value != 0) {
+                            debugger
+                            var fullname = document.getElementById("fullname").value;
+                            var username = document.getElementById("username").value;
+                            var phone = document.getElementById("phone").value;
+                            var part = $("#part").val();
+                            var pass = document.getElementById("password").value;
+                            var confirmPass = document.getElementById("confirmPass").value;
+                            data = new FormData;
+                            data.append("fullName", fullname);
+                            data.append("UserName", username);
+                            data.append("Phone", phone);
+                            data.append("PartID", part);
+                            data.append("Password", pass);
+                            data.append("ConfirmPassword", confirmPass);
+
+                            $.ajax({
+                                type: "POST",
+                                url: "/Register/Create_Account",
+                                data: data,
+                                contentType: false,
+                                processData: false,
+                                success: function (response) {
+                                    if (response == "NG") {
+                                        alert("Username already exist!!");
+                                    } else if (response == "NOK") {
+                                        alert("Create Account Unsuccessful!");
+                                    } else {
+                                        alert("Create Account Success!");
+                                        location.reload();
+                                    }
+                                    
+                                },
+                                error: function (err) {
+                                    alert("Fail!");
+                                }
+                            });
+                        } else {
+                            alert("Please fill confirm password!");
+                        }
+                    } else {
+                        alert("Please fill your password!");
+                    }
+                } else {
+                    alert("Please fill your phone number!");
+                }
+            } else {
+                alert("Please fill your username!");
+            }
+        } else {
+            alert("Please fill your full name!");
+        }
+    }
+</script>

@@ -1,0 +1,82 @@
+ShowUI===[ CHECK SPEAKER ]===
+***Begin open CaliTool****
+Copy standard script before open
+script.ini: modify IQcal_View_YUV = 0 .
+script.ini: modify IQcal_Display = 0 .
+open CaliTool.exe file !
+***open CaliTool successful****
+=======START CHECK 3500Hz==========
+delete the old Audio.wav file
+Start recording Audio.wav file...
+ soundrecorder /file D:\FT2(U12I345T99)\Audio.wav /duration 000:00:01
+Freq: 0 - 0 Amp: 0 - 0 
+check volume (55-95): 77 pass...
+Freq: 3499.61 - 3499.61 Amp: 0.019 - 0.019 
+check volume (55-95): 78 pass...
+Check Frequency pass
+start analys volum
+Delete file D:\FT2(U12I345T99)\ffmpeg-20201127-103541.log 
+Delete file .\audio_stream 
+Delete file .\SoundLog.txt 
+Copy audio_tream success
+command: ffmpeg.exe -i D:\FT2(U12I345T99)\Audio.wav -af "volumedetect" -f null null -report
+RUNBAT:System.Diagnostics.ProcessStartInfo
+Generate file successful. Start check key...
+Delete file D:\FT2(U12I345T99)\SoundLog.txt 
+***Found key success***
+DCB=14
+===================
+MEAN SPK: -27.1 [-12,-5] ---> Fail MAX SPK: -15.8
+===================
+delete the old Audio.wav file
+Start recording Audio.wav file...
+ soundrecorder /file D:\FT2(U12I345T99)\Audio.wav /duration 000:00:01
+Freq: 3499.61 - 3499.61 Amp: 0.019 - 0.019 
+check volume (55-95): 78 pass...
+start analys volum
+Delete file D:\FT2(U12I345T99)\ffmpeg-20201127-103626.log 
+Delete file .\audio_stream 
+Delete file .\SoundLog.txt 
+Copy audio_tream success
+command: ffmpeg.exe -i D:\FT2(U12I345T99)\Audio.wav -af "volumedetect" -f null null -report
+RUNBAT:System.Diagnostics.ProcessStartInfo
+Generate file successful. Start check key...
+Delete file D:\FT2(U12I345T99)\SoundLog.txt 
+***Found key success***
+DCB=14
+===================
+MEAN SPK: -24.9 [-12,-5] ---> Fail MAX SPK: -15
+===================
+delete the old Audio.wav file
+Start recording Audio.wav file...
+ soundrecorder /file D:\FT2(U12I345T99)\Audio.wav /duration 000:00:01
+Freq: 8.56 - 8.57 Amp: 0.001 - 0.001 
+check volume (55-95): 80 pass...
+start analys volum
+Delete file D:\FT2(U12I345T99)\ffmpeg-20201127-103631.log 
+Delete file .\audio_stream 
+Delete file .\SoundLog.txt 
+Copy audio_tream success
+command: ffmpeg.exe -i D:\FT2(U12I345T99)\Audio.wav -af "volumedetect" -f null null -report
+RUNBAT:System.Diagnostics.ProcessStartInfo
+Generate file successful. Start check key...
+Delete file D:\FT2(U12I345T99)\SoundLog.txt 
+***Found key success***
+DCB=13
+===================
+MEAN SPK: -22.1 [-12,-5] ---> Fail MAX SPK: -14.2
+===================
+Result [3500]: Freq_Left:8.56,  Freq_Right:8.57 , Decibel: 80 
+===[ CHECK SPEAKER 3500 FAIL ... ]===
+Delay 0 MiliSecond
+==============Start show fail=================
+TEST PROGRAM VERSION:2.3.2.8  TEST CYCLE TIME:21
+===[ SPFF Check volume speakers by ffmpeg fail ... ]===
+
+----------------Summary all test item--------------
+Test item name                Result  Test time
+ 1.CheckSpeakers               FAIL    21.45s
+ 2.CheckMicrophone                           
+ 3.SendSfis                                  
+---------------------------------------------------
+Details log local folder: D:\Arlo_Logs\U12I345T99\MODEL NAME \FT2\27-11-2020\FAIL

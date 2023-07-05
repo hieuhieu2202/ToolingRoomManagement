@@ -1,0 +1,129 @@
+ShowUIChecking ABA status...
+No record, test directly
+iaba :-1
+***open CaliTool successful****
+===[ USB mode already ... ]===
+
+======Start check audio==========
+Close CaliTool 
+Found: .\CaliTool\output\Info\dutinfo.txt
+SERIAL_NUM :A6D10B70A0236
+Send: STARTTEST
+AutoTest: 
+SN from log: A6D10B70A0236
+Close CaliTool 
+AutoTest: 
+AutoTest: Current state:Waiting for the entry of SN
+Send: SNA4310679A0E0E
+AutoTest: Current state:SN input OK
+Delete folder 2020_12_13 
+Delete folder AOutput_1.wav 
+Delete folder DOutput_1.wav 
+Current state:is tesing 
+4.Close Calitoll pass 
+1.SN send to sfis: A6D10B70A0236
+Error read SN to send SFIS:The port is closed.
+Status Cali=False
+Close CaliTool 
+Close Calitoll pass 
+Wait: .\CaliTool\output\Info\dutinfo.txt
+***Begin open CaliTool****
+Copy standard script before open
+script.ini: modify IQcal_View_YUV = 0 .
+script.ini: modify IQcal_Display = 0 .
+open CaliTool.exe file !
+***open CaliTool successful****
+Found: .\CaliTool\output\Info\dutinfo.txt
+SERIAL_NUM :A6D10B70A0236
+SN from log: A6D10B70A0236
+Close CaliTool 
+4.Close Calitoll pass 
+1.SN send to sfis: A6D10B70A0236
+Error read SN to send SFIS:The port is closed.
+Status Cali=False
+Close CaliTool 
+Close Calitoll pass 
+Wait: .\CaliTool\output\Info\dutinfo.txt
+***Begin open CaliTool****
+Copy standard script before open
+script.ini: modify IQcal_View_YUV = 0 .
+script.ini: modify IQcal_Display = 0 .
+open CaliTool.exe file !
+***open CaliTool successful****
+Found: .\CaliTool\output\Info\dutinfo.txt
+SERIAL_NUM :A6D10B70A0236
+SN from log: A6D10B70A0236
+Close CaliTool 
+4.Close Calitoll pass 
+1.SN send to sfis: A6D10B70A0236
+Error read SN to send SFIS:The port is closed.
+Status Cali=False
+Close CaliTool 
+Close Calitoll pass 
+Wait: .\CaliTool\output\Info\dutinfo.txt
+***Begin open CaliTool****
+Copy standard script before open
+script.ini: modify IQcal_View_YUV = 0 .
+script.ini: modify IQcal_Display = 0 .
+open CaliTool.exe file !
+***open CaliTool successful****
+Found: .\CaliTool\output\Info\dutinfo.txt
+SERIAL_NUM :A6D10B70A0236
+SN from log: A6D10B70A0236
+Close CaliTool 
+4.Close Calitoll pass 
+1.SN send to sfis: A6D10B70A0236
+Error read SN to send SFIS:The port is closed.
+Status Cali=False
+Close CaliTool 
+Close Calitoll pass 
+Wait: .\CaliTool\output\Info\dutinfo.txt
+***Begin open CaliTool****
+Copy standard script before open
+script.ini: modify IQcal_View_YUV = 0 .
+script.ini: modify IQcal_Display = 0 .
+open CaliTool.exe file !
+***open CaliTool successful****
+Last Result: interrupt test FAIL 
+Close success
+Power off/on by mcu
+UI->MCU: POWER_ON
+POWER_ON_OK
+Found: .\CaliTool\output\Info\dutinfo.txt
+SERIAL_NUM :A6D10B70A0236
+SN from log: A6D10B70A0236
+Close CaliTool 
+UI->MCU: POWER_OFF
+POWER_OF4.Close Calitoll pass 
+1.SN send to sfis: A6D10B70A0236
+F_OK
+Error read SN to send SFIS:The port is closed.
+D:\AutoTest_MP\TestReport\2020_12_13
+Copy D:\AutoTest_MP\TestReport\2020_12_13to D:\Arlo_Logs\U12I386T01\MODEL NAME \FT2-1_AudioLogs\2020_12_13
+Show fail 
+Status Cali=False
+Close CaliTool 
+Close Calitoll pass 
+Wait: .\CaliTool\output\Info\dutinfo.txt
+***Begin open CaliTool****
+Copy standard script before open
+script.ini: modify IQcal_View_YUV = 0 .
+script.ini: modify IQcal_Display = 0 .
+open CaliTool.exe file !
+***open CaliTool successful****
+===[ NONE Can not record audio. ... ]===
+Found: .\CaliTool\output\Info\dutinfo.txt
+Delay 0 MiliSecond
+==============Start show fail=================
+TEST PROGRAM VERSION:2.3.2.8  TEST CYCLE TIME:42
+===[ NONE Can not record audio. ... ]===
+
+----------------Summary all test item--------------
+Test item name                Result  Test time
+ 1.OpenCaliModeGen5            PASS    0.06s 
+ 2.AudioTest                   FAIL    41.33s
+ 3.SendSfis                                  
+---------------------------------------------------
+Write summary log server: F:\lsy\ID\U12I386T01\MODEL NAME \FT2-1 -> OK
+Write summary log localD:\Arlo_Logs\U12I386T01\MODEL NAME \FT2-1\13-12-2020 -> OK
+Details log local folder: D:\Arlo_Logs\U12I386T01\MODEL NAME \FT2-1\13-12-2020\FAIL
