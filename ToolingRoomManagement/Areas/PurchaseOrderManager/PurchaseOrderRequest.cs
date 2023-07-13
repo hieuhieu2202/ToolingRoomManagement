@@ -18,6 +18,7 @@ namespace ToolingRoomManagement.Areas.PurchaseOrderManager
         public PurchaseOrderRequest()
         {
             this.PurchaseOrderRequestItems = new HashSet<PurchaseOrderRequestItem>();
+            this.PurchaseOrderRequestFiles = new HashSet<PurchaseOrderRequestFile>();
         }
     
         public System.Guid Id { get; set; }
@@ -26,14 +27,18 @@ namespace ToolingRoomManagement.Areas.PurchaseOrderManager
         public string CostCode { get; set; }
         public string LegalEntity { get; set; }
         public string DeliveryLocation { get; set; }
-        public string PlanDeliveryDate { get; set; }
         public string Requester { get; set; }
         public string RequesterPhoneNumber { get; set; }
-        public string RequesterEmail { get; set; }
         public string Approver { get; set; }
         public string Reviewer { get; set; }
+        public string Status { get; set; }
+        public Nullable<System.DateTime> PlanDeliveryDate { get; set; }
+        public Nullable<System.DateTime> CreatedDate { get; set; }
+        public string RequesterEmail { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PurchaseOrderRequestItem> PurchaseOrderRequestItems { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PurchaseOrderRequestFile> PurchaseOrderRequestFiles { get; set; }
     }
 }

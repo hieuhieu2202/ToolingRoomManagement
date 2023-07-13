@@ -8,9 +8,12 @@
     <!-- Vendor -->
     <link href="~/Areas/PurchaseOrderManager/Content/vendor/DataTables/datatables.min.css" rel="stylesheet" />
     <link href="~/Areas/PurchaseOrderManager/Content/vendor/confetti-button/style.css" rel="stylesheet" />
+    <link href="~/Areas/PurchaseOrderManager/Content/vendor/Viewer JS/viewer.min.css" rel="stylesheet" />
+    <link href="~/Areas/PurchaseOrderManager/Content/vendor/Stepper/bs-stepper.min.css" rel="stylesheet" />
     <!-- Custom-->
     <link href="~/Areas/PurchaseOrderManager/Content/Custom/PurchaseOrderManager/StyleSheet.css" rel="stylesheet" />
 }
+<img id="Image_Preview" style="display: none" />
 
 <!-- Breadcrumb -->
 <div class="pagetitle">
@@ -28,14 +31,14 @@
     <div class="card">
         <div class="card-body">
             <div class="card-title row d-flex justify-content-between m-0">
-                <button class="btn btn-primary btn-new-request" title="New Purchase Order Request" data-bs-toggle="modal" data-bs-target="#NewPurchaseOrderRequest">
+                <button class="btn btn-primary btn-new-request" title="New Purchase Order Request" id="btn_AddNewRequest">
                     <i class="bi bi-star me-1"></i>
-                    New Request
+                    New
                 </button>
                 <div class="header header-table-search col-4">
                     <div class="search-bar">
                         <div class="search-form d-flex align-items-center">
-                            <input class="dataTable-input" type="text" name="query" placeholder="Search ..." title="Enter search keyword" id="table_employees_search">
+                            <input class="dataTable-input" type="text" name="query" placeholder="Search ..." title="Enter search keyword" id="table_PurchaseRequest_search">
                             <button type="submit" title="Search"><i class="bi bi-search"></i></button>
                         </div>
                     </div>
@@ -43,19 +46,39 @@
             </div>
 
             <!-- Table -->
-            <table class="table" id="table_employees">
+            <table class="table table-striped cell-border table-hover" id="table_PurchaseRequest">
                 <thead>
                     <tr>
-                        <th>#</th>
-                        <th>Card ID</th>
-                        <th>Vietnamese Name</th>
-                        <th>Chinese Name</th>
-                        <th>Hire Date</th>
-                        <th>Leave Date</th>
-                        <th>Action</th>
+                        <th>Date</th>
+                        <th class="text-center">
+                            需求單位/費用代碼</br>
+                            Đơn vị nhu cầu/mã bộ phận
+                        </th>
+                        <th class="text-center">
+                            需求單位</br>
+                            Mã bộ phận sử dụng
+                        </th>
+                        <th class="text-center">
+                            需求單位費用代碼</br>
+                            Mã chi phí
+                        </th>
+                        <th class="text-center">
+                            需求人</br>
+                            Người yêu cầu
+                        </th>
+                        <th class="text-center">
+                            電話</br>
+                            Số máy lẻ
+                        </th>
+                        <th class="text-center">
+                            郵箱</br>
+                            Hòm thư
+                        </th>
+                        <th class="text-center">Status</th>
+                        <th class="text-end">Action</th>
                     </tr>
                 </thead>
-                <tbody id="table_employees_tbody">
+                <tbody id="table_PurchaseRequest_tbody">
                 </tbody>
             </table>
             <!-- End Dark Table -->
@@ -63,53 +86,58 @@
     </div>
 </section>
 
-
 <!-- Modal -->
 <div class="modal fade" id="NewPurchaseOrderRequest" tabindex="-1" style="display: none;" aria-hidden="true" data-bs-backdrop="static">
     <div class="modal-dialog modal-fullscreen">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title fw-bold text-center text-uppercase vw-100">詢價需求提報表</br>ĐƠN YÊU CẦU HỎI GIÁ</h5>
+                <h5 class="modal-title fw-bold text-center text-uppercase vw-100">詢價需求提報表</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <table class="table table-bordered">
+                <table class="table table-bordered" id="PurchaseOrderRequestHead">
                     <thead>
                         <tr>
                             <th class="text-center required">需求單位/費用代碼</br>Đơn vị nhu cầu/mã bộ phận</th>
-                            <td class="table-cell-edit" list="list_department">
-                                <input type="text" class="border-0" list="list_department" />
-                                <datalist id="list_department">
-                                    <option>TE</option>
-                                    <option>AUTO</option>
-                                </datalist>
-                            </td>
+                            <td contenteditable="true" class="table-cell-edit" name="RequestDepartment"></td>
+
                             <th class="text-center required">需求單位</br>Mã bộ phận sử dụng</th>
-                            <td class="table-cell-edit">
-                                <input type="text" class="border-0" list="list_department" />
-                            </td>
+                            <td contenteditable="true" class="table-cell-edit" name="UseDepartment"></td>
+
                             <th class="text-center required">需求單位費用代碼</br>Mã chi phí</thclass="text-center">
-                            <td contenteditable="true" class="table-cell-edit"></td>
-                            <th colspan="2" class="text-center required">下單法人</br>Pháp nhân mua hàng</th>
-                            <td colspan="2" contenteditable="true" class="table-cell-edit">FUYU</td>
+                            <td contenteditable="true" class="table-cell-edit" name="CostCode"></td>
+
+                            <th class="text-center required">下單法人</br>Pháp nhân mua hàng</th>
+                            <td contenteditable="true" class="table-cell-edit" name="LegalEntity">FUYU</td>
+
+                            <th class="text-center">状态</br>Trạng thái</th>
+                            @*<td class="text-center bg-light" name="Status"><span class="badge bg-info text-white lh-lg">Pending</span></td>*@
+                            <td>
+                                <select class="form-select text-primary fw-bold" id="select-status">
+                                    <option value="Pendding" class="text-primary" selected>Pending</option>
+                                    <option value="Approved" class="text-success">Approved</option>
+                                    <option value="Declined" class="text-danger">Declined</option>
+                                </select>
+                            </td>
                         </tr>
                         <tr>
                             <th class="text-center required">交貨地點</br>Địa điểm giao hàng</th>
-                            <td contenteditable="true" class="table-cell-edit"></td>
+                            <td contenteditable="true" class="table-cell-edit" name="DeliveryLocation"></td>
+
                             <th class="text-center required">最晚需到廠日期</br>Ngày tháng dự định cần giao hàng</th>
-                            <td class="table-cell-edit">
-                                <input type="date" class="border-0"/>
-                            </td>
+                            <td class="table-cell-edit"><input type="date" class="border-0" name="PlanDeliveryDate" /></td>
+
                             <th class="text-center required">需求人</br>Người yêu cầu</th>
-                            <td contenteditable="true" class="table-cell-edit"></td>
+                            <td contenteditable="true" class="table-cell-edit" name="Requester"></td>
+
                             <th class="text-center required">電話</br>Số máy lẻ</th>
-                            <td contenteditable="true" class="table-cell-edit"></td>
+                            <td contenteditable="true" class="table-cell-edit" name="RequesterPhoneNumber"></td>
+
                             <th class="text-center required">郵箱</br>Hòm thư</th>
-                            <td contenteditable="true" class="table-cell-edit">cpeii-vn-te-toolingroom@mail.foxconn.com</td>
+                            <td contenteditable="true" class="table-cell-edit" name="RequesterEmail">cpeii-vn-te-toolingroom@mail.foxconn.com</td>
                         </tr>
                     </thead>
                 </table>
-
                 <table class="table table-bordered">
                     <thead>
                         <tr>
@@ -128,60 +156,98 @@
                             <th rowspan="2" class="text-center">Action</th>
                         </tr>
                         <tr>
-                            <th rowspan="1" colspan="1" class="text-center">一次性需求</br>Một lần
+                            <th rowspan="1" colspan="1" class="text-center">
+                                一次性需求</br>Một lần
                             </th>
                             <th rowspan="1" colspan="1" class="text-center">每月需求</br>Hàng tháng</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="PurchaseOrderRequestItem">
                         <tr>
-                            <td class="text-center align-middle">1</td>
-                            <td contenteditable="true"></td>
-                            <td contenteditable="true"></td>
-                            <td contenteditable="true"></td>
-                            <td contenteditable="true"></td>
-                            <td contenteditable="true"></td>
-                            <td class="cell-radio"><label><input type="radio" name="group1" /></label></td>
-                            <td class="cell-radio"><label><input type="radio" name="group1" /></label></td>
-                            <td contenteditable="true"></td>
-                            <td contenteditable="true"></td>
-                            <td contenteditable="true"></td>
-                            <td contenteditable="true"></td>
-                            <td contenteditable="true"></td>
-                        </tr>
-                        <tr>
-                            <td class="text-center align-middle">2</td>
-                            <td contenteditable="true"></td>
-                            <td contenteditable="true"></td>
-                            <td contenteditable="true"></td>
-                            <td contenteditable="true"></td>
-                            <td contenteditable="true"></td>
-                            <td contenteditable="true"></td>
-                            <td contenteditable="true"></td>
-                            <td contenteditable="true"></td>
-                            <td contenteditable="true"></td>
-                            <td contenteditable="true"></td>
-                            <td contenteditable="true"></td>
-                            <td contenteditable="true"></td>
+                            <td class="text-center align-middle" number>1</td>
+                            <td contenteditable="true" name="ProductName"></td>
+                            <td contenteditable="true" name="Brand"></td>
+                            <td contenteditable="true" name="Information"></td>
+                            <td contenteditable="true" name="Unit"></td>
+                            <td contenteditable="true" name="Quantity"></td>
+                            <td class="cell-radio"><label><input type="radio" name="group-1" checked /></label></td>
+                            <td class="cell-radio"><label><input type="radio" name="group-1" /></label></td>
+                            <td contenteditable="true" name="MaterialCode"></td>
+                            <td contenteditable="true" name="ReferencePriceLink"></td>
+                            <td class="cell-image-upload row">
+                                <input type="file" class="col-10 ps-0 imageInput" multiple name="Image" accept="image/*">
+                                <button class="col-2 pe-0 deleteButton"><i class="bi bi-x-circle"></i></button>
+                                <div class="col-12 previewContainer">
+                                    
+                                </div>
+                            </td>
+                            <td contenteditable="true" name="Notes"></td>
+                            <td contenteditable="true" name="Feedback"></td>
+
+                            <td class="cell-radio" action>
+                                <label>
+                                    <button class="btn btn-primary" dButton title="dynamic" onclick="AddNewRow(event)">
+                                        <i class="bi bi-check-lg"></i>
+                                    </button>
+                                </label>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
-                <p class="small fst-italic">
-                    特別注意詢價要求:</br>
-                    1.所有詢價請詳細填好需求詢價表，資訊不完整不予處理！ （內容如是越南文或英文，請和中文一起描述）</br>
-                    2.詢價表必須使用部門部級以上主管簽字確認。（現在先簽紙檔，采購已與IT在開發系統簽核流程中）</br>
-                    3.加工非標訂製，必須提供完整2D或3D圖紙。</br>
-                    4.PR單品牌規格型號標示清楚，不可以寫訂製或NA，提PR時，必須請關務審核產品名稱、規格型號、單位是否符合關務進口條件，關務審核OK之後BU才能開PR，避免后期下完訂單報關異常及結報異常。</br>
-                    5.使用單位需要 三份報價才能開PR，或要議完價格才能開PR ，或要有中國廠商報價比對才能開PR, 請特別備註說明提出. .採購可以配合. 并請BU給予足夠時間作業（如急件，請特別特別說明，并備註原因及最晚到貨時間）</br>
-                    6.排插,風扇,空調 - 下PO時,需附上經工務最高主管核準的書面規範書，否則退單 (1.詳細規格, 2. 安裝商及人員資質要求;3. .施工工藝及材料要求;4.驗收要求)</br>
-                    7.所有固資請購和設備維修，系統采購窗口請選：李明或黃氏理，否則采購收不到需求。（VN采購代碼 BBBVNJP7）如系統中窗口無黃氏理，請找經管添加。</br>
-                    8.系統提PR跑流程時，請附件上所有附件 (報價單，規格書，客戶PO，NRE及付款明細，投資計劃書等)</br>
-                </p>
+                <table class="table table-bordered" id="PurchaseOrderRequestApply">
+                    <thead>
+                        <tr class="text-center">
+                            <th style="background-color: aliceblue;">核准</br>Người duyệt</th>
+                            <th style="background-color: aliceblue;">核准</br>Thẩm duyệt</th>
+                        </tr>
+                        <tr>
+                            <th contenteditable="true" class="text-center" name="Approver"></th>
+                            <th contenteditable="true" class="text-center" name="Reviewer"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+                <table class="table table-bordered">
+                    <thead style="background-color: beige;">
+                        <tr class="text-center">
+                            <th colspan="2">相关文件</br>Tài liệu liên quan</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="fw-bold text-center" style="width: 350px;">采购申请</br>Purchase Request (PR)</td>
+                            <td>
+                                <label class="btn btn-outline-primary" for="pr_file">Upload file</label>
+                                <input id="pr_file" type="file" style="display:none" multiple>
+                                <div id="pr_preview" class="pt-2"></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="fw-bold text-center" style="width: 350px;">采购订单</br>Purchase Order (PO)</td>
+                            <td>
+                                <label class="btn btn-outline-primary" for="po_file">Upload file</label>
+                                <input id="po_file" type="file" style="display:none" multiple>
+                                <div id="po_preview" class="pt-2"></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="fw-bold text-center" style="width: 350px;">其他文件</br>Orther</td>
+                            <td>
+                                <label class="btn btn-outline-primary" for="or_file">Upload file</label>
+                                <input id="or_file" type="file" style="display:none" multiple>
+                                <div id="or_preview" class="pt-2"></div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <!-- Note -->
+                @Html.Partial("~/Areas/PurchaseOrderManager/Views/Shared/NotePurchaseRequest.cshtml")
             </div>
             <div class="modal-footer justify-content-center">
                 <button id="buttonNewRequest" class="btn-confetti ready">
                     <div class="message submitMessage">
-                        <span class="btn-confetti-text">Send Request</span>
+                        <span class="btn-confetti-text">Save</span>
                     </div>
                     <div class="message loadingMessage">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19 17">
@@ -207,6 +273,7 @@
     <!-- Vendor -->
     <script src="~/Areas/PurchaseOrderManager/Content/vendor/DataTables/datatables.min.js"></script>
     <script src="~/Areas/PurchaseOrderManager/Content/vendor/confetti-button/script.js"></script>
+    <script src="~/Areas/PurchaseOrderManager/Content/vendor/Viewer JS/viewer.min.js"></script>
     <!-- Custom -->
     <script src="~/Areas/PurchaseOrderManager/Content/Custom/PurchaseOrderManager/JavaScript.js"></script>
 }

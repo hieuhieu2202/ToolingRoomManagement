@@ -221,8 +221,12 @@
     <Content Include="Areas\PurchaseOrderManager\Content\vendor\Normalize\normalize.min.css" />
     <Content Include="Areas\PurchaseOrderManager\Content\vendor\Particles\particles.min.js" />
     <Content Include="Areas\PurchaseOrderManager\Content\vendor\QRcode\html5-qrcode.js" />
+    <Content Include="Areas\PurchaseOrderManager\Content\vendor\Stepper\bs-stepper.min.css" />
+    <Content Include="Areas\PurchaseOrderManager\Content\vendor\Stepper\bs-stepper.min.js" />
     <Content Include="Areas\PurchaseOrderManager\Content\vendor\SweetAlert\swal.min.css" />
     <Content Include="Areas\PurchaseOrderManager\Content\vendor\SweetAlert\swal.min.js" />
+    <Content Include="Areas\PurchaseOrderManager\Content\vendor\Viewer JS\viewer.min.css" />
+    <Content Include="Areas\PurchaseOrderManager\Content\vendor\Viewer JS\viewer.min.js" />
     <Content Include="Areas\PurchaseOrderManager\Content\vendor\Wave\style.css" />
     <Content Include="Areas\PurchaseOrderManager\PurchaseOrderModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -1419,6 +1423,12 @@
     <Compile Include="Areas\PurchaseOrderManager\PurchaseOrderRequest.cs">
       <DependentUpon>PurchaseOrderModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Areas\PurchaseOrderManager\PurchaseOrderRequestFile.cs">
+      <DependentUpon>PurchaseOrderModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\PurchaseOrderManager\PurchaseOrderRequestImage.cs">
+      <DependentUpon>PurchaseOrderModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Areas\PurchaseOrderManager\PurchaseOrderRequestItem.cs">
       <DependentUpon>PurchaseOrderModel.tt</DependentUpon>
     </Compile>
@@ -1861,6 +1871,7 @@
     <Content Include="Areas\PurchaseOrderManager\PurchaseOrderModel.edmx.diagram">
       <DependentUpon>PurchaseOrderModel.edmx</DependentUpon>
     </Content>
+    <Content Include="Areas\PurchaseOrderManager\Views\Shared\NotePurchaseRequest.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

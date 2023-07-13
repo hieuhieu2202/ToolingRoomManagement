@@ -34,17 +34,24 @@
 th {
     vertical-align: middle;
 }
+
 thead > tr > td {
     vertical-align: middle;
 }
-input.border-0{
+tbody > tr > td {
+    vertical-align: middle;
+}
+
+input.border-0 {
     outline: none;
     max-width: 150px;
 }
+
 .cell-radio {
     position: relative;
     padding: 0;
 }
+
     .cell-radio label {
         display: block;
         position: absolute;
@@ -54,8 +61,80 @@ input.border-0{
         bottom: 0;
         text-align: center;
     }
+
         .cell-radio label input[type="radio"] {
             position: relative;
             top: 50%;
             transform: translateY(-50%);
         }
+
+        .cell-radio label button {
+            position: relative;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+
+.imageInput {
+    overflow: hidden;
+}
+
+.previewContainer {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.previewImage {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    margin: 5px;
+}
+
+.deleteButton {
+    display: none;
+    color: red;
+    background-color: transparent;
+    border: none;
+    border-radius: 100%;
+    width: auto;
+}
+
+.cell-image-upload {
+    width: 265px;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0;
+}
+
+div p.text-dark {
+    margin: 0;
+    font-size: 12px;
+}
+
+.action-cell {
+    width: 90px;
+    /*    max-width: 130px;
+    width: 130px;*/
+}
+
+.middle-cell {
+    vertical-align: middle !important;
+}
+
+.file-item {
+    display: flex;
+    align-items: center;
+}
+
+    .file-item span {
+        margin-right: 10px;
+    }
+
+    .file-item button {
+        margin-left: 10px;
+    }
+
+.cursor-pointer {
+    cursor: pointer !important;
+}

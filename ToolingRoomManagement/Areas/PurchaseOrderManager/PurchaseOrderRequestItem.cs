@@ -14,8 +14,14 @@ namespace ToolingRoomManagement.Areas.PurchaseOrderManager
     
     public partial class PurchaseOrderRequestItem
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public PurchaseOrderRequestItem()
+        {
+            this.PurchaseOrderRequestImages = new HashSet<PurchaseOrderRequestImage>();
+        }
+    
         public System.Guid Id { get; set; }
-        public Nullable<System.Guid> IdPORequest { get; set; }
+        public Nullable<System.Guid> IdRequest { get; set; }
         public string ProductName { get; set; }
         public string Brand { get; set; }
         public string Information { get; set; }
@@ -27,6 +33,7 @@ namespace ToolingRoomManagement.Areas.PurchaseOrderManager
         public string Notes { get; set; }
         public string Feedback { get; set; }
     
-        public virtual PurchaseOrderRequest PurchaseOrderRequest { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PurchaseOrderRequestImage> PurchaseOrderRequestImages { get; set; }
     }
 }

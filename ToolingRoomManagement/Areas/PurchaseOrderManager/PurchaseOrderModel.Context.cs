@@ -26,7 +26,9 @@ namespace ToolingRoomManagement.Areas.PurchaseOrderManager
         }
     
         public virtual DbSet<PurchaseOrderRequest> PurchaseOrderRequests { get; set; }
+        public virtual DbSet<PurchaseOrderRequestImage> PurchaseOrderRequestImages { get; set; }
         public virtual DbSet<PurchaseOrderRequestItem> PurchaseOrderRequestItems { get; set; }
         public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<PurchaseOrderRequestFile> PurchaseOrderRequestFiles { get; set; }
     }
 }
