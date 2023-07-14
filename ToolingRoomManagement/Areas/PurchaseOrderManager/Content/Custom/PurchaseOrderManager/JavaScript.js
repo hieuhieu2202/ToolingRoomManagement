@@ -68,7 +68,7 @@ function InitTable() {
         },
         columnDefs: [
             { targets: [8], orderable: false, className: 'action-cell' },
-            { targets: [1,2,3,4,5], orderable: false, className: 'text-center' },
+            { targets: [1,2,3,4,5], className: 'text-center' },
             { targets: "_all", orderable: true, className: 'middle-cell' },           
         ],
         order: [[0, 'desc']]
@@ -153,7 +153,7 @@ $('#Image_Preview').on('click', function () {
 });
 
 
-// Sự kiện click button send request
+// Sự kiện thêm mới đơn
 $('#btn_AddNewRequest').on('click', function (e) {
     e.preventDefault();
     ClearModal();
@@ -434,6 +434,7 @@ function AddNewRow(e) {
 
     var thisRow = Button.closest('tr');
     thisRow.css('background-color', '#0000000f');
+    thisRow.attr('data-type', 'new');
 
     var thisRowCells = thisRow.find('td');
     $.each(thisRowCells, function (k, cell) {
@@ -550,7 +551,7 @@ function ClearModal() {
             $(this).html('');
             $(this).val('');
         });
-        $('PurchaseOrderRequestApply [name]').each(function () {
+        $('#PurchaseOrderRequestApply [name]').each(function () {
             $(this).html('');
         });
         $('#select-status option:eq(0)').prop('selected', true);
@@ -619,7 +620,7 @@ async function GetFiles(folderPath) {
 
 // Function cho confetti button
 function ButtonLoad(btnObj) {
-    btnObj.disabled = true;
+    $(btnObj.button).prop('disabled', true)
     btnObj.button.classList.add('loading');
     btnObj.button.classList.remove('ready');
 }
@@ -629,14 +630,14 @@ function ButtonComplete(btnObj) {
     setTimeout(() => {
         btnObj.initBurst();
         setTimeout(() => {
-            btnObj.disabled = false;
+            $(btnObj.button).prop('disabled', false)
             btnObj.button.classList.add('ready');
             btnObj.button.classList.remove('complete');
-        }, 4000);
+        }, 2000);
     }, 320);
 }
 function ButtonReady(btnObj) {
-    btnObj.disabled = false;
+    $(btnObj.button).prop('disabled', false)
     btnObj.button.classList.add('ready');
     btnObj.button.classList.remove('complete');
     btnObj.button.classList.remove('loading');
@@ -663,8 +664,6 @@ $(document).on('click', 'button[edt]', function (e) {
     });
 });
 async function ShowModalEdit(data) {
-    console.log(data);
-
     ClearModal();
 
     {
@@ -692,7 +691,7 @@ async function ShowModalEdit(data) {
         for (let i = 0; i < itemLength; i++) {
             var item = data.PurchaseOrderRequestItems[i];
 
-            var row = $('<tr style="background-color: rgba(0, 0, 0, 0.06);"></tr>');
+            var row = $(`<tr style="background-color: rgba(0, 0, 0, 0.06);" data-type="old" data-id="${item.Id}"></tr>`);
             row.append(`<td class="text-center align-middle" number>${i + 1}</td>`);
             row.append(`<td contenteditable="false" name="ProductName">${item.ProductName}</td>`);
             row.append(`<td contenteditable="false" name="Brand">${item.Brand}</td>`);
@@ -855,7 +854,98 @@ async function ShowModalEdit(data) {
     $('#NewPurchaseOrderRequest').modal('show');
 }
 
+async function GetEditData() {
+    return new Promise((resolve, reject) => {
+
+        var SendData = {};
+        {
+            
+            // Data header
+            $("#PurchaseOrderRequestHead [name]").each(function () {
+                var elementName = $(this).attr("name");
+                var elementValue;
+
+                if ($(this).is("td")) {
+                    elementValue = $(this).text();
+                } else {
+                    elementValue = $(this).val();
+                }
+
+                SendData.PurchaseOrderRequest[elementName] = elementValue;
+            });
+
+            SendData.PurchaseOrderRequest.Status = $('#select-status').val();
+
+            $("#PurchaseOrderRequestApply [name]").each(function () {
+                var elementName = $(this).attr("name");
+                var elementValue;
+
+                if ($(this).is("th")) {
+                    elementValue = $(this).text();
+                } else {
+                    elementValue = $(this).val();
+                }
+
+                SendData.PurchaseOrderRequest[elementName] = elementValue;
+            });
+        }
+        {
+
+        }
+        {
+
+        }
+    });
+}
+
 // Delete event
+$(document).on('click', 'button[del]', function (e) {
+    e.preventDefault();
+
+    var row = $(this).parents('tr');
+
+    Swal.fire({
+        title: '您确定吗？</br>Bạn có chắc chắn không?',
+        html: `<p class="text-danger">此操作将无法恢复!</br>Bạn sẽ không thể hoàn nguyên điều này!</p>`,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: '是的</br>Đúng',
+        cancelButtonText: '取消</br>Hủy bỏ'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                url: "/PurchaseOrderManager/QuotationRequest/DeletePurchaseOrderRequest",
+                type: "POST",
+                data: JSON.stringify({ Id: $(this).data('id') }),
+                dataType: "json",
+                contentType: "application/json;charset=utf-8",
+                success: function (res) {
+                    if (res.status) {                       
+                        Swal.fire(
+                            '已删除!</br> Đã xóa!',
+                            '您的文件已被删除.</br>Tập tin của bạn đã bị xóa.',
+                            'success'
+                        );
+                        table_PurchaseRequest.row(row).remove().draw();
+                    }
+                    else {
+                        Swal.fire(
+                            '错误!</br> Lỗi!',
+                            '发生了错误.</br>Đã có lỗi xảy ra.',
+                            'error'
+                        );
+                    }                  
+                },
+                error: function () {
+                }
+            });
+
+            
+        }
+    })
+});
 
 
 

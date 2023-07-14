@@ -33,7 +33,7 @@
             <div class="card-title row d-flex justify-content-between m-0">
                 <button class="btn btn-primary btn-new-request" title="New Purchase Order Request" id="btn_AddNewRequest">
                     <i class="bi bi-star me-1"></i>
-                    New
+                    添新 Thêm mới
                 </button>
                 <div class="header header-table-search col-4">
                     <div class="search-bar">
@@ -49,7 +49,7 @@
             <table class="table table-striped cell-border table-hover" id="table_PurchaseRequest">
                 <thead>
                     <tr>
-                        <th>Date</th>
+                        <th>Created Date</th>
                         <th class="text-center">
                             需求單位/費用代碼</br>
                             Đơn vị nhu cầu/mã bộ phận
@@ -74,7 +74,7 @@
                             郵箱</br>
                             Hòm thư
                         </th>
-                        <th class="text-center">Status</th>
+                        <th class="text-center">状态</br>Status</th>
                         <th class="text-end">Action</th>
                     </tr>
                 </thead>
@@ -114,7 +114,7 @@
                             @*<td class="text-center bg-light" name="Status"><span class="badge bg-info text-white lh-lg">Pending</span></td>*@
                             <td>
                                 <select class="form-select text-primary fw-bold" id="select-status">
-                                    <option value="Pendding" class="text-primary" selected>Pending</option>
+                                    <option value="Pending" class="text-primary" selected>Pending</option>
                                     <option value="Approved" class="text-success">Approved</option>
                                     <option value="Declined" class="text-danger">Declined</option>
                                 </select>

@@ -220,8 +220,11 @@
           <Property Name="chinese_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_PurchaseOrderRequestItem_PurchaseOrderRequest">
-          <End Type="PurchaseOrderModel.PurchaseOrderRequest" Role="PurchaseOrderRequest" Multiplicity="0..1" />
-          <End Type="PurchaseOrderModel.PurchaseOrderRequestItem" Role="PurchaseOrderRequestItem" Multiplicity="*" />
+          <End Type="PurchaseOrderModel.PurchaseOrderRequest" Role="PurchaseOrderRequest" Multiplicity="0..1" >
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="PurchaseOrderModel.PurchaseOrderRequestItem" Role="PurchaseOrderRequestItem" Multiplicity="*" >
+          </End>
           <ReferentialConstraint>
             <Principal Role="PurchaseOrderRequest">
               <PropertyRef Name="Id" />
@@ -232,7 +235,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_PurchaseOrderRequestImage_PurchaseOrderRequestItem">
-          <End Type="PurchaseOrderModel.PurchaseOrderRequestItem" Role="PurchaseOrderRequestItem" Multiplicity="0..1" />
+          <End Type="PurchaseOrderModel.PurchaseOrderRequestItem" Role="PurchaseOrderRequestItem" Multiplicity="0..1" >
+            <OnDelete Action="Cascade" />
+          </End>
           <End Type="PurchaseOrderModel.PurchaseOrderRequestImage" Role="PurchaseOrderRequestImage" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="PurchaseOrderRequestItem">
@@ -253,7 +258,9 @@
           <Property Name="Path" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_PurchaseOrderRequestFiles_PurchaseOrderRequest">
-          <End Type="PurchaseOrderModel.PurchaseOrderRequest" Role="PurchaseOrderRequest" Multiplicity="0..1" />
+          <End Type="PurchaseOrderModel.PurchaseOrderRequest" Role="PurchaseOrderRequest" Multiplicity="0..1" >
+            <OnDelete Action="Cascade" />
+          </End>
           <End Type="PurchaseOrderModel.PurchaseOrderRequestFile" Role="PurchaseOrderRequestFile" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="PurchaseOrderRequest">
