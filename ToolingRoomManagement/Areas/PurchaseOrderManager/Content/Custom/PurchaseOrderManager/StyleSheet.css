@@ -138,3 +138,20 @@ div p.text-dark {
 .cursor-pointer {
     cursor: pointer !important;
 }
+
+.table-hover > tbody > tr:hover > .tooltip {
+    --bs-table-accent-bg: white;
+    border: 1px solid #0d6efd;
+    border-radius: 10px;
+    padding: 0;
+    z-index: 9999;
+}
+.tooltip {
+    position: absolute;
+    background-color: transparent;
+    z-index: 9999;
+    opacity: 1;
+}
+.dataTables_scrollBody{
+
+}

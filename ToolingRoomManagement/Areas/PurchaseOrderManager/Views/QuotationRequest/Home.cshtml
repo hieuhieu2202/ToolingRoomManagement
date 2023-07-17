@@ -11,7 +11,7 @@
     <link href="~/Areas/PurchaseOrderManager/Content/vendor/Viewer JS/viewer.min.css" rel="stylesheet" />
     <link href="~/Areas/PurchaseOrderManager/Content/vendor/Stepper/bs-stepper.min.css" rel="stylesheet" />
     <!-- Custom-->
-    <link href="~/Areas/PurchaseOrderManager/Content/Custom/PurchaseOrderManager/StyleSheet.css" rel="stylesheet" />
+    <link href="~/Areas/PurchaseOrderManager/Content/Custom/PurchaseOrderManager/StyleSheet.css?v=@Guid.NewGuid()" rel="stylesheet" />
 }
 <img id="Image_Preview" style="display: none" />
 
@@ -28,7 +28,7 @@
 
 <!-- Container -->
 <section class="section">
-    <div class="card">
+    <div class="card" id="card-table">
         <div class="card-body">
             <div class="card-title row d-flex justify-content-between m-0">
                 <button class="btn btn-primary btn-new-request" title="New Purchase Order Request" id="btn_AddNewRequest">
@@ -76,6 +76,7 @@
                         </th>
                         <th class="text-center">状态</br>Status</th>
                         <th class="text-end">Action</th>
+                        <th>Hidden</th>
                     </tr>
                 </thead>
                 <tbody id="table_PurchaseRequest_tbody">
@@ -114,9 +115,11 @@
                             @*<td class="text-center bg-light" name="Status"><span class="badge bg-info text-white lh-lg">Pending</span></td>*@
                             <td>
                                 <select class="form-select text-primary fw-bold" id="select-status">
-                                    <option value="Pending" class="text-primary" selected>Pending</option>
-                                    <option value="Approved" class="text-success">Approved</option>
-                                    <option value="Declined" class="text-danger">Declined</option>
+                                    <option value="询问价格 Hỏi giá" class="text-primary" selected>询问价格 Hỏi giá</option>
+                                    <option value="采购申请 PR" class="text-warning">采购申请 PR</option>
+                                    <option value="采购订单 PO" class="text-info">采购订单 PO</option>
+                                    <option value="送货 Giao hàng" class="text-secondary">送货 Giao hàng</option>
+                                    <option value="收到 Nhận hàng" class="text-danger">收到 Nhận hàng</option>
                                 </select>
                             </td>
                         </tr>
@@ -178,7 +181,7 @@
                                 <input type="file" class="col-10 ps-0 imageInput" multiple name="Image" accept="image/*">
                                 <button class="col-2 pe-0 deleteButton"><i class="bi bi-x-circle"></i></button>
                                 <div class="col-12 previewContainer">
-                                    
+
                                 </div>
                             </td>
                             <td contenteditable="true" name="Notes"></td>
@@ -274,6 +277,7 @@
     <script src="~/Areas/PurchaseOrderManager/Content/vendor/DataTables/datatables.min.js"></script>
     <script src="~/Areas/PurchaseOrderManager/Content/vendor/confetti-button/script.js"></script>
     <script src="~/Areas/PurchaseOrderManager/Content/vendor/Viewer JS/viewer.min.js"></script>
+    <script src="~/Areas/PurchaseOrderManager/Content/vendor/Popper/popper.min.js"></script>
     <!-- Custom -->
     <script src="~/Areas/PurchaseOrderManager/Content/Custom/PurchaseOrderManager/JavaScript.js"></script>
 }

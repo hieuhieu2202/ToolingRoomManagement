@@ -15,7 +15,7 @@ function login() {
     // Send data to sever
     $.ajax({
         type: "POST",
-        url: "/Account/Login",
+        url: "/PurchaseOrderManager/Account/Login",
         data: JSON.stringify(data),
         contentType: "application/json",
         datatype: "json/text",

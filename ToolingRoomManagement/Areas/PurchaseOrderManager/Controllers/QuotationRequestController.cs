@@ -8,9 +8,11 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.UI.WebControls;
+using ToolingRoomManagement.Attribute;
 
 namespace ToolingRoomManagement.Areas.PurchaseOrderManager.Controllers
 {
+    [Authen(AllowAnonymous = false)]
     public class QuotationRequestController : Controller
     {
         // GET: PurchaseOrderManager/QuotationRequest

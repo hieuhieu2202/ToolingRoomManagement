@@ -55,7 +55,6 @@ function GetListPR() {
 }
 function InitTable() {
     var scrollHeight = document.querySelector('#sidebar').offsetHeight - 300 + 'px';
-
     var options = {
         scrollY: scrollHeight,
         scrollX: false,
@@ -68,7 +67,8 @@ function InitTable() {
         },
         columnDefs: [
             { targets: [8], orderable: false, className: 'action-cell' },
-            { targets: [1,2,3,4,5], className: 'text-center' },
+            { targets: [1, 2, 3, 4, 5], className: 'text-center' },
+            { targets: [9], visible: false, searchable: false },
             { targets: "_all", orderable: true, className: 'middle-cell' },           
         ],
         order: [[0, 'desc']]
@@ -80,6 +80,8 @@ function InitTable() {
     $('#table_PurchaseRequest_search').on('keyup', function () {
         table_PurchaseRequest.search($(this).val()).draw();
     });
+
+    $('.dataTables_scrollBody').css('height', scrollHeight);
 
 }
 
@@ -482,6 +484,7 @@ function AddNewRow(e) {
                      </button>         
                  </label>
              </td>
+             <td></td>
          </tr>`;
         $('#PurchaseOrderRequestItem').append(itemRow);   
 
@@ -503,9 +506,63 @@ $('#select-status').on('change', function (e) {
     $(this).addClass(textClass);
 });
 
+var popperInstance = null;
+$('#table_PurchaseRequest tbody').on('mouseover', 'tr', function (event) {
+    var rowData = table_PurchaseRequest.row(this).data();
+
+
+    var hiddenCellData = table_PurchaseRequest.row(this).data()[9];
+
+    // Sử dụng Popper.js để hiển thị tooltip
+    var tooltip = document.createElement('div');
+    tooltip.innerHTML = hiddenCellData;
+    tooltip.classList.add('tooltip'); // Thêm class cho tooltip (tùy chỉnh theo ý muốn)
+
+
+
+    // Gắn tooltip vào DOM
+    $(this).append(tooltip);
+
+    if (popperInstance) {
+        popperInstance.destroy();
+        popperInstance = null;
+    }
+    popperInstance = Popper.createPopper(event.currentTarget, tooltip, {
+        placement: 'bottom-start',
+        modifiers: [
+            {
+                name: 'offset',
+                options: {
+                    offset: [0, 10] // Căn chỉnh vị trí hiển thị tooltip so với chuột
+                }
+            }
+        ]
+    });
+});
+
+$('#table_PurchaseRequest tbody').on('mouseout', 'tr', function () {    
+    var tooltip = $(this).find('.tooltip');
+    tooltip.remove();
+});
 
 // Function khác
 function CreateRowTable(data, IsAddRow = true) {
+    var dataItem = data.PurchaseOrderRequestItems;
+    var container = `<div class="card">`;
+    $.each(dataItem, function (k, v) {
+        container += `
+                        <div class="card-body pb-0">
+                               <h5 class="card-title py-1 m-0">${v.ProductName}<span>| ${v.Brand}</span></h5>
+                               <div class="news">
+                                   <div class="post-item clearfix">
+                                       <p class="mb-0">* ${v.Information}</p>
+                                       <p class="mb-0">* ${v.Quantity} (${v.Unit})</p>
+                                   </div>
+                               </div>
+                            </div>`;
+    });
+    container += `</div>`
+
     var newRowData = [
         `<td>${data.CreatedDate.replace('T', ' ').substring(0, 19)}</td>`,
         `<td>${data.RequestDepartment}</td>`,
@@ -516,11 +573,12 @@ function CreateRowTable(data, IsAddRow = true) {
         `<td>${data.RequesterEmail}</td>`,
         `<td>${RenderStatusSpan(data.Status)}</td>`,   
         `<td>${RenderActionButton(data)}</td>`, 
+        `<td>${container}</td>`
     ];
 
     if (IsAddRow) {
         if (table_PurchaseRequest) {
-            table_PurchaseRequest.row.add(newRowData).draw();
+            table_PurchaseRequest.row.add(newRowData).draw();      
 
             table_PurchaseRequest.destroy();
             InitTable();
@@ -530,14 +588,20 @@ function CreateRowTable(data, IsAddRow = true) {
     }
 }
 function RenderStatusSpan(status) {
-    if (status === 'Pending') {
-        return `<span class="badge bg-info text-white">Pending</span>`;
+    if (status === '询问价格 Hỏi giá') {
+        return `<span class="badge bg-info text-white">询问价格 Hỏi giá</span>`;
     }
-    else if (status === 'Approved') {
-        return `<span class="badge bg-success text-white">Approved</span>`;
+    else if (status === '采购申请 PR') {
+        return `<span class="badge bg-warning text-white">采购申请 PR</span>`;
     }
-    else if (status === 'Declined') {
-        return `<span class="badge bg-danger text-white">Declined</span>`;
+    else if (status === '采购订单 PO') {
+        return `<span class="badge bg-info text-white">采购订单 PO</span>`;
+    }
+    else if (status === '送货 Giao hàng') {
+        return `<span class="badge bg-secondary text-white">送货 Giao hàng</span>`;
+    }
+    else if (status === '收到 Nhận hàng') {
+        return `<span class="badge bg-danger text-white">收到 Nhận hàng</span>`;
     }
 
 }
@@ -611,7 +675,7 @@ async function GetFiles(folderPath) {
                 resolve(result);
             },
             error: function (error) {
-                reject(error);
+                
             }
         });
     });
@@ -708,23 +772,33 @@ async function ShowModalEdit(data) {
                          <div class="col-12 previewContainer"></div>
                      </td>`);
             row.append(`<td contenteditable="false" name="Notes">${item.Notes}</td>`);
-            row.append(`<td contenteditable="false" name="Feedback">${item.Feedback}</td>`);
+            row.append(`<td contenteditable="false" name="Feedback">${(item.Feedback != null) ? item.Feedback : ""}</td>`);
             row.append(`<td class="cell-radio" action=""><label><button class="btn btn-danger" dbutton="" title="dynamic" onclick="DeleteRow(this, event)"><i class="bi bi-trash-fill"></i></button></label></td>`);
 
             // add Item image and show event
-            const ItemImages = await GetFiles(item.PurchaseOrderRequestImages[0].Directory);
-            var ImageContainer = row.find('.previewContainer');
-            ItemImages.forEach(function (item) {
-                const img = $(`<img src="${item.replace(/^.*\\Areas/, "/Areas")}" class="previewImage">`);
+            $.each(item.PurchaseOrderRequestImages, async function (k, ii) {
+                if (ii.Directory != undefined) {
+                    try {
+                        var ItemImages = await GetFiles(ii.Directory);
+                        var ImageContainer = row.find('.previewContainer');
+                        ItemImages.forEach(function (item) {
+                            const img = $(`<img src="${item.replace(/^.*\\Areas/, "/Areas")}" class="previewImage">`);
 
-                $(img).on('click', function (img) {
-                    let image = $('#Image_Preview');
-                    image.attr('src', item.replace(/^.*\\Areas/, "/Areas"));
-                    $(image).click();
-                });
+                            $(img).on('click', function (img) {
+                                let image = $('#Image_Preview');
+                                image.attr('src', item.replace(/^.*\\Areas/, "/Areas"));
+                                $(image).click();
+                            });
 
-                ImageContainer.append(img);
-            });
+                            ImageContainer.append(img);
+                        });
+                    }
+                    catch {
+                        return;
+                    }
+                    
+                }
+            });                 
 
             // done
             $('#PurchaseOrderRequestItem').append(row);

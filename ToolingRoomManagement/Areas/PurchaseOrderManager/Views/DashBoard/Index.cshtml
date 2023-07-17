@@ -1,0 +1,313 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/PurchaseOrderManager/Views/Shared/_PurchaseOrderManagerLayoutShare.cshtml";
+}
+@section styles{
+    <!-- Vendor -->
+    <link href="~/Areas/PurchaseOrderManager/Content/vendor/ApexChart/apexcharts.css" rel="stylesheet" />
+    <link href="~/Areas/PurchaseOrderManager/Content/vendor/Wave/style.css" rel="stylesheet" />
+
+    <!-- Custom-->
+    <link href="~/Areas/PurchaseOrderManager/Content/Custom/Dashboard/Dashboard.css" rel="stylesheet" />
+}
+
+<div class="pagetitle">
+    <h1>Dashboard</h1>
+    <nav>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+        </ol>
+    </nav>
+</div><!-- End Page Title -->
+
+<section class="section dashboard">
+    <div class="row">
+
+        <!-- Left side columns -->
+        <div class="col-lg-8">
+            <div class="row">
+
+                <!-- Total Request -->
+                <div class="col-xxl-4 col-md-6">
+                    <div class="card info-card sales-card">
+                        <div class="card-body">
+                            <h5 class="card-title">Total<span> | Request</span></h5>
+                            <div class="d-flex align-items-center">
+                                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                    <i class="bi bi-calendar2-range"></i>
+                                </div>
+                                <div class="ps-3">
+                                    <h6 id="num_request">145</h6>
+                                </div>
+                            </div>
+                            <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+                                <defs>
+                                    <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z"></path>
+                                </defs>
+                                <g class="parallax">
+                                    <use xlink:href="#gentle-wave" x="48" y="0" fill="rgba(109, 0, 255, 0.5)"></use>
+                                    <use xlink:href="#gentle-wave" x="48" y="3" fill="rgba(254, 208, 255, 0.5)"></use>
+                                    <use xlink:href="#gentle-wave" x="48" y="5" fill="rgba(237, 87, 253, 0.5)"></use>
+                                    <use xlink:href="#gentle-wave" x="48" y="7" fill="rgba(253, 178, 255, 0.5)"></use>
+                                </g>
+                            </svg>
+                        </div>
+
+                    </div>
+                </div>
+                <!-- End Total Request -->
+                <!-- Total Item -->
+                <div class="col-xxl-4 col-xl-12">
+                    <div class="card info-card customers-card">
+                        <div class="card-body">
+                            <h5 class="card-title">Total <span>| Item request</span></h5>
+                            <div class="d-flex align-items-center">
+                                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                    <i class="bi bi-calendar4-event"></i>
+                                </div>
+                                <div class="ps-3">
+                                    <h6 id="num_items">1244</h6>
+                                </div>
+                            </div>
+                            <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+                                <defs>
+                                    <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z"></path>
+                                </defs>
+                                <g class="parallax">
+                                    <use xlink:href="#gentle-wave" x="48" y="0" fill="rgba(255, 93, 0, 0.6)"></use>
+                                    <use xlink:href="#gentle-wave" x="48" y="3" fill="rgba(255, 217, 181, 0.5)"></use>
+                                    <use xlink:href="#gentle-wave" x="48" y="5" fill="rgba(252, 171, 100, 0.4)"></use>
+                                    <use xlink:href="#gentle-wave" x="48" y="7" fill="rgba(241, 212, 186, 0.5)"></use>
+                                </g>
+                            </svg>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- End Total Item -->
+                <!-- Total Approved -->
+                <div class="col-xxl-4 col-md-6">
+                    <div class="card info-card revenue-card">
+                        <div class="card-body">
+                            <h5 class="card-title">Total<span> | Approved</span></h5>
+                            <div class="d-flex align-items-center">
+                                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                    <i class="bi bi-calendar2-check"></i>
+                                </div>
+                                <div class="ps-3">
+                                    <h6 id="num_approved">3,264</h6>
+                                </div>
+                            </div>
+                            <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+                                <defs>
+                                    <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z"></path>
+                                </defs>
+                                <g class="parallax">
+                                    <use xlink:href="#gentle-wave" x="48" y="0" fill="rgba(35, 178, 0, 0.6)"></use>
+                                    <use xlink:href="#gentle-wave" x="48" y="3" fill="rgba(162, 255, 136, 0.6)"></use>
+                                    <use xlink:href="#gentle-wave" x="48" y="5" fill="rgba(93, 213, 74, 0.6)"></use>
+                                    <use xlink:href="#gentle-wave" x="48" y="7" fill="rgba(180, 237, 171, 0.6)"></use>
+                                </g>
+                            </svg>
+                        </div>
+
+                    </div>
+                </div>
+                <!-- End Total Approved -->
+                <!-- Reports -->
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body card-no-index">
+                            <h5 class="card-title">Reports <span></span></h5>
+
+                            <!-- Line Chart -->
+                            <div id="reportsChart"></div>
+
+                            <!-- End Line Chart -->
+
+                        </div>
+
+                    </div>
+                </div>
+                <!-- End Reports -->
+                <!-- Recent Sales -->
+                <div class="col-12">
+                    <div class="card recent-sales overflow-auto">
+                        <div class="card-body">
+                            <h5 class="card-title"Requests <span>| Newest</span></h5>
+
+                            <table class="table table-borderless datatable">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Date</th>
+                                        <th scope="col">Owner</th>
+                                        <th scope="col">Phone</th>
+                                        <th scope="col">Email</th>
+                                        <th scope="col">Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="cardTbody">
+                                    <tr>
+                                        <th scope="row"><a href="#">#2457</a></th>
+                                        <td>Brandon Jacob</td>
+                                        <td><a href="#" class="text-primary">At praesentium minu</a></td>
+                                        <td>$64</td>
+                                        <td><span class="badge bg-success">Approved</span></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row"><a href="#">#2147</a></th>
+                                        <td>Bridie Kessler</td>
+                                        <td><a href="#" class="text-primary">Blanditiis dolor omnis similique</a></td>
+                                        <td>$47</td>
+                                        <td><span class="badge bg-warning">Pending</span></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row"><a href="#">#2049</a></th>
+                                        <td>Ashleigh Langosh</td>
+                                        <td><a href="#" class="text-primary">At recusandae consectetur</a></td>
+                                        <td>$147</td>
+                                        <td><span class="badge bg-success">Approved</span></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row"><a href="#">#2644</a></th>
+                                        <td>Angus Grady</td>
+                                        <td><a href="#" class="text-primar">Ut voluptatem id earum et</a></td>
+                                        <td>$67</td>
+                                        <td><span class="badge bg-danger">Rejected</span></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row"><a href="#">#2644</a></th>
+                                        <td>Raheem Lehner</td>
+                                        <td><a href="#" class="text-primary">Sunt similique distinctio</a></td>
+                                        <td>$165</td>
+                                        <td><span class="badge bg-success">Approved</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+
+                    </div>
+                </div><!-- End Recent Sales -->
+
+            </div>
+        </div><!-- End Left side columns -->
+        
+    <!-- Right side columns -->
+        <div class="col-lg-4">
+
+            <!-- Recent Activity -->
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Recent Activity <span>| Newest</span></h5>
+
+                    <div class="activity" id="requestNewest">
+
+                        <div class="activity-item d-flex">
+                            <div class="activite-label">32 min</div>
+                            <i class="bi bi-circle-fill activity-badge text-success align-self-start"></i>
+                            <div class="activity-content">
+                                Quia quae rerum <a href="#" class="fw-bold text-dark">explicabo officiis</a> beatae
+                            </div>
+                        </div><!-- End activity item-->
+
+                        <div class="activity-item d-flex">
+                            <div class="activite-label">56 min</div>
+                            <i class="bi bi-circle-fill activity-badge text-danger align-self-start"></i>
+                            <div class="activity-content">
+                                Voluptatem blanditiis blanditiis eveniet
+                            </div>
+                        </div><!-- End activity item-->
+
+                        <div class="activity-item d-flex">
+                            <div class="activite-label">2 hrs</div>
+                            <i class="bi bi-circle-fill activity-badge text-primary align-self-start"></i>
+                            <div class="activity-content">
+                                Voluptates corrupti molestias voluptatem
+                            </div>
+                        </div><!-- End activity item-->
+
+                        <div class="activity-item d-flex">
+                            <div class="activite-label">1 day</div>
+                            <i class="bi bi-circle-fill activity-badge text-info align-self-start"></i>
+                            <div class="activity-content">
+                                Tempore autem saepe <a href="#" class="fw-bold text-dark">occaecati voluptatem</a> tempore
+                            </div>
+                        </div><!-- End activity item-->
+
+                        <div class="activity-item d-flex">
+                            <div class="activite-label">2 days</div>
+                            <i class="bi bi-circle-fill activity-badge text-warning align-self-start"></i>
+                            <div class="activity-content">
+                                Est sit eum reiciendis exercitationem
+                            </div>
+                        </div><!-- End activity item-->
+
+                        <div class="activity-item d-flex">
+                            <div class="activite-label">4 weeks</div>
+                            <i class="bi bi-circle-fill activity-badge text-muted align-self-start"></i>
+                            <div class="activity-content">
+                                Dicta dolorem harum nulla eius. Ut quidem quidem sit quas
+                            </div>
+                        </div><!-- End activity item-->
+
+                    </div>
+
+                </div>
+            </div><!-- End Recent Activity -->
+            
+    <!-- Website Traffic -->
+            <div class="card">
+                <div class="card-body chartCard pb-0">
+                    <h5 class="card-title">Requests Status <span></span></h5>
+
+                    <div id="StatusChart"></div>                  
+
+                </div>
+            </div>
+    <!-- End Website Traffic -->
+            
+    <!-- News & Updates Traffic -->
+            <div class="card">
+                <div class="filter">
+                    <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                        <li class="dropdown-header text-start">
+                            <h6>Filter</h6>
+                        </li>
+
+                        <li><a class="dropdown-item" href="#">Today</a></li>
+                        <li><a class="dropdown-item" href="#">This Month</a></li>
+                        <li><a class="dropdown-item" href="#">This Year</a></li>
+                    </ul>
+                </div>
+
+                <div class="card-body pb-0">
+                    <h5 class="card-title">News &amp; Updates <span>| Today</span></h5>
+
+                    <div class="news">
+                        <div class="post-item clearfix">
+                            <img src="~/Areas/PurchaseOrderManager/Content/Image/fii-logo.jpg" alt="" />
+                            <h4>Create System</h4>
+                            <p class="mb-0">Purchase order management system created...</p>
+                            <p class="text-end">2023-01-01</p>
+                        </div>
+
+                    </div><!-- End sidebar recent posts-->
+
+                </div>
+            </div><!-- End News & Updates -->
+
+        </div><!-- End Right side columns -->
+
+    </div>
+</section>
+
+@section scripts{
+    <!-- Vendor -->
+    <script src="~/Areas/PurchaseOrderManager/Content/vendor/ApexChart/apexcharts.min.js"></script>
+
+    <!-- Custom -->
+    <script src="~/Areas/PurchaseOrderManager/Content/Custom/Dashboard/Dashboard.js"></script>
+}
