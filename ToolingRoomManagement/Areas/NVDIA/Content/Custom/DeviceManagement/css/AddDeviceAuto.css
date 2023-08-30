@@ -1,0 +1,12 @@
+﻿#uploadArea{
+    padding: 0;
+    margin: 0;
+    background-color: transparent;
+}
+#dropZoon{
+    margin-top: 1.3rem;
+}
+.swal2-container.swal2-center > .swal2-popup {
+    box-shadow: 0px 0px 20px 6px #888888;
+    background-color: black;
+}

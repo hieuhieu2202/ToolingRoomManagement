@@ -139,7 +139,7 @@ namespace ToolingRoomManagement.Areas.Admin.Controllers
                 {
                     var date_now = DateTime.Now.ToString("yyyy");
                     var result = "";
-                    var code_date = "";
+                    //var code_date = "";
                     try
                     {
                         result = (from t in context.Devices

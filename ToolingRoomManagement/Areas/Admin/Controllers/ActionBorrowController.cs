@@ -257,7 +257,7 @@ namespace ToolingRoomManagement.Areas.Admin.Controllers
                     codeOrder = "OD" + date_now + "0001";
                 }
 
-                var acc = "Kế toán PD";
+                //var acc = "Kế toán PD";
                 //var accountant = context.Users.Where(x => x.role_id == 6).ToList();
                 //if (accountant.Count != 0)
                 //{

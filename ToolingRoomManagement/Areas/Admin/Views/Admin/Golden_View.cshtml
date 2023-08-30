@@ -175,7 +175,15 @@
                                                                 <td style="word-break: break-all;"><a href="~/Data/Golden/@(item.File_Name != null ? item.File_Name : "")"> @(item.File_Name != null ? item.File_Name : "") </a></td>
                                                                 <td>@item.Part</td>
                                                                 @{
-                                                                    DateTime dt = DateTime.ParseExact(item.End_Date.ToString().Trim(), "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                                                                    DateTime dt = DateTime.Now;
+                                                                    try {
+                                                                        DateTime.TryParseExact(item.End_Date, "dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out dt);
+                                                                    }
+                                                                    catch
+                                                                    {
+
+                                                                    }
+
                                                                     DateTime now = DateTime.Now;
                                                                     TimeSpan ts = dt.Subtract(now);
 

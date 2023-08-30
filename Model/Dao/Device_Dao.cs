@@ -166,7 +166,7 @@ namespace Model.Dao
                 // lấy ra id thiết bị:
                 var temp = db.Devices.FirstOrDefault(s => s.id == data.id);
                 // kiểm tra trùng mã thiết bị
-                var code = db.Devices.FirstOrDefault(s => s.code_device.Trim().ToUpper() == data.code_device.Trim().ToUpper());
+                var code = db.Devices.FirstOrDefault(s => s.code_device.Trim().ToUpper() == temp.code_device.Trim().ToUpper());
                 if (code.id == temp.id)
                 {
                     // chính là thiết bị đó
