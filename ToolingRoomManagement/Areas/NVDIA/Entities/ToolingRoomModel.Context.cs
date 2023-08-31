@@ -25,9 +25,10 @@ namespace ToolingRoomManagement.Areas.NVDIA.Entities
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<Department> Departments { get; set; }
-        public virtual DbSet<Device> Devices { get; set; }
         public virtual DbSet<Group> Groups { get; set; }
+        public virtual DbSet<HistoryUpdateDevice> HistoryUpdateDevices { get; set; }
         public virtual DbSet<Model> Models { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<Station> Stations { get; set; }
@@ -36,7 +37,6 @@ namespace ToolingRoomManagement.Areas.NVDIA.Entities
         public virtual DbSet<UserRole> UserRoles { get; set; }
         public virtual DbSet<Vendor> Vendors { get; set; }
         public virtual DbSet<Warehouse> Warehouses { get; set; }
-        public virtual DbSet<HistoryUpdateDevice> HistoryUpdateDevices { get; set; }
-        public virtual DbSet<Product> Products { get; set; }
+        public virtual DbSet<Device> Devices { get; set; }
     }
 }

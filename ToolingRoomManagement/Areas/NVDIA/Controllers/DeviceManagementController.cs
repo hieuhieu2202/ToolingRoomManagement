@@ -8,11 +8,15 @@ using OfficeOpenXml;
 using OfficeOpenXml.FormulaParsing.Excel.Functions.Math;
 using Microsoft.SqlServer.Server;
 using System.Globalization;
+using System.Data.Entity;
+using System.Data.Entity.Migrations;
+using ToolingRoomManagement.Models;
 
 namespace ToolingRoomManagement.Areas.NVDIA.Controllers
 {
     public class DeviceManagementController : Controller
     {
+        ToolingRoomEntities db = new ToolingRoomEntities();
         // GET: NVDIA/DeviceManagement
         [HttpGet]
         public ActionResult AddDeviceAuto()
@@ -20,100 +24,155 @@ namespace ToolingRoomManagement.Areas.NVDIA.Controllers
             return View();
         }
         [HttpPost]
-        public JsonResult AddDeviceAuto(HttpPostedFileBase file)
+        public JsonResult AddDeviceAuto(HttpPostedFileBase file, int IdWareHouse)
         {
             try
             {
-                if (file != null && file.ContentLength > 0)
-                {
-                    using (var package = new ExcelPackage(file.InputStream))
-                    {
-                        var worksheet = package.Workbook.Worksheets[0]; // Chọn worksheet muốn đọc
+                List<Entities.Device> devices = db.Devices.ToList();
+                return Json(new { status = true, data = devices });
+                //if (file != null && file.ContentLength > 0)
+                //{
 
-                        List<Entities.Device> devices = new List<Entities.Device>();
-                        List<Entities.Product> products = new List<Entities.Product>();
-                        List<Entities.Model> models = new List<Entities.Model>();
-                        List<Entities.Vendor> vendors = new List<Entities.Vendor>();
-                        List<Entities.Group> groups = new List<Entities.Group>();
-                        List<Entities.Station> stations = new List<Entities.Station>();
+                //    using (var db = new ToolingRoomEntities())
+                //    using (var package = new ExcelPackage(file.InputStream))
+                //    {
+                //        var worksheet = package.Workbook.Worksheets[1];
 
-                        using(var db = new ToolingRoomEntities())
-                        {
-                            for (int row = 1; row <= worksheet.Dimension.End.Row; row++)
-                            {
-                                Entities.Device device = new Entities.Device();
-                                Entities.Product product = new Entities.Product();
-                                Entities.Model model = new Entities.Model();
-                                Entities.Vendor vendor = new Entities.Vendor();
-                                Entities.Group group = new Entities.Group();
-                                Entities.Station station = new Entities.Station();
+                //        List<Entities.Device> devices = new List<Entities.Device>();
 
-                                #region Product                                
-                                product.ProductName = worksheet.Cells[row, 1].Value.ToString();
-                                product.MTS = worksheet.Cells[row, 2].Value.ToString();
-                                if(!db.Products.Any(p => p.ProductName == product.ProductName))
-                                {
-                                    db.Products.Add(product);
-                                    products.Add(product);
-                                }
-                                #endregion
+                //        foreach (int row in Enumerable.Range(2, worksheet.Dimension.End.Row - 1))
+                //        {
+                //            string deviceCode = worksheet.Cells[row, 10].Value?.ToString();
+                //            if (string.IsNullOrEmpty(deviceCode)) continue;
 
-                                #region Model
-                                model.ModelName = worksheet.Cells[row, 22].Value.ToString();
-                                if(!db.Models.Any(m => m.ModelName == model.ModelName))
-                                {
-                                    db.Models.Add(model);
-                                    models.Add(model);
-                                }
-                                #endregion
+                //            Entities.Device device = db.Devices.FirstOrDefault(d => d.DeviceCode == deviceCode);
+                //            if (device == null)
+                //            {
+                //                device = new Entities.Device();
+                //                #region Group
+                //                var groupName = worksheet.Cells[row, 12].Value?.ToString();
 
-                                #region Station
-                                station.StationName = worksheet.Cells[row, 23].Value.ToString();
-                                if(!db.Stations.Any(s => s.StationName == station.StationName))
-                                {
-                                    db.Stations.Add(station);
-                                    stations.Add(station);
-                                }
-                                #endregion
+                //                if (!string.IsNullOrEmpty(groupName))
+                //                {
+                //                    Entities.Group group = db.Groups.FirstOrDefault(g => g.GroupName == groupName);
+                //                    if (group == null)
+                //                    {
+                //                        group = new Entities.Group { GroupName = groupName };
+                //                        db.Groups.Add(group);
+                //                    }
+                //                    device.IdGroup = group.Id;
+                //                    device.Group = group;
+                //                }
+                //                #endregion
 
-                                #region Group
-                                group.GroupName = worksheet.Cells[row, 12].Value.ToString();
-                                if(!db.Groups.Any(g => g.GroupName == group.GroupName))
-                                {
-                                    db.Groups.Add(group);
-                                    groups.Add(group);
-                                }
-                                #endregion
+                //                #region Vendor
+                //                var vendorName = worksheet.Cells[row, 13].Value?.ToString();
+                //                if (!string.IsNullOrEmpty(vendorName))
+                //                {
+                //                    Entities.Vendor vendor = db.Vendors.FirstOrDefault(v => v.VendorName == vendorName);
+                //                    if (vendor == null)
+                //                    {
+                //                        vendor = new Entities.Vendor { VendorName = vendorName };
+                //                        db.Vendors.Add(vendor);
+                //                    }
+                //                    device.IdVendor = vendor.Id;
+                //                    device.Vendor = vendor;
+                //                }
+                //                #endregion
 
-                                #region Vendor
-                                vendor.VendorName = worksheet.Cells[row, 13].Value.ToString();
-                                if(!db.Vendors.Any(v => v.VendorName == vendor.VendorName))
-                                {
-                                    db.Vendors.Add(vendor);
-                                    vendors.Add(vendor);
-                                }
-                                #endregion
+                //                #region Product
+                //                var productName = worksheet.Cells[row, 1].Value?.ToString();
+                //                var productMTS = worksheet.Cells[row, 2].Value?.ToString();
+                //                if (!string.IsNullOrEmpty(productName) || !string.IsNullOrEmpty(productMTS))
+                //                {
+                //                    Entities.Product product = db.Products.FirstOrDefault(p => p.ProductName == productName);
+                //                    if (product == null)
+                //                    {
+                //                        product = new Entities.Product
+                //                        {
+                //                            ProductName = productName,
+                //                            MTS = productMTS
+                //                        };
+                //                        db.Products.Add(product);
+                //                    }
+                //                }
+                //                #endregion
 
-                                db.SaveChanges();
+                //                #region Model
+                //                var modelName = worksheet.Cells[row, 22].Value?.ToString();
+                //                if (!string.IsNullOrEmpty(modelName))
+                //                {
+                //                    Entities.Model model = db.Models.FirstOrDefault(m => m.ModelName == modelName);
+                //                    if (model == null)
+                //                    {
+                //                        model = new Entities.Model { ModelName = modelName };
+                //                        db.Models.Add(model);
+                //                    }
+                //                }
+                //                #endregion
 
-                                device.DeviceCode = worksheet.Cells[row, 10].Value.ToString();
-                                device.DeviceName = worksheet.Cells[row, 11].Value.ToString();
-                                device.DeviceDate = DateTime.ParseExact(worksheet.Cells[row, 15].Value.ToString(), "M/d/yyyy h:mm:ss tt", CultureInfo.InvariantCulture);
-                            }
-                        }   
-                    }
-                }
-                else
-                {
-                    return Json(new { status = false, message = "File is empty" });
-                }
+                //                #region Station
+                //                var stationName = worksheet.Cells[row, 23].Value?.ToString();
+                //                if (!string.IsNullOrEmpty(stationName))
+                //                {
+                //                    Entities.Station station = db.Stations.FirstOrDefault(s => s.StationName == stationName);
+                //                    if (station == null)
+                //                    {
+                //                        station = new Entities.Station { StationName = stationName };
+                //                        db.Stations.Add(station);
+                //                    }
+                //                }
+                //                #endregion
 
-                return Json(new { status = true, message = "" });
+                //                #region Device
+                //                DateTime deviceDate = DateTime.TryParseExact(worksheet.Cells[row, 15].Value?.ToString(), "M/d/yyyy h:mm:ss tt", CultureInfo.InvariantCulture, DateTimeStyles.None, out deviceDate) ? deviceDate : DateTime.Now;
+                //                double deviceBuffer = double.TryParse(worksheet.Cells[row, 30].Value?.ToString(), out deviceBuffer) ? deviceBuffer : 0;
+
+
+                //                device.DeviceCode = deviceCode;
+                //                device.DeviceName = worksheet.Cells[row, 11].Value?.ToString();
+                //                device.DeviceDate = deviceDate;
+                //                device.Buffer = deviceBuffer;
+                //                device.Quantity = 0;
+                //                device.Type = worksheet.Cells[row, 29].Value.ToString();
+                //                device.Status = "Pending";
+                //                device.IdWareHouse = IdWareHouse;
+                //                device.CreatedDate = DateTime.Now;
+
+                //                int deviceQty = int.TryParse(worksheet.Cells[row, 14].Value?.ToString(), out deviceQty) ? deviceQty : 0;
+                //                int stationQty = int.TryParse(worksheet.Cells[row, 26].Value?.ToString(), out stationQty) ? stationQty : 0;
+                //                device.Quantity = (int)Math.Ceiling((double)(deviceQty * stationQty * (1 + device.Buffer)));
+                //                #endregion
+
+                //                devices.Add(device);
+                //                db.Devices.Add(device);
+                //            }
+                //            else
+                //            {
+                //                int deviceQty = int.TryParse(worksheet.Cells[row, 14].Value?.ToString(), out deviceQty) ? deviceQty : 0;
+                //                int stationQty = int.TryParse(worksheet.Cells[row, 26].Value?.ToString(), out stationQty) ? stationQty : 0;
+                //                device.Quantity += (int)Math.Ceiling((double)(deviceQty * stationQty * (1 + device.Buffer)));
+                //                device.Status = "Pending";
+
+                //                devices.Add(device);
+                //                db.Devices.AddOrUpdate(device);
+                //            }
+
+                //            db.SaveChanges();
+                //        }
+                //        return Json(new { status = true, data = devices });
+                //    }
+                //}
+                //else
+                //{
+                //    return Json(new { status = false, message = "File is empty" });
+                //}
             }
             catch (Exception ex)
             {
                 return Json(new { status = false, message = ex.Message });
             }
         }
+
     }
 }

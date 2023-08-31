@@ -25,8 +25,8 @@ namespace ToolingRoomManagement.Areas.NVDIA.Entities
         public string Description { get; set; }
         public Nullable<int> IdUserManager { get; set; }
     
+        public virtual User User { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Device> Devices { get; set; }
-        public virtual User User { get; set; }
     }
 }

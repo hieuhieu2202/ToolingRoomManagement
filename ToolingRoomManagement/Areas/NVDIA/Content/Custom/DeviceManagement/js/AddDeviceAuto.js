@@ -1,21 +1,12 @@
 ﻿$(function () {
-    InitTableDeviceInfo()
+    SendFileToServer();
 });
 
 var tableDeviceInfo;
-function InitTableDeviceInfo() {
 
-    const options = {
-
-    }
-
-    $('#example').DataTable(options);
-}
 
 $('#fileInput').on('change', function (e) {
     e.preventDefault();
-
-    console.log('ok');
 
     let count = 0;
     progressMove(count);
@@ -38,6 +29,9 @@ function SendFileToServer() {
     const formData = new FormData();
     formData.append('file', file);
 
+    const IdWareHouse = 1;
+    formData.append('IdWareHouse', IdWareHouse);
+
     $.ajax({
         url: "/NVDIA/DeviceManagement/AddDeviceAuto",
         data: formData,
@@ -46,7 +40,9 @@ function SendFileToServer() {
         contentType: false,
         success: function (response) {
             if (response.status) {
-                alert(response.message);
+                var deviceList = response.data;
+
+                CreateTableAddDevice(deviceList);
             }
             else {
                 Swal.fire('Sorry, something went wrong!', response.message, 'error');
@@ -56,6 +52,80 @@ function SendFileToServer() {
             Swal.fire('Sorry, something went wrong!', GetAjaxErrorMessage(error), 'error');
         }
     });
+}
+
+async function CreateTableAddDevice(datas) {
+    if (tableDeviceInfo) tableDeviceInfo.destroy();
+
+    await $.each(datas, function (no, item) {
+        var row = $('<tr></tr>');
+
+        // DeviceCode
+        row.append(`<td>${item.DeviceCode}</td>`);
+        // DeviceName
+        row.append(`<td>${item.DeviceName}</td>`);
+        // Group
+        try {
+            row.append(`<td>${item.Group.GroupName}</td>`);
+        }
+        catch {
+            row.append(`<td>N/A</td>`);
+        }       
+        // Vendor
+        try {
+            row.append(`<td>${item.Vendor.VendorName}</td>`);
+        }
+        catch {
+            row.append(`<td>N/A</td>`);
+        }       
+        // Buffer
+        row.append(`<td>${item.Buffer * 100}%</td>`);
+        // Quantity
+        row.append(`<td>${item.Quantity}</td>`);
+        // Type
+        switch (item.Type) {
+            case "S": {
+                row.append(`<td>Static</td>`);
+                break;
+            }
+            case "D": {
+                row.append(`<td>Dynamic</td>`);
+                break;
+            }
+            default: {
+                row.append(`<td>N/A</td>`);
+                break;
+            }
+        }
+        // Status
+        switch (item.Status) {
+            case "Pending": {
+                row.append(`<td>Pending</td>`);
+                break;
+            }
+            default: {
+                row.append(`<td>N/A</td>`);
+                break;
+            }
+        }
+        // Action
+        row.append(`<td>Button</td>`);
+
+        $('#table_addDevice_tbody').append(row);
+    });
+    $('#card-device-details').show();
+
+    const options = {
+        scrollX: true,
+        columnDefs: [
+            { targets: [0, 5, 7], orderable: true },
+            { targets: "_all", orderable: false },
+        ],
+    };
+    tableDeviceInfo = $('#table_addDevice').DataTable(options);
+    tableDeviceInfo.columns.adjust();
+
+    
 }
 
 function GetAjaxErrorMessage(error) {
