@@ -8,6 +8,8 @@
     <!-- Vendor -->
     <link href="~/Areas/NVDIA/Content/Vendor/UploadAreaDropzone/UploadAreaDropzone.css" rel="stylesheet" />
     <link href="~/Areas/NVDIA/Content/Template/Sysadmin/assets/plugins/datatable/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
+    <link href="~/Areas/NVDIA/Content/Template/Sysadmin/assets/plugins/select2/css/select2.min.css" rel="stylesheet" />
+    <link href="~/Areas/NVDIA/Content/Template/Sysadmin/assets/plugins/select2/css/select2-bootstrap4.css" rel="stylesheet" />
     <!-- Custom -->
     <link href="~/Areas/NVDIA/Content/Custom/DeviceManagement/css/AddDeviceAuto.css" rel="stylesheet" />
 }
@@ -87,33 +89,33 @@
                         <div class="row g-3">
                             <div class="col-6">
                                 <label for="inputProductType" class="form-label">Models</label>
-                                <input type="text" class="form-control" id="inputPrice" disabled>
-                            </div>
-                            <div class="col-6">
-                                <label for="inputProductType" class="form-label">Stations</label>
-                                <input type="text" class="form-control" id="inputPrice" disabled>
+                                <input type="text" class="form-control" id="info_models" disabled>
                             </div>
                             <div class="col-6">
                                 <label for="inputProductType" class="form-label">Groups</label>
-                                <input type="text" class="form-control" id="inputPrice" disabled>
+                                <input type="text" class="form-control" id="info_groups" disabled>
+                            </div>
+                            <div class="col-6">
+                                <label for="inputProductType" class="form-label">Stations</label>
+                                <input type="text" class="form-control" id="info_stations" disabled>
                             </div>
                             <div class="col-6">
                                 <label for="inputProductType" class="form-label">Vendors</label>
-                                <input type="text" class="form-control" id="inputPrice" disabled>
+                                <input type="text" class="form-control" id="info_vendors" disabled>
                             </div>
                             <div class="col-6">
                                 <label for="inputProductType" class="form-label">Devices</label>
-                                <input type="text" class="form-control" id="inputPrice" disabled>
+                                <input type="text" class="form-control" id="info_devices" disabled>
                             </div>
 
                             <div class="col-6">
                                 <label for="inputProductType" class="form-label">Total Quantity</label>
-                                <input type="text" class="form-control" id="inputPrice" disabled>
+                                <input type="text" class="form-control" id="info_quantity" disabled>
                             </div>
 
                             <div class="col-12">
                                 <div class="d-grid">
-                                    <button type="button" class="btn btn-primary">SAVE</button>
+                                    <button type="button" class="btn btn-primary" id="confirm">CONFIRM</button>
                                 </div>
                             </div>
                         </div>
@@ -129,7 +131,7 @@
         <h5 class="card-title">Device Details</h5>
         <hr />
         <div class="form-body mt-4">
-            <table id="table_addDevice" class="table table-striped table-bordered text-nowrap">
+            <table id="table_addDevice" class="table table-striped table-hover table-bordered text-nowrap">
                 <thead>
                     <tr>
                         <th>Device Code</th>
@@ -151,6 +153,99 @@
 
 </div>
 
+<div class="modal fade" id="device-edit_modal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="device-edit_title"></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Id -->
+                <div class="col-3">
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">ID</span>
+                        <input type="text" class="form-control" id="device-edit_DeviceId" disabled>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-6">
+                        <!-- Device Code -->
+                        <div class="input-group mb-3">
+                            <span class="col-3 input-group-text">Device Code</span>
+                            <input class="col-9 form-control" type="text" id="device-edit_DeviceCode" disabled>
+                        </div>
+                        <!-- Device Name -->
+                        <div class="input-group mb-3">
+                            <span class="col-3 input-group-text">Device name</span>
+                            <input class="col-9 form-control" type="text" id="device-edit_DeviceName">
+                        </div>
+                        <!-- Device Date -->
+                        <div class="input-group mb-3">
+                            <span class="col-3 input-group-text">Created date</span>
+                            <input class="col-9 form-control" type="datetime-local" id="device-edit_DeviceDate">
+                        </div>
+                        <!-- Buffer -->
+                        <div class="input-group mb-3">
+                            <span class="col-3 input-group-text">Buffer</span>
+                            <input class="col-9 form-control" type="number" id="device-edit_Buffer">
+                        </div>
+                        <!-- Quantity -->
+                        <div class="input-group mb-3">
+                            <span class="col-3 input-group-text">Quantity</span>
+                            <input class="col-9 form-control" type="number" id="device-edit_Quantity">
+                        </div>
+
+                    </div>
+                    <div class="col-6">
+                        <!-- Type -->
+                        <div class="input-group mb-3">
+                            <span class="col-3 input-group-text">Type</span>
+                            <select class="col-9 form-select" id="device-edit_Type">
+                                <option value="S">Static</option>
+                                <option value="D">Dynamic</option>
+                                <option value="#N/A">N/A</option>
+                            </select>
+                        </div>
+                        <!-- Status -->
+                        <div class="input-group mb-3">
+                            <span class="col-3 input-group-text">Status</span>
+                            <select class="col-9 form-select" id="device-edit_Status">
+                                <option value="New">New</option>
+                                <option value="Update">Update</option>
+                                <option value="Confirmed">Confirmed</option>
+                                <option value="Locked">Locked</option>
+                                <option value="Depleted">Depleted</option>
+                            </select>
+                        </div>
+                        <!-- WareHouse -->
+                        <div class="input-group mb-3">
+                            <span class="col-3 input-group-text">Warehouse</span>
+                            <select class="col-9 form-select" id="device-edit_WareHouse"></select>
+                        </div>
+                        <!-- Group -->
+                        <div class="input-group mb-3">
+                            <span class="col-3 input-group-text">Group</span>
+                            <select class="col-9 form-select" id="device-edit_Group"></select>
+                        </div>
+                        <!-- Vendor -->
+                        <div class="input-group mb-3">
+                            <span class="col-3 input-group-text">Vendor</span>
+                            <select class="col-9 form-select" id="device-edit_Vendor"></select>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="button-save_modal">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 @section scripts{
     <!-- Vendor -->
@@ -158,7 +253,19 @@
     <script src="~/Areas/NVDIA/Content/Template/Sysadmin/assets/plugins/datatable/js/jquery.dataTables.min.js"></script>
     <script src="~/Areas/NVDIA/Content/Template/Sysadmin/assets/plugins/datatable/js/dataTables.bootstrap5.min.js"></script>
     <script src="~/Areas/NVDIA/Content/Vendor/MomentJs/moment.js"></script>
+    <script src="~/Areas/NVDIA/Content/Template/Sysadmin/assets/plugins/select2/js/select2.min.js"></script>
     <!-- Custom -->
     <script src="~/Areas/NVDIA/Content/Custom/DeviceManagement/js/AddDeviceAuto.js"></script>
+    <script type="text/javascript">
+        $('#device-edit_WareHouse').select2({
+            theme: 'bootstrap4',
+        });
+        $('#device-edit_Group').select2({
+            theme: 'bootstrap4',
+        });
+        $('#device-edit_Vendor').select2({
+            theme: 'bootstrap4',
+        });      
+    </script>
 }
 

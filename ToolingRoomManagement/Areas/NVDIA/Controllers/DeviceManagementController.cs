@@ -28,8 +28,13 @@ namespace ToolingRoomManagement.Areas.NVDIA.Controllers
         {
             try
             {
+                List<Entities.Model> models = db.Models.ToList();
+                List<Entities.Group> groups = db.Groups.ToList();
+                List<Entities.Station> stations = db.Stations.ToList();
+                List<Entities.Vendor> vendors = db.Vendors.ToList();
                 List<Entities.Device> devices = db.Devices.ToList();
-                return Json(new { status = true, data = devices });
+                
+                return Json(new { status = true, devices, models, groups, stations, vendors });
                 //if (file != null && file.ContentLength > 0)
                 //{
 
@@ -167,6 +172,84 @@ namespace ToolingRoomManagement.Areas.NVDIA.Controllers
                 //{
                 //    return Json(new { status = false, message = "File is empty" });
                 //}
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = false, message = ex.Message });
+            }
+        }
+
+        [HttpPost]
+        public JsonResult DeleteDevice(int Id)
+        {
+            try
+            {
+                using(ToolingRoomEntities db = new ToolingRoomEntities())
+                {
+                    Entities.Device device = db.Devices.FirstOrDefault(d => d.Id == Id);
+
+                    if (device != null)
+                    {
+                        db.Devices.Remove(device);
+                        db.SaveChanges();
+                        return Json(new { status = true });
+                    }
+                    else
+                    {
+                        return Json(new { status = false, message = "Device not found." });
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = false, message = ex.Message });
+            }
+        }
+
+        [HttpPost]
+        public JsonResult GetDevice(int Id)
+        {
+            try
+            {
+                List<Entities.Warehouse> warehouses = db.Warehouses.ToList();
+                List<Entities.Model> models = db.Models.ToList();
+                List<Entities.Group> groups = db.Groups.ToList();
+                List<Entities.Vendor> vendors = db.Vendors.ToList();
+                Entities.Device device = db.Devices.FirstOrDefault(d => d.Id == Id);
+
+                if (device != null)
+                {
+                    return Json(new { status = true, device, warehouses, models, groups, vendors });
+                }
+                else
+                {
+                    return Json(new { status = false, message = "Device not found." });
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = false, message = ex.Message });
+            }
+        }
+
+        [HttpPost]
+        public JsonResult UpdateDevice(Device device)
+        {
+            try
+            {
+                if (device != null)
+                {
+                    db.Devices.AddOrUpdate(device);
+                    db.SaveChanges();
+
+                    Entities.Device rDevice = db.Devices.FirstOrDefault(d => d.Id == device.Id);
+
+                    return Json(new { status = true, device = rDevice});
+                }
+                else
+                {
+                    return Json(new { status = false, message = "Device not found." });
+                }
             }
             catch (Exception ex)
             {

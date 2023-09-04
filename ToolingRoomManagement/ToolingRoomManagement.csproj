@@ -1119,6 +1119,8 @@
     <Content Include="Areas\NVDIA\Content\Vendor\Stepper\bs-stepper.min.js" />
     <Content Include="Areas\NVDIA\Content\Vendor\SweetAlert\swal.min.css" />
     <Content Include="Areas\NVDIA\Content\Vendor\SweetAlert\swal.min.js" />
+    <Content Include="Areas\NVDIA\Content\Vendor\Toats\toastr.min.css" />
+    <Content Include="Areas\NVDIA\Content\Vendor\Toats\toastr.min.js" />
     <Content Include="Areas\NVDIA\Content\Vendor\UploadAreaDropzone\Excel_Icon.svg" />
     <Content Include="Areas\NVDIA\Content\Vendor\UploadAreaDropzone\UploadAreaDropzone.css" />
     <Content Include="Areas\NVDIA\Content\Vendor\UploadAreaDropzone\UploadAreaDropzone.js" />
@@ -2834,6 +2836,7 @@
       <DependentUpon>ToolingRoomModel.edmx</DependentUpon>
     </Content>
     <Content Include="Areas\NVDIA\Views\DeviceManagement\AddDeviceAuto.cshtml" />
+    <Content Include="Areas\NVDIA\Content\Vendor\Toats\toastr.js.map" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

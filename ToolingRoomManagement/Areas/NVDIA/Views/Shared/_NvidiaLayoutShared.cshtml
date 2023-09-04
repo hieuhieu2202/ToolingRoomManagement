@@ -26,6 +26,7 @@
     <link href="~/Areas/NVDIA/Content/Template/Sysadmin/assets/plugins/perfect-scrollbar/css/perfect-scrollbar.css" rel="stylesheet" />
     <link href="~/Areas/NVDIA/Content/Template/Sysadmin/assets/plugins/metismenu/css/metisMenu.min.css" rel="stylesheet" />
     <link href="~/Areas/NVDIA/Content/Vendor/SweetAlert/swal.min.css" rel="stylesheet" />
+    <link href="~/Areas/NVDIA/Content/Vendor/Toats/toastr.min.css" rel="stylesheet" />
 
     <!-- Font -->
     <link href="~/Areas/NVDIA/Content/Vendor/Font/font-roboto/font-roboto.css" rel="stylesheet" />
@@ -283,12 +284,34 @@
     <script src="~/Areas/NVDIA/Content/Template/Sysadmin/assets/plugins/metismenu/js/metisMenu.min.js"></script>
     <script src="~/Areas/NVDIA/Content/Template/Sysadmin/assets/plugins/perfect-scrollbar/js/perfect-scrollbar.js"></script>
     <script src="~/Areas/NVDIA/Content/Vendor/SweetAlert/swal.min.js"></script>
+    <script src="~/Areas/NVDIA/Content/Vendor/Toats/toastr.min.js"></script>
 
     <!-- Template-->
     <script src="~/Areas/NVDIA/Content/Template/Sysadmin/assets/js/app.js"></script>
 
     <!-- For Page -->
-    @RenderSection("scripts", false);
+    <script type="text/javascript">
+        $(function () {
+            toastr.options = {
+                "closeButton": true,
+                "debug": false,
+                "newestOnTop": true,
+                "progressBar": true,
+                "positionClass": "toast-top-right",
+                "preventDuplicates": false,
+                "onclick": null,
+                "showDuration": "300",
+                "hideDuration": "1000",
+                "timeOut": "5000",
+                "extendedTimeOut": "500",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            };
+        });
+    </script>
+    @RenderSection("scripts", false)
 </body>
 
 </html>
