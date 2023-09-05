@@ -23,161 +23,246 @@ namespace ToolingRoomManagement.Areas.NVDIA.Controllers
         {
             return View();
         }
-        [HttpPost]
-        public JsonResult AddDeviceAuto(HttpPostedFileBase file, int IdWareHouse)
+        [HttpGet]
+        public JsonResult GetWarehouse()
         {
             try
             {
-                List<Entities.Model> models = db.Models.ToList();
-                List<Entities.Group> groups = db.Groups.ToList();
-                List<Entities.Station> stations = db.Stations.ToList();
-                List<Entities.Vendor> vendors = db.Vendors.ToList();
-                List<Entities.Device> devices = db.Devices.ToList();
-                
-                return Json(new { status = true, devices, models, groups, stations, vendors });
-                //if (file != null && file.ContentLength > 0)
-                //{
+                List<Entities.Warehouse> warehouses = db.Warehouses.ToList();
+                return Json(new { status = true, warehouses }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
 
-                //    using (var db = new ToolingRoomEntities())
-                //    using (var package = new ExcelPackage(file.InputStream))
-                //    {
-                //        var worksheet = package.Workbook.Worksheets[1];
+        [HttpPost]
+        public JsonResult AddDeviceAuto(HttpPostedFileBase file, int IdWareHouse)
+        {        
+            try
+            {
+                if (file != null && file.ContentLength > 0)
+                {
+                    using (var package = new ExcelPackage(file.InputStream))
+                    {
+                        var worksheet = package.Workbook.Worksheets[1];
 
-                //        List<Entities.Device> devices = new List<Entities.Device>();
+                        var products = new List<Entities.Product>();
+                        var models = new List<Entities.Model>();
+                        var stations = new List<Entities.Station>();
+                        var groups = new List<Entities.Group>();
+                        var vendors = new List<Entities.Vendor>();
 
-                //        foreach (int row in Enumerable.Range(2, worksheet.Dimension.End.Row - 1))
-                //        {
-                //            string deviceCode = worksheet.Cells[row, 10].Value?.ToString();
-                //            if (string.IsNullOrEmpty(deviceCode)) continue;
+                        var devices = new List<Entities.Device>();
 
-                //            Entities.Device device = db.Devices.FirstOrDefault(d => d.DeviceCode == deviceCode);
-                //            if (device == null)
-                //            {
-                //                device = new Entities.Device();
-                //                #region Group
-                //                var groupName = worksheet.Cells[row, 12].Value?.ToString();
-
-                //                if (!string.IsNullOrEmpty(groupName))
-                //                {
-                //                    Entities.Group group = db.Groups.FirstOrDefault(g => g.GroupName == groupName);
-                //                    if (group == null)
-                //                    {
-                //                        group = new Entities.Group { GroupName = groupName };
-                //                        db.Groups.Add(group);
-                //                    }
-                //                    device.IdGroup = group.Id;
-                //                    device.Group = group;
-                //                }
-                //                #endregion
-
-                //                #region Vendor
-                //                var vendorName = worksheet.Cells[row, 13].Value?.ToString();
-                //                if (!string.IsNullOrEmpty(vendorName))
-                //                {
-                //                    Entities.Vendor vendor = db.Vendors.FirstOrDefault(v => v.VendorName == vendorName);
-                //                    if (vendor == null)
-                //                    {
-                //                        vendor = new Entities.Vendor { VendorName = vendorName };
-                //                        db.Vendors.Add(vendor);
-                //                    }
-                //                    device.IdVendor = vendor.Id;
-                //                    device.Vendor = vendor;
-                //                }
-                //                #endregion
-
-                //                #region Product
-                //                var productName = worksheet.Cells[row, 1].Value?.ToString();
-                //                var productMTS = worksheet.Cells[row, 2].Value?.ToString();
-                //                if (!string.IsNullOrEmpty(productName) || !string.IsNullOrEmpty(productMTS))
-                //                {
-                //                    Entities.Product product = db.Products.FirstOrDefault(p => p.ProductName == productName);
-                //                    if (product == null)
-                //                    {
-                //                        product = new Entities.Product
-                //                        {
-                //                            ProductName = productName,
-                //                            MTS = productMTS
-                //                        };
-                //                        db.Products.Add(product);
-                //                    }
-                //                }
-                //                #endregion
-
-                //                #region Model
-                //                var modelName = worksheet.Cells[row, 22].Value?.ToString();
-                //                if (!string.IsNullOrEmpty(modelName))
-                //                {
-                //                    Entities.Model model = db.Models.FirstOrDefault(m => m.ModelName == modelName);
-                //                    if (model == null)
-                //                    {
-                //                        model = new Entities.Model { ModelName = modelName };
-                //                        db.Models.Add(model);
-                //                    }
-                //                }
-                //                #endregion
-
-                //                #region Station
-                //                var stationName = worksheet.Cells[row, 23].Value?.ToString();
-                //                if (!string.IsNullOrEmpty(stationName))
-                //                {
-                //                    Entities.Station station = db.Stations.FirstOrDefault(s => s.StationName == stationName);
-                //                    if (station == null)
-                //                    {
-                //                        station = new Entities.Station { StationName = stationName };
-                //                        db.Stations.Add(station);
-                //                    }
-                //                }
-                //                #endregion
-
-                //                #region Device
-                //                DateTime deviceDate = DateTime.TryParseExact(worksheet.Cells[row, 15].Value?.ToString(), "M/d/yyyy h:mm:ss tt", CultureInfo.InvariantCulture, DateTimeStyles.None, out deviceDate) ? deviceDate : DateTime.Now;
-                //                double deviceBuffer = double.TryParse(worksheet.Cells[row, 30].Value?.ToString(), out deviceBuffer) ? deviceBuffer : 0;
+                        foreach (int row in Enumerable.Range(2, worksheet.Dimension.End.Row - 1))
+                        {
+                            var deviceCode = worksheet.Cells[row, 10].Value?.ToString();
+                            var isRealBOM = worksheet.Cells[row, 20].Value?.ToString();
+                            if (string.IsNullOrEmpty(deviceCode) || isRealBOM != "Y") continue;
 
 
-                //                device.DeviceCode = deviceCode;
-                //                device.DeviceName = worksheet.Cells[row, 11].Value?.ToString();
-                //                device.DeviceDate = deviceDate;
-                //                device.Buffer = deviceBuffer;
-                //                device.Quantity = 0;
-                //                device.Type = worksheet.Cells[row, 29].Value.ToString();
-                //                device.Status = "Pending";
-                //                device.IdWareHouse = IdWareHouse;
-                //                device.CreatedDate = DateTime.Now;
+                            // Create device in row excel
+                            var device = CreateDevice(worksheet, row, IdWareHouse);
 
-                //                int deviceQty = int.TryParse(worksheet.Cells[row, 14].Value?.ToString(), out deviceQty) ? deviceQty : 0;
-                //                int stationQty = int.TryParse(worksheet.Cells[row, 26].Value?.ToString(), out stationQty) ? stationQty : 0;
-                //                device.Quantity = (int)Math.Ceiling((double)(deviceQty * stationQty * (1 + device.Buffer)));
-                //                #endregion
+                            // Get device in db to check
+                            var dbDevice = db.Devices.FirstOrDefault(d =>
+                                d.IdProduct == device.IdProduct &&
+                                d.IdModel == device.IdModel &&
+                                d.IdStation == device.IdStation &&
+                                d.IdGroup == device.IdGroup &&
+                                d.IdVendor == device.IdVendor &&
+                                d.DeviceCode == device.DeviceCode &&
+                                d.DeviceName == device.DeviceName);
+                            // 1. Chưa có => tạo mới                           
+                            if (dbDevice == null)
+                            {
+                                devices.Add(device);
+                                db.Devices.Add(device);
+                                db.SaveChanges();
+                            }
+                            // 2. Đã có
+                            else
+                            {
+                                // device after change
+                                var iDevice = devices.FirstOrDefault(d => d.Id == dbDevice.Id);
 
-                //                devices.Add(device);
-                //                db.Devices.Add(device);
-                //            }
-                //            else
-                //            {
-                //                int deviceQty = int.TryParse(worksheet.Cells[row, 14].Value?.ToString(), out deviceQty) ? deviceQty : 0;
-                //                int stationQty = int.TryParse(worksheet.Cells[row, 26].Value?.ToString(), out stationQty) ? stationQty : 0;
-                //                device.Quantity += (int)Math.Ceiling((double)(deviceQty * stationQty * (1 + device.Buffer)));
-                //                device.Status = "Pending";
+                                if (iDevice != null)
+                                {
+                                    iDevice.Quantity = dbDevice.Quantity;
+                                    iDevice.Status = dbDevice.Status;
+                                }
+                                else
+                                {
+                                    iDevice = dbDevice;
+                                    iDevice.Status = dbDevice.Status;
 
-                //                devices.Add(device);
-                //                db.Devices.AddOrUpdate(device);
-                //            }
+                                    devices.Add(iDevice);
+                                }
 
-                //            db.SaveChanges();
-                //        }
-                //        return Json(new { status = true, data = devices });
-                //    }
-                //}
-                //else
-                //{
-                //    return Json(new { status = false, message = "File is empty" });
-                //}
+                                // Change in DB
+                                int? qty = dbDevice.Quantity + device.Quantity;
+                                dbDevice.Quantity = qty;
+                                device.Quantity = qty;
+                                if (dbDevice.Status == "New" || dbDevice.Status == "New Update")
+                                {                                   
+                                    dbDevice.Status = "New Update";
+                                }
+                                else
+                                {
+                                    dbDevice.Status = "Update";
+                                }
+                                db.Devices.AddOrUpdate(dbDevice);
+                                db.SaveChanges();
+                            }
+
+                            if (!products.Any(p => p.Id == device.Product.Id) && (device.Product.ProductName != null || device.Product.MTS != null)) products.Add(device.Product);
+                            if (!models.Any(m => m.Id == device.Model.Id) && device.Model.ModelName != null) models.Add(device.Model);
+                            if (!stations.Any(s => s.Id == device.Station.Id) && device.Station.StationName != null) stations.Add(device.Station);
+                            if (!groups.Any(g => g.Id == device.Group.Id) && device.Group.GroupName != null) groups.Add(device.Group);
+                            if (!vendors.Any(v => v.Id == device.Vendor.Id) && device.Vendor.VendorName != null) vendors.Add(device.Vendor);
+                        }
+
+                        return Json(new { status = true, products, models, stations, groups, vendors, devices });
+                    }
+                }
+                else
+                {
+                    return Json(new { status = false, message = "File is empty" });
+                }
+
             }
             catch (Exception ex)
             {
                 return Json(new { status = false, message = ex.Message });
             }
         }
+
+        private Entities.Device CreateDevice(ExcelWorksheet worksheet, int row, int IdWareHouse)
+        {
+            Entities.Device device = new Entities.Device();
+
+            // Lấy các giá trị từ worksheet
+            var productName = worksheet.Cells[row, 1].Value?.ToString();
+            var productMTS = worksheet.Cells[row, 2].Value?.ToString();
+            var modelName = worksheet.Cells[row, 22].Value?.ToString();
+            var stationName = worksheet.Cells[row, 23].Value?.ToString();
+            var groupName = worksheet.Cells[row, 12].Value?.ToString();
+            var vendorName = worksheet.Cells[row, 13].Value?.ToString();
+            var deviceCode = worksheet.Cells[row, 10].Value?.ToString();
+            var deviceName = worksheet.Cells[row, 11].Value?.ToString();
+            var ACC_KIT = worksheet.Cells[row, 17].Value?.ToString();
+            var relation = worksheet.Cells[row, 18].Value?.ToString();
+
+            // Lấy các giá trị khác từ worksheet
+            DateTime deviceDate = DateTime.TryParseExact(worksheet.Cells[row, 15].Value?.ToString(), "M/d/yyyy h:mm:ss tt", CultureInfo.InvariantCulture, DateTimeStyles.None, out deviceDate) ? deviceDate : DateTime.Now;
+            double deviceBuffer = double.TryParse(worksheet.Cells[row, 30].Value?.ToString(), out deviceBuffer) ? deviceBuffer : 0;
+            double forcast = double.TryParse(worksheet.Cells[row, 27].Value?.ToString(), out forcast) ? forcast : 0;
+
+            string deviceType = worksheet.Cells[row, 29].Value?.ToString();
+            
+            int deviceQty = int.TryParse(worksheet.Cells[row, 14].Value?.ToString(), out deviceQty) ? deviceQty : 0;
+            int stationQty = int.TryParse(worksheet.Cells[row, 26].Value?.ToString(), out stationQty) ? stationQty : 0;
+            int lifeCycle = int.TryParse(worksheet.Cells[row, 28].Value?.ToString(), out lifeCycle) ? lifeCycle : 0;
+
+
+            #region Product
+            Entities.Product product = db.Products.FirstOrDefault(p => p.ProductName == productName && p.MTS == productMTS);
+            if (product == null)
+            {
+                product = new Entities.Product
+                {
+                    ProductName = productName,
+                    MTS = productMTS
+                };
+                db.Products.Add(product);
+            }
+            device.IdProduct = product.Id;
+            device.Product = product;
+            #endregion
+
+            #region Model
+            Entities.Model model = db.Models.FirstOrDefault(m => m.ModelName == modelName);
+            if (model == null)
+            {
+                model = new Entities.Model { ModelName = modelName };
+                db.Models.Add(model);
+            }
+            device.IdModel = model.Id;
+            device.Model = model;
+            #endregion
+
+            #region Station
+            Entities.Station station = db.Stations.FirstOrDefault(s => s.StationName == stationName);
+            if (station == null)
+            {
+                station = new Entities.Station { StationName = stationName };
+                db.Stations.Add(station);
+            }
+            device.IdStation = station.Id;
+            device.Station = station;
+            #endregion
+
+            #region Group
+            Entities.Group group = db.Groups.FirstOrDefault(g => g.GroupName == groupName);
+            if (group == null)
+            {
+                group = new Entities.Group { GroupName = groupName };
+                db.Groups.Add(group);
+            }
+            device.IdGroup = group.Id;
+            device.Group = group;
+            #endregion
+
+            #region Vendor
+            Entities.Vendor vendor = db.Vendors.FirstOrDefault(v => v.VendorName == vendorName);
+            if (vendor == null)
+            {
+                vendor = new Entities.Vendor { VendorName = vendorName };
+                db.Vendors.Add(vendor);
+            }
+            device.IdVendor = vendor.Id;
+            device.Vendor = vendor;
+            #endregion
+
+            #region Device
+            device.DeviceCode = deviceCode;
+            device.DeviceName = deviceName;
+            device.DeviceDate = deviceDate;
+            device.Buffer = deviceBuffer;
+            device.ACC_KIT = ACC_KIT;
+            device.Relation = relation;
+            device.Quantity = 0;
+            device.Type = deviceType;
+            device.Status = "New";
+            device.IdWareHouse = IdWareHouse;
+            device.CreatedDate = DateTime.Now;
+            device.LifeCycle = lifeCycle;
+            device.Forcast = forcast;
+
+            if(device.Type == "D")
+            {
+                double cal = (double)(device.Forcast * 1000 / device.LifeCycle);
+                if (cal < stationQty)
+                {
+                    device.Quantity = stationQty;
+                }
+                else
+                {
+                    device.Quantity = (int)Math.Ceiling(cal);
+                }
+            }
+            else if (device.Type == "S")
+            {
+                device.Quantity = (int)Math.Ceiling((double)(deviceQty * stationQty * (1 + deviceBuffer)));
+            }
+            
+            #endregion
+
+            return device;
+        }
+
 
         [HttpPost]
         public JsonResult DeleteDevice(int Id)

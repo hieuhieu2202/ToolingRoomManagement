@@ -4,7 +4,7 @@
     background-color: transparent;
 }
 #dropZoon{
-    margin-top: 1.3rem;
+    margin-top: 1.2rem;
 }
 .swal2-container.swal2-center > .swal2-popup {
     box-shadow: 0px 0px 20px 6px #888888;
@@ -19,4 +19,7 @@
 
 .select2-container{
     z-index: 9999;
+}
+.uploaded-file__icon{
+    font-size: 2.5rem;
 }

@@ -801,6 +801,7 @@
     <Content Include="Areas\NVDIA\Content\Template\Sysadmin\assets\js\index4.js" />
     <Content Include="Areas\NVDIA\Content\Template\Sysadmin\assets\js\index5.js" />
     <Content Include="Areas\NVDIA\Content\Template\Sysadmin\assets\js\jquery.min.js" />
+    <Content Include="Areas\NVDIA\Content\Template\Sysadmin\assets\js\pace.js" />
     <Content Include="Areas\NVDIA\Content\Template\Sysadmin\assets\js\pace.min.js" />
     <Content Include="Areas\NVDIA\Content\Template\Sysadmin\assets\js\widgets.js" />
     <Content Include="Areas\NVDIA\Content\Template\Sysadmin\assets\plugins\apexcharts-bundle\css\apexcharts.css" />

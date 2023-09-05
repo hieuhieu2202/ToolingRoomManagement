@@ -1,5 +1,6 @@
 ﻿$(function () {
-    SendFileToServer();
+    SetWarehouse();
+    //SendFileToServer();
 });
 
 // Send BOM file function
@@ -9,6 +10,10 @@ $('#fileInput').on('change', function (e) {
     let count = 0;
     progressMove(count);
     SendFileToServer();
+
+    $('#bom-info').fadeOut(300);
+    $('#card-device-details').fadeOut(300);
+
     //const processInterval = setInterval(() => {
     //	count += 1;
     //	progressMove(count);
@@ -26,28 +31,62 @@ function SendFileToServer() {
     const formData = new FormData();
     formData.append('file', file);
 
-    const IdWareHouse = 1;
-    formData.append('IdWareHouse', IdWareHouse);
+    formData.append('IdWareHouse', $('#input_WareHouse').val());
 
+    Pace.on('progress', function (progress) {
+        var cal = progress.toFixed(0);
+        $('#process_count').text(`${cal}%`);
+        $('#process_bar').css('width', `${cal}%`);
+    });
+    Pace.track(function () {
+        $.ajax({
+            url: "/NVDIA/DeviceManagement/AddDeviceAuto",
+            data: formData,
+            type: "POST",
+            processData: false,
+            contentType: false,
+            success: function (response) {
+                if (response.status) {
+                    var devices = response.devices;
+
+                    CreateTableAddDevice(devices);
+                    CreateBomFileInfo(response);
+                }
+                else {
+                    Swal.fire('Sorry, something went wrong!', response.message, 'error');
+                }
+            },
+            error: function (error) {
+                Swal.fire('Sorry, something went wrong!', GetAjaxErrorMessage(error), 'error');
+            },
+            complete: function () {
+                // Dừng Pace.js sau khi AJAX request hoàn thành
+                Pace.stop();
+            }
+        });
+    });
+}
+
+// Set Warehouse
+function SetWarehouse() {
     $.ajax({
-        url: "/NVDIA/DeviceManagement/AddDeviceAuto",
-        data: formData,
-        type: "POST",
-        processData: false,
-        contentType: false,
+        type: "GET",
+        url: "/NVDIA/DeviceManagement/GetWarehouse",
+        dataType: "json",
+        contentType: "application/json;charset=utf-8",
         success: function (response) {
-            if (response.status) {
-                var devices = response.devices;
-
-                CreateTableAddDevice(devices);
-                CreateBomFileInfo(response);
+            if (response.status) {            
+                $.each(response.warehouses, function (k, item) {
+                    const opt = $(`<option value="${item.Id}">${item.WarehouseName}</option>`);
+                    $('#input_WareHouse').append(opt);
+                });
             }
             else {
-                Swal.fire('Sorry, something went wrong!', response.message, 'error');
+                toastr["error"](response.message, "ERROR");
             }
         },
         error: function (error) {
-            Swal.fire('Sorry, something went wrong!', GetAjaxErrorMessage(error), 'error');
+            Swal.fire("Something went wrong!", GetAjaxErrorMessage(error), "error");
         }
     });
 }
@@ -57,6 +96,7 @@ var tableDeviceInfo;
 async function CreateTableAddDevice(devices) {
     if (tableDeviceInfo) tableDeviceInfo.destroy();
 
+    $('#table_addDevice_tbody').html('');
     await $.each(devices, function (no, item) {
         var row = $('<tr class="align-middle"></tr>');
 
@@ -160,17 +200,21 @@ async function CreateTableAddDevice(devices) {
     tableDeviceInfo.columns.adjust();
 }
 async function CreateBomFileInfo(data) {
+    console.log(data);
+
+    const products = data.products.length;
     const models = data.models.length;
     const groups = data.groups.length;
     const stations = data.stations.length;
     const vendors = data.vendors.length;
     const devices = data.devices.length;
-    let quantity = 0;
 
+    let quantity = 0;
     await $.each(data.devices, function (k, item) {
         quantity += item.Quantity;
     });
 
+    $('#info_products').val(products);
     $('#info_models').val(models);
     $('#info_groups').val(groups);
     $('#info_stations').val(stations);

@@ -37,6 +37,11 @@
                         <div class="">
                             <h6 class="mb-0 text-uppercase">BOM File Upload</h6>
                             <hr>
+                            <!-- WareHouse -->
+                            <div class="input-group mb-3 w-50">
+                                <span class="col-5 input-group-text">Warehouse</span>
+                                <select class="col-7 form-select" id="input_WareHouse"></select>
+                            </div>
                             <!-- Upload Area -->
                             <div id="uploadArea" class="upload-area">
                                 <!-- Header -->
@@ -68,8 +73,8 @@
 
                                         <div id="uploadedFileInfo" class="uploaded-file__info">
                                             <span class="uploaded-file__name"></span>
-                                            <span class="uploaded-file__counter">0%</span>
-                                            <div class="uploaded-file__info-process"></div>
+                                            <span class="uploaded-file__counter" id="process_count">0%</span>
+                                            <div class="uploaded-file__info-process" id="process_bar"></div>
                                         </div>
 
                                     </div>
@@ -82,41 +87,38 @@
                     </div>
                 </div>
 
-                <div class="col-lg-5" id="bom-info" style="display: none">
+                <div class="col-lg-5" id="bom-info" style="display: block">
                     <div class="border border-3 p-3 rounded">
                         <h6 class="mb-0 text-uppercase">BOM File Information</h6>
                         <hr>
                         <div class="row g-3">
                             <div class="col-6">
-                                <label for="inputProductType" class="form-label">Models</label>
-                                <input type="text" class="form-control" id="info_models" disabled>
+                                <label for="inputProductType" class="form-label">Products</label>
+                                <input type="text" class="form-control" id="info_products" disabled>
                             </div>
                             <div class="col-6">
                                 <label for="inputProductType" class="form-label">Groups</label>
                                 <input type="text" class="form-control" id="info_groups" disabled>
                             </div>
                             <div class="col-6">
-                                <label for="inputProductType" class="form-label">Stations</label>
-                                <input type="text" class="form-control" id="info_stations" disabled>
+                                <label for="inputProductType" class="form-label">Models</label>
+                                <input type="text" class="form-control" id="info_models" disabled>
                             </div>
                             <div class="col-6">
                                 <label for="inputProductType" class="form-label">Vendors</label>
                                 <input type="text" class="form-control" id="info_vendors" disabled>
                             </div>
                             <div class="col-6">
+                                <label for="inputProductType" class="form-label">Stations</label>
+                                <input type="text" class="form-control" id="info_stations" disabled>
+                            </div>
+                            <div class="col-6">
                                 <label for="inputProductType" class="form-label">Devices</label>
                                 <input type="text" class="form-control" id="info_devices" disabled>
                             </div>
-
-                            <div class="col-6">
+                            <div class="col-12">
                                 <label for="inputProductType" class="form-label">Total Quantity</label>
                                 <input type="text" class="form-control" id="info_quantity" disabled>
-                            </div>
-
-                            <div class="col-12">
-                                <div class="d-grid">
-                                    <button type="button" class="btn btn-primary" id="confirm">CONFIRM</button>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -257,6 +259,9 @@
     <!-- Custom -->
     <script src="~/Areas/NVDIA/Content/Custom/DeviceManagement/js/AddDeviceAuto.js"></script>
     <script type="text/javascript">
+        $('#input_WareHouse').select2({
+            theme: 'bootstrap4',
+        });
         $('#device-edit_WareHouse').select2({
             theme: 'bootstrap4',
         });

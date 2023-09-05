@@ -32,8 +32,18 @@ namespace ToolingRoomManagement.Areas.NVDIA.Entities
         public Nullable<int> IdGroup { get; set; }
         public Nullable<int> IdVendor { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
+        public Nullable<int> IdProduct { get; set; }
+        public Nullable<int> IdModel { get; set; }
+        public Nullable<int> IdStation { get; set; }
+        public string Relation { get; set; }
+        public Nullable<int> LifeCycle { get; set; }
+        public Nullable<double> Forcast { get; set; }
+        public string ACC_KIT { get; set; }
     
         public virtual Group Group { get; set; }
+        public virtual Model Model { get; set; }
+        public virtual Product Product { get; set; }
+        public virtual Station Station { get; set; }
         public virtual Vendor Vendor { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HistoryUpdateDevice> HistoryUpdateDevices { get; set; }

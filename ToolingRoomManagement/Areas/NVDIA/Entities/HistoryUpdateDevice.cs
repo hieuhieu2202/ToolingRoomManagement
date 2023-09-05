@@ -22,5 +22,6 @@ namespace ToolingRoomManagement.Areas.NVDIA.Entities
         public string FirstData { get; set; }
     
         public virtual User User { get; set; }
+        public virtual Device Device { get; set; }
     }
 }

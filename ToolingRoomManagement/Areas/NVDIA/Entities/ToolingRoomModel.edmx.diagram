@@ -4,18 +4,18 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="5c3a8314d1c746b884fac96c30e5a025" Name="Diagram1">
-        <EntityTypeShape EntityType="ToolingRoomModel.Product" Width="1.5" PointX="2.625" PointY="0.75" />
-        <EntityTypeShape EntityType="ToolingRoomModel.Department" Width="1.5" PointX="2.375" PointY="2.75" />
-        <EntityTypeShape EntityType="ToolingRoomModel.Group" Width="1.5" PointX="3" PointY="17.375" />
-        <EntityTypeShape EntityType="ToolingRoomModel.HistoryUpdateDevice" Width="1.5" PointX="0.625" PointY="11.25" />
-        <EntityTypeShape EntityType="ToolingRoomModel.Model" Width="1.5" PointX="5" PointY="0.875" />
-        <EntityTypeShape EntityType="ToolingRoomModel.Role" Width="1.5" PointX="7.125" PointY="2.875" />
-        <EntityTypeShape EntityType="ToolingRoomModel.Station" Width="1.5" PointX="7.25" PointY="0.875" />
+      <Diagram DiagramId="5c3a8314d1c746b884fac96c30e5a025" Name="Diagram1" ZoomLevel="82">
+        <EntityTypeShape EntityType="ToolingRoomModel.Product" Width="1.5" PointX="1.5" PointY="16.875" />
+        <EntityTypeShape EntityType="ToolingRoomModel.Department" Width="1.5" PointX="1" PointY="7.625" />
+        <EntityTypeShape EntityType="ToolingRoomModel.Group" Width="1.5" PointX="7.625" PointY="16.25" />
+        <EntityTypeShape EntityType="ToolingRoomModel.HistoryUpdateDevice" Width="1.5" PointX="1.875" PointY="11.875" />
+        <EntityTypeShape EntityType="ToolingRoomModel.Model" Width="1.5" PointX="1.5" PointY="18.875" />
+        <EntityTypeShape EntityType="ToolingRoomModel.Role" Width="1.5" PointX="9.625" PointY="7.5" />
+        <EntityTypeShape EntityType="ToolingRoomModel.Station" Width="1.5" PointX="1.5" PointY="20.75" />
         <EntityTypeShape EntityType="ToolingRoomModel.User" Width="1.5" PointX="5.125" PointY="7.5" />
-        <EntityTypeShape EntityType="ToolingRoomModel.UserDepartment" Width="1.5" PointX="2.375" PointY="5.375" />
-        <EntityTypeShape EntityType="ToolingRoomModel.UserRole" Width="1.5" PointX="7.375" PointY="5.625" />
-        <EntityTypeShape EntityType="ToolingRoomModel.Vendor" Width="1.5" PointX="7.875" PointY="17.375" />
+        <EntityTypeShape EntityType="ToolingRoomModel.UserDepartment" Width="1.5" PointX="3.125" PointY="7.625" />
+        <EntityTypeShape EntityType="ToolingRoomModel.UserRole" Width="1.5" PointX="7.25" PointY="7.5" />
+        <EntityTypeShape EntityType="ToolingRoomModel.Vendor" Width="1.5" PointX="7.625" PointY="14.5" />
         <EntityTypeShape EntityType="ToolingRoomModel.Warehouse" Width="1.5" PointX="5.25" PointY="11.75" />
         <AssociationConnector Association="ToolingRoomModel.FK_UserDepartment_Department" />
         <AssociationConnector Association="ToolingRoomModel.FK_HistoryUpdateDevice_User" />
@@ -23,8 +23,11 @@
         <AssociationConnector Association="ToolingRoomModel.FK_UserDepartment_User" />
         <AssociationConnector Association="ToolingRoomModel.FK_UserRole_User" />
         <AssociationConnector Association="ToolingRoomModel.FK_Warehouse_User" />
-        <EntityTypeShape EntityType="ToolingRoomModel.Device" Width="1.5" PointX="5.25" PointY="14.5" />
+        <EntityTypeShape EntityType="ToolingRoomModel.Device" Width="1.5" PointX="5.125" PointY="14.75" />
         <AssociationConnector Association="ToolingRoomModel.FK_Device_Group" />
+        <AssociationConnector Association="ToolingRoomModel.FK_Device_Model" />
+        <AssociationConnector Association="ToolingRoomModel.FK_Device_Product" />
+        <AssociationConnector Association="ToolingRoomModel.FK_Device_Station" />
         <AssociationConnector Association="ToolingRoomModel.FK_Device_Vendor" />
         <AssociationConnector Association="ToolingRoomModel.FK_Device_Warehouse" />
         <AssociationConnector Association="ToolingRoomModel.FK_HistoryUpdateDevice_Device" />
