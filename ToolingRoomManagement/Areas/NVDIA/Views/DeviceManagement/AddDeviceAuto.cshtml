@@ -14,15 +14,19 @@
     <link href="~/Areas/NVDIA/Content/Custom/DeviceManagement/css/AddDeviceAuto.css" rel="stylesheet" />
 }
 
+
+
+
+
 <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-    <div class="breadcrumb-title pe-3">Device</div>
+    <div class="breadcrumb-title pe-3">BOM File</div>
     <div class="ps-3">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb mb-0 p-0">
                 <li class="breadcrumb-item">
                     <a href="javascript:;"><i class="bx bx-home-alt"></i></a>
                 </li>
-                <li class="breadcrumb-item active" aria-current="page">New Device Automation</li>
+                <li class="breadcrumb-item active" aria-current="page">New Device</li>
             </ol>
         </nav>
     </div>
@@ -32,23 +36,26 @@
     <div class="card-body p-4">
         <div class="form-body">
             <div class="row">
+
+                <!-- Card Upload -->
                 <div class="col-lg-7">
                     <div class="border border-3 p-3 rounded">
                         <div class="">
-                            <h6 class="mb-0 text-uppercase">BOM File Upload</h6>
+                            <h6 class="mb-0 text-uppercase">Upload BOM File</h6>
                             <hr>
                             <!-- WareHouse -->
                             <div class="input-group mb-3 w-50">
                                 <span class="col-5 input-group-text">Warehouse</span>
-                                <select class="col-7 form-select" id="input_WareHouse"></select>
+                                <select class="col-7 form-select form-select2" id="input_WareHouse"></select>
                             </div>
+
                             <!-- Upload Area -->
                             <div id="uploadArea" class="upload-area">
                                 <!-- Header -->
                                 <div class="upload-area__header">
                                     <h1 class="upload-area__title"></h1>
                                 </div>
-                                <!-- End Header -->
+
                                 <!-- Drop Zoon -->
                                 <div id="dropZoon" class="upload-area__drop-zoon drop-zoon">
                                     <span class="drop-zoon-close_icon">
@@ -57,18 +64,18 @@
                                     <span class="drop-zoon__icon">
                                         <i class='bx bxs-file-image'></i>
                                     </span>
-                                    <p class="drop-zoon__paragraph"><b>Drop</b> BOM file here or <b>Click</b> to select</p>
+                                    <p class="drop-zoon__paragraph"><b>Drop</b> or <b>Click</b> to select BOM file.</p>
                                     <span id="loadingText" class="drop-zoon__loading-text">Please Wait</span>
                                     <img src="~/Areas/NVDIA/Content/Vendor/UploadAreaDropzone/Excel_Icon.svg" alt="Preview Image" id="previewImage" class="drop-zoon__preview-image" draggable="false" />
                                     <input type="file" id="fileInput" class="drop-zoon__file-input" accept=".xls, .xlsx">
                                 </div>
-                                <!-- End Drop Zoon -->
+
                                 <!-- File Details -->
                                 <div id="fileDetails" class="upload-area__file-details file-details">
                                     <div id="uploadedFile" class="uploaded-file">
                                         <div class="uploaded-file__icon-container">
                                             <i class='bx bxs-file-blank uploaded-file__icon'></i>
-                                            <span class="uploaded-file__icon-text"></span> <!-- Data Will be Comes From Js -->
+                                            <span class="uploaded-file__icon-text"></span>
                                         </div>
 
                                         <div id="uploadedFileInfo" class="uploaded-file__info">
@@ -79,17 +86,15 @@
 
                                     </div>
                                 </div>
-                                <!-- End File Details -->
                             </div>
-                            <!-- End Upload Area -->
-
                         </div>
                     </div>
                 </div>
 
-                <div class="col-lg-5" id="bom-info" style="display: block">
+                <!-- Card info -->
+                <div class="col-lg-5" id="bom-info" style="display: none">
                     <div class="border border-3 p-3 rounded">
-                        <h6 class="mb-0 text-uppercase">BOM File Information</h6>
+                        <h6 class="mb-0 text-uppercase">Information BOM File</h6>
                         <hr>
                         <div class="row g-3">
                             <div class="col-6">
@@ -123,11 +128,13 @@
                         </div>
                     </div>
                 </div>
-            </div><!--end row-->
+
+            </div>
         </div>
     </div>
 </div>
 
+<!-- Card table -->
 <div class="card" id="card-device-details" style="display: none">
     <div class="card-body">
         <h5 class="card-title">Device Details</h5>
@@ -136,7 +143,11 @@
             <table id="table_addDevice" class="table table-striped table-hover table-bordered text-nowrap">
                 <thead>
                     <tr>
-                        <th>Device Code</th>
+                        <th>MTS</th>
+                        <th>Product Name</th>
+                        <th>Model</th>
+                        <th>Station</th>
+                        <th>PN</th>
                         <th>Device Name</th>
                         <th>Group</th>
                         <th>Vendor</th>
@@ -144,7 +155,7 @@
                         <th>Quantity</th>
                         <th>Type</th>
                         <th>Status</th>
-                        <th>Action</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody id="table_addDevice_tbody">
@@ -155,19 +166,20 @@
 
 </div>
 
-<div class="modal fade" id="device-edit_modal" tabindex="-1" aria-hidden="true">
+<!-- Edit modal -->
+<div class="modal fade" id="device_edit-modal" aria-hidden="true">
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="device-edit_title"></h5>
+                <h5 class="modal-title" id="device_edit-title"></h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <!-- Id -->
                 <div class="col-3">
                     <div class="input-group mb-3">
-                        <span class="input-group-text">ID</span>
-                        <input type="text" class="form-control" id="device-edit_DeviceId" disabled>
+                        <span class="col-6 input-group-text">ID</span>
+                        <input type="text" class="col-6 form-control" id="device_edit-DeviceId" disabled>
                     </div>
                 </div>
 
@@ -176,35 +188,63 @@
                         <!-- Device Code -->
                         <div class="input-group mb-3">
                             <span class="col-3 input-group-text">Device Code</span>
-                            <input class="col-9 form-control" type="text" id="device-edit_DeviceCode" disabled>
+                            <input class="col-9 form-control" type="text" id="device_edit-DeviceCode" disabled>
                         </div>
                         <!-- Device Name -->
                         <div class="input-group mb-3">
                             <span class="col-3 input-group-text">Device name</span>
-                            <input class="col-9 form-control" type="text" id="device-edit_DeviceName">
+                            <input class="col-9 form-control" type="text" id="device_edit-DeviceName">
                         </div>
                         <!-- Device Date -->
                         <div class="input-group mb-3">
                             <span class="col-3 input-group-text">Created date</span>
-                            <input class="col-9 form-control" type="datetime-local" id="device-edit_DeviceDate">
+                            <input class="col-9 form-control" type="datetime-local" id="device_edit-DeviceDate">
+                        </div>
+                        <!-- Relation -->
+                        <div class="input-group mb-3">
+                            <span class="col-3 input-group-text">Relation</span>
+                            <input class="col-9 form-control" type="text" id="device_edit-Relation">
                         </div>
                         <!-- Buffer -->
                         <div class="input-group mb-3">
                             <span class="col-3 input-group-text">Buffer</span>
-                            <input class="col-9 form-control" type="number" id="device-edit_Buffer">
+                            <input class="col-9 form-control" type="number" id="device_edit-Buffer">
+                        </div>
+                        <!-- LifeCycle -->
+                        <div class="input-group mb-3">
+                            <span class="col-3 input-group-text">Life Cycle</span>
+                            <input class="col-9 form-control" type="number" id="device_edit-LifeCycle">
+                        </div>
+                        <!-- Forcast -->
+                        <div class="input-group mb-3">
+                            <span class="col-3 input-group-text">Forcast</span>
+                            <input class="col-9 form-control" type="number" id="device_edit-Forcast">
                         </div>
                         <!-- Quantity -->
                         <div class="input-group mb-3">
                             <span class="col-3 input-group-text">Quantity</span>
-                            <input class="col-9 form-control" type="number" id="device-edit_Quantity">
+                            <input class="col-9 form-control" type="number" id="device_edit-Quantity">
                         </div>
-
+                        <!-- QtyConfirm -->
+                        <div class="input-group mb-3">
+                            <span class="col-3 input-group-text">Qty Confirm</span>
+                            <input class="col-9 form-control" type="number" id="device_edit-QtyConfirm">
+                        </div>
                     </div>
                     <div class="col-6">
+                        <!-- ACC_KIT -->
+                        <div class="input-group mb-3">
+                            <span class="col-3 input-group-text">ACC KIT</span>
+                            <select class="col-9 form-select" id="device_edit-AccKit">
+                                <option value="Yes">Yes</option>
+                                <option value="No">No</option>
+                                <option value="N/A">N/A</option>
+                            </select>
+                        </div>
                         <!-- Type -->
                         <div class="input-group mb-3">
                             <span class="col-3 input-group-text">Type</span>
-                            <select class="col-9 form-select" id="device-edit_Type">
+                            <select class="col-9 form-select" id="device_edit-Type">
                                 <option value="S">Static</option>
                                 <option value="D">Dynamic</option>
                                 <option value="#N/A">N/A</option>
@@ -213,9 +253,9 @@
                         <!-- Status -->
                         <div class="input-group mb-3">
                             <span class="col-3 input-group-text">Status</span>
-                            <select class="col-9 form-select" id="device-edit_Status">
-                                <option value="New">New</option>
-                                <option value="Update">Update</option>
+                            <select class="col-9 form-select" id="device_edit-Status">
+                                <option value="Unconfirmed">Unconfirmed</option>
+                                <option value="Part Confirmed">Part Confirmed</option>
                                 <option value="Confirmed">Confirmed</option>
                                 <option value="Locked">Locked</option>
                                 <option value="Depleted">Depleted</option>
@@ -224,17 +264,32 @@
                         <!-- WareHouse -->
                         <div class="input-group mb-3">
                             <span class="col-3 input-group-text">Warehouse</span>
-                            <select class="col-9 form-select" id="device-edit_WareHouse"></select>
+                            <select class="col-9 form-select" id="device_edit-WareHouse"></select>
+                        </div>
+                        <!-- Product -->
+                        <div class="input-group mb-3">
+                            <span class="col-3 input-group-text">Product</span>
+                            <select class="col-9 form-select" id="device_edit-Product"></select>
+                        </div>
+                        <!-- Model -->
+                        <div class="input-group mb-3">
+                            <span class="col-3 input-group-text">Model</span>
+                            <select class="col-9 form-select" id="device_edit-Model"></select>
+                        </div>
+                        <!-- Station -->
+                        <div class="input-group mb-3">
+                            <span class="col-3 input-group-text">Station</span>
+                            <select class="col-9 form-select" id="device_edit-Station"></select>
                         </div>
                         <!-- Group -->
                         <div class="input-group mb-3">
                             <span class="col-3 input-group-text">Group</span>
-                            <select class="col-9 form-select" id="device-edit_Group"></select>
+                            <select class="col-9 form-select" id="device_edit-Group"></select>
                         </div>
                         <!-- Vendor -->
                         <div class="input-group mb-3">
                             <span class="col-3 input-group-text">Vendor</span>
-                            <select class="col-9 form-select" id="device-edit_Vendor"></select>
+                            <select class="col-9 form-select" id="device_edit-Vendor"></select>
                         </div>
                     </div>
                 </div>
@@ -248,7 +303,6 @@
     </div>
 </div>
 
-
 @section scripts{
     <!-- Vendor -->
     <script src="~/Areas/NVDIA/Content/Vendor/UploadAreaDropzone/UploadAreaDropzone.js"></script>
@@ -261,16 +315,60 @@
     <script type="text/javascript">
         $('#input_WareHouse').select2({
             theme: 'bootstrap4',
+            minimumResultsForSearch: -1,
         });
-        $('#device-edit_WareHouse').select2({
+        $('#device_edit-AccKit').select2({
             theme: 'bootstrap4',
+            dropdownParent: $("#device_edit-modal"),
+            minimumResultsForSearch: -1,
         });
-        $('#device-edit_Group').select2({
+        $('#device_edit-Type').select2({
             theme: 'bootstrap4',
+            dropdownParent: $("#device_edit-modal"),
+            minimumResultsForSearch: -1,
         });
-        $('#device-edit_Vendor').select2({
+        $('#device_edit-Status').select2({
             theme: 'bootstrap4',
-        });      
+            dropdownParent: $("#device_edit-modal"),
+            minimumResultsForSearch: -1,
+        });
+        $('#device_edit-WareHouse').select2({
+            theme: 'bootstrap4',
+            dropdownParent: $("#device_edit-modal"),
+            minimumResultsForSearch: -1,
+        });
+        $('#device_edit-WareHouse').select2({
+            theme: 'bootstrap4',
+            dropdownParent: $("#device_edit-modal"),
+            minimumResultsForSearch: -1,
+        });
+        $('#device_edit-Product').select2({
+            theme: 'bootstrap4',
+            dropdownParent: $("#device_edit-modal"),
+            width: '60%',
+        });
+        $('#device_edit-Model').select2({
+            theme: 'bootstrap4',
+            dropdownParent: $("#device_edit-modal"),
+            minimumResultsForSearch: -1,
+            width: '60%',
+        });
+        $('#device_edit-Station').select2({
+            theme: 'bootstrap4',
+            dropdownParent: $("#device_edit-modal"),
+            minimumResultsForSearch: -1,
+            width: '60%',
+        });
+        $('#device_edit-Group').select2({
+            theme: 'bootstrap4',
+            dropdownParent: $("#device_edit-modal"),
+            width: '60%',
+        });
+        $('#device_edit-Vendor').select2({
+            theme: 'bootstrap4',
+            dropdownParent: $("#device_edit-modal"),
+            width: '60%',
+        });
     </script>
 }
 

@@ -36,7 +36,8 @@
           <Property Name="Relation" Type="nvarchar" MaxLength="50" />
           <Property Name="LifeCycle" Type="int" />
           <Property Name="Forcast" Type="float" />
-          <Property Name="ACC_KIT" Type="nchar" MaxLength="10" />
+          <Property Name="QtyConfirm" Type="int" />
+          <Property Name="ACC_KIT" Type="nvarchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="Group">
           <Key>
@@ -532,8 +533,6 @@
           <Property Name="WarehouseName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Description" Type="String" MaxLength="120" FixedLength="false" Unicode="true" />
           <Property Name="IdUserManager" Type="Int32" />
-          <NavigationProperty Name="User" Relationship="ToolingRoomModel.FK_Warehouse_User" FromRole="Warehouse" ToRole="User" />
-          <NavigationProperty Name="Devices" Relationship="ToolingRoomModel.FK_Device_Warehouse" FromRole="Warehouse" ToRole="Device" />
         </EntityType>
         <Association Name="FK_UserDepartment_Department">
           <End Type="ToolingRoomModel.Department" Role="Department" Multiplicity="0..1" />
@@ -629,13 +628,14 @@
           <Property Name="Relation" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="LifeCycle" Type="Int32" />
           <Property Name="Forcast" Type="Double" />
-          <Property Name="ACC_KIT" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="ACC_KIT" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Group" Relationship="ToolingRoomModel.FK_Device_Group" FromRole="Device" ToRole="Group" />
           <NavigationProperty Name="Model" Relationship="ToolingRoomModel.FK_Device_Model" FromRole="Device" ToRole="Model" />
           <NavigationProperty Name="Product" Relationship="ToolingRoomModel.FK_Device_Product" FromRole="Device" ToRole="Product" />
           <NavigationProperty Name="Station" Relationship="ToolingRoomModel.FK_Device_Station" FromRole="Device" ToRole="Station" />
           <NavigationProperty Name="Vendor" Relationship="ToolingRoomModel.FK_Device_Vendor" FromRole="Device" ToRole="Vendor" />
           <NavigationProperty Name="HistoryUpdateDevices" Relationship="ToolingRoomModel.FK_HistoryUpdateDevice_Device" FromRole="Device" ToRole="HistoryUpdateDevice" />
+          <Property Name="QtyConfirm" Type="Int32" />
         </EntityType>
         <Association Name="FK_Device_Group">
           <End Type="ToolingRoomModel.Group" Role="Group" Multiplicity="0..1" />
@@ -844,6 +844,7 @@
           <EntitySetMapping Name="Devices">
             <EntityTypeMapping TypeName="ToolingRoomModel.Device">
               <MappingFragment StoreEntitySet="Device">
+                <ScalarProperty Name="QtyConfirm" ColumnName="QtyConfirm" />
                 <ScalarProperty Name="ACC_KIT" ColumnName="ACC_KIT" />
                 <ScalarProperty Name="Forcast" ColumnName="Forcast" />
                 <ScalarProperty Name="LifeCycle" ColumnName="LifeCycle" />

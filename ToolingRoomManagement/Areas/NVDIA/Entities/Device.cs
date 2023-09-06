@@ -39,6 +39,7 @@ namespace ToolingRoomManagement.Areas.NVDIA.Entities
         public Nullable<int> LifeCycle { get; set; }
         public Nullable<double> Forcast { get; set; }
         public string ACC_KIT { get; set; }
+        public Nullable<int> QtyConfirm { get; set; }
     
         public virtual Group Group { get; set; }
         public virtual Model Model { get; set; }

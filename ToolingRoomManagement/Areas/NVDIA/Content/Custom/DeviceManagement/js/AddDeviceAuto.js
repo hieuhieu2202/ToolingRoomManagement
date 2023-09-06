@@ -1,6 +1,8 @@
 ﻿$(function () {
-    SetWarehouse();
-    //SendFileToServer();
+    GetSelectData();
+    SendFileToServer();
+
+    //$('#device_edit-modal').modal('show');
 });
 
 // Send BOM file function
@@ -31,7 +33,8 @@ function SendFileToServer() {
     const formData = new FormData();
     formData.append('file', file);
 
-    formData.append('IdWareHouse', $('#input_WareHouse').val());
+    //formData.append('IdWareHouse', $('#input_WareHouse').val());
+    formData.append('IdWareHouse', 1);
 
     Pace.on('progress', function (progress) {
         var cal = progress.toFixed(0);
@@ -51,6 +54,7 @@ function SendFileToServer() {
 
                     CreateTableAddDevice(devices);
                     CreateBomFileInfo(response);
+                    GetSelectData();
                 }
                 else {
                     Swal.fire('Sorry, something went wrong!', response.message, 'error');
@@ -67,30 +71,6 @@ function SendFileToServer() {
     });
 }
 
-// Set Warehouse
-function SetWarehouse() {
-    $.ajax({
-        type: "GET",
-        url: "/NVDIA/DeviceManagement/GetWarehouse",
-        dataType: "json",
-        contentType: "application/json;charset=utf-8",
-        success: function (response) {
-            if (response.status) {            
-                $.each(response.warehouses, function (k, item) {
-                    const opt = $(`<option value="${item.Id}">${item.WarehouseName}</option>`);
-                    $('#input_WareHouse').append(opt);
-                });
-            }
-            else {
-                toastr["error"](response.message, "ERROR");
-            }
-        },
-        error: function (error) {
-            Swal.fire("Something went wrong!", GetAjaxErrorMessage(error), "error");
-        }
-    });
-}
-
 // Affter send BOM file function
 var tableDeviceInfo;
 async function CreateTableAddDevice(devices) {
@@ -98,26 +78,24 @@ async function CreateTableAddDevice(devices) {
 
     $('#table_addDevice_tbody').html('');
     await $.each(devices, function (no, item) {
-        var row = $('<tr class="align-middle"></tr>');
+        var row = $(`<tr class="align-middle" data-id="${item.Id}"></tr>`);
 
-        // DeviceCode
+        // MTS
+        row.append(`<td>${item.Product.MTS}</td>`);
+        // Product Name
+        row.append(`<td title="${item.Product.ProductName}">${item.Product.ProductName}</td>`);
+        // Model
+        row.append(`<td>${item.Model.ModelName}</td>`);
+        // Station
+        row.append(`<td>${item.Station.StationName}</td>`);
+        // DeviceCode - PN
         row.append(`<td data-id="${item.Id}" data-code="${item.DeviceCode}">${item.DeviceCode}</td>`);
         // DeviceName
-        row.append(`<td>${item.DeviceName}</td>`);
+        row.append(`<td title="${item.DeviceName}">${item.DeviceName}</td>`);
         // Group
-        try {
-            row.append(`<td>${item.Group.GroupName}</td>`);
-        }
-        catch {
-            row.append(`<td>N/A</td>`);
-        }       
+        row.append(`<td>${item.Group.GroupName}</td>`);     
         // Vendor
-        try {
-            row.append(`<td>${item.Vendor.VendorName}</td>`);
-        }
-        catch {
-            row.append(`<td>N/A</td>`);
-        }       
+        row.append(`<td title="${item.Vendor.VendorName}">${item.Vendor.VendorName}</td>`);  
         // Buffer
         row.append(`<td>${item.Buffer * 100}%</td>`);
         // Quantity
@@ -139,14 +117,14 @@ async function CreateTableAddDevice(devices) {
         }
         // Status
         switch (item.Status) {
-            case "New": {
-                row.append(`<td><span class="badge bg-info">New</span></td>`);
+            case "Unconfirmed": {
+                row.append(`<td><span class="badge bg-primary">Unconfirmed</span></td>`);
                 break;
-            }
-            case "Update": {
-                row.append(`<td><span class="badge bg-primary">Update</span></td>`);
+            }           
+            case "Part Confirmed": {
+                row.append(`<td><span class="badge bg-warning">Part Confirmed</span></td>`);
                 break;
-            }
+            }   
             case "Confirmed": {
                 row.append(`<td><span class="badge bg-success">Confirmed</span></td>`);
                 break;
@@ -155,8 +133,8 @@ async function CreateTableAddDevice(devices) {
                 row.append(`<td><span class="badge bg-secondary">Locked</span></td>`);
                 break;
             }
-            case "Depleted": {
-                row.append(`<td><span class="badge bg-danger">Depleted</span></td>`);
+            case "Out Range": {
+                row.append(`<td><span class="badge bg-danger">Out Range</span></td>`);
                 break;
             }
             default: {
@@ -165,10 +143,16 @@ async function CreateTableAddDevice(devices) {
             }
         }
         // Action
-        row.append(`<td><div class="d-flex order-actions">                            
-                            <a href="javascript:;" class="text-warning bg-light-warning border-0     " data-id="${item.Id}" onclick="Edit(this, event)"  ><i class="bx bxs-edit"></i></a>
-                            <a href="javascript:;" class="text-danger  bg-light-danger  border-0 ms-2" data-id="${item.Id}" onclick="Delete(this, event)"><i class="bx bxs-trash"></i></a>
-						</div></td>`);
+        row.append(`<td><div class="dropdown">
+					    	<button class="btn btn-outline-secondary button_dot" type="button" data-bs-toggle="dropdown" title="Action">
+                                <i class="bx bx-dots-vertical-rounded"></i>
+                            </button>
+                            <div class="dropdown-menu order-actions">
+                                <a href="javascript:;" class="text-success bg-light-success border-0 mb-2" title="Confirm" data-id="${item.Id}" onclick="Confirm(this, event)"><i class="bx bx-check"></i></a>
+                                <a href="javascript:;" class="text-warning bg-light-warning border-0 mb-2" title="Edit   " data-id="${item.Id}" onclick="Edit(this, event)   "><i class="bx bxs-edit"></i></a>
+                                <a href="javascript:;" class="text-danger  bg-light-danger  border-0     " title="Delete " data-id="${item.Id}" onclick="Delete(this, event) "><i class="bx bxs-trash"></i></a>
+						    </div>					    	
+					</div></td>`);
 
         $('#table_addDevice_tbody').append(row);
     });
@@ -176,32 +160,22 @@ async function CreateTableAddDevice(devices) {
     $('#card-device-details').fadeIn(300); 
     
     const options = {
-        scrollY: 530,
+        scrollY: 500,
         scrollX: true,
         order: [],
+        autoWidth: false,
         columnDefs: [
-            { targets: [0, 1, 5, 7], orderable: true },
+            { targets: [0], width: '50px' },
+            { targets: [0, 4, 9, 10, 11], orderable: true },
             { targets: "_all", orderable: false },
-            { targets: [ 6, 7 ,8], className: "text-center" },
-        ],
-        checkboxes: {
-            selectRow: true,
-            selectAllPages: false
-        },
-        createdRow: function (row, data, dataIndex) {
-            //var checkbox = $('td', row).eq(0).find('input[type="checkbox"]');
-
-            //checkbox.on('click', function () {
-            //    ShowGroup(CountChecked());
-            //});
-        },        
+            { targets: [ 8, 9, 10, 11], className: "text-center" },
+            { targets: [12], className: "text-end" },          
+        ],               
     };
     tableDeviceInfo = $('#table_addDevice').DataTable(options);
     tableDeviceInfo.columns.adjust();
 }
 async function CreateBomFileInfo(data) {
-    console.log(data);
-
     const products = data.products.length;
     const models = data.models.length;
     const groups = data.groups.length;
@@ -230,46 +204,84 @@ function Delete(elm, e) {
     e.preventDefault();
 
     var Id = $(elm).data('id');
-    var Index = $(elm).closest('tr').index();
+    var Index = tableDeviceInfo.row(`[data-id="${device.Id}"]`).index();  
 
-    // message box
-    Swal.fire({
-        title: `<strong>Do you want delete this device?</strong>`,
-        html: `<label class="text-danger">You won't be able to revert this!</label>`,
-        icon: 'question',
-        iconColor: '#dc3545',
-        reverseButtons: false,
-        confirmButtonText: 'Delete',
-        showCancelButton: true,
-        cancelButtonText: 'Cancel',
-        buttonsStyling: false,
-        reverseButtons: true,
-        customClass: {
-            cancelButton: 'btn btn-outline-secondary fw-bold me-3',
-            confirmButton: 'btn btn-danger fw-bold'
+    $.ajax({
+        type: "POST",
+        url: "/NVDIA/DeviceManagement/GetDevice",
+        data: JSON.stringify({ Id: Id }),
+        dataType: "json",
+        contentType: "application/json;charset=utf-8",
+        success: function (response) {
+            if (response.status) {
+                var device = response.device;                
+                // message box
+                Swal.fire({
+                    title: `<strong style="font-size: 25px;">Do you want Confirm this device?</strong>`,
+                    html: `<table class="table table-striped table-bordered table-message">
+                               <tbody>
+                                   <tr>
+                                       <td>Device Name</td>
+                                       <td>${device.DeviceName}</td>
+                                   </tr>
+                                   <tr>
+                                       <td>Quantity</td>
+                                       <td>${device.Quantity}</td>
+                                   </tr>
+                                   <tr>
+                                       <td>Confirm Qty</td>
+                                       <td>${device.QtyConfirm}</td>
+                                   </tr>
+                                   <tr>
+                                       <td>Buffer</td>
+                                       <td>${device.Buffer}</td>
+                                   </tr>
+                               </tbody>
+                           </table>
+                           `,
+                    icon: 'question',
+                    iconColor: '#dc3545',
+                    reverseButtons: false,
+                    confirmButtonText: 'Delete',
+                    showCancelButton: true,
+                    cancelButtonText: 'Cancel',
+                    buttonsStyling: false,
+                    reverseButtons: true,
+                    customClass: {
+                        cancelButton: 'btn btn-outline-secondary fw-bold me-3',
+                        confirmButton: 'btn btn-danger fw-bold'
+                    },
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            type: "POST",
+                            url: "/NVDIA/DeviceManagement/DeleteDevice",
+                            data: JSON.stringify({ Id: Id }),
+                            dataType: "json",
+                            contentType: "application/json;charset=utf-8",
+                            success: function (response) {
+                                if (response.status) {
+                                    tableDeviceInfo.row(Index).remove().draw();
+
+                                    toastr["success"]("Delete device success.", "SUCCRESS");
+                                }
+                                else {
+                                    toastr["error"](response.message, "ERROR");
+                                }
+                            },
+                            error: function (error) {
+                                Swal.fire("Something went wrong!", GetAjaxErrorMessage(error), "error");
+                            }
+                        });
+                    }
+                });
+            }
+            else {
+                toastr["error"](response.message, "ERROR");
+            }
         },
-    }).then((result) => {
-        if (result.isConfirmed) {
-            $.ajax({
-                type: "POST",
-                url: "/NVDIA/DeviceManagement/DeleteDevice",
-                data: JSON.stringify({ Id: Id }),
-                dataType: "json",
-                contentType: "application/json;charset=utf-8",
-                success: function (response) {
-                    if (response.status) {
-                        tableDeviceInfo.row(Index).remove().draw();
-
-                        toastr["success"]("Delete device success", "SUCCRESS");
-                    }
-                    else {
-                        toastr["error"](response.message, "ERROR");
-                    }
-                },
-                error: function (error) {
-                    Swal.fire("Something went wrong!", GetAjaxErrorMessage(error), "error");
-                }
-            });
+        error: function (error) {
+            Swal.fire("Something went wrong!", GetAjaxErrorMessage(error), "error");
         }
     });
 }
@@ -279,7 +291,6 @@ function Edit(elm, e) {
     e.preventDefault();
 
     var Id = $(elm).data('id');
-    var Index = $(elm).closest('tr').index();
 
     $.ajax({
         type: "POST",
@@ -290,11 +301,7 @@ function Edit(elm, e) {
         success: function (response) {
             if (response.status) {
                 FillEditDeviceData(response);
-
-                $('#button-save_modal').data('id', Id);
-                $('#button-save_modal').data('index', Index);
-
-                $('#device-edit_modal').modal('show');
+                $('#device_edit-modal').modal('show');
             }
             else {
                 toastr["error"](response.message, "ERROR");
@@ -304,50 +311,37 @@ function Edit(elm, e) {
             Swal.fire("Something went wrong!", GetAjaxErrorMessage(error), "error");
         }
     });
-
-   
 }
 async function FillEditDeviceData(data) {
+    $('#device_edit-DeviceId').val(data.device.Id);
+    $('#device_edit-DeviceCode').val(data.device.DeviceCode);
+    $('#device_edit-DeviceName').val(data.device.DeviceName);
+    $('#device_edit-DeviceDate').val(moment(data.device.DeviceDate).format('YYYY-MM-DD HH:mm'));
+    $('#device_edit-Relation').val(data.device.Relation);
+    $('#device_edit-Buffer').val(data.device.Buffer);
+    $('#device_edit-LifeCycle').val(data.device.LifeCycle);
+    $('#device_edit-Forcast').val(data.device.Forcast);
+    $('#device_edit-Quantity').val(data.device.Quantity);
+    $('#device_edit-QtyConfirm').val(data.device.QtyConfirm);
 
-    // warehouse
-    $('#device-edit_WareHouse').html('');
-    await $.each(data.warehouses, function (k, item) {
-        let opt = $(`<option value="${item.Id}">${item.WarehouseName}</option>`);
-        $('#device-edit_WareHouse').append(opt);
-    });
-    // group
-    $('#device-edit_Group').html('');
-    await $.each(data.groups, function (k, item) {
-        let opt = $(`<option value="${item.Id}">${item.GroupName}</option>`);
-        $('#device-edit_Group').append(opt);
-    });
-    // vendor
-    $('#device-edit_Vendor').html('');
-    await $.each(data.vendors, function (k, item) {
-        let opt = $(`<option value="${item.Id}">${item.VendorName}</option>`);
-        $('#device-edit_Vendor').append(opt);
-    });
-
-    $('#device-edit_DeviceId').val(data.device.Id);
-    $('#device-edit_DeviceCode').val(data.device.DeviceCode);
-    $('#device-edit_DeviceName').val(data.device.DeviceName);
-    $('#device-edit_DeviceDate').val(moment(data.device.DeviceDate).format('YYYY-MM-DD HH:mm'));
-    $('#device-edit_Buffer').val(data.device.Buffer);
-    $('#device-edit_Quantity').val(data.device.Quantity);
-    $('#device-edit_Type').val(data.device.Type);
-    $('#device-edit_Status').val(data.device.Status);
-    $('#device-edit_WareHouse').val(data.device.IdWareHouse).trigger('change');;
-    $('#device-edit_Group').val(data.device.IdGroup).trigger('change');;
-    $('#device-edit_Vendor').val(data.device.IdVendor).trigger('change');;
+    $('#device_edit-AccKit').val(data.device.ACC_KIT).trigger('change');
+    $('#device_edit-Type').val(data.device.Type).trigger('change');
+    $('#device_edit-Status').val(data.device.Status).trigger('change');
+    $('#device_edit-Product').val(data.device.IdProduct).trigger('change');
+    $('#device_edit-Model').val(data.device.IdModel).trigger('change');
+    $('#device_edit-Station').val(data.device.IdStation).trigger('change');
+    $('#device_edit-WareHouse').val(data.device.IdWareHouse).trigger('change');
+    $('#device_edit-Group').val(data.device.IdGroup).trigger('change');
+    $('#device_edit-Vendor').val(data.device.IdVendor).trigger('change');
 }
 $('#button-save_modal').on('click', function (e) {
     e.preventDefault();
     
     var device = GetModalData();
-    var rowData = tableDeviceInfo.rows({ page: 'all' }).data();
-    var Index = rowData.toArray().findIndex(function (data) {
-        return data[0] === device.DeviceCode;
-    });   
+    var Index = tableDeviceInfo.row(`[data-id="${device.Id}"]`).index();
+
+    //console.log(Index);
+    //return;
 
     $.ajax({
         type: "POST",
@@ -357,83 +351,13 @@ $('#button-save_modal').on('click', function (e) {
         contentType: "application/json;charset=utf-8",
         success: function (response) {
             if (response.status) {
-                var row = [];
-                {
-                    // DeviceCode
-                    row.push(response.device.DeviceCode);
-                    // DeviceName
-                    row.push(response.device.DeviceName);
-                    // Group
-                    try {
-                        row.push(response.device.Group.GroupName);
-                    }
-                    catch {
-                        row.push(`N/A`);
-                    }
-                    // Vendor
-                    try {
-                        row.push(response.device.Vendor.VendorName);
-                    }
-                    catch {
-                        row.push(`N/A`);
-                    }
-                    // Buffer
-                    row.push(response.device.Buffer * 100);
-                    // Quantity
-                    row.push(response.device.Quantity);
-                    // Type
-                    switch (response.device.Type) {
-                        case "S": {
-                            row.push(`<span class="text-success fw-bold">Static</span>`);
-                            break;
-                        }
-                        case "D": {
-                            row.push(`<span class="text-info fw-bold">Dynamic</span>`);
-                            break;
-                        }
-                        default: {
-                            row.push(`<span class="text-secondary fw-bold">N/A</span>`);
-                            break;
-                        }
-                    }
-                    // Status
-                    switch (response.device.Status) {
-                        case "New": {
-                            row.push(`<span class="badge bg-info">New</span>`);
-                            break;
-                        }
-                        case "Update": {
-                            row.push(`<span class="badge bg-primary">Update</span>`);
-                            break;
-                        }
-                        case "Confirmed": {
-                            row.push(`<span class="badge bg-success">Confirmed</span>`);
-                            break;
-                        }
-                        case "Locked": {
-                            row.push(`<span class="badge bg-secondary">Locked</span>`);
-                            break;
-                        }
-                        case "Depleted": {
-                            row.push(`<span class="badge bg-danger">Depleted</span>`);
-                            break;
-                        }
-                        default: {
-                            row.push(`<td>N/A</td>`);
-                            break;
-                        }
-                    }
-                    // Action
-                    row.push(`<div class="d-flex order-actions">                            
-                                <a href="javascript:;" class="text-warning bg-light-warning border-0     " data-id="${response.device.Id}" onclick="Edit(this, event)"  ><i class="bx bxs-edit"></i></a>
-                                <a href="javascript:;" class="text-danger  bg-light-danger  border-0 ms-2" data-id="${response.device.Id}" onclick="Delete(this, event)"><i class="bx bxs-trash"></i></a>
-						      </div>`);
-                }
+                var row = DrawRowEditDevice(response.device);
+
                 tableDeviceInfo.row(Index).data(row).draw(false);
 
-                $('#device-edit_modal').modal('hide');
+                $('#device_edit-modal').modal('hide');
 
-                Swal.fire("Update data success!", "", "success");
+                toastr["success"]("Edit device success.", "SUCCRESS");
             }
             else {
                 toastr["error"](response.message, "ERROR");
@@ -447,31 +371,178 @@ $('#button-save_modal').on('click', function (e) {
 });
 function GetModalData() {
     return data = {
-        Id: $('#device-edit_DeviceId').val(),
-        DeviceCode: $('#device-edit_DeviceCode').val(),
-        DeviceName: $('#device-edit_DeviceName').val(),
-        DeviceDate: $('#device-edit_DeviceDate').val(),
-        Buffer: $('#device-edit_Buffer').val(),
-        Quantity: $('#device-edit_Quantity').val(),
-        Type: $('#device-edit_Type').val(),
-        Status: $('#device-edit_Status').val(),
-        IdWareHouse: $('#device-edit_WareHouse').val(),
-        IdGroup: $('#device-edit_Group').val(),
-        IdVendor: $('#device-edit_Vendor').val(),
+        Id: $('#device_edit-DeviceId').val(),
+        DeviceCode: $('#device_edit-DeviceCode').val(),
+        DeviceName: $('#device_edit-DeviceName').val(),
+        DeviceDate: $('#device_edit-DeviceDate').val(),
+        Relation: $('#device_edit-Relation').val(),
+        Buffer: $('#device_edit-Buffer').val(),
+        LifeCycle: $('#device_edit-LifeCycle').val(),
+        Forcast: $('#device_edit-Forcast').val(),
+        Quantity: $('#device_edit-Quantity').val(),
+        QtyConfirm: $('#device_edit-QtyConfirm').val(),
+
+        ACC_KIT: $('#device_edit-AccKit').val(),
+        Type: $('#device_edit-Type').val(),
+        Status: $('#device_edit-Status').val(),
+        IdWareHouse: $('#device_edit-WareHouse').val(),
+        IdProduct: $('#device_edit-Product').val(),
+        IdModel: $('#device_edit-Model').val(),
+        IdStation: $('#device_edit-Station').val(),
+        IdGroup: $('#device_edit-Group').val(),
+        IdVendor: $('#device_edit-Vendor').val(),
     }
 }
 
 // confirm function
-$('#confirm').on('click', function (e) {
+function Confirm(elm, e) {
     e.preventDefault();
 
-    var Ids = [];
-    tableDeviceInfo.rows({ page: 'all' }).every(function () {
-        var firstCellData = this.cell(this.index(), 0).node();
-        Ids.push($(firstCellData).data('id'));
+    var Id = $(elm).data('id');
+    var Index = tableDeviceInfo.row(`[data-id="${Id}"]`).index();
+
+    $.ajax({
+        type: "POST",
+        url: "/NVDIA/DeviceManagement/GetDevice",
+        data: JSON.stringify({ Id: Id }),
+        dataType: "json",
+        contentType: "application/json;charset=utf-8",
+        success: function (response) {
+            if (response.status) {
+                var device = response.device;
+                // message box
+                Swal.fire({
+                    title: `<strong style="font-size: 25px;">Do you want Confirm this device?</strong>`,
+                    html: `<table class="table table-striped table-bordered table-message">
+                               <tbody>
+                                   <tr>
+                                       <td>Device Name</td>
+                                       <td>${device.DeviceName}</td>
+                                   </tr>
+                                   <tr>
+                                       <td>Quantity</td>
+                                       <td>${device.Quantity}</td>
+                                   </tr>
+                                   <tr>
+                                       <td>Buffer</td>
+                                       <td>${device.Buffer}</td>
+                                   </tr>
+                               </tbody>
+                           </table>
+                           <div class="input-group mb-3">
+                                <span class="input-group-text" style="min-width: 180px;">Quantity Confirm</span>
+                                <input class="form-control" type="number" id="device_confirm-QtyConfirm" placeholder="${device.QtyConfirm} + input">
+                           </div>
+                           `,
+                    icon: 'question',
+                    iconColor: '#ffc107',
+                    reverseButtons: false,
+                    confirmButtonText: 'Confirm',
+                    showCancelButton: true,
+                    cancelButtonText: 'Cancel',
+                    buttonsStyling: false,
+                    reverseButtons: true,
+                    customClass: {
+                        cancelButton: 'btn btn-outline-secondary fw-bold me-3',
+                        confirmButton: 'btn btn-success fw-bold'
+                    },
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        var QtyConfirm = $('#device_confirm-QtyConfirm').val();
+
+                        $.ajax({
+                            type: "POST",
+                            url: "/NVDIA/DeviceManagement/ConfirmDevice",
+                            data: JSON.stringify({ Id: Id, QtyConfirm: QtyConfirm }),
+                            dataType: "json",
+                            contentType: "application/json;charset=utf-8",
+                            success: function (response) {
+                                if (response.status) {
+                                    var row = DrawRowEditDevice(response.device);
+                                    tableDeviceInfo.row(Index).data(row).draw(false);
+
+                                    toastr["success"]("Confirm device success.", "SUCCRESS");
+                                }
+                                else {
+                                    toastr["error"](response.message, "ERROR");
+                                }
+                            },
+                            error: function (error) {
+                                Swal.fire("Something went wrong!", GetAjaxErrorMessage(error), "error");
+                            }
+                        });
+                    }
+                });
+            }
+            else {
+                toastr["error"](response.message, "ERROR");
+            }
+        },
+        error: function (error) {
+            Swal.fire("Something went wrong!", GetAjaxErrorMessage(error), "error");
+        }
     });
-    console.log(Ids);
-});
+}
+
+// Get Select data
+function GetSelectData() {
+    $.ajax({
+        type: "GET",
+        url: "/NVDIA/DeviceManagement/GetSelectData",
+        dataType: "json",
+        contentType: "application/json;charset=utf-8",
+        success: function (response) {
+            if (response.status) {
+                // WareHouse
+                $('#input_WareHouse').empty();
+                $('#device_edit-WareHouse').empty();
+                $.each(response.warehouses, function (k, item) {
+                    var opt1 = $(`<option value="${item.Id}">${item.WarehouseName}</option>`);
+                    var opt2 = $(`<option value="${item.Id}">${item.WarehouseName}</option>`);
+                    $('#device_edit-WareHouse').append(opt1);
+                    $('#input_WareHouse').append(opt2);                  
+                });
+                // Product
+                $('#device_edit-Product').empty();
+                $.each(response.products, function (k, item) {
+                    let opt = $(`<option value="${item.Id}">${item.ProductName} | ${item.MTS}</option>`);
+                    $('#device_edit-Product').append(opt);                   
+                });
+                // Model
+                $('#device_edit-Model').empty();
+                $.each(response.models, function (k, item) {
+                    let opt = $(`<option value="${item.Id}">${item.ModelName}</option>`);
+                    $('#device_edit-Model').append(opt);
+                });
+                // Station
+                $('#device_edit-Station').empty();
+                $.each(response.stations, function (k, item) {
+                    let opt = $(`<option value="${item.Id}">${item.StationName}</option>`);
+                    $('#device_edit-Station').append(opt);
+                });
+                // Group
+                $('#device_edit-Group').empty();
+                $.each(response.groups, function (k, item) {
+                    let opt = $(`<option value="${item.Id}">${item.GroupName}</option>`);
+                    $('#device_edit-Group').append(opt);
+                });
+                // Vendor
+                $('#device_edit-Vendor').empty();
+                $.each(response.vendors, function (k, item) {
+                    let opt = $(`<option value="${item.Id}">${item.VendorName}</option>`);
+                    $('#device_edit-Vendor').append(opt);
+                });
+            }
+            else {
+                toastr["error"](response.message, "ERROR");
+            }
+        },
+        error: function (error) {
+            Swal.fire("Something went wrong!", GetAjaxErrorMessage(error), "error");
+        }
+    });
+}
+
 // Other function
 function GetAjaxErrorMessage(error) {
 
@@ -484,4 +555,84 @@ function GetAjaxErrorMessage(error) {
     } else {
         return "Lỗi không xác định.";
     }
+}
+function DrawRowEditDevice(item) {
+    var row = [];
+    {
+        // MTS
+        row.push(`<td>${item.Product.MTS}</td>`);
+        // Product Name
+        row.push(`<td title="${item.Product.ProductName}">${item.Product.ProductName}</td>`);
+        // Model
+        row.push(`<td>${item.Model.ModelName}</td>`);
+        // Station
+        row.push(`<td>${item.Station.StationName}</td>`);
+        // DeviceCode - PN
+        row.push(`<td data-id="${item.Id}" data-code="${item.DeviceCode}">${item.DeviceCode}</td>`);
+        // DeviceName
+        row.push(`<td title="${item.DeviceName}">${item.DeviceName}</td>`);
+        // Group
+        row.push(`<td>${item.Group.GroupName}</td>`);
+        // Vendor
+        row.push(`<td>${item.Vendor.VendorName}</td>`);
+        // Buffer
+        row.push(`<td>${item.Buffer * 100}%</td>`);
+        // Quantity
+        row.push(`<td>${item.Quantity}</td>`);
+        // Type
+        switch (item.Type) {
+            case "S": {
+                row.push(`<td><span class="text-success fw-bold">Static</span></td>`);
+                break;
+            }
+            case "D": {
+                row.push(`<td><span class="text-info fw-bold">Dynamic</span></td>`);
+                break;
+            }
+            default: {
+                row.push(`<td><span class="text-secondary fw-bold">N/A</span></td>`);
+                break;
+            }
+        }
+        // Status
+        switch (item.Status) {
+            case "Unconfirmed": {
+                row.push(`<td><span class="badge bg-primary">Unconfirmed</span></td>`);
+                break;
+            }
+            case "Part Confirmed": {
+                row.push(`<td><span class="badge bg-warning">Part Confirmed</span></td>`);
+                break;
+            }
+            case "Confirmed": {
+                row.push(`<td><span class="badge bg-success">Confirmed</span></td>`);
+                break;
+            }
+            case "Locked": {
+                row.push(`<td><span class="badge bg-secondary">Locked</span></td>`);
+                break;
+            }
+            case "Out Range": {
+                row.push(`<td><span class="badge bg-danger">Out Range</span></td>`);
+                break;
+            }
+            default: {
+                row.push(`<td>N/A</td>`);
+                break;
+            }
+        }
+        // Action
+        row.push(`<td><div class="dropdown">
+					            	<button class="btn btn-outline-secondary button_dot" type="button" data-bs-toggle="dropdown" title="Action">
+                                        <i class="bx bx-dots-vertical-rounded"></i>
+                                    </button>
+                                    <div class="dropdown-menu order-actions">
+                                        <a href="javascript:;" class="text-success bg-light-success border-0 mb-2" title="Confirm" data-id="${item.Id}" onclick="Confirm(this, event)"><i class="bx bx-check"></i></a>
+                                        <a href="javascript:;" class="text-warning bg-light-warning border-0 mb-2" title="Edit   " data-id="${item.Id}" onclick="Edit(this, event)   "><i class="bx bxs-edit"></i></a>
+                                        <a href="javascript:;" class="text-danger  bg-light-danger  border-0     " title="Delete " data-id="${item.Id}" onclick="Delete(this, event) "><i class="bx bxs-trash"></i></a>
+					         	    </div>					    	
+					         </div></td>`);
+    }
+
+    return row;
 }
