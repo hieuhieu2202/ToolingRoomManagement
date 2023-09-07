@@ -1,0 +1,333 @@
+﻿<!doctype html>
+<html lang="en" class="dark-theme">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--favicon-->
+    <link rel="icon" href="~/Areas/NVIDIA/Content/Image/favicon.ico" type="image/png" />
+
+    <!-- Title -->
+    <title>@ViewBag.Title - NVIDIA Tooling Room</title>
+
+
+    <!-- loader-->
+    <link href="~/Areas/NVIDIA/Content/Template/Sysadmin/assets/css/pace.min.css" rel="stylesheet" />
+    <script src="~/Areas/NVIDIA/Content/Template/Sysadmin/assets/js/pace.js"></script>
+    @*<script src="~/Areas/NVIDIA/Content/Template/Sysadmin/assets/js/pace.min.js"></script>*@
+
+    <!-- Bootstrap CSS -->
+    <link href="~/Areas/NVIDIA/Content/Template/Sysadmin/assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/Areas/NVIDIA/Content/Template/Sysadmin/assets/css/bootstrap-extended.css" rel="stylesheet">
+
+    <!--plugins-->
+    <link href="~/Areas/NVIDIA/Content/Template/Sysadmin/assets/plugins/simplebar/css/simplebar.css" rel="stylesheet" />
+    <link href="~/Areas/NVIDIA/Content/Template/Sysadmin/assets/plugins/fancy-file-uploader/fancy_fileupload.css" rel="stylesheet" />
+    <link href="~/Areas/NVIDIA/Content/Template/Sysadmin/assets/plugins/perfect-scrollbar/css/perfect-scrollbar.css" rel="stylesheet" />
+    <link href="~/Areas/NVIDIA/Content/Template/Sysadmin/assets/plugins/metismenu/css/metisMenu.min.css" rel="stylesheet" />
+    <link href="~/Areas/NVIDIA/Content/Vendor/SweetAlert/swal.min.css" rel="stylesheet" />
+    <link href="~/Areas/NVIDIA/Content/Vendor/Toats/toastr.min.css" rel="stylesheet" />
+
+    <!-- Font -->
+    <link href="~/Areas/NVIDIA/Content/Vendor/Font/font-roboto/font-roboto.css" rel="stylesheet" />
+
+    <!-- Tempplate -->
+    <link href="~/Areas/NVIDIA/Content/Template/Sysadmin/assets/css/app.css" rel="stylesheet">
+    <link href="~/Areas/NVIDIA/Content/Template/Sysadmin/assets/css/icons.css" rel="stylesheet">
+
+    <!-- Theme Style CSS -->
+    <link rel="stylesheet" href="~/Areas/NVIDIA/Content/Template/Sysadmin/assets/css/dark-theme.css" />
+
+    <!--Custom-->
+    <link href="~/Areas/NVIDIA/Content/Custom/Layout/CustomLayout.css" rel="stylesheet" />
+
+    <!-- For Page -->
+    @RenderSection("styles", false)
+
+</head>
+
+<body>
+    <!--wrapper-->
+    <div class="wrapper">
+
+        <!--sidebar wrapper -->
+        <div class="sidebar-wrapper" data-simplebar="true">
+            <div class="sidebar-header">
+                <div>
+                    <img src="~/Areas/NVIDIA/Content/Image/fii-logo.jpg" class="logo-icon" alt="logo icon">
+                </div>
+                <div>
+                    <h4 class="logo-text">Tooling Room Management</h4>
+                </div>
+                <div class="toggle-icon ms-auto">
+                    <i class='bx bx-first-page'></i>
+                </div>
+            </div>
+            <!--navigation-->
+            <ul class="metismenu" id="menu">
+                <li>
+                    <a href="/NVIDIA/Dashboard/Index">
+                        <div class="parent-icon">
+                            <i class='bx bx-home'></i>
+                        </div>
+                        <div class="menu-title">Dashboard</div>
+                    </a>
+                </li>
+
+                <li class="menu-label">Management</li>
+                <li>
+                    <a class="has-arrow" href="javascript:;">
+                        <div class="parent-icon">
+                            <i class='bx bx-microchip'></i>
+                        </div>
+                        <div class="menu-title">Device</div>
+                    </a>
+                    <ul>
+                        <li>
+                            <a href="javascript:;"><i class="bx bx-right-arrow-alt"></i>Device Management</a>
+                        </li>
+                        <li>
+                            <a class="has-arrow" href="javascript:;"><i class="bx bx-right-arrow-alt"></i>New Device</a>
+                            <ul>
+                                <li><a href="javascript:;"><i class="bx bx-right-arrow-alt"></i>Manual</a></li>
+                                <li><a href="/NVIDIA/DeviceManagement/AddDeviceBOM"><i class="bx bx-right-arrow-alt"></i>BOM File</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="/NVIDIA/DeviceManagement/TakeDevice"><i class="bx bx-right-arrow-alt"></i>Take Device</a>
+                        </li>
+                        <li>
+                            <a href="javascript:;"><i class="bx bx-right-arrow-alt"></i>Return Device</a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li>
+                    <a href="widgets.html">
+                        <div class="parent-icon">
+                            <i class='bx bx-barcode'></i>
+                        </div>
+                        <div class="menu-title">Fixture</div>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="widgets.html">
+                        <div class="parent-icon">
+                            <i class='bx bx-barcode'></i>
+                        </div>
+                        <div class="menu-title">Golden</div>
+                    </a>
+                </li>
+
+                <li class="menu-label">BOM Management</li>
+
+
+                <li class="menu-label">Others</li>
+                <li>
+                    <a href="javascript:;" onclick="SignOut()">
+                        <div class="parent-icon">
+                            <i class='bx bx-file'></i>
+                        </div>
+                        <div class="menu-title">Sign Out</div>
+                    </a>
+                </li>
+                <li>
+                    <a class="has-arrow" href="javascript:;">
+                        <div class="parent-icon">
+                            <i class="bx bx-menu"></i>
+                        </div>
+                        <div class="menu-title">Menu Levels</div>
+                    </a>
+                    <ul>
+                        <li>
+                            <a class="has-arrow" href="javascript:;"><i class="bx bx-right-arrow-alt"></i>Level One</a>
+                            <ul>
+                                <li>
+                                    <a class="has-arrow" href="javascript:;"><i class="bx bx-right-arrow-alt"></i>Level Two</a>
+                                    <ul>
+                                        <li>
+                                            <a href="javascript:;"><i class="bx bx-right-arrow-alt"></i>Level Three</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="https://codervent.com/synadmin/documentation/index.html" target="_blank">
+                        <div class="parent-icon">
+                            <i class='bx bx-file'></i>
+                        </div>
+                        <div class="menu-title">Documentation</div>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://themeforest.net/user/codervent" target="_blank">
+                        <div class="parent-icon">
+                            <i class='bx bx-headphone'></i>
+                        </div>
+                        <div class="menu-title">Support</div>
+                    </a>
+                </li>
+            </ul>
+            <!--end navigation-->
+        </div>
+        <!--end sidebar wrapper -->
+        <!--start header -->
+        <header>
+            <div class="topbar d-flex align-items-center bg-dark shadow-none border-light-2 border-bottom">
+                <nav class="navbar navbar-expand">
+                    <div class="mobile-toggle-menu text-white me-3">
+                        <i class='bx bx-menu'></i>
+                    </div>
+
+                    <div class="top-menu ms-auto">
+                        <ul class="navbar-nav align-items-center">
+                            <li class="nav-item dropdown dropdown-large">
+                                <a class="nav-link dropdown-toggle dropdown-toggle-nocaret text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class='bx bx-category'></i>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-end">
+                                    <div class="row row-cols-3 g-3 p-3">
+                                        <div class="col text-center">
+                                            <div class="app-box mx-auto bg-gradient-cosmic text-white">
+                                                <i class='bx bx-group'></i>
+                                            </div>
+                                            <div class="app-title">Teams</div>
+                                        </div>
+                                        <div class="col text-center">
+                                            <div class="app-box mx-auto bg-gradient-burning text-white">
+                                                <i class='bx bx-atom'></i>
+                                            </div>
+                                            <div class="app-title">Projects</div>
+                                        </div>
+                                        <div class="col text-center">
+                                            <div class="app-box mx-auto bg-gradient-lush text-white">
+                                                <i class='bx bx-shield'></i>
+                                            </div>
+                                            <div class="app-title">Tasks</div>
+                                        </div>
+                                        <div class="col text-center">
+                                            <div class="app-box mx-auto bg-gradient-kyoto text-dark">
+                                                <i class='bx bx-notification'></i>
+                                            </div>
+                                            <div class="app-title">Feeds</div>
+                                        </div>
+                                        <div class="col text-center">
+                                            <div class="app-box mx-auto bg-gradient-blues text-dark">
+                                                <i class='bx bx-file'></i>
+                                            </div>
+                                            <div class="app-title">Files</div>
+                                        </div>
+                                        <div class="col text-center">
+                                            <div class="app-box mx-auto bg-gradient-moonlit text-white">
+                                                <i class='bx bx-filter-alt'></i>
+                                            </div>
+                                            <div class="app-title">Alerts</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="user-box dropdown border-light-2">
+                        <a class="d-flex align-items-center nav-link dropdown-toggle dropdown-toggle-nocaret" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="~/Areas/NVIDIA/Content/Template/Sysadmin/assets/images/avatars/avatar-2.png" class="user-img" alt="user avatar">
+                            <div class="user-info ps-3">
+                                <p class="user-name mb-0 text-white">Pauline Seitz</p>
+                                <p class="designattion mb-0">Web Designer</p>
+                            </div>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li>
+                                <a class="dropdown-item" href="javascript:;"><i class="bx bx-user"></i><span>Profile</span></a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:;"><i class="bx bx-cog"></i><span>Settings</span></a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:;"><i class='bx bx-home-circle'></i><span>Dashboard</span></a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:;"><i class='bx bx-dollar-circle'></i><span>Earnings</span></a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:;"><i class='bx bx-download'></i><span>Downloads</span></a>
+                            </li>
+                            <li>
+                                <div class="dropdown-divider mb-0"></div>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:;"><i class='bx bx-log-out-circle'></i><span>Logout</span></a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <!--end header -->
+        <!--start page wrapper -->
+        <div class="page-wrapper">
+            <div class="page-content py-0">
+
+                @RenderBody()
+
+            </div>
+        </div>
+        <!--end page wrapper -->
+        <!--start overlay-->
+        <div class="search-overlay"></div>
+        <div class="overlay toggle-icon"></div>
+        <!--end overlay-->
+        <!--Start Back To Top Button--> <a href="javaScript:;" class="back-to-top"><i class='bx bxs-up-arrow-alt'></i></a>
+        <!--End Back To Top Button-->
+        <footer class="page-footer">
+            <p class="mb-0">Copyright © 2023. MBD Automation IOT.</p>
+        </footer>
+    </div>
+    <!--end wrapper-->
+    <!-- Vedor JS -->
+    <script src="~/Areas/NVIDIA/Content/Template/Sysadmin/assets/js/bootstrap.bundle.min.js"></script>
+    <script src="~/Areas/NVIDIA/Content/Template/Sysadmin/assets/js/jquery.min.js"></script>
+
+    <script src="~/Areas/NVIDIA/Content/Template/Sysadmin/assets/plugins/simplebar/js/simplebar.min.js"></script>
+    <script src="~/Areas/NVIDIA/Content/Template/Sysadmin/assets/plugins/metismenu/js/metisMenu.min.js"></script>
+    <script src="~/Areas/NVIDIA/Content/Template/Sysadmin/assets/plugins/perfect-scrollbar/js/perfect-scrollbar.js"></script>
+    <script src="~/Areas/NVIDIA/Content/Vendor/SweetAlert/swal.min.js"></script>
+    <script src="~/Areas/NVIDIA/Content/Vendor/Toats/toastr.min.js"></script>
+
+    <!-- Template-->
+    <script src="~/Areas/NVIDIA/Content/Template/Sysadmin/assets/js/app.js"></script>
+
+    <!-- For Page -->
+    <script src="~/Areas/NVIDIA/Content/Custom/Layout/CustomLayout.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            toastr.options = {
+                "closeButton": true,
+                "debug": false,
+                "newestOnTop": true,
+                "progressBar": true,
+                "positionClass": "toast-top-right",
+                "preventDuplicates": false,
+                "onclick": null,
+                "showDuration": "300",
+                "hideDuration": "1000",
+                "timeOut": "5000",
+                "extendedTimeOut": "500",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            };
+        });
+    </script>
+    @RenderSection("scripts", false)
+</body>
+
+</html>
+
