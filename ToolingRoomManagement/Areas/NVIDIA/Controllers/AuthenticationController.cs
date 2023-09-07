@@ -1,18 +1,22 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.CodeDom;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Security.Cryptography;
 using System.Text;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
+using System.Xml.Linq;
 using ToolingRoomManagement.Areas.NVIDIA.Entities;
 
 namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
 {
     public class AuthenticationController : Controller
     {        
-        ToolingRoomEntities db = new ToolingRoomEntities();
         // GET: NVIDIA/Authentication
         public ActionResult Index()
         {
@@ -26,24 +30,27 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
             {
                 string Username = Request.Cookies["RememberSignIn"]["Username"];
                 string Password = Request.Cookies["RememberSignIn"]["Password"];
-
-                Entities.User user = db.Users.FirstOrDefault(u => u.Username == Username);
-                if (user != null)
+                
+                using(var db = new ToolingRoomEntities())
                 {
-                    if (HashValue(user.Password) == Password)
+                    Entities.User user = db.Users.FirstOrDefault(u => u.Username == Username);
+                    if (user != null && user.Status != "No Active")
                     {
-                        //return RedirectByRole(user);
-
-                        return Redirect(Url.Action("Index", "Dashboard", new { area = "NVIDIA" }));
-                }
+                        if (HashValue(user.Password) == Password)
+                        {
+                            CreateCookieInfo(user);
+                            CreateSession(user);
+                            return Redirect(Url.Action("Index", "Dashboard", new { area = "NVIDIA" }));
+                        }
+                        else
+                        {
+                            return View();
+                        }
+                    }
                     else
                     {
                         return View();
                     }
-                }
-                else
-                {
-                    return View();
                 }
             }
             else
@@ -56,32 +63,35 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
         {
             try
             {
-                Entities.User user = db.Users.FirstOrDefault(u => u.Username == Username);
-                if(user != null) 
+                using(var db = new ToolingRoomEntities())
                 {
-                    if(user.Password == Password)
+                    Entities.User user = db.Users.FirstOrDefault(u => u.Username == Username);
+                    if (user != null && user.Status != "No Active")
                     {
-                        if (Remember)
+                        if (user.Password == Password)
                         {
-                            CreateCookie(user);
+                            if (Remember)
+                            {
+                                CreateCookieRmb(user);
+                            }
+                            else
+                            {
+                                DeleteCookieRmb();
+                            }
+                            CreateCookieInfo(user);
+                            CreateSession(user);
+                            return Json(new { status = true, redirectTo = Url.Action("Index", "Dashboard", new { area = "NVIDIA" }) });
                         }
                         else
                         {
-                            DeleteCookie();
+                            return Json(new { status = false, message = "Incorrect password." });
                         }
-                        CreateSession(user);
-                        return RedirectByRole(user);
                     }
                     else
                     {
-                        return Json(new { status = false, message = "Incorrect password." });
-                    }                   
+                        return Json(new { status = false, message = "User does not exist." });
+                    }
                 }
-                else
-                {
-                    return Json(new { status = false, message = "User does not exist." });
-                }
-
             }
             catch (Exception ex)
             {
@@ -89,14 +99,13 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
             }
         }
 
-
         // SignOut
         [HttpPost]
         public JsonResult SignOut()
         {
             try
             {
-                DeleteCookie();
+                DeleteCookieRmb();
                 DeleteSession();
 
                 return Json(new { status = true, redirectTo = Url.Action("SignIn", "Authentication", new { area = "NVIDIA" }) });
@@ -106,8 +115,104 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 return Json(new { status = false, message = ex.Message });
             }
         }
-        // Cookie
-        private void CreateCookie(Entities.User user)
+
+
+        // SignUp
+        public ActionResult SignUp()
+        {
+            return View();
+        }
+        [HttpPost]
+        public async Task<ActionResult> SignUp(string Username, string Email, string CreatePassword, string ConfirmPassword, int Department)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(Username)) return Json(new { status = false, message = "Card ID is empty." });
+                if (string.IsNullOrWhiteSpace(Email)) return Json(new { status = false, message = "Email is empty." });
+                if (string.IsNullOrWhiteSpace(CreatePassword)) return Json(new { status = false, message = "Create Password is empty." });
+                if (string.IsNullOrWhiteSpace(ConfirmPassword)) return Json(new { status = false, message = "Confirm Password is empty." });
+                if (Department == 0) return Json(new { status = false, message = "Department is empty." });
+
+                if(CreatePassword != ConfirmPassword) return Json(new { status = false, message = "Mismatched Create Password and Confirm Password." });
+
+                var ApiData = await GetInfoUserAPI(Username);
+                if (string.IsNullOrEmpty(ApiData) || string.IsNullOrWhiteSpace(ApiData)) return Json(new { error = true, message = "The Card ID does not exist in the system." });
+
+                dynamic HrUser = JsonConvert.DeserializeObject(ApiData.ToString());
+
+                Entities.User user = new Entities.User
+                {
+                    Username = Username,
+                    Password = CreatePassword,
+                    Email = Email,
+                    CnName = HrUser.USER_NAME,
+                    HireDate = HrUser.HIREDATE,
+                    LeaveDate = HrUser.LEAVEDAY,
+                    Status = "No Active"                   
+                };
+
+                if(DateTime.Now >= user.LeaveDate)
+                {
+                    return Json(new { status = false, message = "User does not exist in the system." });
+                }
+
+                using(var db = new ToolingRoomEntities())
+                {
+                    db.Users.Add(user);
+                    db.SaveChanges();
+                }
+
+                return Json(new { status = true, user, redirectTo = "/NVIDIA/Authentication/SignIn" });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = false, message = ex.Message });
+            }
+        }
+        public JsonResult GetDepartments()
+        {
+            try
+            {
+                using(var db = new ToolingRoomEntities())
+                {
+                    List<Entities.Department> departments = db.Departments.ToList();
+
+                    return Json(new { status = true, departments }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        private async Task<string> GetInfoUserAPI(string CardID)
+        {
+            try
+            {
+                HttpClient client = new HttpClient();
+                string url = "http://10.224.69.100:8080/postman/api/hr/getEmpObj?id=" + CardID;
+                HttpResponseMessage response = await client.GetAsync(url);
+                response.EnsureSuccessStatusCode();
+
+                if (response.Content.Headers.ContentLength > 2)
+                {
+                    var responseBody = await response.Content.ReadAsStringAsync();
+                    return responseBody;
+                }
+                else
+                {
+                    return string.Empty;
+                }
+            }
+            catch
+            {
+                return string.Empty;
+            }
+        }
+
+
+        // Cookie Remember     
+        private void CreateCookieRmb(Entities.User user)
         {
             HttpCookie rememberSignInCookie = new HttpCookie("RememberSignIn");
 
@@ -118,9 +223,23 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
 
             Response.Cookies.Add(rememberSignInCookie);
         }
-        private void DeleteCookie()
+        private void DeleteCookieRmb()
         {
             Response.Cookies["RememberSignIn"].Expires = DateTime.Now.AddDays(-1);
+        }
+        // Cookie Info
+        private void CreateCookieInfo(Entities.User user)
+        {
+            HttpCookie rememberSignInCookie = new HttpCookie("UserInfo");
+
+            rememberSignInCookie["CardID"] = user.Username;
+            rememberSignInCookie["VnName"] = user.VnName;
+            rememberSignInCookie["CnName"] = user.CnName;
+            rememberSignInCookie["EnName"] = user.EnName;
+
+            rememberSignInCookie.Expires = DateTime.Now.AddDays(15);
+
+            Response.Cookies.Add(rememberSignInCookie);
         }
         // Session
         private void CreateSession(Entities.User user)
@@ -130,31 +249,6 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
         private void DeleteSession()
         {
             Session.Remove("SignSession");
-        }
-
-
-        public ActionResult SignUp()
-        {
-            return View();
-        }
-
-
-        private JsonResult RedirectByRole(User user)
-        {
-            try
-            {
-
-                //if (AuthorizeRole.Admin)
-                //    return Json(new { success = true, redirectTo = Url.Action("Index", "UserManager", new { area = "Admin" }) });
-                //else
-                //    return Json(new { success = true, redirectTo = Url.Action("Index", "Manager", new { area = "MCU" }) });
-                return Json(new { status = true, redirectTo = Url.Action("Index", "Dashboard", new { area = "NVIDIA" }) }, JsonRequestBehavior.AllowGet);
-            }
-            catch (Exception ex)
-            {
-                return Json(new { status = false, message = ex.Message });
-            }
-
         }
 
         // Other

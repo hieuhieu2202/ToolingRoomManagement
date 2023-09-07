@@ -23,10 +23,6 @@
         },
         error: function (error) {
             Swal.fire('Sorry, something went wrong!', GetAjaxErrorMessage(error), 'error');
-        },
-        complete: function () {
-            // Dừng Pace.js sau khi AJAX request hoàn thành
-            Pace.stop();
         }
     });
 });

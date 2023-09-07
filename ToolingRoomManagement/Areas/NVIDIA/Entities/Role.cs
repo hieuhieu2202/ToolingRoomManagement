@@ -16,5 +16,6 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Entities
     {
         public int Id { get; set; }
         public string RoleName { get; set; }
+        public string RoleAction { get; set; }
     }
 }

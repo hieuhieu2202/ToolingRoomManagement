@@ -30,6 +30,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Entities
         public string EnName { get; set; }
         public Nullable<System.DateTime> HireDate { get; set; }
         public Nullable<System.DateTime> LeaveDate { get; set; }
+        public string Status { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserDepartment> UserDepartments { get; set; }

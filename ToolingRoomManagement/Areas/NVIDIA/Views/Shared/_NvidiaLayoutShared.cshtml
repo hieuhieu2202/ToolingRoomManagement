@@ -85,7 +85,7 @@
                     </a>
                     <ul>
                         <li>
-                            <a href="javascript:;"><i class="bx bx-right-arrow-alt"></i>Device Management</a>
+                            <a href="/NVIDIA/DeviceManagement/DeviceManagement"><i class="bx bx-right-arrow-alt"></i>Device Management</a>
                         </li>
                         <li>
                             <a class="has-arrow" href="javascript:;"><i class="bx bx-right-arrow-alt"></i>New Device</a>
@@ -102,62 +102,9 @@
                         </li>
                     </ul>
                 </li>
-
-                <li>
-                    <a href="widgets.html">
-                        <div class="parent-icon">
-                            <i class='bx bx-barcode'></i>
-                        </div>
-                        <div class="menu-title">Fixture</div>
-                    </a>
-                </li>
-
-                <li>
-                    <a href="widgets.html">
-                        <div class="parent-icon">
-                            <i class='bx bx-barcode'></i>
-                        </div>
-                        <div class="menu-title">Golden</div>
-                    </a>
-                </li>
-
-                <li class="menu-label">BOM Management</li>
-
-
                 <li class="menu-label">Others</li>
                 <li>
-                    <a href="javascript:;" onclick="SignOut()">
-                        <div class="parent-icon">
-                            <i class='bx bx-file'></i>
-                        </div>
-                        <div class="menu-title">Sign Out</div>
-                    </a>
-                </li>
-                <li>
-                    <a class="has-arrow" href="javascript:;">
-                        <div class="parent-icon">
-                            <i class="bx bx-menu"></i>
-                        </div>
-                        <div class="menu-title">Menu Levels</div>
-                    </a>
-                    <ul>
-                        <li>
-                            <a class="has-arrow" href="javascript:;"><i class="bx bx-right-arrow-alt"></i>Level One</a>
-                            <ul>
-                                <li>
-                                    <a class="has-arrow" href="javascript:;"><i class="bx bx-right-arrow-alt"></i>Level Two</a>
-                                    <ul>
-                                        <li>
-                                            <a href="javascript:;"><i class="bx bx-right-arrow-alt"></i>Level Three</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="https://codervent.com/synadmin/documentation/index.html" target="_blank">
+                    <a href="javascript:;" target="_blank">
                         <div class="parent-icon">
                             <i class='bx bx-file'></i>
                         </div>
@@ -165,11 +112,20 @@
                     </a>
                 </li>
                 <li>
-                    <a href="https://themeforest.net/user/codervent" target="_blank">
+                    <a href="javascript:;" target="_blank">
                         <div class="parent-icon">
                             <i class='bx bx-headphone'></i>
                         </div>
                         <div class="menu-title">Support</div>
+                    </a>
+                </li>
+                <li class="menu-label">Sign Out</li>
+                <li>
+                    <a href="javascript:;" onclick="SignOut()">
+                        <div class="parent-icon">
+                            <i class='bx bx-log-out'></i>
+                        </div>
+                        <div class="menu-title">Sign Out</div>
                     </a>
                 </li>
             </ul>
@@ -190,56 +146,17 @@
                                 <a class="nav-link dropdown-toggle dropdown-toggle-nocaret text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     <i class='bx bx-category'></i>
                                 </a>
-                                <div class="dropdown-menu dropdown-menu-end">
-                                    <div class="row row-cols-3 g-3 p-3">
-                                        <div class="col text-center">
-                                            <div class="app-box mx-auto bg-gradient-cosmic text-white">
-                                                <i class='bx bx-group'></i>
-                                            </div>
-                                            <div class="app-title">Teams</div>
-                                        </div>
-                                        <div class="col text-center">
-                                            <div class="app-box mx-auto bg-gradient-burning text-white">
-                                                <i class='bx bx-atom'></i>
-                                            </div>
-                                            <div class="app-title">Projects</div>
-                                        </div>
-                                        <div class="col text-center">
-                                            <div class="app-box mx-auto bg-gradient-lush text-white">
-                                                <i class='bx bx-shield'></i>
-                                            </div>
-                                            <div class="app-title">Tasks</div>
-                                        </div>
-                                        <div class="col text-center">
-                                            <div class="app-box mx-auto bg-gradient-kyoto text-dark">
-                                                <i class='bx bx-notification'></i>
-                                            </div>
-                                            <div class="app-title">Feeds</div>
-                                        </div>
-                                        <div class="col text-center">
-                                            <div class="app-box mx-auto bg-gradient-blues text-dark">
-                                                <i class='bx bx-file'></i>
-                                            </div>
-                                            <div class="app-title">Files</div>
-                                        </div>
-                                        <div class="col text-center">
-                                            <div class="app-box mx-auto bg-gradient-moonlit text-white">
-                                                <i class='bx bx-filter-alt'></i>
-                                            </div>
-                                            <div class="app-title">Alerts</div>
-                                        </div>
-                                    </div>
-                                </div>
+                                @Html.Partial("~/Areas/NVIDIA/Views/Shared/_IotSystem.cshtml")
                             </li>
                         </ul>
                     </div>
 
                     <div class="user-box dropdown border-light-2">
                         <a class="d-flex align-items-center nav-link dropdown-toggle dropdown-toggle-nocaret" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <img src="~/Areas/NVIDIA/Content/Template/Sysadmin/assets/images/avatars/avatar-2.png" class="user-img" alt="user avatar">
+                            <img class="user-img" alt="user avatar" id="UserAvatar">
                             <div class="user-info ps-3">
-                                <p class="user-name mb-0 text-white">Pauline Seitz</p>
-                                <p class="designattion mb-0">Web Designer</p>
+                                <p class="user-name mb-0 text-white" id="CardID"></p>
+                                <p class="designattion mb-0" id="Name"></p>
                             </div>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end">
@@ -248,21 +165,12 @@
                             </li>
                             <li>
                                 <a class="dropdown-item" href="javascript:;"><i class="bx bx-cog"></i><span>Settings</span></a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="javascript:;"><i class='bx bx-home-circle'></i><span>Dashboard</span></a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="javascript:;"><i class='bx bx-dollar-circle'></i><span>Earnings</span></a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="javascript:;"><i class='bx bx-download'></i><span>Downloads</span></a>
-                            </li>
+                            </li>                           
                             <li>
                                 <div class="dropdown-divider mb-0"></div>
                             </li>
                             <li>
-                                <a class="dropdown-item" href="javascript:;"><i class='bx bx-log-out-circle'></i><span>Logout</span></a>
+                                <a class="dropdown-item" href="javascript:;" onclick="SignOut()"><i class='bx bx-log-out-circle'></i><span>Logout</span></a>
                             </li>
                         </ul>
                     </div>

@@ -1,4 +1,5 @@
-﻿using OfficeOpenXml;
+﻿using Model.EF;
+using OfficeOpenXml;
 using System;
 using System.Data.Entity.Migrations;
 using System.Globalization;
@@ -6,13 +7,20 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using ToolingRoomManagement.Areas.NVIDIA.Entities;
+using ToolingRoomManagement.Attributes;
 
 namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
 {
+    [Authentication(AllowAnonymous = false)]
     public class DeviceManagementController : Controller
     {
         ToolingRoomEntities db = new ToolingRoomEntities();
         // GET: NVIDIA/DeviceManagement
+        [HttpGet]
+        public ActionResult DeviceManagement()
+        {
+            return View();
+        }
         [HttpGet]
         public ActionResult AddDeviceBOM()
         {
@@ -23,7 +31,6 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
         { 
             return View();
         }
-
 
         [HttpPost]
         public JsonResult AddDeviceAuto(HttpPostedFileBase file, int IdWareHouse)
@@ -260,6 +267,29 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
         }
 
 
+        [HttpPost]
+        public JsonResult GetWarehouseDevices(int IdWarehouse)
+        {
+            try
+            {
+                Entities.Warehouse warehouse = db.Warehouses.FirstOrDefault(w => w.Id == IdWarehouse);
+
+                if (IdWarehouse == 0)
+                {
+                    Entities.User user = (Entities.User)Session["SignSession"];
+                    warehouse = db.Warehouses.FirstOrDefault(w => w.IdUserManager == user.Id);
+                    if (warehouse == null)
+                    {
+                        warehouse = db.Warehouses.Take(1).FirstOrDefault();
+                    }
+                }
+                return Json(new { status = true, warehouse });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = false, message = ex.Message });
+            }
+        }
         [HttpPost]
         public JsonResult DeleteDevice(int Id)
         {

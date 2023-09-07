@@ -78,6 +78,7 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="RoleName" Type="nvarchar" MaxLength="50" />
+          <Property Name="RoleAction" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="Station">
           <Key>
@@ -99,6 +100,7 @@
           <Property Name="EnName" Type="nvarchar" MaxLength="50" />
           <Property Name="HireDate" Type="date" />
           <Property Name="LeaveDate" Type="date" />
+          <Property Name="Status" Type="nvarchar" MaxLength="25" />
         </EntityType>
         <EntityType Name="UserDepartment">
           <Key>
@@ -476,6 +478,7 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="RoleName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="RoleAction" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Station">
           <Key>
@@ -499,6 +502,7 @@
           <Property Name="LeaveDate" Type="DateTime" Precision="0" />
           <NavigationProperty Name="UserDepartments" Relationship="ToolingRoomModel.FK_UserDepartment_User" FromRole="User" ToRole="UserDepartment" />
           <NavigationProperty Name="UserRoles" Relationship="ToolingRoomModel.FK_UserRole_User" FromRole="User" ToRole="UserRole" />
+          <Property Name="Status" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="UserDepartment">
           <Key>
@@ -533,6 +537,7 @@
           <Property Name="WarehouseName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Description" Type="String" MaxLength="120" FixedLength="false" Unicode="true" />
           <Property Name="IdUserManager" Type="Int32" />
+          <NavigationProperty Name="Devices" Relationship="ToolingRoomModel.FK_Device_Warehouse" FromRole="Warehouse" ToRole="Device" />
         </EntityType>
         <Association Name="FK_UserDepartment_Department">
           <End Type="ToolingRoomModel.Department" Role="Department" Multiplicity="0..1" />
@@ -777,6 +782,7 @@
           <EntitySetMapping Name="Roles">
             <EntityTypeMapping TypeName="ToolingRoomModel.Role">
               <MappingFragment StoreEntitySet="Role">
+                <ScalarProperty Name="RoleAction" ColumnName="RoleAction" />
                 <ScalarProperty Name="RoleName" ColumnName="RoleName" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
@@ -793,6 +799,7 @@
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="ToolingRoomModel.User">
               <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="LeaveDate" ColumnName="LeaveDate" />
                 <ScalarProperty Name="HireDate" ColumnName="HireDate" />
                 <ScalarProperty Name="EnName" ColumnName="EnName" />
