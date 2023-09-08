@@ -1,0 +1,169 @@
+﻿
+@{
+    ViewBag.Title = "AddDeviceManual";
+    Layout = "~/Areas/NVIDIA/Views/Shared/_NvidiaLayoutShared.cshtml";
+}
+
+@section styles{
+    <!-- Vendor -->
+    <!-- Custom -->
+    <link href="~/Areas/NVIDIA/Content/Custom/DeviceManagement/css/AddDeviceManual.css?v=@Guid.NewGuid()" rel="stylesheet" />
+}
+
+<div class="page-breadcrumb d-none d-sm-flex align-items-center py-3">
+    <div class="breadcrumb-title pe-3">Manual</div>
+    <div class="ps-3">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-0 p-0">
+                <li class="breadcrumb-item">
+                    <a href="/NVIDIA/Dashboard/Index"><i class="bx bx-home-alt"></i></a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a href="javascript:;">Device</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">New Device</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+
+<!-- Card table -->
+<div class="card" id="card-device-details">
+    <div class="card-body">
+        <h5 class="card-title">New Device Manual</h5>
+        <hr />
+        <div class="form-body">
+            <div class="row">
+                <div class="col-4">
+                    <!-- Device Code -->
+                    <div class="input-group mb-3">
+                        <span class="col-4 input-group-text">Device Code</span>
+                        <input class="col-8 form-control" type="text" id="device_add-DeviceCode" autocomplete="off">
+                    </div>
+                    <!-- Device Name -->
+                    <div class="input-group mb-3">
+                        <span class="col-4 input-group-text">Device name</span>
+                        <input class="col-8 form-control" type="text" id="device_add-DeviceName" autocomplete="off">
+                    </div>
+                    <!-- Device Date -->
+                    <div class="input-group mb-3">
+                        <span class="col-4 input-group-text">Created date</span>
+                        <input class="col-8 form-control" type="datetime-local" id="device_add-DeviceDate" autocomplete="off">
+                    </div>
+                    <!-- Relation -->
+                    <div class="input-group mb-3">
+                        <span class="col-4 input-group-text">Relation</span>
+                        <input class="col-8 form-control" type="text" id="device_add-Relation" autocomplete="off">
+                    </div>
+                    <!-- Buffer -->
+                    <div class="input-group mb-3">
+                        <span class="col-4 input-group-text">Buffer</span>
+                        <input class="col-8 form-control" type="number" id="device_add-Buffer" autocomplete="off">
+                    </div>
+                    <!-- LifeCycle -->
+                    <div class="input-group mb-3">
+                        <span class="col-4 input-group-text">Life Cycle</span>
+                        <input class="col-8 form-control" type="number" id="device_add-LifeCycle" autocomplete="off">
+                    </div>
+
+                </div>
+                <div class="col-4">
+                    <!-- Forcast -->
+                    <div class="input-group mb-3">
+                        <span class="col-4 input-group-text">Forcast</span>
+                        <input class="col-8 form-control" type="number" id="device_add-Forcast" autocomplete="off">
+                    </div>
+                    <!-- Quantity -->
+                    <div class="input-group mb-3">
+                        <span class="col-4 input-group-text">Quantity</span>
+                        <input class="col-8 form-control" type="number" id="device_add-Quantity" autocomplete="off">
+                    </div>
+                    <!-- QtyConfirm -->
+                    <div class="input-group mb-3">
+                        <span class="col-4 input-group-text">Qty Confirm</span>
+                        <input class="col-8 form-control" type="number" id="device_add-QtyConfirm" autocomplete="off">
+                    </div>
+                    <!-- ACC_KIT -->
+                    <div class="input-group mb-3">
+                        <span class="col-4 input-group-text">ACC KIT</span>
+                        <select class="col-8 form-select" id="device_add-AccKit">
+                            <option value="Yes">Yes</option>
+                            <option value="No">No</option>
+                            <option value="N/A" selected>N/A</option>
+                        </select>
+                    </div>
+                    <!-- Type -->
+                    <div class="input-group mb-3">
+                        <span class="col-4 input-group-text">Type</span>
+                        <select class="col-8 form-select" id="device_add-Type">
+                            <option value="S">Static</option>
+                            <option value="D">Dynamic</option>
+                            <option value="#N/A" selected>N/A</option>
+                        </select>
+                    </div>
+                    <!-- Status -->
+                    <div class="input-group mb-3">
+                        <span class="col-4 input-group-text">Status</span>
+                        <select class="col-8 form-select" id="device_add-Status">
+                            <option value="Unconfirmed">Unconfirmed</option>
+                            <option value="Part Confirmed">Part Confirmed</option>
+                            <option value="Confirmed" selected>Confirmed</option>
+                            <option value="Locked">Locked</option>
+                            <option value="Depleted">Depleted</option>
+                        </select>
+                    </div>
+
+                </div>
+                <div class="col-4">
+                    <!-- WareHouse -->
+                    <div class="input-group mb-3">
+                        <span class="col-4 input-group-text">Warehouse</span>
+                        <select class="col-8 form-select" id="device_add-WareHouse"></select>
+                    </div>
+                    <!-- Product -->
+                    <div class="input-group mb-3">
+                        <span class="col-4 input-group-text">Product</span>
+                        <input class="col-8 form-control" type="text" id="device_add-Product" list="device_add-Product_List" autocomplete="off">
+                        <datalist id="device_add-Product_List"></datalist>
+                    </div>
+                    <!-- Model -->
+                    <div class="input-group mb-3">
+                        <span class="col-4 input-group-text">Model</span>
+                        <input class="col-8 form-control" type="text" id="device_add-Model" list="device_add-Model_List" autocomplete="off">
+                        <datalist id="device_add-Model_List"></datalist>
+                    </div>
+                    <!-- Station -->
+                    <div class="input-group mb-3">
+                        <span class="col-4 input-group-text">Station</span>
+                        <input class="col-8 form-control" type="text" id="device_add-Station" list="device_add-Station_List" autocomplete="off">
+                        <datalist id="device_add-Station_List"></datalist>
+                    </div>
+                    <!-- Group -->
+                    <div class="input-group mb-3">
+                        <span class="col-4 input-group-text">Group</span>
+                        <input class="col-8 form-control" type="text" id="device_add-Group" list="device_add-Group_List" autocomplete="off">
+                        <datalist id="device_add-Group_List"></datalist>
+                    </div>
+                    <!-- Vendor -->
+                    <div class="input-group mb-3">
+                        <span class="col-4 input-group-text">Vendor</span>
+                        <input class="col-8 form-control" type="text" id="device_add-Vendor" list="device_add-Vendor_List" autocomplete="off">
+                        <datalist id="device_add-Vendor_List"></datalist>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer text-center">
+            <button type="button" class="btn btn-outline-primary" id="AddDeviceManual">Add New Device</button>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <!-- Vendor -->
+    <script src="~/Areas/NVIDIA/Content/Vendor/MomentJs/moment.js"></script>
+    <!-- Custom -->
+    <script src="~/Areas/NVIDIA/Content/Custom/DeviceManagement/js/AddDeviceManual.js?v=@Guid.NewGuid()"></script>
+}
+
+

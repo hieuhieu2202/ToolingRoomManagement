@@ -148,9 +148,11 @@
     <Content Include="Areas\NVIDIA\Content\Custom\Authentication\js\SignIn.js" />
     <Content Include="Areas\NVIDIA\Content\Custom\Authentication\js\SignUp.js" />
     <Content Include="Areas\NVIDIA\Content\Custom\DeviceManagement\css\AddDeviceBOM.css" />
+    <Content Include="Areas\NVIDIA\Content\Custom\DeviceManagement\css\AddDeviceManual.css" />
     <Content Include="Areas\NVIDIA\Content\Custom\DeviceManagement\css\DeviceManagement.css" />
     <Content Include="Areas\NVIDIA\Content\Custom\DeviceManagement\css\TakeDevice.css" />
     <Content Include="Areas\NVIDIA\Content\Custom\DeviceManagement\js\AddDeviceBOM.js" />
+    <Content Include="Areas\NVIDIA\Content\Custom\DeviceManagement\js\AddDeviceManual.js" />
     <Content Include="Areas\NVIDIA\Content\Custom\DeviceManagement\js\DeviceManagement.js" />
     <Content Include="Areas\NVIDIA\Content\Custom\DeviceManagement\js\TakeDevice.js" />
     <Content Include="Areas\NVIDIA\Content\Custom\Layout\CustomLayout.css" />
@@ -2891,6 +2893,7 @@
     <Content Include="Areas\NVIDIA\Views\Authentication\SignUp.cshtml" />
     <Content Include="Areas\NVIDIA\Views\Shared\_IotSystem.cshtml" />
     <Content Include="Areas\NVIDIA\Views\DeviceManagement\DeviceManagement.cshtml" />
+    <Content Include="Areas\NVIDIA\Views\DeviceManagement\AddDeviceManual.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -133,6 +133,8 @@
           <Property Name="WarehouseName" Type="nvarchar" MaxLength="50" />
           <Property Name="Description" Type="nvarchar" MaxLength="120" />
           <Property Name="IdUserManager" Type="int" />
+          <Property Name="IdUserSV1" Type="int" />
+          <Property Name="IdUserSV2" Type="int" />
         </EntityType>
         <Association Name="FK_Device_Group">
           <End Role="Group" Type="Self.Group" Multiplicity="0..1" />
@@ -203,30 +205,6 @@
             </Principal>
             <Dependent Role="Device">
               <PropertyRef Name="IdWareHouse" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_HistoryUpdateDevice_Device">
-          <End Role="Device" Type="Self.Device" Multiplicity="0..1" />
-          <End Role="HistoryUpdateDevice" Type="Self.HistoryUpdateDevice" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Device">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="HistoryUpdateDevice">
-              <PropertyRef Name="IdDevice" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_HistoryUpdateDevice_User">
-          <End Role="User" Type="Self.User" Multiplicity="0..1" />
-          <End Role="HistoryUpdateDevice" Type="Self.HistoryUpdateDevice" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="HistoryUpdateDevice">
-              <PropertyRef Name="IdUser" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -328,14 +306,6 @@
             <End Role="Warehouse" EntitySet="Warehouse" />
             <End Role="Device" EntitySet="Device" />
           </AssociationSet>
-          <AssociationSet Name="FK_HistoryUpdateDevice_Device" Association="Self.FK_HistoryUpdateDevice_Device">
-            <End Role="Device" EntitySet="Device" />
-            <End Role="HistoryUpdateDevice" EntitySet="HistoryUpdateDevice" />
-          </AssociationSet>
-          <AssociationSet Name="FK_HistoryUpdateDevice_User" Association="Self.FK_HistoryUpdateDevice_User">
-            <End Role="User" EntitySet="User" />
-            <End Role="HistoryUpdateDevice" EntitySet="HistoryUpdateDevice" />
-          </AssociationSet>
           <AssociationSet Name="FK_UserDepartment_Department" Association="Self.FK_UserDepartment_Department">
             <End Role="Department" EntitySet="Department" />
             <End Role="UserDepartment" EntitySet="UserDepartment" />
@@ -365,7 +335,6 @@
           <EntitySet Name="Products" EntityType="ToolingRoomModel.Product" />
           <EntitySet Name="Departments" EntityType="ToolingRoomModel.Department" />
           <EntitySet Name="Groups" EntityType="ToolingRoomModel.Group" />
-          <EntitySet Name="HistoryUpdateDevices" EntityType="ToolingRoomModel.HistoryUpdateDevice" />
           <EntitySet Name="Models" EntityType="ToolingRoomModel.Model" />
           <EntitySet Name="Roles" EntityType="ToolingRoomModel.Role" />
           <EntitySet Name="Stations" EntityType="ToolingRoomModel.Station" />
@@ -377,10 +346,6 @@
           <AssociationSet Name="FK_UserDepartment_Department" Association="ToolingRoomModel.FK_UserDepartment_Department">
             <End Role="Department" EntitySet="Departments" />
             <End Role="UserDepartment" EntitySet="UserDepartments" />
-          </AssociationSet>
-          <AssociationSet Name="FK_HistoryUpdateDevice_User" Association="ToolingRoomModel.FK_HistoryUpdateDevice_User">
-            <End Role="User" EntitySet="Users" />
-            <End Role="HistoryUpdateDevice" EntitySet="HistoryUpdateDevices" />
           </AssociationSet>
           <AssociationSet Name="FK_UserRole_Role" Association="ToolingRoomModel.FK_UserRole_Role">
             <End Role="Role" EntitySet="Roles" />
@@ -423,10 +388,7 @@
             <End Role="Warehouse" EntitySet="Warehouses" />
             <End Role="Device" EntitySet="Devices" />
           </AssociationSet>
-          <AssociationSet Name="FK_HistoryUpdateDevice_Device" Association="ToolingRoomModel.FK_HistoryUpdateDevice_Device">
-            <End Role="Device" EntitySet="Devices" />
-            <End Role="HistoryUpdateDevice" EntitySet="HistoryUpdateDevices" />
-          </AssociationSet>
+          <EntitySet Name="HistoryUpdateDevices" EntityType="ToolingRoomModel.HistoryUpdateDevice" />
           </EntityContainer>
         <EntityType Name="Product">
           <Key>
@@ -451,19 +413,6 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="GroupName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="HistoryUpdateDevice">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="IdUser" Type="Int32" />
-          <Property Name="IdDevice" Type="Int32" />
-          <Property Name="UpdateDate" Type="DateTime" Precision="3" />
-          <Property Name="UpdateData" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="User" Relationship="ToolingRoomModel.FK_HistoryUpdateDevice_User" FromRole="HistoryUpdateDevice" ToRole="User" />
-          <Property Name="FirstData" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Device" Relationship="ToolingRoomModel.FK_HistoryUpdateDevice_Device" FromRole="HistoryUpdateDevice" ToRole="Device" />
         </EntityType>
         <EntityType Name="Model">
           <Key>
@@ -538,6 +487,8 @@
           <Property Name="Description" Type="String" MaxLength="120" FixedLength="false" Unicode="true" />
           <Property Name="IdUserManager" Type="Int32" />
           <NavigationProperty Name="Devices" Relationship="ToolingRoomModel.FK_Device_Warehouse" FromRole="Warehouse" ToRole="Device" />
+          <Property Name="IdUserSV1" Type="Int32" />
+          <Property Name="IdUserSV2" Type="Int32" />
         </EntityType>
         <Association Name="FK_UserDepartment_Department">
           <End Type="ToolingRoomModel.Department" Role="Department" Multiplicity="0..1" />
@@ -548,18 +499,6 @@
             </Principal>
             <Dependent Role="UserDepartment">
               <PropertyRef Name="IdDepartment" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_HistoryUpdateDevice_User">
-          <End Type="ToolingRoomModel.User" Role="User" Multiplicity="0..1" />
-          <End Type="ToolingRoomModel.HistoryUpdateDevice" Role="HistoryUpdateDevice" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="HistoryUpdateDevice">
-              <PropertyRef Name="IdUser" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -639,7 +578,6 @@
           <NavigationProperty Name="Product" Relationship="ToolingRoomModel.FK_Device_Product" FromRole="Device" ToRole="Product" />
           <NavigationProperty Name="Station" Relationship="ToolingRoomModel.FK_Device_Station" FromRole="Device" ToRole="Station" />
           <NavigationProperty Name="Vendor" Relationship="ToolingRoomModel.FK_Device_Vendor" FromRole="Device" ToRole="Vendor" />
-          <NavigationProperty Name="HistoryUpdateDevices" Relationship="ToolingRoomModel.FK_HistoryUpdateDevice_Device" FromRole="Device" ToRole="HistoryUpdateDevice" />
           <Property Name="QtyConfirm" Type="Int32" />
         </EntityType>
         <Association Name="FK_Device_Group">
@@ -714,18 +652,17 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_HistoryUpdateDevice_Device">
-          <End Type="ToolingRoomModel.Device" Role="Device" Multiplicity="0..1" />
-          <End Type="ToolingRoomModel.HistoryUpdateDevice" Role="HistoryUpdateDevice" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Device">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="HistoryUpdateDevice">
-              <PropertyRef Name="IdDevice" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
+        <EntityType Name="HistoryUpdateDevice">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdUser" Type="Int32" />
+          <Property Name="IdDevice" Type="Int32" />
+          <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+          <Property Name="FirstData" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="UpdateData" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -755,18 +692,6 @@
             <EntityTypeMapping TypeName="ToolingRoomModel.Group">
               <MappingFragment StoreEntitySet="Group">
                 <ScalarProperty Name="GroupName" ColumnName="GroupName" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="HistoryUpdateDevices">
-            <EntityTypeMapping TypeName="ToolingRoomModel.HistoryUpdateDevice">
-              <MappingFragment StoreEntitySet="HistoryUpdateDevice">
-                <ScalarProperty Name="FirstData" ColumnName="FirstData" />
-                <ScalarProperty Name="UpdateData" ColumnName="UpdateData" />
-                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
-                <ScalarProperty Name="IdDevice" ColumnName="IdDevice" />
-                <ScalarProperty Name="IdUser" ColumnName="IdUser" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -841,6 +766,8 @@
           <EntitySetMapping Name="Warehouses">
             <EntityTypeMapping TypeName="ToolingRoomModel.Warehouse">
               <MappingFragment StoreEntitySet="Warehouse">
+                <ScalarProperty Name="IdUserSV2" ColumnName="IdUserSV2" />
+                <ScalarProperty Name="IdUserSV1" ColumnName="IdUserSV1" />
                 <ScalarProperty Name="IdUserManager" ColumnName="IdUserManager" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="WarehouseName" ColumnName="WarehouseName" />
@@ -870,6 +797,18 @@
                 <ScalarProperty Name="DeviceDate" ColumnName="DeviceDate" />
                 <ScalarProperty Name="DeviceName" ColumnName="DeviceName" />
                 <ScalarProperty Name="DeviceCode" ColumnName="DeviceCode" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HistoryUpdateDevices">
+            <EntityTypeMapping TypeName="ToolingRoomModel.HistoryUpdateDevice">
+              <MappingFragment StoreEntitySet="HistoryUpdateDevice">
+                <ScalarProperty Name="UpdateData" ColumnName="UpdateData" />
+                <ScalarProperty Name="FirstData" ColumnName="FirstData" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="IdDevice" ColumnName="IdDevice" />
+                <ScalarProperty Name="IdUser" ColumnName="IdUser" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

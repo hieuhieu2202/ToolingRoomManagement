@@ -1,6 +1,6 @@
 ﻿$(function () {
     GetSelectData();
-    SendFileToServer();
+    //SendFileToServer();
 
     //$('#device_edit-modal').modal('show');
 });
@@ -204,7 +204,7 @@ function Delete(elm, e) {
     e.preventDefault();
 
     var Id = $(elm).data('id');
-    var Index = tableDeviceInfo.row(`[data-id="${device.Id}"]`).index();  
+    var Index = tableDeviceInfo.row(`[data-id="${Id}"]`).index();  
 
     $.ajax({
         type: "POST",

@@ -18,10 +18,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Entities
         public Nullable<int> IdUser { get; set; }
         public Nullable<int> IdDevice { get; set; }
         public Nullable<System.DateTime> UpdateDate { get; set; }
-        public string UpdateData { get; set; }
         public string FirstData { get; set; }
-    
-        public virtual User User { get; set; }
-        public virtual Device Device { get; set; }
+        public string UpdateData { get; set; }
     }
 }

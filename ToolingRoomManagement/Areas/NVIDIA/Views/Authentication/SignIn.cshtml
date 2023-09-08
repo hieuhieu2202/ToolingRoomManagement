@@ -31,7 +31,7 @@
     <!-- Vendor -->
     <link href="~/Areas/NVIDIA/Content/Vendor/SweetAlert/swal.min.css" rel="stylesheet" />
     <!-- Custom -->
-    <link href="~/Areas/NVIDIA/Content/Custom/Authentication/css/SignIn.css" rel="stylesheet" />
+    <link href="~/Areas/NVIDIA/Content/Custom/Authentication/css/SignIn.css?v=@Guid.NewGuid()" rel="stylesheet" />
 </head>
 
 <body>
@@ -94,12 +94,12 @@
                                         <div class="row g-3">
                                             <div class="col-12">
                                                 <label for="inputCardId" class="form-label">Enter Card ID</label>
-                                                <input type="email" class="form-control" id="inputUsername" placeholder="Enter Card ID" maxlength="25">
+                                                <input type="email" class="form-control" id="inputUsername" placeholder="Enter Card ID" maxlength="25" autocomplete="off">
                                             </div>
                                             <div class="col-12">
                                                 <label for="inputPassword" class="form-label">Enter Password</label>
                                                 <div class="input-group" id="show_hide_password">
-                                                    <input type="password" class="form-control border-end-0" id="inputPassword" placeholder="Enter Password" maxlength="25"> 
+                                                    <input type="password" class="form-control border-end-0" id="inputPassword" placeholder="Enter Password" maxlength="25" autocomplete="off"> 
                                                     <a href="javascript:;" class="input-group-text bg-transparent"><i class='bx bx-hide'></i></a>
                                                 </div>
                                             </div>
@@ -158,7 +158,7 @@
     <script src="~/Areas/NVIDIA/Content/Vendor/SweetAlert/swal.min.js"></script>
 
     <!-- Custom -->
-    <script src="~/Areas/NVIDIA/Content/Custom/Authentication/js/SignIn.js"></script>
+    <script src="~/Areas/NVIDIA/Content/Custom/Authentication/js/SignIn.js?v=@Guid.NewGuid()"></script>
 </body>
 
 </html>

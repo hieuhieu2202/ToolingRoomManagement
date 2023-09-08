@@ -14,12 +14,6 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Entities
     
     public partial class Device
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Device()
-        {
-            this.HistoryUpdateDevices = new HashSet<HistoryUpdateDevice>();
-        }
-    
         public int Id { get; set; }
         public string DeviceCode { get; set; }
         public string DeviceName { get; set; }
@@ -46,7 +40,5 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Entities
         public virtual Product Product { get; set; }
         public virtual Station Station { get; set; }
         public virtual Vendor Vendor { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<HistoryUpdateDevice> HistoryUpdateDevices { get; set; }
     }
 }
