@@ -24,6 +24,7 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="IdBorrow" Type="int" />
           <Property Name="IdDevice" Type="int" />
+          <Property Name="BorrowQuantity" Type="int" />
         </EntityType>
         <EntityType Name="Department">
           <Key>
@@ -58,6 +59,16 @@
           <Property Name="Forcast" Type="float" />
           <Property Name="QtyConfirm" Type="int" />
           <Property Name="ACC_KIT" Type="nvarchar" MaxLength="10" />
+          <Property Name="RealQty" Type="int" />
+          <Property Name="ImagePath" Type="nvarchar" MaxLength="300" />
+        </EntityType>
+        <EntityType Name="DeviceWarehouseLayout">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdDevice" Type="int" />
+          <Property Name="IdWarehouseLayout" Type="int" />
         </EntityType>
         <EntityType Name="Group">
           <Key>
@@ -165,8 +176,18 @@
           <Property Name="WarehouseName" Type="nvarchar" MaxLength="50" />
           <Property Name="Description" Type="nvarchar" MaxLength="120" />
           <Property Name="IdUserManager" Type="int" />
-          <Property Name="IdUserSV1" Type="int" />
-          <Property Name="IdUserSV2" Type="int" />
+          <Property Name="Factory" Type="nvarchar" MaxLength="50" />
+          <Property Name="Floors" Type="int" />
+        </EntityType>
+        <EntityType Name="WarehouseLayout">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdWareHouse" Type="int" />
+          <Property Name="Line" Type="int" />
+          <Property Name="Floor" Type="int" />
+          <Property Name="Cell" Type="int" />
         </EntityType>
         <Association Name="FK_Borrow_User">
           <End Role="User" Type="Self.User" Multiplicity="0..1" />
@@ -276,6 +297,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_DeviceWarehouseLayout_Device">
+          <End Role="Device" Type="Self.Device" Multiplicity="0..1" />
+          <End Role="DeviceWarehouseLayout" Type="Self.DeviceWarehouseLayout" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Device">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DeviceWarehouseLayout">
+              <PropertyRef Name="IdDevice" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DeviceWarehouseLayout_WarehouseLayout">
+          <End Role="WarehouseLayout" Type="Self.WarehouseLayout" Multiplicity="0..1" />
+          <End Role="DeviceWarehouseLayout" Type="Self.DeviceWarehouseLayout" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WarehouseLayout">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DeviceWarehouseLayout">
+              <PropertyRef Name="IdWarehouseLayout" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_UserBorrowSign_Borrow">
           <End Role="Borrow" Type="Self.Borrow" Multiplicity="0..1" />
           <End Role="UserBorrowSign" Type="Self.UserBorrowSign" Multiplicity="*" />
@@ -360,11 +405,24 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_WarehouseLayout_Warehouse">
+          <End Role="Warehouse" Type="Self.Warehouse" Multiplicity="0..1" />
+          <End Role="WarehouseLayout" Type="Self.WarehouseLayout" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Warehouse">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="WarehouseLayout">
+              <PropertyRef Name="IdWareHouse" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="ToolingRoomModelStoreContainer">
           <EntitySet Name="Borrow" EntityType="Self.Borrow" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BorrowDevice" EntityType="Self.BorrowDevice" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Department" EntityType="Self.Department" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Device" EntityType="Self.Device" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DeviceWarehouseLayout" EntityType="Self.DeviceWarehouseLayout" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Group" EntityType="Self.Group" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="HistoryUpdateDevice" EntityType="Self.HistoryUpdateDevice" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Model" EntityType="Self.Model" Schema="dbo" store:Type="Tables" />
@@ -377,6 +435,7 @@
           <EntitySet Name="UserRole" EntityType="Self.UserRole" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Vendor" EntityType="Self.Vendor" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Warehouse" EntityType="Self.Warehouse" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WarehouseLayout" EntityType="Self.WarehouseLayout" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Borrow_User" Association="Self.FK_Borrow_User">
             <End Role="User" EntitySet="User" />
             <End Role="Borrow" EntitySet="Borrow" />
@@ -413,6 +472,14 @@
             <End Role="Warehouse" EntitySet="Warehouse" />
             <End Role="Device" EntitySet="Device" />
           </AssociationSet>
+          <AssociationSet Name="FK_DeviceWarehouseLayout_Device" Association="Self.FK_DeviceWarehouseLayout_Device">
+            <End Role="Device" EntitySet="Device" />
+            <End Role="DeviceWarehouseLayout" EntitySet="DeviceWarehouseLayout" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DeviceWarehouseLayout_WarehouseLayout" Association="Self.FK_DeviceWarehouseLayout_WarehouseLayout">
+            <End Role="WarehouseLayout" EntitySet="WarehouseLayout" />
+            <End Role="DeviceWarehouseLayout" EntitySet="DeviceWarehouseLayout" />
+          </AssociationSet>
           <AssociationSet Name="FK_UserBorrowSign_Borrow" Association="Self.FK_UserBorrowSign_Borrow">
             <End Role="Borrow" EntitySet="Borrow" />
             <End Role="UserBorrowSign" EntitySet="UserBorrowSign" />
@@ -441,6 +508,10 @@
             <End Role="User" EntitySet="User" />
             <End Role="Warehouse" EntitySet="Warehouse" />
           </AssociationSet>
+          <AssociationSet Name="FK_WarehouseLayout_Warehouse" Association="Self.FK_WarehouseLayout_Warehouse">
+            <End Role="Warehouse" EntitySet="Warehouse" />
+            <End Role="WarehouseLayout" EntitySet="WarehouseLayout" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -457,7 +528,6 @@
           <EntitySet Name="UserDepartments" EntityType="ToolingRoomModel.UserDepartment" />
           <EntitySet Name="UserRoles" EntityType="ToolingRoomModel.UserRole" />
           <EntitySet Name="Vendors" EntityType="ToolingRoomModel.Vendor" />
-          <EntitySet Name="Warehouses" EntityType="ToolingRoomModel.Warehouse" />
           <AssociationSet Name="FK_UserDepartment_Department" Association="ToolingRoomModel.FK_UserDepartment_Department">
             <End Role="Department" EntitySet="Departments" />
             <End Role="UserDepartment" EntitySet="UserDepartments" />
@@ -473,10 +543,6 @@
           <AssociationSet Name="FK_UserRole_User" Association="ToolingRoomModel.FK_UserRole_User">
             <End Role="User" EntitySet="Users" />
             <End Role="UserRole" EntitySet="UserRoles" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Warehouse_User" Association="ToolingRoomModel.FK_Warehouse_User">
-            <End Role="User" EntitySet="Users" />
-            <End Role="Warehouse" EntitySet="Warehouses" />
           </AssociationSet>
           <EntitySet Name="Devices" EntityType="ToolingRoomModel.Device" />
           <AssociationSet Name="FK_Device_Group" Association="ToolingRoomModel.FK_Device_Group">
@@ -497,10 +563,6 @@
           </AssociationSet>
           <AssociationSet Name="FK_Device_Vendor" Association="ToolingRoomModel.FK_Device_Vendor">
             <End Role="Vendor" EntitySet="Vendors" />
-            <End Role="Device" EntitySet="Devices" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Device_Warehouse" Association="ToolingRoomModel.FK_Device_Warehouse">
-            <End Role="Warehouse" EntitySet="Warehouses" />
             <End Role="Device" EntitySet="Devices" />
           </AssociationSet>
           <EntitySet Name="Borrows" EntityType="ToolingRoomModel.Borrow" />
@@ -527,6 +589,29 @@
             <End Role="UserBorrowSign" EntitySet="UserBorrowSigns" />
           </AssociationSet>
           <EntitySet Name="HistoryUpdateDevices" EntityType="ToolingRoomModel.HistoryUpdateDevice" />
+          <EntitySet Name="DeviceWarehouseLayouts" EntityType="ToolingRoomModel.DeviceWarehouseLayout" />
+          <EntitySet Name="WarehouseLayouts" EntityType="ToolingRoomModel.WarehouseLayout" />
+          <AssociationSet Name="FK_DeviceWarehouseLayout_Device" Association="ToolingRoomModel.FK_DeviceWarehouseLayout_Device">
+            <End Role="Device" EntitySet="Devices" />
+            <End Role="DeviceWarehouseLayout" EntitySet="DeviceWarehouseLayouts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DeviceWarehouseLayout_WarehouseLayout" Association="ToolingRoomModel.FK_DeviceWarehouseLayout_WarehouseLayout">
+            <End Role="WarehouseLayout" EntitySet="WarehouseLayouts" />
+            <End Role="DeviceWarehouseLayout" EntitySet="DeviceWarehouseLayouts" />
+          </AssociationSet>
+          <EntitySet Name="Warehouses" EntityType="ToolingRoomModel.Warehouse" />
+          <AssociationSet Name="FK_Device_Warehouse" Association="ToolingRoomModel.FK_Device_Warehouse">
+            <End Role="Warehouse" EntitySet="Warehouses" />
+            <End Role="Device" EntitySet="Devices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Warehouse_User" Association="ToolingRoomModel.FK_Warehouse_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Warehouse" EntitySet="Warehouses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WarehouseLayout_Warehouse" Association="ToolingRoomModel.FK_WarehouseLayout_Warehouse">
+            <End Role="Warehouse" EntitySet="Warehouses" />
+            <End Role="WarehouseLayout" EntitySet="WarehouseLayouts" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="Product">
           <Key>
@@ -590,8 +675,6 @@
           <NavigationProperty Name="UserDepartments" Relationship="ToolingRoomModel.FK_UserDepartment_User" FromRole="User" ToRole="UserDepartment" />
           <NavigationProperty Name="UserRoles" Relationship="ToolingRoomModel.FK_UserRole_User" FromRole="User" ToRole="UserRole" />
           <Property Name="Status" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Borrows" Relationship="ToolingRoomModel.FK_Borrow_User" FromRole="User" ToRole="Borrow" />
-          <NavigationProperty Name="UserBorrowSigns" Relationship="ToolingRoomModel.FK_UserBorrowSign_User" FromRole="User" ToRole="UserBorrowSign" />
         </EntityType>
         <EntityType Name="UserDepartment">
           <Key>
@@ -617,18 +700,6 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="VendorName" Type="String" MaxLength="120" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="Warehouse">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="WarehouseName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Description" Type="String" MaxLength="120" FixedLength="false" Unicode="true" />
-          <Property Name="IdUserManager" Type="Int32" />
-          <NavigationProperty Name="Devices" Relationship="ToolingRoomModel.FK_Device_Warehouse" FromRole="Warehouse" ToRole="Device" />
-          <Property Name="IdUserSV1" Type="Int32" />
-          <Property Name="IdUserSV2" Type="Int32" />
         </EntityType>
         <Association Name="FK_UserDepartment_Department">
           <End Type="ToolingRoomModel.Department" Role="Department" Multiplicity="0..1" />
@@ -678,18 +749,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Warehouse_User">
-          <End Type="ToolingRoomModel.User" Role="User" Multiplicity="0..1" />
-          <End Type="ToolingRoomModel.Warehouse" Role="Warehouse" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Warehouse">
-              <PropertyRef Name="IdUserManager" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="Device">
           <Key>
             <PropertyRef Name="Id" />
@@ -719,7 +778,8 @@
           <NavigationProperty Name="Station" Relationship="ToolingRoomModel.FK_Device_Station" FromRole="Device" ToRole="Station" />
           <NavigationProperty Name="Vendor" Relationship="ToolingRoomModel.FK_Device_Vendor" FromRole="Device" ToRole="Vendor" />
           <Property Name="QtyConfirm" Type="Int32" />
-          <NavigationProperty Name="BorrowDevices" Relationship="ToolingRoomModel.FK_BorrowDevice_Device" FromRole="Device" ToRole="BorrowDevice" />
+          <Property Name="RealQty" Type="Int32" />
+          <Property Name="ImagePath" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_Device_Group">
           <End Type="ToolingRoomModel.Group" Role="Group" Multiplicity="0..1" />
@@ -781,18 +841,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Device_Warehouse">
-          <End Type="ToolingRoomModel.Warehouse" Role="Warehouse" Multiplicity="0..1" />
-          <End Type="ToolingRoomModel.Device" Role="Device" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Warehouse">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Device">
-              <PropertyRef Name="IdWareHouse" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="Borrow">
           <Key>
             <PropertyRef Name="Id" />
@@ -815,8 +863,8 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="IdBorrow" Type="Int32" />
           <Property Name="IdDevice" Type="Int32" />
-          <NavigationProperty Name="Borrow" Relationship="ToolingRoomModel.FK_BorrowDevice_Borrow" FromRole="BorrowDevice" ToRole="Borrow" />
           <NavigationProperty Name="Device" Relationship="ToolingRoomModel.FK_BorrowDevice_Device" FromRole="BorrowDevice" ToRole="Device" />
+          <Property Name="BorrowQuantity" Type="Int32" />
         </EntityType>
         <EntityType Name="UserBorrowSign">
           <Key>
@@ -829,7 +877,6 @@
           <Property Name="IsApproved" Type="Boolean" />
           <Property Name="Note" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
           <Property Name="SignOrder" Type="Int32" />
-          <NavigationProperty Name="Borrow" Relationship="ToolingRoomModel.FK_UserBorrowSign_Borrow" FromRole="UserBorrowSign" ToRole="Borrow" />
           <NavigationProperty Name="User" Relationship="ToolingRoomModel.FK_UserBorrowSign_User" FromRole="UserBorrowSign" ToRole="User" />
         </EntityType>
         <Association Name="FK_Borrow_User">
@@ -903,6 +950,101 @@
           <Property Name="BeforeData" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="AfterData" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="DeviceWarehouseLayout">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdDevice" Type="Int32" />
+          <Property Name="IdWarehouseLayout" Type="Int32" />
+          <NavigationProperty Name="Device" Relationship="ToolingRoomModel.FK_DeviceWarehouseLayout_Device" FromRole="DeviceWarehouseLayout" ToRole="Device" />
+          <NavigationProperty Name="WarehouseLayout" Relationship="ToolingRoomModel.FK_DeviceWarehouseLayout_WarehouseLayout" FromRole="DeviceWarehouseLayout" ToRole="WarehouseLayout" />
+        </EntityType>
+        <EntityType Name="WarehouseLayout">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdWareHouse" Type="Int32" />
+          <Property Name="Line" Type="Int32" />
+          <Property Name="Floor" Type="Int32" />
+          <Property Name="Cell" Type="Int32" />
+          <NavigationProperty Name="DeviceWarehouseLayouts" Relationship="ToolingRoomModel.FK_DeviceWarehouseLayout_WarehouseLayout" FromRole="WarehouseLayout" ToRole="DeviceWarehouseLayout" />
+        </EntityType>
+        <Association Name="FK_DeviceWarehouseLayout_Device">
+          <End Type="ToolingRoomModel.Device" Role="Device" Multiplicity="0..1" />
+          <End Type="ToolingRoomModel.DeviceWarehouseLayout" Role="DeviceWarehouseLayout" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Device">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DeviceWarehouseLayout">
+              <PropertyRef Name="IdDevice" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DeviceWarehouseLayout_WarehouseLayout">
+          <End Type="ToolingRoomModel.WarehouseLayout" Role="WarehouseLayout" Multiplicity="0..1" />
+          <End Type="ToolingRoomModel.DeviceWarehouseLayout" Role="DeviceWarehouseLayout" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WarehouseLayout">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DeviceWarehouseLayout">
+              <PropertyRef Name="IdWarehouseLayout" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Warehouse">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="WarehouseName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="120" FixedLength="false" Unicode="true" />
+          <Property Name="IdUserManager" Type="Int32" />
+          <Property Name="Factory" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Floors" Type="Int32" />
+          <NavigationProperty Name="Devices" Relationship="ToolingRoomModel.FK_Device_Warehouse" FromRole="Warehouse" ToRole="Device" />
+          <NavigationProperty Name="User" Relationship="ToolingRoomModel.FK_Warehouse_User" FromRole="Warehouse" ToRole="User" />
+          <NavigationProperty Name="WarehouseLayouts" Relationship="ToolingRoomModel.FK_WarehouseLayout_Warehouse" FromRole="Warehouse" ToRole="WarehouseLayout" />
+        </EntityType>
+        <Association Name="FK_Device_Warehouse">
+          <End Type="ToolingRoomModel.Warehouse" Role="Warehouse" Multiplicity="0..1" />
+          <End Type="ToolingRoomModel.Device" Role="Device" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Warehouse">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Device">
+              <PropertyRef Name="IdWareHouse" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Warehouse_User">
+          <End Type="ToolingRoomModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="ToolingRoomModel.Warehouse" Role="Warehouse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Warehouse">
+              <PropertyRef Name="IdUserManager" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WarehouseLayout_Warehouse">
+          <End Type="ToolingRoomModel.Warehouse" Role="Warehouse" Multiplicity="0..1" />
+          <End Type="ToolingRoomModel.WarehouseLayout" Role="WarehouseLayout" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Warehouse">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="WarehouseLayout">
+              <PropertyRef Name="IdWareHouse" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1003,21 +1145,11 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Warehouses">
-            <EntityTypeMapping TypeName="ToolingRoomModel.Warehouse">
-              <MappingFragment StoreEntitySet="Warehouse">
-                <ScalarProperty Name="IdUserSV2" ColumnName="IdUserSV2" />
-                <ScalarProperty Name="IdUserSV1" ColumnName="IdUserSV1" />
-                <ScalarProperty Name="IdUserManager" ColumnName="IdUserManager" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="WarehouseName" ColumnName="WarehouseName" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Devices">
             <EntityTypeMapping TypeName="ToolingRoomModel.Device">
               <MappingFragment StoreEntitySet="Device">
+                <ScalarProperty Name="ImagePath" ColumnName="ImagePath" />
+                <ScalarProperty Name="RealQty" ColumnName="RealQty" />
                 <ScalarProperty Name="QtyConfirm" ColumnName="QtyConfirm" />
                 <ScalarProperty Name="ACC_KIT" ColumnName="ACC_KIT" />
                 <ScalarProperty Name="Forcast" ColumnName="Forcast" />
@@ -1057,6 +1189,7 @@
           <EntitySetMapping Name="BorrowDevices">
             <EntityTypeMapping TypeName="ToolingRoomModel.BorrowDevice">
               <MappingFragment StoreEntitySet="BorrowDevice">
+                <ScalarProperty Name="BorrowQuantity" ColumnName="BorrowQuantity" />
                 <ScalarProperty Name="IdDevice" ColumnName="IdDevice" />
                 <ScalarProperty Name="IdBorrow" ColumnName="IdBorrow" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
@@ -1084,6 +1217,38 @@
                 <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
                 <ScalarProperty Name="IdDevice" ColumnName="IdDevice" />
                 <ScalarProperty Name="IdUser" ColumnName="IdUser" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DeviceWarehouseLayouts">
+            <EntityTypeMapping TypeName="ToolingRoomModel.DeviceWarehouseLayout">
+              <MappingFragment StoreEntitySet="DeviceWarehouseLayout">
+                <ScalarProperty Name="IdWarehouseLayout" ColumnName="IdWarehouseLayout" />
+                <ScalarProperty Name="IdDevice" ColumnName="IdDevice" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WarehouseLayouts">
+            <EntityTypeMapping TypeName="ToolingRoomModel.WarehouseLayout">
+              <MappingFragment StoreEntitySet="WarehouseLayout">
+                <ScalarProperty Name="Cell" ColumnName="Cell" />
+                <ScalarProperty Name="Floor" ColumnName="Floor" />
+                <ScalarProperty Name="Line" ColumnName="Line" />
+                <ScalarProperty Name="IdWareHouse" ColumnName="IdWareHouse" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Warehouses">
+            <EntityTypeMapping TypeName="ToolingRoomModel.Warehouse">
+              <MappingFragment StoreEntitySet="Warehouse">
+                <ScalarProperty Name="Floors" ColumnName="Floors" />
+                <ScalarProperty Name="Factory" ColumnName="Factory" />
+                <ScalarProperty Name="IdUserManager" ColumnName="IdUserManager" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="WarehouseName" ColumnName="WarehouseName" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

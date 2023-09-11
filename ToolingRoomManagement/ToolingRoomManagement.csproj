@@ -1025,6 +1025,10 @@
     <Content Include="Areas\NVIDIA\Content\Vendor\ApexChart\apexcharts.min.js" />
     <Content Include="Areas\NVIDIA\Content\Vendor\Bootstrap-icons\bootstrap-icons.css" />
     <Content Include="Areas\NVIDIA\Content\Vendor\Bootstrap-icons\index.html" />
+    <Content Include="Areas\NVIDIA\Content\Vendor\bootstrap-select\bootstrap-select.css" />
+    <Content Include="Areas\NVIDIA\Content\Vendor\bootstrap-select\bootstrap-select.js" />
+    <Content Include="Areas\NVIDIA\Content\Vendor\bootstrap-select\bootstrap-select.min.css" />
+    <Content Include="Areas\NVIDIA\Content\Vendor\bootstrap-select\bootstrap-select.min.js" />
     <Content Include="Areas\NVIDIA\Content\Vendor\Bootstrap\css\bootstrap-grid.css" />
     <Content Include="Areas\NVIDIA\Content\Vendor\Bootstrap\css\bootstrap-grid.min.css" />
     <Content Include="Areas\NVIDIA\Content\Vendor\Bootstrap\css\bootstrap-grid.rtl.css" />
@@ -1146,6 +1150,9 @@
     <Content Include="Areas\NVIDIA\Content\Vendor\Font\font-roboto\Roboto-Thin.woff2" />
     <Content Include="Areas\NVIDIA\Content\Vendor\Font\font-roboto\Roboto-ThinItalic.woff" />
     <Content Include="Areas\NVIDIA\Content\Vendor\Font\font-roboto\Roboto-ThinItalic.woff2" />
+    <Content Include="Areas\NVIDIA\Content\Vendor\bootstrap-select\bootstrap-select.css.map" />
+    <Content Include="Areas\NVIDIA\Content\Vendor\bootstrap-select\bootstrap-select.js.map" />
+    <Content Include="Areas\NVIDIA\Content\Vendor\bootstrap-select\bootstrap-select.min.js.map" />
     <None Include="Areas\NVIDIA\Content\Vendor\Jquery\jquery-3.4.1.intellisense.js" />
     <Content Include="Areas\NVIDIA\Content\Vendor\Jquery\jquery-3.4.1.js" />
     <Content Include="Areas\NVIDIA\Content\Vendor\Jquery\jquery-3.4.1.min.js" />
@@ -2486,6 +2493,9 @@
     <Compile Include="Areas\NVIDIA\Entities\Device.cs">
       <DependentUpon>ToolingRoomModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Areas\NVIDIA\Entities\DeviceWarehouseLayout.cs">
+      <DependentUpon>ToolingRoomModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Areas\NVIDIA\Entities\Group.cs">
       <DependentUpon>ToolingRoomModel.tt</DependentUpon>
     </Compile>
@@ -2535,6 +2545,9 @@
       <DependentUpon>ToolingRoomModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Areas\NVIDIA\Entities\Warehouse.cs">
+      <DependentUpon>ToolingRoomModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\NVIDIA\Entities\WarehouseLayout.cs">
       <DependentUpon>ToolingRoomModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Areas\NVIDIA\NVIDIAAreaRegistration.cs" />

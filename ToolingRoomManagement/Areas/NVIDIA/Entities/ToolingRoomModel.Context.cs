@@ -35,11 +35,13 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Entities
         public virtual DbSet<UserDepartment> UserDepartments { get; set; }
         public virtual DbSet<UserRole> UserRoles { get; set; }
         public virtual DbSet<Vendor> Vendors { get; set; }
-        public virtual DbSet<Warehouse> Warehouses { get; set; }
         public virtual DbSet<Device> Devices { get; set; }
         public virtual DbSet<Borrow> Borrows { get; set; }
         public virtual DbSet<BorrowDevice> BorrowDevices { get; set; }
         public virtual DbSet<UserBorrowSign> UserBorrowSigns { get; set; }
         public virtual DbSet<HistoryUpdateDevice> HistoryUpdateDevices { get; set; }
+        public virtual DbSet<DeviceWarehouseLayout> DeviceWarehouseLayouts { get; set; }
+        public virtual DbSet<WarehouseLayout> WarehouseLayouts { get; set; }
+        public virtual DbSet<Warehouse> Warehouses { get; set; }
     }
 }

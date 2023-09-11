@@ -12,13 +12,13 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Entities
     using System;
     using System.Collections.Generic;
     
-    public partial class BorrowDevice
+    public partial class DeviceWarehouseLayout
     {
         public int Id { get; set; }
-        public Nullable<int> IdBorrow { get; set; }
         public Nullable<int> IdDevice { get; set; }
-        public Nullable<int> BorrowQuantity { get; set; }
+        public Nullable<int> IdWarehouseLayout { get; set; }
     
         public virtual Device Device { get; set; }
+        public virtual WarehouseLayout WarehouseLayout { get; set; }
     }
 }

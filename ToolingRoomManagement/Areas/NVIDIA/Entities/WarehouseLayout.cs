@@ -12,26 +12,21 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Entities
     using System;
     using System.Collections.Generic;
     
-    public partial class Warehouse
+    public partial class WarehouseLayout
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Warehouse()
+        public WarehouseLayout()
         {
-            this.Devices = new HashSet<Device>();
-            this.WarehouseLayouts = new HashSet<WarehouseLayout>();
+            this.DeviceWarehouseLayouts = new HashSet<DeviceWarehouseLayout>();
         }
     
         public int Id { get; set; }
-        public string WarehouseName { get; set; }
-        public string Description { get; set; }
-        public Nullable<int> IdUserManager { get; set; }
-        public string Factory { get; set; }
-        public Nullable<int> Floors { get; set; }
+        public Nullable<int> IdWareHouse { get; set; }
+        public Nullable<int> Line { get; set; }
+        public Nullable<int> Floor { get; set; }
+        public Nullable<int> Cell { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Device> Devices { get; set; }
-        public virtual User User { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<WarehouseLayout> WarehouseLayouts { get; set; }
+        public virtual ICollection<DeviceWarehouseLayout> DeviceWarehouseLayouts { get; set; }
     }
 }

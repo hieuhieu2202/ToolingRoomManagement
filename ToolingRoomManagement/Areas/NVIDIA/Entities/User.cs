@@ -19,8 +19,6 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Entities
         {
             this.UserDepartments = new HashSet<UserDepartment>();
             this.UserRoles = new HashSet<UserRole>();
-            this.Borrows = new HashSet<Borrow>();
-            this.UserBorrowSigns = new HashSet<UserBorrowSign>();
         }
     
         public int Id { get; set; }
@@ -38,9 +36,5 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Entities
         public virtual ICollection<UserDepartment> UserDepartments { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserRole> UserRoles { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Borrow> Borrows { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<UserBorrowSign> UserBorrowSigns { get; set; }
     }
 }

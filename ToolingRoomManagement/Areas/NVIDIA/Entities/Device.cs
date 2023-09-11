@@ -14,12 +14,6 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Entities
     
     public partial class Device
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Device()
-        {
-            this.BorrowDevices = new HashSet<BorrowDevice>();
-        }
-    
         public int Id { get; set; }
         public string DeviceCode { get; set; }
         public string DeviceName { get; set; }
@@ -40,13 +34,13 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Entities
         public Nullable<double> Forcast { get; set; }
         public string ACC_KIT { get; set; }
         public Nullable<int> QtyConfirm { get; set; }
+        public Nullable<int> RealQty { get; set; }
+        public string ImagePath { get; set; }
     
         public virtual Group Group { get; set; }
         public virtual Model Model { get; set; }
         public virtual Product Product { get; set; }
         public virtual Station Station { get; set; }
         public virtual Vendor Vendor { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<BorrowDevice> BorrowDevices { get; set; }
     }
 }

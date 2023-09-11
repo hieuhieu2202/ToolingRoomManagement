@@ -133,13 +133,15 @@
 
 <!-- Borrow Form modal -->
 <div class="modal fade" id="borrow_form-modal" aria-hidden="true">
-    <div class="modal-dialog modal-xl">
+    <div class="modal-dialog modal-xl modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Borrow Form</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
+                <h2 class="font-weight-light text-center text-primary py-3">BORROW FORM</h2>
+
                 <div class="row">
                     <div class="col-md-3">
                         <label class="form-label">Card Id</label>
@@ -158,24 +160,70 @@
                         <input type="datetime-local" class="form-control" id="form_borrow-DuaDate">
                     </div>
                 </div>
-                <div class="col-8">
-                    <table>
+                 
+                <div class="mt-3">
+                    <h4 class="font-weight-light text-center text-white py-3">DEVICES LIST</h4>
+                    <table class="table table-bordered" id="table_borrow">
                         <thead>
                             <tr>
                                 <th>Device Code</th>
                                 <th>Device Name</th>
-                                <th>Device </th>
+                                <th>Model</th>
+                                <th>Station</th>
+                                <th class="text-danger">Quantity Borrow</th>
                             </tr>
                         </thead>
+                        <tbody id="table_borrow-tbody">
+                        </tbody>
                     </table>
                 </div>
-                <div class="col-4">
 
+                <div class="container py-2">
+                    <h4 class="font-weight-light text-center text-white py-3">SIGN PROCESS</h4>
+                    <div id="sign-container">
+                        <div class="row">
+                            <!-- timeline item 1 left dot -->
+                            <div class="col-auto text-center flex-column d-none d-sm-flex">
+                                <div class="row h-50">
+                                    <div class="col">&nbsp;</div>
+                                    <div class="col">&nbsp;</div>
+                                </div>
+                                <h5 class="m-2">
+                                    <span class="badge rounded-pill bg-primary border">&nbsp;</span>
+                                </h5>
+                                <div class="row h-50">
+                                    <div class="col border-end">&nbsp;</div>
+                                    <div class="col" style="padding-right: 14px;">&nbsp;</div>
+                                </div>
+                            </div>
+                            <!-- timeline item 1 event content -->
+                            <div class="col py-2">
+                                <div class="card radius-15 card-sign">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <label class="form-label">Role</label>
+                                                <input type="text" class="form-control form-control" value="Warehouse Manager" disabled>
+                                            </div>
+                                            <div class="col-md-7">
+                                                <label class="form-label">User</label>
+                                                <select class="form-select form-select" id="sign-WarehouseManagerUser" style="background-color: #4a4a4a;" disabled select-user></select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="text-center" btn-add-sign>
+                        <button type="button" class="btn btn-outline-success px-5 border-0" id="btn_addSign"><i class="bx bx-plus"></i>New Sign</button>
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" id="button-save_modal">Send Borrow Form</button>
+                <button type="button" class="btn btn-primary" id="button_send">Send Borrow Form</button>
             </div>
         </div>
     </div>
@@ -185,6 +233,7 @@
     <!-- Vendor -->
     <script src="~/Areas/NVIDIA/Content/Template/Sysadmin/assets/plugins/datatable/js/jquery.dataTables.min.js"></script>
     <script src="~/Areas/NVIDIA/Content/Template/Sysadmin/assets/plugins/datatable/js/dataTables.bootstrap5.min.js"></script>
+
     <script src="~/Areas/NVIDIA/Content/Vendor/MomentJs/moment.js"></script>
     <script src="~/Areas/NVIDIA/Content/Template/Sysadmin/assets/plugins/select2/js/select2.min.js"></script>
     <!-- Custom -->
