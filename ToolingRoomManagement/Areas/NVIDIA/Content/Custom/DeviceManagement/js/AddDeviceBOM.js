@@ -165,7 +165,7 @@ async function CreateTableAddDevice(devices) {
         order: [],
         autoWidth: false,
         columnDefs: [
-            { targets: [0], width: '50px' },
+            { targets: [0], visible: false },
             { targets: [0, 4, 9, 10, 11], orderable: true },
             { targets: "_all", orderable: false },
             { targets: [ 8, 9, 10, 11], className: "text-center" },

@@ -12,13 +12,17 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Entities
     using System;
     using System.Collections.Generic;
     
-    public partial class HistoryUpdateDevice
+    public partial class UserBorrowSign
     {
         public int Id { get; set; }
         public Nullable<int> IdUser { get; set; }
-        public Nullable<int> IdDevice { get; set; }
-        public Nullable<System.DateTime> UpdateDate { get; set; }
-        public string BeforeData { get; set; }
-        public string AfterData { get; set; }
+        public Nullable<int> IdBorrow { get; set; }
+        public Nullable<System.DateTime> DateSign { get; set; }
+        public Nullable<bool> IsApproved { get; set; }
+        public string Note { get; set; }
+        public Nullable<int> SignOrder { get; set; }
+    
+        public virtual Borrow Borrow { get; set; }
+        public virtual User User { get; set; }
     }
 }

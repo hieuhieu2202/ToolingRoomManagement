@@ -11,34 +11,33 @@ using ToolingRoomManagement.Attributes;
 
 namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
 {
-    [Authentication(AllowAnonymous = false)]
     public class DeviceManagementController : Controller
     {
         ToolingRoomEntities db = new ToolingRoomEntities();
         // GET: NVIDIA/DeviceManagement
         [HttpGet]
+        [Authentication(AllowAnonymous = false)]
         public ActionResult DeviceManagement()
         {
             return View();
         }
+
         [HttpGet]
+        [Authentication(AllowAnonymous = false)]
         public ActionResult AddDeviceManual()
         {
             return View();
         }
+
         [HttpGet]
+        [Authentication(AllowAnonymous = false)]
         public ActionResult AddDeviceBOM()
         {
             return View();
         }
-        [HttpGet]
-        public ActionResult TakeDevice()
-        { 
-            return View();
-        }
-
 
         [HttpPost]
+        [Authentication(AllowAnonymous = false)]
         public JsonResult AddDeviceManual(FormCollection form)
         {
             try
@@ -135,7 +134,9 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 return Json(new {status = false, message = ex.Message});
             }
         }
+
         [HttpPost]
+        [Authentication(AllowAnonymous = false)]
         public JsonResult AddDeviceAuto(HttpPostedFileBase file, int IdWareHouse)
         {        
             try
@@ -233,7 +234,6 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 return Json(new { status = false, message = ex.Message });
             }
         }
-
         private Entities.Device CreateDevice(ExcelWorksheet worksheet, int row, int IdWareHouse)
         {
             Entities.Device device = new Entities.Device();
@@ -361,6 +361,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
 
 
         [HttpPost]
+        [Authentication(AllowAnonymous = false)]
         public JsonResult GetWarehouseDevices(int IdWarehouse)
         {
             try
@@ -383,7 +384,9 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 return Json(new { status = false, message = ex.Message });
             }
         }
+
         [HttpPost]
+        [Authentication(AllowAnonymous = false)]
         public JsonResult DeleteDevice(int Id)
         {
             try
@@ -410,7 +413,9 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
             }
         }
 
+
         [HttpPost]
+        [Authentication(AllowAnonymous = true)]
         public JsonResult GetDevice(int Id)
         {
             try
@@ -432,7 +437,9 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
             }
         }
 
+
         [HttpGet]
+        [Authentication(AllowAnonymous = true)]
         public JsonResult GetSelectData()
         {
             try
@@ -454,7 +461,9 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
             }
         }
 
+
         [HttpPost]
+        [Authentication(AllowAnonymous = false)]
         public JsonResult ConfirmDevice(int Id, int QtyConfirm)
         {
             try
@@ -500,6 +509,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
         }
 
         [HttpPost]
+        [Authentication(AllowAnonymous = false)]
         public JsonResult UpdateDevice(Entities.Device device)
         {
             try
@@ -539,9 +549,5 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 return Json(new { status = false, message = ex.Message });
             }
         }
-
-
-
-
     }
 }

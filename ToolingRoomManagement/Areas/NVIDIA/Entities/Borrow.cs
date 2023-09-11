@@ -12,34 +12,26 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Entities
     using System;
     using System.Collections.Generic;
     
-    public partial class User
+    public partial class Borrow
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public User()
+        public Borrow()
         {
-            this.UserDepartments = new HashSet<UserDepartment>();
-            this.UserRoles = new HashSet<UserRole>();
-            this.Borrows = new HashSet<Borrow>();
+            this.BorrowDevices = new HashSet<BorrowDevice>();
             this.UserBorrowSigns = new HashSet<UserBorrowSign>();
         }
     
         public int Id { get; set; }
-        public string Username { get; set; }
-        public string Password { get; set; }
-        public string Email { get; set; }
-        public string VnName { get; set; }
-        public string CnName { get; set; }
-        public string EnName { get; set; }
-        public Nullable<System.DateTime> HireDate { get; set; }
-        public Nullable<System.DateTime> LeaveDate { get; set; }
+        public Nullable<int> IdUser { get; set; }
+        public Nullable<System.DateTime> DateBorrow { get; set; }
+        public Nullable<System.DateTime> DateReturn { get; set; }
         public string Status { get; set; }
+        public string Type { get; set; }
+        public Nullable<System.DateTime> DateDue { get; set; }
     
+        public virtual User User { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<UserDepartment> UserDepartments { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<UserRole> UserRoles { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Borrow> Borrows { get; set; }
+        public virtual ICollection<BorrowDevice> BorrowDevices { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserBorrowSign> UserBorrowSigns { get; set; }
     }

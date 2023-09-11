@@ -147,14 +147,14 @@
     <Content Include="Areas\NVIDIA\Content\Custom\Authentication\css\SignUp.css" />
     <Content Include="Areas\NVIDIA\Content\Custom\Authentication\js\SignIn.js" />
     <Content Include="Areas\NVIDIA\Content\Custom\Authentication\js\SignUp.js" />
+    <Content Include="Areas\NVIDIA\Content\Custom\BorrowManagement\css\BorrowDevice.css" />
+    <Content Include="Areas\NVIDIA\Content\Custom\BorrowManagement\js\BorrowDevice.js" />
     <Content Include="Areas\NVIDIA\Content\Custom\DeviceManagement\css\AddDeviceBOM.css" />
     <Content Include="Areas\NVIDIA\Content\Custom\DeviceManagement\css\AddDeviceManual.css" />
     <Content Include="Areas\NVIDIA\Content\Custom\DeviceManagement\css\DeviceManagement.css" />
-    <Content Include="Areas\NVIDIA\Content\Custom\DeviceManagement\css\TakeDevice.css" />
     <Content Include="Areas\NVIDIA\Content\Custom\DeviceManagement\js\AddDeviceBOM.js" />
     <Content Include="Areas\NVIDIA\Content\Custom\DeviceManagement\js\AddDeviceManual.js" />
     <Content Include="Areas\NVIDIA\Content\Custom\DeviceManagement\js\DeviceManagement.js" />
-    <Content Include="Areas\NVIDIA\Content\Custom\DeviceManagement\js\TakeDevice.js" />
     <Content Include="Areas\NVIDIA\Content\Custom\Layout\CustomLayout.css" />
     <Content Include="Areas\NVIDIA\Content\Custom\Layout\CustomLayout.js" />
     <Content Include="Areas\NVIDIA\Content\Image\Double-Ring-loading.gif" />
@@ -2470,9 +2470,16 @@
     <Compile Include="Areas\Admin\Controllers\StationController.cs" />
     <Compile Include="Areas\Admin\Controllers\StationRobotController.cs" />
     <Compile Include="Areas\NVIDIA\Controllers\AuthenticationController.cs" />
+    <Compile Include="Areas\NVIDIA\Controllers\BorrowManagementController.cs" />
     <Compile Include="Areas\NVIDIA\Controllers\DashboardController.cs" />
     <Compile Include="Areas\NVIDIA\Controllers\DeviceManagementController.cs" />
     <Compile Include="Areas\NVIDIA\Controllers\UserManagementController.cs" />
+    <Compile Include="Areas\NVIDIA\Entities\Borrow.cs">
+      <DependentUpon>ToolingRoomModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\NVIDIA\Entities\BorrowDevice.cs">
+      <DependentUpon>ToolingRoomModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Areas\NVIDIA\Entities\Department.cs">
       <DependentUpon>ToolingRoomModel.tt</DependentUpon>
     </Compile>
@@ -2513,6 +2520,9 @@
       <DependentUpon>ToolingRoomModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Areas\NVIDIA\Entities\User.cs">
+      <DependentUpon>ToolingRoomModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\NVIDIA\Entities\UserBorrowSign.cs">
       <DependentUpon>ToolingRoomModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Areas\NVIDIA\Entities\UserDepartment.cs">
@@ -2887,13 +2897,15 @@
     </Content>
     <Content Include="Areas\NVIDIA\Views\DeviceManagement\AddDeviceBOM.cshtml" />
     <Content Include="Areas\NVIDIA\Content\Vendor\Toats\toastr.js.map" />
-    <Content Include="Areas\NVIDIA\Views\DeviceManagement\TakeDevice.cshtml" />
     <Content Include="Areas\NVIDIA\Views\Authentication\SignIn.cshtml" />
     <Content Include="Areas\NVIDIA\Views\Dashboard\Index.cshtml" />
     <Content Include="Areas\NVIDIA\Views\Authentication\SignUp.cshtml" />
     <Content Include="Areas\NVIDIA\Views\Shared\_IotSystem.cshtml" />
     <Content Include="Areas\NVIDIA\Views\DeviceManagement\DeviceManagement.cshtml" />
     <Content Include="Areas\NVIDIA\Views\DeviceManagement\AddDeviceManual.cshtml" />
+    <Content Include="Areas\NVIDIA\Views\BorrowManagement\BorrowManagement.cshtml" />
+    <Content Include="Areas\NVIDIA\Views\BorrowManagement\BorrowDevice.cshtml" />
+    <Content Include="Areas\NVIDIA\Views\BorrowManagement\ReturnDevice.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -2921,8 +2933,6 @@
     <Folder Include="Areas\Admin\Views\StationRobot\" />
     <Folder Include="Areas\Admin\Views\Station\" />
     <Folder Include="Areas\NVIDIA\Data\" />
-    <Folder Include="Areas\NVIDIA\Views\SignManager\" />
-    <Folder Include="Areas\NVIDIA\Views\UserManagement\" />
     <Folder Include="Data\Image\" />
     <Folder Include="Views\Register\" />
   </ItemGroup>

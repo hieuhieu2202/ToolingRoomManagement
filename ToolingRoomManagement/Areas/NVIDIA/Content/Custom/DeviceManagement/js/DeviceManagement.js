@@ -5,37 +5,8 @@
 });
 
 
-function GetWarehouseDevices(IdWarehouse = 0) {
-    Pace.track(function () {
-        $.ajax({
-            url: "/NVIDIA/DeviceManagement/GetWarehouseDevices",
-            data: JSON.stringify({ IdWarehouse: IdWarehouse }),
-            type: "POST",
-            dataType: "json",
-            contentType: "application/json;charset=utf-8",
-            success: function (response) {
-                if (response.status) {
-                    var devices = response.warehouse.Devices;
 
-                    CreateTableAddDevice(devices);
-                    //CreateBomFileInfo(response);
-                    //GetSelectData();
-                }
-                else {
-                    Swal.fire('Sorry, something went wrong!', response.message, 'error');
-                }
-            },
-            error: function (error) {
-                Swal.fire('Sorry, something went wrong!', GetAjaxErrorMessage(error), 'error');
-            },
-            complete: function () {
-                // Dừng Pace.js sau khi AJAX request hoàn thành
-                Pace.stop();
-            }
-        });
-    });
-}
-
+// table
 var tableDeviceInfo;
 async function CreateTableAddDevice(devices) {
     if (tableDeviceInfo) tableDeviceInfo.destroy();
@@ -127,11 +98,11 @@ async function CreateTableAddDevice(devices) {
         order: [],
         autoWidth: false,
         columnDefs: [
-            { targets: [0], width: '50px' },
             { targets: [0, 4, 9, 10, 11], orderable: true },
             { targets: "_all", orderable: false },
             { targets: [8, 9, 10, 11], className: "text-center" },
             { targets: [12], className: "text-end" },
+            { targets: [0], visible: false },
         ],
         "lengthMenu": [[10, 15, 25, 50, -1], [10, 15, 25, 50, "All"]]
     };
@@ -139,6 +110,43 @@ async function CreateTableAddDevice(devices) {
     tableDeviceInfo.columns.adjust();
 }
 
+// get data device
+function GetWarehouseDevices(IdWarehouse = 0) {
+    Pace.track(function () {
+        $.ajax({
+            url: "/NVIDIA/DeviceManagement/GetWarehouseDevices",
+            data: JSON.stringify({ IdWarehouse: IdWarehouse }),
+            type: "POST",
+            dataType: "json",
+            contentType: "application/json;charset=utf-8",
+            success: function (response) {
+                if (response.status) {
+                    var devices = response.warehouse.Devices.reverse();
+
+                    CreateTableAddDevice(devices);
+                    //CreateBomFileInfo(response);
+                    //GetSelectData();
+                }
+                else {
+                    Swal.fire('Sorry, something went wrong!', response.message, 'error');
+                }
+            },
+            error: function (error) {
+                Swal.fire('Sorry, something went wrong!', GetAjaxErrorMessage(error), 'error');
+            },
+            complete: function () {
+                // Dừng Pace.js sau khi AJAX request hoàn thành
+                Pace.stop();
+            }
+        });
+    });
+}
+
+$('#input_WareHouse').on('change', function (e) {
+    e.preventDefault();
+
+    GetWarehouseDevices($(this).val());
+});
 
 
 // Get Select data
@@ -619,7 +627,7 @@ $('#filter').on('click', function (e) {
 
     // Kiểm tra và áp dụng bộ lọc cho từng cột (nếu giá trị không rỗng)
     if (filter_Product !== "Product" && filter_Product !== null && filter_Product !== undefined) {
-        tableDeviceInfo.column(0).search("^" + filter_MTS + "$", true, false);
+        tableDeviceInfo.column(1).search("^" + filter_Product + "$", true, false);
     }
     if (filter_Model !== "Model" && filter_Model !== null && filter_Model !== undefined) {
         tableDeviceInfo.column(2).search("^" + filter_Model + "$", true, false);

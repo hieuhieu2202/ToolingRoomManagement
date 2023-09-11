@@ -23,7 +23,6 @@
 
     <!--plugins-->
     <link href="~/Areas/NVIDIA/Content/Template/Sysadmin/assets/plugins/simplebar/css/simplebar.css" rel="stylesheet" />
-    <link href="~/Areas/NVIDIA/Content/Template/Sysadmin/assets/plugins/fancy-file-uploader/fancy_fileupload.css" rel="stylesheet" />
     <link href="~/Areas/NVIDIA/Content/Template/Sysadmin/assets/plugins/perfect-scrollbar/css/perfect-scrollbar.css" rel="stylesheet" />
     <link href="~/Areas/NVIDIA/Content/Template/Sysadmin/assets/plugins/metismenu/css/metisMenu.min.css" rel="stylesheet" />
     <link href="~/Areas/NVIDIA/Content/Vendor/SweetAlert/swal.min.css" rel="stylesheet" />
@@ -44,16 +43,6 @@
 
     <!-- For Page -->
     @RenderSection("styles", false)
-
-    @{ // Razor page
-        var SignInUser = (ToolingRoomManagement.Areas.NVIDIA.Entities.User)Session["SignSession"];
-        //var Role = "";
-        using(var db = new ToolingRoomManagement.Areas.NVIDIA.Entities.ToolingRoomEntities())
-            {
-
-            }
-    }
-
 </head>
 
 <body>
@@ -75,6 +64,8 @@
             </div>
             <!--navigation-->
             <ul class="metismenu" id="menu">
+
+                <!-- Dashboard-->
                 <li>
                     <a href="/NVIDIA/Dashboard">
                         <div class="parent-icon">
@@ -83,8 +74,8 @@
                         <div class="menu-title">Dashboard</div>
                     </a>
                 </li>
-
                 <li class="menu-label">Management</li>
+                <!-- Device -->
                 <li>
                     <a class="has-arrow" href="javascript:;">
                         <div class="parent-icon">
@@ -94,23 +85,57 @@
                     </a>
                     <ul>
                         <li>
-                            <a href="/NVIDIA/DeviceManagement/DeviceManagement"><i class="bx bx-right-arrow-alt"></i>Device Management</a>
+                            <a href="/NVIDIA/DeviceManagement/DeviceManagement">Device Management</a>
                         </li>
                         <li>
-                            <a class="has-arrow" href="javascript:;"><i class="bx bx-right-arrow-alt"></i>New Device</a>
+                            <a class="has-arrow" href="javascript:;">New Device</a>
                             <ul>
-                                <li><a href="/NVIDIA/DeviceManagement/AddDeviceManual"><i class="bx bx-right-arrow-alt"></i>Manual</a></li>
-                                <li><a href="/NVIDIA/DeviceManagement/AddDeviceBOM"><i class="bx bx-right-arrow-alt"></i>BOM File</a></li>
+                                <li><a href="/NVIDIA/DeviceManagement/AddDeviceManual">Manual</a></li>
+                                <li><a href="/NVIDIA/DeviceManagement/AddDeviceBOM">BOM File</a></li>
                             </ul>
-                        </li>
-                        <li>
-                            <a href="/NVIDIA/DeviceManagement/TakeDevice"><i class="bx bx-right-arrow-alt"></i>Take Device</a>
-                        </li>
-                        <li>
-                            <a href="javascript:;"><i class="bx bx-right-arrow-alt"></i>Return Device</a>
                         </li>
                     </ul>
                 </li>
+                <!-- Borrow -->
+                <li>
+                    <a class="has-arrow" href="javascript:;">
+                        <div class="parent-icon">
+                            <i class='bx bx bx-transfer-alt'></i>
+                        </div>
+                        <div class="menu-title">Borrow</div>
+                    </a>
+                    <ul>
+                        <li>
+                            <a href="/NVIDIA/BorrowManagement/BorrowManagement">Borrow Management</a>
+                        </li>
+                        <li>
+                            <a class="has-arrow" href="javascript:;">Borrow Device</a>
+                            <ul>
+                                <li><a href="/NVIDIA/BorrowManagement/BorrowDevice">Borrow Form</a></li>
+                                <li><a href="/NVIDIA/BorrowManagement/ReturnDevice">Return Form</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="menu-label">Warehouse</li>
+                <li>
+                    <a class="has-arrow" href="javascript:;">
+                        <div class="parent-icon">
+                            <i class='bx bx bx-transfer-alt'></i>
+                        </div>
+                        <div class="menu-title">Warehouse Management</div>
+                    </a>
+                    <ul>
+                        <li>
+                            <a href="javascript:;">Warehouse</a>
+                        </li>
+                        <li>
+                            <a href="javascript:;">Layout</a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- Others-->
                 <li class="menu-label">Others</li>
                 <li>
                     <a href="javascript:;" target="_blank">

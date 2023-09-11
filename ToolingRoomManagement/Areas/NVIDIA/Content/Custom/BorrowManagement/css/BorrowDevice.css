@@ -11,20 +11,9 @@
 .table-hover > tbody > tr:hover > * {
     background-color: rgb(136 51 255 / 15%) !important;
 }
+
 #table_Devices td:nth-child(1) {
-    max-width: 150px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-#table_Devices td:nth-child(5) {
-    max-width: 150px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-#table_Devices td:nth-child(7) {
-    max-width: 100px;
+    max-width: 200px;
     overflow: hidden;
     text-overflow: ellipsis;
 }
@@ -33,15 +22,6 @@
     box-shadow: 0px 0px 20px 6px #888888;
     background-color: black;
 }
-.table-message td:nth-child(1) {
-    min-width: 180px;
-    vertical-align: middle;
-    text-align: left;
-}
-
-.table-message td:nth-child(2) {
-    text-align: left;
-}
 
 .dropdown-menu {
     min-width: unset;
@@ -49,3 +29,8 @@
     padding: 10px;
     border-radius: 10px;
 }
+.modal-content {
+    box-shadow: 0px 0px 10px 0px #888888 !important;
+}
+
+
