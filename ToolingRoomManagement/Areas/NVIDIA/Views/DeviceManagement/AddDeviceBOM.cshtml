@@ -174,16 +174,13 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <!-- Id -->
-                <div class="col-3">
-                    <div class="input-group mb-3">
-                        <span class="col-6 input-group-text">ID</span>
-                        <input type="text" class="col-6 form-control" id="device_edit-DeviceId" disabled>
-                    </div>
-                </div>
-
                 <div class="row">
                     <div class="col-6">
+                        <!-- Id -->
+                        <div class="input-group mb-3">
+                            <span class="col-3 input-group-text">ID</span>
+                            <input type="text" class="col-9 form-control" id="device_edit-DeviceId" disabled>
+                        </div>
                         <!-- Device Code -->
                         <div class="input-group mb-3">
                             <span class="col-3 input-group-text">Device Code</span>
@@ -194,11 +191,7 @@
                             <span class="col-3 input-group-text">Device name</span>
                             <input class="col-9 form-control" type="text" id="device_edit-DeviceName">
                         </div>
-                        <!-- Device Date -->
-                        <div class="input-group mb-3">
-                            <span class="col-3 input-group-text">Created date</span>
-                            <input class="col-9 form-control" type="datetime-local" id="device_edit-DeviceDate">
-                        </div>
+
                         <!-- Relation -->
                         <div class="input-group mb-3">
                             <span class="col-3 input-group-text">Relation</span>
@@ -229,8 +222,18 @@
                             <span class="col-3 input-group-text">Qty Confirm</span>
                             <input class="col-9 form-control" type="number" id="device_edit-QtyConfirm">
                         </div>
+                        <!-- QtyConfirm -->
+                        <div class="input-group mb-3">
+                            <span class="col-3 input-group-text">Real Quantity</span>
+                            <input class="col-9 form-control" type="number" id="device_edit-RealQty">
+                        </div>
                     </div>
                     <div class="col-6">
+                        <!-- Device Date -->
+                        <div class="input-group mb-3">
+                            <span class="col-3 input-group-text">Created date</span>
+                            <input class="form-control" type="datetime-local" id="device_edit-DeviceDate">
+                        </div>
                         <!-- ACC_KIT -->
                         <div class="input-group mb-3">
                             <span class="col-3 input-group-text">ACC KIT</span>
@@ -257,7 +260,7 @@
                                 <option value="Part Confirmed">Part Confirmed</option>
                                 <option value="Confirmed">Confirmed</option>
                                 <option value="Locked">Locked</option>
-                                <option value="Depleted">Depleted</option>
+                                <option value="Out Range">Out Range</option>
                             </select>
                         </div>
                         <!-- WareHouse -->
@@ -292,7 +295,6 @@
                         </div>
                     </div>
                 </div>
-
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

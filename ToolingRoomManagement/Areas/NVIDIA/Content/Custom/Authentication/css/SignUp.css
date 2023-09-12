@@ -4,6 +4,12 @@
 
 #card_SignIn {
     box-shadow: 0px 0px 10px 0px #888888 !important;
+    height: 80vh;
+    overflow-y: scroll;
+    width: 50rem;
+}
+#card_SignIn::-webkit-scrollbar {
+    display: none !important;
 }
 
 .swal2-container.swal2-center > .swal2-popup {

@@ -13,6 +13,11 @@
 }
 
 #table_Devices td:nth-child(1) {
+    max-width: 120px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+#table_Devices td:nth-child(2) {
     max-width: 200px;
     overflow: hidden;
     text-overflow: ellipsis;

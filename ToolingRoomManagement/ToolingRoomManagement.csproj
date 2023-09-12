@@ -2481,6 +2481,7 @@
     <Compile Include="Areas\NVIDIA\Controllers\DashboardController.cs" />
     <Compile Include="Areas\NVIDIA\Controllers\DeviceManagementController.cs" />
     <Compile Include="Areas\NVIDIA\Controllers\UserManagementController.cs" />
+    <Compile Include="Areas\NVIDIA\Data\Common.cs" />
     <Compile Include="Areas\NVIDIA\Entities\Borrow.cs">
       <DependentUpon>ToolingRoomModel.tt</DependentUpon>
     </Compile>
@@ -2945,7 +2946,6 @@
     <Folder Include="Areas\Admin\Views\SheildingBox\" />
     <Folder Include="Areas\Admin\Views\StationRobot\" />
     <Folder Include="Areas\Admin\Views\Station\" />
-    <Folder Include="Areas\NVIDIA\Data\" />
     <Folder Include="Data\Image\" />
     <Folder Include="Views\Register\" />
   </ItemGroup>

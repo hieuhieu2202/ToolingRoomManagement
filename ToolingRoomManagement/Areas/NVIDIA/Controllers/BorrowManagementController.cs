@@ -29,13 +29,10 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult BorrowDevice(int[] IdDevices, int[] QtyDevices, int[] SignProcess, string UserBorrow, DateTime BorrowDate, DateTime DueDate)
+        public ActionResult BorrowDevice(int[] IdDevices, int[] QtyDevices, int[] SignProcess, string UserBorrow, DateTime BorrowDate, DateTime? DueDate)
         {
             try
             {
-                System.Diagnostics.Debug.WriteLine("sss");
-
-
                 // Device
                 Entities.Borrow borrow = new Entities.Borrow();
                 borrow.DateBorrow = BorrowDate;
@@ -53,14 +50,15 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 List<Entities.BorrowDevice> borrowDevices = new List<Entities.BorrowDevice>();
                 for(int i = 0; i < IdDevices.Length; i++)
                 {
+                    int IdDevice = IdDevices[i];
 
-                    Entities.Device device = db.Devices.FirstOrDefault(d => d.Id == IdDevices[i]);
+                    Entities.Device device = db.Devices.FirstOrDefault(d => d.Id == IdDevice);
 
                     if(device != null)
                     {
-                        if(device.RealQty - QtyDevices[i] > 0)
+                        if(device.RealQty - QtyDevices[i] >= 0)
                         {
-                            device.RealQty -= QtyDevices[i];
+                            device.RealQty -= QtyDevices[i]; // trừ vào số lượng thực tế
                             Entities.BorrowDevice borrowDevice = new Entities.BorrowDevice
                             {
                                 IdBorrow = borrow.Id,
@@ -71,13 +69,14 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                         }
                         else
                         {
-                            // return false
+                            return Json(new { status = false, message = "Please double check Quantity Borrow." });
                         }
-                        
+
+                        device.Status = Data.Common.CheckStatus(device);
                     }
                     else
                     {
-                        // return false
+                        return Json(new { status = false, message = "Device is not found." });
                     }
                     
                 }
@@ -99,7 +98,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
 
                 db.SaveChanges();
 
-                return View();
+                return Json(new { status = true});
             }
             catch (Exception ex)
             {

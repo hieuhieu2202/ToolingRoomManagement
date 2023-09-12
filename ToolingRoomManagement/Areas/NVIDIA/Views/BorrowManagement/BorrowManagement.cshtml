@@ -4,13 +4,90 @@
     Layout = "~/Areas/NVIDIA/Views/Shared/_NvidiaLayoutShared.cshtml";
 }
 
-<div class="d-flex align-items-center justify-content-center">
-    <div class="card shadow-none bg-transparent">
-        <div class="card-body text-center">
-            <h1 class="display-4 mt-5">We are Coming Soon!</h1>
-            <p>
-                We are currently working hard on this page.
-            </p>
+@section styles{
+    <!-- Vendor -->
+    <link href="~/Areas/NVIDIA/Content/Template/Sysadmin/assets/plugins/datatable/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
+    <!-- Custom -->
+
+}
+
+<div class="page-breadcrumb d-none d-sm-flex align-items-center py-3">
+    <div class="breadcrumb-title pe-3">Management</div>
+    <div class="ps-3">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-0 p-0">
+                <li class="breadcrumb-item">
+                    <a href="/NVIDIA/Dashboard/Index"><i class="bx bx-home-alt"></i></a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">Borrow - Return</li>              
+            </ol>
+        </nav>
+    </div>
+</div>
+
+<div class="row row-cols-1 row-cols-lg-4">
+    <div class="col">
+        <div class="card radius-10">
+            <div class="card-body">
+                <div class="d-flex align-items-center">
+                    <div class="flex-grow-1">
+                        <p class="mb-0">Total Borrow Form</p>
+                        <h4 class="font-weight-bold">32,842 <small class="text-success font-13">(+40%)</small></h4>
+                        <p class="text-success mb-0 font-13">Analytics for last week</p>
+                    </div>
+                    <div class="widgets-icons bg-gradient-cosmic text-white">
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="card radius-10">
+            <div class="card-body">
+                <div class="d-flex align-items-center">
+                    <div class="flex-grow-1">
+                        <p class="mb-0">Goal Completions</p>
+                        <h4 class="font-weight-bold">1,94,2335</h4>
+                        <p class="text-secondary mb-0 font-13">Analytics for last month</p>
+                    </div>
+                    <div class="widgets-icons bg-gradient-kyoto text-white">
+                        <i class='bx bxs-cube'></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="card radius-10">
+            <div class="card-body">
+                <div class="d-flex align-items-center">
+                    <div class="flex-grow-1">
+                        <p class="mb-0">Time on Site</p>
+                        <h4 class="font-weight-bold">34m 14s <small class="text-success font-13">(+55%)</small></h4>
+                        <p class="text-secondary mb-0 font-13">Analytics for last week</p>
+                    </div>
+                    <div class="widgets-icons bg-gradient-lush text-white">
+                        <i class='bx bx-time'></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="card radius-10">
+            <div class="card-body">
+                <div class="d-flex align-items-center">
+                    <div class="flex-grow-1">
+                        <p class="mb-0">Users</p>
+                        <h4 class="font-weight-bold">16,352 <small class="text-success font-13">(+22%)</small></h4>
+                        <p class="text-secondary mb-0 font-13">Analytics for last week</p>
+                    </div>
+                    <div class="widgets-icons bg-gradient-burning text-white">
+                        <i class='bx bx-group'></i>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

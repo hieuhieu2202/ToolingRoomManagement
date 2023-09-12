@@ -13,7 +13,7 @@ namespace ToolingRoomManagement.Attributes
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, Inherited = true, AllowMultiple = true)]
     public class Authentication : AuthorizeAttribute
     {
-        public bool AllowAnonymous { get; set; } = true;
+        public bool AllowAnonymous { get; set; } = false;
         protected override bool AuthorizeCore(HttpContextBase httpContext)
         {
             string currentUrl = httpContext.Request.Url.ToString();

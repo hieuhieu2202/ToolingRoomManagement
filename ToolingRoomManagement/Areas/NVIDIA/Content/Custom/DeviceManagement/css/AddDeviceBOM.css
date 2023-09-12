@@ -38,21 +38,24 @@
     overflow: hidden;
 }
 
-#table_addDevice td:nth-child(2) {
+#table_addDevice td:nth-child(1) {
     max-width: 150px;
     overflow: hidden;
     text-overflow: ellipsis;
 }
-#table_addDevice td:nth-child(6) {
+
+#table_addDevice td:nth-child(5) {
     max-width: 150px;
     overflow: hidden;
     text-overflow: ellipsis;
 }
-#table_addDevice td:nth-child(8) {
+
+#table_addDevice td:nth-child(7) {
     max-width: 100px;
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
 .table-message td:nth-child(1) {
     min-width: 180px;
     vertical-align: middle;

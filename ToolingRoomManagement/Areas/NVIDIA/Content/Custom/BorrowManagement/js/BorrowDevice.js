@@ -138,11 +138,11 @@ function GetWarehouseDevices(IdWarehouse = 0) {
                             addUserEnName += ` (${warehouse.User.EnName})`;
                             opt.text(addUserEnName);
                         }
-                        if (warehouse.User.Email != null && warehouse.User.Email != '') {
-                            var addUserEnName = opt.text();
-                            addUserEnName += ` - [${warehouse.User.Email}]`;
-                            opt.text(addUserEnName);
-                        }
+                        //if (warehouse.User.Email != null && warehouse.User.Email != '') {
+                        //    var addUserEnName = opt.text();
+                        //    addUserEnName += ` - [${warehouse.User.Email}]`;
+                        //    opt.text(addUserEnName);
+                        //}
                         $('#sign-WarehouseManagerUser').append(opt);
                     }
                 }
@@ -165,28 +165,30 @@ async function CreateTableAddDevice(devices) {
 
     $('#table_Devices_tbody').html('');
     await $.each(devices, function (no, item) {
+        if (item.Status != "Confirmed" && item.Status != "Part Confirmed" && item.Status != "Out Range") return true;
+
         var row = $(`<tr class="align-middle" data-id="${item.Id}"></tr>`);
 
-        // Id Device
+        // MTS
         row.append(`<td>${item.Id}</td>`);
         // Product Name
-        row.append(`<td title="${item.Product.ProductName}">${item.Product.ProductName}</td>`);
+        row.append(`<td title="${(item.Product) ? item.Product.ProductName : ""}">${(item.Product) ? item.Product.ProductName : ""}</td>`);
         // Model
-        row.append(`<td>${item.Model.ModelName}</td>`);
+        row.append(`<td>${(item.Model) ? item.Model.ModelName : ""}</td>`);
         // Station
-        row.append(`<td>${item.Station.StationName}</td>`);
+        row.append(`<td>${(item.Station) ? item.Station.StationName : ""}</td>`);
         // DeviceCode - PN
-        row.append(`<td data-id="${item.Id}" data-code="${item.DeviceCode}">${item.DeviceCode}</td>`);
+        row.append(`<td data-id="${item.Id}" data-code="${item.DeviceCode}" title="${item.DeviceCode}">${item.DeviceCode}</td>`);
         // DeviceName
         row.append(`<td title="${item.DeviceName}">${item.DeviceName}</td>`);
         // Group
-        row.append(`<td>${item.Group.GroupName}</td>`);
+        row.append(`<td>${(item.Group) ? item.Group.GroupName : ""}</td>`);
         // Vendor
-        row.append(`<td title="${item.Vendor.VendorName}">${item.Vendor.VendorName}</td>`);
+        row.append(`<td title="${(item.Vendor) ? item.Vendor.VendorName : ""}">${(item.Vendor) ? item.Vendor.VendorName : ""}</td>`);
         // Buffer
-        row.append(`<td>${item.Buffer * 100}%</td>`);
+        row.append(`<td title="${item.Buffer}">${item.Buffer * 100}%</td>`);
         // Quantity
-        row.append(`<td>${item.Quantity}</td>`);
+        row.append(`<td title="(Quantity) / (Quantity Confirm) / (Real Quantity)">${item.Quantity} / ${(item.QtyConfirm != null) ? item.QtyConfirm : 0} / ${(item.RealQty != null) ? item.RealQty : 0}</td>`);
         // Type
         switch (item.Type) {
             case "S": {
@@ -255,48 +257,50 @@ async function CreateTableAddDevice(devices) {
             { targets: [0, 1, 2, 3, 6, 7, 8], visible: false },
         ],
         createdRow: function (row, data, dataIndex) {
-            var check = $('td', row).eq(5).find('button[type="button"]');
-
-            check.on('click', function () {
-                if ($('#form_device-select .input-group').length < 10) {
-                    let inputGroup = $('<div class="input-group input-group-sm mb-3"></div>');
-                    let formControl = $(`<div class="form-control" data-id="${data[0]}" data-index="${dataIndex}"></div>`);
-                    let deviceName = $(`<p class="m-0 overflow-hidden text-nowrap text-truncate" title="${data[4]}">${data[5]}</p>`);
-                    let deleteBtn = $(`<button class="btn btn-sm btn-outline-danger" type="button"><i class="bx bx-trash m-0"></i></button>`);
-
-                    deleteBtn.on('click', function (e) {
-                        inputGroup.remove();
-                    });
-                    formControl.append(deviceName);
-
-                    inputGroup.append(formControl);
-                    inputGroup.append(deleteBtn);
-
-                    let bodyInputGroups = $('#form_device-select .input-group');
-                    let check = false;
-                    $.each(bodyInputGroups, function (k, v) {
-                        if ($(v).html() === $(inputGroup[0]).html()) {
-                            check = true;
-                            return false;
-                        }
-                    });
-                    if (!check) {
-                        $('#form_device-select').append(inputGroup);
-                    }
-                    else {
-                        toastr["error"]('This device has been selected.', "ERROR");
-                    }
-                }
-                else {
-                    Swal.fire('Sorry, something went wrong!', 'You have selected too many devices (limit is 10 devices).', 'error');
-                }
-            });
+            attachButtonClickEvent(row, data, dataIndex);
         },
     };
     tableDeviceInfo = $('#table_Devices').DataTable(options);
     tableDeviceInfo.columns.adjust();
 }
+function attachButtonClickEvent(row, data, dataIndex) {
+    var check = $('td', row).eq(5).find('button[type="button"]');
 
+    check.off('click').on('click', function () {
+        if ($('#form_device-select .input-group').length < 10) {
+            let inputGroup = $('<div class="input-group input-group-sm mb-3"></div>');
+            let formControl = $(`<div class="form-control" data-id="${data[0]}" data-index="${dataIndex}"></div>`);
+            let deviceName = $(`<p class="m-0 overflow-hidden text-nowrap text-truncate" title="${data[4]}">${data[5]}</p>`);
+            let deleteBtn = $(`<button class="btn btn-sm btn-outline-danger" type="button"><i class="bx bx-trash m-0"></i></button>`);
+
+            deleteBtn.on('click', function (e) {
+                inputGroup.remove();
+            });
+            formControl.append(deviceName);
+
+            inputGroup.append(formControl);
+            inputGroup.append(deleteBtn);
+
+            let bodyInputGroups = $('#form_device-select .input-group');
+            let check = false;
+            $.each(bodyInputGroups, function (k, v) {
+                if ($(v).html() === $(inputGroup[0]).html()) {
+                    check = true;
+                    return false;
+                }
+            });
+            if (!check) {
+                $('#form_device-select').append(inputGroup);
+            }
+            else {
+                toastr["error"]('This device has been selected.', "ERROR");
+            }
+        }
+        else {
+            Swal.fire('Sorry, something went wrong!', 'You have selected too many devices (limit is 10 devices).', 'error');
+        }
+    });
+}
 
 //filter
 $('#filter').on('click', function (e) {
@@ -373,14 +377,14 @@ $('#CreateBorrowForm').on('click', function (e) {
 
     $('#table_borrow-tbody').empty();
     $.each(IndexDevices, function (k, v) {
-        deviceData = tableDeviceInfo.row(v).data();
+        var deviceData = tableDeviceInfo.row(v).data();
 
-        var tr = $(`<tr class="align-middle" data-id="${IdDevices[k]}"></tr>`);
+        var tr = $(`<tr class="align-middle" data-id="${IdDevices[k]}" data-index="${v}"></tr>`);
         tr.append(`<td>${deviceData[4]}</td>`);
         tr.append(`<td>${deviceData[5]}</td>`);
         tr.append(`<td>${deviceData[2]}</td>`);
         tr.append(`<td>${deviceData[3]}</td>`);
-        tr.append(`<td style="max-width: 120px;"><input class="form-control" type="number" placeholder="max = ${deviceData[9]}" autocomplete="off"></td>`);
+        tr.append(`<td style="max-width: 120px;"><input class="form-control" type="number" placeholder="max = ${deviceData[9].split('/')[2]}" autocomplete="off"></td>`);
 
         $('#table_borrow-tbody').append(tr);
     });
@@ -509,6 +513,9 @@ $('#button_send').on('click', function (e) {
     var IdDevices = $('#table_borrow-tbody tr').map(function () {
         return $(this).data('id');
     }).get();
+    var IndexDevices = $('#table_borrow-tbody tr').map(function () {
+        return $(this).data('index');
+    }).get();
     var QtyDevices = $('#table_borrow-tbody tr').map(function () {
         return parseInt($(this).find('.form-control').val());
     }).get();
@@ -527,11 +534,8 @@ $('#button_send').on('click', function (e) {
         BorrowDate: BorrowDate,
         DueDate: DueDate
     }
-    console.log(BorrowData);
 
     if (!ValidateSendFormData(BorrowData)) return;
-
-    console.log('valid');
 
     $.ajax({
         type: "POST",
@@ -542,6 +546,44 @@ $('#button_send').on('click', function (e) {
         success: function (response) {
             if (response.status) {
                 toastr["success"]("Edit device success.", "SUCCRESS");
+
+                $.each(IndexDevices, function (k, v) {
+                    var deviceData = tableDeviceInfo.row(v).data();
+
+                    // Quantity
+                    var oldQtyCell = deviceData[9].split('/');
+
+                    var newRealQuantity = parseInt(oldQtyCell[2] - QtyDevices[k]);
+                    var newQtyCell = `${oldQtyCell[0]} / ${oldQtyCell[1]} / ${newRealQuantity}`;
+
+                    deviceData[9] = newQtyCell;                  
+
+                    // Status
+                    var bufferString = deviceData[8].replace("%", "");
+                    var buffernumber = parseFloat(bufferString) / 100;
+                    var quantityNumber = parseInt(oldQtyCell[0]);
+
+                    if (newRealQuantity < (quantityNumber * buffernumber)) {
+                        // nếu realQty < giới hạn
+                        // lớn hơn 1: báo warning
+                        // bằng 0   : báo danger
+                        if (newRealQuantity >= 1) {
+                            tableDeviceInfo.row(v).nodes().to$().addClass('bg-light-danger');
+                            deviceData[11] = '<span class="badge bg-danger">Out Range</span>';
+
+                            tableDeviceInfo.row(v).data(deviceData).draw(false); // cập nhật data của row
+                            attachButtonClickEvent(tableDeviceInfo.row(v).node(), deviceData, v); // add lại sự kiện
+                        }
+                        else {
+                            tableDeviceInfo.row(v).nodes().to$().addClass('bg-dark');
+                            deviceData[11] = '<span class="badge bg-secondary">Locked</span>';
+
+                            tableDeviceInfo.row(v).data(deviceData).draw(false); // cập nhật data của row
+                        }
+                    }
+                });
+
+                $('#borrow_form-modal').modal('hide');
             }
             else {
                 toastr["error"](response.message, "ERROR");
@@ -583,11 +625,11 @@ function CreateUserOption(user) {
         addUserEnName += ` (${user.EnName})`;
         opt.text(addUserEnName);
     }
-    if (user.Email != null && user.Email != '') {
-        var addUserEnName = opt.text();
-        addUserEnName += ` - [${user.Email}]`;
-        opt.text(addUserEnName);
-    }
+    //if (user.Email != null && user.Email != '') {
+    //    var addUserEnName = opt.text();
+    //    addUserEnName += ` - [${user.Email}]`;
+    //    opt.text(addUserEnName);
+    //}
     return opt;
 }
 
