@@ -8,8 +8,6 @@ using System.Web;
 using System.Web.Mvc;
 using ToolingRoomManagement.Areas.NVIDIA.Entities;
 using ToolingRoomManagement.Attributes;
-using ToolingRoomManagement.Areas.NVIDIA.Data;
-using Model.EF;
 
 namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
 {

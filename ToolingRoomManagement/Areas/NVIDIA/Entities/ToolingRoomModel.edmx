@@ -16,6 +16,7 @@
           <Property Name="Type" Type="nvarchar" MaxLength="50" />
           <Property Name="DateDue" Type="datetime" />
           <Property Name="IdUser" Type="int" />
+          <Property Name="Note" Type="nvarchar" MaxLength="300" />
         </EntityType>
         <EntityType Name="BorrowDevice">
           <Key>
@@ -855,6 +856,7 @@
           <NavigationProperty Name="UserBorrowSigns" Relationship="ToolingRoomModel.FK_UserBorrowSign_Borrow" FromRole="Borrow" ToRole="UserBorrowSign" />
           <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="DateDue" Type="DateTime" Precision="3" />
+          <Property Name="Note" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="BorrowDevice">
           <Key>
@@ -1176,6 +1178,7 @@
           <EntitySetMapping Name="Borrows">
             <EntityTypeMapping TypeName="ToolingRoomModel.Borrow">
               <MappingFragment StoreEntitySet="Borrow">
+                <ScalarProperty Name="Note" ColumnName="Note" />
                 <ScalarProperty Name="DateDue" ColumnName="DateDue" />
                 <ScalarProperty Name="Type" ColumnName="Type" />
                 <ScalarProperty Name="Status" ColumnName="Status" />

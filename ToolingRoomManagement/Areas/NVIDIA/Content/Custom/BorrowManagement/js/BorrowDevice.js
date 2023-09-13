@@ -370,8 +370,8 @@ $('#CreateBorrowForm').on('click', function (e) {
     $('#form_borrow-CardId').val($('#CardID').text());
     $('#form_borrow-Username').val($('#Name').text());
 
-    var borrowDate = moment.utc();
-    var dueDate = moment.utc().add(7, 'days');
+    var borrowDate = moment();
+    var dueDate = moment().add(7, 'days');
     $('#form_borrow-BorrowDate').val(borrowDate.format('YYYY-MM-DDTHH:mm:ss'));
     $('#form_borrow-DuaDate').val(dueDate.format('YYYY-MM-DDTHH:mm:ss'));
 
@@ -525,6 +525,7 @@ $('#button_send').on('click', function (e) {
     var UserBorrow = $('#CardID').text();
     var BorrowDate = $('#form_borrow-BorrowDate').val();
     var DueDate = $('#form_borrow-DuaDate').val();
+    var Note = $('#form_borrow-Note').val();
 
     var BorrowData = {
         IdDevices: IdDevices,
@@ -532,7 +533,8 @@ $('#button_send').on('click', function (e) {
         SignProcess: SignProcess,
         UserBorrow: UserBorrow,
         BorrowDate: BorrowDate,
-        DueDate: DueDate
+        DueDate: DueDate,
+        Note: Note
     }
 
     if (!ValidateSendFormData(BorrowData)) return;

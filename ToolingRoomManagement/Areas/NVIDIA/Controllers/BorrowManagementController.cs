@@ -1,62 +1,93 @@
-﻿using OfficeOpenXml.FormulaParsing.Excel.Functions.Math;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
+using System.Text.Json;
 using System.Web.Mvc;
 using ToolingRoomManagement.Areas.NVIDIA.Entities;
+using ToolingRoomManagement.Attributes;
 
 namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
 {
+    [Authentication]
     public class BorrowManagementController : Controller
     {
-        ToolingRoomEntities db = new ToolingRoomEntities();
+        private ToolingRoomEntities db = new ToolingRoomEntities();
 
-        // GET: NVIDIA/BorrowManagement
+        // BorrowManagement
+        [HttpGet]
         public ActionResult BorrowManagement()
-        {
-            return View();
-        }
-        
-        public ActionResult ReturnDevice()
         {
             return View();
         }
 
         [HttpGet]
+        public JsonResult GetUserBorrows()
+        {
+            try
+            {
+                Entities.User user = (Entities.User)Session["SignSession"];
+
+                List<Borrow> borrows = db.Borrows.Where(b => b.IdUser == user.Id).ToList();
+
+                return Json(new { status = true, borrows = JsonSerializer.Serialize(borrows) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpGet]
+        public JsonResult GetBorrow(int Id)
+        {
+            try
+            {
+                Borrow borrow = db.Borrows.FirstOrDefault(b => b.Id == Id);
+
+                return Json(new { status = true, borrow = JsonSerializer.Serialize(borrow) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        // Borrow
+        [HttpGet]
         public ActionResult BorrowDevice()
         {
             return View();
         }
+
         [HttpPost]
-        public ActionResult BorrowDevice(int[] IdDevices, int[] QtyDevices, int[] SignProcess, string UserBorrow, DateTime BorrowDate, DateTime? DueDate)
+        public ActionResult BorrowDevice(int[] IdDevices, int[] QtyDevices, int[] SignProcess, string UserBorrow, DateTime BorrowDate, DateTime? DueDate, string Note)
         {
             try
             {
                 // Device
                 Entities.Borrow borrow = new Entities.Borrow();
                 borrow.DateBorrow = BorrowDate;
-                if(DueDate != null)
+                if (DueDate != null)
                 {
                     borrow.DateDue = DueDate;
                 }
                 borrow.Status = "Pending";
                 borrow.Type = "Borrow";
+                borrow.Note = Note;
                 borrow.IdUser = db.Users.FirstOrDefault(u => u.Username == UserBorrow).Id;
                 db.Borrows.Add(borrow);
 
-
                 // Borrow <> Device
                 List<Entities.BorrowDevice> borrowDevices = new List<Entities.BorrowDevice>();
-                for(int i = 0; i < IdDevices.Length; i++)
+                for (int i = 0; i < IdDevices.Length; i++)
                 {
                     int IdDevice = IdDevices[i];
 
                     Entities.Device device = db.Devices.FirstOrDefault(d => d.Id == IdDevice);
 
-                    if(device != null)
+                    if (device != null)
                     {
-                        if(device.RealQty - QtyDevices[i] >= 0)
+                        if (device.RealQty - QtyDevices[i] >= 0)
                         {
                             device.RealQty -= QtyDevices[i]; // trừ vào số lượng thực tế
                             Entities.BorrowDevice borrowDevice = new Entities.BorrowDevice
@@ -78,13 +109,12 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                     {
                         return Json(new { status = false, message = "Device is not found." });
                     }
-                    
                 }
                 db.BorrowDevices.AddRange(borrowDevices);
 
                 // User <> Borrow => Sign
-                List<Entities.UserBorrowSign> userBorrowSigns = new List<UserBorrowSign>(); 
-                for (int i = 0; i< SignProcess.Length; i++)
+                List<Entities.UserBorrowSign> userBorrowSigns = new List<UserBorrowSign>();
+                for (int i = 0; i < SignProcess.Length; i++)
                 {
                     Entities.UserBorrowSign userBorrowSign = new Entities.UserBorrowSign
                     {
@@ -98,29 +128,11 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
 
                 db.SaveChanges();
 
-                return Json(new { status = true});
+                return Json(new { status = true });
             }
             catch (Exception ex)
             {
                 return Json(new { status = false, message = ex.Message });
-            }
-        }
-        [HttpGet]
-        public JsonResult GetUserAndRole()
-        {
-            try
-            {
-                var users = db.Users.ToList();
-                var roles = db.Roles.Where(r => r.RoleName != "admin").ToList();
-                foreach(var user in users)
-                {
-                    user.Password = string.Empty;
-                }
-                return Json(new { status = true, users, roles }, JsonRequestBehavior.AllowGet);
-            }
-            catch (Exception ex)
-            {
-                return Json(new { status = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
 
@@ -146,6 +158,32 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
             {
                 return Json(new { status = false, message = ex.Message });
             }
+        }
+
+        [HttpGet]
+        public JsonResult GetUserAndRole()
+        {
+            try
+            {
+                var users = db.Users.ToList();
+                var roles = db.Roles.Where(r => r.RoleName != "admin").ToList();
+                foreach (var user in users)
+                {
+                    user.Password = string.Empty;
+                }
+                return Json(new { status = true, users, roles }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        // Return
+        [HttpGet]
+        public ActionResult ReturnDevice()
+        {
+            return View();
         }
     }
 }

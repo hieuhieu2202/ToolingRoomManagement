@@ -28,6 +28,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Entities
         public string Status { get; set; }
         public string Type { get; set; }
         public Nullable<System.DateTime> DateDue { get; set; }
+        public string Note { get; set; }
     
         public virtual User User { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
