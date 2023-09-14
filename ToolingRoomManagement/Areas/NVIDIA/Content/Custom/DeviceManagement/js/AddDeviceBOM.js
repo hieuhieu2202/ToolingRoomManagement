@@ -24,7 +24,6 @@ $('#fileInput').on('change', function (e) {
     //		clearInterval(processInterval);
     //	}
     //},50)
-
 });
 function SendFileToServer() {
     const fileInput = document.querySelector('#fileInput');
@@ -151,14 +150,14 @@ async function CreateTableAddDevice(devices) {
                                 <a href="javascript:;" class="text-success bg-light-success border-0 mb-2" title="Confirm" data-id="${item.Id}" onclick="Confirm(this, event)"><i class="bx bx-check"></i></a>
                                 <a href="javascript:;" class="text-warning bg-light-warning border-0 mb-2" title="Edit   " data-id="${item.Id}" onclick="Edit(this, event)   "><i class="bx bxs-edit"></i></a>
                                 <a href="javascript:;" class="text-danger  bg-light-danger  border-0     " title="Delete " data-id="${item.Id}" onclick="Delete(this, event) "><i class="bx bxs-trash"></i></a>
-						    </div>					    	
+						    </div>
 					</div></td>`);
 
         $('#table_addDevice_tbody').append(row);
     });
 
-    $('#card-device-details').fadeIn(300); 
-    
+    $('#card-device-details').fadeIn(300);
+
     const options = {
         scrollY: 500,
         scrollX: true,
@@ -169,8 +168,8 @@ async function CreateTableAddDevice(devices) {
             { targets: [0, 4, 9, 10, 11], orderable: true },
             { targets: "_all", orderable: false },
             { targets: [ 8, 9, 10, 11], className: "text-center" },
-            { targets: [12], className: "text-end" },          
-        ],               
+            { targets: [12], className: "text-end" },
+        ],
     };
     tableDeviceInfo = $('#table_addDevice').DataTable(options);
     tableDeviceInfo.columns.adjust();
@@ -204,7 +203,7 @@ function Delete(elm, e) {
     e.preventDefault();
 
     var Id = $(elm).data('id');
-    var Index = tableDeviceInfo.row(`[data-id="${Id}"]`).index();  
+    var Index = tableDeviceInfo.row(`[data-id="${Id}"]`).index();
 
     $.ajax({
         type: "POST",
@@ -214,7 +213,7 @@ function Delete(elm, e) {
         contentType: "application/json;charset=utf-8",
         success: function (response) {
             if (response.status) {
-                var device = response.device;                
+                var device = response.device;
                 // message box
                 Swal.fire({
                     title: `<strong style="font-size: 25px;">Do you want Confirm this device?</strong>`,
@@ -337,12 +336,9 @@ async function FillEditDeviceData(data) {
 }
 $('#button-save_modal').on('click', function (e) {
     e.preventDefault();
-    
+
     var device = GetModalData();
     var Index = tableDeviceInfo.row(`[data-id="${device.Id}"]`).index();
-
-    //console.log(Index);
-    //return;
 
     $.ajax({
         type: "POST",
@@ -368,7 +364,6 @@ $('#button-save_modal').on('click', function (e) {
             Swal.fire("Something went wrong!", GetAjaxErrorMessage(error), "error");
         }
     });
-
 });
 function GetModalData() {
     return data = {
@@ -510,13 +505,13 @@ function GetSelectData() {
                         opt2 = $(`<option value="${item.Id}">${item.WarehouseName}</option>`);
                     }
                     $('#device_edit-WareHouse').append(opt1);
-                    $('#input_WareHouse').append(opt2);                  
+                    $('#input_WareHouse').append(opt2);
                 });
                 // Product
                 $('#device_edit-Product').empty();
                 $.each(response.products, function (k, item) {
                     let opt = $(`<option value="${item.Id}">${item.ProductName} | ${item.MTS}</option>`);
-                    $('#device_edit-Product').append(opt);                   
+                    $('#device_edit-Product').append(opt);
                 });
                 // Model
                 $('#device_edit-Model').empty();
@@ -555,7 +550,6 @@ function GetSelectData() {
 
 // Other function
 function GetAjaxErrorMessage(error) {
-
     var regex = new RegExp(`<title>(.*?)<\/title>`);
     var match = regex.exec(error.responseText);
 
@@ -640,7 +634,7 @@ function DrawRowEditDevice(item) {
                                         <a href="javascript:;" class="text-success bg-light-success border-0 mb-2" title="Confirm" data-id="${item.Id}" onclick="Confirm(this, event)"><i class="bx bx-check"></i></a>
                                         <a href="javascript:;" class="text-warning bg-light-warning border-0 mb-2" title="Edit   " data-id="${item.Id}" onclick="Edit(this, event)   "><i class="bx bxs-edit"></i></a>
                                         <a href="javascript:;" class="text-danger  bg-light-danger  border-0     " title="Delete " data-id="${item.Id}" onclick="Delete(this, event) "><i class="bx bxs-trash"></i></a>
-					         	    </div>					    	
+					         	    </div>
 					         </div></td>`);
     }
 

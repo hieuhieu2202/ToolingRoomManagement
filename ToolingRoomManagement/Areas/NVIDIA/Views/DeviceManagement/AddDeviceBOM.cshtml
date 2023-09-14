@@ -1,6 +1,5 @@
-﻿
-@{
-    ViewBag.Title = "New Device From BOM";
+﻿@{
+    ViewBag.Title = "New Device";
     Layout = "~/Areas/NVIDIA/Views/Shared/_NvidiaLayoutShared.cshtml";
 }
 
@@ -82,7 +81,6 @@
                                             <span class="uploaded-file__counter" id="process_count">0%</span>
                                             <div class="uploaded-file__info-process" id="process_bar"></div>
                                         </div>
-
                                     </div>
                                 </div>
                             </div>
@@ -127,7 +125,6 @@
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
@@ -162,7 +159,6 @@
             </table>
         </div>
     </div>
-
 </div>
 
 <!-- Edit modal -->
@@ -311,7 +307,7 @@
     <script src="~/Areas/NVIDIA/Content/Template/Sysadmin/assets/plugins/datatable/js/dataTables.bootstrap5.min.js"></script>
     <script src="~/Areas/NVIDIA/Content/Vendor/MomentJs/moment.js"></script>
     <script src="~/Areas/NVIDIA/Content/Template/Sysadmin/assets/plugins/select2/js/select2.min.js"></script>
-    <!-- Custom -->        
+    <!-- Custom -->
     <script src="~/Areas/NVIDIA/Content/Custom/DeviceManagement/js/AddDeviceBOM.js?v=@Guid.NewGuid()"></script>
     <script type="text/javascript">
         $('#input_WareHouse').select2({
@@ -372,4 +368,3 @@
         });
     </script>
 }
-

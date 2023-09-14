@@ -33,7 +33,6 @@
                     <div class="flex-grow-1">
                         <p class="mb-0">Total Request</p>
                         <h4 class="font-weight-bold" id="info-request"></h4>
-                        <p class="text-secondary mb-0 font-13">Analysis for this week / last week</p>
                     </div>
                     <div class="widgets-icons bg-gradient-cosmic text-white">
                         <i class="bx bx-transfer-alt"></i>
@@ -50,7 +49,6 @@
                     <div class="flex-grow-1">
                         <p class="mb-0">Pending</p>
                         <h4 class="font-weight-bold" id="info-pending"></h4>
-                        <p class="text-secondary mb-0 font-13">Analysis for this week / last week</p>
                     </div>
                     <div class="widgets-icons bg-gradient-kyoto text-white">
                         <i class='bx bx-time'></i>
@@ -67,7 +65,6 @@
                     <div class="flex-grow-1">
                         <p class="mb-0">Approved</p>
                         <h4 class="font-weight-bold" id="info-approved"></h4>
-                        <p class="text-secondary mb-0 font-13">Analysis for this week / last week</p>
                     </div>
                     <div class="widgets-icons bg-gradient-lush text-white">
                         <i class='bx bx-check'></i>
@@ -84,7 +81,6 @@
                     <div class="flex-grow-1">
                         <p class="mb-0">Rejected</p>
                         <h4 class="font-weight-bold" id="info-rejected"></h4>
-                        <p class="text-secondary mb-0 font-13">Analysis for this week / last week</p>
                     </div>
                     <div class="widgets-icons bg-gradient-burning text-white">
                         <i class='bx bx-x'></i>
@@ -122,17 +118,16 @@
     </div>
 </div>
 
-
 <!-- Borrow Request modal -->
 <div class="modal fade" id="borrow_modal" aria-hidden="true">
     <div class="modal-dialog modal-xl modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Borrow Request Modal</h5>
+                <h5 class="modal-title" id="borrow_modal-title"></h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <h2 class="font-weight-light text-center text-primary py-3">BORROW REQUEST</h2>
+                <h2 class="font-weight-light text-center text-primary py-3" id="borrow_modal-name">BORROW REQUEST</h2>
 
                 <div class="row">
                     <div class="col-md-4">
@@ -157,7 +152,7 @@
                     </div>
                     <div class="col-md-12 mt-3">
                         <label class="form-label">Note</label>
-                        <div class="form-control" rows="3" id="borrow_modal-Note" ><p></p></div>
+                        <div class="form-control" rows="3" id="borrow_modal-Note"><p></p></div>
                     </div>
                 </div>
 
@@ -178,11 +173,12 @@
                     </table>
                 </div>
 
-                <div class="container py-2">
+                <div class="container py-2" id="sign-container">
                     <h4 class="font-weight-light text-center text-white py-3">SIGN PROCESS</h4>
                     <!-- timeline item 2 -->
                     <div class="row">
-                        <div class="col-auto text-center flex-column d-none d-sm-flex">
+                        <div class="col-sm"></div>
+                        <div class="col-sm text-center flex-column d-none d-sm-flex">
                             <div class="row h-50">
                                 <div class="col">&nbsp;</div>
                                 <div class="col">&nbsp;</div>
@@ -195,11 +191,11 @@
                                 <div class="col">&nbsp;</div>
                             </div>
                         </div>
-                        <div class="col py-2">
-                            <div class="card border-primary shadow radius-15 bg-light-warning">
+                        <div class="col-sm py-2">
+                            <div class="card border-primary shadow radius-15 card-sign">
                                 <div class="card-body">
                                     <div class="float-end">Tue, Jan 10th 2019 8:30 AM</div>
-                                    <h5 class="card-title">Day 2 Sessions</h5>
+                                    <h5 class="card-title bg-success sign-badge">Day 2 Sessions</h5>
                                     <p class="card-text">Sign-up for the lessons and speakers that coincide with your course syllabus. Meet and greet with instructors.</p>
                                     <button class="btn btn-sm btn-outline-secondary collapsed" type="button" data-bs-target="#t2_details" data-bs-toggle="collapse" aria-expanded="false">Show Details ▼</button>
                                     <div class="border collapse" id="t2_details" style="">
@@ -271,7 +267,6 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" id="button_send">Send Borrow Form</button>
             </div>
         </div>
     </div>

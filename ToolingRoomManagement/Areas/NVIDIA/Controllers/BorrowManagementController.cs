@@ -52,6 +52,13 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
             }
         }
 
+        // Sign
+        [HttpGet]
+        public ActionResult Sign()
+        {
+            return View();
+        }
+
         // Borrow
         [HttpGet]
         public ActionResult BorrowDevice()

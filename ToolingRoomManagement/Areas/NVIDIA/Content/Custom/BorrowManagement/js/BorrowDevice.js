@@ -82,7 +82,7 @@ function GetSelectData() {
         error: function (error) {
             Swal.fire("Something went wrong!", GetAjaxErrorMessage(error), "error");
         }
-    });    
+    });
 }
 function GetUserAndRole() {
     $.ajax({
@@ -238,7 +238,6 @@ async function CreateTableAddDevice(devices) {
 
         $('#table_Devices_tbody').append(row);
     });
-
 
     var height = window.innerHeight / 2 + (window.innerHeight * 0.05);
 
@@ -481,7 +480,7 @@ $('#btn_addSign').on('click', function (e) {
                 var opt = CreateUserOption(userItem);
                 select_user.append(opt);
             });
-        }        
+        }
     });
 
     // change dot color
@@ -558,7 +557,7 @@ $('#button_send').on('click', function (e) {
                     var newRealQuantity = parseInt(oldQtyCell[2] - QtyDevices[k]);
                     var newQtyCell = `${oldQtyCell[0]} / ${oldQtyCell[1]} / ${newRealQuantity}`;
 
-                    deviceData[9] = newQtyCell;                  
+                    deviceData[9] = newQtyCell;
 
                     // Status
                     var bufferString = deviceData[8].replace("%", "");
@@ -597,11 +596,8 @@ $('#button_send').on('click', function (e) {
     });
 });
 
-
-
 // Other function
 function GetAjaxErrorMessage(error) {
-
     var regex = new RegExp(`<title>(.*?)<\/title>`);
     var match = regex.exec(error.responseText);
 

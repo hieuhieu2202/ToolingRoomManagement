@@ -21,7 +21,6 @@ function GetSelectData() {
         contentType: "application/json;charset=utf-8",
         success: function (response) {
             if (response.status) {
-
                 // WareHouse
                 populateSelect("device_add-WareHouse", response.warehouses, "Id", "WarehouseName");
 
@@ -49,15 +48,11 @@ function GetSelectData() {
     });
 }
 
-
 // Add Device Manual
 $('#AddDeviceManual').on('click', function (e) {
     e.preventDefault();
 
     const formData = GetFormData();
-    for (const pair of formData.entries()) {
-        console.log(pair);
-    }
 
     $.ajax({
         type: "POST",
@@ -78,7 +73,6 @@ $('#AddDeviceManual').on('click', function (e) {
             Swal.fire("Something went wrong!", GetAjaxErrorMessage(error), "error");
         }
     });
-
 });
 
 function GetFormData() {
@@ -98,7 +92,6 @@ function GetFormData() {
 }
 // Other function
 function GetAjaxErrorMessage(error) {
-
     var regex = new RegExp(`<title>(.*?)<\/title>`);
     var match = regex.exec(error.responseText);
 

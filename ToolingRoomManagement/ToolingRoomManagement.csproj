@@ -2950,6 +2950,7 @@
     <Content Include="Areas\NVIDIA\Views\BorrowManagement\BorrowManagement.cshtml" />
     <Content Include="Areas\NVIDIA\Views\BorrowManagement\BorrowDevice.cshtml" />
     <Content Include="Areas\NVIDIA\Views\BorrowManagement\ReturnDevice.cshtml" />
+    <Content Include="Areas\NVIDIA\Views\BorrowManagement\Sign.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

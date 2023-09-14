@@ -29,7 +29,6 @@
 
 // Other function
 function GetAjaxErrorMessage(error) {
-
     var regex = new RegExp(`<title>(.*?)<\/title>`);
     var match = regex.exec(error.responseText);
 

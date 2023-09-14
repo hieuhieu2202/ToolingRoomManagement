@@ -43,7 +43,6 @@ $(function () {
     }
 });
 
-
 //Draw avatar
 function GenerateAvatar(text, foregroundColor = "white", backgroundColor = "black") {
     var stringText = text.charAt(0);

@@ -27,7 +27,6 @@ function GetDepartments() {
     });
 }
 
-
 $('#SignUp').on('click', function (e) {
     e.preventDefault();
 
@@ -84,7 +83,6 @@ $('#SignUp').on('click', function (e) {
                             window.location.href = response.redirectTo;
                         }
                     });
-
                 }
                 else {
                     Swal.fire('Sorry, something went wrong!', response.message, 'error');
@@ -99,7 +97,6 @@ $('#SignUp').on('click', function (e) {
 
 // Other function
 function GetAjaxErrorMessage(error) {
-
     var regex = new RegExp(`<title>(.*?)<\/title>`);
     var match = regex.exec(error.responseText);
 

@@ -4,8 +4,6 @@
     GetWarehouseDevices();
 });
 
-
-
 // table
 var tableDeviceInfo;
 async function CreateTableAddDevice(devices) {
@@ -86,7 +84,7 @@ async function CreateTableAddDevice(devices) {
                                 <a href="javascript:;" class="text-success bg-light-success border-0 mb-2" title="Confirm" data-id="${item.Id}" onclick="Confirm(this, event)"><i class="bx bx-check"></i></a>
                                 <a href="javascript:;" class="text-warning bg-light-warning border-0 mb-2" title="Edit   " data-id="${item.Id}" onclick="Edit(this, event)   "><i class="bx bxs-edit"></i></a>
                                 <a href="javascript:;" class="text-danger  bg-light-danger  border-0     " title="Delete " data-id="${item.Id}" onclick="Delete(this, event) "><i class="bx bxs-trash"></i></a>
-						    </div>					    	
+						    </div>
 					</div></td>`);
 
         $('#table_Devices_tbody').append(row);
@@ -148,7 +146,6 @@ $('#input_WareHouse').on('change', function (e) {
     GetWarehouseDevices($(this).val());
 });
 
-
 // Get Select data
 function GetSelectData() {
     $.ajax({
@@ -171,7 +168,7 @@ function GetSelectData() {
                 $('#device_edit-Product').empty();
                 $('#filter_Product').html($('<option value="Product" selected>Product</option>'));
                 $.each(response.products, function (k, item) {
-                    let opt = $(`<option value="${item.Id}">${item.ProductName} | ${item.MTS}</option>`);                    
+                    let opt = $(`<option value="${item.Id}">${item.ProductName} | ${item.MTS}</option>`);
                     $('#device_edit-Product').append(opt);
 
                     let opt1 = $(`<option value="${item.ProductName}">${item.ProductName}</option>`);
@@ -230,7 +227,6 @@ function GetSelectData() {
 
 // Other function
 function GetAjaxErrorMessage(error) {
-
     var regex = new RegExp(`<title>(.*?)<\/title>`);
     var match = regex.exec(error.responseText);
 
@@ -315,13 +311,12 @@ function DrawRowEditDevice(item) {
                                         <a href="javascript:;" class="text-success bg-light-success border-0 mb-2" title="Confirm" data-id="${item.Id}" onclick="Confirm(this, event)"><i class="bx bx-check"></i></a>
                                         <a href="javascript:;" class="text-warning bg-light-warning border-0 mb-2" title="Edit   " data-id="${item.Id}" onclick="Edit(this, event)   "><i class="bx bxs-edit"></i></a>
                                         <a href="javascript:;" class="text-danger  bg-light-danger  border-0     " title="Delete " data-id="${item.Id}" onclick="Delete(this, event) "><i class="bx bxs-trash"></i></a>
-					         	    </div>					    	
+					         	    </div>
 					         </div></td>`);
     }
 
     return row;
 }
-
 
 // confirm function
 function Confirm(elm, e) {
@@ -412,7 +407,6 @@ function Confirm(elm, e) {
         }
     });
 }
-
 
 // Delete function
 function Delete(elm, e) {
@@ -583,7 +577,6 @@ $('#button-save_modal').on('click', function (e) {
             Swal.fire("Something went wrong!", GetAjaxErrorMessage(error), "error");
         }
     });
-
 });
 function GetModalData() {
     return data = {
@@ -610,7 +603,6 @@ function GetModalData() {
         IdVendor: $('#device_edit-Vendor').val(),
     }
 }
-
 
 //filter
 $('#filter').on('click', function (e) {

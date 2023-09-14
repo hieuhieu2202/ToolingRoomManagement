@@ -1,3 +1,28 @@
 ﻿.card-info {
     box-shadow: 0px 0px 10px 0px #888888 !important;
 }
+
+.sign-badge {
+    width: fit-content;
+    border-radius: 10px;
+    color: white;
+    border-radius: 10px;
+    padding: 5px;
+}
+
+.card-sign {
+    box-shadow: 0px 0px 5px 0px #888888 !important;
+}
+
+.btn-custom {
+    letter-spacing: -4.5px;
+}
+
+.badge {
+    vertical-align: middle !important;
+    line-height: unset;
+}
+
+    .badge i {
+        vertical-align: middle !important;
+    }

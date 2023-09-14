@@ -1,10 +1,12 @@
-﻿.logo-text{
+﻿.logo-text {
     font-size: 1rem;
 }
-.page-footer{
+
+.page-footer {
     font-size: 10px;
     padding: 3px;
 }
+
 body::-webkit-scrollbar {
     display: none !important;
 }

@@ -10,7 +10,6 @@ function GetUserBorrows() {
         success: function (response) {
             if (response.status) {
                 var borrows = JSON.parse(response.borrows);
-                console.log(borrows);
 
                 const counts = {
                     totalRequest: borrows.length,
@@ -91,7 +90,7 @@ async function CreateTableBorrow(borrows) {
             }
         }
         // Action
-        row.append(`<td><button type="button" class="btn btn-outline-info p-0 m-0 border-0" data-id="${item.Id}" onclick="BorrowDetails(this, event)"><i class="bx bx-info-circle"></i></button></td>`);
+        row.append(`<td><button type="button" class="btn btn-outline-info p-0 m-0 border-0 btn-custom" data-id="${item.Id}" onclick="BorrowDetails(this, event)"><i class="bx bx-info-circle"></i></button></td>`);
 
         $('#table_Borrows-tbody').append(row);
     });
@@ -124,8 +123,6 @@ function BorrowDetails(elm, e) {
         contentType: "application/json;charset=utf-8",
         success: function (response) {
             if (response.status) {
-                console.log(JSON.parse(response.borrow));
-
                 var borrow = JSON.parse(response.borrow);
 
                 CreateModal(borrow);
@@ -151,6 +148,15 @@ function CreateModal(borrow) {
 
     $('#borrow_modal-Note').html(`<p>${borrow.Note}</p>`);
 
+    if (borrow.Type == 'Return') {
+        $('#borrow_modal-title').text('Return Request Details');
+        $('#borrow_modal-name').text('RETURN REQUEST');
+    }
+    else {
+        $('#borrow_modal-title').text('Borrow Request Details');
+        $('#borrow_modal-name').text('BORROW REQUEST');
+    }
+
     $('#borrow_modal-table-tbody').empty();
     $.each(borrow.BorrowDevices, function (k, item) {
         var borrowQty = item.BorrowQuantity ? item.BorrowQuantity : '';
@@ -169,8 +175,121 @@ function CreateModal(borrow) {
         $('#borrow_modal-table-tbody').append(row);
     });
 
-    //$('#sign-container').empty();
+    $('#sign-container').empty();
+    $('#sign-container').append(`<h4 class="font-weight-light text-center text-white py-3">SIGN PROCESS</h4>`);
+    var pendingUsed = false;
+    $.each(borrow.UserBorrowSigns, function (k, bs) { //bs == borrow sign
+        var color = '';
+        var text = '';
+        var username = CreateUserName(bs.User);
+        var date = moment(bs.DateSign).format('ddd, MMM Do YYYY h:mm A');
 
+        if (bs.IsApproved != null) {
+            if (bs.IsApproved) {
+                color = 'success';
+                text = 'Approved';
+            }
+            else {
+                color = 'danger';
+                text = 'Rejected';
+            }
+        }
+        else {
+            if (!pendingUsed) {
+                color = 'warning';
+                text = 'Pending';
+            }
+            else {
+                color = 'secondary';
+                text = 'Pending';
+            }
+
+            pendingUsed = true;
+        }
+
+        var line = {
+            top: '',
+            bot: ''
+        }
+        if (k == 0 && borrow.UserBorrowSigns.length == 1) {
+            line.top = '';
+            line.bot = '';
+        }
+        else if (k == 0) {
+            line.top = '';
+            line.bot = 'border-end';
+        }
+        else if (k == (borrow.UserBorrowSigns.length - 1)) {
+            line.top = 'border-end';
+            line.bot = '';
+        }
+        else {
+            line.top = 'border-end';
+            line.bot = 'border-end';
+        }
+
+        var lineDot = `<div class="col-sm-1 text-center flex-column d-none d-sm-flex">
+                           <div class="row h-50">
+                               <div class="col ${line.top}">&nbsp;</div>
+                               <div class="col">&nbsp;</div>
+                           </div>
+                           <h5 class="m-2">
+                               <span class="badge rounded-pill bg-${color}">&nbsp;</span>
+                           </h5>
+                           <div class="row h-50">
+                               <div class="col ${line.bot}">&nbsp;</div>
+                               <div class="col">&nbsp;</div>
+                           </div>
+                       </div>`;
+        var signCard = '';
+        if (borrow.UserBorrowSigns.length > 1) {
+            signCard = `<div class="row">
+                            ${(k % 2 == 0) ? '' : '<div class="col-sm"></div>'}
+                            ${(k % 2 == 0) ? '' : lineDot}
+                            <div class="col-sm py-2">
+                                <div class="card border-primary shadow radius-15 card-sign">
+                                    <div class="card-body">
+                                        <div class="float-end">${date == 'Invalid date' ? '' : date}</div>
+                                        <h5 class="card-title bg-${color} sign-badge">${text}</h5>
+                                        <p class="card-text mb-1">${username}</p>
+                                        <p class="card-text mb-1">${bs.User.Email ? bs.User.Email : ''}</p>
+                                        <button class="btn btn-sm btn-outline-secondary collapsed ${text == 'Reject' ? '' : 'd-none'}" type="button" data-bs-target="#t2_details" data-bs-toggle="collapse" aria-expanded="false">Show Details ▼</button>
+                                        <div class="border collapse" id="t2_details" style="">
+                                            <div class="p-2 text-monospace">
+                                                <div>${bs.Note}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            ${(k % 2 == 0) ? lineDot : ''}
+                            ${(k % 2 == 0) ? '<div class="col-sm"></div>' : ''}
+                        </div>`;
+        }
+        else {
+            signCard = `<div class="row">
+                            ${lineDot}
+                            <div class="col-sm py-2">
+                                <div class="card border-primary shadow radius-15 card-sign">
+                                    <div class="card-body">
+                                        <div class="float-end">${date == 'Invalid date' ? '' : date}</div>
+                                        <h5 class="card-title bg-${color} sign-badge">${text}</h5>
+                                        <p class="card-text mb-1">${username}</p>
+                                        <p class="card-text mb-1">${bs.User.Email ? bs.User.Email : ''}</p>
+                                        <button class="btn btn-sm btn-outline-secondary collapsed ${text == 'Reject' ? '' : 'd-none'}" type="button" data-bs-target="#t2_details" data-bs-toggle="collapse" aria-expanded="false">Show Details ▼</button>
+                                        <div class="border collapse" id="t2_details" style="">
+                                            <div class="p-2 text-monospace">
+                                                <div>${bs.Note}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>`;
+        }
+
+        $('#sign-container').append(signCard);
+    });
 }
 
 // other
@@ -190,4 +309,18 @@ function CreateTableCellUser(user) {
         opt.text(addUserEnName);
     }
     return opt;
+}
+function CreateUserName(user) {
+    var username = '';
+    if (user.VnName && user.VnName != '') {
+        username = `${user.Username} - ${user.VnName}`;
+    }
+    else if (user.CnName && user.CnName != '') {
+        username = `${user.Username} - ${user.CnName}`;
+    }
+    if (user.EnName != null && user.EnName != '') {
+        username += ` (${user.EnName})`;
+    }
+
+    return username;
 }
