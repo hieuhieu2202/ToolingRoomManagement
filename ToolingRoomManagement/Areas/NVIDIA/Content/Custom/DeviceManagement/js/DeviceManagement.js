@@ -1,7 +1,5 @@
 ﻿$(function () {
     GetSelectData();
-
-    GetWarehouseDevices();
 });
 
 // table
@@ -122,8 +120,6 @@ function GetWarehouseDevices(IdWarehouse = 0) {
                     var devices = response.warehouse.Devices.reverse();
 
                     CreateTableAddDevice(devices);
-                    //CreateBomFileInfo(response);
-                    //GetSelectData();
                 }
                 else {
                     Swal.fire('Sorry, something went wrong!', response.message, 'error');
@@ -164,6 +160,7 @@ function GetSelectData() {
                     $('#device_edit-WareHouse').append(opt1);
                     $('#input_WareHouse').append(opt2);
                 });
+                $('#input_WareHouse').change();
                 // Product
                 $('#device_edit-Product').empty();
                 $('#filter_Product').html($('<option value="Product" selected>Product</option>'));
@@ -226,17 +223,6 @@ function GetSelectData() {
 }
 
 // Other function
-function GetAjaxErrorMessage(error) {
-    var regex = new RegExp(`<title>(.*?)<\/title>`);
-    var match = regex.exec(error.responseText);
-
-    if (match && match.length >= 2) {
-        var extractedContent = match[1];
-        return extractedContent;
-    } else {
-        return "Lỗi không xác định.";
-    }
-}
 function DrawRowEditDevice(item) {
     var row = [];
     {

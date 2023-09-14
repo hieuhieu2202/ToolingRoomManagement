@@ -18,11 +18,11 @@
     letter-spacing: -4.5px;
 }
 
-.badge {
+td .badge {
     vertical-align: middle !important;
     line-height: unset;
 }
 
-    .badge i {
+    td .badge i {
         vertical-align: middle !important;
     }

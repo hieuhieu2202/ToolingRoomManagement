@@ -177,8 +177,10 @@
     <Content Include="Areas\NVIDIA\Content\Custom\Authentication\js\SignUp.js" />
     <Content Include="Areas\NVIDIA\Content\Custom\BorrowManagement\css\BorrowDevice.css" />
     <Content Include="Areas\NVIDIA\Content\Custom\BorrowManagement\css\BorrowManagement.css" />
+    <Content Include="Areas\NVIDIA\Content\Custom\BorrowManagement\css\BorrowSign.css" />
     <Content Include="Areas\NVIDIA\Content\Custom\BorrowManagement\js\BorrowDevice.js" />
     <Content Include="Areas\NVIDIA\Content\Custom\BorrowManagement\js\BorrowManagement.js" />
+    <Content Include="Areas\NVIDIA\Content\Custom\BorrowManagement\js\BorrowSign.js" />
     <Content Include="Areas\NVIDIA\Content\Custom\DeviceManagement\css\AddDeviceBOM.css" />
     <Content Include="Areas\NVIDIA\Content\Custom\DeviceManagement\css\AddDeviceManual.css" />
     <Content Include="Areas\NVIDIA\Content\Custom\DeviceManagement\css\DeviceManagement.css" />

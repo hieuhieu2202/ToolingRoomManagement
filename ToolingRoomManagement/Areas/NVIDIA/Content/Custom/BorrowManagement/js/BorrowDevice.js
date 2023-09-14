@@ -597,17 +597,6 @@ $('#button_send').on('click', function (e) {
 });
 
 // Other function
-function GetAjaxErrorMessage(error) {
-    var regex = new RegExp(`<title>(.*?)<\/title>`);
-    var match = regex.exec(error.responseText);
-
-    if (match && match.length >= 2) {
-        var extractedContent = match[1];
-        return extractedContent;
-    } else {
-        return "Lỗi không xác định.";
-    }
-}
 function CreateUserOption(user) {
     var opt = $(`<option value="${user.Id}"></option>`);
 

@@ -56,7 +56,23 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
         [HttpGet]
         public ActionResult Sign()
         {
+            
+
             return View();
+        }
+        public ActionResult GetUserBorrowSigns()
+        {
+            Entities.User user = (Entities.User)Session["SignSession"];
+
+            List<Borrow> borrows = new List<Borrow>();
+            List<UserBorrowSign> userBorrowSigns = db.UserBorrowSigns.Where(u => u.IdUser == user.Id).ToList();
+            foreach(var userBorrowSign in userBorrowSigns)
+            {
+                Borrow borrow = db.Borrows.FirstOrDefault(b => b.Id == userBorrowSign.IdBorrow);
+                borrows.Add(borrow);
+            }
+
+            return Json(new {status = true, borrows = JsonSerializer.Serialize(borrows) });
         }
 
         // Borrow

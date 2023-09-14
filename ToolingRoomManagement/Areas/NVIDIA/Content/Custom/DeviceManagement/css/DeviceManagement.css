@@ -30,11 +30,6 @@
     text-overflow: ellipsis;
 }
 
-.swal2-container.swal2-center > .swal2-popup {
-    box-shadow: 0px 0px 20px 6px #888888;
-    background-color: black;
-}
-
 .table-message td:nth-child(1) {
     min-width: 180px;
     vertical-align: middle;

@@ -24,11 +24,6 @@
     text-overflow: ellipsis;
 }
 
-.swal2-container.swal2-center > .swal2-popup {
-    box-shadow: 0px 0px 20px 6px #888888;
-    background-color: black;
-}
-
 .dropdown-menu {
     min-width: unset;
     box-shadow: 0px 0px 10px 0px #888888 !important;
