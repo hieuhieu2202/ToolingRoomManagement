@@ -18,11 +18,17 @@
     letter-spacing: -4.5px;
 }
 
-td .badge {
+td, p, label .badge {
     vertical-align: middle !important;
     line-height: unset;
 }
 
-    td .badge i {
+    td, p, label .badge i {
         vertical-align: middle !important;
     }
+.red-dot {
+    font-size: 1rem;
+}
+.table-hover > tbody > tr:hover > * {
+    background-color: rgb(136 51 255 / 15%) !important;
+}

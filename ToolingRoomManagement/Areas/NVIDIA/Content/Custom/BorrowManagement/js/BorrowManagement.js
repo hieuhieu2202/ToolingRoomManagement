@@ -58,34 +58,34 @@ async function CreateTableBorrow(borrows) {
         // Type
         switch (item.Type) {
             case "Borrow": {
-                row.append(`<td><span class="badge bg-primary"><i class="bx bx-arrow-to-left"></i> Borrow</span></td>`);
+                row.append(`<td><span class="badge bg-primary"><i class="fa-solid fa-left-to-line"></i> Borrow</span></td>`);
                 break;
             }
             case "Return": {
-                row.append(`<td><span class="badge bg-info"><i class="bx bx-arrow-to-right"></i> Return</span></td>`);
+                row.append(`<td><span class="badge bg-info"><i class="fa-solid fa-right-to-line"></i> Return</span></td>`);
                 break;
             }
             default: {
-                row.append(`<td><span class="text-secondary fw-bold">N/A</span></td>`);
+                row.append(`<td><span class="badge bg-secondary">N/A</span></td>`);
                 break;
             }
         }
         // Status
         switch (item.Status) {
             case "Pending": {
-                row.append(`<td><span class="badge bg-warning"><i class="bx bx-time"></i> Pending</span></td>`);
+                row.append(`<td><span class="badge bg-warning"><i class="fa-solid fa-timer"></i> Pending</span></td>`);
                 break;
             }
             case "Approved": {
-                row.append(`<td><span class="badge bg-success"><i class="bx bx-check"></i> Approved</span></td>`);
+                row.append(`<td><span class="badge bg-success"><i class="fa-solid fa-check"></i> Approved</span></td>`);
                 break;
             }
             case "Rejected": {
-                row.append(`<td><span class="badge bg-danger"><i class="bx bx-x"></i> Rejected</span></td>`);
+                row.append(`<td><span class="badge bg-danger"><i class="fa-solid fa-xmark"></i> Rejected</span></td>`);
                 break;
             }
             default: {
-                row.append(`<td><span class="text-secondary fw-bold">N/A</span></td>`);
+                row.append(`<td><span class="badge bg-secondary">N/A</span></td>`);
                 break;
             }
         }
@@ -177,116 +177,56 @@ function CreateModal(borrow) {
 
     $('#sign-container').empty();
     $('#sign-container').append(`<h4 class="font-weight-light text-center text-white py-3">SIGN PROCESS</h4>`);
-    var pendingUsed = false;
     $.each(borrow.UserBorrowSigns, function (k, bs) { //bs == borrow sign
-        var color = '';
-        var text = '';
         var username = CreateUserName(bs.User);
         var date = moment(bs.DateSign).format('ddd, MMM Do YYYY h:mm A');
 
-        if (bs.IsApproved != null) {
-            if (bs.IsApproved) {
-                color = 'success';
-                text = 'Approved';
-            }
-            else {
-                color = 'danger';
-                text = 'Rejected';
-            }
-        }
-        else {
-            if (!pendingUsed) {
-                color = 'warning';
-                text = 'Pending';
-            }
-            else {
-                color = 'secondary';
-                text = 'Pending';
-            }
-
-            pendingUsed = true;
-        }
+        var title = {
+            Approved: { color: 'success', text: 'Approved', icon: 'check' },
+            Rejected: { color: 'danger', text: 'Rejected', icon: 'xmark' },
+            Pending: { color: 'warning', text: 'Pending', icon: 'timer' },
+        }[bs.Status] || { color: 'secondary', text: 'Waiting' };
 
         var line = {
-            top: '',
-            bot: ''
-        }
-        if (k == 0 && borrow.UserBorrowSigns.length == 1) {
-            line.top = '';
-            line.bot = '';
-        }
-        else if (k == 0) {
-            line.top = '';
-            line.bot = 'border-end';
-        }
-        else if (k == (borrow.UserBorrowSigns.length - 1)) {
-            line.top = 'border-end';
-            line.bot = '';
-        }
-        else {
-            line.top = 'border-end';
-            line.bot = 'border-end';
-        }
+            top: k === 0 ? '' : 'border-end',
+            bot: (k === 0 && borrow.UserBorrowSigns.length === 1) ? '' : 'border-end'
+        };
 
         var lineDot = `<div class="col-sm-1 text-center flex-column d-none d-sm-flex">
                            <div class="row h-50">
                                <div class="col ${line.top}">&nbsp;</div>
                                <div class="col">&nbsp;</div>
                            </div>
-                           <h5 class="m-2">
-                               <span class="badge rounded-pill bg-${color}">&nbsp;</span>
+                           <h5 class="m-2 red-dot">
+                               <span class="badge rounded-pill bg-${title.color}">&nbsp;</span>
                            </h5>
                            <div class="row h-50">
                                <div class="col ${line.bot}">&nbsp;</div>
                                <div class="col">&nbsp;</div>
                            </div>
                        </div>`;
-        var signCard = '';
-        if (borrow.UserBorrowSigns.length > 1) {
-            signCard = `<div class="row">
-                            ${(k % 2 == 0) ? '' : '<div class="col-sm"></div>'}
-                            ${(k % 2 == 0) ? '' : lineDot}
-                            <div class="col-sm py-2">
-                                <div class="card border-primary shadow radius-15 card-sign">
-                                    <div class="card-body">
-                                        <div class="float-end">${date == 'Invalid date' ? '' : date}</div>
-                                        <h5 class="card-title bg-${color} sign-badge">${text}</h5>
-                                        <p class="card-text mb-1">${username}</p>
-                                        <p class="card-text mb-1">${bs.User.Email ? bs.User.Email : ''}</p>
-                                        <button class="btn btn-sm btn-outline-secondary collapsed ${text == 'Reject' ? '' : 'd-none'}" type="button" data-bs-target="#t2_details" data-bs-toggle="collapse" aria-expanded="false">Show Details ▼</button>
-                                        <div class="border collapse" id="t2_details" style="">
-                                            <div class="p-2 text-monospace">
-                                                <div>${bs.Note}</div>
-                                            </div>
+        var signCard = `<div class="row">
+                        ${k % 2 === 0 ? '' : '<div class="col-sm"></div>'}
+                        ${k % 2 === 0 ? '' : lineDot}
+                        <div class="col-sm py-2">
+                            <div class="card border-primary shadow radius-15 card-sign">
+                                <div class="card-body">
+                                    <div class="float-end">${date === 'Invalid date' ? '' : date}</div>
+                                    <label class="mb-3"><span class="badge bg-${title.color}"><i class="fa-solid fa-${title.icon}"></i> ${title.text}</span></label>
+                                    <p class="card-text mb-1">${username}</p>
+                                    <p class="card-text mb-1">${bs.User.Email || ''}</p>
+                                    <button class="btn btn-sm btn-outline-secondary collapsed ${title.text === 'Rejected' ? '' : 'd-none'}" type="button" data-bs-target="#t2_details" data-bs-toggle="collapse" aria-expanded="false">Show Details ▼</button>
+                                    <div class="border collapse" id="t2_details" style="">
+                                        <div class="p-2 text-monospace">
+                                            <div>${bs.Note}</div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            ${(k % 2 == 0) ? lineDot : ''}
-                            ${(k % 2 == 0) ? '<div class="col-sm"></div>' : ''}
-                        </div>`;
-        }
-        else {
-            signCard = `<div class="row">
-                            ${lineDot}
-                            <div class="col-sm py-2">
-                                <div class="card border-primary shadow radius-15 card-sign">
-                                    <div class="card-body">
-                                        <div class="float-end">${date == 'Invalid date' ? '' : date}</div>
-                                        <h5 class="card-title bg-${color} sign-badge">${text}</h5>
-                                        <p class="card-text mb-1">${username}</p>
-                                        <p class="card-text mb-1">${bs.User.Email ? bs.User.Email : ''}</p>
-                                        <button class="btn btn-sm btn-outline-secondary collapsed ${text == 'Reject' ? '' : 'd-none'}" type="button" data-bs-target="#t2_details" data-bs-toggle="collapse" aria-expanded="false">Show Details ▼</button>
-                                        <div class="border collapse" id="t2_details" style="">
-                                            <div class="p-2 text-monospace">
-                                                <div>${bs.Note}</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>`;
-        }
+                        </div>
+                        ${k % 2 === 0 ? lineDot : ''}
+                        ${k % 2 === 0 ? '<div class="col-sm"></div>' : ''}
+                    </div>`;
 
         $('#sign-container').append(signCard);
     });

@@ -18,9 +18,9 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Entities
         public Nullable<int> IdUser { get; set; }
         public Nullable<int> IdBorrow { get; set; }
         public Nullable<System.DateTime> DateSign { get; set; }
-        public Nullable<bool> IsApproved { get; set; }
         public string Note { get; set; }
         public Nullable<int> SignOrder { get; set; }
+        public string Status { get; set; }
     
         public virtual User User { get; set; }
     }

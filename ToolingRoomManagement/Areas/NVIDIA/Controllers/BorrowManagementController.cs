@@ -65,16 +65,66 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
             Entities.User user = (Entities.User)Session["SignSession"];
 
             List<Borrow> borrows = new List<Borrow>();
-            List<UserBorrowSign> userBorrowSigns = db.UserBorrowSigns.Where(u => u.IdUser == user.Id).ToList();
+            List<UserBorrowSign> userBorrowSigns = db.UserBorrowSigns
+                                                     .Where(u => u.IdUser == user.Id && u.Status != "Waitting")
+                                                     .OrderBy(u => u.SignOrder)
+                                                     .ToList();
             foreach(var userBorrowSign in userBorrowSigns)
             {
                 Borrow borrow = db.Borrows.FirstOrDefault(b => b.Id == userBorrowSign.IdBorrow);
+                borrow.UserBorrowSigns = borrow.UserBorrowSigns.OrderBy(u => u.SignOrder).ToList();
                 borrows.Add(borrow);
             }
 
             return Json(new {status = true, borrows = JsonSerializer.Serialize(borrows) });
         }
+        public ActionResult Approve(int IdBorrow, int IdSign)
+        {
+            try
+            {
+                Entities.User user = (Entities.User)Session["SignSession"];
+                Borrow borrow = db.Borrows.FirstOrDefault(b => b.Id == IdBorrow);
 
+                if(borrow != null)
+                {
+                    UserBorrowSign us = borrow.UserBorrowSigns.FirstOrDefault(u => u.Status == "Pending");
+                    
+                    if(us.Id == IdSign)
+                    {
+                        us.Status = "Approved";
+                        us.DateSign = DateTime.Now;
+
+                        if (us.SignOrder == (borrow.UserBorrowSigns.Count - 1))
+                        {
+                            borrow.Status = "Approved";
+                            // Send Mail
+                        }
+                        else
+                        {
+                            int nextSignOrder = (int)us.SignOrder + 1;
+                            UserBorrowSign nextSign = borrow.UserBorrowSigns.FirstOrDefault(u => u.SignOrder == nextSignOrder);
+                            nextSign.Status = "Pending";
+                            // Send Mail
+                        }                       
+
+                        db.SaveChanges();
+                        return Json(new { status = true, borrow = JsonSerializer.Serialize(borrow) });
+                    }
+                    else
+                    {
+                        return Json(new { status = false, message = "Sign not found." });
+                    }
+                }
+                else
+                {
+                    return Json(new { status = false, message = "Borrow request is empty." });
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = false, message = ex.Message });
+            }
+        }
         // Borrow
         [HttpGet]
         public ActionResult BorrowDevice()
@@ -145,8 +195,16 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                         IdBorrow = borrow.Id,
                         SignOrder = i
                     };
+                    if (i == 0) 
+                    {
+                        userBorrowSign.Status = "Pending";
+
+                        // Send mail
+                    }
+                    else userBorrowSign.Status = "Waitting";
                     userBorrowSigns.Add(userBorrowSign);
                 }
+                
                 db.UserBorrowSigns.AddRange(userBorrowSigns);
 
                 db.SaveChanges();

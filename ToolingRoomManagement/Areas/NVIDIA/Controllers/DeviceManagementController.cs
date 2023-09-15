@@ -402,6 +402,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                         warehouse = db.Warehouses.Take(1).FirstOrDefault();
                     }
                 }
+                warehouse.Devices.OrderByDescending(d => d.CreatedDate);
                 return Json(new { status = true, warehouse });
             }
             catch (Exception ex)

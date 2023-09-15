@@ -142,9 +142,9 @@
           <Property Name="IdUser" Type="int" />
           <Property Name="IdBorrow" Type="int" />
           <Property Name="DateSign" Type="datetime" />
-          <Property Name="IsApproved" Type="bit" />
           <Property Name="Note" Type="nvarchar" MaxLength="300" />
           <Property Name="SignOrder" Type="int" />
+          <Property Name="Status" Type="nvarchar" MaxLength="25" />
         </EntityType>
         <EntityType Name="UserDepartment">
           <Key>
@@ -568,7 +568,6 @@
           </AssociationSet>
           <EntitySet Name="Borrows" EntityType="ToolingRoomModel.Borrow" />
           <EntitySet Name="BorrowDevices" EntityType="ToolingRoomModel.BorrowDevice" />
-          <EntitySet Name="UserBorrowSigns" EntityType="ToolingRoomModel.UserBorrowSign" />
           <AssociationSet Name="FK_Borrow_User" Association="ToolingRoomModel.FK_Borrow_User">
             <End Role="User" EntitySet="Users" />
             <End Role="Borrow" EntitySet="Borrows" />
@@ -577,17 +576,9 @@
             <End Role="Borrow" EntitySet="Borrows" />
             <End Role="BorrowDevice" EntitySet="BorrowDevices" />
           </AssociationSet>
-          <AssociationSet Name="FK_UserBorrowSign_Borrow" Association="ToolingRoomModel.FK_UserBorrowSign_Borrow">
-            <End Role="Borrow" EntitySet="Borrows" />
-            <End Role="UserBorrowSign" EntitySet="UserBorrowSigns" />
-          </AssociationSet>
           <AssociationSet Name="FK_BorrowDevice_Device" Association="ToolingRoomModel.FK_BorrowDevice_Device">
             <End Role="Device" EntitySet="Devices" />
             <End Role="BorrowDevice" EntitySet="BorrowDevices" />
-          </AssociationSet>
-          <AssociationSet Name="FK_UserBorrowSign_User" Association="ToolingRoomModel.FK_UserBorrowSign_User">
-            <End Role="User" EntitySet="Users" />
-            <End Role="UserBorrowSign" EntitySet="UserBorrowSigns" />
           </AssociationSet>
           <EntitySet Name="HistoryUpdateDevices" EntityType="ToolingRoomModel.HistoryUpdateDevice" />
           <EntitySet Name="DeviceWarehouseLayouts" EntityType="ToolingRoomModel.DeviceWarehouseLayout" />
@@ -612,6 +603,15 @@
           <AssociationSet Name="FK_WarehouseLayout_Warehouse" Association="ToolingRoomModel.FK_WarehouseLayout_Warehouse">
             <End Role="Warehouse" EntitySet="Warehouses" />
             <End Role="WarehouseLayout" EntitySet="WarehouseLayouts" />
+          </AssociationSet>
+          <EntitySet Name="UserBorrowSigns" EntityType="ToolingRoomModel.UserBorrowSign" />
+          <AssociationSet Name="FK_UserBorrowSign_Borrow" Association="ToolingRoomModel.FK_UserBorrowSign_Borrow">
+            <End Role="Borrow" EntitySet="Borrows" />
+            <End Role="UserBorrowSign" EntitySet="UserBorrowSigns" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserBorrowSign_User" Association="ToolingRoomModel.FK_UserBorrowSign_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="UserBorrowSign" EntitySet="UserBorrowSigns" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="Product">
@@ -853,10 +853,10 @@
           <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="User" Relationship="ToolingRoomModel.FK_Borrow_User" FromRole="Borrow" ToRole="User" />
           <NavigationProperty Name="BorrowDevices" Relationship="ToolingRoomModel.FK_BorrowDevice_Borrow" FromRole="Borrow" ToRole="BorrowDevice" />
-          <NavigationProperty Name="UserBorrowSigns" Relationship="ToolingRoomModel.FK_UserBorrowSign_Borrow" FromRole="Borrow" ToRole="UserBorrowSign" />
           <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="DateDue" Type="DateTime" Precision="3" />
           <Property Name="Note" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="UserBorrowSigns" Relationship="ToolingRoomModel.FK_UserBorrowSign_Borrow" FromRole="Borrow" ToRole="UserBorrowSign" />
         </EntityType>
         <EntityType Name="BorrowDevice">
           <Key>
@@ -867,19 +867,6 @@
           <Property Name="IdDevice" Type="Int32" />
           <NavigationProperty Name="Device" Relationship="ToolingRoomModel.FK_BorrowDevice_Device" FromRole="BorrowDevice" ToRole="Device" />
           <Property Name="BorrowQuantity" Type="Int32" />
-        </EntityType>
-        <EntityType Name="UserBorrowSign">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="IdUser" Type="Int32" />
-          <Property Name="IdBorrow" Type="Int32" />
-          <Property Name="DateSign" Type="DateTime" Precision="3" />
-          <Property Name="IsApproved" Type="Boolean" />
-          <Property Name="Note" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
-          <Property Name="SignOrder" Type="Int32" />
-          <NavigationProperty Name="User" Relationship="ToolingRoomModel.FK_UserBorrowSign_User" FromRole="UserBorrowSign" ToRole="User" />
         </EntityType>
         <Association Name="FK_Borrow_User">
           <End Type="ToolingRoomModel.User" Role="User" Multiplicity="0..1" />
@@ -905,18 +892,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_UserBorrowSign_Borrow">
-          <End Type="ToolingRoomModel.Borrow" Role="Borrow" Multiplicity="0..1" />
-          <End Type="ToolingRoomModel.UserBorrowSign" Role="UserBorrowSign" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Borrow">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="UserBorrowSign">
-              <PropertyRef Name="IdBorrow" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_BorrowDevice_Device">
           <End Type="ToolingRoomModel.Device" Role="Device" Multiplicity="0..1" />
           <End Type="ToolingRoomModel.BorrowDevice" Role="BorrowDevice" Multiplicity="*" />
@@ -926,18 +901,6 @@
             </Principal>
             <Dependent Role="BorrowDevice">
               <PropertyRef Name="IdDevice" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_UserBorrowSign_User">
-          <End Type="ToolingRoomModel.User" Role="User" Multiplicity="0..1" />
-          <End Type="ToolingRoomModel.UserBorrowSign" Role="UserBorrowSign" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="UserBorrowSign">
-              <PropertyRef Name="IdUser" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1044,6 +1007,43 @@
             </Principal>
             <Dependent Role="WarehouseLayout">
               <PropertyRef Name="IdWareHouse" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="UserBorrowSign">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdUser" Type="Int32" />
+          <Property Name="IdBorrow" Type="Int32" />
+          <Property Name="DateSign" Type="DateTime" Precision="3" />
+          <Property Name="Note" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="SignOrder" Type="Int32" />
+          <Property Name="Status" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="User" Relationship="ToolingRoomModel.FK_UserBorrowSign_User" FromRole="UserBorrowSign" ToRole="User" />
+        </EntityType>
+        <Association Name="FK_UserBorrowSign_Borrow">
+          <End Type="ToolingRoomModel.Borrow" Role="Borrow" Multiplicity="0..1" />
+          <End Type="ToolingRoomModel.UserBorrowSign" Role="UserBorrowSign" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Borrow">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserBorrowSign">
+              <PropertyRef Name="IdBorrow" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserBorrowSign_User">
+          <End Type="ToolingRoomModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="ToolingRoomModel.UserBorrowSign" Role="UserBorrowSign" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserBorrowSign">
+              <PropertyRef Name="IdUser" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1199,19 +1199,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="UserBorrowSigns">
-            <EntityTypeMapping TypeName="ToolingRoomModel.UserBorrowSign">
-              <MappingFragment StoreEntitySet="UserBorrowSign">
-                <ScalarProperty Name="SignOrder" ColumnName="SignOrder" />
-                <ScalarProperty Name="Note" ColumnName="Note" />
-                <ScalarProperty Name="IsApproved" ColumnName="IsApproved" />
-                <ScalarProperty Name="DateSign" ColumnName="DateSign" />
-                <ScalarProperty Name="IdBorrow" ColumnName="IdBorrow" />
-                <ScalarProperty Name="IdUser" ColumnName="IdUser" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="HistoryUpdateDevices">
             <EntityTypeMapping TypeName="ToolingRoomModel.HistoryUpdateDevice">
               <MappingFragment StoreEntitySet="HistoryUpdateDevice">
@@ -1252,6 +1239,19 @@
                 <ScalarProperty Name="IdUserManager" ColumnName="IdUserManager" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="WarehouseName" ColumnName="WarehouseName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserBorrowSigns">
+            <EntityTypeMapping TypeName="ToolingRoomModel.UserBorrowSign">
+              <MappingFragment StoreEntitySet="UserBorrowSign">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="SignOrder" ColumnName="SignOrder" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="DateSign" ColumnName="DateSign" />
+                <ScalarProperty Name="IdBorrow" ColumnName="IdBorrow" />
+                <ScalarProperty Name="IdUser" ColumnName="IdUser" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

@@ -165,7 +165,7 @@ function GetSelectData() {
                 $('#device_edit-Product').empty();
                 $('#filter_Product').html($('<option value="Product" selected>Product</option>'));
                 $.each(response.products, function (k, item) {
-                    let opt = $(`<option value="${item.Id}">${item.ProductName} | ${item.MTS}</option>`);
+                    let opt = $(`<option value="${item.Id}">${item.ProductName} | ${item.MTS != null ? item.MTS : ''}</option>`);
                     $('#device_edit-Product').append(opt);
 
                     let opt1 = $(`<option value="${item.ProductName}">${item.ProductName}</option>`);
@@ -412,7 +412,7 @@ function Delete(elm, e) {
                 var device = response.device;
                 // message box
                 Swal.fire({
-                    title: `<strong style="font-size: 25px;">Do you want Confirm this device?</strong>`,
+                    title: `<strong style="font-size: 25px;">Do you want Delete this device?</strong>`,
                     html: `<table class="table table-striped table-bordered table-message">
                                <tbody>
                                    <tr>

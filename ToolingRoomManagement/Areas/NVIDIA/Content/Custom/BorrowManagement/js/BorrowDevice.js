@@ -2,7 +2,7 @@
     GetSelectData();
     GetUserAndRole();
 
-    GetWarehouseDevices();
+    //GetWarehouseDevices();
 });
 
 // Get Select data
@@ -24,6 +24,7 @@ function GetSelectData() {
                     $('#device_edit-WareHouse').append(opt1);
                     $('#input_WareHouse').append(opt2);
                 });
+                $('#input_WareHouse').change();
                 // Product
                 $('#device_edit-Product').empty();
                 $('#filter_Product').html($('<option value="Product" selected>Product</option>'));
@@ -244,21 +245,36 @@ async function CreateTableAddDevice(devices) {
     $('#form_device-select').empty();
 
     const options = {
-        scrollY: height,
+        scrollY: 500,
         scrollX: true,
-        paging: false,
-        scrollCollapse: true,
-        order: [],
+        order: [0],
         autoWidth: false,
         columnDefs: [
             { targets: "_all", orderable: false },
             { targets: [9, 10, 11, 12], className: "text-center" },
             { targets: [0, 1, 2, 3, 6, 7, 8], visible: false },
         ],
+        "lengthMenu": [[10, 15, 25, 50, -1], [10, 15, 25, 50, "All"]],
         createdRow: function (row, data, dataIndex) {
             attachButtonClickEvent(row, data, dataIndex);
         },
     };
+    //const options = {
+    //    scrollY: height,
+    //    scrollX: true,
+    //    paging: false,
+    //    scrollCollapse: true,
+    //    order: [],
+    //    autoWidth: false,
+    //    columnDefs: [
+    //        { targets: "_all", orderable: false },
+    //        { targets: [9, 10, 11, 12], className: "text-center" },
+    //        { targets: [0, 1, 2, 3, 6, 7, 8], visible: false },
+    //    ],
+    //    createdRow: function (row, data, dataIndex) {
+    //        attachButtonClickEvent(row, data, dataIndex);
+    //    },
+    //};
     tableDeviceInfo = $('#table_Devices').DataTable(options);
     tableDeviceInfo.columns.adjust();
 }
@@ -546,7 +562,7 @@ $('#button_send').on('click', function (e) {
         contentType: "application/json;charset=utf-8",
         success: function (response) {
             if (response.status) {
-                toastr["success"]("Edit device success.", "SUCCRESS");
+                toastr["success"]("Create Borrow Reuqest success.", "SUCCRESS");
 
                 $.each(IndexDevices, function (k, v) {
                     var deviceData = tableDeviceInfo.row(v).data();
