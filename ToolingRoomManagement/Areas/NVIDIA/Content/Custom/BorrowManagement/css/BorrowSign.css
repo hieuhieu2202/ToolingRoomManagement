@@ -24,3 +24,21 @@
 .table-hover > tbody > tr:hover > * {
     background-color: rgb(136 51 255 / 15%) !important;
 }
+.dropdown-menu {
+    min-width: unset;
+    box-shadow: 0px 0px 10px 0px #888888 !important;
+    padding: 10px;
+    border-radius: 10px;
+}
+.button_dot {
+    padding: 0;
+    border: 0;
+    margin: 0;
+    width: 100%;
+    text-align: end;
+}
+
+    .button_dot i {
+        margin: 0;
+        font-size: 1rem;
+    }

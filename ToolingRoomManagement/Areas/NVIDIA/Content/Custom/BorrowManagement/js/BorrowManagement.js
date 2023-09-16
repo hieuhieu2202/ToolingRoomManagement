@@ -46,11 +46,11 @@ async function CreateTableBorrow(borrows) {
     $('#table_Borrows-tbody').html('');
     await $.each(borrows, function (no, item) {
         var row = $(`<tr class="align-middle"></tr>`);
-
-        // Created Date
-        row.append(`<td>${moment(item.DateBorrow).format('YYYY-MM-DD HH:mm:ss')}</td>`);
+       
         // Created By
         row.append(CreateTableCellUser(item.User));
+        // Created Date
+        row.append(`<td>${moment(item.DateBorrow).format('YYYY-MM-DD HH:mm:ss')}</td>`);
         // Due Date
         row.append(`<td>${item.DateDue ? moment(item.DateDue).format('YYYY-MM-DD HH:mm:ss') : ''}</td>`);
         // Return Date
@@ -90,7 +90,7 @@ async function CreateTableBorrow(borrows) {
             }
         }
         // Action
-        row.append(`<td><button type="button" class="btn btn-outline-info p-0 m-0 border-0 btn-custom" data-id="${item.Id}" onclick="BorrowDetails(this, event)"><i class="bx bx-info-circle"></i></button></td>`);
+        row.append(`<td><button type="button" class="btn btn-outline-info p-0 m-0 border-0 btn-custom" data-id="${item.Id}" onclick="BorrowDetails(this, event)" title="Details"><i class="bx bx-info-circle"></i></button></td>`);
 
         $('#table_Borrows-tbody').append(row);
     });
@@ -98,7 +98,7 @@ async function CreateTableBorrow(borrows) {
     const options = {
         scrollY: 420,
         scrollX: true,
-        order: [0],
+        order: [1],
         autoWidth: false,
         columnDefs: [
             { targets: "_all", orderable: true },
@@ -179,13 +179,14 @@ function CreateModal(borrow) {
     $('#sign-container').append(`<h4 class="font-weight-light text-center text-white py-3">SIGN PROCESS</h4>`);
     $.each(borrow.UserBorrowSigns, function (k, bs) { //bs == borrow sign
         var username = CreateUserName(bs.User);
-        var date = moment(bs.DateSign).format('ddd, MMM Do YYYY h:mm A');
+        var date = moment(bs.DateSign).format('YYYY-MM-DD | h:mm A');
 
         var title = {
             Approved: { color: 'success', text: 'Approved', icon: 'check' },
             Rejected: { color: 'danger', text: 'Rejected', icon: 'xmark' },
             Pending: { color: 'warning', text: 'Pending', icon: 'timer' },
-        }[bs.Status] || { color: 'secondary', text: 'Waiting' };
+            Waitting: { color: 'secondary', text: 'Waitting', icon: 'question' },
+        }[bs.Status] || { color: 'secondary', text: 'Closed' };
 
         var line = {
             top: k === 0 ? '' : 'border-end',
@@ -215,8 +216,8 @@ function CreateModal(borrow) {
                                     <label class="mb-3"><span class="badge bg-${title.color}"><i class="fa-solid fa-${title.icon}"></i> ${title.text}</span></label>
                                     <p class="card-text mb-1">${username}</p>
                                     <p class="card-text mb-1">${bs.User.Email || ''}</p>
-                                    <button class="btn btn-sm btn-outline-secondary collapsed ${title.text === 'Rejected' ? '' : 'd-none'}" type="button" data-bs-target="#t2_details" data-bs-toggle="collapse" aria-expanded="false">Show Details ▼</button>
-                                    <div class="border collapse" id="t2_details" style="">
+                                    <button class="btn btn-sm btn-outline-secondary collapsed ${title.text == null ? 'd-none' : title.text != 'Rejected' ? 'd-none' : ''}" type="button" data-bs-target="#details_${k}" data-bs-toggle="collapse" aria-expanded="false">Show Details ▼</button>
+                                    <div class="border collapse" id="details_${k}" style="">
                                         <div class="p-2 text-monospace">
                                             <div>${bs.Note}</div>
                                         </div>

@@ -66,7 +66,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
 
             List<Borrow> borrows = new List<Borrow>();
             List<UserBorrowSign> userBorrowSigns = db.UserBorrowSigns
-                                                     .Where(u => u.IdUser == user.Id && u.Status != "Waitting")
+                                                     .Where(u => u.IdUser == user.Id && u.Status != "Waitting" && u.Status != "Closed")
                                                      .OrderBy(u => u.SignOrder)
                                                      .ToList();
             foreach(var userBorrowSign in userBorrowSigns)
@@ -82,7 +82,6 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
         {
             try
             {
-                Entities.User user = (Entities.User)Session["SignSession"];
                 Borrow borrow = db.Borrows.FirstOrDefault(b => b.Id == IdBorrow);
 
                 if(borrow != null)
@@ -106,6 +105,60 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                             nextSign.Status = "Pending";
                             // Send Mail
                         }                       
+
+                        db.SaveChanges();
+                        return Json(new { status = true, borrow = JsonSerializer.Serialize(borrow) });
+                    }
+                    else
+                    {
+                        return Json(new { status = false, message = "Sign not found." });
+                    }
+                }
+                else
+                {
+                    return Json(new { status = false, message = "Borrow request is empty." });
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = false, message = ex.Message });
+            }
+        }
+        public ActionResult Reject(int IdBorrow, int IdSign, string Note)
+        {
+            try
+            {
+                Borrow borrow = db.Borrows.FirstOrDefault(b => b.Id == IdBorrow);
+
+                if (borrow != null)
+                {
+                    UserBorrowSign us = borrow.UserBorrowSigns.FirstOrDefault(u => u.Status == "Pending");
+
+                    if (us.Id == IdSign)
+                    {
+                        us.Status = "Rejected";
+                        us.DateSign = DateTime.Now;
+                        us.Note = Note;
+
+                        borrow.Status = "Rejected";
+
+                        // return quantity
+                        foreach(var borrowDevice in borrow.BorrowDevices)
+                        {
+                            borrowDevice.Device.RealQty += borrowDevice.BorrowQuantity;
+                        }
+
+                        // close sign
+                        foreach(var sign in borrow.UserBorrowSigns)
+                        {
+                            if(sign.SignOrder > us.SignOrder)
+                            {
+                                sign.Status = "Closed";
+                            }
+                        }
+
+                        // Send Mail
+
 
                         db.SaveChanges();
                         return Json(new { status = true, borrow = JsonSerializer.Serialize(borrow) });

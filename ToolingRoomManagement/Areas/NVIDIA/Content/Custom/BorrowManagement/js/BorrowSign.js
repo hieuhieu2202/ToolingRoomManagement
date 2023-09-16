@@ -53,15 +53,15 @@ async function CreateTableBorrow(borrows) {
     });
 
     const options = {
-        scrollY: 420,
+        scrollY: 440,
         scrollX: true,
-        order: [0],
+        order: [1],
         autoWidth: false,
         columnDefs: [
             { targets: "_all", orderable: true },
             { targets: [4,5, 6], className: "text-center" },
-            { targets: [7], className: "text-end", orderable: false},
-            { targets: [4,5,6,7], className: "text-end", orderable: false, width: "100px" },
+            { targets: [7], className: "text-end", orderable: false, width: "50px" },
+            { targets: [4, 5, 6], className: "text-center", orderable: false, width: "100px" },
         ],
         "lengthMenu": [[10, 15, 25, 50, -1], [10, 15, 25, 50, "All"]]
     };
@@ -70,10 +70,20 @@ async function CreateTableBorrow(borrows) {
 }
 
 // show modal
-function BorrowDetails(elm, e) {
+function Details(elm, e) {
     e.preventDefault();
 
     var Id = $(elm).data('id');
+    var IdSign = $(elm).data('idsign');
+
+    if (IdSign) {
+        $('#action_footer').show();
+        $('#normal_footer').hide();
+    }
+    else {
+        $('#action_footer').hide();
+        $('#normal_footer').show();
+    }
 
     $.ajax({
         type: "GET",
@@ -138,13 +148,14 @@ function CreateModal(borrow) {
     $('#sign-container').append(`<h4 class="font-weight-light text-center text-white py-3">SIGN PROCESS</h4>`);
     $.each(borrow.UserBorrowSigns, function (k, bs) { //bs == borrow sign
         var username = CreateUserName(bs.User);
-        var date = moment(bs.DateSign).format('ddd, MMM Do YYYY h:mm A');
+        var date = moment(bs.DateSign).format('YYYY-MM-DD | h:mm A');
 
         var title = {
             Approved: { color: 'success', text: 'Approved', icon: 'check' },
             Rejected: { color: 'danger', text: 'Rejected', icon: 'xmark' },
             Pending: { color: 'warning', text: 'Pending', icon: 'timer' },
-        }[bs.Status] || { color: 'secondary', text: 'Waiting' };
+            Waitting: { color: 'secondary', text: 'Waitting', icon: 'question' },
+        }[bs.Status] || { color: 'secondary', text: 'Closed' };
 
         var line = {
             top: k === 0 ? '' : 'border-end',
@@ -174,8 +185,8 @@ function CreateModal(borrow) {
                                     <label class="mb-3"><span class="badge bg-${title.color}"><i class="fa-solid fa-${title.icon}"></i> ${title.text}</span></label>
                                     <p class="card-text mb-1">${username}</p>
                                     <p class="card-text mb-1">${bs.User.Email || ''}</p>
-                                    <button class="btn btn-sm btn-outline-secondary collapsed ${title.text === 'Rejected' ? '' : 'd-none'}" type="button" data-bs-target="#t2_details" data-bs-toggle="collapse" aria-expanded="false">Show Details ▼</button>
-                                    <div class="border collapse" id="t2_details" style="">
+                                    <button class="btn btn-sm btn-outline-secondary collapsed ${title.text == null ? 'd-none' : title.text != 'Rejected' ? 'd-none' :''}" type="button" data-bs-target="#details_${k}" data-bs-toggle="collapse" aria-expanded="false">Show Details ▼</button>
+                                    <div class="border collapse" id="details_${k}" style="">
                                         <div class="p-2 text-monospace">
                                             <div>${bs.Note}</div>
                                         </div>
@@ -282,9 +293,14 @@ function Reject(elm, e) {
             if (response.status) {
                 var borrow = JSON.parse(response.borrow);
 
-                var html = $(`<p>User: <b>${CreateUserName(borrow.User)}</b></p>`);
 
+                var html = $(`<div></div>`);
+                html.append(`<p>User: <b>${CreateUserName(borrow.User)}</b></p>`);
                 html.append(`<p>Created Date: <b>${moment(borrow.DateBorrow).format('YYYY-MM-DD HH:mm:ss')}</b></p>`);
+                html.append(`<div class="text-start">
+                                 <label class="form-label">Note</label>
+                                 <textarea class="form-control" rows="3" style="resize: none" id="reject-Note"></textarea>
+                             </div>`)
 
                 Swal.fire({
                     title: `<strong style="font-size: 25px;">Do you want Reject this borrow request?</strong>`,
@@ -302,6 +318,9 @@ function Reject(elm, e) {
                     },
                 }).then((result) => {
                     if (result.isConfirmed) {
+                        console.log($('#reject-Note').val());
+                        Ids.Note = $('#reject-Note').val();
+
                         $.ajax({
                             type: "POST",
                             url: "/NVIDIA/BorrowManagement/Reject",
@@ -373,10 +392,10 @@ function CreateUserName(user) {
 function DrawDatatableRow(item) {
     var row = $(`<tr class="align-middle" data-id="${item.Id}"></tr>`);
 
-    // Created Date
-    row.append(`<td>${moment(item.DateBorrow).format('YYYY-MM-DD HH:mm:ss')}</td>`);
     // Created By
     row.append(CreateTableCellUser(item.User));
+    // Created Date
+    row.append(`<td>${moment(item.DateBorrow).format('YYYY-MM-DD HH:mm:ss')}</td>`);  
     // Due Date
     row.append(`<td>${item.DateDue ? moment(item.DateDue).format('YYYY-MM-DD HH:mm:ss') : ''}</td>`);
     // Return Date
@@ -442,36 +461,37 @@ function DrawDatatableRow(item) {
             break;
         }
         case "Rejected": {
-            rowrow.append(`<td><span class="badge bg-danger"><i class="fa-solid fa-xmark"></i> Rejected</span></td>`);
+            row.append(`<td><span class="badge bg-danger"><i class="fa-solid fa-xmark"></i> Rejected</span></td>`);
             break;
         }
         default: {
-            row.append(`<td><span class="badge bg-secondary">Waitting</span></td>`);
+            row.append(`<td><span class="badge bg-secondary"><i class="fa-solid fa-question"></i> Waitting</span></td>`);
             break;
         }
     }
     // Action
-    if (showButton) {
-        row.append(`<td>
-                             <button type="button" class="btn btn-outline-success p-0 my-0 me-0 border-0 btn-custom ms-3" data-id="${item.Id}" data-idsign="${idSign}" onclick="Approve(this, event)"><i class="bx bx-check"></i></button>
-                             <button type="button" class="btn btn-outline-danger p-0 my-0 me-0 border-0 btn-custom ms-3" data-id="${item.Id}"  data-idsign="${idSign}" onclick="Reject(this, event)"><i class="bx bx-x"></i></button>    
-                             <button type="button" class="btn btn-outline-info p-0 my-0 me-0 border-0 btn-custom ms-3" data-id="${item.Id}" onclick="BorrowDetails(this, event)"><i class="bx bx-info-circle"></i></button>                  
-                        </td>`);
-    }
-    else {
-        row.append(`<td>
-                             <button type="button" class="btn btn-outline-info p-0 my-0 me-0 border-0 btn-custom ms-3" data-id="${item.Id}" onclick="BorrowDetails(this, event)"><i class="bx bx-info-circle"></i></button>                    
-                        </td>`);
-    }
+    if (showButton)
+        row.append(`<td><div class="dropdown">
+	    				    	<button class="btn btn-outline-secondary button_dot" type="button" data-bs-toggle="dropdown" title="Action">
+                                    <i class="bx bx-dots-vertical-rounded"></i>
+                                </button>
+                                <div class="dropdown-menu order-actions">
+                                    <a href="javascript:;" class="text-success bg-light-success border-0 mb-2" title="Approve" data-id="${item.Id}" data-idsign="${idSign}" onclick="Approve(this, event)"><i class="bx bx-check"></i></a>                                
+                                    <a href="javascript:;" class="text-danger  bg-light-danger  border-0 mb-2" title="Reject " data-id="${item.Id}" data-idsign="${idSign}" onclick="Reject(this, event) "><i class="bx bx-x"></i></a>
+                                    <a href="javascript:;" class="text-info    bg-light-info    border-0     " title="Details" data-id="${item.Id}" data-idsign="${idSign}" onclick="Details(this, event)"><i class="bx bx-info-circle"></i></a>
+	    					    </div>
+	    				</div></td>`);
+    else
+        row.append(`<td><button type="button" class="btn btn-outline-info p-0 my-0 me-0 border-0 btn-custom ms-3" data-id="${item.Id}" onclick="Details(this, event)"><i class="bx bx-info-circle"></i></button></td>`);
     return row;
 }
 function DrawDatatableArray(item) {
     var row = [];
-
-    // Created Date
-    row.push(moment(item.DateBorrow).format('YYYY-MM-DD HH:mm:ss'));
+ 
     // Created By
     row.push(CreateUserName(item.User));
+    // Created Date
+    row.push(moment(item.DateBorrow).format('YYYY-MM-DD HH:mm:ss'));
     // Due Date
     row.push(item.DateDue ? moment(item.DateDue).format('YYYY-MM-DD HH:mm:ss') : '');
     // Return Date
@@ -546,12 +566,19 @@ function DrawDatatableArray(item) {
     }
     // Action
     if (showButton) {
-        row.push(`<button type="button" class="btn btn-outline-success p-0 my-0 me-0 border-0 btn-custom ms-3" data-id="${item.Id}" data-idsign="${idSign}" onclick="Approve(this, event)"><i class="bx bx-check"></i></button>
-                  <button type="button" class="btn btn-outline-danger p-0 my-0 me-0 border-0 btn-custom ms-3" data-id="${item.Id}"  data-idsign="${idSign}" onclick="Reject(this, event)"><i class="bx bx-x"></i></button>    
-                  <button type="button" class="btn btn-outline-info p-0 my-0 me-0 border-0 btn-custom ms-3" data-id="${item.Id}" onclick="BorrowDetails(this, event)"><i class="bx bx-info-circle"></i></button>`);
+        row.push(`<div class="dropdown">
+					    	<button class="btn btn-outline-secondary button_dot" type="button" data-bs-toggle="dropdown" title="Action">
+                                <i class="bx bx-dots-vertical-rounded"></i>
+                            </button>
+                            <div class="dropdown-menu order-actions">
+                                <a href="javascript:;" class="text-success bg-light-success border-0 mb-2" title="Approve" data-id="${item.Id}" data-idsign="${idSign}" onclick="Approve(this, event)"><i class="bx bx-check"></i></a>                                
+                                <a href="javascript:;" class="text-danger  bg-light-danger  border-0 mb-2" title="Reject " data-id="${item.Id}" data-idsign="${idSign}" onclick="Reject(this, event) "><i class="bx bx-x"></i></a>
+                                <a href="javascript:;" class="text-info    bg-light-info    border-0     " title="Details" data-id="${item.Id}" data-idsign="${idSign}" onclick="Details(this, event)"><i class="bx bx-info-circle"></i></a>
+						    </div>
+					</div>`);
     }
     else {
-        row.push(`<button type="button" class="btn btn-outline-info p-0 my-0 me-0 border-0 btn-custom ms-3" data-id="${item.Id}" onclick="BorrowDetails(this, event)"><i class="bx bx-info-circle"></i></button>`);
+        row.push(`<button type="button" class="btn btn-outline-info p-0 my-0 me-0 border-0 btn-custom ms-3" data-id="${item.Id}" onclick="Details(this, event)"><i class="bx bx-info-circle"></i></button>`);
     }
 
     return row;
