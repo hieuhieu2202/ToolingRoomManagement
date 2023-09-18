@@ -21,6 +21,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Entities
         public string Note { get; set; }
         public Nullable<int> SignOrder { get; set; }
         public string Status { get; set; }
+        public string Type { get; set; }
     
         public virtual User User { get; set; }
     }

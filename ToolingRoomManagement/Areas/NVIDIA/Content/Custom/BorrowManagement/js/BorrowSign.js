@@ -47,7 +47,7 @@ async function CreateTableBorrow(borrows) {
 
     $('#table_Borrows-tbody').html('');
     await $.each(borrows, function (no, item) {
-        var row = DrawDatatableRow(item);
+        var row = DrawDatatableRow(no, item);
 
         $('#table_Borrows-tbody').append(row);
     });
@@ -55,13 +55,12 @@ async function CreateTableBorrow(borrows) {
     const options = {
         scrollY: 440,
         scrollX: true,
-        order: [1],
+        order: [],
         autoWidth: false,
-        columnDefs: [
-            { targets: "_all", orderable: true },
-            { targets: [4,5, 6], className: "text-center" },
+        columnDefs: [           
             { targets: [7], className: "text-end", orderable: false, width: "50px" },
-            { targets: [4, 5, 6], className: "text-center", orderable: false, width: "100px" },
+            { targets: [4, 5, 6], className: "text-center", orderable: true, width: "100px" },
+            { targets: "_all", orderable: false },
         ],
         "lengthMenu": [[10, 15, 25, 50, -1], [10, 15, 25, 50, "All"]]
     };
@@ -183,6 +182,7 @@ function CreateModal(borrow) {
                                 <div class="card-body">
                                     <div class="float-end">${date === 'Invalid date' ? '' : date}</div>
                                     <label class="mb-3"><span class="badge bg-${title.color}"><i class="fa-solid fa-${title.icon}"></i> ${title.text}</span></label>
+                                    <label class="mb-3">${bs.Type == 'Borrow' ? '<span class="badge bg-primary"><i class="fa-solid fa-left-to-line"></i> Borrow</span>' : '<span class="badge bg-info"><i class="fa-solid fa-right-to-line"></i> Return</span>'}</label>
                                     <p class="card-text mb-1">${username}</p>
                                     <p class="card-text mb-1">${bs.User.Email || ''}</p>
                                     <button class="btn btn-sm btn-outline-secondary collapsed ${title.text == null ? 'd-none' : title.text != 'Rejected' ? 'd-none' :''}" type="button" data-bs-target="#details_${k}" data-bs-toggle="collapse" aria-expanded="false">Show Details ▼</button>
@@ -389,7 +389,8 @@ function CreateUserName(user) {
 
     return username;
 }
-function DrawDatatableRow(item) {
+
+function DrawDatatableRow(no, item) {
     var row = $(`<tr class="align-middle" data-id="${item.Id}"></tr>`);
 
     // Created By
@@ -402,19 +403,19 @@ function DrawDatatableRow(item) {
     row.append(`<td>${item.DateReturn ? moment(item.DateReturn).format('YYYY-MM-DD HH:mm:ss') : ''}</td>`);
     // Type
     switch (item.Type) {
-        case "Borrow": {
-            row.append(`<td><span class="badge bg-primary"><i class="fa-solid fa-left-to-line"></i> Borrow</span></td>`);
-            break;
-        }
-        case "Return": {
-            row.append(`<td><span class="badge bg-info"><i class="fa-solid fa-right-to-line"></i> Return</span></td>`);
-            break;
-        }
-        default: {
-            row.append(`<td><span class="badge bg-secondary">N/A</span></td>`);
-            break;
-        }
-    }
+            case "Borrow": {
+                row.append(`<td><span class="badge bg-primary"><i class="fa-solid fa-left-to-line"></i> Borrow</span></td>`);
+                break;
+            }
+            case "Return": {
+                row.append(`<td><span class="badge bg-info"><i class="fa-solid fa-right-to-line"></i> Return</span></td>`);
+                break;
+            }
+            default: {
+                row.append(`<td><span class="badge bg-secondary">N/A</span></td>`);
+                break;
+            }
+        }   
     // Status
     switch (item.Status) {
         case "Pending": {

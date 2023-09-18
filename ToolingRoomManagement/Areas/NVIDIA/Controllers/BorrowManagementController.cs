@@ -1,8 +1,10 @@
-﻿using System;
+﻿using OfficeOpenXml.FormulaParsing.Excel.Functions.Math;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
 using System.Web.Mvc;
+using ToolingRoomManagement.Areas.NVIDIA.Data;
 using ToolingRoomManagement.Areas.NVIDIA.Entities;
 using ToolingRoomManagement.Attributes;
 
@@ -67,13 +69,16 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
             List<Borrow> borrows = new List<Borrow>();
             List<UserBorrowSign> userBorrowSigns = db.UserBorrowSigns
                                                      .Where(u => u.IdUser == user.Id && u.Status != "Waitting" && u.Status != "Closed")
-                                                     .OrderBy(u => u.SignOrder)
+                                                     .OrderByDescending(u => u.Id)
                                                      .ToList();
             foreach(var userBorrowSign in userBorrowSigns)
             {
-                Borrow borrow = db.Borrows.FirstOrDefault(b => b.Id == userBorrowSign.IdBorrow);
-                borrow.UserBorrowSigns = borrow.UserBorrowSigns.OrderBy(u => u.SignOrder).ToList();
-                borrows.Add(borrow);
+                if(!borrows.Any(b => b.Id == userBorrowSign.IdBorrow))
+                {
+                    Borrow borrow = db.Borrows.FirstOrDefault(b => b.Id == userBorrowSign.IdBorrow);
+                    borrow.UserBorrowSigns = borrow.UserBorrowSigns.OrderBy(u => u.SignOrder).ToList();
+                    borrows.Add(borrow);
+                }             
             }
 
             return Json(new {status = true, borrows = JsonSerializer.Serialize(borrows) });
@@ -104,6 +109,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                             UserBorrowSign nextSign = borrow.UserBorrowSigns.FirstOrDefault(u => u.SignOrder == nextSignOrder);
                             nextSign.Status = "Pending";
                             // Send Mail
+                            Data.Common.SendSignMail(borrow);
                         }                       
 
                         db.SaveChanges();
@@ -178,6 +184,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 return Json(new { status = false, message = ex.Message });
             }
         }
+        
         // Borrow
         [HttpGet]
         public ActionResult BorrowDevice()
@@ -237,6 +244,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                     }
                 }
                 db.BorrowDevices.AddRange(borrowDevices);
+                borrow.BorrowDevices = borrowDevices;
 
                 // User <> Borrow => Sign
                 List<Entities.UserBorrowSign> userBorrowSigns = new List<UserBorrowSign>();
@@ -246,19 +254,26 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                     {
                         IdUser = SignProcess[i],
                         IdBorrow = borrow.Id,
-                        SignOrder = i
+                        SignOrder = i,
+                        Type = "Borrow"
                     };
                     if (i == 0) 
                     {
                         userBorrowSign.Status = "Pending";
-
-                        // Send mail
                     }
                     else userBorrowSign.Status = "Waitting";
+
+                    Entities.User signUser = db.Users.FirstOrDefault(u => u.Id == userBorrowSign.IdUser);
+                    userBorrowSign.User = signUser;
+
                     userBorrowSigns.Add(userBorrowSign);
                 }
                 
                 db.UserBorrowSigns.AddRange(userBorrowSigns);
+                borrow.UserBorrowSigns = userBorrowSigns;
+                
+                // Send mail
+                Data.Common.SendSignMail(borrow);
 
                 db.SaveChanges();
 
@@ -318,6 +333,54 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
         public ActionResult ReturnDevice()
         {
             return View();
+        }
+        [HttpGet]
+        public JsonResult GetListBorrowRequests()
+        {
+            try
+            {
+                Entities.User user = (Entities.User)Session["SignSession"];
+
+                List<Borrow> borrows = db.Borrows.Where(b => b.IdUser == user.Id && b.Status == "Approved" && b.Type == "Borrow").ToList();
+
+                return Json(new { status = true, borrows = JsonSerializer.Serialize(borrows) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        [HttpPost]
+        public ActionResult ReturnDevices(int IdBorrow)
+        {
+            try
+            {
+                Borrow borrow = db.Borrows.FirstOrDefault(b => b.Id == IdBorrow);
+                
+
+                borrow.Status = "Pending";
+                borrow.Type = "Return";
+                borrow.DateReturn = DateTime.Now;
+
+                UserBorrowSign WmSign = borrow.UserBorrowSigns.OrderBy(s => s.SignOrder).First();
+                UserBorrowSign newSign = new UserBorrowSign
+                {
+                    IdUser = WmSign.IdUser,
+                    IdBorrow = WmSign.IdBorrow,
+                    SignOrder = borrow.UserBorrowSigns.Count(),
+                    Type = "Return",
+                    Status = "Pending",
+                };               
+                borrow.UserBorrowSigns.Add(newSign);
+
+                db.SaveChanges();
+
+                return Json(new { status = true});
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = false, message = ex.Message });
+            }
         }
     }
 }

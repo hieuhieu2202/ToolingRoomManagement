@@ -120,6 +120,7 @@
       <Private>True</Private>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Text.Encodings.Web, Version=7.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Text.Encodings.Web.7.0.0\lib\net462\System.Text.Encodings.Web.dll</HintPath>
     </Reference>
@@ -178,9 +179,11 @@
     <Content Include="Areas\NVIDIA\Content\Custom\BorrowManagement\css\BorrowDevice.css" />
     <Content Include="Areas\NVIDIA\Content\Custom\BorrowManagement\css\BorrowManagement.css" />
     <Content Include="Areas\NVIDIA\Content\Custom\BorrowManagement\css\BorrowSign.css" />
+    <Content Include="Areas\NVIDIA\Content\Custom\BorrowManagement\css\ReturnDevice.css" />
     <Content Include="Areas\NVIDIA\Content\Custom\BorrowManagement\js\BorrowDevice.js" />
     <Content Include="Areas\NVIDIA\Content\Custom\BorrowManagement\js\BorrowManagement.js" />
     <Content Include="Areas\NVIDIA\Content\Custom\BorrowManagement\js\BorrowSign.js" />
+    <Content Include="Areas\NVIDIA\Content\Custom\BorrowManagement\js\ReturnDevice.js" />
     <Content Include="Areas\NVIDIA\Content\Custom\DeviceManagement\css\AddDeviceBOM.css" />
     <Content Include="Areas\NVIDIA\Content\Custom\DeviceManagement\css\AddDeviceManual.css" />
     <Content Include="Areas\NVIDIA\Content\Custom\DeviceManagement\css\DeviceManagement.css" />
@@ -1214,6 +1217,7 @@
     <Content Include="Areas\NVIDIA\Content\Vendor\Viewer JS\viewer.min.css" />
     <Content Include="Areas\NVIDIA\Content\Vendor\Viewer JS\viewer.min.js" />
     <Content Include="Areas\NVIDIA\Content\Vendor\Wave\style.css" />
+    <Content Include="Areas\NVIDIA\Data\MailHtml.html" />
     <Content Include="Areas\NVIDIA\Entities\ToolingRoomModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>ToolingRoomModel.edmx</DependentUpon>
@@ -2514,6 +2518,8 @@
     <Compile Include="Areas\NVIDIA\Controllers\DeviceManagementController.cs" />
     <Compile Include="Areas\NVIDIA\Controllers\UserManagementController.cs" />
     <Compile Include="Areas\NVIDIA\Data\Common.cs" />
+    <Compile Include="Areas\NVIDIA\Data\Mail.cs" />
+    <Compile Include="Areas\NVIDIA\Data\Model_Service.cs" />
     <Compile Include="Areas\NVIDIA\Entities\Borrow.cs">
       <DependentUpon>ToolingRoomModel.tt</DependentUpon>
     </Compile>
@@ -2953,6 +2959,7 @@
     <Content Include="Areas\NVIDIA\Views\BorrowManagement\BorrowDevice.cshtml" />
     <Content Include="Areas\NVIDIA\Views\BorrowManagement\ReturnDevice.cshtml" />
     <Content Include="Areas\NVIDIA\Views\BorrowManagement\Sign.cshtml" />
+    <Content Include="Properties\DataSources\System.Data.DataTable.datasource" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -2990,6 +2997,9 @@
       <Project>{afcefd0e-d1b1-4834-b534-003a13dfba06}</Project>
       <Name>Model</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
