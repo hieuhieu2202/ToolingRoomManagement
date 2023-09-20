@@ -1,0 +1,26 @@
+﻿.button_dot {
+    padding: 0;
+    border: 0;
+    margin: 0;
+    width: 100%;
+    text-align: end;
+}
+
+    .button_dot i {
+        margin: 0;
+        font-size: 1rem;
+    }
+.dropdown-menu {
+    min-width: unset;
+    box-shadow: 0px 0px 10px 0px #888888 !important;
+    padding: 10px;
+    border-radius: 10px;
+}
+.dataTables_filter {
+    display: initial;
+    float: right;
+}
+.dt-buttons.btn-group {
+    margin-bottom: 10px;
+    margin-top: -15px;
+}

@@ -190,9 +190,12 @@ $('#ReturnButton').on('click', function (e) {
         contentType: "application/json;charset=utf-8",
         success: function (response) {
             if (response.status) {
+                toastr["success"]("Create Return Reuqest success.", "SUCCRESS");
 
                 var Index = table_Borrow.row(`[data-id="${IdBorrow}"]`).index();
                 table_Borrow.row(Index).remove().draw(false);
+
+                $('#borrow_modal-modal').modal('hide');
             }
             else {
                 toastr["error"](response.message, "ERROR");
