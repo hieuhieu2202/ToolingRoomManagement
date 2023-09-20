@@ -89,41 +89,52 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
             {
                 Borrow borrow = db.Borrows.FirstOrDefault(b => b.Id == IdBorrow);
 
-                if(borrow != null)
+
+                if (borrow == null)
                 {
-                    UserBorrowSign us = borrow.UserBorrowSigns.FirstOrDefault(u => u.Status == "Pending");
-                    
-                    if(us.Id == IdSign)
-                    {
-                        us.Status = "Approved";
-                        us.DateSign = DateTime.Now;
+                    return Json(new { status = false, message = "Borrow request not found." });
+                }
 
-                        if (us.SignOrder == (borrow.UserBorrowSigns.Count - 1))
+                UserBorrowSign us = borrow.UserBorrowSigns.FirstOrDefault(u => u.Status == "Pending");
+
+                if (us == null)
+                {
+                    return Json(new { status = false, message = "No pending approval process found." });
+                }
+
+                if (us.Id != IdSign)
+                {
+                    return Json(new { status = false, message = "Invalid approval signature." });
+                }
+
+                us.Status = "Approved";
+                us.DateSign = DateTime.Now;
+
+                if (us.SignOrder == (borrow.UserBorrowSigns.Count - 1))
+                {
+                    borrow.Status = "Approved";
+
+                    if (us.Type == "Return")
+                    {
+                        //return device if type == return
+                        foreach (var BorrowDevice in borrow.BorrowDevices)
                         {
-                            borrow.Status = "Approved";
-                            // Send Mail
+                            BorrowDevice.Device.RealQty += BorrowDevice.BorrowQuantity;
                         }
-                        else
-                        {
-                            int nextSignOrder = (int)us.SignOrder + 1;
-                            UserBorrowSign nextSign = borrow.UserBorrowSigns.FirstOrDefault(u => u.SignOrder == nextSignOrder);
-                            nextSign.Status = "Pending";
-                            // Send Mail
-                            Data.Common.SendSignMail(borrow);
-                        }                       
-
-                        db.SaveChanges();
-                        return Json(new { status = true, borrow = JsonSerializer.Serialize(borrow) });
                     }
-                    else
-                    {
-                        return Json(new { status = false, message = "Sign not found." });
-                    }
+                    // Send Mail
                 }
                 else
                 {
-                    return Json(new { status = false, message = "Borrow request is empty." });
+                    int nextSignOrder = (int)us.SignOrder + 1;
+                    UserBorrowSign nextSign = borrow.UserBorrowSigns.FirstOrDefault(u => u.SignOrder == nextSignOrder);
+                    nextSign.Status = "Pending";
+                    // Send Mail
+                    Data.Common.SendSignMail(borrow);
                 }
+
+                db.SaveChanges();
+                return Json(new { status = true, borrow = JsonSerializer.Serialize(borrow) });
             }
             catch (Exception ex)
             {

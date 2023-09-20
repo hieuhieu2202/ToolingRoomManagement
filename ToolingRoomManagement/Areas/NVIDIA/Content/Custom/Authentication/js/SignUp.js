@@ -107,3 +107,9 @@ function GetAjaxErrorMessage(error) {
         return "Lỗi không xác định.";
     }
 }
+
+$(document).keypress(function (event) {
+    if (event.which === 13) {
+        $('#SignUp').click();
+    }
+});
