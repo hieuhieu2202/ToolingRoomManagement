@@ -32,16 +32,16 @@
         <AssociationConnector Association="ToolingRoomModel.FK_BorrowDevice_Device" />
         <EntityTypeShape EntityType="ToolingRoomModel.HistoryUpdateDevice" Width="1.5" PointX="1.875" PointY="5" />
         <EntityTypeShape EntityType="ToolingRoomModel.DeviceWarehouseLayout" Width="1.5" PointX="11" PointY="7.875" />
-        <EntityTypeShape EntityType="ToolingRoomModel.WarehouseLayout" Width="1.5" PointX="11" PointY="4.5" />
         <AssociationConnector Association="ToolingRoomModel.FK_DeviceWarehouseLayout_Device" />
-        <AssociationConnector Association="ToolingRoomModel.FK_DeviceWarehouseLayout_WarehouseLayout" />
         <EntityTypeShape EntityType="ToolingRoomModel.Warehouse" Width="1.5" PointX="7.375" PointY="4.625" />
         <AssociationConnector Association="ToolingRoomModel.FK_Device_Warehouse" />
         <AssociationConnector Association="ToolingRoomModel.FK_Warehouse_User" />
-        <AssociationConnector Association="ToolingRoomModel.FK_WarehouseLayout_Warehouse" />
         <EntityTypeShape EntityType="ToolingRoomModel.UserBorrowSign" Width="1.5" PointX="4.375" PointY="2.25" />
         <AssociationConnector Association="ToolingRoomModel.FK_UserBorrowSign_Borrow" />
         <AssociationConnector Association="ToolingRoomModel.FK_UserBorrowSign_User" />
+        <EntityTypeShape EntityType="ToolingRoomModel.WarehouseLayout" Width="1.5" PointX="11" PointY="4.75" />
+        <AssociationConnector Association="ToolingRoomModel.FK_DeviceWarehouseLayout_WarehouseLayout" />
+        <AssociationConnector Association="ToolingRoomModel.FK_WarehouseLayout_Warehouse" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

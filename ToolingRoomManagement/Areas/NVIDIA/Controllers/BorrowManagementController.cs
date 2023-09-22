@@ -121,8 +121,14 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                         {
                             BorrowDevice.Device.RealQty += BorrowDevice.BorrowQuantity;
                         }
+
+                        // Send Mail
                     }
-                    // Send Mail
+                    else
+                    {
+                        // Send Mail
+                    }
+
                 }
                 else
                 {
@@ -163,7 +169,9 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                         foreach(var borrowDevice in borrow.BorrowDevices)
                         {
                             borrowDevice.Device.RealQty += borrowDevice.BorrowQuantity;
+                            borrowDevice.Device.Status = "Confirmed";
                         }
+
 
                         // close sign
                         foreach(var sign in borrow.UserBorrowSigns)

@@ -61,35 +61,144 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
         {
             return View();
         }
-        public JsonResult GetWarehouseLayouts(int IdWarehouse)
+        public JsonResult GetWarehouseLayouts()
         {
             try
             {
-                List<Entities.WarehouseLayout> WarehouseLayouts = db.WarehouseLayouts.Where(wl => wl.IdWareHouse == IdWarehouse).ToList();
+                db.Configuration.LazyLoadingEnabled = false;
 
-                return Json(new { status = true, WarehouseLayouts = JsonSerializer.Serialize(WarehouseLayouts) }, JsonRequestBehavior.AllowGet);
+                List<Entities.Warehouse> warehouses = db.Warehouses.ToList();
+                foreach (var warehouse in warehouses)
+                {
+                    List<Entities.WarehouseLayout> warehouseLayouts = db.WarehouseLayouts.Where(wl => wl.IdWareHouse == warehouse.Id).ToList();
+                    warehouse.WarehouseLayouts = warehouseLayouts;
+                }
+
+                return Json(new { status = true, warehouses }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
                 return Json(new { status = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
-        public JsonResult NewLine(int IdWarehouse)
+
+        #region New node
+        public JsonResult NewLine(int IdWarehouse, string LineName)
         {
             try
             {
-                int maxLine = db.WarehouseLayouts.Where(wl => wl.IdWareHouse == IdWarehouse).Max(wl => wl.Line) ?? 0;
+                db.Configuration.LazyLoadingEnabled = false;
 
                 WarehouseLayout layout = new WarehouseLayout
                 {
                     IdWareHouse = IdWarehouse,
-                    Line = maxLine + 1,
-                    Floor = 1,
-                    Cell = 1
+                    Line = LineName,
                 };
 
                 db.WarehouseLayouts.Add(layout);
-                //db.SaveChanges();
+                db.SaveChanges();
+
+                return Json(new { status = true, layout });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = false, message = ex.Message });
+            }
+        }
+        public JsonResult NewFloor(int IdWarehouse, string LineName, string FloorName)
+        {
+            try
+            {
+                db.Configuration.LazyLoadingEnabled = false;
+
+                WarehouseLayout layout = new WarehouseLayout
+                {
+                    IdWareHouse = IdWarehouse,
+                    Line = LineName,
+                    Floor = FloorName,
+                };
+
+                db.WarehouseLayouts.Add(layout);
+                db.SaveChanges();
+
+                return Json(new { status = true, layout });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = false, message = ex.Message });
+            }
+        }
+        public JsonResult NewCell(int IdWarehouse, string LineName, string FloorName, string CellName)
+        {
+            try
+            {
+                db.Configuration.LazyLoadingEnabled = false;
+
+                WarehouseLayout layout = new WarehouseLayout
+                {
+                    IdWareHouse = IdWarehouse,
+                    Line = LineName,
+                    Floor = FloorName,
+                    Cell = CellName
+                };
+
+                db.WarehouseLayouts.Add(layout);
+                db.SaveChanges();
+
+                return Json(new { status = true, layout });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = false, message = ex.Message });
+            }
+        }
+        #endregion
+
+        #region Rename Node
+        public JsonResult RenameWarehouse(int Id, string NewName)
+        {
+            try
+            {
+                db.Configuration.LazyLoadingEnabled = false;
+
+                Warehouse warehouse = db.Warehouses.FirstOrDefault(w => w.Id == Id);
+
+                if (warehouse != null)
+                {
+                    warehouse.WarehouseName = NewName;
+
+                    db.SaveChanges();
+
+                    return Json(new { status = true });
+                }
+                else
+                {
+                    return Json(new { status = false, message = "Warehouse not found." });
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new {status = false, message = ex.Message});
+            }
+        }
+        public JsonResult RenameLine(int IdWarehouse, string NewName, string OldName)
+        {
+            try
+            {
+                db.Configuration.LazyLoadingEnabled = false;
+
+                // Check New Name
+                if(db.WarehouseLayouts.Any(w => w.IdWareHouse == IdWarehouse && w.Line == NewName))
+                    return Json(new { status = false, message = "Line name already exists." });
+
+                // Check ok => Change Name
+                var layouts = db.WarehouseLayouts.Where(w => w.IdWareHouse == IdWarehouse && w.Line == OldName).ToList();
+
+                foreach (var layout in layouts)
+                {
+                    layout.Line = NewName;
+                }
+                db.SaveChanges();
 
                 return Json(new { status = true });
             }
@@ -98,22 +207,24 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 return Json(new { status = false, message = ex.Message });
             }
         }
-        public JsonResult NewFloor(int IdWarehouse, int Line)
+        public JsonResult RenameFloor(int IdWarehouse, string LineName , string NewName, string OldName)
         {
             try
             {
-                int maxFloor = db.WarehouseLayouts.Where(wl => wl.IdWareHouse == IdWarehouse && wl.Line == Line).Max(wl => wl.Floor) ?? 0;
+                db.Configuration.LazyLoadingEnabled = false;
 
-                WarehouseLayout layout = new WarehouseLayout
+                // Check New Name
+                if (db.WarehouseLayouts.Any(w => w.IdWareHouse == IdWarehouse && w.Line == LineName && w.Floor == NewName))
+                    return Json(new { status = false, message = "Floor name already exists." });
+
+                // Check ok => Change Name
+                var layouts = db.WarehouseLayouts.Where(w => w.IdWareHouse == IdWarehouse && w.Line == LineName && w.Floor == OldName).ToList();
+
+                foreach (var layout in layouts)
                 {
-                    IdWareHouse = IdWarehouse,
-                    Line = Line,
-                    Floor = maxFloor + 1,
-                    Cell = 1
-                };
-
-                db.WarehouseLayouts.Add(layout);
-                //db.SaveChanges();
+                    layout.Floor = NewName;
+                }
+                db.SaveChanges();
 
                 return Json(new { status = true });
             }
@@ -122,10 +233,37 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 return Json(new { status = false, message = ex.Message });
             }
         }
-        //public JsonResult NewFloorsCell(int IdWarehouse)
-        //{
+        public JsonResult RenameCell(int IdWarehouse, string LineName, string FloorName, string NewName, string OldName)
+        {
+            try
+            {
+                db.Configuration.LazyLoadingEnabled = false;
 
-        //}
+                // Check New Name
+                if (db.WarehouseLayouts.Any(w => w.IdWareHouse == IdWarehouse && w.Line == LineName && w.Floor == FloorName && w.Cell == NewName))
+                    return Json(new { status = false, message = "Cell name already exists." });
+
+                // Check ok => Change Name
+                var layouts = db.WarehouseLayouts.Where(w => w.IdWareHouse == IdWarehouse && w.Line == LineName && w.Floor == FloorName && w.Cell == OldName).ToList();
+
+                foreach (var layout in layouts)
+                {
+                    layout.Cell = NewName;
+                }
+                db.SaveChanges();
+
+                return Json(new { status = true });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = false, message = ex.Message });
+            }
+        }
+        #endregion
+
+        #region Delete Node
+
+        #endregion
 
     }
 }
