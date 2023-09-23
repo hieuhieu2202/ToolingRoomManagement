@@ -262,8 +262,133 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
         #endregion
 
         #region Delete Node
+        public JsonResult DeleteLine(int IdWarehouse, string LineName)
+        {
+            try
+            {
+                db.Configuration.LazyLoadingEnabled = false;
 
+                List<WarehouseLayout> layouts = db.WarehouseLayouts.Where(l =>
+                                                                          l.IdWareHouse == IdWarehouse &&
+                                                                          l.Line == LineName).ToList();
+
+                db.WarehouseLayouts.RemoveRange(layouts);
+                db.SaveChanges();
+
+                return Json(new { status = true });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = false, message = ex.Message });
+            }
+        }
+        public JsonResult DeleteFloor(int IdWarehouse, string LineName, string FloorName)
+        {
+            try
+            {
+                db.Configuration.LazyLoadingEnabled = false;
+
+                List<WarehouseLayout> layouts = db.WarehouseLayouts.Where(l =>
+                                                                          l.IdWareHouse == IdWarehouse &&
+                                                                          l.Line == LineName &&
+                                                                          l.Floor == FloorName).ToList();
+
+                db.WarehouseLayouts.RemoveRange(layouts);
+                db.SaveChanges();
+
+                return Json(new { status = true });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = false, message = ex.Message });
+            }
+        }
+        public JsonResult DeleteCell(int IdWarehouse, string LineName, string FloorName, string CellName)
+        {
+            try
+            {
+                db.Configuration.LazyLoadingEnabled = false;
+
+                List<WarehouseLayout> layouts = db.WarehouseLayouts.Where(l => 
+                                                                          l.IdWareHouse == IdWarehouse &&
+                                                                          l.Line == LineName &&
+                                                                          l.Floor == FloorName &&
+                                                                          l.Cell == CellName).ToList();
+
+                db.WarehouseLayouts.RemoveRange(layouts);
+                db.SaveChanges();
+
+                return Json(new { status = true});
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = false, message = ex.Message });
+            }
+        }
         #endregion
+
+
+        public JsonResult GetNodeDevices(int IdWarehouse, string LineName, string FloorName, string CellName)
+        {
+            try
+            {
+                WarehouseLayout layout = new WarehouseLayout();
+                List<Entities.Device> devices = new List<Entities.Device>();
+                if (string.IsNullOrEmpty(LineName) && string.IsNullOrEmpty(FloorName) && string.IsNullOrEmpty(CellName))
+                {
+                    devices = db.Devices.Where(d => d.IdWareHouse == IdWarehouse).ToList();
+                }
+                else
+                {
+                    layout = db.WarehouseLayouts.FirstOrDefault(wl =>
+                                                                wl.IdWareHouse == IdWarehouse &&
+                                                                ((string.IsNullOrEmpty(LineName) && wl.Line == null) || wl.Line == LineName) &&
+                                                                ((string.IsNullOrEmpty(FloorName) && wl.Floor == null) || wl.Floor == FloorName) &&
+                                                                ((string.IsNullOrEmpty(CellName) && wl.Cell == null) || wl.Cell == CellName));
+
+                    List<DeviceWarehouseLayout> deviceWarehouseLayouts = db.DeviceWarehouseLayouts.Where(dwl => dwl.IdWarehouseLayout == layout.Id).ToList();
+
+                    foreach(var item in deviceWarehouseLayouts)
+                    {
+                        Device device = db.Devices.FirstOrDefault(d => d.Id == item.IdDevice);
+                        devices.Add(device);
+                    }
+                }
+                
+
+                return Json(new { status = true, devices });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = false, message = ex.Message });
+            }
+        }
+        public JsonResult GetWarehouseDevices(int IdWarehouse)
+        {
+            try
+            {
+                List<Entities.Device> devices = db.Devices.Where(d => d.IdWareHouse == IdWarehouse).ToList();
+
+                return Json(new { status = true, devices });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = false, message = ex.Message });
+            }
+        }
+        public JsonResult GetDevice(int IdDevice)
+        {
+            try
+            {
+                Entities.Device device = db.Devices.FirstOrDefault(d => d.Id == IdDevice);
+
+                return Json(new { status = true, device });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = false, message = ex.Message });
+            }
+        }
 
     }
 }

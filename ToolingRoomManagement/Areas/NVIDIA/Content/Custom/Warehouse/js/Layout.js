@@ -1,9 +1,13 @@
 ﻿$(function () {
     GetWarehouseLayouts();
+
+    offcanvasDetails = new bootstrap.Offcanvas($('#offcanvasDevice'));
 });
+var offcanvasDetails;
 
 // Layout JsTree
 var isCreatingNode = false;
+var LayoutTree;
 function GetWarehouseLayouts() {
     $.ajax({
         type: "GET",
@@ -14,7 +18,17 @@ function GetWarehouseLayouts() {
             if (response.status) {
                 const warehouses = response.warehouses;
 
-                JsTree(RenderData(warehouses));
+                const dataRender = RenderData(warehouses);
+                if (!LayoutTree) {
+                    JsTreeInit(dataRender);
+                }
+                else {
+                    LayoutTree.jstree(true).settings.core.data = dataRender;
+
+                    $("#LayoutTree").jstree(true).refresh();
+                    //$("#LayoutTree").jstree("open_all");
+                }
+                
             }
             else {
                 toastr["error"](response.message, "ERROR");
@@ -25,8 +39,8 @@ function GetWarehouseLayouts() {
         }
     });
 }
-function JsTree(treeData) {
-    $("#LayoutTree").jstree({
+function JsTreeInit(treeData) {
+    LayoutTree = $("#LayoutTree").jstree({
         core: {
             themes: {
                 responsive: true
@@ -136,10 +150,12 @@ function JsTree(treeData) {
                 return menuItems;
             },
         },
+    }).on('ready.jstree', function () {
+        $(this).jstree("open_all");
     });
 }
 
-// Create, Rename, Delete Node Affter Event
+// Create, Rename, Delete Affter Event
 $('#LayoutTree').on('rename_node.jstree', function (e, data) {
     var curentNode = data.node;
     var parentNode = $('#LayoutTree').jstree('get_node', curentNode.parent);
@@ -189,7 +205,7 @@ $('#LayoutTree').on('rename_node.jstree', function (e, data) {
 
         isCreatingNode = false;
     }
-    else {      
+    else {
         switch (curentNode.type) {
             case 'default': {
                 // Rename Warehouse
@@ -197,7 +213,8 @@ $('#LayoutTree').on('rename_node.jstree', function (e, data) {
                 var NewName = curentNode.text;
                 var OldName = data.old;
 
-                RenameWarehouse(curentNode, Id, NewName, OldName);
+                if (NewName != OldName)
+                    RenameWarehouse(curentNode, Id, NewName, OldName);
 
                 break;
             }
@@ -209,7 +226,8 @@ $('#LayoutTree').on('rename_node.jstree', function (e, data) {
                 var NewName = curentNode.text;
                 var OldName = data.old;
 
-                RenameLine(curentNode, IdWarehouse, NewName, OldName);
+                if (NewName != OldName)
+                    RenameLine(curentNode, IdWarehouse, NewName, OldName);
 
                 break;
             }
@@ -223,7 +241,8 @@ $('#LayoutTree').on('rename_node.jstree', function (e, data) {
                 var NewName = curentNode.text;
                 var OldName = data.old;
 
-                RenameFloor(curentNode, IdWarehouse, LineName, NewName, OldName);
+                if (NewName != OldName)
+                    RenameFloor(curentNode, IdWarehouse, LineName, NewName, OldName);
 
                 break;
             }
@@ -239,7 +258,8 @@ $('#LayoutTree').on('rename_node.jstree', function (e, data) {
                 var NewName = curentNode.text;
                 var OldName = data.old;
 
-                RenameCell(curentNode, IdWarehouse, LineName, FloorName, NewName, OldName);
+                if (NewName != OldName)
+                    RenameCell(curentNode, IdWarehouse, LineName, FloorName, NewName, OldName);
 
                 break;
             }
@@ -250,25 +270,14 @@ $('#LayoutTree').on('delete_node.jstree', function (e, data) {
     var curentNode = data.node;
 
     switch (curentNode.type) {
-        case 'default': {
-            // Rename Warehouse
-            var Id = curentNode.id.split('_')[1];
-            var NewName = curentNode.text;
-            var OldName = data.old;
-
-            RenameWarehouse(curentNode, Id, NewName, OldName);
-
-            break;
-        }
         case 'lv1': {
             // Rename Line
             var WarehouseNode = $('#LayoutTree').jstree('get_node', curentNode.parent);
 
             var IdWarehouse = WarehouseNode.id.split('_')[1];
-            var NewName = curentNode.text;
-            var OldName = data.old;
+            var LineName = curentNode.text;
 
-            RenameLine(curentNode, IdWarehouse, NewName, OldName);
+            DeleteLine(IdWarehouse, LineName);
 
             break;
         }
@@ -279,10 +288,9 @@ $('#LayoutTree').on('delete_node.jstree', function (e, data) {
 
             var IdWarehouse = WarehouseNode.id.split('_')[1];
             var LineName = LineNode.text;
-            var NewName = curentNode.text;
-            var OldName = data.old;
+            var FloorName = curentNode.text;
 
-            RenameFloor(curentNode, IdWarehouse, LineName, NewName, OldName);
+            DeleteFloor(IdWarehouse, LineName, FloorName);
 
             break;
         }
@@ -295,14 +303,101 @@ $('#LayoutTree').on('delete_node.jstree', function (e, data) {
             var IdWarehouse = WarehouseNode.id.split('_')[1];
             var LineName = LineNode.text;
             var FloorName = FloorNode.text;
-            var NewName = curentNode.text;
-            var OldName = data.old;
+            var CellName = curentNode.text;
 
-            RenameCell(curentNode, IdWarehouse, LineName, FloorName, NewName, OldName);
+            DeleteCell(IdWarehouse, LineName, FloorName, CellName);
 
             break;
         }
     }
+});
+
+// Select Node (Get node device)
+$("#LayoutTree").on("select_node.jstree", function (e, data) {
+    var curentNode = data.node;
+
+    var sendData = {
+        IdWarehouse: 0,
+        LineName: '',
+        FloorName: '',
+        CellName: '',
+    }
+
+    // GetData
+    switch (curentNode.type) {
+        case 'default': {
+            sendData.IdWarehouse = curentNode.id.split('_')[1];
+
+            $('#btn_Layout-AddDevice').hide();
+
+            break;
+        }
+        case 'lv1': {
+            var WarehouseNode = $('#LayoutTree').jstree('get_node', curentNode.parent);
+            sendData.IdWarehouse = WarehouseNode.id.split('_')[1];
+            sendData.LineName = curentNode.text;
+
+            $('#btn_Layout-AddDevice').html('<i class="fa-solid fa-plus"></i> Add Device to Line');
+            $('#btn_Layout-AddDevice').show();
+
+            break;
+        }
+        case 'lv2': {
+            var LineNode = $('#LayoutTree').jstree('get_node', curentNode.parent);
+            var WarehouseNode = $('#LayoutTree').jstree('get_node', LineNode.parent);
+
+            sendData.IdWarehouse = WarehouseNode.id.split('_')[1];
+            sendData.LineName = LineNode.text;
+            sendData.FloorName = curentNode.text;
+
+            $('#btn_Layout-AddDevice').html('<i class="fa-solid fa-plus"></i> Add Device to Floor');
+            $('#btn_Layout-AddDevice').show();
+
+            break;
+        }
+        case 'lv3': {
+            var FloorNode = $('#LayoutTree').jstree('get_node', curentNode.parent);
+            var LineNode = $('#LayoutTree').jstree('get_node', FloorNode.parent);
+            var WarehouseNode = $('#LayoutTree').jstree('get_node', LineNode.parent);
+
+            sendData.IdWarehouse = WarehouseNode.id.split('_')[1];
+            sendData.LineName = LineNode.text;
+            sendData.FloorName = FloorNode.text;
+            sendData.CellName = curentNode.text;
+
+            $('#btn_Layout-AddDevice').html('<i class="fa-solid fa-plus"></i> Add Device to Cell');
+            $('#btn_Layout-AddDevice').show();
+
+            break;
+        }
+    }
+
+    $('#btn_Layout-AddDevice').data('idwarehouse', sendData.IdWarehouse);
+    $('#btn_Layout-AddDevice').data('line', sendData.LineName);
+    $('#btn_Layout-AddDevice').data('floor', sendData.FloorName);
+    $('#btn_Layout-AddDevice').data('cell', sendData.CellName);
+
+    // PostData
+    $.ajax({
+        type: "POST",
+        url: "/NVIDIA/Warehouse/GetNodeDevices",
+        data: JSON.stringify(sendData),
+        dataType: "json",
+        contentType: "application/json;charset=utf-8",
+        success: function (response) {
+            if (response.status) {
+                console.log(response);
+
+                CreateTableDevices(response.devices);               
+            }
+            else {
+                toastr["error"](response.message, "ERROR");
+            }
+        },
+        error: function (error) {
+            Swal.fire("Something went wrong!", GetAjaxErrorMessage(error), "error");
+        }
+    });
 });
 
 // New Node
@@ -472,7 +567,72 @@ function RenameCell(curentNode, IdWarehouse, LineName, FloorName, NewName, OldNa
 }
 
 // Delete Node
-
+function DeleteLine(IdWarehouse, LineName) {
+    $.ajax({
+        type: "POST",
+        url: "/NVIDIA/Warehouse/DeleteLine",
+        data: JSON.stringify({ IdWarehouse, LineName }),
+        dataType: "json",
+        contentType: "application/json;charset=utf-8",
+        success: function (response) {
+            if (response.status) {
+                toastr["success"]('', "SUCCESS");
+            }
+            else {
+                GetWarehouseLayouts();
+                toastr["error"](response.message, "ERROR");
+            }
+        },
+        error: function (error) {
+            GetWarehouseLayouts();
+            Swal.fire("Something went wrong!", GetAjaxErrorMessage(error), "error");
+        }
+    });
+}
+function DeleteFloor(IdWarehouse, LineName, FloorName) {
+    $.ajax({
+        type: "POST",
+        url: "/NVIDIA/Warehouse/DeleteFloor",
+        data: JSON.stringify({ IdWarehouse, LineName, FloorName }),
+        dataType: "json",
+        contentType: "application/json;charset=utf-8",
+        success: function (response) {
+            if (response.status) {
+                toastr["success"]('', "SUCCESS");
+            }
+            else {
+                GetWarehouseLayouts();
+                toastr["error"](response.message, "ERROR");
+            }
+        },
+        error: function (error) {
+            GetWarehouseLayouts();
+            Swal.fire("Something went wrong!", GetAjaxErrorMessage(error), "error");
+        }
+    });
+}
+function DeleteCell(IdWarehouse, LineName, FloorName, CellName) {
+    $.ajax({
+        type: "POST",
+        url: "/NVIDIA/Warehouse/DeleteCell",
+        data: JSON.stringify({ IdWarehouse, LineName, FloorName, CellName }),
+        dataType: "json",
+        contentType: "application/json;charset=utf-8",
+        success: function (response) {
+            if (response.status) {
+                toastr["success"]('', "SUCCESS");            
+            }
+            else {
+                GetWarehouseLayouts();
+                toastr["error"](response.message, "ERROR");
+            }
+        },
+        error: function (error) {
+            GetWarehouseLayouts();
+            Swal.fire("Something went wrong!", GetAjaxErrorMessage(error), "error");
+        }
+    });
+}
 
 // Search
 $('#LayoutTree').on('search.jstree', function (nodes, str, res) {
@@ -484,7 +644,6 @@ $('#search_Layout').keyup(function () {
     $('#LayoutTree').jstree(true).show_all();
     $('#LayoutTree').jstree('search', $(this).val());
 });
-
 
 // RenderJsTreeData
 function RenderData(warehouses) {
@@ -545,118 +704,274 @@ function RenderData(warehouses) {
     return result;
 }
 
+// Devices Table
+var TableDevices;
+async function CreateTableDevices(devices) {
+    if (TableDevices) TableDevices.destroy();
 
+    $('#table_Devices-tbody').html('');
+    await $.each(devices, async function (no, item) {
+        var row = $(`<tr class="align-middle" data-id="${item.Id}"></tr>`);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//Create Warehouse Layout
-function CreateWarehouseLayouts(WarehouseLayouts) {
-    const layout = LayoutInfo(WarehouseLayouts);
-
-    $('#LineContainer').empty();
-
-    for (const line in layout) {
-        DrawNewLine(line);
-
-        const numFloors = Object.keys(layout[line]);
-        var floor_container = $(`#line_${line} .floor_container`);
-
-        numFloors.forEach(floor => {
-            const numCells = layout[line][floor].length;
-
-            DrawNewFloor(line, floor_container, floor);
-
-
-            var cell_container = $(`#line_${line} .floor_container [wh_floor_${floor}] [wh_cells]`);
-
-            for (let i = 1; i <= numCells; i++) {
-                DrawNewCell(cell_container, i);
+        // MTS
+        row.append(`<td>${(item.Product) ? item.Product.MTS : ""}</td>`);
+        // Product Name
+        row.append(`<td title="${(item.Product) ? item.Product.ProductName : ""}">${(item.Product) ? item.Product.ProductName : ""}</td>`);
+        // Model
+        row.append(`<td>${(item.Model) ? item.Model.ModelName : ""}</td>`);
+        // Station
+        row.append(`<td>${(item.Station) ? item.Station.StationName : ""}</td>`);
+        // DeviceCode - PN
+        row.append(`<td data-id="${item.Id}" data-code="${item.DeviceCode}">${item.DeviceCode}</td>`);
+        // DeviceName
+        row.append(`<td title="${item.DeviceName}">${item.DeviceName}</td>`);
+        // Group
+        row.append(`<td>${(item.Group) ? item.Group.GroupName : ""}</td>`);
+        // Vendor
+        row.append(`<td title="${(item.Vendor) ? item.Vendor.VendorName : ""}">${(item.Vendor) ? item.Vendor.VendorName : ""}</td>`);
+        // Buffer
+        row.append(`<td title="${item.Buffer}">${item.Buffer * 100}%</td>`);
+        // Quantity
+        row.append(`<td title="(Real Quantity)">${(item.RealQty != null) ? item.RealQty : 0}</td>`);
+        // Type
+        switch (item.Type) {
+            case "S": {
+                row.append(`<td><span class="text-success fw-bold">Static</span></td>`);
+                break;
             }
-        });
+            case "D": {
+                row.append(`<td><span class="text-info fw-bold">Dynamic</span></td>`);
+                break;
+            }
+            default: {
+                row.append(`<td><span class="text-secondary fw-bold">N/A</span></td>`);
+                break;
+            }
+        }
+        // Status
+        switch (item.Status) {
+            case "Unconfirmed": {
+                row.append(`<td><span class="badge bg-primary">Unconfirmed</span></td>`);
+                break;
+            }
+            case "Part Confirmed": {
+                row.append(`<td><span class="badge bg-warning">Part Confirmed</span></td>`);
+                break;
+            }
+            case "Confirmed": {
+                row.append(`<td><span class="badge bg-success">Confirmed</span></td>`);
+                break;
+            }
+            case "Locked": {
+                row.append(`<td><span class="badge bg-secondary">Locked</span></td>`);
+                break;
+            }
+            case "Out Range": {
+                row.append(`<td><span class="badge bg-danger">Out Range</span></td>`);
+                break;
+            }
+            default: {
+                row.append(`<td>N/A</td>`);
+                break;
+            }
+        }
+        // Action
+        row.append(`<td class="order-action d-flex">
+                         <a href="javascript:;" class="text-info bg-light-info border-0" title="Details" data-id="${item.Id}" onclick="Details(this, event)"><i class="fa-regular fa-circle-info"></i></a>
+                    </td>`);
+
+        $('#table_Devices-tbody').append(row);
+    });
+
+    const options = {
+        scrollY: 500,
+        scrollX: true,
+        order: [],
+        autoWidth: false,
+        columnDefs: [
+            { targets: "_all", orderable: false },
+            { targets: [9, 10, 11, 12], className: "text-center justify-content-center" },
+            { targets: [0, 1, 2, 3, 6, 7, 8], visible: false },
+        ],
+        "lengthMenu": [[10, 15, 25, 50, -1], [10, 15, 25, 50, "All"]]
     };
-}
-function LayoutInfo(data) {
-    const warehouseInfo = {};
-    data.forEach(item => {
-        const line = item.Line;
-        const floor = item.Floor;
-        const cell = item.Cell;
+    $('#card_Layout-Devices').fadeIn(500);
 
-        warehouseInfo[line] = warehouseInfo[line] || {};
-        if (floor != null)
-            warehouseInfo[line][floor] = warehouseInfo[line][floor] || [];
-        if (cell != null)
-            warehouseInfo[line][floor].push(cell);
-    });
-    return warehouseInfo;
+    TableDevices = $('#table_Devices').DataTable(options);
+    TableDevices.columns.adjust();
+
+    
 }
 
-
-function DrawNewLine(LineNum) {
-    var html = $(`<!-- Line ${LineNum} -->
-                  <div class="accordion-item" wh_line id="line_${LineNum}">
-                      <h2 class="accordion-header" id="heading_${LineNum}">
-                          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse_${LineNum}" aria-expanded="true" aria-controls="collapse_${LineNum}">Line ${LineNum}</button>
-                      </h2>
-                      <div id="collapse_${LineNum}" class="accordion-collapse collapse show" aria-labelledby="heading_${LineNum}" data-bs-parent="#accordion_wh">
-                          <div class="accordion-body">
-                              <div class="floor_container">
-                                  
-                              </div>
-                  
-                              <div class="mt-2">
-                                  <button class="btn btn-sm btn-secondary w-100" BtnNewFloor data-line="${LineNum}"><i class="fa-solid fa-plus"></i> New floor</button>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-                  <!-- End Line ${LineNum}-->`);
-
-    // Button new floor
-    var BtnNewFloor = $(html).find('[BtnNewFloor]');
-    BtnNewFloor.on('click', function (e) {
-        e.preventDefault();
-        AddNewFloor(LineNum);
-    });
-
-    // hide collapse
-    $('.collapse').collapse();
-
-    // append html
-    $('#layout_modal-LineContainer').append(html);
-    html.hide().fadeIn(500);
+// RenderDeviceRow
+function RenderDeviceRow(item) {
+    var row = [];
+    {
+        // MTS
+        row.push(`<td>${(item.Product) ? item.Product.MTS : ""}</td>`);
+        // Product Name
+        row.push(`<td title="${(item.Product) ? item.Product.ProductName : ""}">${(item.Product) ? item.Product.ProductName : ""}</td>`);
+        // Model
+        row.push(`<td>${(item.Model) ? item.Model.ModelName : ""}</td>`);
+        // Station
+        row.push(`<td>${(item.Station) ? item.Station.StationName : ""}</td>`);
+        // DeviceCode - PN
+        row.push(`<td data-id="${item.Id}" data-code="${item.DeviceCode}">${item.DeviceCode}</td>`);
+        // DeviceName
+        row.push(`<td title="${item.DeviceName}">${item.DeviceName}</td>`);
+        // Group
+        row.push(`<td>${(item.Group) ? item.Group.GroupName : ""}</td>`);
+        // Vendor
+        row.push(`<td>${(item.Vendor) ? item.Vendor.VendorName : ""}</td>`);
+        // Buffer
+        row.push(`<td title="${item.Buffer}">${item.Buffer * 100}%</td>`);
+        // Quantity
+        row.push(`<td title="Real Quantity">${(item.RealQty != null) ? item.RealQty : 0}</td>`);
+        // Type
+        switch (item.Type) {
+            case "S": {
+                row.push(`<td><span class="text-success fw-bold">Static</span></td>`);
+                break;
+            }
+            case "D": {
+                row.push(`<td><span class="text-info fw-bold">Dynamic</span></td>`);
+                break;
+            }
+            default: {
+                row.push(`<td><span class="text-secondary fw-bold">N/A</span></td>`);
+                break;
+            }
+        }
+        // Status
+        switch (item.Status) {
+            case "Unconfirmed": {
+                row.push(`<td><span class="badge bg-primary">Unconfirmed</span></td>`);
+                break;
+            }
+            case "Part Confirmed": {
+                row.push(`<td><span class="badge bg-warning">Part Confirmed</span></td>`);
+                break;
+            }
+            case "Confirmed": {
+                row.push(`<td><span class="badge bg-success">Confirmed</span></td>`);
+                break;
+            }
+            case "Locked": {
+                row.push(`<td><span class="badge bg-secondary">Locked</span></td>`);
+                break;
+            }
+            case "Out Range": {
+                row.push(`<td><span class="badge bg-danger">Out Range</span></td>`);
+                break;
+            }
+            default: {
+                row.push(`<td>N/A</td>`);
+                break;
+            }
+        }
+        // Action
+        row.push(`<td><div class="dropdown">
+					            	<button class="btn btn-outline-secondary button_dot" type="button" data-bs-toggle="dropdown" title="Action">
+                                        <i class="bx bx-dots-vertical-rounded"></i>
+                                    </button>
+                                    <div class="dropdown-menu order-actions">
+                                        <a href="javascript:;" class="text-success bg-light-success border-0 mb-2" title="Confirm" data-id="${item.Id}" onclick="Confirm(this, event)"><i class="bx bx-check"></i></a>
+                                        <a href="javascript:;" class="text-warning bg-light-warning border-0 mb-2" title="Edit   " data-id="${item.Id}" onclick="Edit(this, event)   "><i class="bx bxs-edit"></i></a>
+                                        <a href="javascript:;" class="text-danger  bg-light-danger  border-0     " title="Delete " data-id="${item.Id}" onclick="Delete(this, event) "><i class="bx bxs-trash"></i></a>
+					         	    </div>
+					         </div></td>`);
+    }
+    return row;
 }
-//New Floor
-function AddNewFloor(LineNum) {
-    const IdWarehouse = $('#input_WareHouse').val();
+
+// Add Device To Layout
+$('#btn_Layout-AddDevice').on('click', function (e) {
+    e.preventDefault();
+
+    var data = {
+        IdWarehouse: $(this).data('idwarehouse'),
+        LineName: $(this).data('line'),
+        FloorName: $(this).data('floor'),
+        CellName: $(this).data('cell'),
+    }
 
     $.ajax({
         type: "POST",
-        url: "/NVIDIA/Warehouse/NewFloor",
-        data: JSON.stringify({ IdWarehouse: IdWarehouse, Line: LineNum }),
+        url: "/NVIDIA/Warehouse/GetWarehouseDevices",
+        data: JSON.stringify({ IdWarehouse: data.IdWarehouse }),
         dataType: "json",
         contentType: "application/json;charset=utf-8",
         success: function (response) {
             if (response.status) {
-                var floor_container = $(`#line_${LineNum} .floor_container`);
-                var FloorNum = floor_container.find('[wh_floor]').length;
 
-                DrawNewFloor(LineNum, floor_container, ++FloorNum);
+
+
+
+                $('#AddDeviceLayout-title').html($('#btn_Layout-AddDevice').text());
+                $('#AddDeviceLayout-modal').modal('show');
+            }
+            else {
+                toastr["error"](response.message, "ERROR");
+            }
+        },
+        error: function (error) {
+            Swal.fire("Something went wrong!", GetAjaxErrorMessage(error), "error");
+        }
+    });
+
+});
+
+var AddDeviceLayout_table_Devices;
+async function CreateAddDeviceTable(devices) {
+    if (AddDeviceLayout_table_Devices) AddDeviceLayout_table_Devices.destroy();
+}
+
+
+function IsDeviceInLayout(device, layout) {
+    var check = false;
+    device.DeviceWarehouseLayouts.forEach(function (item) {
+        var deviceLayout = item.WarehouseLayout;
+        if ((deviceLayout.Line == layout.LineName || deviceLayout.Line == layout.Line) &&
+            (deviceLayout.Floor == layout.FloorName || deviceLayout.Line == layout.Floor) &&
+            (deviceLayout.Cell == layout.CellName || deviceLayout.Line == layout.Cell))
+        {
+            check = true;
+            return false;
+        }
+    });
+    return check;
+}
+
+// Device Details
+function Details(elm, e) {
+    e.preventDefault();
+
+    var IdDevice = $(elm).data('id');
+    $.ajax({
+        type: "POST",
+        url: "/NVIDIA/Warehouse/GetDevice",
+        data: JSON.stringify({ IdDevice }),
+        dataType: "json",
+        contentType: "application/json;charset=utf-8",
+        success: function (response) {
+            if (response.status) {
+                var device = response.device;
+
+                $('#device-DeviceCode').val(device.DeviceCode);
+                $('#device-DeviceName').val(device.DeviceName);
+                $('#device-DeviceDate').val(moment(device.DeviceDate).format('YYYY-MM-DD HH:mm:ss'));
+                $('#device-DeviceProduct').val(device.Product ? device.Product.ProductName : '');
+                $('#device-DeviceModel').val(device.Model ? device.Model.ModelName : '');
+                $('#device-DeviceGroup').val(device.Group ? device.Group.GroupName : '');
+                $('#device-DeviceVendor').val(device.Vendor ? device.Vendor.VendorName : '');
+                $('#device-DeviceStation').val(device.Station ? device.Station.StationName : '');
+                $('#device-DeviceType').val(device.Type);
+                $('#device-DeviceStatus').val(device.Status);
+                $('#device-DeviceQuantity').val(device.Quantity);
+                $('#device-DeviceConfirmQty').val(device.QtyConfirm);
+                $('#device-DeviceRealQty').val(device.RealQty);
+
+                offcanvasDetails.show();
             }
             else {
                 toastr["error"](response.message, "ERROR");
@@ -667,86 +982,9 @@ function AddNewFloor(LineNum) {
         }
     });
 }
-function DrawNewFloor(LineNum, floor_container, FloorNum) {
-    var html = $(`<!-- Floor ${FloorNum} -->
-                <div class="field mb-3" wh_floor wh_floor_${FloorNum}>
-                    <fieldset class="border rounded-3 p-2">
-                        <legend class="fs-6 fw-bold float-none w-auto px-3">
-                            <div class="d-flex">
-                                <div class="float-left">Floor ${FloorNum}</div>
-                                <a class="float-right ms-3"><span class="badge bg-light-info text-info"><i class="fa-solid fa-plus"></i> New Cell</span></a>
-                            </div>
-                        </legend>
-                        <div class="row m-0 floor-cells" wh_cells>
 
-                        </div>
-                    </fieldset>
-                </div>
-                <!-- End Floor ${FloorNum} -->`);
-    // new cell event
-    var BtnNewCell = html.find('a');
-    BtnNewCell.on('click', function (e) {
-        e.preventDefault();
-        AddNewCell(LineNum, FloorNum);
-    });
-
-    floor_container.append(html);
-    html.hide().fadeIn(500);
-}
-// New Cell
-function AddNewCell(LineNum, FloorNum) {
-    const IdWarehouse = $('#input_WareHouse').val();
-
-    $.ajax({
-        type: "POST",
-        url: "/NVIDIA/Warehouse/NewCell",
-        data: JSON.stringify({ IdWarehouse: IdWarehouse, Line: LineNum, Floor: FloorNum }),
-        dataType: "json",
-        contentType: "application/json;charset=utf-8",
-        success: function (response) {
-            if (response.status) {
-                var cell_container = $(`#line_${LineNum} .floor_container [wh_floor_${FloorNum}] [wh_cells]`);
-                var CellNum = cell_container.find('.col-2').length;
-
-                DrawNewCell(cell_container, ++CellNum);
-            }
-            else {
-                toastr["error"](response.message, "ERROR");
-            }
-        },
-        error: function (error) {
-            Swal.fire("Something went wrong!", GetAjaxErrorMessage(error), "error");
-        }
-    });
-}
-function DrawNewCell(cell_container, CellNum) {
-    var html = $(`<div class="col-2 mb-2"><div class="p-2 border rounded-2 text-center" wh_cell>Cell ${CellNum}</div></div>`);
-
-    cell_container.append(html);
-    html.hide().fadeIn(500);
-}
-
-
-//data: [{
-//    text: "AUTO",
-//    children: [{
-//        text: "Line1",
-//        type: "lv1",
-//        children: []
-//    }]
-//}, {
-//    text: "TE",
-//    children: [{
-//        text: "Line1",
-//        type: "lv1",
-//        children: [{
-//            text: 'Floor1',
-//            type: 'lv2',
-//            children: [{
-//                text: 'Cell1',
-//                type: 'lv3',
-//            }]
-//        }]
-//    }]
-//}]
-//        },
+//row.append(`<td class="order-action d-flex">
+//                         <a href="javascript:;" class="text-info bg-light-info border-0" title="Details" data-id="${item.Id}" onclick="Details(this, event)"><i class="fa-regular fa-circle-info"></i></a>
+//                         <a href="javascript:;" class="text-info bg-light-info border-0" title="Details" data-id="${item.Id}" onclick="Details(this, event)"><i class="fa-regular fa-circle-info"></i></a>
+//                         <a href="javascript:;" class="text-info bg-light-info border-0" title="Details" data-id="${item.Id}" onclick="Details(this, event)"><i class="fa-regular fa-circle-info"></i></a>
+//                    </td>`);

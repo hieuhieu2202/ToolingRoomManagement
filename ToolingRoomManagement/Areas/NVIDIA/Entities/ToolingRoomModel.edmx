@@ -782,6 +782,7 @@
           <Property Name="QtyConfirm" Type="Int32" />
           <Property Name="RealQty" Type="Int32" />
           <Property Name="ImagePath" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="DeviceWarehouseLayouts" Relationship="ToolingRoomModel.FK_DeviceWarehouseLayout_Device" FromRole="Device" ToRole="DeviceWarehouseLayout" />
         </EntityType>
         <Association Name="FK_Device_Group">
           <End Type="ToolingRoomModel.Group" Role="Group" Multiplicity="0..1" />
@@ -923,7 +924,6 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="IdDevice" Type="Int32" />
           <Property Name="IdWarehouseLayout" Type="Int32" />
-          <NavigationProperty Name="Device" Relationship="ToolingRoomModel.FK_DeviceWarehouseLayout_Device" FromRole="DeviceWarehouseLayout" ToRole="Device" />
           <NavigationProperty Name="WarehouseLayout" Relationship="ToolingRoomModel.FK_DeviceWarehouseLayout_WarehouseLayout" FromRole="DeviceWarehouseLayout" ToRole="WarehouseLayout" />
         </EntityType>
         <Association Name="FK_DeviceWarehouseLayout_Device">
@@ -1023,7 +1023,6 @@
           <Property Name="Line" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Floor" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Cell" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="DeviceWarehouseLayouts" Relationship="ToolingRoomModel.FK_DeviceWarehouseLayout_WarehouseLayout" FromRole="WarehouseLayout" ToRole="DeviceWarehouseLayout" />
         </EntityType>
         <Association Name="FK_DeviceWarehouseLayout_WarehouseLayout">
           <End Type="ToolingRoomModel.WarehouseLayout" Role="WarehouseLayout" Multiplicity="0..1" />

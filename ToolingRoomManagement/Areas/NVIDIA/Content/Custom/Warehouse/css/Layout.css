@@ -1,49 +1,4 @@
-﻿.accordion-item {
-    background-color: unset;
-    border: 1px solid rgb(80 80 80);
-}
-
-.accordion-button {
-    background-color: transparent;
-}
-
-.cell-highlight {
-    background-color: rgb(103 58 183 / 33%) !important;
-    font-weight: bold !important;
-    transition: background-color 0.5s ease;
-    color: #8833ff;
-}
-
-[wh_cell] {
-    background-color: unset;
-    transition: background-color 0.5s ease;
-    cursor: pointer;
-    font-weight: normal;
-}
-    [wh_cell]:hover {
-        background-color: rgb(103 58 183 / 33%) !important;
-        font-weight: bold !important;
-        transition: background-color 0.5s ease;
-        color: #8833ff;
-    }
-    [wh_cell].active {
-        background-color: rgb(103 58 183 / 33%) !important;
-        font-weight: bold !important;
-        transition: background-color 0.5s ease;
-        color: #8833ff;
-    }
-
-
-    .accordion-button:not(.collapsed) {
-        font-weight: bold;
-        color: #8833ff !important;
-    }
-
-a span {
-    cursor: pointer;
-}
-
-.card, .modal-content {
+﻿.card, .modal-content {
     box-shadow: 0px 0px 10px 0px #888888 !important;
 }
 .jstree-context {
@@ -56,3 +11,39 @@ a span {
         border-radius: 2px !important;
         box-shadow: inset 0 0 1px #999 !important;
     }
+#card_Layout-container{
+    display: flex
+}
+#card_Layout-Tree {
+    width: 250px;
+    height: fit-content;
+}
+#card_Layout-Devices {
+    width: calc(100% - 250px);
+    height: fit-content;
+}
+.order-action a {
+    font-size: 15px;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f1f1f1;
+    text-align: center;
+    border-radius: 20%;
+    margin: 0px 3px;
+}
+.offcanvas-end {
+    width: 450px;
+}
+.offcanvas {
+    background-color: #171717;
+    box-shadow: 0px 0px 10px 0px #888888 !important;
+}
+.offcanvas-header {
+    border-bottom: 1px solid rgb(222 226 230 / 16%);
+}
+input[details]:disabled {
+    background-color: #1e1e1e !important;
+}

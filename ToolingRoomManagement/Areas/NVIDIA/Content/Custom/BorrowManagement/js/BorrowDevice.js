@@ -189,7 +189,7 @@ async function CreateTableAddDevice(devices) {
         // Buffer
         row.append(`<td title="${item.Buffer}">${item.Buffer * 100}%</td>`);
         // Quantity
-        row.append(`<td title="(Quantity) / (Quantity Confirm) / (Real Quantity)">${item.Quantity} / ${(item.QtyConfirm != null) ? item.QtyConfirm : 0} / ${(item.RealQty != null) ? item.RealQty : 0}</td>`);
+        row.append(`<td title="Real Quantity">${(item.RealQty != null) ? item.RealQty : 0}</td>`);
         // Type
         switch (item.Type) {
             case "S": {
