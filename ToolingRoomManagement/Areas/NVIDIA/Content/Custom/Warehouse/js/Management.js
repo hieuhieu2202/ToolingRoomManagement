@@ -26,13 +26,32 @@ function GetWarehouses() {
     });
 }
 
+// Create table
 var table_Warehouses;
 function WarehouseTable(warehouses) {
     if (table_Warehouses) table_Warehouses.destroy();
 
     $('#table_Warehouses-tbody').html('');
     $.each(warehouses, function (no, item) {
-        var row = DrawTableRow(item);
+        var row = $(`<tr class="align-middle" data-id="${item.Id}"></tr>`);
+
+        // ID Warehouse
+        row.append(`<td>${item.Id}</td>`);
+        // Warehouse name
+        row.append(`<td>${item.WarehouseName}</td>`);
+        // Factory
+        row.append(`<td>${item.Factory ? item.Factory : ''}</td>`);
+        // Floor
+        row.append(`<td>${item.Floors ? item.Floors : '' }</td>`);
+        // User manager
+        row.append(`<td><p class="fw-bold mb-1">${CreateUserName(item.User)}</p><a href="javascript:;" class="m-0">${item.User.Email}</a></td>`);        
+        // Action
+        row.append(`<td class="order-action d-flex text-center justify-content-center" style="height: 46px;align-items: center;">
+                         <a href="javascript:;" class="text-info bg-light-info border-0      " title="Details" data-id="${item.Id}" onclick="Details(this, event)"><i class="fa-regular fa-circle-info"></i></a>
+                         <a href="javascript:;" class="text-warning bg-light-warning border-0" title="Details" data-id="${item.Id}" onclick="Edit(this, event)   "><i class="fa-duotone fa-pen"></i></a>
+                         <a href="javascript:;" class="text-danger bg-light-danger border-0  " title="Details" data-id="${item.Id}" onclick="Delete(this, event) "><i class="fa-duotone fa-trash"></i></a>
+                    </td>`);
+
         $('#table_Warehouses-tbody').append(row);
     });
 
@@ -44,10 +63,12 @@ function WarehouseTable(warehouses) {
         paging: false,
         columnDefs: [
             { targets: "_all", orderable: false },
+            { targets: [5], width: "60px", className: 'text-center' },
         ],
         dom: 'Bfrtip',
         buttons: [
             {
+                className: 'btn-outline-primary',
                 text: '<i class="fa-solid fa-plus"></i> New Warehouse',
                 action: function () {
                     ModalAdd();
@@ -56,49 +77,17 @@ function WarehouseTable(warehouses) {
         ]
     };
     table_Warehouses = $('#table_Warehouses').DataTable(options);
+
+    $('button[aria-controls="table_Warehouses"]').removeClass('btn-outline-secondary');
 }
 
+// New Warehouse
 function ModalAdd() {
     $('#warehouse-modal').modal('show');
 }
 
-function DrawTableRow(item, isTD = true) {
-    var row = [];
 
-    // Id
-    row.push(item.Id);
-    // WarehouseName
-    row.push(item.WarehouseName);
-    // Factory
-    row.push(`${item.Factory ? item.Factory : ''}`);
-    // Floors
-    row.push(`${item.Floors ? item.Floors : ''}`);  
-    //User
-    row.push(`<p class="fw-bold mb-1">${CreateUserName(item.User)}</p>
-              <a href="javascript:;" class="m-0">${item.User.Email}</a>`);
-    // Action
-    row.push(`<div class="dropdown">
-					    	<button class="btn btn-outline-secondary button_dot" type="button" data-bs-toggle="dropdown" title="Action">
-                                <i class="bx bx-dots-vertical-rounded"></i>
-                            </button>
-                            <div class="dropdown-menu order-actions">
-                                <a href="javascript:;" class="text-success bg-light-success border-0 mb-2" title="Approve" data-id="${item.Id}" onclick="Approve(this, event)"><i class="bx bx-check"></i></a>                                
-                                <a href="javascript:;" class="text-danger  bg-light-danger  border-0 mb-2" title="Reject " data-id="${item.Id}" onclick="Reject(this, event) "><i class="bx bx-x"></i></a>
-                                <a href="javascript:;" class="text-info    bg-light-info    border-0     " title="Details" data-id="${item.Id}" onclick="Details(this, event)"><i class="bx bx-info-circle"></i></a>
-						    </div>
-					</div>`);
-
-    if (isTD) {
-        var rowHtml = $(`<tr class="align-middle" data-id="${item.Id}"></tr>`);
-        $.each(row, function (k, v) {
-            rowHtml.append(`<td>${v}</td>`);
-        });
-        return rowHtml;
-    }
-    else {
-        return row;
-    }
-}
+// Orther
 function CreateUserName(user) {
     var username = '';
     if (user.VnName && user.VnName != '') {

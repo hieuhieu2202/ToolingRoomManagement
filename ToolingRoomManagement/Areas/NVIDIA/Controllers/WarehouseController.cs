@@ -327,7 +327,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
         }
         #endregion
 
-
+        #region Device Layout
         public JsonResult GetNodeDevices(int IdWarehouse, string LineName, string FloorName, string CellName)
         {
             try
@@ -389,6 +389,55 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 return Json(new { status = false, message = ex.Message });
             }
         }
+        public JsonResult AddDeviceToLayout(int[] IdDevices, int IdWarehouse, string LineName, string FloorName, string CellName)
+        {
+            try
+            {
+                db.Configuration.LazyLoadingEnabled = false;
+
+                WarehouseLayout layout = db.WarehouseLayouts.FirstOrDefault(w => w.IdWareHouse == IdWarehouse && w.Line == LineName && w.Floor == FloorName && w.Cell == CellName);
+
+                if(layout != null)
+                {
+                    List<Entities.Device> devices = new List<Device>();
+                    List<DeviceWarehouseLayout> deviceWarehouseLayouts = db.DeviceWarehouseLayouts.Where(wl => wl.IdWarehouseLayout == layout.Id).ToList();
+                    db.DeviceWarehouseLayouts.RemoveRange(deviceWarehouseLayouts);
+
+                    deviceWarehouseLayouts.Clear();
+
+                    foreach (int IdDevice in IdDevices)
+                    {
+                        DeviceWarehouseLayout deviceWarehouseLayout = new DeviceWarehouseLayout
+                        {
+                            IdDevice = IdDevice,
+                            IdWarehouseLayout = layout.Id
+                        };
+
+                        Entities.Device device = db.Devices.FirstOrDefault(d => d.Id == IdDevice);
+
+                        deviceWarehouseLayouts.Add(deviceWarehouseLayout);
+                        devices.Add(device);
+                    }
+                    db.DeviceWarehouseLayouts.AddRange(deviceWarehouseLayouts);
+
+                    db.SaveChanges();
+
+
+
+                    return Json(new { status = true, devices });
+                }
+                else
+                {
+                    return Json(new { status = false, message = "Layout not found." });
+                }
+                
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = false, message = ex.Message });
+            }
+        }
+        #endregion
 
     }
 }

@@ -40,10 +40,25 @@
 .offcanvas {
     background-color: #171717;
     box-shadow: 0px 0px 10px 0px #888888 !important;
+    z-index: 9999;
 }
 .offcanvas-header {
     border-bottom: 1px solid rgb(222 226 230 / 16%);
 }
+.offcanvas-backdrop{
+    z-index: 1060;
+}
+
 input[details]:disabled {
     background-color: #1e1e1e !important;
+}
+.select-info {
+    padding-left: 10px;
+    font-weight: bold;
+}
+.table-hover > tbody > tr:hover > * {
+    background-color: rgb(136 51 255 / 15%) !important;
+}
+.table-hover > tbody> tr.selected {
+    background-color: rgb(136 51 255 / 15%) !important;
 }

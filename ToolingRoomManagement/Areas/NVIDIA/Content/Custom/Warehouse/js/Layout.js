@@ -3,11 +3,17 @@
 
     offcanvasDetails = new bootstrap.Offcanvas($('#offcanvasDevice'));
 });
-var offcanvasDetails;
 
-// Layout JsTree
+
+var offcanvasDetails;
 var isCreatingNode = false;
 var LayoutTree;
+var TableDevices;
+var AddDeviceLayout_table_Devices;
+
+//-------------------- JsTree --------------
+
+// Layout JsTree
 function GetWarehouseLayouts() {
     $.ajax({
         type: "GET",
@@ -386,8 +392,6 @@ $("#LayoutTree").on("select_node.jstree", function (e, data) {
         contentType: "application/json;charset=utf-8",
         success: function (response) {
             if (response.status) {
-                console.log(response);
-
                 CreateTableDevices(response.devices);               
             }
             else {
@@ -704,8 +708,13 @@ function RenderData(warehouses) {
     return result;
 }
 
+
+
+
+
+//------------- Modal Add -------------
+
 // Devices Table
-var TableDevices;
 async function CreateTableDevices(devices) {
     if (TableDevices) TableDevices.destroy();
 
@@ -792,15 +801,13 @@ async function CreateTableDevices(devices) {
             { targets: "_all", orderable: false },
             { targets: [9, 10, 11, 12], className: "text-center justify-content-center" },
             { targets: [0, 1, 2, 3, 6, 7, 8], visible: false },
-        ],
+        ],       
         "lengthMenu": [[10, 15, 25, 50, -1], [10, 15, 25, 50, "All"]]
     };
     $('#card_Layout-Devices').fadeIn(500);
 
     TableDevices = $('#table_Devices').DataTable(options);
     TableDevices.columns.adjust();
-
-    
 }
 
 // RenderDeviceRow
@@ -893,7 +900,7 @@ $('#btn_Layout-AddDevice').on('click', function (e) {
         LineName: $(this).data('line'),
         FloorName: $(this).data('floor'),
         CellName: $(this).data('cell'),
-    }
+    };
 
     $.ajax({
         type: "POST",
@@ -901,12 +908,20 @@ $('#btn_Layout-AddDevice').on('click', function (e) {
         data: JSON.stringify({ IdWarehouse: data.IdWarehouse }),
         dataType: "json",
         contentType: "application/json;charset=utf-8",
-        success: function (response) {
+        success: async function (response) {
             if (response.status) {
 
+                await CreateAddDeviceTable(response.devices, data);
 
+                setTimeout(() => {
+                    AddDeviceLayout_table_Devices.columns.adjust();
+                }, 200);
 
-
+                $('#AddDeviceLayout-SaveBtn').data('idwarehouse', data.IdWarehouse);
+                $('#AddDeviceLayout-SaveBtn').data('line', data.LineName);
+                $('#AddDeviceLayout-SaveBtn').data('floor', data.FloorName);
+                $('#AddDeviceLayout-SaveBtn').data('cell', data.CellName);
+              
                 $('#AddDeviceLayout-title').html($('#btn_Layout-AddDevice').text());
                 $('#AddDeviceLayout-modal').modal('show');
             }
@@ -918,28 +933,69 @@ $('#btn_Layout-AddDevice').on('click', function (e) {
             Swal.fire("Something went wrong!", GetAjaxErrorMessage(error), "error");
         }
     });
-
 });
 
-var AddDeviceLayout_table_Devices;
-async function CreateAddDeviceTable(devices) {
-    if (AddDeviceLayout_table_Devices) AddDeviceLayout_table_Devices.destroy();
-}
+// Create Add Device
+function CreateAddDeviceTable(devices, layout) {
+    return new Promise(async (resolve, reject) => {
+        try {
+            if (AddDeviceLayout_table_Devices) AddDeviceLayout_table_Devices.destroy();
 
+            $('#AddDeviceLayout_table_Devices-tbody').html('');
+            await $.each(devices, async function (no, item) {
+                var row = $(`<tr class="align-middle" data-id="${item.Id}"></tr>`);
 
-function IsDeviceInLayout(device, layout) {
-    var check = false;
-    device.DeviceWarehouseLayouts.forEach(function (item) {
-        var deviceLayout = item.WarehouseLayout;
-        if ((deviceLayout.Line == layout.LineName || deviceLayout.Line == layout.Line) &&
-            (deviceLayout.Floor == layout.FloorName || deviceLayout.Line == layout.Floor) &&
-            (deviceLayout.Cell == layout.CellName || deviceLayout.Line == layout.Cell))
-        {
-            check = true;
-            return false;
+                // CheckBox
+                row.append(`<td>${item.Id}</td>`);
+                // DeviceCode - PN
+                row.append(`<td data-id="${item.Id}" data-code="${item.DeviceCode}">${item.DeviceCode}</td>`);
+                // DeviceName
+                row.append(`<td title="${item.DeviceName}">${item.DeviceName}</td>`);
+                // Model
+                row.append(`<td>${(item.Model) ? item.Model.ModelName : ""}</td>`);
+                // Station
+                row.append(`<td>${(item.Station) ? item.Station.StationName : ""}</td>`);
+                // Action
+                row.append(`<td class="order-action d-flex">
+                             <a href="javascript:;" class="text-info bg-light-info border-0" title="Details" data-id="${item.Id}" onclick="Details(this, event)"><i class="fa-regular fa-circle-info"></i></a>
+                        </td>`);
+
+                $('#AddDeviceLayout_table_Devices-tbody').append(row);
+            });
+            const options = {
+                scrollY: 480,
+                scrollX: false,
+                order: [],
+                autoWidth: false,
+                columnDefs: [                 
+                    { targets: [0], checkboxes: { selectRow: true } },
+                    { targets: "_all", orderable: false },
+                    { targets: [5], className: "text-center justify-content-center" },
+                ],
+                select: {
+                    style: 'mutil',
+                    'selector': 'td:not(:last-child)'
+                },
+            };
+
+            AddDeviceLayout_table_Devices = $('#AddDeviceLayout_table_Devices').DataTable(options);
+            AddDeviceLayout_table_Devices.columns.adjust().draw(false);   
+
+            // Check Device in Layout
+            await $.each(devices, async function (no, item) {
+                var check = IsDeviceInLayout(item, layout);
+                if (check) {
+                    AddDeviceLayout_table_Devices.row(`[data-id="${item.Id}"]`).select();
+                }
+            });
+
+            // Resolve the promise when the asynchronous operation is complete
+            resolve();
+        } catch (error) {
+            // Reject the promise if there's an error
+            reject(error);
         }
     });
-    return check;
 }
 
 // Device Details
@@ -981,6 +1037,105 @@ function Details(elm, e) {
             Swal.fire("Something went wrong!", GetAjaxErrorMessage(error), "error");
         }
     });
+}
+
+//
+$('#AddDeviceLayout-SaveBtn').on('click', function (e) {
+    e.preventDefault();
+
+    var IdDevices = [];
+    var rows_selected = AddDeviceLayout_table_Devices.column(0).checkboxes.selected();
+    $.each(rows_selected, function (index, rowId) {
+        IdDevices.push(rowId);
+    });
+
+    var IdWarehouse = $(this).data('idwarehouse');
+    var LineName = $(this).data('line');
+    var FloorName = $(this).data('floor');
+    var CellName = $(this).data('cell');
+
+    $.ajax({
+        type: "POST",
+        url: "/NVIDIA/Warehouse/AddDeviceToLayout",
+        data: JSON.stringify({ IdDevices, IdWarehouse, LineName, FloorName, CellName }),
+        dataType: "json",
+        contentType: "application/json;charset=utf-8",
+        success: function (response) {
+            if (response.status) {
+                toastr["success"]('', "SUCCESS");
+
+                var devices = response.devices;
+
+                TableDevices.clear();
+                devices.forEach(function (device) {
+                    var row = DrawDeviceInLayoutRow(device);
+                    TableDevices.row.add(row).draw(false);
+                })
+            }
+            else {
+                curentNode.text = OldName;
+                $('#LayoutTree').jstree(true).refresh();
+                toastr["error"](response.message, "ERROR");
+            }
+        },
+        error: function (error) {
+            curentNode.text = OldName;
+            $('#LayoutTree').jstree(true).refresh();
+            Swal.fire("Something went wrong!", GetAjaxErrorMessage(error), "error");
+        }
+    });
+});
+// Draw Row After Add
+function DrawDeviceInLayoutRow(device) {
+    var newRow = [
+        (device.Product) ? device.Product.MTS : "",
+        (device.Product) ? device.Product.ProductName : "",
+        (device.Model) ? device.Model.ModelName : "",
+        (device.Station) ? device.Station.StationName : "",
+        device.DeviceCode,
+        device.DeviceName,
+        (device.Group) ? device.Group.GroupName : "",
+        (device.Vendor) ? device.Vendor.VendorName : "",
+        device.Buffer * 100 + "%",
+        (device.RealQty != null) ? device.RealQty : 0,
+        (device.Type === "S") ? '<span class="text-success fw-bold">Static</span>' :
+            (device.Type === "D") ? '<span class="text-info fw-bold">Dynamic</span>' :
+                '<span class="text-secondary fw-bold">N/A</span>',
+        (device.Status === "Unconfirmed") ? '<span class="badge bg-primary">Unconfirmed</span>' :
+            (device.Status === "Part Confirmed") ? '<span class="badge bg-warning">Part Confirmed</span>' :
+                (device.Status === "Confirmed") ? '<span class="badge bg-success">Confirmed</span>' :
+                    (device.Status === "Locked") ? '<span class="badge bg-secondary">Locked</span>' :
+                        (device.Status === "Out Range") ? '<span class="badge bg-danger">Out Range</span>' :
+                            'N/A',
+        '<a href="javascript:;" class="text-info bg-light-info border-0" title="Details" data-id="' + device.Id + '" onclick="Details(this, event)"><i class="fa-regular fa-circle-info"></i></a>'
+    ];
+
+    return newRow;
+}
+
+
+
+// check
+function IsDeviceInLayout(device, layout) {
+    var check = false;
+
+    layout.IdWarehouse = layout.IdWarehouse === "" ? null : layout.IdWarehouse;
+    layout.LineName = layout.LineName === "" ? null : layout.LineName;
+    layout.FloorName = layout.FloorName === "" ? null : layout.FloorName;
+    layout.CellName = layout.CellName === "" ? null : layout.CellName;
+
+
+    device.DeviceWarehouseLayouts.forEach(function (item) {
+        var deviceLayout = item.WarehouseLayout;
+
+        if ((deviceLayout.Line == layout.LineName || deviceLayout.Line == layout.Line) &&
+            (deviceLayout.Floor == layout.FloorName || deviceLayout.Line == layout.Floor) &&
+            (deviceLayout.Cell == layout.CellName || deviceLayout.Line == layout.Cell)) {
+            check = true;
+            return false;
+        }
+    });
+    return check;
 }
 
 //row.append(`<td class="order-action d-flex">

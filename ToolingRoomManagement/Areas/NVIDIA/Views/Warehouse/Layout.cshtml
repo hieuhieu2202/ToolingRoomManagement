@@ -7,6 +7,7 @@
 @section styles{
     <!-- Vendor -->
     <link href="~/Areas/NVIDIA/Content/Template/Sysadmin/assets/plugins/datatable/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
+    <link href="~/Areas/NVIDIA/Content/Vendor/jquery-datatables-checkboxes/css/dataTables.checkboxes.css" rel="stylesheet" />
     <link href="~/Areas/NVIDIA/Content/Vendor/jstree/jstree.bundle.css" rel="stylesheet" />
     <!-- Custom -->
     <link href="~/Areas/NVIDIA/Content/Custom/Warehouse/css/Layout.css" rel="stylesheet" />
@@ -97,12 +98,12 @@
                 <table id="AddDeviceLayout_table_Devices" class="table table-striped table-hover table-bordered text-nowrap">
                     <thead>
                         <tr>
-                            <th><input type="checkbox" id="AddDeviceLayout_table_Devices-SelectAll"></th>
-                            <th>Product Name</th>
-                            <th>Model</th>
-                            <th>Station</th>
+                            <th></th>
                             <th>Device Code</th>
                             <th>Device Name</th>
+                            <th>Model</th>
+                            <th>Station</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody id="AddDeviceLayout_table_Devices-tbody">
@@ -188,6 +189,8 @@
     <!-- Vendor -->
     <script src="~/Areas/NVIDIA/Content/Template/Sysadmin/assets/plugins/datatable/js/jquery.dataTables.min.js"></script>
     <script src="~/Areas/NVIDIA/Content/Template/Sysadmin/assets/plugins/datatable/js/dataTables.bootstrap5.min.js"></script>
+    <script src="~/Areas/NVIDIA/Content/Vendor/jquery-datatables-checkboxes/js/dataTables.checkboxes.js"></script>
+
     <script src="~/Areas/NVIDIA/Content/Vendor/MomentJs/moment.js"></script>
     <script src="~/Areas/NVIDIA/Content/Vendor/jstree/jstree.bundle.js"></script>
     <!-- Custom -->
