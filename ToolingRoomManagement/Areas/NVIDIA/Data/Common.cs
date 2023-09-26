@@ -47,6 +47,8 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Data
                                  $"I hope this email finds you well. We would like to inform you that there is a new signature request in the system that requires your attention.\n" +
                                  $"Requester: {borrow.User.Username} - {borrow.User.CnName}\n" +
                                  $"Request Date: {borrow.DateBorrow}\n" +
+                                 $"Use for Model: {borrow.OModel.ModelName}\n" +
+                                 $"Use for Station: {borrow.OStation.StationName}\n" +
                                  $"Note: {borrow.Note}\n" +
                                  $"\n" +
                                  $"Devices:\n";

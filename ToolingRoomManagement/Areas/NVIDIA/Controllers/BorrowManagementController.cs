@@ -89,7 +89,8 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
             try
             {
                 Borrow borrow = db.Borrows.FirstOrDefault(b => b.Id == IdBorrow);
-
+                borrow.OModel = db.Models.FirstOrDefault(m => m.Id == borrow.Model);
+                borrow.OStation = db.Stations.FirstOrDefault(m => m.Id == borrow.Station);
 
                 if (borrow == null)
                 {
@@ -153,6 +154,9 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
             try
             {
                 Borrow borrow = db.Borrows.FirstOrDefault(b => b.Id == IdBorrow);
+                borrow = db.Borrows.FirstOrDefault(b => b.Id == IdBorrow);
+                borrow.OModel = db.Models.FirstOrDefault(m => m.Id == borrow.Model);
+                borrow.OStation = db.Stations.FirstOrDefault(m => m.Id == borrow.Station);
 
                 if (borrow != null)
                 {
@@ -293,7 +297,9 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 
                 db.UserBorrowSigns.AddRange(userBorrowSigns);
                 borrow.UserBorrowSigns = userBorrowSigns;
-                
+
+                borrow.OModel = db.Models.FirstOrDefault(m => m.Id == borrow.Model);
+                borrow.OStation = db.Stations.FirstOrDefault(m => m.Id == borrow.Station);
                 // Send mail
                 Data.Common.SendSignMail(borrow);
 
