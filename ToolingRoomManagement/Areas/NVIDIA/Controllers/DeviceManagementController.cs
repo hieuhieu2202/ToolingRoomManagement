@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data.Entity.Migrations;
 using System.Globalization;
 using System.Linq;
+using System.Text.Json;
 using System.Web;
 using System.Web.Mvc;
 using ToolingRoomManagement.Areas.NVIDIA.Entities;
@@ -45,11 +46,11 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 db.Configuration.LazyLoadingEnabled = false;
 
                 var warehouses = db.Warehouses.ToList();
-                var products = db.Products.ToList();
-                var models = db.Models.ToList();
-                var stations = db.Stations.ToList();
-                var groups = db.Groups.ToList();
-                var vendors = db.Vendors.ToList();
+                var products = db.Products.OrderBy(m => m.ProductName).ToList();
+                var models = db.Models.OrderBy(m => m.ModelName).ToList();
+                var stations = db.Stations.OrderBy(m => m.StationName).ToList();
+                var groups = db.Groups.OrderBy(m => m.GroupName).ToList();
+                var vendors = db.Vendors.OrderBy(m => m.VendorName).ToList();
 
                 return Json(new { status = true, warehouses, products, models, stations, groups, vendors }, JsonRequestBehavior.AllowGet);
             }
@@ -446,9 +447,38 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
             {
                 Entities.Device device = db.Devices.FirstOrDefault(d => d.Id == Id);
 
+                // Get All Borrow Of Device
+                List<Entities.BorrowDevice> borrowDevices = db.BorrowDevices.Where(b => b.IdDevice == Id).ToList();
+                List<Entities.Borrow> borrows = new List<Borrow>();
+                foreach(var borrowdevice in borrowDevices)
+                {
+                    Entities.Borrow borrow = db.Borrows.FirstOrDefault(b => b.Id == borrowdevice.IdBorrow);
+                    borrow.OModel = db.Models.FirstOrDefault(m => m.Id == borrow.Model);
+                    borrow.OStation = db.Stations.FirstOrDefault(s => s.Id == borrow.Station);
+                    if (!borrows.Any(bl => bl.Id == borrow.Id))
+                    {
+                        borrows.Add(borrow);
+                    }
+                }
+                // Get Warehouse by layout
+                List<Entities.Warehouse> warehouses = new List<Warehouse>();
+                foreach(var dwl in device.DeviceWarehouseLayouts)
+                {
+                    
+                    Entities.WarehouseLayout layout = dwl.WarehouseLayout;
+                    Entities.Warehouse warehouse = db.Warehouses.FirstOrDefault(w => w.Id == layout.IdWareHouse);
+                    warehouses.Add(warehouse);
+                }
+                foreach(var warehouse in warehouses)
+                {
+                    warehouse.Devices.Clear();
+                    warehouse.User.Password = "";
+                    warehouse.WarehouseLayouts.Clear();
+                }
+
                 if (device != null)
                 {
-                    return Json(new { status = true, device });
+                    return Json(new { status = true, device, borrows = JsonSerializer.Serialize(borrows), warehouses });
                 }
                 else
                 {

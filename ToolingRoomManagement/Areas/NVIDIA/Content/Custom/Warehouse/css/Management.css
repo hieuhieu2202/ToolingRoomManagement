@@ -39,3 +39,7 @@
     border-radius: 20%;
     margin: 0px 3px;
 }
+textarea.form-control {
+    height: 122px;
+    resize: none;
+}

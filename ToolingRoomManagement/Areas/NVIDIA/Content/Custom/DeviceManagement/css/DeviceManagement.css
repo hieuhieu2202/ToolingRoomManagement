@@ -46,3 +46,6 @@
     padding: 10px;
     border-radius: 10px;
 }
+input[details]:disabled {
+    background-color: rgb(255 255 255 / 0%) !important;
+}

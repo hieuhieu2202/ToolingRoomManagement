@@ -141,6 +141,7 @@
                 <h2 class="font-weight-light text-center text-primary py-3">BORROW REQUEST</h2>
 
                 <div class="row">
+                    <!-- row 1-->
                     <div class="col-md-3">
                         <label class="form-label">Card Id</label>
                         <input type="text" class="form-control" id="form_borrow-CardId" disabled>
@@ -157,6 +158,16 @@
                         <label class="form-label">Due Date</label>
                         <input type="datetime-local" class="form-control" id="form_borrow-DuaDate">
                     </div>
+                    <!-- row 2-->
+                    <div class="col-md-3 mt-3">
+                        <label class="form-label">Borrow for Model</label>
+                        <select class="form-select" id="form_borrow-Model"></select>
+                    </div>
+                    <div class="col-md-3 mt-3">
+                        <label class="form-label">Borrow for Station</label>
+                        <select class="form-select" id="form_borrow-Station"></select>
+                    </div>
+                    <!-- row 3-->
                     <div class="col-md-12 mt-3">
                         <label class="form-label">Note</label>
                         <textarea class="form-control" rows="3" style="resize: none" id="form_borrow-Note"></textarea>
@@ -187,14 +198,14 @@
                             <!-- timeline item 1 left dot -->
                             <div class="col-auto text-center flex-column d-none d-sm-flex">
                                 <div class="row h-50">
-                                    <div class="col">&nbsp;</div>
+                                    <div class="col border-end">&nbsp;</div>
                                     <div class="col">&nbsp;</div>
                                 </div>
                                 <h5 class="m-2">
                                     <span class="badge rounded-pill bg-primary border">&nbsp;</span>
                                 </h5>
                                 <div class="row h-50">
-                                    <div class="col border-end">&nbsp;</div>
+                                    <div class="col">&nbsp;</div>
                                     <div class="col" style="padding-right: 14px;">&nbsp;</div>
                                 </div>
                             </div>

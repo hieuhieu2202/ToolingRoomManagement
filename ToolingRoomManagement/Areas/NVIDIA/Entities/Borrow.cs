@@ -22,18 +22,22 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Entities
         }
     
         public int Id { get; set; }
-        public Nullable<int> IdUser { get; set; }
         public Nullable<System.DateTime> DateBorrow { get; set; }
         public Nullable<System.DateTime> DateReturn { get; set; }
         public string Status { get; set; }
         public string Type { get; set; }
         public Nullable<System.DateTime> DateDue { get; set; }
+        public Nullable<int> IdUser { get; set; }
         public string Note { get; set; }
+        public Nullable<int> Model { get; set; }
+        public Nullable<int> Station { get; set; }
     
         public virtual User User { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BorrowDevice> BorrowDevices { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserBorrowSign> UserBorrowSigns { get; set; }
+        public virtual Model OModel { get; set; }
+        public virtual Station OStation { get; set; }
     }
 }

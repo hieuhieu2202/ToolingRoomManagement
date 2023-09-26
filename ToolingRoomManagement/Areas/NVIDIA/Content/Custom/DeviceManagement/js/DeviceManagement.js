@@ -142,6 +142,117 @@ $('#input_WareHouse').on('change', function (e) {
     GetWarehouseDevices($(this).val());
 });
 
+
+// Show Details
+$('#table_Devices tbody').on('dblclick', 'tr', function () {
+    var dataId = $(this).data('id');
+
+    console.log(dataId);
+
+    GetDeviceDetails(dataId)
+});
+function GetDeviceDetails(Id) {
+    $.ajax({
+        type: "POST",
+        url: "/NVIDIA/DeviceManagement/GetDevice",
+        data: JSON.stringify({ Id: Id }),
+        dataType: "json",
+        contentType: "application/json;charset=utf-8",
+        success: function (response) {
+            if (response.status) {
+                var device = response.device;
+                var borrows = JSON.parse(response.borrows);
+                var warehouses = response.warehouses;
+
+                console.log(borrows);
+
+                FillDetailsDeviceData(device);
+                CreateTableLayout(device, warehouses);
+                CreateTableHistory(Id, borrows);
+                $('#device_details-modal').modal('show');
+            }
+            else {
+                toastr["error"](response.message, "ERROR");
+            }
+        },
+        error: function (error) {
+            Swal.fire("Something went wrong!", GetAjaxErrorMessage(error), "error");
+        }
+    });
+}
+async function FillDetailsDeviceData(data) {
+    $('#device_details-DeviceId').val(data.Id);
+    $('#device_details-DeviceCode').val(data.DeviceCode);
+    $('#device_details-DeviceName').val(data.DeviceName);
+    $('#device_details-DeviceDate').val(moment(data.DeviceDate).format('YYYY-MM-DD HH:mm'));
+    $('#device_details-Relation').val(data.Relation);
+    $('#device_details-Buffer').val(data.Buffer);
+    $('#device_details-LifeCycle').val(data.LifeCycle);
+    $('#device_details-Forcast').val(data.Forcast);
+    $('#device_details-Quantity').val(data.Quantity);
+    $('#device_details-QtyConfirm').val(data.QtyConfirm);
+    $('#device_details-RealQty').val(data.RealQty);
+    $('#device_details-AccKit').val(data.ACC_KIT);
+    $('#device_details-Type').val(data.Type);
+    $('#device_details-Status').val(data.Status);
+    $('#device_details-Product').val(data.Product.ProductName);
+    $('#device_details-Model').val(data.Model.ModelName);
+    $('#device_details-Station').val(data.Station.StationName);
+    $('#device_details-WareHouse').val($('#input_WareHouse option:selected').text());
+    $('#device_details-Group').val(data.Group.GroupName);
+    $('#device_details-Vendor').val(data.Vendor.VendorName);
+}
+function CreateTableLayout(device, warehouses) {
+    $('#device_details-layout-tbody').empty();
+    $.each(device.DeviceWarehouseLayouts, function (k, item) {
+        var warehouse = warehouses[k];
+        var layout = item.WarehouseLayout;
+
+        var tr = $('<tr></tr>');
+        tr.append($(`<td>${warehouse.Factory ? warehouse.Factory : ""}</td>`));
+        tr.append($(`<td>${warehouse.Floor ? warehouse.Floor : ""}</td>`));
+        tr.append($(`<td>${CreateUserName(warehouse.User)}</td>`));
+        tr.append($(`<td>${warehouse.WarehouseName ? warehouse.WarehouseName : ""}</td>`));       
+        tr.append($(`<td>${layout.Line ? layout.Line : ""}</td>`));
+        tr.append($(`<td>${layout.Floor ? layout.Floor : ""}</td>`));
+        tr.append($(`<td>${layout.Cell ? layout.Cell : ""}</td>`));
+
+        $('#device_details-layout-tbody').append(tr);
+    });
+}
+function CreateTableHistory(IdDevice, borrows) {
+    $('#device_details-history-tbody').empty();
+    $.each(borrows, function (k, item) {
+        if (item.Status == 'Rejected') return;
+
+        var tr = $('<tr class="align-middle"></tr>');
+        tr.append($(`<td>${item.Type}</td>`));
+        tr.append($(`<td>${moment(item.DateBorrow).format('YYYY-MM-DD HH:mm')}</td>`));
+
+        var dateReturn = moment(item.DateReturn).format('YYYY-MM-DD HH:mm');
+        tr.append($(`<td>${dateReturn != 'Invalid date' ? dateReturn : ""}</td>`));
+
+        tr.append($(`<td>${CreateUserName(item.User)}</td>`));
+        tr.append($(`<td>${item.Model ? item.OModel.ModelName : ""}</td>`));
+        tr.append($(`<td>${item.Station ? item.OStation.StationName : ""}</td>`));
+
+        tr.append($(`<td>${GetQuantityDeviceInBorrow(IdDevice, item.BorrowDevices)}</td>`));
+
+        tr.append($(`<td style="max-width: 200px;">${item.Note}</td>`));
+
+        $('#device_details-history-tbody').append(tr);
+    });
+}
+function GetQuantityDeviceInBorrow(IdDevice, BorrowDevices) {
+    var quantity = 0;
+    $.each(BorrowDevices, function (k, item) {
+        if (item.IdDevice == IdDevice) {
+            quantity = item.BorrowQuantity;
+            return false;
+        }
+    });
+    return quantity;
+}
 // Get Select data
 function GetSelectData() {
     $.ajax({
@@ -631,3 +742,18 @@ $('#filter').on('click', function (e) {
     // Vẫn cần gọi hàm draw để vẽ lại bảng với bộ lọc mới
     tableDeviceInfo.draw();
 });
+
+function CreateUserName(user) {
+    var username = '';
+    if (user.VnName && user.VnName != '') {
+        username = `${user.Username} - ${user.VnName}`;
+    }
+    else if (user.CnName && user.CnName != '') {
+        username = `${user.Username} - ${user.CnName}`;
+    }
+    if (user.EnName != null && user.EnName != '') {
+        username += ` (${user.EnName})`;
+    }
+
+    return username;
+}

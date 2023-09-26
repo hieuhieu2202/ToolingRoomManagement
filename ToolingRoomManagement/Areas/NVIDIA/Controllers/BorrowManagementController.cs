@@ -213,7 +213,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
         }
 
         [HttpPost]
-        public ActionResult BorrowDevice(int[] IdDevices, int[] QtyDevices, int[] SignProcess, string UserBorrow, DateTime BorrowDate, DateTime? DueDate, string Note)
+        public ActionResult BorrowDevice(int[] IdDevices, int[] QtyDevices, int[] SignProcess, string UserBorrow, DateTime BorrowDate, DateTime? DueDate,int IdModel, int IdStation, string Note)
         {
             try
             {
@@ -226,6 +226,8 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 }
                 borrow.Status = "Pending";
                 borrow.Type = "Borrow";
+                borrow.Model = IdModel;
+                borrow.Station = IdStation;
                 borrow.Note = Note;
                 borrow.IdUser = db.Users.FirstOrDefault(u => u.Username == UserBorrow).Id;
                 db.Borrows.Add(borrow);

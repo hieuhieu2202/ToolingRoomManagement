@@ -83,7 +83,32 @@ function WarehouseTable(warehouses) {
 
 // New Warehouse
 function ModalAdd() {
+    GetUserAndRole();
     $('#warehouse-modal').modal('show');
+}
+function GetUserAndRole() {
+    $.ajax({
+        type: "GET",
+        url: "/NVIDIA/BorrowManagement/GetUserAndRole",
+        dataType: "json",
+        contentType: "application/json;charset=utf-8",
+        success: function (response) {
+            if (response.status) {
+                users = response.users;
+
+                $.each(users, function (k, u) {
+                    var option = $(`<option value="${u.Id}">${CreateUserName(u)}</option>`);
+                    $('#wh-Manager').append(option);
+                });
+            }
+            else {
+                toastr["error"](response.message, "ERROR");
+            }
+        },
+        error: function (error) {
+            Swal.fire("Something went wrong!", GetAjaxErrorMessage(error), "error");
+        }
+    });
 }
 
 

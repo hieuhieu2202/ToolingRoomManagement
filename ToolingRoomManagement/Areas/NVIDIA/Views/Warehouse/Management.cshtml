@@ -63,7 +63,32 @@
             </div>
             <div class="modal-body">
                 <h2 class="font-weight-light text-center text-primary py-3">NEW WAREHOUSE</h2>
-
+                <div class="row">
+                    <div class="col-6">
+                        <div class="col-md-12 mb-3">
+                            <label class="form-label">Warehouse Name</label>
+                            <input type="text" class="form-control" id="wh-WarehouseName">
+                        </div>
+                        <div class="col-md-12 mb-3">
+                            <label class="form-label">Factory</label>
+                            <input type="text" class="form-control" id="wh-Factory">
+                        </div>
+                        <div class="col-md-12 mb-3">
+                            <label class="form-label">Floor</label>
+                            <input type="text" class="form-control" id="wh-Floors">
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="col-md-12 mb-3">
+                            <label class="form-label">Manager</label>
+                            <select type="text" class="form-control" id="wh-Manager"></select>
+                        </div>
+                        <div class="col-md-12 mb-3">
+                            <label class="form-label">Description</label>
+                            <textarea type="text" class="form-control" id="wh-Description"></textarea>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -72,6 +97,8 @@
         </div>
     </div>
 </div>
+
+
 
 @section scripts{
     <!-- Vendor -->
@@ -82,4 +109,10 @@
     <script src="~/Areas/NVIDIA/Content/Template/Sysadmin/assets/plugins/select2/js/select2.min.js"></script>
     <!-- Custom -->
     <script src="~/Areas/NVIDIA/Content/Custom/Warehouse/js/Management.js"></script>
+    <script type="text/javascript">
+        $('#wh-Manager').select2({
+            theme: 'bootstrap4',
+            dropdownParent: $("#warehouse-modal"),
+        });
+    </script>
 }

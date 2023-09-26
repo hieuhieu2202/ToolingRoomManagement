@@ -37,6 +37,7 @@ function GetSelectData() {
                 });
                 // Model
                 $('#device_edit-Model').empty();
+                $('#form_borrow-Model').empty();
                 $('#filter_Model').html($('<option value="Model" selected>Model</option>'));
                 $.each(response.models, function (k, item) {
                     let opt = $(`<option value="${item.Id}">${item.ModelName}</option>`);
@@ -44,9 +45,13 @@ function GetSelectData() {
 
                     let opt1 = $(`<option value="${item.ModelName}">${item.ModelName}</option>`);
                     $('#filter_Model').append(opt1);
+
+                    let opt2 = $(`<option value="${item.Id}">${item.ModelName != null ? item.ModelName : 'unknown'}</option>`);
+                    $('#form_borrow-Model').append(opt2);
                 });
                 // Station
                 $('#device_edit-Station').empty();
+                $('#form_borrow-Station').empty();
                 $('#filter_Station').html($('<option value="Station" selected>Station</option>'));
                 $.each(response.stations, function (k, item) {
                     let opt = $(`<option value="${item.Id}">${item.StationName}</option>`);
@@ -54,6 +59,9 @@ function GetSelectData() {
 
                     let opt1 = $(`<option value="${item.StationName}">${item.StationName}</option>`);
                     $('#filter_Station').append(opt1);
+
+                    let opt2 = $(`<option value="${item.Id}">${item.StationName != null ? item.StationName : 'unknown'}</option>`);
+                    $('#form_borrow-Station').append(opt2);
                 });
                 // Group
                 $('#device_edit-Group').empty();
@@ -388,7 +396,7 @@ $('#CreateBorrowForm').on('click', function (e) {
     var borrowDate = moment();
     var dueDate = moment().add(7, 'days');
     $('#form_borrow-BorrowDate').val(borrowDate.format('YYYY-MM-DDTHH:mm:ss'));
-    $('#form_borrow-DuaDate').val(dueDate.format('YYYY-MM-DDTHH:mm:ss'));
+
 
     $('#table_borrow-tbody').empty();
     $.each(IndexDevices, function (k, v) {
@@ -399,7 +407,7 @@ $('#CreateBorrowForm').on('click', function (e) {
         tr.append(`<td>${deviceData[5]}</td>`);
         tr.append(`<td>${deviceData[2]}</td>`);
         tr.append(`<td>${deviceData[3]}</td>`);
-        tr.append(`<td style="max-width: 120px;"><input class="form-control" type="number" placeholder="max = ${deviceData[9].split('/')[2]}" autocomplete="off"></td>`);
+        tr.append(`<td style="max-width: 120px;"><input class="form-control" type="number" placeholder="max = ${deviceData[9]}" autocomplete="off"></td>`);
 
         $('#table_borrow-tbody').append(tr);
     });
@@ -517,7 +525,7 @@ $('#btn_addSign').on('click', function (e) {
 
     // show card
     html.hide();
-    container.append(html);
+    container.prepend(html);
     html.fadeIn(300);
 });
 
@@ -540,6 +548,8 @@ $('#button_send').on('click', function (e) {
     var UserBorrow = $('#CardID').text();
     var BorrowDate = $('#form_borrow-BorrowDate').val();
     var DueDate = $('#form_borrow-DuaDate').val();
+    var Model = $('#form_borrow-Model').val();
+    var Station = $('#form_borrow-Station').val();
     var Note = $('#form_borrow-Note').val();
 
     var BorrowData = {
@@ -549,6 +559,8 @@ $('#button_send').on('click', function (e) {
         UserBorrow: UserBorrow,
         BorrowDate: BorrowDate,
         DueDate: DueDate,
+        IdModel: Model,
+        IdStation: Station,
         Note: Note
     }
 

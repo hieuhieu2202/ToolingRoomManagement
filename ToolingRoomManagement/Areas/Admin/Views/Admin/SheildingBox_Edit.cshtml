@@ -155,7 +155,7 @@
                                                 <tbody id="tbdSheildingBox">
                                                     @foreach (var item in Model)
                                                     {
-                                                        if (item.Part == sessionPart.part.ToUpper())
+                                                        if (item.Part.ToUpper() == sessionPart.part.ToUpper())
                                                         {
                                                             { dem++; }
                                                     <tr>

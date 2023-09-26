@@ -20,7 +20,7 @@ namespace Model.Dao
         }
         public List<SheildingBox> ListAllSheildingBox(string part)
         {
-            return db.SheildingBoxes.Where(x => x.Part == part).ToList();
+            return db.SheildingBoxes.Where(x => x.Part.ToUpper() == part.ToUpper()).ToList();
         }
         public int Insert(string model_name, string group_name, string station_name, string sheildingbox_mac, string calibration_date, string end_date, string create_people, string part,string file_name)
         {
