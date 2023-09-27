@@ -74,16 +74,11 @@ async function CreateTableAddDevice(devices) {
             }
         }
         // Action
-        row.append(`<td><div class="dropdown">
-					    	<button class="btn btn-outline-secondary button_dot" type="button" data-bs-toggle="dropdown" title="Action">
-                                <i class="bx bx-dots-vertical-rounded"></i>
-                            </button>
-                            <div class="dropdown-menu order-actions">
-                                <a href="javascript:;" class="text-success bg-light-success border-0 mb-2" title="Confirm" data-id="${item.Id}" onclick="Confirm(this, event)"><i class="bx bx-check"></i></a>
-                                <a href="javascript:;" class="text-warning bg-light-warning border-0 mb-2" title="Edit   " data-id="${item.Id}" onclick="Edit(this, event)   "><i class="bx bxs-edit"></i></a>
-                                <a href="javascript:;" class="text-danger  bg-light-danger  border-0     " title="Delete " data-id="${item.Id}" onclick="Delete(this, event) "><i class="bx bxs-trash"></i></a>
-						    </div>
-					</div></td>`);
+        row.append(`<td class="order-action d-flex text-center justify-content-center">
+                        <a href="javascript:;" class="text-info bg-light-info border-0" title="Details" data-id="${item.Id}" onclick="Details(this, event)"><i class="fa-regular fa-circle-info"></i></a>
+                        <a href="javascript:;" class="text-warning bg-light-warning border-0" title="Edit   " data-id="${item.Id}" onclick="Edit(this, event)   "><i class="fa-duotone fa-pen"></i></a>
+                        <a href="javascript:;" class="text-danger  bg-light-danger  border-0" title="Delete " data-id="${item.Id}" onclick="Delete(this, event) "><i class="fa-duotone fa-trash"></i></a>
+                    </td>`);
 
         $('#table_Devices_tbody').append(row);
     });
@@ -97,7 +92,7 @@ async function CreateTableAddDevice(devices) {
             { targets: [0, 4, 9, 10, 11], orderable: true },
             { targets: "_all", orderable: false },
             { targets: [8, 9, 10, 11], className: "text-center" },
-            { targets: [12], className: "text-end" },
+            { targets: [12], className: "text-center", width: '120px' },
             { targets: [0], visible: false },
         ],
         "lengthMenu": [[10, 15, 25, 50, -1], [10, 15, 25, 50, "All"]]
@@ -144,6 +139,11 @@ $('#input_WareHouse').on('change', function (e) {
 
 
 // Show Details
+function Details(elm, e) {
+    e.preventDefault();
+    var Id = $(elm).data('id');
+    GetDeviceDetails(Id);
+}
 $('#table_Devices tbody').on('dblclick', 'tr', function () {
     var dataId = $(this).data('id');
 

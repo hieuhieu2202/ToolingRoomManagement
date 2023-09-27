@@ -240,10 +240,13 @@ async function CreateTableAddDevice(devices) {
                 break;
             }
         }
-        // Action
-        row.append(`<td><button class="btn btn-outline-primary button_dot" type="button" title="Select Device">
-                                <i class="bx bx-check"></i>
-                            </button></td>`);
+        row.append(`<td class="order-action d-flex text-center justify-content-center">
+                        <a href="javascript:;" class="text-primary    bg-light-primary    border-0" title="Select This Device"><i class="fa-regular fa-circle-check"></i></a> 
+                    </td>`);
+        //// Action
+        //row.append(`<td><button class="btn btn-outline-primary button_dot" type="button" title="Select Device">
+        //                        <i class="bx bx-check"></i>
+        //                    </button></td>`);
 
         $('#table_Devices_tbody').append(row);
     });
@@ -287,7 +290,7 @@ async function CreateTableAddDevice(devices) {
     tableDeviceInfo.columns.adjust();
 }
 function attachButtonClickEvent(row, data, dataIndex) {
-    var check = $('td', row).eq(5).find('button[type="button"]');
+    var check = $('td', row).eq(5).find('a');
 
     check.off('click').on('click', function () {
         if ($('#form_device-select .input-group').length < 10) {

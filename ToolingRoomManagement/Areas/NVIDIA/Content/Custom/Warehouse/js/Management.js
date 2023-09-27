@@ -48,8 +48,8 @@ function WarehouseTable(warehouses) {
         // Action
         row.append(`<td class="order-action d-flex text-center justify-content-center" style="height: 46px;align-items: center;">
                          <a href="javascript:;" class="text-info bg-light-info border-0      " title="Details" data-id="${item.Id}" onclick="Details(this, event)"><i class="fa-regular fa-circle-info"></i></a>
-                         <a href="javascript:;" class="text-warning bg-light-warning border-0" title="Details" data-id="${item.Id}" onclick="Edit(this, event)   "><i class="fa-duotone fa-pen"></i></a>
-                         <a href="javascript:;" class="text-danger bg-light-danger border-0  " title="Details" data-id="${item.Id}" onclick="Delete(this, event) "><i class="fa-duotone fa-trash"></i></a>
+                         <a href="javascript:;" class="text-warning bg-light-warning border-0" title="Edit" data-id="${item.Id}" onclick="Edit(this, event)   "><i class="fa-duotone fa-pen"></i></a>
+                         <a href="javascript:;" class="text-danger bg-light-danger border-0  " title="Delete" data-id="${item.Id}" onclick="Delete(this, event) "><i class="fa-duotone fa-trash"></i></a>
                     </td>`);
 
         $('#table_Warehouses-tbody').append(row);

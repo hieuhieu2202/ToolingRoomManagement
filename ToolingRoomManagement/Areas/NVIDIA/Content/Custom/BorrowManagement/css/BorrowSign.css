@@ -30,15 +30,19 @@
     padding: 10px;
     border-radius: 10px;
 }
-.button_dot {
-    padding: 0;
-    border: 0;
-    margin: 0;
-    width: 100%;
-    text-align: end;
+.order-action a {
+    font-size: 15px;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f1f1f1;
+    text-align: center;
+    border-radius: 20%;
+    margin: 0px 3px;
 }
 
-    .button_dot i {
-        margin: 0;
-        font-size: 1rem;
+    .order-action a:hover {
+        box-shadow: 0px 0px 10px 0px #888888 !important;
     }

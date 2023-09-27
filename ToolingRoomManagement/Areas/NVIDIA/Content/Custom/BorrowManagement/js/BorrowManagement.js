@@ -90,7 +90,9 @@ async function CreateTableBorrow(borrows) {
             }
         }
         // Action
-        row.append(`<td><button type="button" class="btn btn-outline-info p-0 m-0 border-0 btn-custom" data-id="${item.Id}" onclick="BorrowDetails(this, event)" title="Details"><i class="bx bx-info-circle"></i></button></td>`);
+        row.append(`<td class="order-action d-flex text-center justify-content-center">
+                         <a href="javascript:;" class="text-info bg-light-info border-0" title="Details" data-id="${item.Id}" onclick="BorrowDetails(this, event)"><i class="fa-regular fa-circle-info"></i></a>
+                    </td>`);
 
         $('#table_Borrows-tbody').append(row);
     });
@@ -100,10 +102,10 @@ async function CreateTableBorrow(borrows) {
         scrollX: true,
         order: [1],
         autoWidth: false,
-        columnDefs: [
-            { targets: "_all", orderable: true },
+        columnDefs: [            
             { targets: [4, 5], className: "text-center" },
-            { targets: [6], className: "text-end", orderable: false },
+            { targets: [6], className: "text-center", orderable: false, width: '20px;' },
+            { targets: "_all", orderable: true },
         ],
         "lengthMenu": [[10, 15, 25, 50, -1], [10, 15, 25, 50, "All"]]
     };

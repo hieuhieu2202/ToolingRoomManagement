@@ -8,6 +8,7 @@ using System.Web;
 using ToolingRoomManagement.Areas.NVIDIA.Data;
 using ToolingRoomManagement.Areas.NVIDIA.Entities;
 using System.Threading.Tasks;
+using System.Threading;
 
 namespace ToolingRoomManagement.Areas.NVIDIA.Data
 {
@@ -85,7 +86,12 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Data
 
             md.MailContent = SignMailHtml.Content(mailContent);
 
-            Send_Mail(md);
+            Thread thread = new Thread(() =>
+            {
+                Send_Mail(md);
+            });
+            thread.Start();
+            thread.IsBackground = true;
         }
         public static bool Send_Mail(Model_Service.Sendmail result)
         {

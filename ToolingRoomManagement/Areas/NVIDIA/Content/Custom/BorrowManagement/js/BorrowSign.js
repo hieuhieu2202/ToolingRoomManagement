@@ -40,6 +40,12 @@ function GetUserSigns(IsTable = true) {
     });
 }
 
+window.onclick = function (event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+
 // table
 var table_Borrow;
 async function CreateTableBorrow(borrows) {
@@ -53,12 +59,12 @@ async function CreateTableBorrow(borrows) {
     });
 
     const options = {
-        scrollY: 440,
+        scrollY: 470,
         scrollX: true,
         order: [],
         autoWidth: false,
         columnDefs: [           
-            { targets: [7], className: "text-end", orderable: false, width: "50px" },
+            { targets: [7], className: "text-center", orderable: false, width: "50px" },
             { targets: [4, 5, 6], className: "text-center", orderable: true, width: "100px" },
             { targets: "_all", orderable: false },
         ],
@@ -78,6 +84,12 @@ function Details(elm, e) {
     if (IdSign) {
         $('#action_footer').show();
         $('#normal_footer').hide();
+
+        $('#action_footer button[btn-reject]').data('id', Id);
+        $('#action_footer button[btn-reject]').data('idsign', IdSign);
+
+        $('#action_footer button[btn-approve]').data('id', Id);      
+        $('#action_footer button[btn-approve]').data('idsign', IdSign);
     }
     else {
         $('#action_footer').hide();
@@ -299,7 +311,7 @@ function Reject(elm, e) {
                 html.append(`<p>Created Date: <b>${moment(borrow.DateBorrow).format('YYYY-MM-DD HH:mm:ss')}</b></p>`);
                 html.append(`<div class="text-start">
                                  <label class="form-label">Note</label>
-                                 <textarea class="form-control" rows="3" style="resize: none" id="reject-Note"></textarea>
+                                 <textarea class="form-control" rows="3" style="resize: none" id="reject-Note" placeholder="132321"></textarea>
                              </div>`)
 
                 Swal.fire({
@@ -472,18 +484,15 @@ function DrawDatatableRow(no, item) {
     }
     // Action
     if (showButton)
-        row.append(`<td><div class="dropdown">
-	    				    	<button class="btn btn-outline-secondary button_dot" type="button" data-bs-toggle="dropdown" title="Action">
-                                    <i class="bx bx-dots-vertical-rounded"></i>
-                                </button>
-                                <div class="dropdown-menu order-actions">
-                                    <a href="javascript:;" class="text-success bg-light-success border-0 mb-2" title="Approve" data-id="${item.Id}" data-idsign="${idSign}" onclick="Approve(this, event)"><i class="bx bx-check"></i></a>                                
-                                    <a href="javascript:;" class="text-danger  bg-light-danger  border-0 mb-2" title="Reject " data-id="${item.Id}" data-idsign="${idSign}" onclick="Reject(this, event) "><i class="bx bx-x"></i></a>
-                                    <a href="javascript:;" class="text-info    bg-light-info    border-0     " title="Details" data-id="${item.Id}" data-idsign="${idSign}" onclick="Details(this, event)"><i class="bx bx-info-circle"></i></a>
-	    					    </div>
-	    				</div></td>`);
+        row.append(`<td class="order-action d-flex text-center justify-content-center">
+                        <a href="javascript:;" class="text-info    bg-light-info    border-0" title="Details" data-id="${item.Id}" data-idsign="${idSign}" onclick="Details(this, event)"><i class="fa-regular fa-circle-info"></i></a>
+                        <a href="javascript:;" class="text-success bg-light-success border-0" title="Approve" data-id="${item.Id}" data-idsign="${idSign}" onclick="Approve(this, event)"><i class="fa-duotone fa-check"></i></a>                                
+                        <a href="javascript:;" class="text-danger  bg-light-danger  border-0" title="Reject " data-id="${item.Id}" data-idsign="${idSign}" onclick="Reject(this, event) "><i class="fa-solid fa-x"></i></a>   
+                    </td>`);
     else
-        row.append(`<td><button type="button" class="btn btn-outline-info p-0 my-0 me-0 border-0 btn-custom ms-3" data-id="${item.Id}" onclick="Details(this, event)"><i class="bx bx-info-circle"></i></button></td>`);
+        row.append(`<td class="order-action d-flex text-center justify-content-center">
+                        <a href="javascript:;" class="text-info    bg-light-info    border-0" title="Details" data-id="${item.Id}" data-idsign="${idSign}" onclick="Details(this, event)"><i class="fa-regular fa-circle-info"></i></a> 
+                    </td>`);
     return row;
 }
 function DrawDatatableArray(item) {

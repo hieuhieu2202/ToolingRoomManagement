@@ -110,7 +110,7 @@
                         <th>Type</th>
                         <th>Status</th>
                         <th>Sign</th>
-                        <th></th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody id="table_Borrows-tbody">
@@ -181,8 +181,8 @@
             </div>
             <div class="modal-footer">
                 <div class="w-100 text-center" id="action_footer">
-                    <button type="button" class="btn btn-outline-danger"><i class="bx bx-x"></i>Reject</button>
-                    <button type="button" class="btn btn-success ms-3"><i class="bx bx-check"></i>Approve</button>
+                    <button type="button" class="btn btn-outline-danger" btn-reject onclick="Reject(this, event)"><i class="bx bx-x"></i>Reject</button>
+                    <button type="button" class="btn btn-success ms-3" btn-approve onclick="Approve(this, event)"><i class="bx bx-check"></i>Approve</button>
                 </div>
                 <div id="normal_footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
