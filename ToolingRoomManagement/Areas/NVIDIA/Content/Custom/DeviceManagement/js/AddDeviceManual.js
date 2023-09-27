@@ -38,6 +38,8 @@ function GetSelectData() {
 
                 // Vendor
                 populateSelect("device_add-Vendor_List", response.vendors, "VendorName", "");
+
+                $('#device_add-WareHouse').change();
             } else {
                 toastr["error"](response.message, "ERROR");
             }
@@ -53,6 +55,10 @@ $('#AddDeviceManual').on('click', function (e) {
     e.preventDefault();
 
     const formData = GetFormData();
+
+    //console.log(...formData);
+    //console.log(formData.getAll('Layout'));
+    //return;
 
     $.ajax({
         type: "POST",
@@ -83,10 +89,77 @@ function GetFormData() {
         const inputElement = $(this).find('input, select')[0];
         //const id = inputElement.id;
         const value = $(inputElement).val();
-
+        
         if (label) {
-            formData.append(label, value);
+            if (label.includes('Layout')) {
+                formData.append('Layout', value);
+            }
+            else {
+                formData.append(label, value);
+            }
         }
     });
     return formData;
+}
+
+// Add more layout dynamic
+$('#new-layout').on('click', async function (e) {
+    e.preventDefault();
+
+    var layoutlength = $('#layout-container [group-layout]').length;
+
+    if (layoutlength > 4) {
+        return false;
+    }
+
+    var selectLayout = $(`<select class="form-select" id="device_add-WareHouse"></select>`);
+    var deleteButton = $(`<span class="input-group-text bg-light-danger text-danger" style="width:40px" delete><i class="fa-solid fa-trash"></i></span>`);
+    deleteButton.on('click', function (e) {
+        var element = $(this).closest('[group-layout]');
+        element.remove();
+    });
+
+    selectLayout.append(await LayoutOption());
+
+    var inputGroup = $(`<div class="input-group mb-3" group-layout>
+                            <span class="col-4 input-group-text">Layout ${layoutlength + 1} </span>
+                        </div>`);
+    inputGroup.append(selectLayout);
+    inputGroup.append(deleteButton)   
+
+    $('#layout-container').append(inputGroup);
+});
+
+var WarehouseLayouts;
+$('#device_add-WareHouse').on('change', function (e) {
+    e.preventDefault();
+
+    GetWarehouseLayouts($(this).val());
+})
+function GetWarehouseLayouts(IdWarehouse) {
+    $.ajax({
+        type: "GET",
+        url: "/NVIDIA/DeviceManagement/GetWarehouseLayouts?IdWarehouse=" + IdWarehouse,
+        dataType: "json",
+        contentType: "application/json;charset=utf-8",
+        success: function (response) {
+            if (response.status) {
+                WarehouseLayouts = response.layouts;
+            }
+            else {
+                Swal.fire("Something went wrong!", response.message, "error");
+            }
+        },
+        error: function (error) {
+            Swal.fire("Something went wrong!", GetAjaxErrorMessage(error), "error");
+        }
+    });
+}
+async function LayoutOption() {
+    var html = '';
+    await $.each(WarehouseLayouts, function (k, item) {
+        var option = `<option value="${item.Id}">${item.Line}${item.Floor ? ' - ' + item.Floor : ''}${item.Cell ? ' - ' + item.Cell : ''}</option>`;
+        html += option;
+    });
+    return html;
 }

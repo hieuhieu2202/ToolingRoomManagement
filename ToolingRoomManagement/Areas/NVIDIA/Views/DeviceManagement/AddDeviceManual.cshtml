@@ -49,66 +49,20 @@
                         <span class="col-4 input-group-text">Created date</span>
                         <input class="col-8 form-control" type="datetime-local" id="device_add-DeviceDate" autocomplete="off">
                     </div>
-                    <!-- Relation -->
-                    <div class="input-group mb-3">
-                        <span class="col-4 input-group-text">Relation</span>
-                        <input class="col-8 form-control" type="text" id="device_add-Relation" maxlength="50" autocomplete="off">
-                    </div>
                     <!-- Buffer -->
                     <div class="input-group mb-3">
                         <span class="col-4 input-group-text">Buffer</span>
-                        <input class="col-8 form-control" type="number" id="device_add-Buffer" autocomplete="off">
+                        <input class="col-8 form-control" type="number" id="device_add-Buffer" value="0" autocomplete="off">
                     </div>
                     <!-- LifeCycle -->
                     <div class="input-group mb-3">
                         <span class="col-4 input-group-text">Life Cycle</span>
-                        <input class="col-8 form-control" type="number" id="device_add-LifeCycle" autocomplete="off">
-                    </div>
-                </div>
-                <div class="col-4">
-                    <!-- Forcast -->
-                    <div class="input-group mb-3">
-                        <span class="col-4 input-group-text">Forcast</span>
-                        <input class="col-8 form-control" type="number" id="device_add-Forcast" autocomplete="off">
+                        <input class="col-8 form-control" type="number" id="device_add-LifeCycle" value="0" autocomplete="off">
                     </div>
                     <!-- Quantity -->
                     <div class="input-group mb-3">
                         <span class="col-4 input-group-text">Quantity</span>
                         <input class="col-8 form-control" type="number" id="device_add-Quantity" autocomplete="off">
-                    </div>
-                    <!-- QtyConfirm -->
-                    <div class="input-group mb-3">
-                        <span class="col-4 input-group-text">Qty Confirm</span>
-                        <input class="col-8 form-control" type="number" id="device_add-QtyConfirm" autocomplete="off">
-                    </div>
-                    <!-- ACC_KIT -->
-                    <div class="input-group mb-3">
-                        <span class="col-4 input-group-text">ACC KIT</span>
-                        <select class="col-8 form-select" id="device_add-AccKit">
-                            <option value="Yes">Yes</option>
-                            <option value="No">No</option>
-                            <option value="N/A" selected>N/A</option>
-                        </select>
-                    </div>
-                    <!-- Type -->
-                    <div class="input-group mb-3">
-                        <span class="col-4 input-group-text">Type</span>
-                        <select class="col-8 form-select" id="device_add-Type">
-                            <option value="S">Static</option>
-                            <option value="D">Dynamic</option>
-                            <option value="#N/A" selected>N/A</option>
-                        </select>
-                    </div>
-                    <!-- Status -->
-                    <div class="input-group mb-3">
-                        <span class="col-4 input-group-text">Status</span>
-                        <select class="col-8 form-select" id="device_add-Status">
-                            <option value="Unconfirmed">Unconfirmed</option>
-                            <option value="Part Confirmed">Part Confirmed</option>
-                            <option value="Confirmed" selected>Confirmed</option>
-                            <option value="Locked">Locked</option>
-                            <option value="Depleted">Depleted</option>
-                        </select>
                     </div>
                 </div>
                 <div class="col-4">
@@ -147,6 +101,17 @@
                         <input class="col-8 form-control" type="text" id="device_add-Vendor" list="device_add-Vendor_List" autocomplete="off">
                         <datalist id="device_add-Vendor_List"></datalist>
                     </div>
+                </div>
+                <div class="col-4">
+                    <!-- Layout -->
+                    <div id="layout-container">
+                        @*<div class="input-group mb-3">
+                            <span class="col-4 input-group-text">Layout</span>
+                            <select class="form-select" id="device_add-WareHouse"></select>
+                            <span class="input-group-text bg-light-danger text-danger" style="width:40px" delete><i class="fa-solid fa-trash"></i></span>
+                        </div>*@                       
+                    </div>                   
+                    <button type="button" class="btn btn-sm btn-outline-secondary w-100" id="new-layout"><i class="fa-solid fa-plus"></i> Add Layout</button>
                 </div>
             </div>
         </div>

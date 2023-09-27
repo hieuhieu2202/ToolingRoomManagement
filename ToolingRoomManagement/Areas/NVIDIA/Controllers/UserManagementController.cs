@@ -7,7 +7,7 @@ using ToolingRoomManagement.Attributes;
 
 namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
 {
-    [Authentication(AllowAnonymous = false)]
+    [Authentication]
     public class UserManagementController : Controller
     {
         // GET: NVIDIA/UserManagement

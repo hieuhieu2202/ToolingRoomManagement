@@ -12,55 +12,17 @@ using ToolingRoomManagement.Attributes;
 
 namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
 {
+    [Authentication]
     public class DeviceManagementController : Controller
     {
         ToolingRoomEntities db = new ToolingRoomEntities();
 
-        // GET: NVIDIA/DeviceManagement
+        // GET: Add Device Manual
         [HttpGet]
-        [Authentication]
-        public ActionResult DeviceManagement()
-        {
-            return View();
-        }
-
-        [HttpGet]
-        [Authentication]
         public ActionResult AddDeviceManual()
         {
             return View();
         }
-
-        [HttpGet]
-        [Authentication]
-        public ActionResult AddDeviceBOM()
-        {
-            return View();
-        }
-        [HttpGet]
-        [Authentication(AllowAnonymous = true)]
-        public JsonResult GetSelectData()
-        {
-            try
-            {
-                db.Configuration.LazyLoadingEnabled = false;
-
-                var warehouses = db.Warehouses.ToList();
-                var products = db.Products.OrderBy(m => m.ProductName).ToList();
-                var models = db.Models.OrderBy(m => m.ModelName).ToList();
-                var stations = db.Stations.OrderBy(m => m.StationName).ToList();
-                var groups = db.Groups.OrderBy(m => m.GroupName).ToList();
-                var vendors = db.Vendors.OrderBy(m => m.VendorName).ToList();
-
-                return Json(new { status = true, warehouses, products, models, stations, groups, vendors }, JsonRequestBehavior.AllowGet);
-            }
-            catch (Exception ex)
-            {
-                return Json(new { status = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
-            }
-        }
-
-        // POST: NVIDIA/DeviceManagement
         [HttpPost]
         public JsonResult AddDeviceManual(FormCollection form)
         {
@@ -76,7 +38,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                     Status = form["Status"],
                 };
 
-                double dBuffer = double.TryParse(form["Buffer"], out dBuffer) ? dBuffer: 0;
+                double dBuffer = double.TryParse(form["Buffer"], out dBuffer) ? dBuffer : 0;
                 device.Buffer = dBuffer;
 
                 int dLifeCycle = int.TryParse(form["LifeCycle"], out dLifeCycle) ? dLifeCycle : 0;
@@ -88,7 +50,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 int dQuantity = int.TryParse(form["Quantity"], out dQuantity) ? dQuantity : 0;
                 device.Quantity = dQuantity;
 
-                int dQtyConfirm = int.TryParse(form["QtyConfirm"], out dQtyConfirm) ? dQtyConfirm : 0;
+                int dQtyConfirm = int.TryParse(form["Quantity"], out dQtyConfirm) ? dQtyConfirm : 0;
                 device.QtyConfirm = dQtyConfirm;
 
                 int dIdWarehouse = int.TryParse(form["Warehouse"], out dIdWarehouse) ? dIdWarehouse : 0;
@@ -111,39 +73,39 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 {
                     product = new Entities.Product { ProductName = dProductName };
                     db.Products.Add(product);
-                }                   
+                }
                 device.IdProduct = product.Id;
-                
+
                 // Add & Create Model
                 if (model == null)
                 {
                     model = new Entities.Model { ModelName = dModelName };
                     db.Models.Add(model);
-                } 
+                }
                 device.IdModel = model.Id;
-                
+
                 // Add & Create Station
                 if (station == null)
                 {
                     station = new Entities.Station { StationName = dStationName };
                     db.Stations.Add(station);
-                }                    
+                }
                 device.IdStation = station.Id;
-                
+
                 // Add & Create Group
                 if (group == null)
                 {
                     group = new Entities.Group { GroupName = dGroupName };
                     db.Groups.Add(group);
-                }               
+                }
                 device.IdGroup = group.Id;
-                
+
                 // Add & Create Vendor
                 if (vendor == null)
                 {
                     vendor = new Entities.Vendor { VendorName = dVendorName };
                     db.Vendors.Add(vendor);
-                }               
+                }
                 device.IdVendor = vendor.Id;
 
                 DateTime dDeviceDate = DateTime.TryParse(form["Createddate"], out dDeviceDate) ? dDeviceDate : DateTime.Now;
@@ -155,19 +117,194 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 device.Status = Data.Common.CheckStatus(device);
 
                 db.Devices.Add(device);
+
+                // Create Layout
+                var IdLayouts = form["Layout"].Split(',').Select(Int32.Parse).ToArray();
+                foreach (var IdLayout in IdLayouts)
+                {
+                    if(!db.DeviceWarehouseLayouts.Any(l => l.IdDevice == device.Id && l.IdWarehouseLayout == IdLayout))
+                    {
+                        DeviceWarehouseLayout layout = new DeviceWarehouseLayout
+                        {
+                            IdDevice = device.Id,
+                            IdWarehouseLayout = IdLayout
+                        };
+                        db.DeviceWarehouseLayouts.Add(layout);
+                    }
+                }
+
                 db.SaveChanges();
 
                 return Json(new { status = true });
             }
             catch (Exception ex)
             {
-                return Json(new {status = false, message = ex.Message});
+                return Json(new { status = false, message = ex.Message });
             }
         }
 
+        // GET: Device Management
+        [HttpGet]
+        public ActionResult DeviceManagement()
+        {
+            return View();
+        }
+        [HttpPost]
+        public JsonResult ConfirmDevice(int Id, int QtyConfirm)
+        {
+            try
+            {
+                if (Id != 0)
+                {
+                    var rDevice = db.Devices.FirstOrDefault(d => d.Id == Id);
+
+                    var sQtyConfirm = rDevice.QtyConfirm + QtyConfirm;
+
+                    if (rDevice.Quantity >= sQtyConfirm)
+                    {
+                        rDevice.QtyConfirm = sQtyConfirm;
+                        rDevice.RealQty += QtyConfirm;
+
+                        rDevice.Status = Data.Common.CheckStatus(rDevice);
+
+                        db.Devices.AddOrUpdate(rDevice);
+                        db.SaveChanges();
+
+                        return Json(new { status = true, device = rDevice });
+                    }
+                    else
+                    {
+                        return Json(new { status = false, message = "Quantity confirm > Quantity" });
+                    }
+                }
+                else
+                {
+                    return Json(new { status = false, message = "Device not found." });
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = false, message = ex.Message });
+            }
+        }
+        [HttpPost]
+        public JsonResult UpdateDevice(Entities.Device device, int[] IdLayouts)
+        {
+            try
+            {
+
+                if (db.Devices.Any(d => d.Id == device.Id))
+                {
+                    if (device.QtyConfirm > device.Quantity || device.RealQty > device.Quantity)
+                    {
+                        return Json(new { status = false, message = "Quantity confirm or Real Quantity > Quantity." });
+                    }
+
+                    if (device.RealQty > device.QtyConfirm)
+                    {
+                        return Json(new { status = false, message = "Real Quantity > Quantity confirm." });
+                    }
+
+                    device.CreatedDate = DateTime.Now;
+                    device.Status = Data.Common.CheckStatus(device);
+
+                    // Layout
+                    List<DeviceWarehouseLayout> deviceWarehouseLayouts = db.DeviceWarehouseLayouts.Where(dl => dl.IdDevice == device.Id).ToList();
+                    db.DeviceWarehouseLayouts.RemoveRange(deviceWarehouseLayouts);
+
+                    if (IdLayouts == null) System.Diagnostics.Debug.WriteLine("SSS");
+
+                    if(IdLayouts != null || IdLayouts.Length > 0 )
+                    {
+                        foreach (var IdLayout in IdLayouts)
+                        {
+                            DeviceWarehouseLayout deviceWarehouse = new DeviceWarehouseLayout
+                            {
+                                IdDevice = device.Id,
+                                IdWarehouseLayout = IdLayout,
+                                WarehouseLayout = db.WarehouseLayouts.FirstOrDefault(wh => wh.Id == IdLayout)
+                            };
+                            db.DeviceWarehouseLayouts.Add(deviceWarehouse);
+                            device.DeviceWarehouseLayouts.Add(deviceWarehouse);
+                        }
+                    }
+
+                    db.Devices.AddOrUpdate(device);
+                    db.SaveChanges();
+
+                    return Json(new { status = true, device });
+                }
+                else
+                {
+                    return Json(new { status = false, message = "Device not found." });
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = false, message = ex.Message });
+            }
+        }
+        [HttpPost]
+        public JsonResult GetWarehouseDevices(int IdWarehouse)
+        {
+            try
+            {
+                Entities.Warehouse warehouse = db.Warehouses.FirstOrDefault(w => w.Id == IdWarehouse);
+
+                if (IdWarehouse == 0)
+                {
+                    Entities.User user = (Entities.User)Session["SignSession"];
+                    warehouse = db.Warehouses.FirstOrDefault(w => w.IdUserManager == user.Id);
+                    if (warehouse == null)
+                    {
+                        warehouse = db.Warehouses.Take(1).FirstOrDefault();
+                    }
+                }
+                warehouse.Devices.OrderByDescending(d => d.CreatedDate);
+                return Json(new { status = true, warehouse });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = false, message = ex.Message });
+            }
+        }
+        [HttpPost]
+        public JsonResult DeleteDevice(int Id)
+        {
+            try
+            {
+                using (ToolingRoomEntities db = new ToolingRoomEntities())
+                {
+                    Entities.Device device = db.Devices.FirstOrDefault(d => d.Id == Id);
+
+                    if (device != null)
+                    {
+                        db.Devices.Remove(device);
+                        db.SaveChanges();
+                        return Json(new { status = true });
+                    }
+                    else
+                    {
+                        return Json(new { status = false, message = "Device not found." });
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = false, message = ex.Message });
+            }
+        }
+
+
+        // GET: Add Device Auto
+        [HttpGet]
+        public ActionResult AddDeviceBOM()
+        {
+            return View();
+        }
         [HttpPost]
         public JsonResult AddDeviceAuto(HttpPostedFileBase file, int IdWareHouse)
-        {        
+        {
             try
             {
                 if (file != null && file.ContentLength > 0)
@@ -246,7 +383,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                             if (!groups.Any(g => g.Id == device.Group.Id) && device.Group.GroupName != null) groups.Add(device.Group);
                             if (!vendors.Any(v => v.Id == device.Vendor.Id) && device.Vendor.VendorName != null) vendors.Add(device.Vendor);
                         }
-                        
+
 
                         return Json(new { status = true, products, models, stations, groups, vendors, devices });
                     }
@@ -283,7 +420,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
             double forcast = double.TryParse(worksheet.Cells[row, 27].Value?.ToString(), out forcast) ? forcast : 0;
 
             string deviceType = worksheet.Cells[row, 29].Value?.ToString();
-            
+
             int deviceQty = int.TryParse(worksheet.Cells[row, 14].Value?.ToString(), out deviceQty) ? deviceQty : 0;
             int stationQty = int.TryParse(worksheet.Cells[row, 26].Value?.ToString(), out stationQty) ? stationQty : 0;
             int lifeCycle = int.TryParse(worksheet.Cells[row, 28].Value?.ToString(), out lifeCycle) ? lifeCycle : 0;
@@ -381,66 +518,35 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
             {
                 device.Quantity = (int)Math.Ceiling((double)(deviceQty * stationQty * (1 + deviceBuffer)));
             }
-            
+
             #endregion
 
             return device;
         }
 
-        [HttpPost]
-        public JsonResult GetWarehouseDevices(int IdWarehouse)
+        // GET: COMMON
+        [HttpGet]
+        public JsonResult GetSelectData()
         {
             try
             {
-                Entities.Warehouse warehouse = db.Warehouses.FirstOrDefault(w => w.Id == IdWarehouse);
+                db.Configuration.LazyLoadingEnabled = false;
 
-                if (IdWarehouse == 0)
-                {
-                    Entities.User user = (Entities.User)Session["SignSession"];
-                    warehouse = db.Warehouses.FirstOrDefault(w => w.IdUserManager == user.Id);
-                    if (warehouse == null)
-                    {
-                        warehouse = db.Warehouses.Take(1).FirstOrDefault();
-                    }
-                }
-                warehouse.Devices.OrderByDescending(d => d.CreatedDate);
-                return Json(new { status = true, warehouse });
+                var warehouses = db.Warehouses.ToList();
+                var products = db.Products.OrderBy(m => m.ProductName).ToList();
+                var models = db.Models.OrderBy(m => m.ModelName).ToList();
+                var stations = db.Stations.OrderBy(m => m.StationName).ToList();
+                var groups = db.Groups.OrderBy(m => m.GroupName).ToList();
+                var vendors = db.Vendors.OrderBy(m => m.VendorName).ToList();
+
+                return Json(new { status = true, warehouses, products, models, stations, groups, vendors }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
-                return Json(new { status = false, message = ex.Message });
+                return Json(new { status = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
-
         [HttpPost]
-        public JsonResult DeleteDevice(int Id)
-        {
-            try
-            {
-                using(ToolingRoomEntities db = new ToolingRoomEntities())
-                {
-                    Entities.Device device = db.Devices.FirstOrDefault(d => d.Id == Id);
-
-                    if (device != null)
-                    {
-                        db.Devices.Remove(device);
-                        db.SaveChanges();
-                        return Json(new { status = true });
-                    }
-                    else
-                    {
-                        return Json(new { status = false, message = "Device not found." });
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                return Json(new { status = false, message = ex.Message });
-            }
-        }
-
-        [HttpPost]
-        [Authentication(AllowAnonymous = true)]
         public JsonResult GetDevice(int Id)
         {
             try
@@ -490,38 +596,19 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 return Json(new { status = false, message = ex.Message });
             }
         }
-
-        [HttpPost]
-        public JsonResult ConfirmDevice(int Id, int QtyConfirm)
+        public JsonResult GetWarehouseLayouts(int IdWarehouse)
         {
             try
             {
-                if (Id != 0)
+                Warehouse warehouse = db.Warehouses.FirstOrDefault(w => w.Id == IdWarehouse);
+
+                if(warehouse != null)
                 {
-                    var rDevice = db.Devices.FirstOrDefault(d => d.Id == Id);
-
-                    var sQtyConfirm = rDevice.QtyConfirm + QtyConfirm;
-
-                    if (rDevice.Quantity >= sQtyConfirm)
-                    {
-                        rDevice.QtyConfirm = sQtyConfirm;
-                        rDevice.RealQty += QtyConfirm;
-
-                        rDevice.Status = Data.Common.CheckStatus(rDevice);
-
-                        db.Devices.AddOrUpdate(rDevice);
-                        db.SaveChanges();
-
-                        return Json(new { status = true, device = rDevice });
-                    }
-                    else
-                    {
-                        return Json(new { status = false, message = "Quantity confirm > Quantity" });
-                    }
+                    return Json(new { status = true, layouts = warehouse.WarehouseLayouts }, JsonRequestBehavior.AllowGet);
                 }
                 else
                 {
-                    return Json(new { status = false, message = "Device not found." });
+                    return Json(new { status = false, message = "Warehouse is empty." }, JsonRequestBehavior.AllowGet);
                 }
             }
             catch (Exception ex)
@@ -530,42 +617,6 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
             }
         }
 
-        [HttpPost]
-        public JsonResult UpdateDevice(Entities.Device device)
-        {
-            try
-            {
-                if (device != null)
-                {
-                    if (device.QtyConfirm > device.Quantity || device.RealQty > device.Quantity)
-                    {
-                        return Json(new { status = false, message = "Quantity confirm or Real Quantity > Quantity." });
-                    }
-
-                    if (device.RealQty > device.QtyConfirm)
-                    {
-                        return Json(new { status = false, message = "Real Quantity > Quantity confirm." });
-                    }
-
-                    device.CreatedDate = DateTime.Now;
-                    device.Status = Data.Common.CheckStatus(device);
-
-                    db.Devices.AddOrUpdate(device);
-                    db.SaveChanges();
-
-                    Entities.Device rDevice = db.Devices.FirstOrDefault(d => d.Id == device.Id);
-
-                    return Json(new { status = true, device = rDevice});
-                }
-                else
-                {
-                    return Json(new { status = false, message = "Device not found." });
-                }
-            }
-            catch (Exception ex)
-            {
-                return Json(new { status = false, message = ex.Message });
-            }
-        }
+       
     }
 }

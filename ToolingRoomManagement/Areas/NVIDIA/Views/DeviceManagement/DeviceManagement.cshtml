@@ -94,6 +94,7 @@
                         <th>Device Name</th>
                         <th>Group</th>
                         <th>Vendor</th>
+                        <th>Location</th>
                         <th>Buffer</th>
                         <th>Quantity</th>
                         <th>Type</th>
@@ -113,103 +114,157 @@
     <div class="modal-dialog modal-xl modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="device_edit-title"></h5>
+                <h5 class="modal-title" id="device_edit-title">Update Device</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
+                <!-- Details -->
+                <h5 class="font-weight-light text-center text-primary py-3" id="borrow_modal-name">DEVICE DETAILS</h5>
                 <div class="row">
                     <div class="col-6">
-                        <!-- Id -->
-                        <div class="input-group mb-3">
-                            <span class="col-3 input-group-text">ID</span>
-                            <input type="text" class="col-9 form-control" id="device_edit-DeviceId" disabled>
+                        <!-- Id --><!-- Status -->
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="input-group mb-3">
+                                    <span class="col-6 input-group-text">ID</span>
+                                    <input type="text" class="col-6 form-control" id="device_edit-DeviceId" disabled>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="input-group mb-3">
+                                    <span class="col-6 input-group-text">Status</span>
+                                    <select class="col-6 form-select" id="device_edit-Status">
+                                        <option value="Unconfirmed">Unconfirmed</option>
+                                        <option value="Part Confirmed">Part Confirmed</option>
+                                        <option value="Confirmed">Confirmed</option>
+                                        <option value="Locked">Locked</option>
+                                        <option value="Out Range">Out Range</option>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
+
+                        <!-- WareHouse --> <!-- Relation -->
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="input-group mb-3">
+                                    <span class="col-6 input-group-text">Warehouse</span>
+                                    <select class="col-6 form-select" id="device_edit-WareHouse"></select>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="input-group mb-3">
+                                    <span class="col-6 input-group-text">Relation</span>
+                                    <input class="col-6 form-control" type="text" id="device_edit-Relation">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Buffer --> <!-- LifeCycle -->
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="input-group mb-3">
+                                    <span class="col-6 input-group-text">Buffer</span>
+                                    <input class="col-6 form-control" type="number" id="device_edit-Buffer">
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="input-group mb-3">
+                                    <span class="col-6 input-group-text">Life Cycle</span>
+                                    <input class="col-6 form-control" type="number" id="device_edit-LifeCycle">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Forcast --> <!-- Quantity -->
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="input-group mb-3">
+                                    <span class="col-6 input-group-text">Forcast</span>
+                                    <input class="col-6 form-control" type="number" id="device_edit-Forcast">
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="input-group mb-3">
+                                    <span class="col-6 input-group-text">Quantity</span>
+                                    <input class="col-6 form-control" type="number" id="device_edit-Quantity">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- QtyConfirm --> <!-- Real Qty -->
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="input-group mb-3">
+                                    <span class="col-6 input-group-text">Qty Confirm</span>
+                                    <input class="form-control" type="number" id="device_edit-QtyConfirm">
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="input-group mb-3">
+                                    <span class="col-6 input-group-text">Real Quantity</span>
+                                    <input class="form-control" type="number" id="device_edit-RealQty">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- ACC_KIT --> <!-- Type -->
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="input-group mb-3">
+                                    <span class="col-6 input-group-text">ACC KIT</span>
+                                    <select class="col-6 form-select" id="device_edit-AccKit">
+                                        <option value="Yes">Yes</option>
+                                        <option value="No">No</option>
+                                        <option value="N/A">N/A</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="input-group mb-3">
+                                    <span class="col-6 input-group-text">Type</span>
+                                    <select class="col-6 form-select" id="device_edit-Type">
+                                        <option value="S">Static</option>
+                                        <option value="D">Dynamic</option>
+                                        <option value="#N/A">N/A</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Group --> <!-- Vendor -->
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="input-group mb-3">
+                                    <span class="col-6 input-group-text">Group</span>
+                                    <select class="col-6 form-select" id="device_edit-Group"></select>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="input-group mb-3">
+                                    <span class="col-6 input-group-text">Vendor</span>
+                                    <select class="col-6 form-select" id="device_edit-Vendor"></select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <!-- Device Code -->
+                        <div class="input-group mb-3" style="height: 2.5rem;"></div>
                         <!-- Device Code -->
                         <div class="input-group mb-3">
                             <span class="col-3 input-group-text">Device Code</span>
-                            <input class="col-9 form-control" type="text" id="device_edit-DeviceCode" disabled>
+                            <input class="col-6 form-control" type="text" id="device_edit-DeviceCode">
                         </div>
                         <!-- Device Name -->
                         <div class="input-group mb-3">
                             <span class="col-3 input-group-text">Device name</span>
-                            <input class="col-9 form-control" type="text" id="device_edit-DeviceName">
+                            <input class="col-6 form-control" type="text" id="device_edit-DeviceName">
                         </div>
-
-                        <!-- Relation -->
-                        <div class="input-group mb-3">
-                            <span class="col-3 input-group-text">Relation</span>
-                            <input class="col-9 form-control" type="text" id="device_edit-Relation">
-                        </div>
-                        <!-- Buffer -->
-                        <div class="input-group mb-3">
-                            <span class="col-3 input-group-text">Buffer</span>
-                            <input class="col-9 form-control" type="number" id="device_edit-Buffer">
-                        </div>
-                        <!-- LifeCycle -->
-                        <div class="input-group mb-3">
-                            <span class="col-3 input-group-text">Life Cycle</span>
-                            <input class="col-9 form-control" type="number" id="device_edit-LifeCycle">
-                        </div>
-                        <!-- Forcast -->
-                        <div class="input-group mb-3">
-                            <span class="col-3 input-group-text">Forcast</span>
-                            <input class="col-9 form-control" type="number" id="device_edit-Forcast">
-                        </div>
-                        <!-- Quantity -->
-                        <div class="input-group mb-3">
-                            <span class="col-3 input-group-text">Quantity</span>
-                            <input class="col-9 form-control" type="number" id="device_edit-Quantity">
-                        </div>
-                        <!-- QtyConfirm -->
-                        <div class="input-group mb-3">
-                            <span class="col-3 input-group-text">Qty Confirm</span>
-                            <input class="col-9 form-control" type="number" id="device_edit-QtyConfirm">
-                        </div>
-                        <!-- QtyConfirm -->
-                        <div class="input-group mb-3">
-                            <span class="col-3 input-group-text">Real Quantity</span>
-                            <input class="col-9 form-control" type="number" id="device_edit-RealQty">
-                        </div>
-                    </div>
-                    <div class="col-6">
                         <!-- Device Date -->
                         <div class="input-group mb-3">
                             <span class="col-3 input-group-text">Created date</span>
                             <input class="form-control" type="datetime-local" id="device_edit-DeviceDate">
-                        </div>
-                        <!-- ACC_KIT -->
-                        <div class="input-group mb-3">
-                            <span class="col-3 input-group-text">ACC KIT</span>
-                            <select class="col-9 form-select" id="device_edit-AccKit">
-                                <option value="Yes">Yes</option>
-                                <option value="No">No</option>
-                                <option value="N/A">N/A</option>
-                            </select>
-                        </div>
-                        <!-- Type -->
-                        <div class="input-group mb-3">
-                            <span class="col-3 input-group-text">Type</span>
-                            <select class="col-9 form-select" id="device_edit-Type">
-                                <option value="S">Static</option>
-                                <option value="D">Dynamic</option>
-                                <option value="#N/A">N/A</option>
-                            </select>
-                        </div>
-                        <!-- Status -->
-                        <div class="input-group mb-3">
-                            <span class="col-3 input-group-text">Status</span>
-                            <select class="col-9 form-select" id="device_edit-Status">
-                                <option value="Unconfirmed">Unconfirmed</option>
-                                <option value="Part Confirmed">Part Confirmed</option>
-                                <option value="Confirmed">Confirmed</option>
-                                <option value="Locked">Locked</option>
-                                <option value="Out Range">Out Range</option>
-                            </select>
-                        </div>
-                        <!-- WareHouse -->
-                        <div class="input-group mb-3">
-                            <span class="col-3 input-group-text">Warehouse</span>
-                            <select class="col-9 form-select" id="device_edit-WareHouse"></select>
                         </div>
                         <!-- Product -->
                         <div class="input-group mb-3">
@@ -226,18 +281,15 @@
                             <span class="col-3 input-group-text">Station</span>
                             <select class="col-9 form-select" id="device_edit-Station"></select>
                         </div>
-                        <!-- Group -->
-                        <div class="input-group mb-3">
-                            <span class="col-3 input-group-text">Group</span>
-                            <select class="col-9 form-select" id="device_edit-Group"></select>
-                        </div>
-                        <!-- Vendor -->
-                        <div class="input-group mb-3">
-                            <span class="col-3 input-group-text">Vendor</span>
-                            <select class="col-9 form-select" id="device_edit-Vendor"></select>
-                        </div>
+
                     </div>
                 </div>
+
+                <!-- Layout -->
+                <h5 class="font-weight-light text-center text-primary py-3" id="borrow_modal-name">DEVICE LOCATION</h5>
+                <div id="layout-container"></div>
+                <button type="button" class="btn btn-sm btn-outline-secondary w-100" id="new-layout"><i class="fa-solid fa-plus"></i> Add Layout</button>
+
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -373,8 +425,7 @@
 
                     <div class="col-6">
                         <!-- Device Code -->
-                        <div class="input-group mb-3" style="height: 2.5rem;">
-                        </div>
+                        <div class="input-group mb-3" style="height: 2.5rem;"></div>
                         <!-- Device Code -->
                         <div class="input-group mb-3">
                             <span class="col-3 input-group-text">Device Code</span>
@@ -412,7 +463,7 @@
                 <div>
                     <table class="table table-bordered" id="device_details-layout">
                         <thead>
-                            <tr>
+                            <tr class="fw-bold" style="background-color: #3e464c">
                                 <td>Factory</td>
                                 <td>Factory Floor</td>
                                 <td>Warehouse Manager</td>
@@ -432,7 +483,7 @@
                 <div>
                     <table class="table table-bordered" id="device_details-history">
                         <thead>
-                            <tr class="align-middle">
+                            <tr class="align-middle fw-bold"style="background-color: #3e464c">
                                 <td>Type</td>
                                 <td>Date Borrow</td>
                                 <td>Date Return</td>
@@ -469,21 +520,25 @@
             theme: 'bootstrap4',
             dropdownParent: $("#device_edit-modal"),
             minimumResultsForSearch: -1,
+            width: '50%',
         });
         $('#device_edit-Type').select2({
             theme: 'bootstrap4',
             dropdownParent: $("#device_edit-modal"),
             minimumResultsForSearch: -1,
+            width: '50%',
         });
         $('#device_edit-Status').select2({
             theme: 'bootstrap4',
             dropdownParent: $("#device_edit-modal"),
             minimumResultsForSearch: -1,
+            width: '50%',
         });
         $('#device_edit-WareHouse').select2({
             theme: 'bootstrap4',
             dropdownParent: $("#device_edit-modal"),
             minimumResultsForSearch: -1,
+            width: '50%',
         });
         $('#device_edit-WareHouse').select2({
             theme: 'bootstrap4',
@@ -510,12 +565,12 @@
         $('#device_edit-Group').select2({
             theme: 'bootstrap4',
             dropdownParent: $("#device_edit-modal"),
-            width: '60%',
+            width: '50%',
         });
         $('#device_edit-Vendor').select2({
             theme: 'bootstrap4',
             dropdownParent: $("#device_edit-modal"),
-            width: '60%',
+            width: '50%',
         });
     </script>
 }

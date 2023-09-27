@@ -8,30 +8,49 @@ async function CreateTableAddDevice(devices) {
     if (tableDeviceInfo) tableDeviceInfo.destroy();
 
     $('#table_Devices_tbody').html('');
-    await $.each(devices, function (no, item) {
-        var row = $(`<tr class="align-middle" data-id="${item.Id}"></tr>`);
+    await $.each(devices, async function (no, item) {
+        var row = $(`<tr class="align-middle" data-id="${item.Id}" title="Double-click to view device details."></tr>`);
 
-        // MTS
+        // MTS 0
         row.append(`<td>${(item.Product) ? item.Product.MTS : ""}</td>`);
-        // Product Name
+        // Product Name 1
         row.append(`<td title="${(item.Product) ? item.Product.ProductName : ""}">${(item.Product) ? item.Product.ProductName : ""}</td>`);
-        // Model
+        // Model 2
         row.append(`<td>${(item.Model) ? item.Model.ModelName : ""}</td>`);
-        // Station
+        // Station 3
         row.append(`<td>${(item.Station) ? item.Station.StationName : ""}</td>`);
-        // DeviceCode - PN
-        row.append(`<td data-id="${item.Id}" data-code="${item.DeviceCode}">${item.DeviceCode}</td>`);
-        // DeviceName
+        // DeviceCode - PN 4
+        row.append(`<td data-id="${item.Id}" data-code="${item.DeviceCode}" title="${item.DeviceCode}">${item.DeviceCode}</td>`);
+        // DeviceName 5
         row.append(`<td title="${item.DeviceName}">${item.DeviceName}</td>`);
-        // Group
+        // Group 6
         row.append(`<td>${(item.Group) ? item.Group.GroupName : ""}</td>`);
-        // Vendor
+        // Vendor 7
         row.append(`<td title="${(item.Vendor) ? item.Vendor.VendorName : ""}">${(item.Vendor) ? item.Vendor.VendorName : ""}</td>`);
-        // Buffer
+        // Location 8
+        var html = ''
+        var title = ''
+        $.each(item.DeviceWarehouseLayouts, function (k, sss) {
+            var layout = sss.WarehouseLayout;
+            if (k == 0) {
+                if (item.DeviceWarehouseLayouts > 0) {
+                    html += `<lable>${layout.Line}${layout.Floor ? ' - ' + layout.Floor : ''}${layout.Cell ? ' - ' + layout.Cell : ''}lable>`;
+                }
+                else {
+                    html += `<lable>${layout.Line}${layout.Floor ? ' - ' + layout.Floor : ''}${layout.Cell ? ' - ' + layout.Cell : ''} ...</lable>`;
+                }                
+            }
+            else {
+                html += `<lable class="d-none">${layout.Line}${layout.Floor ? ' - ' + layout.Floor : ''}${layout.Cell ? ' - ' + layout.Cell : ''}</lable>`;
+            }
+            title += `[${layout.Line}${layout.Floor ? ' - ' + layout.Floor : ''}${layout.Cell ? ' - ' + layout.Cell : ''}], `;
+        });
+        row.append(`<td title="${title}">${html}</td>`);
+        // Buffer 9
         row.append(`<td title="${item.Buffer}">${item.Buffer * 100}%</td>`);
-        // Quantity
+        // Quantity 10 
         row.append(`<td title="(Quantity) / (Quantity Confirm) / (Real Quantity)">${item.Quantity} / ${(item.QtyConfirm != null) ? item.QtyConfirm : 0} / ${(item.RealQty != null) ? item.RealQty : 0}</td>`);
-        // Type
+        // Type 11
         switch (item.Type) {
             case "S": {
                 row.append(`<td><span class="text-success fw-bold">Static</span></td>`);
@@ -46,7 +65,7 @@ async function CreateTableAddDevice(devices) {
                 break;
             }
         }
-        // Status
+        // Status 12
         switch (item.Status) {
             case "Unconfirmed": {
                 row.append(`<td><span class="badge bg-primary">Unconfirmed</span></td>`);
@@ -73,7 +92,7 @@ async function CreateTableAddDevice(devices) {
                 break;
             }
         }
-        // Action
+        // Action 13
         row.append(`<td class="order-action d-flex text-center justify-content-center">
                         <a href="javascript:;" class="text-info bg-light-info border-0" title="Details" data-id="${item.Id}" onclick="Details(this, event)"><i class="fa-regular fa-circle-info"></i></a>
                         <a href="javascript:;" class="text-warning bg-light-warning border-0" title="Edit   " data-id="${item.Id}" onclick="Edit(this, event)   "><i class="fa-duotone fa-pen"></i></a>
@@ -89,13 +108,24 @@ async function CreateTableAddDevice(devices) {
         order: [],
         autoWidth: false,
         columnDefs: [
-            { targets: [0, 4, 9, 10, 11], orderable: true },
+            { targets: [0, 4, 10, 11, 12], orderable: true },
             { targets: "_all", orderable: false },
-            { targets: [8, 9, 10, 11], className: "text-center" },
-            { targets: [12], className: "text-center", width: '120px' },
-            { targets: [0], visible: false },
+            { targets: [9, 10, 11, 12], className: "text-center" },
+            { targets: [13], className: "text-center", width: '120px' },
+            { targets: [0, 1, 2, 3], visible: false },
         ],
-        "lengthMenu": [[10, 15, 25, 50, -1], [10, 15, 25, 50, "All"]]
+        "lengthMenu": [[10, 15, 25, 50, -1], [10, 15, 25, 50, "All"]],
+        createdRow: function (row, data, rowIndex) {
+            //console.log(row);
+            $.each($(row).find('td'), function (k, i) {
+                var title = $(i).text();
+                $(i).attr('title', title);
+            });
+            //$.each($('td', row), function (colIndex) {
+            //    $(this).attr('title', TipSet[rowIndex][colIndex]);
+            //});
+        },
+
     };
     tableDeviceInfo = $('#table_Devices').DataTable(options);
     tableDeviceInfo.columns.adjust();
@@ -144,10 +174,9 @@ function Details(elm, e) {
     var Id = $(elm).data('id');
     GetDeviceDetails(Id);
 }
-$('#table_Devices tbody').on('dblclick', 'tr', function () {
-    var dataId = $(this).data('id');
+$('#table_Devices tbody').on('dblclick', 'tr', function (event) {
 
-    console.log(dataId);
+    var dataId = $(this).data('id');
 
     GetDeviceDetails(dataId)
 });
@@ -163,8 +192,6 @@ function GetDeviceDetails(Id) {
                 var device = response.device;
                 var borrows = JSON.parse(response.borrows);
                 var warehouses = response.warehouses;
-
-                console.log(borrows);
 
                 FillDetailsDeviceData(device);
                 CreateTableLayout(device, warehouses);
@@ -193,7 +220,7 @@ async function FillDetailsDeviceData(data) {
     $('#device_details-QtyConfirm').val(data.QtyConfirm);
     $('#device_details-RealQty').val(data.RealQty);
     $('#device_details-AccKit').val(data.ACC_KIT);
-    $('#device_details-Type').val(data.Type);
+    $('#device_details-Type').val(data.Type == 'S' ? 'Static' : data.Type == 'D' ? 'Dynamic' : 'N/A');
     $('#device_details-Status').val(data.Status);
     $('#device_details-Product').val(data.Product.ProductName);
     $('#device_details-Model').val(data.Model.ModelName);
@@ -353,6 +380,27 @@ function DrawRowEditDevice(item) {
         row.push(`<td>${(item.Group) ? item.Group.GroupName : ""}</td>`);
         // Vendor
         row.push(`<td>${(item.Vendor) ? item.Vendor.VendorName : ""}</td>`);
+
+        // Location 8
+        var html = ''
+        var title = ''
+        $.each(item.DeviceWarehouseLayouts, function (k, sss) {
+            var layout = sss.WarehouseLayout;
+            if (k == 0) {
+                if (item.DeviceWarehouseLayouts > 0) {
+                    html += `<lable>${layout.Line}${layout.Floor ? ' - ' + layout.Floor : ''}${layout.Cell ? ' - ' + layout.Cell : ''}lable>`;
+                }
+                else {
+                    html += `<lable>${layout.Line}${layout.Floor ? ' - ' + layout.Floor : ''}${layout.Cell ? ' - ' + layout.Cell : ''} ...</lable>`;
+                }
+            }
+            else {
+                html += `<lable class="d-none">${layout.Line}${layout.Floor ? ' - ' + layout.Floor : ''}${layout.Cell ? ' - ' + layout.Cell : ''}</lable>`;
+            }
+            title += `[${layout.Line}${layout.Floor ? ' - ' + layout.Floor : ''}${layout.Cell ? ' - ' + layout.Cell : ''}], `;
+        });
+        row.push(`<td title="${title}">${html}</td>`);
+
         // Buffer
         row.push(`<td title="${item.Buffer}">${item.Buffer * 100}%</td>`);
         // Quantity
@@ -400,16 +448,11 @@ function DrawRowEditDevice(item) {
             }
         }
         // Action
-        row.push(`<td><div class="dropdown">
-					            	<button class="btn btn-outline-secondary button_dot" type="button" data-bs-toggle="dropdown" title="Action">
-                                        <i class="bx bx-dots-vertical-rounded"></i>
-                                    </button>
-                                    <div class="dropdown-menu order-actions">
-                                        <a href="javascript:;" class="text-success bg-light-success border-0 mb-2" title="Confirm" data-id="${item.Id}" onclick="Confirm(this, event)"><i class="bx bx-check"></i></a>
-                                        <a href="javascript:;" class="text-warning bg-light-warning border-0 mb-2" title="Edit   " data-id="${item.Id}" onclick="Edit(this, event)   "><i class="bx bxs-edit"></i></a>
-                                        <a href="javascript:;" class="text-danger  bg-light-danger  border-0     " title="Delete " data-id="${item.Id}" onclick="Delete(this, event) "><i class="bx bxs-trash"></i></a>
-					         	    </div>
-					         </div></td>`);
+        row.push(`<td class="order-action d-flex text-center justify-content-center">
+                        <a href="javascript:;" class="text-info bg-light-info border-0" title="Details" data-id="${item.Id}" onclick="Details(this, event)"><i class="fa-regular fa-circle-info"></i></a>
+                        <a href="javascript:;" class="text-warning bg-light-warning border-0" title="Edit   " data-id="${item.Id}" onclick="Edit(this, event)   "><i class="fa-duotone fa-pen"></i></a>
+                        <a href="javascript:;" class="text-danger  bg-light-danger  border-0" title="Delete " data-id="${item.Id}" onclick="Delete(this, event) "><i class="fa-duotone fa-trash"></i></a>
+                    </td>`);
     }
 
     return row;
@@ -526,6 +569,10 @@ function Delete(elm, e) {
                     title: `<strong style="font-size: 25px;">Do you want Delete this device?</strong>`,
                     html: `<table class="table table-striped table-bordered table-message">
                                <tbody>
+                                    <tr>
+                                       <td>Device Code</td>
+                                       <td>${device.DeviceCode}</td>
+                                   </tr>
                                    <tr>
                                        <td>Device Name</td>
                                        <td>${device.DeviceName}</td>
@@ -533,14 +580,6 @@ function Delete(elm, e) {
                                    <tr>
                                        <td>Quantity</td>
                                        <td>${device.Quantity}</td>
-                                   </tr>
-                                   <tr>
-                                       <td>Confirm Qty</td>
-                                       <td>${device.QtyConfirm}</td>
-                                   </tr>
-                                   <tr>
-                                       <td>Buffer</td>
-                                       <td>${device.Buffer}</td>
                                    </tr>
                                </tbody>
                            </table>
@@ -640,6 +679,30 @@ async function FillEditDeviceData(data) {
     $('#device_edit-WareHouse').val(data.device.IdWareHouse).trigger('change');
     $('#device_edit-Group').val(data.device.IdGroup).trigger('change');
     $('#device_edit-Vendor').val(data.device.IdVendor).trigger('change');
+
+    $('#layout-container').empty();
+    var DeviceLayouts = data.device.DeviceWarehouseLayouts;
+    $.each(DeviceLayouts, function (k, item) {
+        var layout = item.WarehouseLayout;
+
+        var selectLayout = $(`<select class="form-select">
+                                  <option value="${layout.Id}">${layout.Line}${layout.Floor ? ' - ' + layout.Floor : ''}${layout.Cell ? ' - ' + layout.Cell : ''}</option>
+                              </select>`);
+        var deleteButton = $(`<span class="input-group-text bg-light-danger text-danger" style="width:40px" delete><i class="fa-solid fa-trash"></i></span>`);
+
+        deleteButton.on('click', function (e) {
+            var element = $(this).closest('[group-layout]');
+            element.remove();
+        });
+
+        var inputGroup = $(`<div class="input-group mb-3" group-layout>
+                            <span class="col-2 input-group-text">Layout ${k + 1} </span>
+                        </div>`);
+        inputGroup.append(selectLayout);
+        inputGroup.append(deleteButton)   
+
+        $('#layout-container').append(inputGroup);
+    });
 }
 $('#button-save_modal').on('click', function (e) {
     e.preventDefault();
@@ -647,19 +710,19 @@ $('#button-save_modal').on('click', function (e) {
     var device = GetModalData();
     var Index = tableDeviceInfo.row(`[data-id="${device.Id}"]`).index();
 
-    //console.log(Index);
-    //return;
+    var IdLayouts = $('#layout-container option:selected').map(function () {
+        return $(this).val();
+    }).get();
 
     $.ajax({
         type: "POST",
         url: "/NVIDIA/DeviceManagement/UpdateDevice",
-        data: JSON.stringify(device),
+        data: JSON.stringify({ device: device, IdLayouts: IdLayouts }),
         dataType: "json",
         contentType: "application/json;charset=utf-8",
         success: function (response) {
-            if (response.status) {
+            if (response.status) {              
                 var row = DrawRowEditDevice(response.device);
-
                 tableDeviceInfo.row(Index).data(row).draw(false);
 
                 $('#device_edit-modal').modal('hide');
@@ -699,6 +762,67 @@ function GetModalData() {
         IdGroup: $('#device_edit-Group').val(),
         IdVendor: $('#device_edit-Vendor').val(),
     }
+}
+
+// Add more layout dynamic
+$('#new-layout').on('click', async function (e) {
+    e.preventDefault();
+
+    var layoutlength = $('#layout-container [group-layout]').length;
+
+    if (layoutlength > 4) {
+        return false;
+    }
+
+    var selectLayout = $(`<select class="form-select"></select>`);
+    var deleteButton = $(`<span class="input-group-text bg-light-danger text-danger" style="width:40px" delete><i class="fa-solid fa-trash"></i></span>`);
+    deleteButton.on('click', function (e) {
+        var element = $(this).closest('[group-layout]');
+        element.remove();
+    });
+
+    selectLayout.append(await LayoutOption());
+
+    var inputGroup = $(`<div class="input-group mb-3" group-layout>
+                            <span class="col-2 input-group-text">Layout ${layoutlength + 1} </span>
+                        </div>`);
+    inputGroup.append(selectLayout);
+    inputGroup.append(deleteButton)
+
+    $('#layout-container').append(inputGroup);
+});
+var WarehouseLayouts;
+$('#device_edit-WareHouse').on('change', function (e) {
+    e.preventDefault();
+
+    GetWarehouseLayouts($(this).val());
+})
+function GetWarehouseLayouts(IdWarehouse) {
+    $.ajax({
+        type: "GET",
+        url: "/NVIDIA/DeviceManagement/GetWarehouseLayouts?IdWarehouse=" + IdWarehouse,
+        dataType: "json",
+        contentType: "application/json;charset=utf-8",
+        success: function (response) {
+            if (response.status) {
+                WarehouseLayouts = response.layouts;
+            }
+            else {
+                Swal.fire("Something went wrong!", response.message, "error");
+            }
+        },
+        error: function (error) {
+            Swal.fire("Something went wrong!", GetAjaxErrorMessage(error), "error");
+        }
+    });
+}
+async function LayoutOption() {
+    var html = '';
+    await $.each(WarehouseLayouts, function (k, item) {
+        var option = `<option value="${item.Id}">${item.Line}${item.Floor ? ' - ' + item.Floor : ''}${item.Cell ? ' - ' + item.Cell : ''}</option>`;
+        html += option;
+    });
+    return html;
 }
 
 //filter

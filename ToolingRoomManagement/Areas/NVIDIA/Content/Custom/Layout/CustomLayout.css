@@ -17,3 +17,6 @@ body::-webkit-scrollbar {
 .badge.rounded-pill {
     padding: 0.25em .65em;
 }
+.swal2-shown{
+    padding: unset !important;
+}
