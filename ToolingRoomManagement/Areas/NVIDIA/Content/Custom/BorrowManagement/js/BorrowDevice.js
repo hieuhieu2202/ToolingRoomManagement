@@ -126,32 +126,23 @@ function GetWarehouseDevices(IdWarehouse = 0) {
             contentType: "application/json;charset=utf-8",
             success: function (response) {
                 if (response.status) {
-                    var warehouse = response.warehouse;
+                    var warehouse = JSON.parse(response.warehouse);
                     var devices = warehouse.Devices;
 
                     CreateTableAddDevice(devices);
 
                     $('#sign-WarehouseManagerUser').empty();
                     if (warehouse.User != null) {
-                        var opt = $(`<option value="${warehouse.User.Id}"></option>`);
+                        var opt = CreateWarehouseUserOption(warehouse.User);
+                        $('#sign-WarehouseManagerUser').append(opt);
+                    }
 
-                        if (warehouse.User.VnName && warehouse.User.VnName != '') {
-                            opt.text(`${warehouse.User.Username} - ${warehouse.User.VnName}`);
-                        }
-                        else if (warehouse.User.CnName && warehouse.User.CnName != '') {
-                            opt.text(`${warehouse.User.Username} - ${warehouse.User.CnName}`);
-                        }
-
-                        if (warehouse.User.EnName != null && warehouse.User.EnName != '') {
-                            var addUserEnName = opt.text();
-                            addUserEnName += ` (${warehouse.User.EnName})`;
-                            opt.text(addUserEnName);
-                        }
-                        //if (warehouse.User.Email != null && warehouse.User.Email != '') {
-                        //    var addUserEnName = opt.text();
-                        //    addUserEnName += ` - [${warehouse.User.Email}]`;
-                        //    opt.text(addUserEnName);
-                        //}
+                    if (warehouse.UserDeputy1 != null) {
+                        var opt = CreateWarehouseUserOption(warehouse.UserDeputy1);
+                        $('#sign-WarehouseManagerUser').append(opt);
+                    }
+                    if (warehouse.UserDeputy2 != null) {
+                        var opt = CreateWarehouseUserOption(warehouse.UserDeputy2);
                         $('#sign-WarehouseManagerUser').append(opt);
                     }
                 }
@@ -247,11 +238,28 @@ async function CreateTableAddDevice(devices) {
         //row.append(`<td><button class="btn btn-outline-primary button_dot" type="button" title="Select Device">
         //                        <i class="bx bx-check"></i>
         //                    </button></td>`);
+        // Location 8
+        var html = ''
+        var title = ''
+        $.each(item.DeviceWarehouseLayouts, function (k, sss) {
+            var layout = sss.WarehouseLayout;
+            if (k == 0) {
+                if (item.DeviceWarehouseLayouts > 0) {
+                    html += `<lable>${layout.Line}${layout.Floor ? ' - ' + layout.Floor : ''}${layout.Cell ? ' - ' + layout.Cell : ''}lable>`;
+                }
+                else {
+                    html += `<lable>${layout.Line}${layout.Floor ? ' - ' + layout.Floor : ''}${layout.Cell ? ' - ' + layout.Cell : ''} ...</lable>`;
+                }
+            }
+            else {
+                html += `<lable class="d-none">${layout.Line}${layout.Floor ? ' - ' + layout.Floor : ''}${layout.Cell ? ' - ' + layout.Cell : ''}</lable>`;
+            }
+            title += `[${layout.Line}${layout.Floor ? ' - ' + layout.Floor : ''}${layout.Cell ? ' - ' + layout.Cell : ''}], `;
+        });
+        row.append(`<td title="${title}">${html}</td>`);
 
         $('#table_Devices_tbody').append(row);
     });
-
-    var height = window.innerHeight / 2 + (window.innerHeight * 0.05);
 
     $('#form_device-select').empty();
 
@@ -263,29 +271,13 @@ async function CreateTableAddDevice(devices) {
         columnDefs: [
             { targets: "_all", orderable: false },
             { targets: [9, 10, 11, 12], className: "text-center" },
-            { targets: [0, 1, 2, 3, 6, 7, 8], visible: false },
+            { targets: [0, 1, 2, 3, 6, 7, 8, 13], visible: false },
         ],
         "lengthMenu": [[10, 15, 25, 50, -1], [10, 15, 25, 50, "All"]],
         createdRow: function (row, data, dataIndex) {
             attachButtonClickEvent(row, data, dataIndex);
         },
     };
-    //const options = {
-    //    scrollY: height,
-    //    scrollX: true,
-    //    paging: false,
-    //    scrollCollapse: true,
-    //    order: [],
-    //    autoWidth: false,
-    //    columnDefs: [
-    //        { targets: "_all", orderable: false },
-    //        { targets: [9, 10, 11, 12], className: "text-center" },
-    //        { targets: [0, 1, 2, 3, 6, 7, 8], visible: false },
-    //    ],
-    //    createdRow: function (row, data, dataIndex) {
-    //        attachButtonClickEvent(row, data, dataIndex);
-    //    },
-    //};
     tableDeviceInfo = $('#table_Devices').DataTable(options);
     tableDeviceInfo.columns.adjust();
 }
@@ -325,6 +317,104 @@ function attachButtonClickEvent(row, data, dataIndex) {
         else {
             Swal.fire('Sorry, something went wrong!', 'You have selected too many devices (limit is 10 devices).', 'error');
         }
+    });
+}
+
+// Details
+$('#table_Devices tbody').on('dblclick', 'tr', function (event) {
+
+    var dataId = $(this).data('id');
+
+    GetDeviceDetails(dataId);
+});
+function GetDeviceDetails(Id) {
+    $.ajax({
+        type: "POST",
+        url: "/NVIDIA/DeviceManagement/GetDevice",
+        data: JSON.stringify({ Id: Id }),
+        dataType: "json",
+        contentType: "application/json;charset=utf-8",
+        success: function (response) {
+            if (response.status) {
+                var device = response.device;
+                var borrows = JSON.parse(response.borrows);
+                var warehouses = response.warehouses;
+
+                FillDetailsDeviceData(device);
+                CreateTableLayout(device, warehouses);
+                CreateTableHistory(Id, borrows);
+                $('#device_details-modal').modal('show');
+            }
+            else {
+                toastr["error"](response.message, "ERROR");
+            }
+        },
+        error: function (error) {
+            Swal.fire("Something went wrong!", GetAjaxErrorMessage(error), "error");
+        }
+    });
+}
+async function FillDetailsDeviceData(data) {
+    $('#device_details-DeviceId').val(data.Id);
+    $('#device_details-DeviceCode').val(data.DeviceCode);
+    $('#device_details-DeviceName').val(data.DeviceName);
+    $('#device_details-DeviceDate').val(moment(data.DeviceDate).format('YYYY-MM-DD HH:mm'));
+    $('#device_details-Relation').val(data.Relation);
+    $('#device_details-Buffer').val(data.Buffer);
+    $('#device_details-LifeCycle').val(data.LifeCycle);
+    $('#device_details-Forcast').val(data.Forcast);
+    $('#device_details-Quantity').val(data.Quantity);
+    $('#device_details-QtyConfirm').val(data.QtyConfirm);
+    $('#device_details-RealQty').val(data.RealQty);
+    $('#device_details-AccKit').val(data.ACC_KIT);
+    $('#device_details-Type').val(data.Type == 'S' ? 'Static' : data.Type == 'D' ? 'Dynamic' : 'N/A');
+    $('#device_details-Status').val(data.Status);
+    $('#device_details-Product').val(data.Product ? data.Product.ProductName : '');
+    $('#device_details-Model').val(data.Model ? data.Model.ModelName : '');
+    $('#device_details-Station').val(data.Station ? data.Station.StationName : '');
+    $('#device_details-WareHouse').val($('#input_WareHouse option:selected').text());
+    $('#device_details-Group').val(data.Group ? data.Group.GroupName : '');
+    $('#device_details-Vendor').val(data.Vendor ? data.Vendor.VendorName : '');
+}
+function CreateTableLayout(device, warehouses) {
+    $('#device_details-layout-tbody').empty();
+    $.each(device.DeviceWarehouseLayouts, function (k, item) {
+        var warehouse = warehouses[k];
+        var layout = item.WarehouseLayout;
+
+        var tr = $('<tr></tr>');
+        tr.append($(`<td>${warehouse.Factory ? warehouse.Factory : ""}</td>`));
+        tr.append($(`<td>${warehouse.Floor ? warehouse.Floor : ""}</td>`));
+        tr.append($(`<td>${CreateUserName(warehouse.User)}</td>`));
+        tr.append($(`<td>${warehouse.WarehouseName ? warehouse.WarehouseName : ""}</td>`));
+        tr.append($(`<td>${layout.Line ? layout.Line : ""}</td>`));
+        tr.append($(`<td>${layout.Floor ? layout.Floor : ""}</td>`));
+        tr.append($(`<td>${layout.Cell ? layout.Cell : ""}</td>`));
+
+        $('#device_details-layout-tbody').append(tr);
+    });
+}
+function CreateTableHistory(IdDevice, borrows) {
+    $('#device_details-history-tbody').empty();
+    $.each(borrows, function (k, item) {
+        if (item.Status == 'Rejected') return;
+
+        var tr = $('<tr class="align-middle"></tr>');
+        tr.append($(`<td>${item.Type}</td>`));
+        tr.append($(`<td>${moment(item.DateBorrow).format('YYYY-MM-DD HH:mm')}</td>`));
+
+        var dateReturn = moment(item.DateReturn).format('YYYY-MM-DD HH:mm');
+        tr.append($(`<td>${dateReturn != 'Invalid date' ? dateReturn : ""}</td>`));
+
+        tr.append($(`<td>${CreateUserName(item.User)}</td>`));
+        tr.append($(`<td>${item.Model ? item.Model.ModelName ? item.Model.ModelName : '' : ''}</td>`));
+        tr.append($(`<td>${item.Station ? item.Station.StationName ? item.Station.StationName : '' : ''}</td>`));
+
+        tr.append($(`<td>${GetQuantityDeviceInBorrow(IdDevice, item.BorrowDevices)}</td>`));
+
+        tr.append($(`<td style="max-width: 200px;">${item.Note}</td>`));
+
+        $('#device_details-history-tbody').append(tr);
     });
 }
 
@@ -379,7 +469,7 @@ $('#input_WareHouse').on('change', function (e) {
 $('#CreateBorrowForm').on('click', function (e) {
     e.preventDefault();
 
-    var DeviceForm = $('#form_device-select .input-group')
+    var DeviceForm = $('#form_device-select .input-group');
 
     var IdDevices = DeviceForm.map(function () {
         return $(this).find('.form-control').data('id');
@@ -650,7 +740,6 @@ function CreateUserOption(user) {
     //}
     return opt;
 }
-
 function ValidateSendFormData(BorrowData) {
     var check = true;
 
@@ -688,4 +777,45 @@ function ValidateSendFormData(BorrowData) {
     }
 
     return check;
+}
+function CreateUserName(user) {
+    var username = '';
+    if (user.VnName && user.VnName != '') {
+        username = `${user.Username} - ${user.VnName}`;
+    }
+    else if (user.CnName && user.CnName != '') {
+        username = `${user.Username} - ${user.CnName}`;
+    }
+    if (user.EnName != null && user.EnName != '') {
+        username += ` (${user.EnName})`;
+    }
+
+    return username;
+}
+function GetQuantityDeviceInBorrow(IdDevice, BorrowDevices) {
+    var quantity = 0;
+    $.each(BorrowDevices, function (k, item) {
+        if (item.IdDevice == IdDevice) {
+            quantity = item.BorrowQuantity;
+            return false;
+        }
+    });
+    return quantity;
+}
+function CreateWarehouseUserOption(user) {
+    var opt = $(`<option value="${user.Id}"></option>`);
+
+    if (user.VnName && user.VnName != '') {
+        opt.text(`${user.Username} - ${user.VnName}`);
+    }
+    else if (user.CnName && user.CnName != '') {
+        opt.text(`${user.Username} - ${user.CnName}`);
+    }
+
+    if (user.EnName != null && user.EnName != '') {
+        var addUserEnName = opt.text();
+        addUserEnName += ` (${user.EnName})`;
+        opt.text(addUserEnName);
+    }
+    return opt;
 }

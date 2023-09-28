@@ -60,32 +60,44 @@
     <div class="modal-dialog modal-xl modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="borrow_modal-title">Create Return Request</h5>
+                <h5 class="modal-title" id="borrow_modal-title"></h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <h2 class="font-weight-light text-center text-primary py-3" id="borrow_modal-name">RETURN REQUEST</h2>
+                <h2 class="font-weight-light text-center text-primary py-3" id="borrow_modal-name">BORROW REQUEST</h2>
 
                 <div class="row">
                     <div class="col-md-4">
                         <label class="form-label">Card Id</label>
-                        <input type="text" class="form-control" id="borrow_modal-CardId" disabled>
+                        <input type="text" class="form-control form-control-sm" id="borrow_modal-CardId" disabled>
                     </div>
-                    <div class="col-md-8">
+                    <div class="col-md-4">
                         <label class="form-label">User Name</label>
-                        <input type="text" class="form-control" id="borrow_modal-Username" disabled>
+                        <input type="text" class="form-control form-control-sm" id="borrow_modal-Username" disabled>
+                    </div>
+                    <div class="col-md-4"></div>
+
+                    <div class="col-md-4 mt-3">
+                        <label class="form-label">Used for Model</label>
+                        <input type="text" class="form-control form-control-sm" id="borrow_modal-Model" disabled>
                     </div>
                     <div class="col-md-4 mt-3">
+                        <label class="form-label">Used for Station</label>
+                        <input type="text" class="form-control form-control-sm" id="borrow_modal-Station" disabled>
+                    </div>
+                    <div class="col-md-4 mt-3"></div>
+
+                    <div class="col-md-4 mt-3">
                         <label class="form-label">Date Borrow</label>
-                        <input type="datetime-local" class="form-control" id="borrow_modal-BorrowDate" disabled>
+                        <input type="datetime-local" class="form-control form-control-sm" id="borrow_modal-BorrowDate" disabled>
                     </div>
                     <div class="col-md-4 mt-3">
                         <label class="form-label">Due Date</label>
-                        <input type="datetime-local" class="form-control" id="borrow_modal-DuaDate" disabled>
+                        <input type="datetime-local" class="form-control form-control-sm" id="borrow_modal-DuaDate" disabled>
                     </div>
                     <div class="col-md-4 mt-3">
                         <label class="form-label">Return Date</label>
-                        <input type="datetime-local" class="form-control" id="borrow_modal-ReturnDate" disabled>
+                        <input type="datetime-local" class="form-control form-control-sm" id="borrow_modal-ReturnDate" disabled>
                     </div>
                     <div class="col-md-12 mt-3">
                         <label class="form-label">Note</label>
@@ -109,17 +121,18 @@
                         </tbody>
                     </table>
                 </div>
+
+                <div class="container py-2" id="sign-container">
+                    <h4 class="font-weight-light text-center text-white py-3">SIGN PROCESS</h4>
+
+                </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-info" id="ReturnButton">Return</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
 </div>
-
-
-
 
 @section scripts{
     <!-- Vendor -->

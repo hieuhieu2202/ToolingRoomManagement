@@ -29,7 +29,30 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
             {
                 Entities.User user = (Entities.User)Session["SignSession"];
 
-                List<Borrow> borrows = db.Borrows.Where(b => b.IdUser == user.Id).ToList();
+                user = db.Users.FirstOrDefault(u => u.Id == user.Id);
+
+                bool isAdminOrManager = false;
+                foreach(var userRole in user.UserRoles)
+                {
+                    if(userRole.Role.RoleName.ToUpper().Equals("MANAGER") || userRole.Role.RoleName.ToUpper().Equals("ADMIN"))
+                    {
+                        isAdminOrManager = true;
+                        break;
+                    }
+                }
+
+                List<Borrow> borrows = new List<Borrow>();
+
+                if (isAdminOrManager)
+                {
+                    borrows = db.Borrows.ToList();
+
+                }
+                else
+                {
+                    borrows = db.Borrows.Where(b => b.IdUser == user.Id).ToList();
+
+                }
 
                 return Json(new { status = true, borrows = JsonSerializer.Serialize(borrows) }, JsonRequestBehavior.AllowGet);
             }
@@ -89,8 +112,6 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
             try
             {
                 Borrow borrow = db.Borrows.FirstOrDefault(b => b.Id == IdBorrow);
-                borrow.OModel = db.Models.FirstOrDefault(m => m.Id == borrow.Model);
-                borrow.OStation = db.Stations.FirstOrDefault(m => m.Id == borrow.Station);
 
                 if (borrow == null)
                 {
@@ -125,10 +146,12 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                         }
 
                         // Send Mail
+                        Data.Common.SendApproveMail(borrow);
                     }
                     else
                     {
                         // Send Mail
+                        Data.Common.SendApproveMail(borrow);
                     }
 
                 }
@@ -155,8 +178,6 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
             {
                 Borrow borrow = db.Borrows.FirstOrDefault(b => b.Id == IdBorrow);
                 borrow = db.Borrows.FirstOrDefault(b => b.Id == IdBorrow);
-                borrow.OModel = db.Models.FirstOrDefault(m => m.Id == borrow.Model);
-                borrow.OStation = db.Stations.FirstOrDefault(m => m.Id == borrow.Station);
 
                 if (borrow != null)
                 {
@@ -188,6 +209,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                         }
 
                         // Send Mail
+                        Data.Common.SendRejectMail(borrow);
 
 
                         db.SaveChanges();
@@ -230,8 +252,8 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 }
                 borrow.Status = "Pending";
                 borrow.Type = "Borrow";
-                borrow.Model = IdModel;
-                borrow.Station = IdStation;
+                borrow.IdModel = IdModel;
+                borrow.IdStation = IdStation;
                 borrow.Note = Note;
                 borrow.IdUser = db.Users.FirstOrDefault(u => u.Username == UserBorrow).Id;
                 db.Borrows.Add(borrow);
@@ -298,8 +320,8 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 db.UserBorrowSigns.AddRange(userBorrowSigns);
                 borrow.UserBorrowSigns = userBorrowSigns;
 
-                borrow.OModel = db.Models.FirstOrDefault(m => m.Id == borrow.Model);
-                borrow.OStation = db.Stations.FirstOrDefault(m => m.Id == borrow.Station);
+                borrow.Model = db.Models.FirstOrDefault(m => m.Id == borrow.IdModel);
+                borrow.Station = db.Stations.FirstOrDefault(m => m.Id == borrow.IdStation);
                 // Send mail
                 Data.Common.SendSignMail(borrow);
 
@@ -318,18 +340,18 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
         {
             try
             {
-                Entities.Warehouse warehouse = db.Warehouses.FirstOrDefault(w => w.Id == IdWarehouse);
+                Entities.Warehouse warehouse = db.Warehouses.FirstOrDefault(w => w.Id == IdWarehouse);               
 
-                if (IdWarehouse == 0)
+                if(warehouse != null)
                 {
-                    Entities.User user = (Entities.User)Session["SignSession"];
-                    warehouse = db.Warehouses.FirstOrDefault(w => w.IdUserManager == user.Id);
-                    if (warehouse == null)
-                    {
-                        warehouse = db.Warehouses.Take(1).FirstOrDefault();
-                    }
+                    warehouse.UserDeputy1 = db.Users.FirstOrDefault(u => u.Id == warehouse.IdUserDeputy1);
+                    warehouse.UserDeputy2 = db.Users.FirstOrDefault(u => u.Id == warehouse.IdUserDeputy2);
+                    return Json(new { status = true, warehouse = JsonSerializer.Serialize(warehouse) });
                 }
-                return Json(new { status = true, warehouse });
+                else
+                {
+                    return Json(new { status = false, message = "Warehouse not found." });
+                }
             }
             catch (Exception ex)
             {

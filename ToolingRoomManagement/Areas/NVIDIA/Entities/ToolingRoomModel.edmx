@@ -17,8 +17,8 @@
           <Property Name="DateDue" Type="datetime" />
           <Property Name="IdUser" Type="int" />
           <Property Name="Note" Type="nvarchar" MaxLength="300" />
-          <Property Name="Model" Type="int" />
-          <Property Name="Station" Type="int" />
+          <Property Name="IdModel" Type="int" />
+          <Property Name="IdStation" Type="int" />
         </EntityType>
         <EntityType Name="BorrowDevice">
           <Key>
@@ -182,6 +182,8 @@
           <Property Name="IdUserManager" Type="int" />
           <Property Name="Factory" Type="nvarchar" MaxLength="50" />
           <Property Name="Floors" Type="int" />
+          <Property Name="IdUserDeputy1" Type="int" />
+          <Property Name="IdUserDeputy2" Type="int" />
         </EntityType>
         <EntityType Name="WarehouseLayout">
           <Key>
@@ -193,6 +195,30 @@
           <Property Name="Floor" Type="nvarchar" MaxLength="50" />
           <Property Name="Cell" Type="nvarchar" MaxLength="50" />
         </EntityType>
+        <Association Name="FK_Borrow_Model">
+          <End Role="Model" Type="Self.Model" Multiplicity="0..1" />
+          <End Role="Borrow" Type="Self.Borrow" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Model">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Borrow">
+              <PropertyRef Name="IdModel" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Borrow_Station">
+          <End Role="Station" Type="Self.Station" Multiplicity="0..1" />
+          <End Role="Borrow" Type="Self.Borrow" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Station">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Borrow">
+              <PropertyRef Name="IdStation" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Borrow_User">
           <End Role="User" Type="Self.User" Multiplicity="0..1" />
           <End Role="Borrow" Type="Self.Borrow" Multiplicity="*" />
@@ -314,7 +340,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_DeviceWarehouseLayout_WarehouseLayout">
-          <End Role="WarehouseLayout" Type="Self.WarehouseLayout" Multiplicity="0..1" />
+          <End Role="WarehouseLayout" Type="Self.WarehouseLayout" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="DeviceWarehouseLayout" Type="Self.DeviceWarehouseLayout" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="WarehouseLayout">
@@ -410,7 +438,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_WarehouseLayout_Warehouse">
-          <End Role="Warehouse" Type="Self.Warehouse" Multiplicity="0..1" />
+          <End Role="Warehouse" Type="Self.Warehouse" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="WarehouseLayout" Type="Self.WarehouseLayout" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Warehouse">
@@ -440,6 +470,14 @@
           <EntitySet Name="Vendor" EntityType="Self.Vendor" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Warehouse" EntityType="Self.Warehouse" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="WarehouseLayout" EntityType="Self.WarehouseLayout" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Borrow_Model" Association="Self.FK_Borrow_Model">
+            <End Role="Model" EntitySet="Model" />
+            <End Role="Borrow" EntitySet="Borrow" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Borrow_Station" Association="Self.FK_Borrow_Station">
+            <End Role="Station" EntitySet="Station" />
+            <End Role="Borrow" EntitySet="Borrow" />
+          </AssociationSet>
           <AssociationSet Name="FK_Borrow_User" Association="Self.FK_Borrow_User">
             <End Role="User" EntitySet="User" />
             <End Role="Borrow" EntitySet="Borrow" />
@@ -604,6 +642,14 @@
             <End Role="WarehouseLayout" EntitySet="WarehouseLayouts" />
           </AssociationSet>
           <EntitySet Name="Borrows" EntityType="ToolingRoomModel.Borrow" />
+          <AssociationSet Name="FK_Borrow_Model" Association="ToolingRoomModel.FK_Borrow_Model">
+            <End Role="Model" EntitySet="Models" />
+            <End Role="Borrow" EntitySet="Borrows" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Borrow_Station" Association="ToolingRoomModel.FK_Borrow_Station">
+            <End Role="Station" EntitySet="Stations" />
+            <End Role="Borrow" EntitySet="Borrows" />
+          </AssociationSet>
           <AssociationSet Name="FK_Borrow_User" Association="ToolingRoomModel.FK_Borrow_User">
             <End Role="User" EntitySet="Users" />
             <End Role="Borrow" EntitySet="Borrows" />
@@ -913,6 +959,10 @@
           <NavigationProperty Name="Devices" Relationship="ToolingRoomModel.FK_Device_Warehouse" FromRole="Warehouse" ToRole="Device" />
           <NavigationProperty Name="User" Relationship="ToolingRoomModel.FK_Warehouse_User" FromRole="Warehouse" ToRole="User" />
           <NavigationProperty Name="WarehouseLayouts" Relationship="ToolingRoomModel.FK_WarehouseLayout_Warehouse" FromRole="Warehouse" ToRole="WarehouseLayout" />
+          <Property Name="IdUserDeputy1" Type="Int32" />
+          <Property Name="IdUserDeputy2" Type="Int32" />
+          <NavigationProperty Name="UserDeputy1" Relationship="ToolingRoomModel.FK_Warehouse_User" FromRole="Warehouse" ToRole="User" />
+          <NavigationProperty Name="UserDeputy2" Relationship="ToolingRoomModel.FK_Warehouse_User" FromRole="Warehouse" ToRole="User" />
         </EntityType>
         <Association Name="FK_Device_Warehouse">
           <End Type="ToolingRoomModel.Warehouse" Role="Warehouse" Multiplicity="0..1" />
@@ -1010,12 +1060,38 @@
           <Property Name="DateDue" Type="DateTime" Precision="3" />
           <Property Name="IdUser" Type="Int32" />
           <Property Name="Note" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
-          <Property Name="Model" Type="Int32" />
-          <Property Name="Station" Type="Int32" />
+          <Property Name="IdModel" Type="Int32" />
+          <Property Name="IdStation" Type="Int32" />
+          <NavigationProperty Name="Model" Relationship="ToolingRoomModel.FK_Borrow_Model" FromRole="Borrow" ToRole="Model" />
+          <NavigationProperty Name="Station" Relationship="ToolingRoomModel.FK_Borrow_Station" FromRole="Borrow" ToRole="Station" />
           <NavigationProperty Name="User" Relationship="ToolingRoomModel.FK_Borrow_User" FromRole="Borrow" ToRole="User" />
           <NavigationProperty Name="BorrowDevices" Relationship="ToolingRoomModel.FK_BorrowDevice_Borrow" FromRole="Borrow" ToRole="BorrowDevice" />
           <NavigationProperty Name="UserBorrowSigns" Relationship="ToolingRoomModel.FK_UserBorrowSign_Borrow" FromRole="Borrow" ToRole="UserBorrowSign" />
         </EntityType>
+        <Association Name="FK_Borrow_Model">
+          <End Type="ToolingRoomModel.Model" Role="Model" Multiplicity="0..1" />
+          <End Type="ToolingRoomModel.Borrow" Role="Borrow" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Model">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Borrow">
+              <PropertyRef Name="IdModel" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Borrow_Station">
+          <End Type="ToolingRoomModel.Station" Role="Station" Multiplicity="0..1" />
+          <End Type="ToolingRoomModel.Borrow" Role="Borrow" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Station">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Borrow">
+              <PropertyRef Name="IdStation" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Borrow_User">
           <End Type="ToolingRoomModel.User" Role="User" Multiplicity="0..1" />
           <End Type="ToolingRoomModel.Borrow" Role="Borrow" Multiplicity="*" />
@@ -1214,6 +1290,8 @@
           <EntitySetMapping Name="Warehouses">
             <EntityTypeMapping TypeName="ToolingRoomModel.Warehouse">
               <MappingFragment StoreEntitySet="Warehouse">
+                <ScalarProperty Name="IdUserDeputy2" ColumnName="IdUserDeputy2" />
+                <ScalarProperty Name="IdUserDeputy1" ColumnName="IdUserDeputy1" />
                 <ScalarProperty Name="Floors" ColumnName="Floors" />
                 <ScalarProperty Name="Factory" ColumnName="Factory" />
                 <ScalarProperty Name="IdUserManager" ColumnName="IdUserManager" />
@@ -1251,8 +1329,8 @@
           <EntitySetMapping Name="Borrows">
             <EntityTypeMapping TypeName="ToolingRoomModel.Borrow">
               <MappingFragment StoreEntitySet="Borrow">
-                <ScalarProperty Name="Station" ColumnName="Station" />
-                <ScalarProperty Name="Model" ColumnName="Model" />
+                <ScalarProperty Name="IdStation" ColumnName="IdStation" />
+                <ScalarProperty Name="IdModel" ColumnName="IdModel" />
                 <ScalarProperty Name="Note" ColumnName="Note" />
                 <ScalarProperty Name="IdUser" ColumnName="IdUser" />
                 <ScalarProperty Name="DateDue" ColumnName="DateDue" />

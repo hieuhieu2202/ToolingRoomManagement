@@ -214,7 +214,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
 
                     if (IdLayouts == null) System.Diagnostics.Debug.WriteLine("SSS");
 
-                    if(IdLayouts != null || IdLayouts.Length > 0 )
+                    if(IdLayouts != null)
                     {
                         foreach (var IdLayout in IdLayouts)
                         {
@@ -559,8 +559,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 foreach(var borrowdevice in borrowDevices)
                 {
                     Entities.Borrow borrow = db.Borrows.FirstOrDefault(b => b.Id == borrowdevice.IdBorrow);
-                    borrow.OModel = db.Models.FirstOrDefault(m => m.Id == borrow.Model);
-                    borrow.OStation = db.Stations.FirstOrDefault(s => s.Id == borrow.Station);
+
                     if (!borrows.Any(bl => bl.Id == borrow.Id))
                     {
                         borrows.Add(borrow);

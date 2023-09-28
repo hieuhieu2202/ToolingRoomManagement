@@ -45,7 +45,7 @@ async function CreateTableBorrow(borrows) {
 
     $('#table_Borrows-tbody').html('');
     await $.each(borrows, function (no, item) {
-        var row = $(`<tr class="align-middle"></tr>`);
+        var row = $(`<tr class="align-middle" data-id="${item.Id}" title="Double-click to view device details."></tr>`);
        
         // Created By
         row.append(CreateTableCellUser(item.User));
@@ -91,14 +91,14 @@ async function CreateTableBorrow(borrows) {
         }
         // Action
         row.append(`<td class="order-action d-flex text-center justify-content-center">
-                         <a href="javascript:;" class="text-info bg-light-info border-0" title="Details" data-id="${item.Id}" onclick="BorrowDetails(this, event)"><i class="fa-regular fa-circle-info"></i></a>
+                         <a href="javascript:;" class="text-info bg-light-info border-0" title="Details" data-id="${item.Id}" onclick="BorrowDetails(${item.Id})"><i class="fa-regular fa-circle-info"></i></a>
                     </td>`);
 
         $('#table_Borrows-tbody').append(row);
     });
 
     const options = {
-        scrollY: 420,
+        scrollY: 460,
         scrollX: true,
         order: [1],
         autoWidth: false,
@@ -113,10 +113,8 @@ async function CreateTableBorrow(borrows) {
     table_Borrow.columns.adjust();
 }
 
-function BorrowDetails(elm, e) {
-    e.preventDefault();
-
-    var Id = $(elm).data('id');
+function BorrowDetails(Id) {
+    //var Id = $(elm).data('id');
 
     $.ajax({
         type: "GET",
@@ -140,9 +138,20 @@ function BorrowDetails(elm, e) {
         }
     });
 }
+
+$('#table_Borrows tbody').on('dblclick', 'tr', function (event) {
+
+    var dataId = $(this).data('id');
+
+    BorrowDetails(dataId);
+});
+
 function CreateModal(borrow) {
     $('#borrow_modal-CardId').val(borrow.User.Username);
-    $('#borrow_modal-Username').val(borrow.User.VnName ? borrow.User.VnName : (borrow.User.CnName ? borrow.User.CnName : (borrow.User.EnName ? borrow.User.EnName : "")));
+    $('#borrow_modal-Username').val(CreateUserName(borrow.User));
+
+    $('#borrow_modal-Model').val(borrow.Model ? borrow.Model.ModelName ? borrow.Model.ModelName : '' : '');
+    $('#borrow_modal-Station').val(borrow.Station ? borrow.Station.StationName ? borrow.Station.StationName : '' : '');
 
     $('#borrow_modal-BorrowDate').val(moment(borrow.DateBorrow).format('YYYY-MM-DDTHH:mm:ss'));
     $('#borrow_modal-DuaDate').val(moment(borrow.DateDue).format('YYYY-MM-DDTHH:mm:ss'));
@@ -187,7 +196,7 @@ function CreateModal(borrow) {
             Approved: { color: 'success', text: 'Approved', icon: 'check' },
             Rejected: { color: 'danger', text: 'Rejected', icon: 'xmark' },
             Pending: { color: 'warning', text: 'Pending', icon: 'timer' },
-            Waitting: { color: 'secondary', text: 'Waitting', icon: 'question' },
+            Waitting: { color: 'secondary', text: 'Waitting', icon: 'circle-pause' },
         }[bs.Status] || { color: 'secondary', text: 'Closed' };
 
         var line = {

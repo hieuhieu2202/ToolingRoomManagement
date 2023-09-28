@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="5c3a8314d1c746b884fac96c30e5a025" Name="Diagram1" ZoomLevel="59">
+      <Diagram DiagramId="5c3a8314d1c746b884fac96c30e5a025" Name="Diagram1" ZoomLevel="75">
         <EntityTypeShape EntityType="ToolingRoomModel.Product" Width="1.5" PointX="5.125" PointY="12.125" IsExpanded="false" />
         <EntityTypeShape EntityType="ToolingRoomModel.Department" Width="1.5" PointX="5.25" PointY="1.375" IsExpanded="false" />
         <EntityTypeShape EntityType="ToolingRoomModel.Group" Width="1.5" PointX="5.125" PointY="11.625" IsExpanded="false" />
@@ -25,7 +25,7 @@
         <AssociationConnector Association="ToolingRoomModel.FK_Device_Product" />
         <AssociationConnector Association="ToolingRoomModel.FK_Device_Station" />
         <AssociationConnector Association="ToolingRoomModel.FK_Device_Vendor" />
-        <EntityTypeShape EntityType="ToolingRoomModel.BorrowDevice" Width="1.5" PointX="5.125" PointY="9.875" IsExpanded="false" />
+        <EntityTypeShape EntityType="ToolingRoomModel.BorrowDevice" Width="1.5" PointX="5.125" PointY="10.25" IsExpanded="false" />
         <AssociationConnector Association="ToolingRoomModel.FK_BorrowDevice_Device" />
         <EntityTypeShape EntityType="ToolingRoomModel.HistoryUpdateDevice" Width="1.5" PointX="1.875" PointY="5" />
         <EntityTypeShape EntityType="ToolingRoomModel.DeviceWarehouseLayout" Width="1.5" PointX="11" PointY="7.875" />
@@ -38,7 +38,9 @@
         <EntityTypeShape EntityType="ToolingRoomModel.WarehouseLayout" Width="1.5" PointX="11" PointY="4.75" />
         <AssociationConnector Association="ToolingRoomModel.FK_DeviceWarehouseLayout_WarehouseLayout" />
         <AssociationConnector Association="ToolingRoomModel.FK_WarehouseLayout_Warehouse" />
-        <EntityTypeShape EntityType="ToolingRoomModel.Borrow" Width="1.5" PointX="5.125" PointY="6" IsExpanded="false" />
+        <EntityTypeShape EntityType="ToolingRoomModel.Borrow" Width="1.5" PointX="4.125" PointY="5.625" />
+        <AssociationConnector Association="ToolingRoomModel.FK_Borrow_Model" />
+        <AssociationConnector Association="ToolingRoomModel.FK_Borrow_Station" />
         <AssociationConnector Association="ToolingRoomModel.FK_Borrow_User" />
         <AssociationConnector Association="ToolingRoomModel.FK_BorrowDevice_Borrow" />
         <AssociationConnector Association="ToolingRoomModel.FK_UserBorrowSign_Borrow" />

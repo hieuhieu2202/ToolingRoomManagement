@@ -71,12 +71,15 @@ async function CreateTableBorrow(borrows) {
 }
 
 // show modal
-function Details(elm, e) {
-    e.preventDefault();
+$('#table_Borrows tbody').on('dblclick', 'tr', function (event) {
 
-    var Id = $(elm).data('id');
-    var IdSign = $(elm).data('idsign');
+    var Id = $(this).data('id');
+    var IdSign = $(this).data('idsign')
 
+    Details(Id, IdSign);
+});
+
+function Details(Id, IdSign) {
     if (IdSign) {
         $('#action_footer').show();
         $('#normal_footer').hide();
@@ -116,7 +119,10 @@ function Details(elm, e) {
 }
 function CreateModal(borrow) {
     $('#borrow_modal-CardId').val(borrow.User.Username);
-    $('#borrow_modal-Username').val(borrow.User.VnName ? borrow.User.VnName : (borrow.User.CnName ? borrow.User.CnName : (borrow.User.EnName ? borrow.User.EnName : "")));
+    $('#borrow_modal-Username').val(CreateUserName(borrow.User));
+
+    $('#borrow_modal-Model').val(borrow.Model ? borrow.Model.ModelName ? borrow.Model.ModelName : '' : '');
+    $('#borrow_modal-Station').val(borrow.Station ? borrow.Station.StationName ? borrow.Station.StationName : '' : '');
 
     $('#borrow_modal-BorrowDate').val(moment(borrow.DateBorrow).format('YYYY-MM-DDTHH:mm:ss'));
     $('#borrow_modal-DuaDate').val(moment(borrow.DateDue).format('YYYY-MM-DDTHH:mm:ss'));
@@ -161,7 +167,7 @@ function CreateModal(borrow) {
             Approved: { color: 'success', text: 'Approved', icon: 'check' },
             Rejected: { color: 'danger', text: 'Rejected', icon: 'xmark' },
             Pending: { color: 'warning', text: 'Pending', icon: 'timer' },
-            Waitting: { color: 'secondary', text: 'Waitting', icon: 'question' },
+            Waitting: { color: 'secondary', text: 'Waitting', icon: 'circle-pause' },
         }[bs.Status] || { color: 'secondary', text: 'Closed' };
 
         var line = {
@@ -209,6 +215,8 @@ function CreateModal(borrow) {
         $('#sign-container').append(signCard);
     });
 }
+
+
 
 // approve
 function Approve(elm, e) {
@@ -262,6 +270,8 @@ function Approve(elm, e) {
                                     GetUserSigns(false);
 
                                     toastr["success"]("Borrow request was Approved.", "SUCCRESS");
+
+                                    $('#borrow_modal').modal('hide');
                                 }
                                 else {
                                     toastr["error"](response.message, "ERROR");
@@ -399,7 +409,26 @@ function CreateUserName(user) {
 }
 
 function DrawDatatableRow(no, item) {
-    var row = $(`<tr class="align-middle" data-id="${item.Id}"></tr>`);
+    var showButton = false;
+    var idSign = 0;
+    var signStatus = '';
+    $.each(item.UserBorrowSigns, function (k, v) {
+        if (v.Status == "Pending") {
+            if (v.User.Username == $('#CardID').text()) {
+                showButton = true;
+                idSign = v.Id;
+                signStatus = v.Status;
+                return false;
+            }
+        }
+        else {
+            if (v.User.Username == $('#CardID').text()) {
+                signStatus = v.Status;
+            }
+        }
+    });
+
+    var row = $(`<tr class="align-middle" data-id="${item.Id}" data-idsign="${idSign}"></tr>`);
 
     // Created By
     row.append(CreateTableCellUser(item.User));
@@ -444,24 +473,7 @@ function DrawDatatableRow(no, item) {
         }
     }
     
-    var showButton = false;
-    var idSign = 0;
-    var signStatus = '';
-    $.each(item.UserBorrowSigns, function (k, v) {
-        if (v.Status == "Pending") {
-            if (v.User.Username == $('#CardID').text()) {
-                showButton = true;
-                idSign = v.Id;
-                signStatus = v.Status;
-                return false;
-            }
-        }
-        else {
-            if (v.User.Username == $('#CardID').text()) {
-                signStatus = v.Status;
-            }
-        }
-    });
+    
 
     // Sign
     switch (signStatus) {
@@ -474,20 +486,20 @@ function DrawDatatableRow(no, item) {
             break;
         }
         default: {
-            row.append(`<td><span class="badge bg-secondary"><i class="fa-solid fa-question"></i> Waitting</span></td>`);
+            row.append(`<td><span class="badge bg-secondary"><i class="fa-regular fa-circle-pause"></i> Waitting</span></td>`);
             break;
         }
     }
     // Action
     if (showButton)
         row.append(`<td class="order-action d-flex text-center justify-content-center">
-                        <a href="javascript:;" class="text-info    bg-light-info    border-0" title="Details" data-id="${item.Id}" data-idsign="${idSign}" onclick="Details(this, event)"><i class="fa-regular fa-circle-info"></i></a>
+                        <a href="javascript:;" class="text-info    bg-light-info    border-0" title="Details" onclick="Details(${item.Id}, ${idSign})"><i class="fa-regular fa-circle-info"></i></a>
                         <a href="javascript:;" class="text-success bg-light-success border-0" title="Approve" data-id="${item.Id}" data-idsign="${idSign}" onclick="Approve(this, event)"><i class="fa-duotone fa-check"></i></a>                                
                         <a href="javascript:;" class="text-danger  bg-light-danger  border-0" title="Reject " data-id="${item.Id}" data-idsign="${idSign}" onclick="Reject(this, event) "><i class="fa-solid fa-x"></i></a>   
                     </td>`);
     else
         row.append(`<td class="order-action d-flex text-center justify-content-center">
-                        <a href="javascript:;" class="text-info    bg-light-info    border-0" title="Details" data-id="${item.Id}" data-idsign="${idSign}" onclick="Details(this, event)"><i class="fa-regular fa-circle-info"></i></a> 
+                        <a href="javascript:;" class="text-info    bg-light-info    border-0" title="Details" onclick="Details(${item.Id}, ${idSign})"><i class="fa-regular fa-circle-info"></i></a> 
                     </td>`);
     return row;
 }
@@ -572,19 +584,12 @@ function DrawDatatableArray(item) {
     }
     // Action
     if (showButton) {
-        row.push(`<div class="dropdown">
-					    	<button class="btn btn-outline-secondary button_dot" type="button" data-bs-toggle="dropdown" title="Action">
-                                <i class="bx bx-dots-vertical-rounded"></i>
-                            </button>
-                            <div class="dropdown-menu order-actions">
-                                <a href="javascript:;" class="text-success bg-light-success border-0 mb-2" title="Approve" data-id="${item.Id}" data-idsign="${idSign}" onclick="Approve(this, event)"><i class="bx bx-check"></i></a>                                
-                                <a href="javascript:;" class="text-danger  bg-light-danger  border-0 mb-2" title="Reject " data-id="${item.Id}" data-idsign="${idSign}" onclick="Reject(this, event) "><i class="bx bx-x"></i></a>
-                                <a href="javascript:;" class="text-info    bg-light-info    border-0     " title="Details" data-id="${item.Id}" data-idsign="${idSign}" onclick="Details(this, event)"><i class="bx bx-info-circle"></i></a>
-						    </div>
-					</div>`);
+        row.push(`<a href="javascript:;" class="text-info    bg-light-info    border-0" title="Details" onclick="Details(${item.Id}, ${idSign})"><i class="fa-regular fa-circle-info"></i></a>
+                  <a href="javascript:;" class="text-success bg-light-success border-0" title="Approve" data-id="${item.Id}" data-idsign="${idSign}" onclick="Approve(this, event)"><i class="fa-duotone fa-check"></i></a>                                
+                  <a href="javascript:;" class="text-danger  bg-light-danger  border-0" title="Reject " data-id="${item.Id}" data-idsign="${idSign}" onclick="Reject(this, event) "><i class="fa-solid fa-x"></i></a>   `);
     }
     else {
-        row.push(`<button type="button" class="btn btn-outline-info p-0 my-0 me-0 border-0 btn-custom ms-3" data-id="${item.Id}" onclick="Details(this, event)"><i class="bx bx-info-circle"></i></button>`);
+        row.push(`<a href="javascript:;" class="text-info    bg-light-info    border-0" title="Details" onclick="Details(${item.Id}, ${idSign})"><i class="fa-regular fa-circle-info"></i></a> `);
     }
 
     return row;
