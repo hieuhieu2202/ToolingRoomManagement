@@ -1,14 +1,16 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Net;
 using System.Web;
+using System.IO;
 using ToolingRoomManagement.Areas.NVIDIA.Data;
 using ToolingRoomManagement.Areas.NVIDIA.Entities;
 using System.Threading.Tasks;
 using System.Threading;
+using System.Web.UI.WebControls;
+using System.Text.Json;
 
 namespace ToolingRoomManagement.Areas.NVIDIA.Data
 {
@@ -224,7 +226,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Data
                 ServicePointManager.Expect100Continue = true;
                 ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
                 ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
-                string inputJson = JsonConvert.SerializeObject(result);
+                string inputJson = JsonSerializer.Serialize(result);
                 var client = new HttpClient();
                 var request = new HttpRequestMessage(HttpMethod.Post, "https://10.220.130.117:8888/api/Service/SendMail");
                 var content = new StringContent(inputJson, null, "application/json");
@@ -259,6 +261,62 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Data
                 name += $" ({user.EnName}).";
             }
             return name;
+        }
+
+        public static void SaveDeviceHistoryLog(Entities.User user, Entities.Device before, Entities.Device after, string ServerPath)
+        {
+            try
+            {
+                using(ToolingRoomEntities db = new ToolingRoomEntities())
+                {
+                    db.Configuration.LazyLoadingEnabled = false;
+
+                    Entities.HistoryUpdateDevice history = new HistoryUpdateDevice
+                    {
+                        IdUser = user.Id,
+                        IdDevice = after.Id,
+                        UpdateDate = DateTime.Now,
+                        GuidCode = Guid.NewGuid(),
+                    };
+
+                    if (before != null && after != null)
+                    {
+                        history.Type = "Update";
+
+                        string beforeLogPath = Path.Combine(ServerPath, $"before-{history.GuidCode}.txt");
+                        string afterLogPath = Path.Combine(ServerPath, $"after-{history.GuidCode}.txt");
+
+                        using (StreamWriter writer = new StreamWriter(beforeLogPath))
+                        {
+                            writer.Write(JsonSerializer.Serialize(before));
+                            history.BeforeData = beforeLogPath;
+                        }
+                        using (StreamWriter writer = new StreamWriter(afterLogPath))
+                        {
+                            writer.Write(JsonSerializer.Serialize(after));
+                            history.AfterData = afterLogPath;
+                        }
+                    }
+                    else if(before == null)
+                    {
+                        history.Type = "Create";
+
+                        string createLogPath = Path.Combine(ServerPath, $"create-{history.GuidCode}.txt");
+
+                        using (StreamWriter writer = new StreamWriter(createLogPath))
+                        {
+                            writer.Write(JsonSerializer.Serialize(after));
+                        }
+                        history.BeforeData = createLogPath;
+                    }
+                    db.HistoryUpdateDevices.Add(history);
+                    db.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("History Log Errr" + ex.Message);
+            }
         }
     }
 

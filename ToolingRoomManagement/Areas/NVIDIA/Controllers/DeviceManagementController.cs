@@ -1,10 +1,13 @@
-﻿using OfficeOpenXml;
+﻿using Model.EF;
+using OfficeOpenXml;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Migrations;
 using System.Globalization;
 using System.Linq;
 using System.Text.Json;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using ToolingRoomManagement.Areas.NVIDIA.Entities;
@@ -119,21 +122,32 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 db.Devices.Add(device);
 
                 // Create Layout
-                var IdLayouts = form["Layout"].Split(',').Select(Int32.Parse).ToArray();
-                foreach (var IdLayout in IdLayouts)
+                if (form["Layout"] != null)
                 {
-                    if(!db.DeviceWarehouseLayouts.Any(l => l.IdDevice == device.Id && l.IdWarehouseLayout == IdLayout))
+                    var IdLayouts = form["Layout"].Split(',').Select(Int32.Parse).ToArray();
+                
+                    foreach (var IdLayout in IdLayouts)
                     {
-                        DeviceWarehouseLayout layout = new DeviceWarehouseLayout
+                        if (!db.DeviceWarehouseLayouts.Any(l => l.IdDevice == device.Id && l.IdWarehouseLayout == IdLayout))
                         {
-                            IdDevice = device.Id,
-                            IdWarehouseLayout = IdLayout
-                        };
-                        db.DeviceWarehouseLayouts.Add(layout);
+                            DeviceWarehouseLayout layout = new DeviceWarehouseLayout
+                            {
+                                IdDevice = device.Id,
+                                IdWarehouseLayout = IdLayout
+                            };
+                            db.DeviceWarehouseLayouts.Add(layout);
+                        }
                     }
                 }
 
                 db.SaveChanges();
+
+                Task SaveLog = Task.Run(() =>
+                {
+                    Entities.User user = (Entities.User)Session["SignSession"];
+                    string path = Server.MapPath("/Areas/NVIDIA/Data/DeviceHistoryLog");
+                    Data.Common.SaveDeviceHistoryLog(user, null, device, path);
+                });
 
                 return Json(new { status = true });
             }
@@ -157,6 +171,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 if (Id != 0)
                 {
                     var rDevice = db.Devices.FirstOrDefault(d => d.Id == Id);
+                    var afterDevice = rDevice;
 
                     var sQtyConfirm = rDevice.QtyConfirm + QtyConfirm;
 
@@ -169,6 +184,13 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
 
                         db.Devices.AddOrUpdate(rDevice);
                         db.SaveChanges();
+
+                        Task SaveLog = Task.Run(() =>
+                        {
+                            Entities.User user = (Entities.User)Session["SignSession"];
+                            string path = Server.MapPath("/Areas/NVIDIA/Data/DeviceHistoryLog");
+                            Data.Common.SaveDeviceHistoryLog(user, afterDevice, rDevice, path);
+                        });
 
                         return Json(new { status = true, device = rDevice });
                     }
@@ -192,7 +214,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
         {
             try
             {
-
+                var afterDevice = device;
                 if (db.Devices.Any(d => d.Id == device.Id))
                 {
                     if (device.QtyConfirm > device.Quantity || device.RealQty > device.Quantity)
@@ -231,6 +253,13 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
 
                     db.Devices.AddOrUpdate(device);
                     db.SaveChanges();
+
+                    Task SaveLog = Task.Run(() =>
+                    {
+                        Entities.User user = (Entities.User)Session["SignSession"];
+                        string path = Server.MapPath("/Areas/NVIDIA/Data/DeviceHistoryLog");
+                        Data.Common.SaveDeviceHistoryLog(user, afterDevice, device, path);
+                    });
 
                     return Json(new { status = true, device });
                 }
@@ -375,6 +404,13 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
 
                                 db.Devices.AddOrUpdate(dbDevice);
                                 db.SaveChanges();
+
+                                Task SaveLog = Task.Run(() =>
+                                {
+                                    Entities.User user = (Entities.User)Session["SignSession"];
+                                    string path = Server.MapPath("/Areas/NVIDIA/Data/DeviceHistoryLog");
+                                    Data.Common.SaveDeviceHistoryLog(user, null, dbDevice, path);
+                                });
                             }
 
                             if (!products.Any(p => p.Id == device.Product.Id) && (device.Product.ProductName != null || device.Product.MTS != null)) products.Add(device.Product);
@@ -614,8 +650,6 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
             {
                 return Json(new { status = false, message = ex.Message });
             }
-        }
-
-       
+        }      
     }
 }

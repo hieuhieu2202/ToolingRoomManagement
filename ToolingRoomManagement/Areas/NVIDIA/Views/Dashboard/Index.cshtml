@@ -94,11 +94,11 @@
             <div class="card-body">
                 <div class="d-flex align-items-center">
                     <div>
-                        <h6 class="mb-0">Devices I/O Status</h6>
+                        <h6 class="mb-0">Borrow/Return Quantity</h6>
                     </div>
                     <div class="d-flex align-items-center ms-auto font-13 gap-2">
-                        <span class="border px-1 rounded cursor-pointer"><i class='bx bxs-circle text-primary me-1'></i>Inbound</span>
-                        <span class="border px-1 rounded cursor-pointer"><i class='bx bxs-circle text-sky-light me-1'></i>Outbound</span>
+                        <span class="border px-1 rounded cursor-pointer"><i class='bx bxs-circle text-primary me-1'></i>Borrow Quantity</span>
+                        <span class="border px-1 rounded cursor-pointer"><i class='bx bxs-circle text-sky-light me-1'></i>Return Quantity</span>
                     </div>
                     <select class="form-select ms-3" id="chart7-selectType" style="width: unset;">
                         <option value="week">Week</option>
@@ -106,25 +106,24 @@
                     </select>
                 </div>
             </div>
-                <div id="chart7"></div>
-            </div>
+            <div id="chart7"></div>
         </div>
     </div>
 </div><!--end row-->
 
 
 <div class="row row-cols-1 row-cols-lg-2 row-cols-xl-3">
-    <!-- Số thiết bị được thêm mới theo từng tháng -->
-    <!-- Số thiết bị đã được mượn theo tháng  -->
-    <!-- Số đơn đã ký theo tháng -->
+    <!-- Số đơn approved theo tuần -->
+    <!-- Số đơn pending theo tuần -->
+    <!-- Số đơn reject theo tuần -->
     <div class="col d-flex">
         <div class="card radius-10 p-0 w-100 bg-transparent shadow-none">
             <div class="card radius-10">
                 <div class="card-body">
                     <div class="d-flex align-items-center">
                         <div>
-                            <p class="mb-0">New Devices</p>
-                            <h5 class="mb-0">54.6%</h5>
+                            <p class="mb-0">Approved</p>
+                            <h5 class="mb-0" id="chart8-rate">0%</h5>
                         </div>
                         <div class="widgets-icons bg-light-primary text-primary ms-auto"><i class="bx bxs-cookie"></i></div>
                     </div>
@@ -135,8 +134,8 @@
                 <div class="card-body">
                     <div class="d-flex align-items-center">
                         <div>
-                            <p class="mb-0">Devices Borrows</p>
-                            <h5 class="mb-0">38.5%</h5>
+                            <p class="mb-0">Pending </p>
+                            <h5 class="mb-0" id="chart9-rate">0%</h5>
                         </div>
                         <div class="widgets-icons bg-light-danger text-danger ms-auto"><i class="bx bxs-bookmark-alt-plus"></i></div>
                     </div>
@@ -147,8 +146,8 @@
                 <div class="card-body">
                     <div class="d-flex align-items-center">
                         <div>
-                            <p class="mb-0">Approved Requests</p>
-                            <h5 class="mb-0">24.5K</h5>
+                            <p class="mb-0">Rejected</p>
+                            <h5 class="mb-0" id="chart10-rate"></h5>
                         </div>
                         <div class="widgets-icons bg-light-success text-success ms-auto"><i class="bx bxs-cloud-download"></i></div>
                     </div>
@@ -225,11 +224,11 @@
             </div>
         </div>
     </div>
-     
+
     <!-- Thiết bị trong kho, ngoài kho - Loại thiết bị (dynamic/static) -->
     <div class="col d-flex">
         <div class="card radius-10 p-0 w-100 p-3">
-            
+
             <div class="card radius-10 shadow-none bg-transparent border">
                 <div class="card-body">
                     <div class="d-flex align-items-center justify-content-center justify-content-lg-start">
@@ -241,8 +240,8 @@
                     </div>
                 </div>
             </div>
-            
-            
+
+
             <div class="card radius-10 mb-0 shadow-none bg-transparent mb-0 border">
                 <div class="card-body">
                     <div class="d-flex align-items-center mb-4">

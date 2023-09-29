@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Web;
 using System.Web.Mvc;
 using ToolingRoomManagement.Areas.NVIDIA.Entities;
@@ -248,56 +249,131 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 return Json(new { status = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
-        //public JsonResult GetDataChart7(string type)
-        //{
-        //    try
-        //    {
-        //        List<int> listInbound = new List<int>();
-        //        List<int> listOutbound = new List<int>();
+        public JsonResult GetDataChart7(string type)
+        {
+            try
+            {
+                List<int> listReturnQty = new List<int>();
+                List<int> listBorrowQty = new List<int>();
 
-        //        switch (type.ToLower())
-        //        {
-        //            case "week":
-        //                {
-        //                    var thisWeek = DateTime.Now.Date.AddDays(-7);
-        //                    for (int i = 1; i <= 7; i++)
-        //                    {
-        //                        var thisDate = thisWeek.AddDays(i);
-        //                        var nextDate = thisDate.AddDays(1);
-        //                        int thisDateBorrow = db.Borrows.Where(b => b.DateBorrow >= thisDate && b.DateBorrow < nextDate).Count();
+                List<string> listDate = new List<string>();
 
-        //                        listCountBorrow.Add(thisDateBorrow);
-        //                        listDate.Add(thisDate.ToString("MM-dd"));
-        //                    }
-        //                    break;
-        //                }
-        //            case "month":
-        //                {
-        //                    var thisMonth = new DateTime(DateTime.Now.Year - 1, DateTime.Now.Month, 1);
-        //                    var lastDayOfMonth = thisMonth.AddMonths(1).AddDays(-1);
+                switch (type.ToLower())
+                {
+                    case "week":
+                        {
+                            var thisWeek = DateTime.Now.Date.AddDays(-7);
+                            for (int i = 1; i <= 7; i++)
+                            {
+                                var thisDate = thisWeek.AddDays(i);
+                                var nextDate = thisDate.AddDays(1);
 
-        //                    for (int i = 1; i <= 12; i++)
-        //                    {
-        //                        var iLastThisMonth = lastDayOfMonth.AddMonths(i);
-        //                        var iFirstThisMonth = new DateTime(iLastThisMonth.Year, iLastThisMonth.Month, 1);
+                                var Borrows = db.Borrows.Where(b => b.DateBorrow >= thisDate && b.DateBorrow < nextDate && b.Status == "Approved");
+                                var borrowQty = 0;
+                                var returnQty = 0;
+                                foreach(var borrow in Borrows)
+                                {
+                                    var DeviceBorrows = borrow.BorrowDevices;
+                                    foreach(var device in DeviceBorrows)
+                                    {
+                                        if(borrow.Type == "Borrow")
+                                        {
+                                            borrowQty += device.BorrowQuantity ?? 0;
+                                        }
+                                        else if(borrow.Type == "Return")
+                                        {
+                                            returnQty += device.BorrowQuantity ?? 0;
+                                        }
+                                    }
 
-        //                        int countBorrow = db.Borrows.Where(b => b.DateBorrow >= iFirstThisMonth && b.DateBorrow <= iLastThisMonth).Count();
+                                }
 
-        //                        listCountBorrow.Add(countBorrow);
-        //                        listDate.Add(iFirstThisMonth.ToString("yyyy-MM"));
-        //                    }
-        //                    break;
-        //                }
-        //            default:
-        //                {
-        //                    goto case "week";
-        //                }
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return Json(new { status = false, message = ex.Message}, JsonRequestBehavior.AllowGet);
-        //    }
-        //}
+                                listBorrowQty.Add(borrowQty);
+                                listReturnQty.Add(returnQty);
+                                listDate.Add(thisDate.ToString("MM-dd"));
+                            }
+                            break;
+                        }
+                    case "month":
+                        {
+                            var thisMonth = new DateTime(DateTime.Now.Year - 1, DateTime.Now.Month, 1);
+                            var lastDayOfMonth = thisMonth.AddMonths(1).AddDays(-1);
+
+                            for (int i = 1; i <= 12; i++)
+                            {
+                                var iLastThisMonth = lastDayOfMonth.AddMonths(i);
+                                var iFirstThisMonth = new DateTime(iLastThisMonth.Year, iLastThisMonth.Month, 1);
+
+                                var Borrows = db.Borrows.Where(b => b.DateBorrow >= iFirstThisMonth && b.DateBorrow <= iLastThisMonth && b.Status == "Approved");
+                                var borrowQty = 0;
+                                var returnQty = 0;
+                                foreach (var borrow in Borrows)
+                                {
+                                    var DeviceBorrows = borrow.BorrowDevices;
+                                    foreach (var device in DeviceBorrows)
+                                    {
+                                        if (borrow.Type == "Borrow")
+                                        {
+                                            borrowQty += device.BorrowQuantity ?? 0;
+                                        }
+                                        else if (borrow.Type == "Return")
+                                        {
+                                            returnQty += device.BorrowQuantity ?? 0;
+                                        }
+                                    }
+                                }
+                                listReturnQty.Add(returnQty);
+                                listBorrowQty.Add(borrowQty);
+                                listDate.Add(iFirstThisMonth.ToString("yyyy-MM"));
+                            }
+                            break;
+                        }
+                    default:
+                        {
+                            goto case "week";
+                        }
+                }
+                return Json(new { status = true, listReturnQty = listReturnQty.ToArray(), listBorrowQty = listBorrowQty.ToArray(), listDate = listDate.ToArray() }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult GetDataChart78910()
+        {
+            try
+            {
+                int[] WeekApprove = new int[7];
+                int[] WeekPending = new int[7];
+                int[] WeekReject = new int[7];
+
+                string[] listDate = new string[7];
+
+                var thisWeek = DateTime.Now.Date.AddDays(-7);
+                for (int i = 1; i <= 7; i++)
+                {
+                    var thisDate = thisWeek.AddDays(i);
+                    var nextDate = thisDate.AddDays(1);
+                    var thisDateBorrow = db.Borrows.Where(b => b.DateBorrow >= thisDate && b.DateBorrow < nextDate );
+
+                    int approve = thisDateBorrow.Where(b => b.Status == "Approved").Count();
+                    int pending = thisDateBorrow.Where(b => b.Status == "Pending").Count();
+                    int reject = thisDateBorrow.Where(b => b.Status == "Rejected").Count();
+
+                    WeekApprove[i - 1] = approve;
+                    WeekPending[i - 1] = pending;
+                    WeekReject[i - 1] = reject;
+                    listDate[i - 1] = thisDate.ToString("MM-dd");
+                }
+
+                return Json(new { status = true, WeekApprove, WeekPending, WeekReject, listDate }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }

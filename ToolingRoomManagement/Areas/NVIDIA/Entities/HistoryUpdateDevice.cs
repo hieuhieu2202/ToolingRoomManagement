@@ -18,6 +18,8 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Entities
         public Nullable<int> IdUser { get; set; }
         public Nullable<int> IdDevice { get; set; }
         public Nullable<System.DateTime> UpdateDate { get; set; }
+        public string Type { get; set; }
+        public Nullable<System.Guid> GuidCode { get; set; }
         public string BeforeData { get; set; }
         public string AfterData { get; set; }
     }

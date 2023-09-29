@@ -5,6 +5,8 @@
     CreateChart4();
     CreateChart5();
     CreateChart6();
+    CreateChart7();
+    CreateChart8910();
 });
 
 function CreateSpanRate(Num_1, Num_2) {
@@ -705,16 +707,43 @@ function Chart6(data, categories) {
     }   
 }
 
-//<!-- In/Ôut thiết bị theo tháng -->
-function Chart7() {
+//<!-- In/Out thiết bị theo tháng/tuần -->
+var chart7;
+$('#chart7-selectType').on('change', function (e) {
+    e.preventDefault();
+    CreateChart7($(this).val());
+});
+function CreateChart7(type) {
+
+    if (!type) type = 'week';
+
+    $.ajax({
+        type: "GET",
+        url: "/NVIDIA/Dashboard/GetDataChart7?type=" + type,
+        dataType: "json",
+        contentType: "application/json;charset=utf-8",
+        success: function (response) {
+            if (response.status) {
+                Chart7(response.listReturnQty, response.listBorrowQty, response.listDate);
+            }
+            else {
+                toastr["error"](response.message, "ERROR");
+            }
+        },
+        error: function (error) {
+            Swal.fire("Something went wrong!", GetAjaxErrorMessage(error), "error");
+        }
+    });
+}
+function Chart7(data1, data2, categories) {
     var options = {
         series: [{
-            name: 'New Visitors',
-            data: [66, 76, 85, 101, 65, 87, 105, 91, 86]
+            name: 'Borrow Quantity',
+            data: data1
 
         }, {
-            name: 'Old Visitors',
-            data: [55, 44, 55, 57, 56, 61, 58, 63, 60]
+            name: 'Return Quantity',
+            data: data2
         }],
         chart: {
             foreColor: '#9ba7b2',
@@ -746,47 +775,97 @@ function Chart7() {
             width: 3,
             colors: ['transparent']
         },
-        colors: ["#8833ff", '#cba6ff'],
-        yaxis: {
-            labels: {
-                formatter: function (value) {
-                    return value + "K";
-                }
-            },
-        },
+        colors: ["#8833ff", '#cba6ff'],        
         xaxis: {
-            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'],
+            categories: categories,
         },
         grid: {
             show: true,
             borderColor: '#ededed',
-            //strokeDashArray: 4,
         },
         fill: {
             opacity: 1
         },
         tooltip: {
             theme: 'dark',
-            y: {
-                formatter: function (val) {
-                    return "" + val + "K"
-                }
-            }
         }
     };
-    var chart = new ApexCharts(document.querySelector("#chart7"), options);
-    chart.render();
+    if (!chart7) {
+        chart7 = new ApexCharts(document.querySelector("#chart7"), options);
+        chart7.render();
+    }
+    else {
+        chart7.updateOptions({
+            xaxis: {
+                categories: categories,
+            },
+            series: [{
+                data: data1
+
+            }, {
+                data: data2
+            }],
+        })
+    }
 }
 
-//<!-- Số thiết bị được thêm mới theo từng tháng -->
-//<!--Số thiết bị đã được mượn theo tháng -->
-//<!--Số đơn đã ký theo tháng -->
-function Chart789() {
+/*<!-- Số đơn approved theo tuần -->
+  <!-- Số đơn pending theo tuần -->
+  <!-- Số đơn reject theo tuần -->*/
+function calculateSum(array) {
+    return array.map(function (acc, item) {
+        return acc + item;
+    }, 0);
+}
+function CreateChart8910() {
+
+    $.ajax({
+        type: "GET",
+        url: "/NVIDIA/Dashboard/GetDataChart78910",
+        dataType: "json",
+        contentType: "application/json;charset=utf-8",
+        success: function (response) {
+            if (response.status) {
+                Chart8910(response.WeekApprove, response.WeekPending, response.WeekReject, response.listDate);
+
+                console.log(response)
+
+                var sumApprove = 0;
+                var sumPending = 0;
+                var sumReject = 0;
+                for (let i = 0; i < 7; i++) {
+                    sumApprove += response.WeekApprove[i];
+                    sumPending += response.WeekPending[i];
+                    sumReject += response.WeekReject[i];
+                }
+                var totalSum = sumApprove + sumPending + sumReject;
+
+                console.log(sumApprove, sumPending, sumReject, totalSum);
+
+                var ratioApprove = (sumApprove / totalSum) * 100;
+                var ratioPending = (sumPending / totalSum) * 100;
+                var ratioReject = 100 - ratioApprove - ratioPending;
+
+                $('#chart8-rate').text(`${ratioApprove}%`);
+                $('#chart9-rate').text(`${ratioPending}%`);
+                $('#chart10-rate').text(`${ratioReject}%`);
+
+            }
+            else {
+                toastr["error"](response.message, "ERROR");
+            }
+        },
+        error: function (error) {
+            Swal.fire("Something went wrong!", GetAjaxErrorMessage(error), "error");
+        }
+    });
+}
+function Chart8910(data1, data2, data3, categories) {
     // chart 8
     var options = {
         series: [{
-            name: 'Sessions',
-            data: [414, 555, 257, 901, 613, 727, 414, 555, 257]
+            name: 'Approved',
+            data: data1
         }],
         chart: {
             type: 'bar',
@@ -835,7 +914,7 @@ function Chart789() {
         },
         colors: ["#8833ff"],
         xaxis: {
-            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+            categories: categories,
         },
         fill: {
             opacity: 1
@@ -866,7 +945,7 @@ function Chart789() {
     var options = {
         series: [{
             name: 'Sessions',
-            data: [414, 555, 257, 901, 613, 727, 414, 555, 257]
+            data: data2
         }],
         chart: {
             type: 'area',
@@ -915,7 +994,7 @@ function Chart789() {
         },
         colors: ["#f41127"],
         xaxis: {
-            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+            categories: categories,
         },
         fill: {
             opacity: 1
@@ -946,7 +1025,7 @@ function Chart789() {
     var options = {
         series: [{
             name: 'Sessions',
-            data: [414, 555, 257, 901, 613, 727, 414, 555, 257]
+            data: data3
         }],
         chart: {
             type: 'area',
@@ -995,7 +1074,7 @@ function Chart789() {
         },
         colors: ["#17a00e"],
         xaxis: {
-            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+            categories: categories,
         },
         fill: {
             opacity: 1

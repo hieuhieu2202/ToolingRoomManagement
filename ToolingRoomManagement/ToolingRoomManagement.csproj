@@ -3025,6 +3025,7 @@
     <Folder Include="Areas\Admin\Views\SheildingBox\" />
     <Folder Include="Areas\Admin\Views\StationRobot\" />
     <Folder Include="Areas\Admin\Views\Station\" />
+    <Folder Include="Areas\NVIDIA\Data\DeviceHistoryLog\" />
     <Folder Include="Data\Image\" />
     <Folder Include="Views\Register\" />
   </ItemGroup>

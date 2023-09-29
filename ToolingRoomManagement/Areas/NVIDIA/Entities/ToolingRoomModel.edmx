@@ -88,8 +88,10 @@
           <Property Name="IdUser" Type="int" />
           <Property Name="IdDevice" Type="int" />
           <Property Name="UpdateDate" Type="datetime" />
-          <Property Name="BeforeData" Type="nvarchar(max)" />
-          <Property Name="AfterData" Type="nvarchar(max)" />
+          <Property Name="Type" Type="nvarchar" MaxLength="25" />
+          <Property Name="GuidCode" Type="uniqueidentifier" />
+          <Property Name="BeforeData" Type="nvarchar" MaxLength="250" />
+          <Property Name="AfterData" Type="nvarchar" MaxLength="250" />
         </EntityType>
         <EntityType Name="Model">
           <Key>
@@ -613,7 +615,6 @@
             <End Role="Device" EntitySet="Devices" />
             <End Role="BorrowDevice" EntitySet="BorrowDevices" />
           </AssociationSet>
-          <EntitySet Name="HistoryUpdateDevices" EntityType="ToolingRoomModel.HistoryUpdateDevice" />
           <EntitySet Name="DeviceWarehouseLayouts" EntityType="ToolingRoomModel.DeviceWarehouseLayout" />
           <AssociationSet Name="FK_DeviceWarehouseLayout_Device" Association="ToolingRoomModel.FK_DeviceWarehouseLayout_Device">
             <End Role="Device" EntitySet="Devices" />
@@ -663,6 +664,7 @@
             <End Role="Borrow" EntitySet="Borrows" />
             <End Role="UserBorrowSign" EntitySet="UserBorrowSigns" />
           </AssociationSet>
+          <EntitySet Name="HistoryUpdateDevices" EntityType="ToolingRoomModel.HistoryUpdateDevice" />
           </EntityContainer>
         <EntityType Name="Product">
           <Key>
@@ -916,17 +918,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="HistoryUpdateDevice">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="IdUser" Type="Int32" />
-          <Property Name="IdDevice" Type="Int32" />
-          <Property Name="UpdateDate" Type="DateTime" Precision="3" />
-          <Property Name="BeforeData" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="AfterData" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-        </EntityType>
         <EntityType Name="DeviceWarehouseLayout">
           <Key>
             <PropertyRef Name="Id" />
@@ -1130,6 +1121,19 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="HistoryUpdateDevice">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdUser" Type="Int32" />
+          <Property Name="IdDevice" Type="Int32" />
+          <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+          <Property Name="Type" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="GuidCode" Type="Guid" />
+          <Property Name="BeforeData" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="AfterData" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1269,18 +1273,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="HistoryUpdateDevices">
-            <EntityTypeMapping TypeName="ToolingRoomModel.HistoryUpdateDevice">
-              <MappingFragment StoreEntitySet="HistoryUpdateDevice">
-                <ScalarProperty Name="AfterData" ColumnName="AfterData" />
-                <ScalarProperty Name="BeforeData" ColumnName="BeforeData" />
-                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
-                <ScalarProperty Name="IdDevice" ColumnName="IdDevice" />
-                <ScalarProperty Name="IdUser" ColumnName="IdUser" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="DeviceWarehouseLayouts">
             <EntityTypeMapping TypeName="ToolingRoomModel.DeviceWarehouseLayout">
               <MappingFragment StoreEntitySet="DeviceWarehouseLayout">
@@ -1341,6 +1333,20 @@
                 <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="DateReturn" ColumnName="DateReturn" />
                 <ScalarProperty Name="DateBorrow" ColumnName="DateBorrow" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HistoryUpdateDevices">
+            <EntityTypeMapping TypeName="ToolingRoomModel.HistoryUpdateDevice">
+              <MappingFragment StoreEntitySet="HistoryUpdateDevice">
+                <ScalarProperty Name="AfterData" ColumnName="AfterData" />
+                <ScalarProperty Name="BeforeData" ColumnName="BeforeData" />
+                <ScalarProperty Name="GuidCode" ColumnName="GuidCode" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="IdDevice" ColumnName="IdDevice" />
+                <ScalarProperty Name="IdUser" ColumnName="IdUser" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
