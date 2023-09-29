@@ -8,7 +8,7 @@ var options = {
         data: [414, 555, 257, 901, 613, 727, 414, 555, 257]
     }],
     chart: {
-        type: 'line',
+        type: 'area',
         height: 60,
         toolbar: {
             show: false
@@ -65,7 +65,7 @@ var options = {
             enabled: false
         },
         x: {
-            show: false
+            show: true
         },
         y: {
             title: {
@@ -91,7 +91,7 @@ var options = {
         data: [414, 555, 257, 901, 613, 727, 414, 555, 257]
     }],
     chart: {
-        type: 'bar',
+        type: 'area',
         height: 60,
         toolbar: {
             show: false

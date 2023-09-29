@@ -266,7 +266,15 @@ function Approve(elm, e) {
                             success: function (response) {
                                 if (response.status) {
                                     var row = DrawDatatableArray(JSON.parse(response.borrow));
-                                    table_Borrow.row(Index).data(row).draw(false);
+
+
+
+                                    var rows = table_Borrow.row(Index).data(row).draw(false);
+                                    var rowElement = rows.node();
+                                    if (rowElement) {
+                                        rowElement.classList.remove('hl-pending');
+                                    }
+
                                     GetUserSigns(false);
 
                                     toastr["success"]("Borrow request was Approved.", "SUCCRESS");
@@ -336,7 +344,6 @@ function Reject(elm, e) {
                     },
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        console.log($('#reject-Note').val());
                         Ids.Note = $('#reject-Note').val();
 
                         $.ajax({
@@ -347,8 +354,14 @@ function Reject(elm, e) {
                             contentType: "application/json;charset=utf-8",
                             success: function (response) {
                                 if (response.status) {
-                                    var row = DrawDatatableArray(JSON.parse(response.borrow));
-                                    table_Borrow.row(Index).data(row).draw(false);
+                                    var row = DrawDatatableArray(JSON.parse(response.borrow));                                    
+
+                                    var rows = table_Borrow.row(Index).data(row).draw(false);
+                                    var rowElement = rows.node();
+                                    if (rowElement) {
+                                        rowElement.classList.remove('hl-pending');
+                                    }
+
                                     GetUserSigns(false);
 
                                     toastr["success"]("Borrow request was Approved.", "SUCCRESS");
@@ -392,20 +405,6 @@ function CreateTableCellUser(user) {
         opt.text(addUserEnName);
     }
     return opt;
-}
-function CreateUserName(user) {
-    var username = '';
-    if (user.VnName && user.VnName != '') {
-        username = `${user.Username} - ${user.VnName}`;
-    }
-    else if (user.CnName && user.CnName != '') {
-        username = `${user.Username} - ${user.CnName}`;
-    }
-    if (user.EnName != null && user.EnName != '') {
-        username += ` (${user.EnName})`;
-    }
-
-    return username;
 }
 
 function DrawDatatableRow(no, item) {
@@ -479,14 +478,21 @@ function DrawDatatableRow(no, item) {
     switch (signStatus) {
         case "Approved": {
             row.append(`<td><span class="badge bg-success"><i class="fa-solid fa-check"></i> Approved</span></td>`);
+            
             break;
         }
         case "Rejected": {
             row.append(`<td><span class="badge bg-danger"><i class="fa-solid fa-xmark"></i> Rejected</span></td>`);
+            row.addClass('hl-danger');
+            break;
+        }
+        case "Pending": {
+            row.append(`<td><span class="badge bg-warning"><i class="fa-solid fa-timer"></i> Pending</span></td>`);
+            row.addClass('hl-pending');
             break;
         }
         default: {
-            row.append(`<td><span class="badge bg-secondary"><i class="fa-regular fa-circle-pause"></i> Waitting</span></td>`);
+            row.append(`<td><span class="badge bg-secondary"><i class="fa-regular fa-circle-pause"></i> Waitting</span></td>`);           
             break;
         }
     }
@@ -575,6 +581,10 @@ function DrawDatatableArray(item) {
         }
         case "Rejected": {
             row.push(`<span class="badge bg-danger"><i class="bx bx-x"></i> Rejected</span>`);
+            break;
+        }
+        case "Pending": {
+            row.push(`<span class="badge bg-warning"><i class="fa-solid fa-timer"></i> Pending</span>`);
             break;
         }
         default: {

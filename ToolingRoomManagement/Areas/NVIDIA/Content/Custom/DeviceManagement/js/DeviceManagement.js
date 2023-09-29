@@ -850,20 +850,7 @@ $('#filter').on('click', function (e) {
     tableDeviceInfo.draw();
 });
 
-function CreateUserName(user) {
-    var username = '';
-    if (user.VnName && user.VnName != '') {
-        username = `${user.Username} - ${user.VnName}`;
-    }
-    else if (user.CnName && user.CnName != '') {
-        username = `${user.Username} - ${user.CnName}`;
-    }
-    if (user.EnName != null && user.EnName != '') {
-        username += ` (${user.EnName})`;
-    }
 
-    return username;
-}
 function GetQuantityDeviceInBorrow(IdDevice, BorrowDevices) {
     var quantity = 0;
     $.each(BorrowDevices, function (k, item) {

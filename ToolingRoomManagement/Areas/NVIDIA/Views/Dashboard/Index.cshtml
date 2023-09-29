@@ -3,13 +3,311 @@
     Layout = "~/Areas/NVIDIA/Views/Shared/_NvidiaLayoutShared.cshtml";
 }
 
-<div class="d-flex align-items-center justify-content-center">
-    <div class="card shadow-none bg-transparent">
-        <div class="card-body text-center">
-            <h1 class="display-4 mt-5">We are Coming Soon!</h1>
-            <p>
-                We are currently working hard on this page.
-            </p>
+@section styles{
+    <!-- Vendor -->
+    <link href="~/Areas/NVIDIA/Content/Template/Sysadmin/assets/plugins/highcharts/css/highcharts.css" rel="stylesheet" />
+    <!-- Custom -->
+    <link href="~/Areas/NVIDIA/Content/Custom/Dashboard/Dashboard.css" rel="stylesheet" />
+}
+
+<div class="dash-wrapper bg-dark">
+    <div class="row row-cols-1 row-cols-md-2 row-cols-xl-4 row-cols-xxl-5">
+        <!-- Tổng số thiết bị -->
+        <div class="col border-end border-light-2">
+            <div class="card bg-transparent shadow-none mb-0">
+                <div class="card-body text-center">
+                    <p class="mb-1 text-white">Devices</p>
+                    <h3 class="mb-3 text-white" id="chart1-totalDevice">0</h3>
+                    <p class="font-13 text-white" id="chart1-rateDevices"></p>
+                    <div id="chart1"></div>
+                </div>
+            </div>
+        </div>
+        <!-- Tổng số lượng -->
+        <div class="col border-end border-light-2">
+            <div class="card bg-transparent shadow-none mb-0">
+                <div class="card-body text-center">
+                    <p class="mb-1 text-white">Quantity</p>
+                    <h3 class="mb-3 text-white" id="chart2-totalQty">0</h3>
+                    <p class="font-13 text-white" id="chart2-rateQty"></p>
+                    <div id="chart2"></div>
+                </div>
+            </div>
+        </div>
+        <!-- Tổng số người dùng -->
+        <div class="col border-end border-light-2">
+            <div class="card bg-transparent shadow-none mb-0">
+                <div class="card-body text-center">
+                    <p class="mb-1 text-white">User</p>
+                    <h3 class="mb-3 text-white" id="chart3-totalUser">0</h3>
+                    <p class="font-13 text-white" id="chart3-rateUser"></p>
+                    <div id="chart3"></div>
+                </div>
+            </div>
+        </div>
+        <!-- Tổng số yêu cầu mượn -->
+        <div class="col border-end border-light-2">
+            <div class="card bg-transparent shadow-none mb-0">
+                <div class="card-body text-center">
+                    <p class="mb-1 text-white">Borrow Requests</p>
+                    <h3 class="mb-3 text-white" id="chart4-totalBorrow">0</h3>
+                    <p class="font-13 text-white" id="chart4-rateBorrow"></p>
+                    <div id="chart4"></div>
+                </div>
+            </div>
+        </div>
+        <!-- Tổng số yêu cầu được chấp nhận -->
+        <div class="col">
+            <div class="card bg-transparent shadow-none mb-0">
+                <div class="card-body text-center">
+                    <p class="mb-1 text-white">Approve Requests</p>
+                    <h3 class="mb-3 text-white" id="chart5-totalApprove">0</h3>
+                    <p class="font-13 text-white" id="chart5-rateApprove"></p>
+                    <div id="chart5"></div>
+                </div>
+            </div>
+        </div>
+    </div><!--end row-->
+</div>
+
+<div class="row row-cols-1 row-cols-xl-2">
+    <!-- Tổng số yêu cầu mượn theo năm/tháng/tuần -->
+    <div class="col d-flex">
+        <div class="card radius-10 w-100">
+            <div class="card-body">
+                <div class="d-flex align-items-center">
+                    <div>
+                        <h6 class="mb-0">Borrow Requests Overview</h6>
+                    </div>
+                    <select class="form-select ms-auto" id="chart6-selectType" style="width: unset;">
+                        <option value="week">Week</option>
+                        <option value="Month">Month</option>
+                    </select>
+                </div>
+                <div id="chart6"></div>
+            </div>
         </div>
     </div>
-</div>
+    <!-- In/Out thiết bị theo tháng -->
+    <div class="col d-flex">
+        <div class="card radius-10 w-100">
+            <div class="card-body">
+                <div class="d-flex align-items-center">
+                    <div>
+                        <h6 class="mb-0">Devices I/O Status</h6>
+                    </div>
+                    <div class="d-flex align-items-center ms-auto font-13 gap-2">
+                        <span class="border px-1 rounded cursor-pointer"><i class='bx bxs-circle text-primary me-1'></i>Inbound</span>
+                        <span class="border px-1 rounded cursor-pointer"><i class='bx bxs-circle text-sky-light me-1'></i>Outbound</span>
+                    </div>
+                    <select class="form-select ms-3" id="chart7-selectType" style="width: unset;">
+                        <option value="week">Week</option>
+                        <option value="Month">Month</option>
+                    </select>
+                </div>
+            </div>
+                <div id="chart7"></div>
+            </div>
+        </div>
+    </div>
+</div><!--end row-->
+
+
+<div class="row row-cols-1 row-cols-lg-2 row-cols-xl-3">
+    <!-- Số thiết bị được thêm mới theo từng tháng -->
+    <!-- Số thiết bị đã được mượn theo tháng  -->
+    <!-- Số đơn đã ký theo tháng -->
+    <div class="col d-flex">
+        <div class="card radius-10 p-0 w-100 bg-transparent shadow-none">
+            <div class="card radius-10">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <div>
+                            <p class="mb-0">New Devices</p>
+                            <h5 class="mb-0">54.6%</h5>
+                        </div>
+                        <div class="widgets-icons bg-light-primary text-primary ms-auto"><i class="bx bxs-cookie"></i></div>
+                    </div>
+                    <div id="chart8"></div>
+                </div>
+            </div>
+            <div class="card radius-10">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <div>
+                            <p class="mb-0">Devices Borrows</p>
+                            <h5 class="mb-0">38.5%</h5>
+                        </div>
+                        <div class="widgets-icons bg-light-danger text-danger ms-auto"><i class="bx bxs-bookmark-alt-plus"></i></div>
+                    </div>
+                    <div id="chart9"></div>
+                </div>
+            </div>
+            <div class="card radius-10 mb-0">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <div>
+                            <p class="mb-0">Approved Requests</p>
+                            <h5 class="mb-0">24.5K</h5>
+                        </div>
+                        <div class="widgets-icons bg-light-success text-success ms-auto"><i class="bx bxs-cloud-download"></i></div>
+                    </div>
+                    <div id="chart10"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Trạng thái thiết bị -->
+    <div class="col d-flex">
+        <div class="card radius-10 w-100">
+            <div class="card-body">
+                <div class="d-flex align-items-center">
+                    <div>
+                        <h6 class="mb-0">Devices Status</h6>
+                    </div>
+                    <div class="font-22 ms-auto">
+                        <i class="bx bx-dots-horizontal-rounded"></i>
+                    </div>
+                </div>
+                <div id="chart11"></div>
+
+                <div class="row align-items-center py-2">
+                    <div class="col-auto">
+                        <p class="mb-0">Sales</p>
+                    </div>
+                    <div class="col-auto">
+                        <p class="mb-0">1580</p>
+                    </div>
+                    <div class="col-auto">
+                        <p class="mb-0">875</p>
+                    </div>
+                    <div class="col">
+                        <div class="progress radius-10 mb-0" style="height:6px;">
+                            <div class="progress-bar bg-primary" role="progressbar" style="width: 85%"></div>
+                        </div>
+                    </div>
+                </div><!--end row-->
+
+                <div class="row align-items-center py-2">
+                    <div class="col-auto">
+                        <p class="mb-0">Users</p>
+                    </div>
+                    <div class="col-auto">
+                        <p class="mb-0">1852</p>
+                    </div>
+                    <div class="col-auto">
+                        <p class="mb-0">356</p>
+                    </div>
+                    <div class="col">
+                        <div class="progress radius-10 mb-0" style="height:6px;">
+                            <div class="progress-bar bg-danger" role="progressbar" style="width: 65%"></div>
+                        </div>
+                    </div>
+                </div><!--end row-->
+
+                <div class="row align-items-center py-2">
+                    <div class="col-auto">
+                        <p class="mb-0">Visits</p>
+                    </div>
+                    <div class="col-auto">
+                        <p class="mb-0">1280</p>
+                    </div>
+                    <div class="col-auto">
+                        <p class="mb-0">867</p>
+                    </div>
+                    <div class="col">
+                        <div class="progress radius-10 mb-0" style="height:6px;">
+                            <div class="progress-bar bg-success" role="progressbar" style="width: 45%"></div>
+                        </div>
+                    </div>
+                </div><!--end row-->
+            </div>
+        </div>
+    </div>
+     
+    <!-- Thiết bị trong kho, ngoài kho - Loại thiết bị (dynamic/static) -->
+    <div class="col d-flex">
+        <div class="card radius-10 p-0 w-100 p-3">
+            
+            <div class="card radius-10 shadow-none bg-transparent border">
+                <div class="card-body">
+                    <div class="d-flex align-items-center justify-content-center justify-content-lg-start">
+                        <div id="chart12"></div>
+                        <div class="">
+                            <p class="mb-0 d-flex align-items-center"><i class='bx bx-male text-danger fs-4'></i><span class="mx-2">Inside</span><span>65%</span></p>
+                            <p class="mb-0 d-flex align-items-center"><i class='bx bx-female text-primary fs-4'></i><span class="mx-2">Outside</span><span>35%</span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            
+            <div class="card radius-10 mb-0 shadow-none bg-transparent mb-0 border">
+                <div class="card-body">
+                    <div class="d-flex align-items-center mb-4">
+                        <div>
+                            <h6 class="mb-0">Device Type</h6>
+                        </div>
+                        <div class="font-22 ms-auto">
+                            <i class="bx bx-dots-horizontal-rounded"></i>
+                        </div>
+                    </div>
+                    <div class="row row-cols-3 g-3">
+                        <div class="col">
+                            <div class="d-flex gap-2">
+                                <h4 class="mb-1 d-flex">61 <span class="align-self-start fs-6">%</span></h4>
+                                <p class="mb-0 align-self-center text-success">(+8.4%)</p>
+                            </div>
+                            <p class="mb-0 d-flex align-items-center"><i class='bx bxs-circle text-info fs-6'></i><span class="mx-2">Static</span></p>
+                        </div>
+                        <div class="col">
+                            <div class="d-flex gap-2">
+                                <h4 class="mb-1 d-flex">28 <span class="align-self-start fs-6">%</span></h4>
+                                <p class="mb-0 align-self-center text-danger">(-1.9%)</p>
+                            </div>
+                            <p class="mb-0 d-flex align-items-center"><i class='bx bxs-circle text-success fs-6'></i><span class="mx-2">Dynamic</span></p>
+                        </div>
+                        <div class="col">
+                            <div class="d-flex gap-2">
+                                <h4 class="mb-1 d-flex">11 <span class="align-self-start fs-6">%</span></h4>
+                                <p class="mb-0 align-self-center text-success">(+6.8%)</p>
+                            </div>
+                            <p class="mb-0 d-flex align-items-center"><i class='bx bxs-circle text-warning fs-6'></i><span class="mx-2">Other</span></p>
+                        </div>
+                    </div>
+
+                    <div class="progress radius-10 mt-4" style="height: 10px">
+                        <div class="progress-bar bg-info" role="progressbar" style="width: 45%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
+                        <div class="progress-bar bg-success" role="progressbar" style="width: 30%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
+                        <div class="progress-bar bg-warning" role="progressbar" style="width: 25%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div><!--end row-->
+
+<div class="row">
+    <!-- Thống kê các thiết bị có trong model, trạm -->
+</div><!--end row-->
+
+
+@section scripts{
+    <!-- Vendor -->
+    <script src="~/Areas/NVIDIA/Content/Template/Sysadmin/assets/plugins/vectormap/jquery-jvectormap-2.0.2.min.js"></script>
+    <script src="~/Areas/NVIDIA/Content/Template/Sysadmin/assets/plugins/vectormap/jquery-jvectormap-world-mill-en.js"></script>
+
+
+    <script src="~/Areas/NVIDIA/Content/Template/Sysadmin/assets/plugins/highcharts/js/highcharts.js"></script>
+    <script src="~/Areas/NVIDIA/Content/Template/Sysadmin/assets/plugins/highcharts/js/exporting.js"></script>
+    <script src="~/Areas/NVIDIA/Content/Template/Sysadmin/assets/plugins/highcharts/js/variable-pie.js"></script>
+    <script src="~/Areas/NVIDIA/Content/Template/Sysadmin/assets/plugins/highcharts/js/export-data.js"></script>
+    <script src="~/Areas/NVIDIA/Content/Template/Sysadmin/assets/plugins/highcharts/js/accessibility.js"></script>
+
+    <script src="~/Areas/NVIDIA/Content/Template/Sysadmin/assets/plugins/apexcharts-bundle/js/apexcharts.min.js"></script>
+    <!-- Custom -->
+    @*<script src="~/Areas/NVIDIA/Content/Template/Sysadmin/assets/js/index.js"></script>*@
+    <script src="~/Areas/NVIDIA/Content/Custom/Dashboard/Dashboard.js"></script>
+}

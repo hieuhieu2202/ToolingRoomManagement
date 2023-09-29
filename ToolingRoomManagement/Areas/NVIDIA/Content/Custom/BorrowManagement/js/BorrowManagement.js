@@ -74,6 +74,7 @@ async function CreateTableBorrow(borrows) {
         switch (item.Status) {
             case "Pending": {
                 row.append(`<td><span class="badge bg-warning"><i class="fa-solid fa-timer"></i> Pending</span></td>`);
+                row.addClass('hl-pending');
                 break;
             }
             case "Approved": {
@@ -82,6 +83,7 @@ async function CreateTableBorrow(borrows) {
             }
             case "Rejected": {
                 row.append(`<td><span class="badge bg-danger"><i class="fa-solid fa-xmark"></i> Rejected</span></td>`);
+                row.addClass('hl-danger');
                 break;
             }
             default: {
@@ -262,18 +264,4 @@ function CreateTableCellUser(user) {
         opt.text(addUserEnName);
     }
     return opt;
-}
-function CreateUserName(user) {
-    var username = '';
-    if (user.VnName && user.VnName != '') {
-        username = `${user.Username} - ${user.VnName}`;
-    }
-    else if (user.CnName && user.CnName != '') {
-        username = `${user.Username} - ${user.CnName}`;
-    }
-    if (user.EnName != null && user.EnName != '') {
-        username += ` (${user.EnName})`;
-    }
-
-    return username;
 }

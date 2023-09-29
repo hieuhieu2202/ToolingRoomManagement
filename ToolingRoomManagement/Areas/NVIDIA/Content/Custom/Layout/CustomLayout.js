@@ -19,28 +19,19 @@
 }
 
 $(function () {
-    var CardID = GetCookieValue('UserInfo', 'CardID');
-    var VnName = GetCookieValue('UserInfo', 'VnName');
-    var CnName = GetCookieValue('UserInfo', 'CnName');
-    var EnName = GetCookieValue('UserInfo', 'EnName');
+    var User = {
+        CardID: GetCookieValue('UserInfo', 'CardID'),
+        VnName: GetCookieValue('UserInfo', 'VnName'),
+        CnName: GetCookieValue('UserInfo', 'CnName'),
+        EnName: GetCookieValue('UserInfo', 'EnName')
+    }
 
-    $('#CardID').text(CardID);
+    $('#CardID').text(User.CardID);
 
-    if (VnName != '') {
-        $('#UserAvatar').attr("src", GenerateAvatar(VnName));
-        $('#Name').text(VnName);
-    }
-    else if (CnName != '') {
-        $('#UserAvatar').attr("src", GenerateAvatar(CnName));
-        $('#Name').text(CnName);
-    }
-    else if (EnName != '') {
-        $('#UserAvatar').attr("src", GenerateAvatar(EnName));
-        $('#Name').text(EnName);
-    }
-    else {
-        $('#UserAvatar').attr("src", GenerateAvatar('#'));
-    }
+    var textUsername = CreateNavUserName(User);
+
+    $('#Name').text(textUsername);
+    $('#UserAvatar').attr("src", GenerateAvatar(textUsername));
 });
 
 //Draw avatar
@@ -107,4 +98,34 @@ function GetAjaxErrorMessage(error) {
     } else {
         return "Lỗi không xác định.";
     }
+}
+
+// Create Username
+function CreateNavUserName(user) {
+    var username = '';
+    if (user.VnName && user.VnName != '') {
+        username = `${user.VnName}`;
+    }
+    else if (user.CnName && user.CnName != '') {
+        username = `${user.CnName}`;
+    }
+    if (user.EnName != null && user.EnName != '') {
+        username += ` (${user.EnName})`;
+    }
+
+    return username;
+}
+function CreateUserName(user) {
+    var username = '';
+    if (user.VnName && user.VnName != '') {
+        username = `${user.Username} - ${user.VnName}`;
+    }
+    else if (user.CnName && user.CnName != '') {
+        username = `${user.Username} - ${user.CnName}`;
+    }
+    if (user.EnName != null && user.EnName != '') {
+        username += ` (${user.EnName})`;
+    }
+
+    return username;
 }

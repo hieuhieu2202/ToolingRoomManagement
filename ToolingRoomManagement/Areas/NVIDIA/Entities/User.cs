@@ -11,7 +11,8 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Entities
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.Text.Json.Serialization;
+
     public partial class User
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -23,6 +24,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Entities
     
         public int Id { get; set; }
         public string Username { get; set; }
+        [JsonIgnore]
         public string Password { get; set; }
         public string Email { get; set; }
         public string VnName { get; set; }
@@ -31,6 +33,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Entities
         public Nullable<System.DateTime> HireDate { get; set; }
         public Nullable<System.DateTime> LeaveDate { get; set; }
         public string Status { get; set; }
+        public Nullable<System.DateTime> CreatedDate { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserDepartment> UserDepartments { get; set; }

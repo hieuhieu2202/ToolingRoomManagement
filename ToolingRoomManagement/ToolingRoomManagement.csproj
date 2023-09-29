@@ -184,6 +184,8 @@
     <Content Include="Areas\NVIDIA\Content\Custom\BorrowManagement\js\BorrowManagement.js" />
     <Content Include="Areas\NVIDIA\Content\Custom\BorrowManagement\js\BorrowSign.js" />
     <Content Include="Areas\NVIDIA\Content\Custom\BorrowManagement\js\ReturnDevice.js" />
+    <Content Include="Areas\NVIDIA\Content\Custom\Dashboard\Dashboard.css" />
+    <Content Include="Areas\NVIDIA\Content\Custom\Dashboard\Dashboard.js" />
     <Content Include="Areas\NVIDIA\Content\Custom\DeviceManagement\css\AddDeviceBOM.css" />
     <Content Include="Areas\NVIDIA\Content\Custom\DeviceManagement\css\AddDeviceManual.css" />
     <Content Include="Areas\NVIDIA\Content\Custom\DeviceManagement\css\DeviceManagement.css" />

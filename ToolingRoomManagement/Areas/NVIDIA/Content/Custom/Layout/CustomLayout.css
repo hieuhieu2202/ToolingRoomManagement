@@ -37,3 +37,10 @@
 body::-webkit-scrollbar {
     display: none;
 }
+
+.hl-pending {
+    background-color: rgb(255 193 7 / 10%);
+}
+.hl-danger {
+    background-color: rgb(220 53 69 / 10%);
+}
