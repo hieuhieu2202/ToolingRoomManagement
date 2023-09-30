@@ -40,6 +40,10 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                         {
                             CreateCookieInfo(user);
                             CreateSession(user);
+
+                            user.LastSignIn = DateTime.Now;
+                            db.SaveChanges();
+
                             return Redirect(Url.Action("Index", "Dashboard", new { area = "NVIDIA" }));
                         }
                         else
@@ -80,6 +84,10 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                             }
                             CreateCookieInfo(user);
                             CreateSession(user);
+
+                            user.LastSignIn = DateTime.Now;
+                            db.SaveChanges();
+
                             return Json(new { status = true, redirectTo = Url.Action("Index", "Dashboard", new { area = "NVIDIA" }) });
                         }
                         else

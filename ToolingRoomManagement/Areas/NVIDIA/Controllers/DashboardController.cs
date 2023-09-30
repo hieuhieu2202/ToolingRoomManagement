@@ -21,7 +21,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
             return View();
         }
 
-        //Get total devices
+        // Get Chart Data
         public JsonResult GetDataChart1()
         {
             try
@@ -40,7 +40,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 thisWeekDevice = db.Devices.Where(d => d.DeviceDate >= thisWeek).Count();
                 lastWeekDevice = db.Devices.Where(d => d.DeviceDate >= lastWeek && d.DeviceDate < thisWeek).Count();
 
-                for(int i = 1; i <= 7; i++)
+                for (int i = 1; i <= 7; i++)
                 {
                     var date = thisWeek.AddDays(i);
                     var nextDate = date.AddDays(1);
@@ -54,7 +54,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
             }
             catch (Exception ex)
             {
-                return Json(new {status = false, message = ex.Message}, JsonRequestBehavior.AllowGet);
+                return Json(new { status = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
         public JsonResult GetDataChart2()
@@ -71,9 +71,9 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 var thisWeek = DateTime.Now.Date.AddDays(-7);
                 var lastWeek = DateTime.Now.Date.AddDays(-14);
 
-                totalQuantity = (int)db.Devices.Sum(d => d.QtyConfirm);
-                thisWeekQuantity = (int)db.Devices.Where(d => d.DeviceDate >= thisWeek).Sum(d => d.QtyConfirm);
-                lastWeekQuantity = (int)db.Devices.Where(d => d.DeviceDate >= lastWeek && d.DeviceDate < thisWeek).Sum(d => d.QtyConfirm);
+                totalQuantity = db.Devices.Sum(d => d.QtyConfirm) ?? 0;
+                thisWeekQuantity = db.Devices.Where(d => d.DeviceDate >= thisWeek).Sum(d => d.QtyConfirm) ?? 0;
+                lastWeekQuantity = db.Devices.Where(d => d.DeviceDate >= lastWeek && d.DeviceDate < thisWeek).Sum(d => d.QtyConfirm) ?? 0;
 
                 for (int i = 1; i <= 7; i++)
                 {
@@ -107,14 +107,14 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 var lastWeek = DateTime.Now.Date.AddDays(-14);
 
                 totalUser = db.Users.Count();
-                thisWeekUser = db.Users.Where(d => d.CreatedDate >= thisWeek).Count();
-                lastWeekUser = db.Users.Where(d => d.CreatedDate >= lastWeek && d.CreatedDate < thisWeek).Count();
+                thisWeekUser = db.Users.Where(d => d.LastSignIn >= thisWeek).Count();
+                lastWeekUser = db.Users.Where(d => d.LastSignIn >= lastWeek && d.LastSignIn < thisWeek).Count();
 
                 for (int i = 1; i <= 7; i++)
                 {
                     var date = thisWeek.AddDays(i);
                     var nextDate = date.AddDays(1);
-                    int dateQuantity = db.Users.Where(d => d.CreatedDate >= date && d.CreatedDate < nextDate).Count();
+                    int dateQuantity = db.Users.Where(d => d.LastSignIn >= date && d.LastSignIn < nextDate).Count();
 
                     arrWeekUser[i - 1] = dateQuantity;
                     arrWeekDate[i - 1] = date.ToString("MM-dd");
@@ -202,14 +202,14 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
             try
             {
                 List<int> listCountBorrow = new List<int>();
-                List<string> listDate = new List<string>();                
+                List<string> listDate = new List<string>();
 
                 switch (type.ToLower())
                 {
                     case "week":
                         {
                             var thisWeek = DateTime.Now.Date.AddDays(-7);
-                            for(int i = 1; i <= 7; i++)
+                            for (int i = 1; i <= 7; i++)
                             {
                                 var thisDate = thisWeek.AddDays(i);
                                 var nextDate = thisDate.AddDays(1);
@@ -225,7 +225,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                             var thisMonth = new DateTime(DateTime.Now.Year - 1, DateTime.Now.Month, 1);
                             var lastDayOfMonth = thisMonth.AddMonths(1).AddDays(-1);
 
-                            for (int i = 1; i<=12; i++)
+                            for (int i = 1; i <= 12; i++)
                             {
                                 var iLastThisMonth = lastDayOfMonth.AddMonths(i);
                                 var iFirstThisMonth = new DateTime(iLastThisMonth.Year, iLastThisMonth.Month, 1);
@@ -271,16 +271,16 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                                 var Borrows = db.Borrows.Where(b => b.DateBorrow >= thisDate && b.DateBorrow < nextDate && b.Status == "Approved");
                                 var borrowQty = 0;
                                 var returnQty = 0;
-                                foreach(var borrow in Borrows)
+                                foreach (var borrow in Borrows)
                                 {
                                     var DeviceBorrows = borrow.BorrowDevices;
-                                    foreach(var device in DeviceBorrows)
+                                    foreach (var device in DeviceBorrows)
                                     {
-                                        if(borrow.Type == "Borrow")
+                                        if (borrow.Type == "Borrow")
                                         {
                                             borrowQty += device.BorrowQuantity ?? 0;
                                         }
-                                        else if(borrow.Type == "Return")
+                                        else if (borrow.Type == "Return")
                                         {
                                             returnQty += device.BorrowQuantity ?? 0;
                                         }
@@ -333,15 +333,14 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                             goto case "week";
                         }
                 }
-                return Json(new { status = true, listReturnQty = listReturnQty.ToArray(), listBorrowQty = listBorrowQty.ToArray(), listDate = listDate.ToArray() }, JsonRequestBehavior.AllowGet);
+                return Json(new { status = true, listBorrowQty = listBorrowQty.ToArray(), listReturnQty = listReturnQty.ToArray(), listDate = listDate.ToArray() }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
                 return Json(new { status = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
-
-        public JsonResult GetDataChart78910()
+        public JsonResult GetDataChart8910()
         {
             try
             {
@@ -356,7 +355,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 {
                     var thisDate = thisWeek.AddDays(i);
                     var nextDate = thisDate.AddDays(1);
-                    var thisDateBorrow = db.Borrows.Where(b => b.DateBorrow >= thisDate && b.DateBorrow < nextDate );
+                    var thisDateBorrow = db.Borrows.Where(b => b.DateBorrow >= thisDate && b.DateBorrow < nextDate);
 
                     int approve = thisDateBorrow.Where(b => b.Status == "Approved").Count();
                     int pending = thisDateBorrow.Where(b => b.Status == "Pending").Count();
@@ -375,5 +374,175 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 return Json(new { status = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
+        public JsonResult GetDataChart11()
+        {
+            try
+            {
+                int Unconfirmed = db.Devices.Where(d => d.Status == "Unconfirmed").Count();
+                int PartConfirmed = db.Devices.Where(d => d.Status == "Part Confirmed").Count();
+                int Confirmed = db.Devices.Where(d => d.Status == "Confirmed").Count();
+                int Locked = db.Devices.Where(d => d.Status == "Locked").Count();
+                int OutRange = db.Devices.Where(d => d.Status == "Out Range").Count();
+
+                return Json(new { status = true, Unconfirmed, PartConfirmed, Confirmed, Locked, OutRange }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        public JsonResult GetDataChart12()
+        {
+            try
+            {
+                int TotalQuantity = db.Devices.Where(d => d.Status != "Unconfirmed").Sum(d => d.QtyConfirm) ?? 0;
+                int TotalRealQuantity = db.Devices.Where(d => d.Status != "Unconfirmed").Sum(d => d.RealQty) ?? 0;
+
+                int TotalStatic = db.Devices.Where(d => d.Type == "S").Count();
+                int TotalDynamic = db.Devices.Where(d => d.Type == "D").Count();
+                int TotalOrther = db.Devices.Where(d => d.Type != "D" || d.Type != "S").Count();
+
+                return Json(new { status = true, TotalQuantity, TotalRealQuantity, TotalStatic, TotalDynamic, TotalOrther }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        // Get all model
+        public JsonResult GetModels()
+        {
+            try
+            {
+                List<ModelsResult> ModelsResults = new List<ModelsResult>();
+
+                foreach (Entities.Model model in db.Models.ToList())
+                {
+                    // Lấy model
+                    ModelsResult modelsResult = new ModelsResult();
+                    modelsResult.Model = model;
+
+                    // Lấy các đơn mượn
+                    List<Entities.Borrow> borrows = db.Borrows.Where(b => b.IdModel == model.Id && b.Status == "Approved").ToList();
+
+                    // Tính số trạm theo đơn mượn
+                    modelsResult.CountStation = borrows.Select(b => b.IdStation).Distinct().Count();
+
+                    // Tính số thiết bị theo đơn mượn
+                    List<Entities.Device> devices = new List<Entities.Device>();
+                    foreach (Entities.Borrow borrow in borrows)
+                    {
+                        foreach (BorrowDevice borrowDevice in borrow.BorrowDevices)
+                        {
+                            Entities.Device device = borrowDevice.Device;
+                            if (!devices.Any(d => d.Id == device.Id))
+                            {
+                                devices.Add(device);
+                            }
+                        }
+                    }
+                    modelsResult.CountDevice = devices.Count();
+
+                    ModelsResults.Add(modelsResult);
+                }
+
+                return Json(new { status = true, ModelsResults }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        public JsonResult GetModelDetails(int Id)
+        {
+            try
+            {
+                List<ModelDetailsResult> ModelDetailsResults = new List<ModelDetailsResult>();
+
+                List<Entities.Borrow> borrows = db.Borrows.Where(b => b.IdModel == Id && b.Status == "Approved").ToList();
+                foreach (var borrow in borrows)
+                {
+                    ModelDetailsResult ModelDetailsResult = new ModelDetailsResult();
+                    if (!ModelDetailsResults.Any(check => check.Station.Id == borrow.IdStation))
+                    {
+                        ModelDetailsResult.Station = borrow.Station;
+                        ModelDetailsResult.Devices = new List<Entities.Device>();
+
+                        ModelDetailsResults.Add(ModelDetailsResult);
+                    }
+                    else
+                    {
+                        ModelDetailsResult = ModelDetailsResults.FirstOrDefault(check => check.Station.Id == borrow.IdStation);
+                    }
+
+                    foreach (var borrowDevice in borrow.BorrowDevices)
+                    {
+                        if (!ModelDetailsResult.Devices.Any(check => check.Id == borrowDevice.Device.Id))
+                        {
+                            ModelDetailsResult.Devices.Add(borrowDevice.Device);
+                        }
+                    }
+                }
+
+                return Json(new { status = true, ModelDetailsResults }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        public JsonResult GetStationDetails(int IdModel, int IdStation)
+        {
+            try
+            {
+                List<Entities.Borrow> borrows = db.Borrows.Where(b => b.IdModel == IdModel && b.IdStation == IdStation && b.Status == "Approved").ToList();
+
+                List<StationDetailsResult> StationDetailsResults = new List<StationDetailsResult>();
+
+                foreach (var borrow in borrows)
+                {
+                    foreach(var borrowDevice in borrow.BorrowDevices)
+                    {
+                        if(!StationDetailsResults.Any(d => d.Device.Id == borrowDevice.Device.Id))
+                        {
+                            StationDetailsResults.Add(new StationDetailsResult
+                            {
+                                Device = borrowDevice.Device,
+                                Quantity = borrowDevice.BorrowQuantity ?? 0
+                            });
+                        }
+                        else
+                        {
+                            StationDetailsResult StationDetailsResult = StationDetailsResults.FirstOrDefault(d => d.Device.Id == borrowDevice.Device.Id);
+                            StationDetailsResult.Quantity += borrowDevice.BorrowQuantity ?? 0;
+                        }
+                    }
+                }
+
+                return Json(new { status = true , StationDetailsResults }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+    }
+    public class ModelsResult
+    {
+        public Entities.Model Model { get; set; }
+        public int CountStation { get; set; }
+        public int CountDevice { get; set; }
+    }
+    public class ModelDetailsResult
+    {
+        public Entities.Station Station { get; set; }
+        public List<Entities.Device> Devices { get; set; }
+    }
+    public class StationDetailsResult
+    {
+        public Entities.Device Device { get; set; }
+        public int Quantity { get; set; }
     }
 }

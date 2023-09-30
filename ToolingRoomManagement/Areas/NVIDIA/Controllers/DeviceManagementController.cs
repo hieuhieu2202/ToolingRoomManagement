@@ -39,117 +39,115 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                     ACC_KIT = form["ACCKIT"],
                     Type = form["Type"],
                     Status = form["Status"],
+
                 };
-
-                double dBuffer = double.TryParse(form["Buffer"], out dBuffer) ? dBuffer : 0;
-                device.Buffer = dBuffer;
-
-                int dLifeCycle = int.TryParse(form["LifeCycle"], out dLifeCycle) ? dLifeCycle : 0;
-                device.LifeCycle = dLifeCycle;
-
-                int dForcast = int.TryParse(form["Forcast"], out dForcast) ? dForcast : 0;
-                device.Forcast = dForcast;
-
-                int dQuantity = int.TryParse(form["Quantity"], out dQuantity) ? dQuantity : 0;
-                device.Quantity = dQuantity;
-
-                int dQtyConfirm = int.TryParse(form["Quantity"], out dQtyConfirm) ? dQtyConfirm : 0;
-                device.QtyConfirm = dQtyConfirm;
-
                 int dIdWarehouse = int.TryParse(form["Warehouse"], out dIdWarehouse) ? dIdWarehouse : 0;
                 device.IdWareHouse = dIdWarehouse;
 
-                string dProductName = form["Product"];
-                string dModelName = form["Model"];
-                string dStationName = form["Station"];
-                string dGroupName = form["Group"];
-                string dVendorName = form["Vendor"];
-
-                Entities.Product product = db.Products.FirstOrDefault(p => p.ProductName == dProductName);
-                Entities.Model model = db.Models.FirstOrDefault(p => p.ModelName == dModelName);
-                Entities.Station station = db.Stations.FirstOrDefault(p => p.StationName == dStationName);
-                Entities.Group group = db.Groups.FirstOrDefault(p => p.GroupName == dGroupName);
-                Entities.Vendor vendor = db.Vendors.FirstOrDefault(p => p.VendorName == dVendorName);
-
-                // Add & Create Product
-                if (product == null)
+                if (!db.Devices.Any(d => d.DeviceCode == device.DeviceCode && d.IdWareHouse == device.IdWareHouse))
                 {
-                    product = new Entities.Product { ProductName = dProductName };
-                    db.Products.Add(product);
-                }
-                device.IdProduct = product.Id;
+                    double dBuffer = double.TryParse(form["Buffer"], out dBuffer) ? dBuffer : 0;
+                    device.Buffer = dBuffer;
 
-                // Add & Create Model
-                if (model == null)
-                {
-                    model = new Entities.Model { ModelName = dModelName };
-                    db.Models.Add(model);
-                }
-                device.IdModel = model.Id;
+                    int dLifeCycle = int.TryParse(form["LifeCycle"], out dLifeCycle) ? dLifeCycle : 0;
+                    device.LifeCycle = dLifeCycle;
 
-                // Add & Create Station
-                if (station == null)
-                {
-                    station = new Entities.Station { StationName = dStationName };
-                    db.Stations.Add(station);
-                }
-                device.IdStation = station.Id;
+                    int dForcast = int.TryParse(form["Forcast"], out dForcast) ? dForcast : 0;
+                    device.Forcast = dForcast;
 
-                // Add & Create Group
-                if (group == null)
-                {
-                    group = new Entities.Group { GroupName = dGroupName };
-                    db.Groups.Add(group);
-                }
-                device.IdGroup = group.Id;
+                    int dQuantity = int.TryParse(form["Quantity"], out dQuantity) ? dQuantity : 0;
+                    device.Quantity = dQuantity;
 
-                // Add & Create Vendor
-                if (vendor == null)
-                {
-                    vendor = new Entities.Vendor { VendorName = dVendorName };
-                    db.Vendors.Add(vendor);
-                }
-                device.IdVendor = vendor.Id;
+                    int dQtyConfirm = int.TryParse(form["Quantity"], out dQtyConfirm) ? dQtyConfirm : 0;
+                    device.QtyConfirm = dQtyConfirm;
+                    
+                    string dProductName = form["Product"];
+                    string dModelName = form["Model"];
+                    string dStationName = form["Station"];
+                    string dGroupName = form["Group"];
+                    string dVendorName = form["Vendor"];
 
-                DateTime dDeviceDate = DateTime.TryParse(form["Createddate"], out dDeviceDate) ? dDeviceDate : DateTime.Now;
-                device.DeviceDate = dDeviceDate;
+                    Entities.Product product = db.Products.FirstOrDefault(p => p.ProductName == dProductName);
+                    Entities.Model model = db.Models.FirstOrDefault(p => p.ModelName == dModelName);
+                    Entities.Station station = db.Stations.FirstOrDefault(p => p.StationName == dStationName);
+                    Entities.Group group = db.Groups.FirstOrDefault(p => p.GroupName == dGroupName);
+                    Entities.Vendor vendor = db.Vendors.FirstOrDefault(p => p.VendorName == dVendorName);
 
-                device.CreatedDate = DateTime.Now;
-                device.RealQty = dQtyConfirm;
-
-                device.Status = Data.Common.CheckStatus(device);
-
-                db.Devices.Add(device);
-
-                // Create Layout
-                if (form["Layout"] != null)
-                {
-                    var IdLayouts = form["Layout"].Split(',').Select(Int32.Parse).ToArray();
-                
-                    foreach (var IdLayout in IdLayouts)
+                    // Add & Create Product
+                    if (product == null)
                     {
-                        if (!db.DeviceWarehouseLayouts.Any(l => l.IdDevice == device.Id && l.IdWarehouseLayout == IdLayout))
+                        product = new Entities.Product { ProductName = dProductName };
+                        db.Products.Add(product);
+                    }
+                    device.IdProduct = product.Id;
+
+                    // Add & Create Model
+                    if (model == null)
+                    {
+                        model = new Entities.Model { ModelName = dModelName };
+                        db.Models.Add(model);
+                    }
+                    device.IdModel = model.Id;
+
+                    // Add & Create Station
+                    if (station == null)
+                    {
+                        station = new Entities.Station { StationName = dStationName };
+                        db.Stations.Add(station);
+                    }
+                    device.IdStation = station.Id;
+
+                    // Add & Create Group
+                    if (group == null)
+                    {
+                        group = new Entities.Group { GroupName = dGroupName };
+                        db.Groups.Add(group);
+                    }
+                    device.IdGroup = group.Id;
+
+                    // Add & Create Vendor
+                    if (vendor == null)
+                    {
+                        vendor = new Entities.Vendor { VendorName = dVendorName };
+                        db.Vendors.Add(vendor);
+                    }
+                    device.IdVendor = vendor.Id;
+
+                    DateTime dDeviceDate = DateTime.TryParse(form["Createddate"], out dDeviceDate) ? dDeviceDate : DateTime.Now;
+                    device.DeviceDate = dDeviceDate;
+
+                    device.CreatedDate = DateTime.Now;
+                    device.RealQty = dQtyConfirm;
+
+                    device.Status = Data.Common.CheckStatus(device);
+
+                    db.Devices.Add(device);
+
+                    // Create Layout
+                    if (form["Layout"] != null)
+                    {
+                        var IdLayouts = form["Layout"].Split(',').Select(Int32.Parse).ToArray();
+
+                        foreach (var IdLayout in IdLayouts)
                         {
-                            DeviceWarehouseLayout layout = new DeviceWarehouseLayout
+                            if (!db.DeviceWarehouseLayouts.Any(l => l.IdDevice == device.Id && l.IdWarehouseLayout == IdLayout))
                             {
-                                IdDevice = device.Id,
-                                IdWarehouseLayout = IdLayout
-                            };
-                            db.DeviceWarehouseLayouts.Add(layout);
+                                DeviceWarehouseLayout layout = new DeviceWarehouseLayout
+                                {
+                                    IdDevice = device.Id,
+                                    IdWarehouseLayout = IdLayout
+                                };
+                                db.DeviceWarehouseLayouts.Add(layout);
+                            }
                         }
                     }
+                    db.SaveChanges();
+                    return Json(new { status = true });
                 }
-
-                db.SaveChanges();
-
-                Task SaveLog = Task.Run(() =>
+                else
                 {
-                    Entities.User user = (Entities.User)Session["SignSession"];
-                    string path = Server.MapPath("/Areas/NVIDIA/Data/DeviceHistoryLog");
-                    Data.Common.SaveDeviceHistoryLog(user, null, device, path);
-                });
-
-                return Json(new { status = true });
+                    return Json(new { status = false, message = "The device already exists." });
+                }
             }
             catch (Exception ex)
             {
@@ -185,12 +183,12 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                         db.Devices.AddOrUpdate(rDevice);
                         db.SaveChanges();
 
-                        Task SaveLog = Task.Run(() =>
-                        {
-                            Entities.User user = (Entities.User)Session["SignSession"];
-                            string path = Server.MapPath("/Areas/NVIDIA/Data/DeviceHistoryLog");
-                            Data.Common.SaveDeviceHistoryLog(user, afterDevice, rDevice, path);
-                        });
+                        //Task SaveLog = Task.Run(() =>
+                        //{
+                        //    Entities.User user = (Entities.User)Session["SignSession"];
+                        //    string path = Server.MapPath("/Areas/NVIDIA/Data/DeviceHistoryLog");
+                        //    Data.Common.SaveDeviceHistoryLog(user, afterDevice, rDevice, path);
+                        //});
 
                         return Json(new { status = true, device = rDevice });
                     }
@@ -254,12 +252,12 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                     db.Devices.AddOrUpdate(device);
                     db.SaveChanges();
 
-                    Task SaveLog = Task.Run(() =>
-                    {
-                        Entities.User user = (Entities.User)Session["SignSession"];
-                        string path = Server.MapPath("/Areas/NVIDIA/Data/DeviceHistoryLog");
-                        Data.Common.SaveDeviceHistoryLog(user, afterDevice, device, path);
-                    });
+                    //Task SaveLog = Task.Run(() =>
+                    //{
+                    //    Entities.User user = (Entities.User)Session["SignSession"];
+                    //    string path = Server.MapPath("/Areas/NVIDIA/Data/DeviceHistoryLog");
+                    //    Data.Common.SaveDeviceHistoryLog(user, afterDevice, device, path);
+                    //});
 
                     return Json(new { status = true, device });
                 }
@@ -405,12 +403,12 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                                 db.Devices.AddOrUpdate(dbDevice);
                                 db.SaveChanges();
 
-                                Task SaveLog = Task.Run(() =>
-                                {
-                                    Entities.User user = (Entities.User)Session["SignSession"];
-                                    string path = Server.MapPath("/Areas/NVIDIA/Data/DeviceHistoryLog");
-                                    Data.Common.SaveDeviceHistoryLog(user, null, dbDevice, path);
-                                });
+                                //Task SaveLog = Task.Run(() =>
+                                //{
+                                //    Entities.User user = (Entities.User)Session["SignSession"];
+                                //    string path = Server.MapPath("/Areas/NVIDIA/Data/DeviceHistoryLog");
+                                //    Data.Common.SaveDeviceHistoryLog(user, null, dbDevice, path);
+                                //});
                             }
 
                             if (!products.Any(p => p.Id == device.Product.Id) && (device.Product.ProductName != null || device.Product.MTS != null)) products.Add(device.Product);

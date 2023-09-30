@@ -138,6 +138,7 @@
           <Property Name="LeaveDate" Type="date" />
           <Property Name="Status" Type="nvarchar" MaxLength="25" />
           <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="LastSignIn" Type="datetime" />
         </EntityType>
         <EntityType Name="UserBorrowSign">
           <Key>
@@ -729,6 +730,7 @@
           <NavigationProperty Name="UserRoles" Relationship="ToolingRoomModel.FK_UserRole_User" FromRole="User" ToRole="UserRole" />
           <Property Name="Status" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
           <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="LastSignIn" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="UserDepartment">
           <Key>
@@ -1195,6 +1197,7 @@
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="ToolingRoomModel.User">
               <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="LastSignIn" ColumnName="LastSignIn" />
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="LeaveDate" ColumnName="LeaveDate" />

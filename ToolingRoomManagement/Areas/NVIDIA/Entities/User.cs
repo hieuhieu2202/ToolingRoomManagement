@@ -34,6 +34,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Entities
         public Nullable<System.DateTime> LeaveDate { get; set; }
         public string Status { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
+        public Nullable<System.DateTime> LastSignIn { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserDepartment> UserDepartments { get; set; }

@@ -7,849 +7,1351 @@
     CreateChart6();
     CreateChart7();
     CreateChart8910();
+    CreateChart11();
+    CreateChart12();
+    GetModels();
+    offcanvasDetails = new bootstrap.Offcanvas($('#offcanvasModel'));
 });
 
-function CreateSpanRate(Num_1, Num_2) {
-    let percentageChange;
+// Chart
+{
+    // Render Span
+    function CreateSpanRate(Num_1, Num_2) {
+        let percentageChange;
 
-    if (Num_2 !== 0) {
-        percentageChange = ((Num_1 - Num_2) / Num_2) * 100;
-    } else {
-        percentageChange = 100;
+        if (Num_2 !== 0) {
+            percentageChange = ((Num_1 - Num_2) / Num_2) * 100;
+        } else {
+            percentageChange = 100;
+        }
+        let displayPercentageChange = Number.isInteger(percentageChange) ? percentageChange : percentageChange.toFixed(2);
+
+        var type = {
+            text: 'primary',
+            arrow: 'arrow-up'
+        };
+
+        if (Num_1 > Num_2) {
+            type.text = 'success';
+            type.arrow = 'arrow-up';
+        }
+        else {
+            type.text = 'danger';
+            type.arrow = 'arrow-down';
+        }
+
+        return `<span class="text-${type.text}" title="this week: ${Num_1}, last week: ${Num_2}"><i class="lni lni-${type.arrow}"></i> ${displayPercentageChange}%</span> vs last 7 days`;
     }
-    let displayPercentageChange = Number.isInteger(percentageChange) ? percentageChange : percentageChange.toFixed(2);
+    //<!-- Tổng số thiết bị -->
+    function CreateChart1() {
+        $.ajax({
+            type: "GET",
+            url: "/NVIDIA/Dashboard/GetDataChart1",
+            dataType: "json",
+            contentType: "application/json;charset=utf-8",
+            success: function (response) {
+                if (response.status) {
+                    $('#chart1-totalDevice').text(response.totalDevice);
 
-    var type = {
-        text: 'primary',
-        arrow: 'arrow-up'
-    };
+                    $('#chart1-rateDevices').html(CreateSpanRate(response.thisWeekDevice, response.lastWeekDevice));
 
-    if (Num_1 > Num_2) {
-        type.text = 'success';
-        type.arrow = 'arrow-up';
+                    Chart1(response.thisWeekDevices, response.thisWeekDate);
+                }
+                else {
+                    toastr["error"](response.message, "ERROR");
+                }
+            },
+            error: function (error) {
+                Swal.fire("Something went wrong!", GetAjaxErrorMessage(error), "error");
+            }
+        });
     }
-    else {
-        type.text = 'danger';
-        type.arrow = 'arrow-down';
-    }
-
-    return `<span class="text-${type.text}" title="this week: ${Num_1}, last week: ${Num_2}"><i class="lni lni-${type.arrow}"></i> ${displayPercentageChange}%</span> vs last 7 days`;
-}
-
-//<!-- Tổng số thiết bị -->
-function CreateChart1() {
-    $.ajax({
-        type: "GET",
-        url: "/NVIDIA/Dashboard/GetDataChart1",
-        dataType: "json",
-        contentType: "application/json;charset=utf-8",
-        success: function (response) {
-            if (response.status) {
-                $('#chart1-totalDevice').text(response.totalDevice);
-
-                $('#chart1-rateDevices').html(CreateSpanRate(response.thisWeekDevice, response.lastWeekDevice));
-
-                Chart1(response.thisWeekDevices, response.thisWeekDate);
-            }
-            else {
-                toastr["error"](response.message, "ERROR");
-            }
-        },
-        error: function (error) {
-            Swal.fire("Something went wrong!", GetAjaxErrorMessage(error), "error");
-        }
-    });
-}
-function Chart1(data, categories) {
-    // chart 1
-    var options = {
-        series: [{
-            name: 'Total Devices',
-            data: data
-        }],
-        chart: {
-            type: 'area',
-            height: 60,
-            toolbar: {
-                show: false
-            },
-            zoom: {
-                enabled: false
-            },
-            dropShadow: {
-                enabled: false,
-                top: 3,
-                left: 14,
-                blur: 4,
-                opacity: 0.12,
-                color: '#8833ff',
-            },
-            sparkline: {
-                enabled: true
-            }
-        },
-        markers: {
-            size: 0,
-            colors: ["#8833ff"],
-            strokeColors: "#fff",
-            strokeWidth: 2,
-            hover: {
-                size: 7,
-            }
-        },
-        plotOptions: {
-            bar: {
-                horizontal: false,
-                columnWidth: '45%',
-                endingShape: 'rounded'
-            },
-        },
-        dataLabels: {
-            enabled: false
-        },
-        stroke: {
-            show: true,
-            width: 2.5,
-            curve: 'smooth'
-        },
-        colors: ["#8833ff"],
-        xaxis: {
-            categories: categories,
-        },
-        fill: {
-            opacity: 1
-        },
-        tooltip: {
-            theme: 'dark',
-            fixed: {
-                enabled: false
-            },
-            x: {
-                show: true
-            },
-            y: {
-                title: {
-                    formatter: function (seriesName) {
-                        return ''
-                    }
-                }
-            },
-            marker: {
-                show: false
-            }
-        }
-    };
-    var chart = new ApexCharts(document.querySelector("#chart1"), options);
-    chart.render();
-}
-
-//<!-- Tổng số lượng -->
-function CreateChart2() {
-    $.ajax({
-        type: "GET",
-        url: "/NVIDIA/Dashboard/GetDataChart2",
-        dataType: "json",
-        contentType: "application/json;charset=utf-8",
-        success: function (response) {
-            if (response.status) {
-                $('#chart2-totalQty').text(response.totalQuantity);
-
-                $('#chart2-rateQty').html(CreateSpanRate(response.thisWeekQuantity, response.lastWeekQuantity));
-
-                Chart2(response.arrWeekQuantity, response.arrWeekDate);
-            }
-            else {
-                toastr["error"](response.message, "ERROR");
-            }
-        },
-        error: function (error) {
-            Swal.fire("Something went wrong!", GetAjaxErrorMessage(error), "error");
-        }
-    });
-}
-function Chart2(data, categories) {
-    var options = {
-        series: [{
-            name: 'Total Quantity',
-            data: data
-        }],
-        chart: {
-            type: 'area',
-            height: 60,
-            toolbar: {
-                show: false
-            },
-            zoom: {
-                enabled: false
-            },
-            dropShadow: {
-                enabled: false,
-                top: 3,
-                left: 14,
-                blur: 4,
-                opacity: 0.12,
-                color: '#f41127',
-            },
-            sparkline: {
-                enabled: true
-            }
-        },
-        markers: {
-            size: 0,
-            colors: ["#f41127"],
-            strokeColors: "#fff",
-            strokeWidth: 2,
-            hover: {
-                size: 7,
-            }
-        },
-        plotOptions: {
-            bar: {
-                horizontal: false,
-                columnWidth: '40%',
-                endingShape: 'rounded'
-            },
-        },
-        dataLabels: {
-            enabled: false
-        },
-        stroke: {
-            show: true,
-            width: 2.5,
-            curve: 'smooth'
-        },
-        colors: ["#f41127"],
-        xaxis: {
-            categories: categories,
-        },
-        fill: {
-            opacity: 1
-        },
-        tooltip: {
-            theme: 'dark',
-            fixed: {
-                enabled: false
-            },
-            x: {
-                show: true
-            },
-            y: {
-                title: {
-                    formatter: function (seriesName) {
-                        return ''
-                    }
-                }
-            },
-            marker: {
-                show: false
-            }
-        }
-    };
-    var chart = new ApexCharts(document.querySelector("#chart2"), options);
-    chart.render();
-}
-
-//<!--Tổng số người dùng-->
-function CreateChart3() {
-    $.ajax({
-        type: "GET",
-        url: "/NVIDIA/Dashboard/GetDataChart3",
-        dataType: "json",
-        contentType: "application/json;charset=utf-8",
-        success: function (response) {
-            if (response.status) {
-                $('#chart3-totalUser').text(response.totalUser);
-
-                $('#chart3-rateUser').html(CreateSpanRate(response.thisWeekUser, response.lastWeekUser));
-
-                Chart3(response.arrWeekUser, response.arrWeekDate);
-            }
-            else {
-                toastr["error"](response.message, "ERROR");
-            }
-        },
-        error: function (error) {
-            Swal.fire("Something went wrong!", GetAjaxErrorMessage(error), "error");
-        }
-    });
-}
-function Chart3(data, categories) {
-    var options = {
-        series: [{
-            name: 'Total User',
-            data: data
-        }],
-        chart: {
-            type: 'area',
-            height: 60,
-            toolbar: {
-                show: false
-            },
-            zoom: {
-                enabled: false
-            },
-            dropShadow: {
-                enabled: false,
-                top: 3,
-                left: 14,
-                blur: 4,
-                opacity: 0.12,
-                color: '#ffc107',
-            },
-            sparkline: {
-                enabled: true
-            }
-        },
-        markers: {
-            size: 0,
-            colors: ["#ffc107"],
-            strokeColors: "#fff",
-            strokeWidth: 2,
-            hover: {
-                size: 7,
-            }
-        },
-        plotOptions: {
-            bar: {
-                horizontal: false,
-                columnWidth: '45%',
-                endingShape: 'rounded'
-            },
-        },
-        dataLabels: {
-            enabled: false
-        },
-        stroke: {
-            show: true,
-            width: 2.5,
-            curve: 'smooth'
-        },
-        colors: ["#ffc107"],
-        xaxis: {
-            categories: categories,
-        },
-        fill: {
-            opacity: 1
-        },
-        tooltip: {
-            theme: 'dark',
-            fixed: {
-                enabled: false
-            },
-            x: {
-                show: true
-            },
-            y: {
-                title: {
-                    formatter: function (seriesName) {
-                        return ''
-                    }
-                }
-            },
-            marker: {
-                show: false
-            }
-        }
-    };
-    var chart = new ApexCharts(document.querySelector("#chart3"), options);
-    chart.render();
-}
-
-//<!-- Tổng số yêu cầu mượn -->
-function CreateChart4() {
-    $.ajax({
-        type: "GET",
-        url: "/NVIDIA/Dashboard/GetDataChart4",
-        dataType: "json",
-        contentType: "application/json;charset=utf-8",
-        success: function (response) {
-            if (response.status) {
-                $('#chart4-totalBorrow').text(response.totalBorrow);
-
-                $('#chart4-rateBorrow').html(CreateSpanRate(response.thisWeekBorrow, response.lastWeekBorrow));
-
-                Chart4(response.arrWeekBorrow, response.arrWeekDate);
-            }
-            else {
-                toastr["error"](response.message, "ERROR");
-            }
-        },
-        error: function (error) {
-            Swal.fire("Something went wrong!", GetAjaxErrorMessage(error), "error");
-        }
-    });
-}
-function Chart4(data, categories) {
-    var options = {
-        series: [{
-            name: 'Total Borrow',
-            data: data
-        }],
-        chart: {
-            type: 'area',
-            height: 60,
-            toolbar: {
-                show: false
-            },
-            zoom: {
-                enabled: false
-            },
-            dropShadow: {
-                enabled: false,
-                top: 3,
-                left: 14,
-                blur: 4,
-                opacity: 0.12,
-                color: '#0dcaf0',
-            },
-            sparkline: {
-                enabled: true
-            }
-        },
-        markers: {
-            size: 0,
-            colors: ["#0dcaf0"],
-            strokeColors: "#fff",
-            strokeWidth: 2,
-            hover: {
-                size: 7,
-            }
-        },
-        plotOptions: {
-            bar: {
-                horizontal: false,
-                columnWidth: '40%',
-                endingShape: 'rounded'
-            },
-        },
-        dataLabels: {
-            enabled: false
-        },
-        stroke: {
-            show: true,
-            width: 2.4,
-            curve: 'smooth'
-        },
-        colors: ["#0dcaf0"],
-        xaxis: {
-            categories: categories,
-        },
-        fill: {
-            opacity: 1
-        },
-        tooltip: {
-            theme: 'dark',
-            fixed: {
-                enabled: false
-            },
-            x: {
-                show: true
-            },
-            y: {
-                title: {
-                    formatter: function (seriesName) {
-                        return ''
-                    }
-                }
-            },
-            marker: {
-                show: false
-            }
-        }
-    };
-    var chart = new ApexCharts(document.querySelector("#chart4"), options);
-    chart.render();
-}
-
-//<!-- Tổng số yêu cầu được chấp nhận -->
-function CreateChart5() {
-    $.ajax({
-        type: "GET",
-        url: "/NVIDIA/Dashboard/GetDataChart5",
-        dataType: "json",
-        contentType: "application/json;charset=utf-8",
-        success: function (response) {
-            if (response.status) {
-                $('#chart5-totalApprove').text(response.totalApprove);
-
-                $('#chart5-rateApprove').html(CreateSpanRate(response.thisWeekApprove, response.lastWeekApprove));
-
-                Chart5(response.arrWeekApprove, response.arrWeekDate);
-            }
-            else {
-                toastr["error"](response.message, "ERROR");
-            }
-        },
-        error: function (error) {
-            Swal.fire("Something went wrong!", GetAjaxErrorMessage(error), "error");
-        }
-    });
-}
-function Chart5(data, categories) {
-    var options = {
-        series: [{
-            name: 'Bounce Rate',
-            data: data
-        }],
-        chart: {
-            type: 'area',
-            height: 60,
-            toolbar: {
-                show: false
-            },
-            zoom: {
-                enabled: false
-            },
-            dropShadow: {
-                enabled: false,
-                top: 3,
-                left: 14,
-                blur: 4,
-                opacity: 0.12,
-                color: '#29cc39',
-            },
-            sparkline: {
-                enabled: true
-            }
-        },
-        markers: {
-            size: 0,
-            colors: ["#29cc39"],
-            strokeColors: "#fff",
-            strokeWidth: 2,
-            hover: {
-                size: 7,
-            }
-        },
-        plotOptions: {
-            bar: {
-                horizontal: false,
-                columnWidth: '45%',
-                endingShape: 'rounded'
-            },
-        },
-        dataLabels: {
-            enabled: false
-        },
-        stroke: {
-            show: true,
-            width: 2.4,
-            curve: 'smooth'
-        },
-        colors: ["#29cc39"],
-        xaxis: {
-            categories: categories,
-        },
-        fill: {
-            opacity: 1
-        },
-        tooltip: {
-            theme: 'dark',
-            fixed: {
-                enabled: false
-            },
-            x: {
-                show: true
-            },
-            y: {
-                title: {
-                    formatter: function (seriesName) {
-                        return ''
-                    }
-                }
-            },
-            marker: {
-                show: false
-            }
-        }
-    };
-    var chart = new ApexCharts(document.querySelector("#chart5"), options);
-    chart.render();
-}
-
-//<!-- Tổng số yêu cầu mượn theo tháng/tuần -->
-var chart6;
-$('#chart6-selectType').on('change', function (e) {
-    e.preventDefault();
-    CreateChart6($(this).val());
-});
-function CreateChart6(type) {
-
-    if (!type) type = 'week';
-
-    $.ajax({
-        type: "GET",
-        url: "/NVIDIA/Dashboard/GetDataChart6?type=" + type,
-        dataType: "json",
-        contentType: "application/json;charset=utf-8",
-        success: function (response) {
-            if (response.status) {
-                Chart6(response.listCountBorrow, response.listDate);
-            }
-            else {
-                toastr["error"](response.message, "ERROR");
-            }
-        },
-        error: function (error) {
-            Swal.fire("Something went wrong!", GetAjaxErrorMessage(error), "error");
-        }
-    });
-}
-function Chart6(data, categories) {
-    var options = {
-        series: [{
-            name: 'Borrow Requests Overview',
-            data: data
-        }],
-        chart: {
-            type: 'area',
-            foreColor: '#9a9797',
-            height: 250,
-            toolbar: {
-                show: false
-            },
-            zoom: {
-                enabled: false
-            },
-            dropShadow: {
-                enabled: false,
-                top: 3,
-                left: 14,
-                blur: 4,
-                opacity: 0.12,
-                color: '#8833ff',
-            },
-            sparkline: {
-                enabled: false
-            }
-        },
-        markers: {
-            size: 0,
-            colors: ["#8833ff"],
-            strokeColors: "#fff",
-            strokeWidth: 2,
-            hover: {
-                size: 7,
-            }
-        },
-        plotOptions: {
-            bar: {
-                horizontal: false,
-                columnWidth: '45%',
-                endingShape: 'rounded'
-            },
-        },
-        dataLabels: {
-            enabled: false
-        },
-        stroke: {
-            show: true,
-            width: 3,
-            curve: 'smooth'
-        },
-        fill: {
-            type: 'gradient',
-            gradient: {
-                shade: 'light',
-                type: 'vertical',
-                shadeIntensity: 0.5,
-                gradientToColors: ['#fff'],
-                inverseColors: false,
-                opacityFrom: 0.8,
-                opacityTo: 0.5,
-                stops: [0, 100]
-            }
-        },
-        colors: ["#8833ff"],
-        grid: {
-            show: true,
-            borderColor: '#ededed',
-            //strokeDashArray: 4,
-        },
-        xaxis: {
-            categories: categories,
-        },
-
-        tooltip: {
-            theme: 'dark',
-            fixed: {
-                enabled: false
-            },
-            x: {
-                show: true
-            },
-            y: {
-                title: {
-                    formatter: function (seriesName) {
-                        return ''
-                    }
-                }
-            },
-            marker: {
-                show: false
-            }
-        }
-    };
-
-    if (!chart6) {
-        chart6 = new ApexCharts(document.querySelector("#chart6"), options);
-        chart6.render();
-    }
-    else {
-        chart6.updateOptions({
-            xaxis: {
-                categories: categories,
-            },
+    function Chart1(data, categories) {
+        // chart 1
+        var options = {
             series: [{
+                name: 'Total Devices',
                 data: data
-            }]
-        })
-    }   
-}
-
-//<!-- In/Out thiết bị theo tháng/tuần -->
-var chart7;
-$('#chart7-selectType').on('change', function (e) {
-    e.preventDefault();
-    CreateChart7($(this).val());
-});
-function CreateChart7(type) {
-
-    if (!type) type = 'week';
-
-    $.ajax({
-        type: "GET",
-        url: "/NVIDIA/Dashboard/GetDataChart7?type=" + type,
-        dataType: "json",
-        contentType: "application/json;charset=utf-8",
-        success: function (response) {
-            if (response.status) {
-                Chart7(response.listReturnQty, response.listBorrowQty, response.listDate);
-            }
-            else {
-                toastr["error"](response.message, "ERROR");
-            }
-        },
-        error: function (error) {
-            Swal.fire("Something went wrong!", GetAjaxErrorMessage(error), "error");
-        }
-    });
-}
-function Chart7(data1, data2, categories) {
-    var options = {
-        series: [{
-            name: 'Borrow Quantity',
-            data: data1
-
-        }, {
-            name: 'Return Quantity',
-            data: data2
-        }],
-        chart: {
-            foreColor: '#9ba7b2',
-            type: 'bar',
-            height: 260,
-            stacked: false,
-            toolbar: {
-                show: false
+            }],
+            chart: {
+                type: 'area',
+                height: 60,
+                toolbar: {
+                    show: false
+                },
+                zoom: {
+                    enabled: false
+                },
+                dropShadow: {
+                    enabled: false,
+                    top: 3,
+                    left: 14,
+                    blur: 4,
+                    opacity: 0.12,
+                    color: '#8833ff',
+                },
+                sparkline: {
+                    enabled: true
+                }
             },
-        },
-        plotOptions: {
-            bar: {
-                horizontal: false,
-                columnWidth: '45%',
-                endingShape: 'rounded'
+            markers: {
+                size: 0,
+                colors: ["#8833ff"],
+                strokeColors: "#fff",
+                strokeWidth: 2,
+                hover: {
+                    size: 7,
+                }
             },
-        },
-        legend: {
-            show: false,
-            position: 'top',
-            horizontalAlign: 'left',
-            offsetX: -20
-        },
-        dataLabels: {
-            enabled: false
-        },
-        stroke: {
-            show: true,
-            width: 3,
-            colors: ['transparent']
-        },
-        colors: ["#8833ff", '#cba6ff'],        
-        xaxis: {
-            categories: categories,
-        },
-        grid: {
-            show: true,
-            borderColor: '#ededed',
-        },
-        fill: {
-            opacity: 1
-        },
-        tooltip: {
-            theme: 'dark',
-        }
-    };
-    if (!chart7) {
-        chart7 = new ApexCharts(document.querySelector("#chart7"), options);
-        chart7.render();
-    }
-    else {
-        chart7.updateOptions({
+            plotOptions: {
+                bar: {
+                    horizontal: false,
+                    columnWidth: '45%',
+                    endingShape: 'rounded'
+                },
+            },
+            dataLabels: {
+                enabled: false
+            },
+            stroke: {
+                show: true,
+                width: 2.5,
+                curve: 'smooth'
+            },
+            colors: ["#8833ff"],
             xaxis: {
                 categories: categories,
             },
+            fill: {
+                opacity: 1
+            },
+            tooltip: {
+                theme: 'dark',
+                fixed: {
+                    enabled: false
+                },
+                x: {
+                    show: true
+                },
+                y: {
+                    title: {
+                        formatter: function (seriesName) {
+                            return ''
+                        }
+                    }
+                },
+                marker: {
+                    show: false
+                }
+            }
+        };
+        var chart = new ApexCharts(document.querySelector("#chart1"), options);
+        chart.render();
+    }
+
+    //<!-- Tổng số lượng -->
+    function CreateChart2() {
+        $.ajax({
+            type: "GET",
+            url: "/NVIDIA/Dashboard/GetDataChart2",
+            dataType: "json",
+            contentType: "application/json;charset=utf-8",
+            success: function (response) {
+                if (response.status) {
+                    $('#chart2-totalQty').text(response.totalQuantity);
+
+                    $('#chart2-rateQty').html(CreateSpanRate(response.thisWeekQuantity, response.lastWeekQuantity));
+
+                    Chart2(response.arrWeekQuantity, response.arrWeekDate);
+                }
+                else {
+                    toastr["error"](response.message, "ERROR");
+                }
+            },
+            error: function (error) {
+                Swal.fire("Something went wrong!", GetAjaxErrorMessage(error), "error");
+            }
+        });
+    }
+    function Chart2(data, categories) {
+        var options = {
             series: [{
+                name: 'Total Quantity',
+                data: data
+            }],
+            chart: {
+                type: 'area',
+                height: 60,
+                toolbar: {
+                    show: false
+                },
+                zoom: {
+                    enabled: false
+                },
+                dropShadow: {
+                    enabled: false,
+                    top: 3,
+                    left: 14,
+                    blur: 4,
+                    opacity: 0.12,
+                    color: '#f41127',
+                },
+                sparkline: {
+                    enabled: true
+                }
+            },
+            markers: {
+                size: 0,
+                colors: ["#f41127"],
+                strokeColors: "#fff",
+                strokeWidth: 2,
+                hover: {
+                    size: 7,
+                }
+            },
+            plotOptions: {
+                bar: {
+                    horizontal: false,
+                    columnWidth: '40%',
+                    endingShape: 'rounded'
+                },
+            },
+            dataLabels: {
+                enabled: false
+            },
+            stroke: {
+                show: true,
+                width: 2.5,
+                curve: 'smooth'
+            },
+            colors: ["#f41127"],
+            xaxis: {
+                categories: categories,
+            },
+            fill: {
+                opacity: 1
+            },
+            tooltip: {
+                theme: 'dark',
+                fixed: {
+                    enabled: false
+                },
+                x: {
+                    show: true
+                },
+                y: {
+                    title: {
+                        formatter: function (seriesName) {
+                            return ''
+                        }
+                    }
+                },
+                marker: {
+                    show: false
+                }
+            }
+        };
+        var chart = new ApexCharts(document.querySelector("#chart2"), options);
+        chart.render();
+    }
+
+    //<!--Tổng số người dùng-->
+    function CreateChart3() {
+        $.ajax({
+            type: "GET",
+            url: "/NVIDIA/Dashboard/GetDataChart3",
+            dataType: "json",
+            contentType: "application/json;charset=utf-8",
+            success: function (response) {
+                if (response.status) {
+                    $('#chart3-totalUser').text(response.totalUser);
+
+                    $('#chart3-rateUser').html(CreateSpanRate(response.thisWeekUser, response.lastWeekUser));
+
+                    Chart3(response.arrWeekUser, response.arrWeekDate);
+                }
+                else {
+                    toastr["error"](response.message, "ERROR");
+                }
+            },
+            error: function (error) {
+                Swal.fire("Something went wrong!", GetAjaxErrorMessage(error), "error");
+            }
+        });
+    }
+    function Chart3(data, categories) {
+        var options = {
+            series: [{
+                name: 'Total User',
+                data: data
+            }],
+            chart: {
+                type: 'area',
+                height: 60,
+                toolbar: {
+                    show: false
+                },
+                zoom: {
+                    enabled: false
+                },
+                dropShadow: {
+                    enabled: false,
+                    top: 3,
+                    left: 14,
+                    blur: 4,
+                    opacity: 0.12,
+                    color: '#ffc107',
+                },
+                sparkline: {
+                    enabled: true
+                }
+            },
+            markers: {
+                size: 0,
+                colors: ["#ffc107"],
+                strokeColors: "#fff",
+                strokeWidth: 2,
+                hover: {
+                    size: 7,
+                }
+            },
+            plotOptions: {
+                bar: {
+                    horizontal: false,
+                    columnWidth: '45%',
+                    endingShape: 'rounded'
+                },
+            },
+            dataLabels: {
+                enabled: false
+            },
+            stroke: {
+                show: true,
+                width: 2.5,
+                curve: 'smooth'
+            },
+            colors: ["#ffc107"],
+            xaxis: {
+                categories: categories,
+            },
+            fill: {
+                opacity: 1
+            },
+            tooltip: {
+                theme: 'dark',
+                fixed: {
+                    enabled: false
+                },
+                x: {
+                    show: true
+                },
+                y: {
+                    title: {
+                        formatter: function (seriesName) {
+                            return ''
+                        }
+                    }
+                },
+                marker: {
+                    show: false
+                }
+            }
+        };
+        var chart = new ApexCharts(document.querySelector("#chart3"), options);
+        chart.render();
+    }
+
+    //<!-- Tổng số yêu cầu mượn -->
+    function CreateChart4() {
+        $.ajax({
+            type: "GET",
+            url: "/NVIDIA/Dashboard/GetDataChart4",
+            dataType: "json",
+            contentType: "application/json;charset=utf-8",
+            success: function (response) {
+                if (response.status) {
+                    $('#chart4-totalBorrow').text(response.totalBorrow);
+
+                    $('#chart4-rateBorrow').html(CreateSpanRate(response.thisWeekBorrow, response.lastWeekBorrow));
+
+                    Chart4(response.arrWeekBorrow, response.arrWeekDate);
+                }
+                else {
+                    toastr["error"](response.message, "ERROR");
+                }
+            },
+            error: function (error) {
+                Swal.fire("Something went wrong!", GetAjaxErrorMessage(error), "error");
+            }
+        });
+    }
+    function Chart4(data, categories) {
+        var options = {
+            series: [{
+                name: 'Total Borrow',
+                data: data
+            }],
+            chart: {
+                type: 'area',
+                height: 60,
+                toolbar: {
+                    show: false
+                },
+                zoom: {
+                    enabled: false
+                },
+                dropShadow: {
+                    enabled: false,
+                    top: 3,
+                    left: 14,
+                    blur: 4,
+                    opacity: 0.12,
+                    color: '#0dcaf0',
+                },
+                sparkline: {
+                    enabled: true
+                }
+            },
+            markers: {
+                size: 0,
+                colors: ["#0dcaf0"],
+                strokeColors: "#fff",
+                strokeWidth: 2,
+                hover: {
+                    size: 7,
+                }
+            },
+            plotOptions: {
+                bar: {
+                    horizontal: false,
+                    columnWidth: '40%',
+                    endingShape: 'rounded'
+                },
+            },
+            dataLabels: {
+                enabled: false
+            },
+            stroke: {
+                show: true,
+                width: 2.4,
+                curve: 'smooth'
+            },
+            colors: ["#0dcaf0"],
+            xaxis: {
+                categories: categories,
+            },
+            fill: {
+                opacity: 1
+            },
+            tooltip: {
+                theme: 'dark',
+                fixed: {
+                    enabled: false
+                },
+                x: {
+                    show: true
+                },
+                y: {
+                    title: {
+                        formatter: function (seriesName) {
+                            return ''
+                        }
+                    }
+                },
+                marker: {
+                    show: false
+                }
+            }
+        };
+        var chart = new ApexCharts(document.querySelector("#chart4"), options);
+        chart.render();
+    }
+
+    //<!-- Tổng số yêu cầu được chấp nhận -->
+    function CreateChart5() {
+        $.ajax({
+            type: "GET",
+            url: "/NVIDIA/Dashboard/GetDataChart5",
+            dataType: "json",
+            contentType: "application/json;charset=utf-8",
+            success: function (response) {
+                if (response.status) {
+                    $('#chart5-totalApprove').text(response.totalApprove);
+
+                    $('#chart5-rateApprove').html(CreateSpanRate(response.thisWeekApprove, response.lastWeekApprove));
+
+                    Chart5(response.arrWeekApprove, response.arrWeekDate);
+                }
+                else {
+                    toastr["error"](response.message, "ERROR");
+                }
+            },
+            error: function (error) {
+                Swal.fire("Something went wrong!", GetAjaxErrorMessage(error), "error");
+            }
+        });
+    }
+    function Chart5(data, categories) {
+        var options = {
+            series: [{
+                name: 'Bounce Rate',
+                data: data
+            }],
+            chart: {
+                type: 'area',
+                height: 60,
+                toolbar: {
+                    show: false
+                },
+                zoom: {
+                    enabled: false
+                },
+                dropShadow: {
+                    enabled: false,
+                    top: 3,
+                    left: 14,
+                    blur: 4,
+                    opacity: 0.12,
+                    color: '#29cc39',
+                },
+                sparkline: {
+                    enabled: true
+                }
+            },
+            markers: {
+                size: 0,
+                colors: ["#29cc39"],
+                strokeColors: "#fff",
+                strokeWidth: 2,
+                hover: {
+                    size: 7,
+                }
+            },
+            plotOptions: {
+                bar: {
+                    horizontal: false,
+                    columnWidth: '45%',
+                    endingShape: 'rounded'
+                },
+            },
+            dataLabels: {
+                enabled: false
+            },
+            stroke: {
+                show: true,
+                width: 2.4,
+                curve: 'smooth'
+            },
+            colors: ["#29cc39"],
+            xaxis: {
+                categories: categories,
+            },
+            fill: {
+                opacity: 1
+            },
+            tooltip: {
+                theme: 'dark',
+                fixed: {
+                    enabled: false
+                },
+                x: {
+                    show: true
+                },
+                y: {
+                    title: {
+                        formatter: function (seriesName) {
+                            return ''
+                        }
+                    }
+                },
+                marker: {
+                    show: false
+                }
+            }
+        };
+        var chart = new ApexCharts(document.querySelector("#chart5"), options);
+        chart.render();
+    }
+
+    //<!-- Tổng số yêu cầu mượn theo tháng/tuần -->
+    var chart6;
+    $('#chart6-selectType').on('change', function (e) {
+        e.preventDefault();
+        CreateChart6($(this).val());
+    });
+    function CreateChart6(type) {
+
+        if (!type) type = 'week';
+
+        $.ajax({
+            type: "GET",
+            url: "/NVIDIA/Dashboard/GetDataChart6?type=" + type,
+            dataType: "json",
+            contentType: "application/json;charset=utf-8",
+            success: function (response) {
+                if (response.status) {
+                    Chart6(response.listCountBorrow, response.listDate);
+                }
+                else {
+                    toastr["error"](response.message, "ERROR");
+                }
+            },
+            error: function (error) {
+                Swal.fire("Something went wrong!", GetAjaxErrorMessage(error), "error");
+            }
+        });
+    }
+    function Chart6(data, categories) {
+        var options = {
+            series: [{
+                name: 'Borrow Requests Overview',
+                data: data
+            }],
+            chart: {
+                type: 'area',
+                foreColor: '#9a9797',
+                height: 250,
+                toolbar: {
+                    show: false
+                },
+                zoom: {
+                    enabled: false
+                },
+                dropShadow: {
+                    enabled: false,
+                    top: 3,
+                    left: 14,
+                    blur: 4,
+                    opacity: 0.12,
+                    color: '#8833ff',
+                },
+                sparkline: {
+                    enabled: false
+                }
+            },
+            markers: {
+                size: 0,
+                colors: ["#8833ff"],
+                strokeColors: "#fff",
+                strokeWidth: 2,
+                hover: {
+                    size: 7,
+                }
+            },
+            plotOptions: {
+                bar: {
+                    horizontal: false,
+                    columnWidth: '45%',
+                    endingShape: 'rounded'
+                },
+            },
+            dataLabels: {
+                enabled: false
+            },
+            stroke: {
+                show: true,
+                width: 3,
+                curve: 'smooth'
+            },
+            fill: {
+                type: 'gradient',
+                gradient: {
+                    shade: 'light',
+                    type: 'vertical',
+                    shadeIntensity: 0.5,
+                    gradientToColors: ['#fff'],
+                    inverseColors: false,
+                    opacityFrom: 0.8,
+                    opacityTo: 0.5,
+                    stops: [0, 100]
+                }
+            },
+            colors: ["#8833ff"],
+            grid: {
+                show: true,
+                borderColor: '#ededed',
+                //strokeDashArray: 4,
+            },
+            xaxis: {
+                categories: categories,
+            },
+
+            tooltip: {
+                theme: 'dark',
+                fixed: {
+                    enabled: false
+                },
+                x: {
+                    show: true
+                },
+                y: {
+                    title: {
+                        formatter: function (seriesName) {
+                            return ''
+                        }
+                    }
+                },
+                marker: {
+                    show: false
+                }
+            }
+        };
+
+        if (!chart6) {
+            chart6 = new ApexCharts(document.querySelector("#chart6"), options);
+            chart6.render();
+        }
+        else {
+            chart6.updateOptions({
+                xaxis: {
+                    categories: categories,
+                },
+                series: [{
+                    data: data
+                }]
+            })
+        }
+    }
+
+    //<!-- In/Out thiết bị theo tháng/tuần -->
+    var chart7;
+    $('#chart7-selectType').on('change', function (e) {
+        e.preventDefault();
+        CreateChart7($(this).val());
+    });
+    function CreateChart7(type) {
+
+        if (!type) type = 'week';
+
+        $.ajax({
+            type: "GET",
+            url: "/NVIDIA/Dashboard/GetDataChart7?type=" + type,
+            dataType: "json",
+            contentType: "application/json;charset=utf-8",
+            success: function (response) {
+                if (response.status) {
+                    Chart7(response.listBorrowQty, response.listReturnQty, response.listDate);
+                }
+                else {
+                    toastr["error"](response.message, "ERROR");
+                }
+            },
+            error: function (error) {
+                Swal.fire("Something went wrong!", GetAjaxErrorMessage(error), "error");
+            }
+        });
+    }
+    function Chart7(data1, data2, categories) {
+        var options = {
+            series: [{
+                name: 'Borrow Quantity',
                 data: data1
 
             }, {
+                name: 'Return Quantity',
                 data: data2
             }],
-        })
+            chart: {
+                foreColor: '#9ba7b2',
+                type: 'bar',
+                height: 260,
+                stacked: false,
+                toolbar: {
+                    show: false
+                },
+            },
+            plotOptions: {
+                bar: {
+                    horizontal: false,
+                    columnWidth: '45%',
+                    endingShape: 'rounded'
+                },
+            },
+            legend: {
+                show: false,
+                position: 'top',
+                horizontalAlign: 'left',
+                offsetX: -20
+            },
+            dataLabels: {
+                enabled: false
+            },
+            stroke: {
+                show: true,
+                width: 3,
+                colors: ['transparent']
+            },
+            colors: ["#8833ff", '#cba6ff'],
+            xaxis: {
+                categories: categories,
+            },
+            grid: {
+                show: true,
+                borderColor: '#ededed',
+            },
+            fill: {
+                opacity: 1
+            },
+            tooltip: {
+                theme: 'dark',
+            }
+        };
+        if (!chart7) {
+            chart7 = new ApexCharts(document.querySelector("#chart7"), options);
+            chart7.render();
+        }
+        else {
+            chart7.updateOptions({
+                xaxis: {
+                    categories: categories,
+                },
+                series: [{
+                    data: data1
+
+                }, {
+                    data: data2
+                }],
+            })
+        }
+    }
+
+    /*<!-- Số đơn approved theo tuần -->
+      <!-- Số đơn pending theo tuần -->
+      <!-- Số đơn reject theo tuần -->*/
+    function calculateSum(array) {
+        return array.map(function (acc, item) {
+            return acc + item;
+        }, 0);
+    }
+    function CreateChart8910() {
+
+        $.ajax({
+            type: "GET",
+            url: "/NVIDIA/Dashboard/GetDataChart8910",
+            dataType: "json",
+            contentType: "application/json;charset=utf-8",
+            success: function (response) {
+                if (response.status) {
+                    Chart8910(response.WeekApprove, response.WeekPending, response.WeekReject, response.listDate);
+
+                    var sumApprove = 0;
+                    var sumPending = 0;
+                    var sumReject = 0;
+                    for (let i = 0; i < 7; i++) {
+                        sumApprove += response.WeekApprove[i];
+                        sumPending += response.WeekPending[i];
+                        sumReject += response.WeekReject[i];
+                    }
+                    var totalSum = sumApprove + sumPending + sumReject;
+
+                    var ratioApprove = ((sumApprove / totalSum) * 100).toFixed(2);
+                    var ratioPending = ((sumPending / totalSum) * 100).toFixed(2);
+                    var ratioReject = 100 - ratioApprove - ratioPending;
+
+                    $('#chart8-rate').text(`${ratioApprove}%`);
+                    $('#chart9-rate').text(`${ratioPending}%`);
+                    $('#chart10-rate').text(`${ratioReject}%`);
+
+                }
+                else {
+                    toastr["error"](response.message, "ERROR");
+                }
+            },
+            error: function (error) {
+                Swal.fire("Something went wrong!", GetAjaxErrorMessage(error), "error");
+            }
+        });
+    }
+    function Chart8910(data1, data2, data3, categories) {
+        // chart 8
+        var options = {
+            series: [{
+                name: 'Approved',
+                data: data1
+            }],
+            chart: {
+                type: 'area',
+                height: 60,
+                toolbar: {
+                    show: false
+                },
+                zoom: {
+                    enabled: false
+                },
+                dropShadow: {
+                    enabled: false,
+                    top: 3,
+                    left: 14,
+                    blur: 4,
+                    opacity: 0.12,
+                    color: '#17a00e',
+                },
+                sparkline: {
+                    enabled: true
+                }
+            },
+            markers: {
+                size: 0,
+                colors: ["#17a00e"],
+                strokeColors: "#fff",
+                strokeWidth: 2,
+                hover: {
+                    size: 7,
+                }
+            },
+            plotOptions: {
+                bar: {
+                    horizontal: false,
+                    columnWidth: '45%',
+                    endingShape: 'rounded'
+                },
+            },
+            dataLabels: {
+                enabled: false
+            },
+            stroke: {
+                show: true,
+                width: 3,
+                // curve: 'smooth'
+            },
+            colors: ["#17a00e"],
+            xaxis: {
+                categories: categories,
+            },
+            fill: {
+                opacity: 1
+            },
+            tooltip: {
+                theme: 'dark',
+                fixed: {
+                    enabled: false
+                },
+                x: {
+                    show: true
+                },
+                y: {
+                    title: {
+                        formatter: function (seriesName) {
+                            return ''
+                        }
+                    }
+                },
+                marker: {
+                    show: false
+                }
+            }
+        };
+        var chart = new ApexCharts(document.querySelector("#chart8"), options);
+        chart.render();
+        // chart 9
+        var options = {
+            series: [{
+                name: 'Sessions',
+                data: data2
+            }],
+            chart: {
+                type: 'area',
+                height: 60,
+                toolbar: {
+                    show: false
+                },
+                zoom: {
+                    enabled: false
+                },
+                dropShadow: {
+                    enabled: false,
+                    top: 3,
+                    left: 14,
+                    blur: 4,
+                    opacity: 0.12,
+                    color: '#ffc107',
+                },
+                sparkline: {
+                    enabled: true
+                }
+            },
+            markers: {
+                size: 0,
+                colors: ["#ffc107"],
+                strokeColors: "#fff",
+                strokeWidth: 2,
+                hover: {
+                    size: 7,
+                }
+            },
+            plotOptions: {
+                bar: {
+                    horizontal: false,
+                    columnWidth: '45%',
+                    endingShape: 'rounded'
+                },
+            },
+            dataLabels: {
+                enabled: false
+            },
+            stroke: {
+                show: true,
+                width: 3,
+                // curve: 'smooth'
+            },
+            colors: ["#ffc107"],
+            xaxis: {
+                categories: categories,
+            },
+            fill: {
+                opacity: 1
+            },
+            tooltip: {
+                theme: 'dark',
+                fixed: {
+                    enabled: false
+                },
+                x: {
+                    show: true
+                },
+                y: {
+                    title: {
+                        formatter: function (seriesName) {
+                            return ''
+                        }
+                    }
+                },
+                marker: {
+                    show: false
+                }
+            }
+        };
+        var chart = new ApexCharts(document.querySelector("#chart9"), options);
+        chart.render();
+        // chart 10
+        var options = {
+            series: [{
+                name: 'Sessions',
+                data: data3
+            }],
+            chart: {
+                type: 'area',
+                height: 60,
+                toolbar: {
+                    show: false
+                },
+                zoom: {
+                    enabled: false
+                },
+                dropShadow: {
+                    enabled: false,
+                    top: 3,
+                    left: 14,
+                    blur: 4,
+                    opacity: 0.12,
+                    color: '#f41127',
+                },
+                sparkline: {
+                    enabled: true
+                }
+            },
+            markers: {
+                size: 0,
+                colors: ["#f41127"],
+                strokeColors: "#fff",
+                strokeWidth: 2,
+                hover: {
+                    size: 7,
+                }
+            },
+            plotOptions: {
+                bar: {
+                    horizontal: false,
+                    columnWidth: '45%',
+                    endingShape: 'rounded'
+                },
+            },
+            dataLabels: {
+                enabled: false
+            },
+            stroke: {
+                show: true,
+                width: 3,
+                // curve: 'smooth'
+            },
+            colors: ["#f41127"],
+            xaxis: {
+                categories: categories,
+            },
+            fill: {
+                opacity: 1
+            },
+            tooltip: {
+                theme: 'dark',
+                fixed: {
+                    enabled: false
+                },
+                x: {
+                    show: true
+                },
+                y: {
+                    title: {
+                        formatter: function (seriesName) {
+                            return ''
+                        }
+                    }
+                },
+                marker: {
+                    show: false
+                }
+            }
+        };
+        var chart = new ApexCharts(document.querySelector("#chart10"), options);
+        chart.render();
+    }
+
+    //<!-- Trạng thái thiết bị -->
+    function CreateChart11() {
+        $.ajax({
+            type: "GET",
+            url: "/NVIDIA/Dashboard/GetDataChart11",
+            dataType: "json",
+            contentType: "application/json;charset=utf-8",
+            success: function (response) {
+                if (response.status) {
+                    var data = {
+                        Unconfirmed: response.Unconfirmed,
+                        PartConfirmed: response.PartConfirmed,
+                        Confirmed: response.Confirmed,
+                        Locked: response.Locked,
+                        OutRange: response.OutRange
+                    }
+                    data.total = data.Unconfirmed + data.PartConfirmed + data.Confirmed + data.Locked + data.OutRange;
+                    data.good = data.PartConfirmed + data.Confirmed;
+
+                    Chart11(data);
+
+                    $('#chart11-ConfirmedText').text(data.Confirmed);
+                    $('#chart11-ConfirmedBar').css('width', `${((data.Confirmed / data.total) * 100).toFixed(0)}%`);
+
+                    $('#chart11-PartConfirmedText').text(data.PartConfirmed);
+                    $('#chart11-PartConfirmedBar').css('width', `${((data.PartConfirmed / data.total) * 100).toFixed(0)}%`);
+
+                    $('#chart11-UnconfirmedText').text(data.Unconfirmed);
+                    $('#chart11-UnconfirmedBar').css('width', `${((data.Unconfirmed / data.total) * 100).toFixed(0)}%`);
+
+                    $('#chart11-LockedText').text(data.Locked);
+                    $('#chart11-LockedBar').css('width', `${((data.Locked / data.total) * 100).toFixed(0)}%`);
+
+                    $('#chart11-OutRangeText').text(data.OutRange);
+                    $('#chart11-OutRangeBar').css('width', `${((data.OutRange / data.total) * 100).toFixed(0)}%`);
+                }
+                else {
+                    toastr["error"](response.message, "ERROR");
+                }
+            },
+            error: function (error) {
+                Swal.fire("Something went wrong!", GetAjaxErrorMessage(error), "error");
+            }
+        });
+    }
+    function Chart11(data) {
+        var options = {
+            chart: {
+                height: 330,
+                type: 'radialBar',
+                toolbar: {
+                    show: false
+                }
+            },
+            plotOptions: {
+                radialBar: {
+                    startAngle: -130,
+                    endAngle: 130,
+                    hollow: {
+                        margin: 0,
+                        size: '78%',
+                        //background: '#fff',
+                        image: undefined,
+                        imageOffsetX: 0,
+                        imageOffsetY: 0,
+                        position: 'front',
+                        dropShadow: {
+                            enabled: false,
+                            top: 3,
+                            left: 0,
+                            blur: 4,
+                            color: 'rgba(0, 169, 255, 0.25)',
+                            opacity: 0.65
+                        }
+                    },
+                    track: {
+                        background: '#dfecff',
+                        //strokeWidth: '67%',
+                        margin: 0, // margin is in pixels
+                        dropShadow: {
+                            enabled: false,
+                            top: -3,
+                            left: 0,
+                            blur: 4,
+                            color: 'rgba(0, 169, 255, 0.85)',
+                            opacity: 0.65
+                        }
+                    },
+                    dataLabels: {
+                        showOn: 'always',
+                        name: {
+                            offsetY: -25,
+                            show: true,
+                            color: '#6c757d',
+                            fontSize: '16px'
+                        },
+                        value: {
+                            formatter: function (val) {
+                                return val + "%";
+                            },
+                            color: '#000',
+                            fontSize: '45px',
+                            show: true,
+                            offsetY: 10,
+                        }
+                    }
+                }
+            },
+            fill: {
+                type: 'gradient',
+                gradient: {
+                    shade: 'dark',
+                    type: 'horizontal',
+                    shadeIntensity: 0.5,
+                    gradientToColors: ['#8e2de2'],
+                    inverseColors: false,
+                    opacityFrom: 1,
+                    opacityTo: 1,
+                    stops: [0, 100]
+                }
+            },
+            colors: ["#4a00e0"],
+            series: [(data.good / data.total * 100).toFixed(2)],
+            stroke: {
+                lineCap: 'round',
+                //dashArray: 4
+            },
+            labels: ['Good Device'],
+        }
+        var chart = new ApexCharts(document.querySelector("#chart11"), options);
+        chart.render();
+    }
+
+    //<!-- Thiết bị trong kho, ngoài kho - Loại thiết bị (dynamic/static) -->
+    function CreateChart12() {
+        $.ajax({
+            type: "GET",
+            url: "/NVIDIA/Dashboard/GetDataChart12",
+            dataType: "json",
+            contentType: "application/json;charset=utf-8",
+            success: function (response) {
+                if (response.status) {
+                    var data = {
+                        TotalQuantity: response.TotalQuantity,
+                        TotalRealQuantity: response.TotalRealQuantity,
+                        TotalStatic: response.TotalStatic,
+                        TotalDynamic: response.TotalDynamic,
+                        TotalOrther: response.TotalOrther
+                    }
+                    data.TotalStatus = data.TotalStatic + data.TotalDynamic + data.TotalOrther;
+
+                    data.InLine = parseFloat(((data.TotalQuantity - data.TotalRealQuantity) / data.TotalQuantity * 100).toFixed(2));
+                    data.InWarehouse = 100 - data.InLine;
+
+                    $('#chart12-RateInLine').text(`${data.InLine}%`);
+                    $('#chart12-RateInWarehouse').text(`${data.InWarehouse}%`);
+
+
+                    data.RateStatic = parseFloat((data.TotalStatic / data.TotalStatus * 100).toFixed(2));
+                    data.RateDynamic = parseFloat((data.TotalDynamic / data.TotalStatus * 100).toFixed(2));
+                    data.RateOrther = 100 - (data.RateStatic + data.RateDynamic);
+
+                    $('#chart12-RateStatic').text(`${data.RateStatic}%`);
+                    $('#chart12-RateStaticBar').css('width', `${data.RateStatic}%`);
+
+                    $('#chart12-RateDynamic').text(`${data.RateDynamic}%`);
+                    $('#chart12-RateDynamicBar').css('width', `${data.RateDynamic}%`);
+
+                    $('#chart12-RateOrther').text(`${data.RateOrther}%`);
+                    $('#chart12-RateOrtherBar').css('width', `${data.RateOrther}%`);
+
+                    Chart12(data);
+                }
+                else {
+                    toastr["error"](response.message, "ERROR");
+                }
+            },
+            error: function (error) {
+                Swal.fire("Something went wrong!", GetAjaxErrorMessage(error), "error");
+            }
+        });
+    }
+    function Chart12(data) {
+        var options = {
+            chart: {
+                width: 190,
+                height: 190,
+                type: 'pie',
+            },
+            series: [data.InWarehouse, data.InLine],
+            labels: ['In Warehouse', 'In Line'],
+            colors: ['#2a8ff7', '#ed415e'], // Thay đổi mã màu theo ý muốn
+            dataLabels: {
+                enabled: false
+            },
+            legend: {
+                show: false
+            },
+            tooltip: {
+                y: {
+                    formatter: function (val) {
+                        return val + '%';
+                    }
+                }
+            },
+        };
+
+        var chart = new ApexCharts(document.getElementById('chart12'), options);
+        chart.render();
     }
 }
 
-/*<!-- Số đơn approved theo tuần -->
-  <!-- Số đơn pending theo tuần -->
-  <!-- Số đơn reject theo tuần -->*/
-function calculateSum(array) {
-    return array.map(function (acc, item) {
-        return acc + item;
-    }, 0);
-}
-function CreateChart8910() {
-
+// Model
+var offcanvasDetails;
+function GetModels() {
     $.ajax({
         type: "GET",
-        url: "/NVIDIA/Dashboard/GetDataChart78910",
+        url: "/NVIDIA/Dashboard/GetModels",
         dataType: "json",
         contentType: "application/json;charset=utf-8",
         success: function (response) {
             if (response.status) {
-                Chart8910(response.WeekApprove, response.WeekPending, response.WeekReject, response.listDate);
+                var ModelsResults = response.ModelsResults;
 
-                console.log(response)
-
-                var sumApprove = 0;
-                var sumPending = 0;
-                var sumReject = 0;
-                for (let i = 0; i < 7; i++) {
-                    sumApprove += response.WeekApprove[i];
-                    sumPending += response.WeekPending[i];
-                    sumReject += response.WeekReject[i];
-                }
-                var totalSum = sumApprove + sumPending + sumReject;
-
-                console.log(sumApprove, sumPending, sumReject, totalSum);
-
-                var ratioApprove = (sumApprove / totalSum) * 100;
-                var ratioPending = (sumPending / totalSum) * 100;
-                var ratioReject = 100 - ratioApprove - ratioPending;
-
-                $('#chart8-rate').text(`${ratioApprove}%`);
-                $('#chart9-rate').text(`${ratioPending}%`);
-                $('#chart10-rate').text(`${ratioReject}%`);
-
+                $('#Model-Container').empty();
+                $.each(ModelsResults, function (k, ModelsResult) {
+                    var Model = ModelsResult.Model;
+                    var col = $(`<div class="col" data-id="${Model.Id}">
+                                    <div class="card radius-10">
+                                        <div class="card-body">
+                                            <div class="d-flex align-items-center">
+                                                <div class="card-model">
+                                                    <p class="mb-0 text-secondary">${(Model.ModelName == null || Model.ModelName == '') ? 'Unknown' : Model.ModelName}</p>
+                                                    <span class="fs-4 text-white">${ModelsResult.CountStation}</span> (Station) 
+                                                    <span class="fs-4 text-success">/</span>
+                                                    <span class="fs-4 text-white">${ModelsResult.CountDevice}</span> (Device)
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>`);
+                    col.on('click', function (e) {
+                        e.preventDefault();
+                        GetModelDetails($(this).data('id'));
+                    });
+                    $('#Model-Container').append(col)
+                });
             }
             else {
                 toastr["error"](response.message, "ERROR");
@@ -860,458 +1362,96 @@ function CreateChart8910() {
         }
     });
 }
-function Chart8910(data1, data2, data3, categories) {
-    // chart 8
-    var options = {
-        series: [{
-            name: 'Approved',
-            data: data1
-        }],
-        chart: {
-            type: 'bar',
-            height: 60,
-            toolbar: {
-                show: false
-            },
-            zoom: {
-                enabled: false
-            },
-            dropShadow: {
-                enabled: false,
-                top: 3,
-                left: 14,
-                blur: 4,
-                opacity: 0.12,
-                color: '#8833ff',
-            },
-            sparkline: {
-                enabled: true
+function GetModelDetails(Id) {
+    $.ajax({
+        type: "GET",
+        url: "/NVIDIA/Dashboard/GetModelDetails?Id=" + Id,
+        dataType: "json",
+        contentType: "application/json;charset=utf-8",
+        success: function (response) {
+            if (response.status) {
+
+                $('#station-container').empty();
+                $.each(response.ModelDetailsResults, function (k, Results) {
+
+                    var station = Results.Station;
+                    var DeviceCount = Results.Devices.length;
+
+                    var card = $(`<div class="col">
+                                      <div class="card radius-10">
+                                          <div class="card-header">
+                                              <div class="d-flex justify-content-between">
+                                                  <h5 class="mb-0 text-secondary">${(station.StationName == null || station.StationName == '') ? 'Unknown' : station.StationName}</h5>
+                                                  <button class="btn btn-sm btn-outline-primary radius-10" data-idmodel="${Id}" data-idstation="${station.Id}">
+                                                        <i class="fa-duotone fa-circle-info"></i> Details
+                                                  </button>
+                                              </div>
+                                          </div>
+                                          <div class="card-body">
+                                              <h4 class="my-1">${DeviceCount} Devices</h4>
+                                          </div>
+                                      </div>
+                                  </div>`);
+
+                    var button = card.find('button');
+                    button.on('click', function (e) {
+                        e.preventDefault();
+
+                        var IdModel = $(this).data('idmodel');
+                        var IdStation = $(this).data('idstation');
+
+                        GetStationDetails(IdModel, IdStation);
+                    });
+
+                    $('#station-container').append(card);
+                });
+
+                offcanvasDetails.show();
+            }
+            else {
+                toastr["error"](response.message, "ERROR");
             }
         },
-        markers: {
-            size: 0,
-            colors: ["#8833ff"],
-            strokeColors: "#fff",
-            strokeWidth: 2,
-            hover: {
-                size: 7,
-            }
-        },
-        plotOptions: {
-            bar: {
-                horizontal: false,
-                columnWidth: '45%',
-                endingShape: 'rounded'
-            },
-        },
-        dataLabels: {
-            enabled: false
-        },
-        stroke: {
-            show: true,
-            width: 3,
-            // curve: 'smooth'
-        },
-        colors: ["#8833ff"],
-        xaxis: {
-            categories: categories,
-        },
-        fill: {
-            opacity: 1
-        },
-        tooltip: {
-            theme: 'dark',
-            fixed: {
-                enabled: false
-            },
-            x: {
-                show: false
-            },
-            y: {
-                title: {
-                    formatter: function (seriesName) {
-                        return ''
-                    }
-                }
-            },
-            marker: {
-                show: false
-            }
+        error: function (error) {
+            Swal.fire("Something went wrong!", GetAjaxErrorMessage(error), "error");
         }
-    };
-    var chart = new ApexCharts(document.querySelector("#chart8"), options);
-    chart.render();
-    // chart 9
-    var options = {
-        series: [{
-            name: 'Sessions',
-            data: data2
-        }],
-        chart: {
-            type: 'area',
-            height: 60,
-            toolbar: {
-                show: false
-            },
-            zoom: {
-                enabled: false
-            },
-            dropShadow: {
-                enabled: false,
-                top: 3,
-                left: 14,
-                blur: 4,
-                opacity: 0.12,
-                color: '#f41127',
-            },
-            sparkline: {
-                enabled: true
-            }
-        },
-        markers: {
-            size: 0,
-            colors: ["#f41127"],
-            strokeColors: "#fff",
-            strokeWidth: 2,
-            hover: {
-                size: 7,
-            }
-        },
-        plotOptions: {
-            bar: {
-                horizontal: false,
-                columnWidth: '45%',
-                endingShape: 'rounded'
-            },
-        },
-        dataLabels: {
-            enabled: false
-        },
-        stroke: {
-            show: true,
-            width: 3,
-            // curve: 'smooth'
-        },
-        colors: ["#f41127"],
-        xaxis: {
-            categories: categories,
-        },
-        fill: {
-            opacity: 1
-        },
-        tooltip: {
-            theme: 'dark',
-            fixed: {
-                enabled: false
-            },
-            x: {
-                show: false
-            },
-            y: {
-                title: {
-                    formatter: function (seriesName) {
-                        return ''
-                    }
-                }
-            },
-            marker: {
-                show: false
-            }
-        }
-    };
-    var chart = new ApexCharts(document.querySelector("#chart9"), options);
-    chart.render();
-    // chart 10
-    var options = {
-        series: [{
-            name: 'Sessions',
-            data: data3
-        }],
-        chart: {
-            type: 'area',
-            height: 60,
-            toolbar: {
-                show: false
-            },
-            zoom: {
-                enabled: false
-            },
-            dropShadow: {
-                enabled: false,
-                top: 3,
-                left: 14,
-                blur: 4,
-                opacity: 0.12,
-                color: '#17a00e',
-            },
-            sparkline: {
-                enabled: true
-            }
-        },
-        markers: {
-            size: 0,
-            colors: ["#17a00e"],
-            strokeColors: "#fff",
-            strokeWidth: 2,
-            hover: {
-                size: 7,
-            }
-        },
-        plotOptions: {
-            bar: {
-                horizontal: false,
-                columnWidth: '45%',
-                endingShape: 'rounded'
-            },
-        },
-        dataLabels: {
-            enabled: false
-        },
-        stroke: {
-            show: true,
-            width: 3,
-            // curve: 'smooth'
-        },
-        colors: ["#17a00e"],
-        xaxis: {
-            categories: categories,
-        },
-        fill: {
-            opacity: 1
-        },
-        tooltip: {
-            theme: 'dark',
-            fixed: {
-                enabled: false
-            },
-            x: {
-                show: false
-            },
-            y: {
-                title: {
-                    formatter: function (seriesName) {
-                        return ''
-                    }
-                }
-            },
-            marker: {
-                show: false
-            }
-        }
-    };
-    var chart = new ApexCharts(document.querySelector("#chart10"), options);
-    chart.render();
-}
-
-//<!-- Trạng thái thiết bị -->
-function Chart11() {
-    var options = {
-        chart: {
-            height: 330,
-            type: 'radialBar',
-            toolbar: {
-                show: false
-            }
-        },
-        plotOptions: {
-            radialBar: {
-                startAngle: -130,
-                endAngle: 130,
-                hollow: {
-                    margin: 0,
-                    size: '78%',
-                    //background: '#fff',
-                    image: undefined,
-                    imageOffsetX: 0,
-                    imageOffsetY: 0,
-                    position: 'front',
-                    dropShadow: {
-                        enabled: false,
-                        top: 3,
-                        left: 0,
-                        blur: 4,
-                        color: 'rgba(0, 169, 255, 0.25)',
-                        opacity: 0.65
-                    }
-                },
-                track: {
-                    background: '#dfecff',
-                    //strokeWidth: '67%',
-                    margin: 0, // margin is in pixels
-                    dropShadow: {
-                        enabled: false,
-                        top: -3,
-                        left: 0,
-                        blur: 4,
-                        color: 'rgba(0, 169, 255, 0.85)',
-                        opacity: 0.65
-                    }
-                },
-                dataLabels: {
-                    showOn: 'always',
-                    name: {
-                        offsetY: -25,
-                        show: true,
-                        color: '#6c757d',
-                        fontSize: '16px'
-                    },
-                    value: {
-                        formatter: function (val) {
-                            return val + "%";
-                        },
-                        color: '#000',
-                        fontSize: '45px',
-                        show: true,
-                        offsetY: 10,
-                    }
-                }
-            }
-        },
-        fill: {
-            type: 'gradient',
-            gradient: {
-                shade: 'dark',
-                type: 'horizontal',
-                shadeIntensity: 0.5,
-                gradientToColors: ['#8e2de2'],
-                inverseColors: false,
-                opacityFrom: 1,
-                opacityTo: 1,
-                stops: [0, 100]
-            }
-        },
-        colors: ["#4a00e0"],
-        series: [84],
-        stroke: {
-            lineCap: 'round',
-            //dashArray: 4
-        },
-        labels: ['Dynamics Today'],
-    }
-    var chart = new ApexCharts(document.querySelector("#chart11"), options);
-    chart.render();
-}
-
-//<!-- Thiết bị trong kho, ngoài kho - Loại thiết bị (dynamic/static) -->
-function Chart1213() {
-    Highcharts.chart('chart12', {
-        chart: {
-            width: '190',
-            height: '190',
-            plotBackgroundColor: null,
-            plotBorderWidth: null,
-            plotShadow: false,
-            type: 'pie',
-            styledMode: true
-        },
-        credits: {
-            enabled: false
-        },
-        exporting: {
-            buttons: {
-                contextButton: {
-                    enabled: false,
-                }
-            }
-        },
-        title: {
-            text: ''
-        },
-        tooltip: {
-            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-        },
-        accessibility: {
-            point: {
-                valueSuffix: '%'
-            }
-        },
-        plotOptions: {
-            pie: {
-                allowPointSelect: true,
-                cursor: 'pointer',
-                dataLabels: {
-                    enabled: false
-                },
-                showInLegend: false
-            }
-        },
-        series: [{
-            name: 'Users',
-            colorByPoint: true,
-            data: [{
-                name: 'Male',
-                y: 61.41,
-                sliced: true,
-                selected: true
-            }, {
-                name: 'Female',
-                y: 11.84
-            }]
-        }]
-    });
-
-    Highcharts.chart('chart13', {
-        chart: {
-            height: 360,
-            type: 'column',
-            styledMode: true
-        },
-        credits: {
-            enabled: false
-        },
-        title: {
-            text: 'Traffic Sources Status. January, 2021'
-        },
-        accessibility: {
-            announceNewData: {
-                enabled: true
-            }
-        },
-        xAxis: {
-            type: 'category'
-        },
-        yAxis: {
-            title: {
-                text: 'Traffic Sources Status'
-            }
-        },
-        legend: {
-            enabled: false
-        },
-        plotOptions: {
-            series: {
-                borderWidth: 0,
-                dataLabels: {
-                    enabled: true,
-                    format: '{point.y:.1f}%'
-                }
-            }
-        },
-        tooltip: {
-            headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
-            pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>'
-        },
-        series: [{
-            name: "Traffic Sources",
-            colorByPoint: true,
-            data: [{
-                name: "Organic Search",
-                y: 62.74,
-                drilldown: "Organic Search"
-            }, {
-                name: "Direct",
-                y: 40.57,
-                drilldown: "Direct"
-            }, {
-                name: "Referral",
-                y: 25.23,
-                drilldown: "Referral"
-            }, {
-                name: "Others",
-                y: 10.58,
-                drilldown: "Others"
-            }]
-        }],
-
     });
 }
+function GetStationDetails(IdModel, IdStation) {
+    $.ajax({
+        type: "GET",
+        url: "/NVIDIA/Dashboard/GetStationDetails",
+        data: { IdModel: IdModel, IdStation: IdStation },
+        dataType: "json",
+        contentType: "application/json;charset=utf-8",
+        success: function (response) {
+            if (response.status) {
+                var result = response.StationDetailsResults;
+
+                $('#device_details-tbody').empty();
+                $.each(result, function (k, deviceDetails) {
+                    var device = deviceDetails.Device;
+                    var row = $(`<tr>
+                                    <td>${k + 1}</td>
+                                    <td>${device.Id}</td>
+                                    <td>${device.DeviceCode}</td>
+                                    <td>${device.DeviceName}</td>
+                                    <td>${device.Model ? (device.Model.ModelName != null || device.Model.ModelName != '') ? device.Model.ModelName : '' : ''}</td>
+                                    <td>${device.Station ? (device.Station.StationName != null || device.Station.StationName != '') ? device.Station.StationName : '' : ''}</td>
+                                    <td>${deviceDetails.Quantity}</td>
+                                </tr>`);
+                    $('#device_details-tbody').append(row);
+                });
+
+                $('#device_details-modal').modal('show');
+            }
+            else {
+                toastr["error"](response.message, "ERROR");
+            }
+        },
+        error: function (error) {
+            Swal.fire("Something went wrong!", GetAjaxErrorMessage(error), "error");
+        }
+    });
+}
+

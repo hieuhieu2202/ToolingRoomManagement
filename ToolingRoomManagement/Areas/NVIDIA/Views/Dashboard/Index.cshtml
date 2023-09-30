@@ -117,7 +117,7 @@
     <!-- Số đơn pending theo tuần -->
     <!-- Số đơn reject theo tuần -->
     <div class="col d-flex">
-        <div class="card radius-10 p-0 w-100 bg-transparent shadow-none">
+        <div class="card radius-10 p-0 w-100 bg-transparent shadow-none flex-column justify-content-between">
             <div class="card radius-10">
                 <div class="card-body">
                     <div class="d-flex align-items-center">
@@ -125,7 +125,7 @@
                             <p class="mb-0">Approved</p>
                             <h5 class="mb-0" id="chart8-rate">0%</h5>
                         </div>
-                        <div class="widgets-icons bg-light-primary text-primary ms-auto"><i class="bx bxs-cookie"></i></div>
+                        <div class="widgets-icons bg-light-success text-success ms-auto"><i class="fa-sharp fa-regular fa-circle-check"></i></div>
                     </div>
                     <div id="chart8"></div>
                 </div>
@@ -137,7 +137,7 @@
                             <p class="mb-0">Pending </p>
                             <h5 class="mb-0" id="chart9-rate">0%</h5>
                         </div>
-                        <div class="widgets-icons bg-light-danger text-danger ms-auto"><i class="bx bxs-bookmark-alt-plus"></i></div>
+                        <div class="widgets-icons bg-light-warning text-warning ms-auto"><i class="fa-regular fa-circle-exclamation"></i></div>
                     </div>
                     <div id="chart9"></div>
                 </div>
@@ -149,7 +149,7 @@
                             <p class="mb-0">Rejected</p>
                             <h5 class="mb-0" id="chart10-rate"></h5>
                         </div>
-                        <div class="widgets-icons bg-light-success text-success ms-auto"><i class="bx bxs-cloud-download"></i></div>
+                        <div class="widgets-icons bg-light-danger text-danger ms-auto"><i class="fa-sharp fa-regular fa-circle-xmark"></i></div>
                     </div>
                     <div id="chart10"></div>
                 </div>
@@ -172,52 +172,71 @@
                 <div id="chart11"></div>
 
                 <div class="row align-items-center py-2">
-                    <div class="col-auto">
-                        <p class="mb-0">Sales</p>
+                    <div class="col-4 text-success">
+                        <p class="mb-0">Confirmed</p>
                     </div>
-                    <div class="col-auto">
-                        <p class="mb-0">1580</p>
-                    </div>
-                    <div class="col-auto">
-                        <p class="mb-0">875</p>
+                    <div style="width: 50px">
+                        <p class="mb-0" id="chart11-ConfirmedText">0</p>
                     </div>
                     <div class="col">
                         <div class="progress radius-10 mb-0" style="height:6px;">
-                            <div class="progress-bar bg-primary" role="progressbar" style="width: 85%"></div>
+                            <div class="progress-bar bg-success" role="progressbar" id="chart11-ConfirmedBar" style="width: 0%"></div>
                         </div>
                     </div>
                 </div><!--end row-->
 
                 <div class="row align-items-center py-2">
-                    <div class="col-auto">
-                        <p class="mb-0">Users</p>
+                    <div class="col-4 text-warning">
+                        <p class="mb-0">Part Confirmred</p>
                     </div>
-                    <div class="col-auto">
-                        <p class="mb-0">1852</p>
-                    </div>
-                    <div class="col-auto">
-                        <p class="mb-0">356</p>
+                    <div style="width: 50px">
+                        <p class="mb-0" id="chart11-PartConfirmedText">0</p>
                     </div>
                     <div class="col">
                         <div class="progress radius-10 mb-0" style="height:6px;">
-                            <div class="progress-bar bg-danger" role="progressbar" style="width: 65%"></div>
+                            <div class="progress-bar bg-warning" role="progressbar" id="chart11-PartConfirmedBar" style="width: 0%"></div>
                         </div>
                     </div>
                 </div><!--end row-->
 
                 <div class="row align-items-center py-2">
-                    <div class="col-auto">
-                        <p class="mb-0">Visits</p>
+                    <div class="col-4 text-info">
+                        <p class="mb-0">Unconfirmed</p>
                     </div>
-                    <div class="col-auto">
-                        <p class="mb-0">1280</p>
-                    </div>
-                    <div class="col-auto">
-                        <p class="mb-0">867</p>
+                    <div style="width: 50px">
+                        <p class="mb-0" id="chart11-UnconfirmedText">0</p>
                     </div>
                     <div class="col">
                         <div class="progress radius-10 mb-0" style="height:6px;">
-                            <div class="progress-bar bg-success" role="progressbar" style="width: 45%"></div>
+                            <div class="progress-bar bg-info" role="progressbar" id="chart11-UnconfirmedBar" style="width: 0%"></div>
+                        </div>
+                    </div>
+                </div><!--end row-->
+
+                <div class="row align-items-center py-2">
+                    <div class="col-4 text-secondary">
+                        <p class="mb-0">Locked</p>
+                    </div>
+                    <div style="width: 50px">
+                        <p class="mb-0" id="chart11-LockedText">0</p>
+                    </div>
+                    <div class="col">
+                        <div class="progress radius-10 mb-0" style="height:6px;">
+                            <div class="progress-bar bg-secondary" role="progressbar" id="chart11-LockedBar" style="width: 0%"></div>
+                        </div>
+                    </div>
+                </div><!--end row-->
+
+                <div class="row align-items-center py-2">
+                    <div class="col-4 text-danger">
+                        <p class="mb-0">Out Range</p>
+                    </div>
+                    <div style="width: 50px">
+                        <p class="mb-0" id="chart11-OutRangeText">0</p>
+                    </div>
+                    <div class="col">
+                        <div class="progress radius-10 mb-0" style="height:6px;">
+                            <div class="progress-bar bg-danger" role="progressbar" id="chart11-OutRangeBar" style="width: 0%"></div>
                         </div>
                     </div>
                 </div><!--end row-->
@@ -227,15 +246,15 @@
 
     <!-- Thiết bị trong kho, ngoài kho - Loại thiết bị (dynamic/static) -->
     <div class="col d-flex">
-        <div class="card radius-10 p-0 w-100 p-3">
+        <div class="card radius-10 p-0 w-100 p-3" style="display: flex; flex-direction: column; justify-content: space-evenly;">
 
             <div class="card radius-10 shadow-none bg-transparent border">
                 <div class="card-body">
                     <div class="d-flex align-items-center justify-content-center justify-content-lg-start">
                         <div id="chart12"></div>
                         <div class="">
-                            <p class="mb-0 d-flex align-items-center"><i class='bx bx-male text-danger fs-4'></i><span class="mx-2">Inside</span><span>65%</span></p>
-                            <p class="mb-0 d-flex align-items-center"><i class='bx bx-female text-primary fs-4'></i><span class="mx-2">Outside</span><span>35%</span></p>
+                            <p class="mb-0 d-flex align-items-center"><i class="fa-duotone fa-inbox-in text-info"></i><span class="mx-2">Warehouse</span><span id="chart12-RateInWarehouse">0%</span></p>
+                            <p class="mb-0 d-flex align-items-center"><i class="fa-duotone fa-inbox-out text-danger"></i><span class="mx-2">Line</span><span id="chart12-RateInLine">0%</span></p>
                         </div>
                     </div>
                 </div>
@@ -255,43 +274,105 @@
                     <div class="row row-cols-3 g-3">
                         <div class="col">
                             <div class="d-flex gap-2">
-                                <h4 class="mb-1 d-flex">61 <span class="align-self-start fs-6">%</span></h4>
-                                <p class="mb-0 align-self-center text-success">(+8.4%)</p>
+                                <h4 class="mb-1 d-flex" id="chart12-RateStatic">0%</h4>
                             </div>
                             <p class="mb-0 d-flex align-items-center"><i class='bx bxs-circle text-info fs-6'></i><span class="mx-2">Static</span></p>
                         </div>
                         <div class="col">
                             <div class="d-flex gap-2">
-                                <h4 class="mb-1 d-flex">28 <span class="align-self-start fs-6">%</span></h4>
-                                <p class="mb-0 align-self-center text-danger">(-1.9%)</p>
+                                <h4 class="mb-1 d-flex" id="chart12-RateDynamic">0%</h4>
                             </div>
                             <p class="mb-0 d-flex align-items-center"><i class='bx bxs-circle text-success fs-6'></i><span class="mx-2">Dynamic</span></p>
                         </div>
                         <div class="col">
                             <div class="d-flex gap-2">
-                                <h4 class="mb-1 d-flex">11 <span class="align-self-start fs-6">%</span></h4>
-                                <p class="mb-0 align-self-center text-success">(+6.8%)</p>
+                                <h4 class="mb-1 d-flex" id="chart12-RateOrther">0%</h4>
                             </div>
                             <p class="mb-0 d-flex align-items-center"><i class='bx bxs-circle text-warning fs-6'></i><span class="mx-2">Other</span></p>
                         </div>
                     </div>
 
                     <div class="progress radius-10 mt-4" style="height: 10px">
-                        <div class="progress-bar bg-info" role="progressbar" style="width: 45%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
-                        <div class="progress-bar bg-success" role="progressbar" style="width: 30%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
-                        <div class="progress-bar bg-warning" role="progressbar" style="width: 25%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+                        <div class="progress-bar bg-info" role="progressbar" id="chart12-RateStaticBar" style="width: 0%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
+                        <div class="progress-bar bg-success" role="progressbar" id="chart12-RateDynamicBar" style="width: 0%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
+                        <div class="progress-bar bg-warning" role="progressbar" id="chart12-RateOrtherBar" style="width: 0%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
 
                 </div>
             </div>
+
         </div>
     </div>
 </div><!--end row-->
+<!-- All Model -->
+<div class="row row-cols-1 row-cols-md-2 row-cols-xl-4" id="Model-Container">
 
-<div class="row">
-    <!-- Thống kê các thiết bị có trong model, trạm -->
 </div><!--end row-->
+<!-- OffCanvas Device Detais -->
+<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasModel" data-bs-scroll="true">
+    <div class="offcanvas-header">
+        <h5 id="offcanvasRightLabel">Model Details</h5>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        <div class="row row-cols-xl-1" id="station-container">
 
+            <div class="col">
+                <div class="card radius-10">
+                    <div class="card-header">
+                        <div class="d-flex justify-content-between">
+                            <h5 class="mb-0 text-secondary"></h5>
+                            <button class="btn btn-sm btn-outline-primary radius-10"><i class="fa-duotone fa-circle-info"></i> Details</button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="text-secondary">
+                            <span class="fs-4 text-white">42</span> (Station)
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- Details modal -->
+<div class="modal fade" id="device_details-modal" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="device_details-title">STATION DEVICES</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <!-- History -->
+                    <h5 class="font-weight-light text-center text-primary py-3" id="borrow_modal-name">STATION DEVICES</h5>
+                    <div>
+                        <table class="table table-bordered" id="device_details">
+                            <thead>
+                                <tr class="align-middle fw-bold" style="background-color: #3e464c">
+                                    <td>No.</td>
+                                    <td>Device Id</td>
+                                    <td>Device Code</td>
+                                    <td>Device Name</td>
+                                    <td>Model</td>
+                                    <td>Station</td>
+                                    <td>Quantity</td>
+                                </tr>
+                            </thead>
+                            <tbody id="device_details-tbody"></tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 @section scripts{
     <!-- Vendor -->
@@ -300,10 +381,6 @@
 
 
     <script src="~/Areas/NVIDIA/Content/Template/Sysadmin/assets/plugins/highcharts/js/highcharts.js"></script>
-    <script src="~/Areas/NVIDIA/Content/Template/Sysadmin/assets/plugins/highcharts/js/exporting.js"></script>
-    <script src="~/Areas/NVIDIA/Content/Template/Sysadmin/assets/plugins/highcharts/js/variable-pie.js"></script>
-    <script src="~/Areas/NVIDIA/Content/Template/Sysadmin/assets/plugins/highcharts/js/export-data.js"></script>
-    <script src="~/Areas/NVIDIA/Content/Template/Sysadmin/assets/plugins/highcharts/js/accessibility.js"></script>
 
     <script src="~/Areas/NVIDIA/Content/Template/Sysadmin/assets/plugins/apexcharts-bundle/js/apexcharts.min.js"></script>
     <!-- Custom -->
