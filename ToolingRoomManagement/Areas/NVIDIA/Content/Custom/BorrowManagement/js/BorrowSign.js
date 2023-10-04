@@ -1,7 +1,7 @@
 ﻿$(function () {
     GetUserSigns();
 });
-
+$(document).off('focusin.modal');
 function GetUserSigns(IsTable = true) {
     $.ajax({
         type: "POST",
@@ -325,9 +325,8 @@ function Reject(elm, e) {
                 html.append(`<p>Created Date: <b>${moment(borrow.DateBorrow).format('YYYY-MM-DD HH:mm:ss')}</b></p>`);
                 html.append(`<div class="text-start">
                                  <label class="form-label">Note</label>
-                                 <textarea class="form-control" rows="3" style="resize: none" id="reject-Note" placeholder="132321"></textarea>
-                             </div>`)
-
+                                 <textarea class="form-control" rows="3" style="resize: none" id="reject-Note"></textarea>
+                             </div>`);
                 Swal.fire({
                     title: `<strong style="font-size: 25px;">Do you want Reject this borrow request?</strong>`,
                     html: html,
@@ -373,9 +372,12 @@ function Reject(elm, e) {
                             error: function (error) {
                                 Swal.fire("Something went wrong!", GetAjaxErrorMessage(error), "error");
                             }
-                        });
+                        });  
+
+                        $('#borrow_modal').modal('hide');
                     }
                 });
+                
             }
             else {
                 toastr["error"](response.message, "ERROR");

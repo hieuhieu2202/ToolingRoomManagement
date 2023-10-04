@@ -820,10 +820,8 @@ $('#filter').on('click', function (e) {
     var filter_Type = $('#filter_Type').val();
     var filter_Status = $('#filter_Status').val();
 
-    // Xóa bộ lọc trước đó
     tableDeviceInfo.columns().search('').draw();
 
-    // Kiểm tra và áp dụng bộ lọc cho từng cột (nếu giá trị không rỗng)
     if (filter_Product !== "Product" && filter_Product !== null && filter_Product !== undefined) {
         tableDeviceInfo.column(1).search("^" + filter_Product + "$", true, false);
     }
@@ -840,14 +838,26 @@ $('#filter').on('click', function (e) {
         tableDeviceInfo.column(7).search("^" + filter_Vendor + "$", true, false);
     }
     if (filter_Type !== "Type" && filter_Type !== null && filter_Type !== undefined) {
-        tableDeviceInfo.column(10).search("^" + filter_Type + "$", true, false);
+        tableDeviceInfo.column(11).search("^" + filter_Type + "$", true, false);
     }
     if (filter_Status !== "Status" && filter_Status !== null && filter_Status !== undefined) {
-        tableDeviceInfo.column(11).search("^" + filter_Status + "$", true, false);
+        tableDeviceInfo.column(12).search("^" + filter_Status + "$", true, false);
     }
 
-    // Vẫn cần gọi hàm draw để vẽ lại bảng với bộ lọc mới
     tableDeviceInfo.draw();
+});
+$('#filter-refresh').click(function (e) {
+    e.preventDefault();
+
+    $('#filter_Product').val("Product");
+    $('#filter_Model').val("Model");
+    $('#filter_Station').val("Station");
+    $('#filter_Group').val("Group");
+    $('#filter_Vendor').val("Vendor");
+    $('#filter_Type').val("Type");
+    $('#filter_Status').val("Status");
+
+    $('#filter').click(); 
 });
 
 

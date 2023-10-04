@@ -169,27 +169,27 @@ async function CreateTableAddDevice(devices) {
 
         var row = $(`<tr class="align-middle" data-id="${item.Id}"></tr>`);
 
-        // MTS
+        // 0 MTS
         row.append(`<td>${item.Id}</td>`);
-        // Product Name
+        // 1 Product Name
         row.append(`<td title="${(item.Product) ? item.Product.ProductName : ""}">${(item.Product) ? item.Product.ProductName : ""}</td>`);
-        // Model
+        // 2 Model
         row.append(`<td>${(item.Model) ? item.Model.ModelName : ""}</td>`);
-        // Station
+        // 3 Station
         row.append(`<td>${(item.Station) ? item.Station.StationName : ""}</td>`);
-        // DeviceCode - PN
+        // 4 DeviceCode - PN
         row.append(`<td data-id="${item.Id}" data-code="${item.DeviceCode}" title="${item.DeviceCode}">${item.DeviceCode}</td>`);
-        // DeviceName
+        // 5 DeviceName
         row.append(`<td title="${item.DeviceName}">${item.DeviceName}</td>`);
-        // Group
+        // 6 Group
         row.append(`<td>${(item.Group) ? item.Group.GroupName : ""}</td>`);
-        // Vendor
+        // 7 Vendor
         row.append(`<td title="${(item.Vendor) ? item.Vendor.VendorName : ""}">${(item.Vendor) ? item.Vendor.VendorName : ""}</td>`);
-        // Buffer
+        // 8 Buffer
         row.append(`<td title="${item.Buffer}">${item.Buffer * 100}%</td>`);
-        // Quantity
+        // 9 Quantity
         row.append(`<td title="Real Quantity">${(item.RealQty != null) ? item.RealQty : 0}</td>`);
-        // Type
+        // 10 Type
         switch (item.Type) {
             case "S": {
                 row.append(`<td><span class="text-success fw-bold">Static</span></td>`);
@@ -204,7 +204,7 @@ async function CreateTableAddDevice(devices) {
                 break;
             }
         }
-        // Status
+        // 11 Status
         switch (item.Status) {
             case "Unconfirmed": {
                 row.append(`<td><span class="badge bg-primary">Unconfirmed</span></td>`);
@@ -231,14 +231,11 @@ async function CreateTableAddDevice(devices) {
                 break;
             }
         }
+        // 12 Action
         row.append(`<td class="order-action d-flex text-center justify-content-center">
                         <a href="javascript:;" class="text-primary    bg-light-primary    border-0" title="Select This Device"><i class="fa-regular fa-circle-check"></i></a> 
                     </td>`);
-        //// Action
-        //row.append(`<td><button class="btn btn-outline-primary button_dot" type="button" title="Select Device">
-        //                        <i class="bx bx-check"></i>
-        //                    </button></td>`);
-        // Location 8
+        // 13 Location 
         var html = ''
         var title = ''
         $.each(item.DeviceWarehouseLayouts, function (k, sss) {
@@ -430,10 +427,8 @@ $('#filter').on('click', function (e) {
     var filter_Type = $('#filter_Type').val();
     var filter_Status = $('#filter_Status').val();
 
-    // Xóa bộ lọc trước đó
     tableDeviceInfo.columns().search('').draw();
 
-    // Kiểm tra và áp dụng bộ lọc cho từng cột (nếu giá trị không rỗng)
     if (filter_Product !== "Product" && filter_Product !== null && filter_Product !== undefined) {
         tableDeviceInfo.column(1).search("^" + filter_Product + "$", true, false);
     }
@@ -456,9 +451,22 @@ $('#filter').on('click', function (e) {
         tableDeviceInfo.column(11).search("^" + filter_Status + "$", true, false);
     }
 
-    // Vẫn cần gọi hàm draw để vẽ lại bảng với bộ lọc mới
     tableDeviceInfo.draw();
 });
+$('#filter-refresh').click(function (e) {
+    e.preventDefault();
+
+    $('#filter_Product').val("Product");
+    $('#filter_Model').val("Model");
+    $('#filter_Station').val("Station");
+    $('#filter_Group').val("Group");
+    $('#filter_Vendor').val("Vendor");
+    $('#filter_Type').val("Type");
+    $('#filter_Status').val("Status");
+
+    $('#filter').click();
+});
+
 $('#input_WareHouse').on('change', function (e) {
     e.preventDefault();
 

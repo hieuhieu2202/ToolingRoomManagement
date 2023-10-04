@@ -78,7 +78,28 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Data
                                                        </div>
 
                                                        <!-- Footer -->
-                                                        {section_3}
+                                                        <div class=""u-row-container"" style=""padding: 0px;background-color: transparent"">
+                                                            <div class=""u-row"" style=""margin: 0 auto;min-width: 320px;max-width: 600px;overflow-wrap: break-word;word-wrap: break-word;word-break: break-word;background-color: transparent;"">
+                                                                <div style=""border-collapse: collapse;display: table;width: 100%;height: 100%;background-color: transparent;"">
+                                                                    <div class=""u-col u-col-100"" style=""max-width: 320px;min-width: 600px;display: table-cell;vertical-align: top;"">
+                                                                        <div style=""background-color: #232323;height: 100%;width: 100% !important;border-radius: 0px;-webkit-border-radius: 0px; -moz-border-radius: 0px;"">
+                                                                            <div class=""v-col-border"" style=""box-sizing: border-box; height: 100%; padding: 0px;border-top: 0px solid transparent;border-left: 0px solid transparent;border-right: 0px solid transparent;border-bottom: 0px solid transparent;border-radius: 0px;-webkit-border-radius: 0px; -moz-border-radius: 0px;"">
+                                                                                <table id=""u_content_heading_8"" style=""font-family:arial,helvetica,sans-serif;"" role=""presentation"" cellpadding=""0"" cellspacing=""0"" width=""100%"" border=""0"">
+                                                                                    <tbody>
+                                                                                        <tr>
+                                                                                            <td class=""v-container-padding-padding"" style=""overflow-wrap:break-word;word-break:break-word;padding: 10px 10px 10px 10px;font-family:arial,helvetica,sans-serif;text-align: right;font-size: 12px;color: white;display: flex;justify-content: space-between;"" align=""left"">
+                                                                                                <span style=""float: left;"">MBD-AUTOMATION-IOT@mail.foxconn.com</span>
+                                                                                                <span style=""float: right;"">Copyright © 2023. MBD Automation IOT.</span>
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                    </tbody>
+                                                                                </table>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                    </td>
                                                </tr>
                                            </tbody>
@@ -93,32 +114,9 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Data
             string endContent = "";
             foreach (var row in contentRow)
             {
-                endContent += $"<p style=\"line-height: 140%;\">{row}</p>";
+                endContent += $"<p style=\"line-height: 120%;\">{row}</p>";
             }
             return endContent;
         }
-        private static string section_3 = @"<div class=""u-row-container"" style=""padding: 0px;background-color: transparent"">
-                                                <div class=""u-row"" style=""margin: 0 auto;min-width: 320px;max-width: 600px;overflow-wrap: break-word;word-wrap: break-word;word-break: break-word;background-color: transparent;"">
-                                                    <div style=""border-collapse: collapse;display: table;width: 100%;height: 100%;background-color: transparent;"">
-                                                        <div class=""u-col u-col-100"" style=""max-width: 320px;min-width: 600px;display: table-cell;vertical-align: top;"">
-                                                            <div style=""background-color: #232323;height: 100%;width: 100% !important;border-radius: 0px;-webkit-border-radius: 0px; -moz-border-radius: 0px;"">
-                                                                <div class=""v-col-border"" style=""box-sizing: border-box; height: 100%; padding: 0px;border-top: 0px solid transparent;border-left: 0px solid transparent;border-right: 0px solid transparent;border-bottom: 0px solid transparent;border-radius: 0px;-webkit-border-radius: 0px; -moz-border-radius: 0px;"">
-                                                                    <table id=""u_content_heading_8"" style=""font-family:arial,helvetica,sans-serif;"" role=""presentation"" cellpadding=""0"" cellspacing=""0"" width=""100%"" border=""0"">
-                                                                        <tbody>
-                                                                            <tr>
-                                                                                <td class=""v-container-padding-padding"" style=""overflow-wrap:break-word;word-break:break-word;padding: 10px 10px 10px 10px;font-family:arial,helvetica,sans-serif;text-align: right;font-size: 12px;color: white;display: flex;justify-content: space-between;"" align=""left"">
-                                                                                    <span style=""float: left;"">MBD-AUTOMATION-IOT@mail.foxconn.com</span>
-
-                                                                                    <span style=""float: right;"">Copyright © 2023. MBD Automation IOT.</span>
-                                                                                </td>
-                                                                            </tr>
-                                                                        </tbody>
-                                                                    </table>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>";
     }
 }

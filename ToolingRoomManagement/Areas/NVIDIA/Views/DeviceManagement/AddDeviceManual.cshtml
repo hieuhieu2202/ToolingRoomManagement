@@ -37,12 +37,12 @@
                     <!-- Device Code -->
                     <div class="input-group mb-3">
                         <span class="col-4 input-group-text">Device Code</span>
-                        <input class="col-8 form-control" type="text" id="device_add-DeviceCode" maxlength="25" autocomplete="off">
+                        <input class="col-8 form-control" type="text" id="device_add-DeviceCode" maxlength="25" autocomplete="off" placeholder="Mã thiết bị">
                     </div>
                     <!-- Device Name -->
                     <div class="input-group mb-3">
                         <span class="col-4 input-group-text">Device name</span>
-                        <input class="col-8 form-control" type="text" id="device_add-DeviceName" maxlength="255" autocomplete="off">
+                        <input class="col-8 form-control" type="text" id="device_add-DeviceName" maxlength="255" autocomplete="off" placeholder="Tên thiết bị">
                     </div>
                     <!-- Device Date -->
                     <div class="input-group mb-3">
@@ -52,17 +52,17 @@
                     <!-- Buffer -->
                     <div class="input-group mb-3">
                         <span class="col-4 input-group-text">Buffer</span>
-                        <input class="col-8 form-control" type="number" id="device_add-Buffer" value="0" autocomplete="off">
+                        <input class="col-8 form-control" type="number" id="device_add-Buffer"  autocomplete="off" placeholder="10 thiết bị  + Buffer 0.3 (30%) = 13">
                     </div>
                     <!-- LifeCycle -->
                     <div class="input-group mb-3">
                         <span class="col-4 input-group-text">Life Cycle</span>
-                        <input class="col-8 form-control" type="number" id="device_add-LifeCycle" value="0" autocomplete="off">
+                        <input class="col-8 form-control" type="number" id="device_add-LifeCycle" autocomplete="off" placeholder="Vòng đời (số lần sử dụng)">
                     </div>
                     <!-- Quantity -->
                     <div class="input-group mb-3">
                         <span class="col-4 input-group-text">Quantity</span>
-                        <input class="col-8 form-control" type="number" id="device_add-Quantity" autocomplete="off">
+                        <input class="col-8 form-control" type="number" id="device_add-Quantity" autocomplete="off" placeholder="Số lượng nhập vào kho">
                     </div>
                 </div>
                 <div class="col-4">
@@ -74,43 +74,52 @@
                     <!-- Product -->
                     <div class="input-group mb-3">
                         <span class="col-4 input-group-text">Product</span>
-                        <input class="col-8 form-control" type="text" id="device_add-Product" list="device_add-Product_List" autocomplete="off">
+                        <input class="col-8 form-control" type="text" id="device_add-Product" list="device_add-Product_List" autocomplete="off" placeholder="Dùng cho hàng nào...">
                         <datalist id="device_add-Product_List"></datalist>
                     </div>
                     <!-- Model -->
                     <div class="input-group mb-3">
                         <span class="col-4 input-group-text">Model</span>
-                        <input class="col-8 form-control" type="text" id="device_add-Model" list="device_add-Model_List" autocomplete="off">
+                        <input class="col-8 form-control" type="text" id="device_add-Model" list="device_add-Model_List" autocomplete="off" placeholder="Dùng cho model nào...">
                         <datalist id="device_add-Model_List"></datalist>
                     </div>
                     <!-- Station -->
                     <div class="input-group mb-3">
                         <span class="col-4 input-group-text">Station</span>
-                        <input class="col-8 form-control" type="text" id="device_add-Station" list="device_add-Station_List" autocomplete="off">
+                        <input class="col-8 form-control" type="text" id="device_add-Station" list="device_add-Station_List" autocomplete="off" placeholder="Dùng cho trạm nào...">
                         <datalist id="device_add-Station_List"></datalist>
                     </div>
                     <!-- Group -->
                     <div class="input-group mb-3">
                         <span class="col-4 input-group-text">Group</span>
-                        <input class="col-8 form-control" type="text" id="device_add-Group" list="device_add-Group_List" autocomplete="off">
+                        <input class="col-8 form-control" type="text" id="device_add-Group" list="device_add-Group_List" autocomplete="off" placeholder="Nhóm thiết bị (vd: USB)">
                         <datalist id="device_add-Group_List"></datalist>
                     </div>
                     <!-- Vendor -->
                     <div class="input-group mb-3">
                         <span class="col-4 input-group-text">Vendor</span>
-                        <input class="col-8 form-control" type="text" id="device_add-Vendor" list="device_add-Vendor_List" autocomplete="off">
+                        <input class="col-8 form-control" type="text" id="device_add-Vendor" list="device_add-Vendor_List" autocomplete="off" placeholder="Nhà cung ứng">
                         <datalist id="device_add-Vendor_List"></datalist>
                     </div>
                 </div>
                 <div class="col-4">
+                    <!-- Type -->
+                    <div class="input-group mb-3">
+                        <span class="col-4 input-group-text">Type</span>
+                        <select class="form-select" id="device_add-Type">
+                            <option value="#N/A">N/A</option>
+                            <option value="S">Static (Cố định)</option>
+                            <option value="D">Dynamic (Tiêu hao)</option>
+                        </select>
+                    </div>
                     <!-- Layout -->
                     <div id="layout-container">
                         @*<div class="input-group mb-3">
-                            <span class="col-4 input-group-text">Layout</span>
-                            <select class="form-select" id="device_add-WareHouse"></select>
-                            <span class="input-group-text bg-light-danger text-danger" style="width:40px" delete><i class="fa-solid fa-trash"></i></span>
-                        </div>*@                       
-                    </div>                   
+                <span class="col-4 input-group-text">Layout</span>
+                <select class="form-select" id="device_add-WareHouse"></select>
+                <span class="input-group-text bg-light-danger text-danger" style="width:40px" delete><i class="fa-solid fa-trash"></i></span>
+            </div>*@
+                    </div>
                     <button type="button" class="btn btn-sm btn-outline-secondary w-100" id="new-layout"><i class="fa-solid fa-plus"></i> Add Layout</button>
                 </div>
             </div>
