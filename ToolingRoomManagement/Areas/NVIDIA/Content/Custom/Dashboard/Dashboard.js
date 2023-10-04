@@ -1265,7 +1265,7 @@
 
                     data.RateStatic = parseFloat((data.TotalStatic / data.TotalStatus * 100).toFixed(2));
                     data.RateDynamic = parseFloat((data.TotalDynamic / data.TotalStatus * 100).toFixed(2));
-                    data.RateOrther = 100 - (data.RateStatic + data.RateDynamic);
+                    data.RateOrther = (100 - (data.RateStatic + data.RateDynamic)).toFixed(2);
 
                     $('#chart12-RateStatic').text(`${data.RateStatic}%`);
                     $('#chart12-RateStaticBar').css('width', `${data.RateStatic}%`);
