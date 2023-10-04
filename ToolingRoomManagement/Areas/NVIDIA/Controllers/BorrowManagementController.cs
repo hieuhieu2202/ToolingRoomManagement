@@ -89,6 +89,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
         public ActionResult GetUserBorrowSigns()
         {
             Entities.User user = (Entities.User)Session["SignSession"];
+            List<Entities.UserRole> UserRoles = db.UserRoles.Where(ur => ur.IdUser == user.Id).ToList();
 
             List<Borrow> borrows = new List<Borrow>();
             List<UserBorrowSign> userBorrowSigns = db.UserBorrowSigns
@@ -104,6 +105,20 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                     borrows.Add(borrow);
                 }             
             }
+
+            // if admin
+            if(UserRoles.Count > 0)
+            {
+                foreach (var userRole in UserRoles)
+                {
+                    var role = db.Roles.FirstOrDefault(r => r.Id == userRole.IdRole);
+                    if (role.RoleName == "admin")
+                    {
+                        borrows = db.Borrows.OrderByDescending(b => b.Id).ToList();
+                        break;
+                    }
+                }
+            } 
 
             return Json(new {status = true, borrows = JsonSerializer.Serialize(borrows) });
         }

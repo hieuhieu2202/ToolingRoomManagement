@@ -28,14 +28,14 @@ async function CreateTableAddDevice(devices) {
         // 7 Vendor
         row.append(`<td title="${(item.Vendor) ? item.Vendor.VendorName : ""}">${(item.Vendor) ? item.Vendor.VendorName : ""}</td>`);
         // 8 Specification
-        row.append(`<td>${(item.Specification) ? item.Specification : ""}</td>`);
+        row.append(`<td title="${item.Specification}">${(item.Specification) ? item.Specification : ""}</td>`);
         // 9 Location 
         var html = ''
         var title = ''
         $.each(item.DeviceWarehouseLayouts, function (k, sss) {
             var layout = sss.WarehouseLayout;
             if (k == 0) {
-                html += `<lable>${layout.Line}${layout.Floor ? ' - ' + layout.Floor : ''}${layout.Cell ? ' - ' + layout.Cell : ''}<lable>`;            
+                html += `<lable>${layout.Line}${layout.Floor ? ' - ' + layout.Floor : ''}${layout.Cell ? ' - ' + layout.Cell : ''}</lable>`;            
             }
             else {
                 html += `<lable class="d-none">${layout.Line}${layout.Floor ? ' - ' + layout.Floor : ''}${layout.Cell ? ' - ' + layout.Cell : ''}</lable>`;
@@ -379,10 +379,10 @@ function DrawRowEditDevice(item) {
             var layout = sss.WarehouseLayout;
             if (k == 0) {
                 if (item.DeviceWarehouseLayouts > 0) {
-                    html += `<lable>${layout.Line}${layout.Floor ? ' - ' + layout.Floor : ''}${layout.Cell ? ' - ' + layout.Cell : ''}lable>`;
+                    html += `<lable>${layout.Line}${layout.Floor ? ' - ' + layout.Floor : ''}${layout.Cell ? ' - ' + layout.Cell : ''}</lable>`;
                 }
                 else {
-                    html += `<lable>${layout.Line}${layout.Floor ? ' - ' + layout.Floor : ''}${layout.Cell ? ' - ' + layout.Cell : ''} ...</lable>`;
+                    html += `<lable>${layout.Line}${layout.Floor ? ' - ' + layout.Floor : ''}${layout.Cell ? ' - ' + layout.Cell : ''}</lable>`;
                 }
             }
             else {
@@ -722,7 +722,7 @@ $('#button-save_modal').on('click', function (e) {
         success: function (response) {
             if (response.status) {              
                 var row = DrawRowEditDevice(response.device);
-                tableDeviceInfo.row(Index).data(row).draw();
+                tableDeviceInfo.row(Index).data(row).draw(false);
 
                 $('#device_edit-modal').modal('hide');
 

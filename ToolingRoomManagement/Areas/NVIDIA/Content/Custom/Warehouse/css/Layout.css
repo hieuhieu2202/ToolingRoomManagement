@@ -85,3 +85,9 @@ input[details]:disabled {
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
+#AddDeviceLayout_table_Devices td:nth-child(3) {
+    max-width: 250px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

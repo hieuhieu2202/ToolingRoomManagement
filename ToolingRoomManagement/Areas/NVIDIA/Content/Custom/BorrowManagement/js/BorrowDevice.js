@@ -185,11 +185,13 @@ async function CreateTableAddDevice(devices) {
         row.append(`<td>${(item.Group) ? item.Group.GroupName : ""}</td>`);
         // 7 Vendor
         row.append(`<td title="${(item.Vendor) ? item.Vendor.VendorName : ""}">${(item.Vendor) ? item.Vendor.VendorName : ""}</td>`);
-        // 8 Buffer
+        // 8 Specification
+        row.append(`<td title="${item.Specification}">${(item.Specification) ? item.Specification : ""}</td>`);
+        // 9 Buffer
         row.append(`<td title="${item.Buffer}">${item.Buffer * 100}%</td>`);
-        // 9 Quantity
+        // 10 Quantity
         row.append(`<td title="Real Quantity">${(item.RealQty != null) ? item.RealQty : 0}</td>`);
-        // 10 Type
+        // 11 Type
         switch (item.Type) {
             case "S": {
                 row.append(`<td><span class="text-success fw-bold">Static</span></td>`);
@@ -212,7 +214,7 @@ async function CreateTableAddDevice(devices) {
                 break;
             }
         }
-        // 11 Status
+        // 12 Status
         switch (item.Status) {
             case "Unconfirmed": {
                 row.append(`<td><span class="badge bg-primary">Unconfirmed</span></td>`);
@@ -239,22 +241,17 @@ async function CreateTableAddDevice(devices) {
                 break;
             }
         }
-        // 12 Action
+        // 13 Action
         row.append(`<td class="order-action d-flex text-center justify-content-center">
-                        <a href="javascript:;" class="text-primary    bg-light-primary    border-0" title="Select This Device"><i class="fa-regular fa-circle-check"></i></a> 
+                        <a href="javascript:;" class="text-primary bg-light-primary border-0" title="Select This Device"><i class="fa-regular fa-circle-check"></i></a> 
                     </td>`);
-        // 13 Location 
+        // 14 Location 
         var html = ''
         var title = ''
         $.each(item.DeviceWarehouseLayouts, function (k, sss) {
             var layout = sss.WarehouseLayout;
             if (k == 0) {
-                if (item.DeviceWarehouseLayouts > 0) {
-                    html += `<lable>${layout.Line}${layout.Floor ? ' - ' + layout.Floor : ''}${layout.Cell ? ' - ' + layout.Cell : ''}lable>`;
-                }
-                else {
-                    html += `<lable>${layout.Line}${layout.Floor ? ' - ' + layout.Floor : ''}${layout.Cell ? ' - ' + layout.Cell : ''} ...</lable>`;
-                }
+                html += `<lable>${layout.Line}${layout.Floor ? ' - ' + layout.Floor : ''}${layout.Cell ? ' - ' + layout.Cell : ''}</lable>`;
             }
             else {
                 html += `<lable class="d-none">${layout.Line}${layout.Floor ? ' - ' + layout.Floor : ''}${layout.Cell ? ' - ' + layout.Cell : ''}</lable>`;
@@ -275,8 +272,8 @@ async function CreateTableAddDevice(devices) {
         autoWidth: false,
         columnDefs: [
             { targets: "_all", orderable: false },
-            { targets: [9, 10, 11, 12], className: "text-center" },
-            { targets: [0, 1, 2, 3, 6, 7, 8, 13], visible: false },
+            { targets: [9, 10, 11, 12, 13], className: "text-center" },
+            { targets: [0, 1, 2, 3, 6, 7, 9, 14], visible: false },
         ],
         "lengthMenu": [[10, 15, 25, 50, -1], [10, 15, 25, 50, "All"]],
         createdRow: function (row, data, dataIndex) {
@@ -287,7 +284,7 @@ async function CreateTableAddDevice(devices) {
     tableDeviceInfo.columns.adjust();
 }
 function attachButtonClickEvent(row, data, dataIndex) {
-    var check = $('td', row).eq(5).find('a');
+    var check = $('td', row).eq(6).find('a');
 
     check.off('click').on('click', function () {
         if ($('#form_device-select .input-group').length < 10) {
@@ -363,6 +360,8 @@ async function FillDetailsDeviceData(data) {
     $('#device_details-DeviceId').val(data.Id);
     $('#device_details-DeviceCode').val(data.DeviceCode);
     $('#device_details-DeviceName').val(data.DeviceName);
+    $('#device_details-Specification').val(data.Specification);
+
     $('#device_details-DeviceDate').val(moment(data.DeviceDate).format('YYYY-MM-DD HH:mm'));
     $('#device_details-Relation').val(data.Relation);
     $('#device_details-Buffer').val(data.Buffer);
@@ -453,10 +452,10 @@ $('#filter').on('click', function (e) {
         tableDeviceInfo.column(7).search("^" + filter_Vendor + "$", true, false);
     }
     if (filter_Type !== "Type" && filter_Type !== null && filter_Type !== undefined) {
-        tableDeviceInfo.column(10).search("^" + filter_Type + "$", true, false);
+        tableDeviceInfo.column(11).search("^" + filter_Type + "$", true, false);
     }
     if (filter_Status !== "Status" && filter_Status !== null && filter_Status !== undefined) {
-        tableDeviceInfo.column(11).search("^" + filter_Status + "$", true, false);
+        tableDeviceInfo.column(12).search("^" + filter_Status + "$", true, false);
     }
 
     tableDeviceInfo.draw();
@@ -516,7 +515,7 @@ $('#CreateBorrowForm').on('click', function (e) {
         tr.append(`<td>${deviceData[5]}</td>`);
         tr.append(`<td>${deviceData[2]}</td>`);
         tr.append(`<td>${deviceData[3]}</td>`);
-        tr.append(`<td style="max-width: 120px;"><input class="form-control" type="number" placeholder="max = ${deviceData[9]}" autocomplete="off"></td>`);
+        tr.append(`<td style="max-width: 120px;"><input class="form-control" type="number" placeholder="max = ${deviceData[10]}" autocomplete="off"></td>`);
 
         $('#table_borrow-tbody').append(tr);
     });

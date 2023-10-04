@@ -404,25 +404,25 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                     db.DeviceWarehouseLayouts.RemoveRange(deviceWarehouseLayouts);
 
                     deviceWarehouseLayouts.Clear();
-
-                    foreach (int IdDevice in IdDevices)
+                    
+                    if(IdDevices != null)
                     {
-                        DeviceWarehouseLayout deviceWarehouseLayout = new DeviceWarehouseLayout
+                        foreach (int IdDevice in IdDevices)
                         {
-                            IdDevice = IdDevice,
-                            IdWarehouseLayout = layout.Id
-                        };
+                            DeviceWarehouseLayout deviceWarehouseLayout = new DeviceWarehouseLayout
+                            {
+                                IdDevice = IdDevice,
+                                IdWarehouseLayout = layout.Id
+                            };
 
-                        Entities.Device device = db.Devices.FirstOrDefault(d => d.Id == IdDevice);
+                            Entities.Device device = db.Devices.FirstOrDefault(d => d.Id == IdDevice);
 
-                        deviceWarehouseLayouts.Add(deviceWarehouseLayout);
-                        devices.Add(device);
+                            deviceWarehouseLayouts.Add(deviceWarehouseLayout);
+                            devices.Add(device);
+                        }
+                        db.DeviceWarehouseLayouts.AddRange(deviceWarehouseLayouts);  
                     }
-                    db.DeviceWarehouseLayouts.AddRange(deviceWarehouseLayouts);
-
                     db.SaveChanges();
-
-
 
                     return Json(new { status = true, devices });
                 }

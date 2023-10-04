@@ -719,27 +719,43 @@ async function CreateTableDevices(devices) {
     await $.each(devices, async function (no, item) {
         var row = $(`<tr class="align-middle" data-id="${item.Id}"></tr>`);
 
-        // MTS
+        // 0 MTS
         row.append(`<td>${(item.Product) ? item.Product.MTS : ""}</td>`);
-        // Product Name
+        // 1 Product Name
         row.append(`<td title="${(item.Product) ? item.Product.ProductName : ""}">${(item.Product) ? item.Product.ProductName : ""}</td>`);
-        // Model
+        // 2 Model
         row.append(`<td>${(item.Model) ? item.Model.ModelName : ""}</td>`);
-        // Station
+        // 3 Station
         row.append(`<td>${(item.Station) ? item.Station.StationName : ""}</td>`);
-        // DeviceCode - PN
+        // 4 DeviceCode - PN
         row.append(`<td data-id="${item.Id}" data-code="${item.DeviceCode}">${item.DeviceCode}</td>`);
-        // DeviceName
+        // 5 DeviceName
         row.append(`<td title="${item.DeviceName}">${item.DeviceName}</td>`);
-        // Group
+        // 6 Group
         row.append(`<td>${(item.Group) ? item.Group.GroupName : ""}</td>`);
-        // Vendor
+        // 7 Vendor
         row.append(`<td title="${(item.Vendor) ? item.Vendor.VendorName : ""}">${(item.Vendor) ? item.Vendor.VendorName : ""}</td>`);
-        // Buffer
+        // 8 Specification
+        row.append(`<td title="${item.Specification}">${(item.Specification) ? item.Specification : ""}</td>`);
+        // 9 Location 
+        var html = ''
+        var title = ''
+        $.each(item.DeviceWarehouseLayouts, function (k, sss) {
+            var layout = sss.WarehouseLayout;
+            if (k == 0) {
+                html += `<lable>${layout.Line}${layout.Floor ? ' - ' + layout.Floor : ''}${layout.Cell ? ' - ' + layout.Cell : ''}<lable>`;
+            }
+            else {
+                html += `<lable class="d-none">${layout.Line}${layout.Floor ? ' - ' + layout.Floor : ''}${layout.Cell ? ' - ' + layout.Cell : ''}</lable>`;
+            }
+            title += `[${layout.Line}${layout.Floor ? ' - ' + layout.Floor : ''}${layout.Cell ? ' - ' + layout.Cell : ''}], `;
+        });
+        row.append(`<td title="${title}">${html}</td>`);
+        // 10 Buffer
         row.append(`<td title="${item.Buffer}">${item.Buffer * 100}%</td>`);
-        // Quantity
+        // 11 Quantity
         row.append(`<td title="(Real Quantity)">${(item.RealQty != null) ? item.RealQty : 0}</td>`);
-        // Type
+        // 12 Type
         switch (item.Type) {
             case "S": {
                 row.append(`<td><span class="text-success fw-bold">Static</span></td>`);
@@ -762,7 +778,7 @@ async function CreateTableDevices(devices) {
                 break;
             }
         }
-        // Status
+        // 13 Status
         switch (item.Status) {
             case "Unconfirmed": {
                 row.append(`<td><span class="badge bg-primary">Unconfirmed</span></td>`);
@@ -789,7 +805,7 @@ async function CreateTableDevices(devices) {
                 break;
             }
         }
-        // Action
+        // 14 Action
         row.append(`<td class="order-action d-flex">
                          <a href="javascript:;" class="text-info bg-light-info border-0" title="Details" data-id="${item.Id}" onclick="Details(this, event)"><i class="fa-regular fa-circle-info"></i></a>
                     </td>`);
@@ -804,8 +820,9 @@ async function CreateTableDevices(devices) {
         autoWidth: false,
         columnDefs: [
             { targets: "_all", orderable: false },
-            { targets: [9, 10, 11, 12], className: "text-center justify-content-center" },
-            { targets: [0, 1, 2, 3, 6, 7, 8], visible: false },
+            { targets: [9,10, 11, 12, 13], className: "text-center justify-content-center" },
+            { targets: [0, 1, 2, 3, 6, 7, 8, 9, 10], visible: false },
+            { targets: [14], width: '50px', className: 'text-end justify-content-end' },
         ],
         "lengthMenu": [[10, 15, 25, 50, -1], [10, 15, 25, 50, "All"]]
     };
@@ -1020,6 +1037,7 @@ function Details(elm, e) {
 
                 $('#device-DeviceCode').val(device.DeviceCode);
                 $('#device-DeviceName').val(device.DeviceName);
+                $('#device-Specification').val(device.Specification);
                 $('#device-DeviceDate').val(moment(device.DeviceDate).format('YYYY-MM-DD HH:mm:ss'));
                 $('#device-DeviceProduct').val(device.Product ? device.Product.ProductName : '');
                 $('#device-DeviceModel').val(device.Model ? device.Model.ModelName : '');
@@ -1071,11 +1089,13 @@ $('#AddDeviceLayout-SaveBtn').on('click', function (e) {
 
                 var devices = response.devices;
 
-                TableDevices.clear();
-                devices.forEach(function (device) {
-                    var row = DrawDeviceInLayoutRow(device);
-                    TableDevices.row.add(row).draw(false);
-                })
+                TableDevices.rows().remove().draw(false);
+                if (devices.length > 0) {
+                    devices.forEach(function (device) {
+                        var row = DrawDeviceInLayoutRow(device);
+                        TableDevices.row.add(row).draw(false);
+                    });
+                }               
             }
             else {
                 curentNode.text = OldName;
@@ -1092,33 +1112,102 @@ $('#AddDeviceLayout-SaveBtn').on('click', function (e) {
 });
 
 // Draw Row After Add
-function DrawDeviceInLayoutRow(device) {
-    var newRow = [
-        (device.Product) ? device.Product.MTS : "",
-        (device.Product) ? device.Product.ProductName : "",
-        (device.Model) ? device.Model.ModelName : "",
-        (device.Station) ? device.Station.StationName : "",
-        device.DeviceCode,
-        device.DeviceName,
-        (device.Group) ? device.Group.GroupName : "",
-        (device.Vendor) ? device.Vendor.VendorName : "",
-        device.Buffer * 100 + "%",
-        (device.RealQty != null) ? device.RealQty : 0,
-        (device.Type === "S") ? '<span class="text-success fw-bold">Static</span>' :
-            (device.Type === "D") ? '<span class="text-info fw-bold">Dynamic</span>' :
-                (device.Type === "Consign") ? '<span class="text-warning fw-bold">Consign</span>' :
-                    (device.Type === "Fixture") ? '<span class="text-primary fw-bold">Fixture</span>' :
-                        '<span class="text-secondary fw-bold">N/A</span>',
-        (device.Status === "Unconfirmed") ? '<span class="badge bg-primary">Unconfirmed</span>' :
-            (device.Status === "Part Confirmed") ? '<span class="badge bg-warning">Part Confirmed</span>' :
-                (device.Status === "Confirmed") ? '<span class="badge bg-success">Confirmed</span>' :
-                    (device.Status === "Locked") ? '<span class="badge bg-secondary">Locked</span>' :
-                        (device.Status === "Out Range") ? '<span class="badge bg-danger">Out Range</span>' :
-                            'N/A',
-        '<a href="javascript:;" class="text-info bg-light-info border-0" title="Details" data-id="' + device.Id + '" onclick="Details(this, event)"><i class="fa-regular fa-circle-info"></i></a>'
-    ];
+function DrawDeviceInLayoutRow(item) {
+    var row = [];
+    {
+        // 0 MTS
+        row.push(`<td>${(item.Product) ? item.Product.MTS : ""}</td>`);
+        // 1 Product Name
+        row.push(`<td title="${(item.Product) ? item.Product.ProductName : ""}">${(item.Product) ? item.Product.ProductName : ""}</td>`);
+        // 2 Model
+        row.push(`<td>${(item.Model) ? item.Model.ModelName : ""}</td>`);
+        // 3 Station
+        row.push(`<td>${(item.Station) ? item.Station.StationName : ""}</td>`);
+        // 4 DeviceCode - PN
+        row.push(`<td data-id="${item.Id}" data-code="${item.DeviceCode}">${item.DeviceCode}</td>`);
+        // 5 DeviceName
+        row.push(`<td title="${item.DeviceName}">${item.DeviceName}</td>`);
+        // 6 Group
+        row.push(`<td>${(item.Group) ? item.Group.GroupName : ""}</td>`);
+        // 7 Vendor
+        row.push(`<td title="${(item.Vendor) ? item.Vendor.VendorName : ""}">${(item.Vendor) ? item.Vendor.VendorName : ""}</td>`);
+        // 8 Specification
+        row.push(`<td>${(item.Specification) ? item.Specification : ""}</td>`);
+        // 9 Location
+        var html = ''
+        var title = ''
+        $.each(item.DeviceWarehouseLayouts, function (k, sss) {
+            var layout = sss.WarehouseLayout;
+            if (k == 0) {
+                html += `<lable>${layout.Line}${layout.Floor ? ' - ' + layout.Floor : ''}${layout.Cell ? ' - ' + layout.Cell : ''}</lable>`;
+            }
+            else {
+                html += `<lable class="d-none">${layout.Line}${layout.Floor ? ' - ' + layout.Floor : ''}${layout.Cell ? ' - ' + layout.Cell : ''}</lable>`;
+            }
+            title += `[${layout.Line}${layout.Floor ? ' - ' + layout.Floor : ''}${layout.Cell ? ' - ' + layout.Cell : ''}], `;
+        });
+        row.push(`<td title="${title}">${html}</td>`);
 
-    return newRow;
+        // 10 Buffer
+        row.push(`<td title="${item.Buffer}">${item.Buffer * 100}%</td>`);
+        // 11 Quantity
+        row.push(`<td>${item.RealQty}</td>`);
+        // 12 Type
+        switch (item.Type) {
+            case "S": {
+                row.push(`<td><span class="text-success fw-bold">Static</span></td>`);
+                break;
+            }
+            case "D": {
+                row.push(`<td><span class="text-info fw-bold">Dynamic</span></td>`);
+                break;
+            }
+            case "Consign": {
+                row.push(`<td><span class="text-warning fw-bold">Consign</span></td>`);
+                break;
+            }
+            case "Fixture": {
+                row.push(`<td><span class="text-primary fw-bold">Fixture</span></td>`);
+                break;
+            }
+            default: {
+                row.push(`<td><span class="text-secondary fw-bold">N/A</span></td>`);
+                break;
+            }
+        }
+        // 13 Status
+        switch (item.Status) {
+            case "Unconfirmed": {
+                row.push(`<td><span class="badge bg-primary">Unconfirmed</span></td>`);
+                break;
+            }
+            case "Part Confirmed": {
+                row.push(`<td><span class="badge bg-warning">Part Confirmed</span></td>`);
+                break;
+            }
+            case "Confirmed": {
+                row.push(`<td><span class="badge bg-success">Confirmed</span></td>`);
+                break;
+            }
+            case "Locked": {
+                row.push(`<td><span class="badge bg-secondary">Locked</span></td>`);
+                break;
+            }
+            case "Out Range": {
+                row.push(`<td><span class="badge bg-danger">Out Range</span></td>`);
+                break;
+            }
+            default: {
+                row.push(`<td>N/A</td>`);
+                break;
+            }
+        }
+        // 14 Action
+        row.push(`<td class="order-action d-flex text-center justify-content-center">
+                        <a href="javascript:;" class="text-info bg-light-info border-0" title="Details" data-id="${item.Id}" onclick="Details(this, event)"><i class="fa-regular fa-circle-info"></i></a>
+                    </td>`);
+    }
+    return row;
 }
 
 // check

@@ -485,7 +485,7 @@ function DrawDatatableRow(no, item) {
         }
         case "Rejected": {
             row.append(`<td><span class="badge bg-danger"><i class="fa-solid fa-xmark"></i> Rejected</span></td>`);
-            row.addClass('hl-danger');
+            //row.addClass('hl-danger');
             break;
         }
         case "Pending": {
