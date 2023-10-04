@@ -11,34 +11,31 @@ async function CreateTableAddDevice(devices) {
     await $.each(devices, async function (no, item) {
         var row = $(`<tr class="align-middle" data-id="${item.Id}" title="Double-click to view device details."></tr>`);
 
-        // MTS 0
+        // 0 MTS
         row.append(`<td>${(item.Product) ? item.Product.MTS : ""}</td>`);
-        // Product Name 1
+        // 1 Product Name
         row.append(`<td title="${(item.Product) ? item.Product.ProductName : ""}">${(item.Product) ? item.Product.ProductName : ""}</td>`);
-        // Model 2
+        // 2 Model
         row.append(`<td>${(item.Model) ? item.Model.ModelName : ""}</td>`);
-        // Station 3
+        // 3 Station
         row.append(`<td>${(item.Station) ? item.Station.StationName : ""}</td>`);
-        // DeviceCode - PN 4
+        // 4 DeviceCode - PN
         row.append(`<td data-id="${item.Id}" data-code="${item.DeviceCode}" title="${item.DeviceCode}">${item.DeviceCode}</td>`);
-        // DeviceName 5
+        // 5 DeviceName
         row.append(`<td title="${item.DeviceName}">${item.DeviceName}</td>`);
-        // Group 6
+        // 6 Group
         row.append(`<td>${(item.Group) ? item.Group.GroupName : ""}</td>`);
-        // Vendor 7
+        // 7 Vendor
         row.append(`<td title="${(item.Vendor) ? item.Vendor.VendorName : ""}">${(item.Vendor) ? item.Vendor.VendorName : ""}</td>`);
-        // Location 8
+        // 8 Specification
+        row.append(`<td>${(item.Specification) ? item.Specification : ""}</td>`);
+        // 9 Location 
         var html = ''
         var title = ''
         $.each(item.DeviceWarehouseLayouts, function (k, sss) {
             var layout = sss.WarehouseLayout;
             if (k == 0) {
-                if (item.DeviceWarehouseLayouts > 0) {
-                    html += `<lable>${layout.Line}${layout.Floor ? ' - ' + layout.Floor : ''}${layout.Cell ? ' - ' + layout.Cell : ''}lable>`;
-                }
-                else {
-                    html += `<lable>${layout.Line}${layout.Floor ? ' - ' + layout.Floor : ''}${layout.Cell ? ' - ' + layout.Cell : ''} ...</lable>`;
-                }                
+                html += `<lable>${layout.Line}${layout.Floor ? ' - ' + layout.Floor : ''}${layout.Cell ? ' - ' + layout.Cell : ''}<lable>`;            
             }
             else {
                 html += `<lable class="d-none">${layout.Line}${layout.Floor ? ' - ' + layout.Floor : ''}${layout.Cell ? ' - ' + layout.Cell : ''}</lable>`;
@@ -46,11 +43,11 @@ async function CreateTableAddDevice(devices) {
             title += `[${layout.Line}${layout.Floor ? ' - ' + layout.Floor : ''}${layout.Cell ? ' - ' + layout.Cell : ''}], `;
         });
         row.append(`<td title="${title}">${html}</td>`);
-        // Buffer 9
+        // 10 Buffer
         row.append(`<td title="${item.Buffer}">${item.Buffer * 100}%</td>`);
-        // Quantity 10 
-        row.append(`<td title="(Quantity) / (Quantity Confirm) / (Real Quantity)">${item.Quantity} / ${(item.QtyConfirm != null) ? item.QtyConfirm : 0} / ${(item.RealQty != null) ? item.RealQty : 0}</td>`);
-        // Type 11
+        // 11 Quantity
+        row.append(`<td title="(Quantity / Quantity Confirm / Real Quantity) [Borrowed: ${item.QtyConfirm - item.RealQty}]">${item.Quantity} / ${item.QtyConfirm} / <span class="fw-bold text-info">${item.RealQty}</span></td>`);
+        // 12 Type
         switch (item.Type) {
             case "S": {
                 row.append(`<td><span class="text-success fw-bold">Static</span></td>`);
@@ -60,12 +57,20 @@ async function CreateTableAddDevice(devices) {
                 row.append(`<td><span class="text-info fw-bold">Dynamic</span></td>`);
                 break;
             }
+            case "Consign": {
+                row.append(`<td><span class="text-warning fw-bold">Consign</span></td>`);
+                break;
+            }
+            case "Fixture": {
+                row.append(`<td><span class="text-primary fw-bold">Fixture</span></td>`);
+                break;
+            }
             default: {
                 row.append(`<td><span class="text-secondary fw-bold">N/A</span></td>`);
                 break;
             }
         }
-        // Status 12
+        // 13 Status
         switch (item.Status) {
             case "Unconfirmed": {
                 row.append(`<td><span class="badge bg-primary">Unconfirmed</span></td>`);
@@ -92,7 +97,7 @@ async function CreateTableAddDevice(devices) {
                 break;
             }
         }
-        // Action 13
+        // 14 Action
         row.append(`<td class="order-action d-flex text-center justify-content-center">
                         <a href="javascript:;" class="text-info bg-light-info border-0" title="Details" data-id="${item.Id}" onclick="Details(this, event)"><i class="fa-regular fa-circle-info"></i></a>
                         <a href="javascript:;" class="text-warning bg-light-warning border-0" title="Edit   " data-id="${item.Id}" onclick="Edit(this, event)   "><i class="fa-duotone fa-pen"></i></a>
@@ -110,9 +115,9 @@ async function CreateTableAddDevice(devices) {
         columnDefs: [
             { targets: [0, 4, 10, 11, 12], orderable: true },
             { targets: "_all", orderable: false },
-            { targets: [9, 10, 11, 12], className: "text-center" },
-            { targets: [13], className: "text-center", width: '120px' },
-            { targets: [0, 1, 2, 3], visible: false },
+            { targets: [9, 10, 11, 12, 13], className: "text-center" },
+            { targets: [14], className: "text-center", width: '120px' },
+            { targets: [0, 1, 2, 3, 6, 7], visible: false },
         ],
         "lengthMenu": [[10, 15, 25, 50, -1], [10, 15, 25, 50, "All"]],
 
@@ -202,6 +207,8 @@ async function FillDetailsDeviceData(data) {
     $('#device_details-DeviceId').val(data.Id);
     $('#device_details-DeviceCode').val(data.DeviceCode);
     $('#device_details-DeviceName').val(data.DeviceName);
+    $('#device_details-Specification').val(data.Specification);
+
     $('#device_details-DeviceDate').val(moment(data.DeviceDate).format('YYYY-MM-DD HH:mm'));
     $('#device_details-Relation').val(data.Relation);
     $('#device_details-Buffer').val(data.Buffer);
@@ -211,7 +218,7 @@ async function FillDetailsDeviceData(data) {
     $('#device_details-QtyConfirm').val(data.QtyConfirm);
     $('#device_details-RealQty').val(data.RealQty);
     $('#device_details-AccKit').val(data.ACC_KIT);
-    $('#device_details-Type').val(data.Type == 'S' ? 'Static' : data.Type == 'D' ? 'Dynamic' : 'N/A');
+    $('#device_details-Type').val(data.Type == 'S' ? 'Static' : data.Type == 'D' ? 'Dynamic' : data.Type);
     $('#device_details-Status').val(data.Status);
     $('#device_details-Product').val(data.Product ? data.Product.ProductName : '');
     $('#device_details-Model').val(data.Model ? data.Model.ModelName : '');
@@ -347,24 +354,25 @@ function GetSelectData() {
 function DrawRowEditDevice(item) {
     var row = [];
     {
-        // MTS
+        // 0 MTS
         row.push(`<td>${(item.Product) ? item.Product.MTS : ""}</td>`);
-        // Product Name
+        // 1 Product Name
         row.push(`<td title="${(item.Product) ? item.Product.ProductName : ""}">${(item.Product) ? item.Product.ProductName : ""}</td>`);
-        // Model
+        // 2 Model
         row.push(`<td>${(item.Model) ? item.Model.ModelName : ""}</td>`);
-        // Station
+        // 3 Station
         row.push(`<td>${(item.Station) ? item.Station.StationName : ""}</td>`);
-        // DeviceCode - PN
+        // 4 DeviceCode - PN
         row.push(`<td data-id="${item.Id}" data-code="${item.DeviceCode}">${item.DeviceCode}</td>`);
-        // DeviceName
+        // 5 DeviceName
         row.push(`<td title="${item.DeviceName}">${item.DeviceName}</td>`);
-        // Group
+        // 6 Group
         row.push(`<td>${(item.Group) ? item.Group.GroupName : ""}</td>`);
-        // Vendor
-        row.push(`<td>${(item.Vendor) ? item.Vendor.VendorName : ""}</td>`);
-
-        // Location 8
+        // 7 Vendor
+        row.push(`<td title="${(item.Vendor) ? item.Vendor.VendorName : ""}">${(item.Vendor) ? item.Vendor.VendorName : ""}</td>`);
+        // 8 Specification
+        row.push(`<td>${(item.Specification) ? item.Specification : ""}</td>`);
+        // 9 Location
         var html = ''
         var title = ''
         $.each(item.DeviceWarehouseLayouts, function (k, sss) {
@@ -384,11 +392,11 @@ function DrawRowEditDevice(item) {
         });
         row.push(`<td title="${title}">${html}</td>`);
 
-        // Buffer
+        // 10 Buffer
         row.push(`<td title="${item.Buffer}">${item.Buffer * 100}%</td>`);
-        // Quantity
-        row.push(`<td title="(Quantity) / (Quantity Confirm) / (Real Quantity)">${item.Quantity} / ${(item.QtyConfirm != null) ? item.QtyConfirm : 0} / ${(item.RealQty != null) ? item.RealQty : 0}</td>`);
-        // Type
+        // 11 Quantity
+        row.push(`<td title="(Quantity / Quantity Confirm / Real Quantity) [Borrowed: ${item.QtyConfirm - item.RealQty}]">${item.Quantity} / ${item.QtyConfirm} / <span class="fw-bold text-info">${item.RealQty}</span></td>`);
+        // 12 Type
         switch (item.Type) {
             case "S": {
                 row.push(`<td><span class="text-success fw-bold">Static</span></td>`);
@@ -398,12 +406,20 @@ function DrawRowEditDevice(item) {
                 row.push(`<td><span class="text-info fw-bold">Dynamic</span></td>`);
                 break;
             }
+            case "Consign": {
+                row.push(`<td><span class="text-warning fw-bold">Consign</span></td>`);
+                break;
+            }
+            case "Fixture": {
+                row.push(`<td><span class="text-primary fw-bold">Fixture</span></td>`);
+                break;
+            }
             default: {
                 row.push(`<td><span class="text-secondary fw-bold">N/A</span></td>`);
                 break;
             }
         }
-        // Status
+        // 13 Status
         switch (item.Status) {
             case "Unconfirmed": {
                 row.push(`<td><span class="badge bg-primary">Unconfirmed</span></td>`);
@@ -430,14 +446,13 @@ function DrawRowEditDevice(item) {
                 break;
             }
         }
-        // Action
+        // 14 Action
         row.push(`<td class="order-action d-flex text-center justify-content-center">
                         <a href="javascript:;" class="text-info bg-light-info border-0" title="Details" data-id="${item.Id}" onclick="Details(this, event)"><i class="fa-regular fa-circle-info"></i></a>
                         <a href="javascript:;" class="text-warning bg-light-warning border-0" title="Edit   " data-id="${item.Id}" onclick="Edit(this, event)   "><i class="fa-duotone fa-pen"></i></a>
                         <a href="javascript:;" class="text-danger  bg-light-danger  border-0" title="Delete " data-id="${item.Id}" onclick="Delete(this, event) "><i class="fa-duotone fa-trash"></i></a>
                     </td>`);
     }
-
     return row;
 }
 
@@ -644,6 +659,7 @@ async function FillEditDeviceData(data) {
     $('#device_edit-DeviceId').val(data.device.Id);
     $('#device_edit-DeviceCode').val(data.device.DeviceCode);
     $('#device_edit-DeviceName').val(data.device.DeviceName);
+    $('#device_edit-Specification').val(data.device.Specification);
     $('#device_edit-DeviceDate').val(moment(data.device.DeviceDate).format('YYYY-MM-DD HH:mm'));
     $('#device_edit-Relation').val(data.device.Relation);
     $('#device_edit-Buffer').val(data.device.Buffer);
@@ -726,6 +742,8 @@ function GetModalData() {
         Id: $('#device_edit-DeviceId').val(),
         DeviceCode: $('#device_edit-DeviceCode').val(),
         DeviceName: $('#device_edit-DeviceName').val(),
+        Specification: $('#device_edit-Specification').val(),
+
         DeviceDate: $('#device_edit-DeviceDate').val(),
         Relation: $('#device_edit-Relation').val(),
         Buffer: $('#device_edit-Buffer').val(),
@@ -838,10 +856,10 @@ $('#filter').on('click', function (e) {
         tableDeviceInfo.column(7).search("^" + filter_Vendor + "$", true, false);
     }
     if (filter_Type !== "Type" && filter_Type !== null && filter_Type !== undefined) {
-        tableDeviceInfo.column(11).search("^" + filter_Type + "$", true, false);
+        tableDeviceInfo.column(12).search("^" + filter_Type + "$", true, false);
     }
     if (filter_Status !== "Status" && filter_Status !== null && filter_Status !== undefined) {
-        tableDeviceInfo.column(12).search("^" + filter_Status + "$", true, false);
+        tableDeviceInfo.column(13).search("^" + filter_Status + "$", true, false);
     }
 
     tableDeviceInfo.draw();

@@ -4,7 +4,6 @@
     offcanvasDetails = new bootstrap.Offcanvas($('#offcanvasDevice'));
 });
 
-
 var offcanvasDetails;
 var isCreatingNode = false;
 var LayoutTree;
@@ -34,7 +33,7 @@ function GetWarehouseLayouts() {
                     $("#LayoutTree").jstree(true).refresh();
                     //$("#LayoutTree").jstree("open_all");
                 }
-                
+
             }
             else {
                 toastr["error"](response.message, "ERROR");
@@ -392,7 +391,7 @@ $("#LayoutTree").on("select_node.jstree", function (e, data) {
         contentType: "application/json;charset=utf-8",
         success: function (response) {
             if (response.status) {
-                CreateTableDevices(response.devices);               
+                CreateTableDevices(response.devices);
             }
             else {
                 toastr["error"](response.message, "ERROR");
@@ -624,7 +623,7 @@ function DeleteCell(IdWarehouse, LineName, FloorName, CellName) {
         contentType: "application/json;charset=utf-8",
         success: function (response) {
             if (response.status) {
-                toastr["success"]('', "SUCCESS");            
+                toastr["success"]('', "SUCCESS");
             }
             else {
                 GetWarehouseLayouts();
@@ -709,10 +708,8 @@ function RenderData(warehouses) {
 }
 
 
-
-
-
 //------------- Modal Add -------------
+
 
 // Devices Table
 async function CreateTableDevices(devices) {
@@ -750,6 +747,14 @@ async function CreateTableDevices(devices) {
             }
             case "D": {
                 row.append(`<td><span class="text-info fw-bold">Dynamic</span></td>`);
+                break;
+            }
+            case "Consign": {
+                row.append(`<td><span class="text-warning fw-bold">Consign</span></td>`);
+                break;
+            }
+            case "Fixture": {
+                row.append(`<td><span class="text-primary fw-bold">Fixture</span></td>`);
                 break;
             }
             default: {
@@ -801,7 +806,7 @@ async function CreateTableDevices(devices) {
             { targets: "_all", orderable: false },
             { targets: [9, 10, 11, 12], className: "text-center justify-content-center" },
             { targets: [0, 1, 2, 3, 6, 7, 8], visible: false },
-        ],       
+        ],
         "lengthMenu": [[10, 15, 25, 50, -1], [10, 15, 25, 50, "All"]]
     };
     $('#card_Layout-Devices').fadeIn(500);
@@ -921,7 +926,7 @@ $('#btn_Layout-AddDevice').on('click', function (e) {
                 $('#AddDeviceLayout-SaveBtn').data('line', data.LineName);
                 $('#AddDeviceLayout-SaveBtn').data('floor', data.FloorName);
                 $('#AddDeviceLayout-SaveBtn').data('cell', data.CellName);
-              
+
                 $('#AddDeviceLayout-title').html($('#btn_Layout-AddDevice').text());
                 $('#AddDeviceLayout-modal').modal('show');
             }
@@ -967,7 +972,7 @@ function CreateAddDeviceTable(devices, layout) {
                 scrollX: false,
                 order: [],
                 autoWidth: false,
-                columnDefs: [                 
+                columnDefs: [
                     { targets: [0], checkboxes: { selectRow: true } },
                     { targets: "_all", orderable: false },
                     { targets: [5], className: "text-center justify-content-center" },
@@ -979,7 +984,7 @@ function CreateAddDeviceTable(devices, layout) {
             };
 
             AddDeviceLayout_table_Devices = $('#AddDeviceLayout_table_Devices').DataTable(options);
-            AddDeviceLayout_table_Devices.columns.adjust().draw(false);   
+            AddDeviceLayout_table_Devices.columns.adjust().draw(false);
 
             // Check Device in Layout
             await $.each(devices, async function (no, item) {
@@ -1039,7 +1044,7 @@ function Details(elm, e) {
     });
 }
 
-//
+// Save Layout
 $('#AddDeviceLayout-SaveBtn').on('click', function (e) {
     e.preventDefault();
 
@@ -1085,6 +1090,7 @@ $('#AddDeviceLayout-SaveBtn').on('click', function (e) {
         }
     });
 });
+
 // Draw Row After Add
 function DrawDeviceInLayoutRow(device) {
     var newRow = [
@@ -1100,7 +1106,9 @@ function DrawDeviceInLayoutRow(device) {
         (device.RealQty != null) ? device.RealQty : 0,
         (device.Type === "S") ? '<span class="text-success fw-bold">Static</span>' :
             (device.Type === "D") ? '<span class="text-info fw-bold">Dynamic</span>' :
-                '<span class="text-secondary fw-bold">N/A</span>',
+                (device.Type === "Consign") ? '<span class="text-warning fw-bold">Consign</span>' :
+                    (device.Type === "Fixture") ? '<span class="text-primary fw-bold">Fixture</span>' :
+                        '<span class="text-secondary fw-bold">N/A</span>',
         (device.Status === "Unconfirmed") ? '<span class="badge bg-primary">Unconfirmed</span>' :
             (device.Status === "Part Confirmed") ? '<span class="badge bg-warning">Part Confirmed</span>' :
                 (device.Status === "Confirmed") ? '<span class="badge bg-success">Confirmed</span>' :
@@ -1112,8 +1120,6 @@ function DrawDeviceInLayoutRow(device) {
 
     return newRow;
 }
-
-
 
 // check
 function IsDeviceInLayout(device, layout) {
@@ -1137,9 +1143,3 @@ function IsDeviceInLayout(device, layout) {
     });
     return check;
 }
-
-//row.append(`<td class="order-action d-flex">
-//                         <a href="javascript:;" class="text-info bg-light-info border-0" title="Details" data-id="${item.Id}" onclick="Details(this, event)"><i class="fa-regular fa-circle-info"></i></a>
-//                         <a href="javascript:;" class="text-info bg-light-info border-0" title="Details" data-id="${item.Id}" onclick="Details(this, event)"><i class="fa-regular fa-circle-info"></i></a>
-//                         <a href="javascript:;" class="text-info bg-light-info border-0" title="Details" data-id="${item.Id}" onclick="Details(this, event)"><i class="fa-regular fa-circle-info"></i></a>
-//                    </td>`);

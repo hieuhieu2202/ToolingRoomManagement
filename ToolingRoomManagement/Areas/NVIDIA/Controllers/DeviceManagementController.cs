@@ -39,6 +39,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                     ACC_KIT = form["ACCKIT"],
                     Type = form["Type"],
                     Status = form["Status"],
+                    Specification = form["Specification"]
 
                 };
                 int dIdWarehouse = int.TryParse(form["Warehouse"], out dIdWarehouse) ? dIdWarehouse : 0;

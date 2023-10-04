@@ -64,6 +64,7 @@
           <Property Name="ACC_KIT" Type="nvarchar" MaxLength="10" />
           <Property Name="RealQty" Type="int" />
           <Property Name="ImagePath" Type="nvarchar" MaxLength="300" />
+          <Property Name="Specification" Type="nvarchar" MaxLength="300" />
         </EntityType>
         <EntityType Name="DeviceWarehouseLayout">
           <Key>
@@ -837,6 +838,7 @@
           <Property Name="RealQty" Type="Int32" />
           <Property Name="ImagePath" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="DeviceWarehouseLayouts" Relationship="ToolingRoomModel.FK_DeviceWarehouseLayout_Device" FromRole="Device" ToRole="DeviceWarehouseLayout" />
+          <Property Name="Specification" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_Device_Group">
           <End Type="ToolingRoomModel.Group" Role="Group" Multiplicity="0..1" />
@@ -1241,6 +1243,7 @@
           <EntitySetMapping Name="Devices">
             <EntityTypeMapping TypeName="ToolingRoomModel.Device">
               <MappingFragment StoreEntitySet="Device">
+                <ScalarProperty Name="Specification" ColumnName="Specification" />
                 <ScalarProperty Name="ImagePath" ColumnName="ImagePath" />
                 <ScalarProperty Name="RealQty" ColumnName="RealQty" />
                 <ScalarProperty Name="QtyConfirm" ColumnName="QtyConfirm" />

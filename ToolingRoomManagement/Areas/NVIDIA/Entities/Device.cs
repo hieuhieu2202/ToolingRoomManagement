@@ -42,6 +42,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Entities
         public Nullable<int> QtyConfirm { get; set; }
         public Nullable<int> RealQty { get; set; }
         public string ImagePath { get; set; }
+        public string Specification { get; set; }
     
         public virtual Group Group { get; set; }
         public virtual Model Model { get; set; }

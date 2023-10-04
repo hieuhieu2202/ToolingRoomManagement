@@ -199,6 +199,14 @@ async function CreateTableAddDevice(devices) {
                 row.append(`<td><span class="text-info fw-bold">Dynamic</span></td>`);
                 break;
             }
+            case "Consign": {
+                row.append(`<td><span class="text-warning fw-bold">Consign</span></td>`);
+                break;
+            }
+            case "Fixture": {
+                row.append(`<td><span class="text-primary fw-bold">Fixture</span></td>`);
+                break;
+            }
             default: {
                 row.append(`<td><span class="text-secondary fw-bold">N/A</span></td>`);
                 break;
@@ -364,7 +372,7 @@ async function FillDetailsDeviceData(data) {
     $('#device_details-QtyConfirm').val(data.QtyConfirm);
     $('#device_details-RealQty').val(data.RealQty);
     $('#device_details-AccKit').val(data.ACC_KIT);
-    $('#device_details-Type').val(data.Type == 'S' ? 'Static' : data.Type == 'D' ? 'Dynamic' : 'N/A');
+    $('#device_details-Type').val(data.Type == 'S' ? 'Static' : data.Type == 'D' ? 'Dynamic' : data.Type);
     $('#device_details-Status').val(data.Status);
     $('#device_details-Product').val(data.Product ? data.Product.ProductName : '');
     $('#device_details-Model').val(data.Model ? data.Model.ModelName : '');
