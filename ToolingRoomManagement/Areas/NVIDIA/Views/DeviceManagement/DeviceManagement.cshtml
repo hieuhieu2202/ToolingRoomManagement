@@ -121,6 +121,8 @@
                         <!-- 11 -->
                         <th>Quantity</th>
                         <!-- 12 -->
+                        <th>Unit</th>
+                        <!-- 12 -->
                         <th>Type</th>
                         <!-- 13 -->
                         <th>Status</th>
@@ -277,10 +279,33 @@
                         </div>
                     </div>
                     <div class="col-6">
-                        <!-- Device Code -->
-                        <div class="input-group mb-3">
-                            <span class="col-3 input-group-text">Device Code</span>
-                            <input class="col-6 form-control" type="text" id="device_edit-DeviceCode">
+                        <!-- Device Code + Unit -->
+                        <div class="row">
+                            <div class="col-8">
+                                <div class="input-group mb-3">
+                                    <span class="col-4 input-group-text" style="width: 135px">Device Code</span>
+                                    <input class="col-8 form-control" type="text" id="device_edit-DeviceCode">
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="input-group mb-3">
+                                    <span class="col-6 input-group-text">Unit</span>
+                                    <input class="col-6 form-control" type="text" id="device_edit-Unit" list="device_edit-Unit_List" maxlength="50">
+                                    <datalist id="device_edit-Unit_List">
+                                        <option value="N/A">N/A</option>
+                                        <option value="PCS">PCS (Cái)</option>
+                                        <option value="BAG">BAG (Bao)</option>
+                                        <option value="BOX">BOX (Hộp)</option>
+                                        <option value="SET">SET (Bộ)</option>
+                                        <option value="M">M (Meter)</option>
+                                        <option value="CM">CM (Centimet)</option>
+                                        <option value="KG">KG (Kilogram)</option>
+                                        <option value="G">G (Gram)</option>
+                                        <option value="L">L (Liter)</option>
+                                        <option value="ML">ML (Mililiter)</option>
+                                    </datalist>
+                                </div>
+                            </div>
                         </div>
                         <!-- Device Name -->
                         <div class="input-group mb-3">
@@ -456,11 +481,22 @@
                     </div>
 
                     <div class="col-6">
-                        <!-- Device Code -->
-                        <div class="input-group mb-3">
-                            <span class="col-3 input-group-text">Device Code</span>
-                            <input class="col-9 form-control" type="text" id="device_details-DeviceCode" details disabled>
+                        <!-- Device Code + Unit -->
+                        <div class="row">
+                            <div class="col-8">
+                                <div class="input-group mb-3">
+                                    <span class="col-4 input-group-text" style="width: 135px">Device Code</span>
+                                    <input class="col-8 form-control" type="text" id="device_details-DeviceCode" details disabled>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="input-group mb-3">
+                                    <span class="col-6 input-group-text">Unit</span>
+                                    <input class="col-6 form-control" type="text" id="device_details-Unit" details disabled>
+                                </div>
+                            </div>
                         </div>
+                        
                         <!-- Device Name -->
                         <div class="input-group mb-3">
                             <span class="col-3 input-group-text">Device name</span>

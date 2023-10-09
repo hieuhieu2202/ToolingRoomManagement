@@ -121,10 +121,12 @@
                                 <!-- 11 -->
                                 <th>Quantity</th>
                                 <!-- 12 -->
-                                <th>Type</th>
+                                <th>Unit</th>
                                 <!-- 13 -->
-                                <th>Status</th>
+                                <th>Type</th>
                                 <!-- 14 -->
+                                <th>Status</th>
+                                <!-- 15 -->
                                 <th>Action</th>
                                 <!-- 9 -->
                                 <th>Location</th>
@@ -209,6 +211,7 @@
                                 <th>Specification</th>
                                 <th>Model</th>
                                 <th>Station</th>
+                                <th class="text-center">Unit</th>
                                 <th class="text-danger text-center" style="width: 200px;">Quantity Borrow</th>
                             </tr>
                         </thead>
@@ -394,10 +397,20 @@
                     </div>
 
                     <div class="col-6">
-                        <!-- Device Code -->
-                        <div class="input-group mb-3">
-                            <span class="col-3 input-group-text">Device Code</span>
-                            <input class="col-9 form-control" type="text" id="device_details-DeviceCode" details disabled>
+                        <!-- Device Code + Unit -->
+                        <div class="row">
+                            <div class="col-8">
+                                <div class="input-group mb-3">
+                                    <span class="col-4 input-group-text" style="width: 135px">Device Code</span>
+                                    <input class="col-8 form-control" type="text" id="device_details-DeviceCode" details disabled>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="input-group mb-3">
+                                    <span class="col-6 input-group-text">Unit</span>
+                                    <input class="col-6 form-control" type="text" id="device_details-Unit" details disabled>
+                                </div>
+                            </div>
                         </div>
                         <!-- Device Name -->
                         <div class="input-group mb-3">

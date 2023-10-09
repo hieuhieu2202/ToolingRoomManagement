@@ -79,44 +79,68 @@
                     <!-- Product -->
                     <div class="input-group mb-3">
                         <span class="col-4 input-group-text">Product</span>
-                        <input class="col-8 form-control" type="text" id="device_add-Product" list="device_add-Product_List" autocomplete="off" placeholder="Dùng cho hàng nào...">
+                        <input class="col-8 form-control" type="text" id="device_add-Product" list="device_add-Product_List" autocomplete="off" placeholder="Dùng cho hàng nào..." maxlength="120">
                         <datalist id="device_add-Product_List"></datalist>
                     </div>
                     <!-- Model -->
                     <div class="input-group mb-3">
                         <span class="col-4 input-group-text">Model</span>
-                        <input class="col-8 form-control" type="text" id="device_add-Model" list="device_add-Model_List" autocomplete="off" placeholder="Dùng cho model nào...">
+                        <input class="col-8 form-control" type="text" id="device_add-Model" list="device_add-Model_List" autocomplete="off" placeholder="Dùng cho model nào..." maxlength="50">
                         <datalist id="device_add-Model_List"></datalist>
                     </div>
                     <!-- Station -->
                     <div class="input-group mb-3">
                         <span class="col-4 input-group-text">Station</span>
-                        <input class="col-8 form-control" type="text" id="device_add-Station" list="device_add-Station_List" autocomplete="off" placeholder="Dùng cho trạm nào...">
+                        <input class="col-8 form-control" type="text" id="device_add-Station" list="device_add-Station_List" autocomplete="off" placeholder="Dùng cho trạm nào..." maxlength="50">
                         <datalist id="device_add-Station_List"></datalist>
                     </div>
                     <!-- Group -->
                     <div class="input-group mb-3">
                         <span class="col-4 input-group-text">Group</span>
-                        <input class="col-8 form-control" type="text" id="device_add-Group" list="device_add-Group_List" autocomplete="off" placeholder="Nhóm thiết bị (vd: USB)">
+                        <input class="col-8 form-control" type="text" id="device_add-Group" list="device_add-Group_List" autocomplete="off" placeholder="Nhóm thiết bị (vd: USB)" maxlength="50">
                         <datalist id="device_add-Group_List"></datalist>
                     </div>
                     <!-- Vendor -->
                     <div class="input-group mb-3">
                         <span class="col-4 input-group-text">Vendor</span>
-                        <input class="col-8 form-control" type="text" id="device_add-Vendor" list="device_add-Vendor_List" autocomplete="off" placeholder="Nhà cung ứng">
+                        <input class="col-8 form-control" type="text" id="device_add-Vendor" list="device_add-Vendor_List" autocomplete="off" placeholder="Nhà cung ứng" maxlength="120">
                         <datalist id="device_add-Vendor_List"></datalist>
                     </div>
                     <!-- Type -->
-                    <div class="input-group mb-3">
-                        <span class="col-4 input-group-text">Type</span>
-                        <select class="form-select" id="device_add-Type">
-                            <option value="#N/A">N/A</option>
-                            <option value="S">Static (Cố định)</option>
-                            <option value="D">Dynamic (Tiêu hao)</option>
-                            <option value="Consign">Consign (Khách hàng tặng)</option>
-                            <option value="Fixture">Fixture (Khuôn)</option>
-                        </select>
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="input-group mb-3">
+                                <span class="col-4 input-group-text">Type</span>
+                                <select class="form-select" id="device_add-Type">
+                                    <option value="#N/A">N/A</option>
+                                    <option value="S">Static (Cố định)</option>
+                                    <option value="D">Dynamic (Tiêu hao)</option>
+                                    <option value="Consign">Consign (Khách hàng tặng)</option>
+                                    <option value="Fixture">Fixture (Khuôn)</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="input-group mb-3">
+                                <span class="col-4 input-group-text">Unit</span>
+                                <input class="col-8 form-control" type="text" id="device_add-Unit" list="device_add-Unit_List" autocomplete="off" placeholder="Đơn vị tính" maxlength="50">
+                                <datalist id="device_add-Unit_List">
+                                    <option value="N/A">N/A</option>
+                                    <option value="PCS">PCS (Cái)</option>
+                                    <option value="BAG">BAG (Bao)</option>
+                                    <option value="BOX">BOX (Hộp)</option>
+                                    <option value="SET">SET (Bộ)</option>
+                                    <option value="M">M (Meter)</option>
+                                    <option value="CM">CM (Centimet)</option>
+                                    <option value="KG">KG (Kilogram)</option>
+                                    <option value="G">G (Gram)</option>
+                                    <option value="L">L (Liter)</option>
+                                    <option value="ML">ML (Mililiter)</option>
+                                </datalist>
+                            </div>
+                        </div>
                     </div>
+                    
                 </div>
                 <div class="col-4">                   
                     <!-- Layout -->

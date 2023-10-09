@@ -189,12 +189,16 @@ function CreateModal(borrow) {
         var deviceName = item.Device.DeviceName ? item.Device.DeviceName : '';
         var deviceModel = item.Device.Model ? item.Device.Model.ModelName : '';
         var deviceStation = item.Device.Station ? item.Device.Station.StationName : '';
+        var deviceSpecification = item.Device.Specification ? item.Device.Specification : '';
+        var deviceUnit = item.Device.deviceUnit ? item.Device.deviceUnit : '';
 
         var row = $('<tr></tr>');
         row.append(`<td>${deviceCode}</td>`);
         row.append(`<td>${deviceName}</td>`);
+        row.append(`<td>${deviceSpecification}</td>`);
         row.append(`<td>${deviceModel}</td>`);
         row.append(`<td>${deviceStation}</td>`);
+        row.append(`<td class="text-center">${deviceUnit}</td>`);
         row.append(`<td class="text-center">${borrowQty}</td>`);
 
         $('#borrow_modal-table-tbody').append(row);

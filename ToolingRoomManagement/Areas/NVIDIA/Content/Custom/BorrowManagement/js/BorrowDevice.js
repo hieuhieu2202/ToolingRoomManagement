@@ -165,7 +165,7 @@ async function CreateTableAddDevice(devices) {
 
     $('#table_Devices_tbody').html('');
     await $.each(devices, function (no, item) {
-        if (item.Status != "Confirmed" && item.Status != "Part Confirmed" && item.Status != "Out Range") return true;
+        if (item.Status != "Confirmed" && item.Status != "Part Confirmed") return true;
 
         var row = $(`<tr class="align-middle" data-id="${item.Id}"></tr>`);
 
@@ -191,7 +191,9 @@ async function CreateTableAddDevice(devices) {
         row.append(`<td title="${item.Buffer}">${item.Buffer * 100}%</td>`);
         // 10 Quantity
         row.append(`<td title="Real Quantity">${(item.RealQty != null) ? item.RealQty : 0}</td>`);
-        // 11 Type
+        // 11 Unit
+        row.append(`<td class="text-center">${item.Unit ? item.Unit : ''}</td>`);
+        // 12 Type
         switch (item.Type) {
             case "S": {
                 row.append(`<td><span class="text-success fw-bold">Static</span></td>`);
@@ -214,7 +216,7 @@ async function CreateTableAddDevice(devices) {
                 break;
             }
         }
-        // 12 Status
+        // 13 Status
         switch (item.Status) {
             case "Unconfirmed": {
                 row.append(`<td><span class="badge bg-primary">Unconfirmed</span></td>`);
@@ -241,11 +243,11 @@ async function CreateTableAddDevice(devices) {
                 break;
             }
         }
-        // 13 Action
+        // 14 Action
         row.append(`<td class="order-action d-flex text-center justify-content-center">
                         <a href="javascript:;" class="text-primary bg-light-primary border-0" title="Select This Device"><i class="fa-regular fa-circle-check"></i></a> 
                     </td>`);
-        // 14 Location 
+        // 15 Location 
         var html = ''
         var title = ''
         $.each(item.DeviceWarehouseLayouts, function (k, sss) {
@@ -272,8 +274,8 @@ async function CreateTableAddDevice(devices) {
         autoWidth: false,
         columnDefs: [
             { targets: "_all", orderable: false },
-            { targets: [9, 10, 11, 12, 13], className: "text-center" },
-            { targets: [0, 1, 2, 3, 6, 7, 9, 14], visible: false },
+            { targets: [9, 10, 11, 12, 13, 14], className: "text-center" },
+            { targets: [0, 1, 2, 3, 6, 7, 9, 15], visible: false },
         ],
         "lengthMenu": [[10, 15, 25, 50, -1], [10, 15, 25, 50, "All"]],
         createdRow: function (row, data, dataIndex) {
@@ -284,7 +286,7 @@ async function CreateTableAddDevice(devices) {
     tableDeviceInfo.columns.adjust();
 }
 function attachButtonClickEvent(row, data, dataIndex) {
-    var check = $('td', row).eq(6).find('a');
+    var check = $('td', row).eq(7).find('a');
 
     check.off('click').on('click', function () {
         if ($('#form_device-select .input-group').length < 10) {
@@ -379,6 +381,8 @@ async function FillDetailsDeviceData(data) {
     $('#device_details-WareHouse').val($('#input_WareHouse option:selected').text());
     $('#device_details-Group').val(data.Group ? data.Group.GroupName : '');
     $('#device_details-Vendor').val(data.Vendor ? data.Vendor.VendorName : '');
+
+    $('#device_details-Unit').val(data.Unit ? data.Unit : '');
 }
 function CreateTableLayout(device, warehouses) {
     $('#device_details-layout-tbody').empty();
@@ -516,6 +520,7 @@ $('#CreateBorrowForm').on('click', function (e) {
         tr.append(`<td>${deviceData[8]}</td>`);
         tr.append(`<td>${deviceData[2]}</td>`);
         tr.append(`<td>${deviceData[3]}</td>`);
+        tr.append(`<td class="text-center">${deviceData[11]}</td>`);
         tr.append(`<td style="max-width: 120px;"><input class="form-control" type="number" placeholder="max = ${deviceData[10]}" autocomplete="off"></td>`);
 
         $('#table_borrow-tbody').append(tr);

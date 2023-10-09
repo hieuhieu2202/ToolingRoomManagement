@@ -42,7 +42,9 @@ async function CreateTableAddDevice(devices) {
         row.append(`<td title="${item.Buffer}">${item.Buffer * 100}%</td>`);
         // 11 Quantity
         row.append(`<td title="(Quantity / Quantity Confirm / Real Quantity) [Borrowed: ${item.QtyConfirm - item.RealQty}]">${item.Quantity} / ${item.QtyConfirm} / <span class="fw-bold text-info">${item.RealQty}</span></td>`);
-        // 12 Type
+        // 12 Unit
+        row.append(`<td>${item.Unit ? item.Unit : ''}</td>`);
+        // 13 Type
         switch (item.Type) {
             case "S": {
                 row.append(`<td><span class="text-success fw-bold">Static</span></td>`);
@@ -65,7 +67,7 @@ async function CreateTableAddDevice(devices) {
                 break;
             }
         }
-        // 13 Status
+        // 14 Status
         switch (item.Status) {
             case "Unconfirmed": {
                 row.append(`<td><span class="badge bg-primary">Unconfirmed</span></td>`);
@@ -92,7 +94,7 @@ async function CreateTableAddDevice(devices) {
                 break;
             }
         }
-        // 14 Action
+        // 15 Action
         row.append(`<td class="order-action d-flex text-center justify-content-center">
                         <a href="javascript:;" class="text-info bg-light-info border-0" title="Details" data-id="${item.Id}" onclick="Details(this, event)"><i class="fa-regular fa-circle-info"></i></a>
                         <a href="javascript:;" class="text-warning bg-light-warning border-0" title="Edit   " data-id="${item.Id}" onclick="Edit(this, event)   "><i class="fa-duotone fa-pen"></i></a>
@@ -108,10 +110,10 @@ async function CreateTableAddDevice(devices) {
         order: [],
         autoWidth: false,
         columnDefs: [
-            { targets: [0, 4, 10, 11, 12], orderable: true },
+            { targets: [0, 4, 10, 11, 13], orderable: true },
             { targets: "_all", orderable: false },
-            { targets: [9, 10, 11, 12, 13], className: "text-center" },
-            { targets: [14], className: "text-center", width: '120px' },
+            { targets: [9, 10, 11, 13, 14], className: "text-center" },
+            { targets: [15], className: "text-center", width: '120px' },
             { targets: [0, 1, 2, 3, 6, 7], visible: false },
         ],
         "lengthMenu": [[10, 15, 25, 50, -1], [10, 15, 25, 50, "All"]],
@@ -226,6 +228,7 @@ async function FillDetailsDeviceData(data) {
     $('#device_details-WareHouse').val($('#input_WareHouse option:selected').text());
     $('#device_details-Group').val(data.Group ? data.Group.GroupName : '');
     $('#device_details-Vendor').val(data.Vendor ? data.Vendor.VendorName : '');
+    $('#device_details-Unit').val(data.Unit ? data.Unit : '');
 }
 function CreateTableLayout(device, warehouses) {
     $('#device_details-layout-tbody').empty();
@@ -386,7 +389,9 @@ function DrawRowEditDevice(item) {
         row.push(`<td title="${item.Buffer}">${item.Buffer * 100}%</td>`);
         // 11 Quantity
         row.push(`<td title="(Quantity / Quantity Confirm / Real Quantity) [Borrowed: ${item.QtyConfirm - item.RealQty}]">${item.Quantity} / ${item.QtyConfirm} / <span class="fw-bold text-info">${item.RealQty}</span></td>`);
-        // 12 Type
+        // 12 Unit
+        row.push(`<td>${item.Unit ? item.Unit : ''}</td>`);
+        // 13 Type
         switch (item.Type) {
             case "S": {
                 row.push(`<td><span class="text-success fw-bold">Static</span></td>`);
@@ -409,7 +414,7 @@ function DrawRowEditDevice(item) {
                 break;
             }
         }
-        // 13 Status
+        // 14 Status
         switch (item.Status) {
             case "Unconfirmed": {
                 row.push(`<td><span class="badge bg-primary">Unconfirmed</span></td>`);
@@ -436,7 +441,7 @@ function DrawRowEditDevice(item) {
                 break;
             }
         }
-        // 14 Action
+        // 15 Action
         row.push(`<td class="order-action d-flex text-center justify-content-center">
                         <a href="javascript:;" class="text-info bg-light-info border-0" title="Details" data-id="${item.Id}" onclick="Details(this, event)"><i class="fa-regular fa-circle-info"></i></a>
                         <a href="javascript:;" class="text-warning bg-light-warning border-0" title="Edit   " data-id="${item.Id}" onclick="Edit(this, event)   "><i class="fa-duotone fa-pen"></i></a>
@@ -668,6 +673,7 @@ async function FillEditDeviceData(data) {
     $('#device_edit-WareHouse').val(data.device.IdWareHouse).trigger('change');
     $('#device_edit-Group').val(data.device.IdGroup).trigger('change');
     $('#device_edit-Vendor').val(data.device.IdVendor).trigger('change');
+    $('#device_edit-Unit').val(data.device.Unit);
 
     $('#layout-container').empty();
     var DeviceLayouts = data.device.DeviceWarehouseLayouts;
@@ -733,6 +739,7 @@ function GetModalData() {
         DeviceCode: $('#device_edit-DeviceCode').val(),
         DeviceName: $('#device_edit-DeviceName').val(),
         Specification: $('#device_edit-Specification').val(),
+        Unit: $('#device_edit-Unit').val(),
 
         DeviceDate: $('#device_edit-DeviceDate').val(),
         Relation: $('#device_edit-Relation').val(),
