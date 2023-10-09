@@ -130,9 +130,18 @@ function CreateModal(borrow) {
 
     $('#borrow_modal-Note').html(`<p>${borrow.Note}</p>`);
 
+    $('div[typeCheck]').show();
+    $('label[typeName]').html('Date Borrow');
     if (borrow.Type == 'Return') {
         $('#borrow_modal-title').text('Return Request Details');
         $('#borrow_modal-name').text('RETURN REQUEST');
+    }
+    else if (borrow.Type == 'Take') {
+        $('#borrow_modal-title').text('Take Device Request Details');
+        $('#borrow_modal-name').text('TAKE DEVICE REQUEST');
+
+        $('div[typeCheck]').hide();
+        $('label[typeName]').html('Date');
     }
     else {
         $('#borrow_modal-title').text('Borrow Request Details');
@@ -175,6 +184,26 @@ function CreateModal(borrow) {
             bot: (k === 0 && borrow.UserBorrowSigns.length === 1) ? '' : 'border-end'
         };
 
+        var span = '';
+        switch (bs.Type) {
+            case "Borrow": {
+                span = `<span class="badge bg-primary"><i class="fa-solid fa-left-to-line"></i> Borrow</span>`;
+                break;
+            }
+            case "Take": {
+                span = `<span class="badge bg-secondary"><i class="fa-regular fa-inbox-full"></i> Take</span>`;
+                break;
+            }
+            case "Return": {
+                span = `<span class="badge bg-info"><i class="fa-solid fa-right-to-line"></i> Return</span>`;
+                break;
+            }
+            default: {
+                span = `<td><span class="badge bg-secondary">N/A</span></td>`;
+                break;
+            }
+        }
+
         var lineDot = `<div class="col-sm-1 text-center flex-column d-none d-sm-flex">
                            <div class="row h-50">
                                <div class="col ${line.top}">&nbsp;</div>
@@ -196,7 +225,7 @@ function CreateModal(borrow) {
                                 <div class="card-body">
                                     <div class="float-end">${date === 'Invalid date' ? '' : date}</div>
                                     <label class="mb-3"><span class="badge bg-${title.color}"><i class="fa-solid fa-${title.icon}"></i> ${title.text}</span></label>
-                                    <label class="mb-3">${bs.Type == 'Borrow' ? '<span class="badge bg-primary"><i class="fa-solid fa-left-to-line"></i> Borrow</span>' : '<span class="badge bg-info"><i class="fa-solid fa-right-to-line"></i> Return</span>'}</label>
+                                    <label class="mb-3">${span}</label>
                                     <p class="card-text mb-1">${username}</p>
                                     <p class="card-text mb-1">${bs.User.Email || ''}</p>
                                     <button class="btn btn-sm btn-outline-secondary collapsed ${title.text == null ? 'd-none' : title.text != 'Rejected' ? 'd-none' :''}" type="button" data-bs-target="#details_${k}" data-bs-toggle="collapse" aria-expanded="false">Show Details ▼</button>
@@ -441,19 +470,23 @@ function DrawDatatableRow(no, item) {
     row.append(`<td>${item.DateReturn ? moment(item.DateReturn).format('YYYY-MM-DD HH:mm:ss') : ''}</td>`);
     // Type
     switch (item.Type) {
-            case "Borrow": {
-                row.append(`<td><span class="badge bg-primary"><i class="fa-solid fa-left-to-line"></i> Borrow</span></td>`);
-                break;
-            }
-            case "Return": {
-                row.append(`<td><span class="badge bg-info"><i class="fa-solid fa-right-to-line"></i> Return</span></td>`);
-                break;
-            }
-            default: {
-                row.append(`<td><span class="badge bg-secondary">N/A</span></td>`);
-                break;
-            }
-        }   
+        case "Borrow": {
+            row.append(`<td><span class="badge bg-primary"><i class="fa-solid fa-left-to-line"></i> Borrow</span></td>`);
+            break;
+        }
+        case "Return": {
+            row.append(`<td><span class="badge bg-info"><i class="fa-solid fa-right-to-line"></i> Return</span></td>`);
+            break;
+        }
+        case "Take": {
+            row.append(`<td><span class="badge bg-secondary"><i class="fa-regular fa-inbox-full"></i> Take</span></td>`);
+            break;
+        }
+        default: {
+            row.append(`<td><span class="badge bg-secondary">N/A</span></td>`);
+            break;
+        }
+    }   
     // Status
     switch (item.Status) {
         case "Pending": {
@@ -530,6 +563,10 @@ function DrawDatatableArray(item) {
         }
         case "Return": {
             row.push(`<span class="badge bg-info"><i class="bx bx-arrow-to-right"></i> Return</span>`);
+            break;
+        }
+        case "Take": {
+            row.push(`<span class="badge bg-secondary"><i class="fa-regular fa-inbox-full"></i> Take</span>`);
             break;
         }
         default: {

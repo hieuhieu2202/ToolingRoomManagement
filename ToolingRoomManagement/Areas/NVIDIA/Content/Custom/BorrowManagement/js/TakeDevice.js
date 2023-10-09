@@ -511,6 +511,7 @@ $('#CreateBorrowForm').on('click', function (e) {
         var deviceData = tableDeviceInfo.row(v).data();
 
         var tr = $(`<tr class="align-middle" data-id="${IdDevices[k]}" data-index="${v}"></tr>`);
+        console.log(deviceData);
         tr.append(`<td>${deviceData[4]}</td>`);
         tr.append(`<td>${deviceData[5]}</td>`);
         tr.append(`<td>${deviceData[8]}</td>`);
@@ -633,8 +634,15 @@ $('#btn_addSign').on('click', function (e) {
     });
 
     // show card
-    html.hide();
-    container.prepend(html);
+    //html.hide();
+
+    if (container.children().length > 1) {
+        container.children().last().before(html);
+    }
+    else {
+        container.prepend(html);
+    }
+    
     html.fadeIn(300);
 });
 
@@ -656,7 +664,6 @@ $('#button_send').on('click', function (e) {
     }).get();
     var UserBorrow = $('#CardID').text();
     var BorrowDate = $('#form_borrow-BorrowDate').val();
-    var DueDate = $('#form_borrow-DuaDate').val();
     var Model = $('#form_borrow-Model').val();
     var Station = $('#form_borrow-Station').val();
     var Note = $('#form_borrow-Note').val();
@@ -667,7 +674,6 @@ $('#button_send').on('click', function (e) {
         SignProcess: SignProcess,
         UserBorrow: UserBorrow,
         BorrowDate: BorrowDate,
-        DueDate: DueDate,
         IdModel: Model,
         IdStation: Station,
         Note: Note
@@ -677,7 +683,7 @@ $('#button_send').on('click', function (e) {
 
     $.ajax({
         type: "POST",
-        url: "/NVIDIA/BorrowManagement/BorrowDevice",
+        url: "/NVIDIA/BorrowManagement/TakeDevice",
         data: JSON.stringify(BorrowData),
         dataType: "json",
         contentType: "application/json;charset=utf-8",

@@ -18,7 +18,7 @@
                 <li class="breadcrumb-item">
                     <a href="/NVIDIA/Dashboard"><i class="bx bx-home-alt"></i></a>
                 </li>
-                <li class="breadcrumb-item active" aria-current="page">Borrow - Return</li>
+                <li class="breadcrumb-item active" aria-current="page">Request Handling</li>
             </ol>
         </nav>
     </div>
@@ -130,7 +130,7 @@
                 <h2 class="font-weight-light text-center text-primary py-3" id="borrow_modal-name">BORROW REQUEST</h2>
 
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-2">
                         <label class="form-label">Card Id</label>
                         <input type="text" class="form-control form-control-sm" id="borrow_modal-CardId" disabled>
                     </div>
@@ -138,27 +138,24 @@
                         <label class="form-label">User Name</label>
                         <input type="text" class="form-control form-control-sm" id="borrow_modal-Username" disabled>
                     </div>
-                    <div class="col-md-4"></div>
-
-                    <div class="col-md-4 mt-3">
+                    <div class="col-md-3">
                         <label class="form-label">Used for Model</label>
                         <input type="text" class="form-control form-control-sm" id="borrow_modal-Model" disabled>
                     </div>
-                    <div class="col-md-4 mt-3">
+                    <div class="col-md-3">
                         <label class="form-label">Used for Station</label>
                         <input type="text" class="form-control form-control-sm" id="borrow_modal-Station" disabled>
                     </div>
-                    <div class="col-md-4 mt-3"></div>
 
                     <div class="col-md-4 mt-3">
-                        <label class="form-label">Date Borrow</label>
+                        <label class="form-label" typeName>Date Borrow</label>
                         <input type="datetime-local" class="form-control form-control-sm" id="borrow_modal-BorrowDate" disabled>
                     </div>
-                    <div class="col-md-4 mt-3">
+                    <div class="col-md-4 mt-3" checkType>
                         <label class="form-label">Due Date</label>
                         <input type="datetime-local" class="form-control form-control-sm" id="borrow_modal-DuaDate" disabled>
                     </div>
-                    <div class="col-md-4 mt-3">
+                    <div class="col-md-4 mt-3" checkType>
                         <label class="form-label">Return Date</label>
                         <input type="datetime-local" class="form-control form-control-sm" id="borrow_modal-ReturnDate" disabled>
                     </div>
@@ -177,7 +174,7 @@
                                 <th>Device Name</th>
                                 <th>Model</th>
                                 <th>Station</th>
-                                <th class="text-danger text-center" style="width: 200px;">Quantity Borrow</th>
+                                <th class="text-danger text-center" style="width: 200px;">Quantity</th>
                             </tr>
                         </thead>
                         <tbody id="borrow_modal-table-tbody">

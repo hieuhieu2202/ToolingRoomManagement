@@ -176,10 +176,12 @@
     <Content Include="Areas\NVIDIA\Content\Custom\Authentication\css\SignUp.css" />
     <Content Include="Areas\NVIDIA\Content\Custom\Authentication\js\SignIn.js" />
     <Content Include="Areas\NVIDIA\Content\Custom\Authentication\js\SignUp.js" />
+    <Content Include="Areas\NVIDIA\Content\Custom\BorrowManagement\css\TakeDevice.css" />
     <Content Include="Areas\NVIDIA\Content\Custom\BorrowManagement\css\BorrowDevice.css" />
     <Content Include="Areas\NVIDIA\Content\Custom\BorrowManagement\css\BorrowManagement.css" />
     <Content Include="Areas\NVIDIA\Content\Custom\BorrowManagement\css\BorrowSign.css" />
     <Content Include="Areas\NVIDIA\Content\Custom\BorrowManagement\css\ReturnDevice.css" />
+    <Content Include="Areas\NVIDIA\Content\Custom\BorrowManagement\js\TakeDevice.js" />
     <Content Include="Areas\NVIDIA\Content\Custom\BorrowManagement\js\BorrowDevice.js" />
     <Content Include="Areas\NVIDIA\Content\Custom\BorrowManagement\js\BorrowManagement.js" />
     <Content Include="Areas\NVIDIA\Content\Custom\BorrowManagement\js\BorrowSign.js" />
@@ -2999,6 +3001,7 @@
     <Content Include="Properties\DataSources\System.Data.DataTable.datasource" />
     <Content Include="Areas\NVIDIA\Views\Warehouse\Management.cshtml" />
     <Content Include="Areas\NVIDIA\Views\Warehouse\Layout.cshtml" />
+    <Content Include="Areas\NVIDIA\Views\BorrowManagement\TakeDevice.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

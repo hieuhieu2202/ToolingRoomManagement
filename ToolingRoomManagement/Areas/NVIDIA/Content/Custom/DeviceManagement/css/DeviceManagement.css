@@ -65,3 +65,6 @@ input[details]:disabled {
 html.dark-theme .select2-container--bootstrap4 .select2-selection {
     background-color: rgb(30 30 30);
 }
+.dt-buttons.btn-group{
+    margin-top: -8px;
+}

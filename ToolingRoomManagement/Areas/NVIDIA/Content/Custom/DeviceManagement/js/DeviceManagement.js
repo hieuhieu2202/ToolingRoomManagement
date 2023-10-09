@@ -34,13 +34,8 @@ async function CreateTableAddDevice(devices) {
         var title = ''
         $.each(item.DeviceWarehouseLayouts, function (k, sss) {
             var layout = sss.WarehouseLayout;
-            if (k == 0) {
-                html += `<lable>${layout.Line}${layout.Floor ? ' - ' + layout.Floor : ''}${layout.Cell ? ' - ' + layout.Cell : ''}</lable>`;            
-            }
-            else {
-                html += `<lable class="d-none">${layout.Line}${layout.Floor ? ' - ' + layout.Floor : ''}${layout.Cell ? ' - ' + layout.Cell : ''}</lable>`;
-            }
-            title += `[${layout.Line}${layout.Floor ? ' - ' + layout.Floor : ''}${layout.Cell ? ' - ' + layout.Cell : ''}], `;
+            html += `<lable>${layout.Line}${layout.Cell ? ' - ' + layout.Cell : ''}${layout.Floor ? ' - ' + layout.Floor : ''}</lable>`;     
+            title += `[${layout.Line}${layout.Cell ? ' - ' + layout.Cell : ''}${layout.Floor ? ' - ' + layout.Floor : ''}],`;
         });
         row.append(`<td title="${title}">${html}</td>`);
         // 10 Buffer
@@ -120,7 +115,12 @@ async function CreateTableAddDevice(devices) {
             { targets: [0, 1, 2, 3, 6, 7], visible: false },
         ],
         "lengthMenu": [[10, 15, 25, 50, -1], [10, 15, 25, 50, "All"]],
-
+        dom: "<'row'<'col-sm-12 col-md-2'l><'col-sm-12 col-md-2'B><'col-sm-12 col-md-8'f>>" +
+            "<'row'<'col-sm-12'tr>>" +
+            "<'row'<'col-sm-12 col-md-7'i><'col-sm-12 col-md-5'p>>",
+        buttons: [{
+            extend: 'excelHtml5',            
+        }]
     };
     tableDeviceInfo = $('#table_Devices').DataTable(options);
     tableDeviceInfo.columns.adjust();
@@ -239,8 +239,8 @@ function CreateTableLayout(device, warehouses) {
         tr.append($(`<td>${CreateUserName(warehouse.User)}</td>`));
         tr.append($(`<td>${warehouse.WarehouseName ? warehouse.WarehouseName : ""}</td>`));       
         tr.append($(`<td>${layout.Line ? layout.Line : ""}</td>`));
-        tr.append($(`<td>${layout.Floor ? layout.Floor : ""}</td>`));
         tr.append($(`<td>${layout.Cell ? layout.Cell : ""}</td>`));
+        tr.append($(`<td>${layout.Floor ? layout.Floor : ""}</td>`));        
 
         $('#device_details-layout-tbody').append(tr);
     });
@@ -377,18 +377,8 @@ function DrawRowEditDevice(item) {
         var title = ''
         $.each(item.DeviceWarehouseLayouts, function (k, sss) {
             var layout = sss.WarehouseLayout;
-            if (k == 0) {
-                if (item.DeviceWarehouseLayouts > 0) {
-                    html += `<lable>${layout.Line}${layout.Floor ? ' - ' + layout.Floor : ''}${layout.Cell ? ' - ' + layout.Cell : ''}</lable>`;
-                }
-                else {
-                    html += `<lable>${layout.Line}${layout.Floor ? ' - ' + layout.Floor : ''}${layout.Cell ? ' - ' + layout.Cell : ''}</lable>`;
-                }
-            }
-            else {
-                html += `<lable class="d-none">${layout.Line}${layout.Floor ? ' - ' + layout.Floor : ''}${layout.Cell ? ' - ' + layout.Cell : ''}</lable>`;
-            }
-            title += `[${layout.Line}${layout.Floor ? ' - ' + layout.Floor : ''}${layout.Cell ? ' - ' + layout.Cell : ''}], `;
+            html += `<lable>${layout.Line}${layout.Cell ? ' - ' + layout.Cell : ''}${layout.Floor ? ' - ' + layout.Floor : ''}</lable>`;
+            title += `[${layout.Line}${layout.Cell ? ' - ' + layout.Cell : ''}${layout.Floor ? ' - ' + layout.Floor : ''}], `;
         });
         row.push(`<td title="${title}">${html}</td>`);
 

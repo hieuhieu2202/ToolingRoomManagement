@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "Borrow";
+    ViewBag.Title = "Take";
     Layout = "~/Areas/NVIDIA/Views/Shared/_NvidiaLayoutShared.cshtml";
 }
 
@@ -9,11 +9,11 @@
     <link href="~/Areas/NVIDIA/Content/Template/Sysadmin/assets/plugins/select2/css/select2.min.css" rel="stylesheet" />
     <link href="~/Areas/NVIDIA/Content/Template/Sysadmin/assets/plugins/select2/css/select2-bootstrap4.css" rel="stylesheet" />
     <!-- Custom -->
-    <link href="~/Areas/NVIDIA/Content/Custom/BorrowManagement/css/BorrowDevice.css?v=@Guid.NewGuid()" rel="stylesheet" />
+    <link href="~/Areas/NVIDIA/Content/Custom/BorrowManagement/css/TakeDevice.css?@Guid.NewGuid()" rel="stylesheet" />
 }
 
 <div class="page-breadcrumb d-none d-sm-flex align-items-center py-3">
-    <div class="breadcrumb-title pe-3">Borrow </div>
+    <div class="breadcrumb-title pe-3">Take </div>
     <div class="ps-3">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb mb-0 p-0">
@@ -23,7 +23,7 @@
                 <li class="breadcrumb-item">
                     <a href="javascript:;">Request Handling</a>
                 </li>
-                <li class="breadcrumb-item active" aria-current="page">Borrow/Return Request</li>
+                <li class="breadcrumb-item active" aria-current="page">Request</li>
             </ol>
         </nav>
     </div>
@@ -148,7 +148,7 @@
                 </div>
             </div>
             <div class="card-footer text-center">
-                <button type="button" class="btn btn-outline-primary" id="CreateBorrowForm">Create Borrow Request</button>
+                <button type="button" class="btn btn-outline-primary" id="CreateBorrowForm">Create Request</button>
             </div>
         </div>
     </div>
@@ -163,7 +163,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <h2 class="font-weight-light text-center text-primary py-3">BORROW REQUEST</h2>
+                <h2 class="font-weight-light text-center text-primary py-3">TAKE DEVICE REQUEST</h2>
 
                 <div class="row">
                     <!-- row 1-->
@@ -175,13 +175,9 @@
                         <label class="form-label">User Name</label>
                         <input type="text" class="form-control" id="form_borrow-Username" disabled>
                     </div>
-                    <div class="col-md-3">
-                        <label class="form-label">Date Borrow</label>
+                    <div class="col-md-6">
+                        <label class="form-label">Date Take Device</label>
                         <input type="datetime-local" class="form-control" id="form_borrow-BorrowDate">
-                    </div>
-                    <div class="col-md-3">
-                        <label class="form-label">Due Date</label>
-                        <input type="datetime-local" class="form-control" id="form_borrow-DuaDate">
                     </div>
                     <!-- row 2-->
                     <div class="col-md-3 mt-3">
@@ -209,7 +205,7 @@
                                 <th>Specification</th>
                                 <th>Model</th>
                                 <th>Station</th>
-                                <th class="text-danger text-center" style="width: 200px;">Quantity Borrow</th>
+                                <th class="text-danger text-center" style="width: 200px;">Quantity</th>
                             </tr>
                         </thead>
                         <tbody id="table_borrow-tbody">
@@ -489,5 +485,5 @@
     <script src="~/Areas/NVIDIA/Content/Vendor/MomentJs/moment.js"></script>
     <script src="~/Areas/NVIDIA/Content/Template/Sysadmin/assets/plugins/select2/js/select2.min.js"></script>
     <!-- Custom -->
-    <script src="~/Areas/NVIDIA/Content/Custom/BorrowManagement/js/BorrowDevice.js?v=@Guid.NewGuid()"></script>
+    <script src="~/Areas/NVIDIA/Content/Custom/BorrowManagement/js/TakeDevice.js?@Guid.NewGuid()"></script>
 }
