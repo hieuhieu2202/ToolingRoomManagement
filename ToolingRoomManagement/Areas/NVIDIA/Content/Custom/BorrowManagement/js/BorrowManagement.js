@@ -55,6 +55,8 @@ async function CreateTableBorrow(borrows) {
         row.append(`<td>${item.DateDue ? moment(item.DateDue).format('YYYY-MM-DD HH:mm:ss') : ''}</td>`);
         // Return Date
         row.append(`<td>${item.DateReturn ? moment(item.DateReturn).format('YYYY-MM-DD HH:mm:ss') : ''}</td>`);
+        // Note
+        row.append(`<td title="${item.Note ? item.Note : ''}s">${item.Note ? item.Note : ''}</td>`);
         // Type
         switch (item.Type) {
             case "Borrow": {
@@ -104,13 +106,13 @@ async function CreateTableBorrow(borrows) {
     });
 
     const options = {
-        scrollY: 460,
+        scrollY: 480,
         scrollX: true,
         order: [1],
         autoWidth: false,
         columnDefs: [            
-            { targets: [4, 5], className: "text-center" },
-            { targets: [6], className: "text-center", orderable: false, width: '20px;' },
+            { targets: [5, 6], className: "text-center" },
+            { targets: [7], className: "text-center", orderable: false, width: '20px;' },
             { targets: "_all", orderable: true },
         ],
         "lengthMenu": [[10, 15, 25, 50, -1], [10, 15, 25, 50, "All"]]

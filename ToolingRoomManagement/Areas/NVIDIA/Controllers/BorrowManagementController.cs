@@ -27,32 +27,9 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
         {
             try
             {
-                Entities.User user = (Entities.User)Session["SignSession"];
-
-                user = db.Users.FirstOrDefault(u => u.Id == user.Id);
-
-                bool isAdminOrManager = false;
-                foreach(var userRole in user.UserRoles)
-                {
-                    if(userRole.Role.RoleName.ToUpper().Equals("MANAGER") || userRole.Role.RoleName.ToUpper().Equals("ADMIN"))
-                    {
-                        isAdminOrManager = true;
-                        break;
-                    }
-                }
 
                 List<Borrow> borrows = new List<Borrow>();
-
-                if (isAdminOrManager)
-                {
-                    borrows = db.Borrows.ToList();
-
-                }
-                else
-                {
-                    borrows = db.Borrows.Where(b => b.IdUser == user.Id).ToList();
-
-                }
+                borrows = db.Borrows.ToList();
 
                 return Json(new { status = true, borrows = JsonSerializer.Serialize(borrows) }, JsonRequestBehavior.AllowGet);
             }
@@ -361,6 +338,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 {
                     warehouse.UserDeputy1 = db.Users.FirstOrDefault(u => u.Id == warehouse.IdUserDeputy1);
                     warehouse.UserDeputy2 = db.Users.FirstOrDefault(u => u.Id == warehouse.IdUserDeputy2);
+
                     return Json(new { status = true, warehouse = JsonSerializer.Serialize(warehouse) });
                 }
                 else

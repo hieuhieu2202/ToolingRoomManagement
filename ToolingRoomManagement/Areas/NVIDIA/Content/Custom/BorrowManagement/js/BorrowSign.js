@@ -55,13 +55,13 @@ async function CreateTableBorrow(borrows) {
     });
 
     const options = {
-        scrollY: 470,
+        scrollY: 480,
         scrollX: true,
         order: [],
         autoWidth: false,
         columnDefs: [           
-            { targets: [7], className: "text-center", orderable: false, width: "50px" },
-            { targets: [4, 5, 6], className: "text-center", orderable: true, width: "100px" },
+            { targets: [6], className: "text-center", orderable: false, width: "50px" },
+            { targets: [3, 4, 5], className: "text-center", orderable: true, width: "100px" },
             { targets: "_all", orderable: false },
         ],
         "lengthMenu": [[10, 15, 25, 50, -1], [10, 15, 25, 50, "All"]]
@@ -468,10 +468,8 @@ function DrawDatatableRow(no, item) {
     row.append(CreateTableCellUser(item.User));
     // Created Date
     row.append(`<td>${moment(item.DateBorrow).format('YYYY-MM-DD HH:mm:ss')}</td>`);  
-    // Due Date
-    row.append(`<td>${item.DateDue ? moment(item.DateDue).format('YYYY-MM-DD HH:mm:ss') : ''}</td>`);
-    // Return Date
-    row.append(`<td>${item.DateReturn ? moment(item.DateReturn).format('YYYY-MM-DD HH:mm:ss') : ''}</td>`);
+    // Note
+    row.append(`<td title="${item.Note}">${item.Note ? item.Note : ''}</td>`);
     // Type
     switch (item.Type) {
         case "Borrow": {
@@ -555,10 +553,8 @@ function DrawDatatableArray(item) {
     row.push(CreateUserName(item.User));
     // Created Date
     row.push(moment(item.DateBorrow).format('YYYY-MM-DD HH:mm:ss'));
-    // Due Date
-    row.push(item.DateDue ? moment(item.DateDue).format('YYYY-MM-DD HH:mm:ss') : '');
-    // Return Date
-    row.push(item.DateReturn ? moment(item.DateReturn).format('YYYY-MM-DD HH:mm:ss') : '');
+    // Note
+    row.push(item.Note ? item.Note : '');
     // Type
     switch (item.Type) {
         case "Borrow": {

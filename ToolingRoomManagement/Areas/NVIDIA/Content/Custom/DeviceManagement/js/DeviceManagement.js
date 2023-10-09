@@ -117,7 +117,7 @@ async function CreateTableAddDevice(devices) {
             { targets: [0, 1, 2, 3, 6, 7], visible: false },
         ],
         "lengthMenu": [[10, 15, 25, 50, -1], [10, 15, 25, 50, "All"]],
-        dom: "<'row'<'col-sm-12 col-md-2'l><'col-sm-12 col-md-2'B><'col-sm-12 col-md-8'f>>" +
+        dom: "<'row'<'col-sm-12 col-md-1'B><'col-sm-12 col-md-2'l><'col-sm-12 col-md-9'f>>" +
             "<'row'<'col-sm-12'tr>>" +
             "<'row'<'col-sm-12 col-md-7'i><'col-sm-12 col-md-5'p>>",
         buttons: [{
@@ -853,10 +853,10 @@ $('#filter').on('click', function (e) {
         tableDeviceInfo.column(7).search("^" + filter_Vendor + "$", true, false);
     }
     if (filter_Type !== "Type" && filter_Type !== null && filter_Type !== undefined) {
-        tableDeviceInfo.column(12).search("^" + filter_Type + "$", true, false);
+        tableDeviceInfo.column(13).search("^" + filter_Type + "$", true, false);
     }
     if (filter_Status !== "Status" && filter_Status !== null && filter_Status !== undefined) {
-        tableDeviceInfo.column(13).search("^" + filter_Status + "$", true, false);
+        tableDeviceInfo.column(14).search("^" + filter_Status + "$", true, false);
     }
 
     tableDeviceInfo.draw();

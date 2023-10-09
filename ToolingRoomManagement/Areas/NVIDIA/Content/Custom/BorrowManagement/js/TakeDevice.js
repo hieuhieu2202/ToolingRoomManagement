@@ -270,7 +270,7 @@ async function CreateTableAddDevice(devices) {
     const options = {
         scrollY: 500,
         scrollX: true,
-        order: [0],
+        order: [0, 'asc'],
         autoWidth: false,
         columnDefs: [
             { targets: "_all", orderable: false },
@@ -456,10 +456,10 @@ $('#filter').on('click', function (e) {
         tableDeviceInfo.column(7).search("^" + filter_Vendor + "$", true, false);
     }
     if (filter_Type !== "Type" && filter_Type !== null && filter_Type !== undefined) {
-        tableDeviceInfo.column(11).search("^" + filter_Type + "$", true, false);
+        tableDeviceInfo.column(12).search("^" + filter_Type + "$", true, false);
     }
     if (filter_Status !== "Status" && filter_Status !== null && filter_Status !== undefined) {
-        tableDeviceInfo.column(12).search("^" + filter_Status + "$", true, false);
+        tableDeviceInfo.column(13).search("^" + filter_Status + "$", true, false);
     }
 
     tableDeviceInfo.draw();
@@ -513,6 +513,8 @@ $('#CreateBorrowForm').on('click', function (e) {
     $('#table_borrow-tbody').empty();
     $.each(IndexDevices, function (k, v) {
         var deviceData = tableDeviceInfo.row(v).data();
+
+        
 
         var tr = $(`<tr class="align-middle" data-id="${IdDevices[k]}" data-index="${v}"></tr>`);
         tr.append(`<td>${deviceData[4]}</td>`);
