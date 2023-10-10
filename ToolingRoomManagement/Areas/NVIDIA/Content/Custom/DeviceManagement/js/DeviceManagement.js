@@ -9,10 +9,11 @@ async function CreateTableAddDevice(devices) {
 
     $('#table_Devices_tbody').html('');
     await $.each(devices, async function (no, item) {
+
         var row = $(`<tr class="align-middle" data-id="${item.Id}" title="Double-click to view device details."></tr>`);
 
         // 0 MTS
-        row.append(`<td>${(item.Product) ? item.Product.MTS : ""}</td>`);
+        row.append(`<td>${item.Id}</td>`);
         // 1 Product Name
         row.append(`<td title="${(item.Product) ? item.Product.ProductName : ""}">${(item.Product) ? item.Product.ProductName : ""}</td>`);
         // 2 Model
@@ -34,7 +35,7 @@ async function CreateTableAddDevice(devices) {
         var title = ''
         $.each(item.DeviceWarehouseLayouts, function (k, sss) {
             var layout = sss.WarehouseLayout;
-            html += `<lable>${layout.Line}${layout.Cell ? ' - ' + layout.Cell : ''}${layout.Floor ? ' - ' + layout.Floor : ''}</lable>`;     
+            html += `<lable>${layout.Line}${layout.Cell ? ' - ' + layout.Cell : ''}${layout.Floor ? ' - ' + layout.Floor : ''}</lable>`;
             title += `[${layout.Line}${layout.Cell ? ' - ' + layout.Cell : ''}${layout.Floor ? ' - ' + layout.Floor : ''}],`;
         });
         row.append(`<td title="${title}">${html}</td>`);
@@ -121,7 +122,7 @@ async function CreateTableAddDevice(devices) {
             "<'row'<'col-sm-12'tr>>" +
             "<'row'<'col-sm-12 col-md-7'i><'col-sm-12 col-md-5'p>>",
         buttons: [{
-            extend: 'excelHtml5',            
+            extend: 'excelHtml5',
         }]
     };
     tableDeviceInfo = $('#table_Devices').DataTable(options);
@@ -129,19 +130,32 @@ async function CreateTableAddDevice(devices) {
 }
 
 // get data device
+var ListDevices;
 function GetWarehouseDevices(IdWarehouse = 0) {
     Pace.track(function () {
         $.ajax({
             url: "/NVIDIA/DeviceManagement/GetWarehouseDevices",
-            data: JSON.stringify({ IdWarehouse: IdWarehouse }),
+            data: JSON.stringify({ IdWarehouse, PageNum: 1 }),
             type: "POST",
             dataType: "json",
             contentType: "application/json;charset=utf-8",
-            success: function (response) {
+            success: async function (response) {
                 if (response.status) {
-                    var devices = response.warehouse.Devices.reverse();
+                    var devices = response.warehouse.Devices;
 
-                    CreateTableAddDevice(devices);
+                    if (devices.length == 1000) {
+                        var PageNum = 1;
+
+                        var devicesMore = {};
+                        while (devicesMore.length != 0) {
+                            PageNum++;
+                            devicesMore = await _GetWarehouseDevices(IdWarehouse, PageNum);
+                            devices.push(...devicesMore);
+                        }
+                    }
+                    ListDevices = devices;
+                    CreateTableAddDevice(ListDevices);
+
                 }
                 else {
                     Swal.fire('Sorry, something went wrong!', response.message, 'error');
@@ -149,6 +163,33 @@ function GetWarehouseDevices(IdWarehouse = 0) {
             },
             error: function (error) {
                 Swal.fire('Sorry, something went wrong!', GetAjaxErrorMessage(error), 'error');
+            },
+            complete: function () {
+                Pace.stop();
+            }
+        });
+    });
+}
+function _GetWarehouseDevices(IdWarehouse, PageNum) {
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: "/NVIDIA/DeviceManagement/GetWarehouseDevices",
+            data: JSON.stringify({ IdWarehouse, PageNum }),
+            type: "POST",
+            dataType: "json",
+            contentType: "application/json;charset=utf-8",
+            success: function (response) {
+                if (response.status) {
+                    // Giải quyết Promise với danh sách devices
+                    resolve(response.warehouse.Devices);
+                } else {
+                    // Reject Promise nếu có lỗi
+                    reject(response.message);
+                }
+            },
+            error: function (error) {
+                // Reject Promise nếu có lỗi
+                reject(GetAjaxErrorMessage(error));
             },
             complete: function () {
                 // Dừng Pace.js sau khi AJAX request hoàn thành
@@ -160,7 +201,6 @@ function GetWarehouseDevices(IdWarehouse = 0) {
 
 $('#input_WareHouse').on('change', function (e) {
     e.preventDefault();
-
     GetWarehouseDevices($(this).val());
 });
 
@@ -228,7 +268,10 @@ async function FillDetailsDeviceData(data) {
     $('#device_details-WareHouse').val($('#input_WareHouse option:selected').text());
     $('#device_details-Group').val(data.Group ? data.Group.GroupName : '');
     $('#device_details-Vendor').val(data.Vendor ? data.Vendor.VendorName : '');
+
     $('#device_details-Unit').val(data.Unit ? data.Unit : '');
+    $('#device_details-DeliveryTime').val(data.DeliveryTime ? data.DeliveryTime : '');
+
 }
 function CreateTableLayout(device, warehouses) {
     $('#device_details-layout-tbody').empty();
@@ -240,10 +283,10 @@ function CreateTableLayout(device, warehouses) {
         tr.append($(`<td>${warehouse.Factory ? warehouse.Factory : ""}</td>`));
         tr.append($(`<td>${warehouse.Floor ? warehouse.Floor : ""}</td>`));
         tr.append($(`<td>${CreateUserName(warehouse.User)}</td>`));
-        tr.append($(`<td>${warehouse.WarehouseName ? warehouse.WarehouseName : ""}</td>`));       
+        tr.append($(`<td>${warehouse.WarehouseName ? warehouse.WarehouseName : ""}</td>`));
         tr.append($(`<td>${layout.Line ? layout.Line : ""}</td>`));
         tr.append($(`<td>${layout.Cell ? layout.Cell : ""}</td>`));
-        tr.append($(`<td>${layout.Floor ? layout.Floor : ""}</td>`));        
+        tr.append($(`<td>${layout.Floor ? layout.Floor : ""}</td>`));
 
         $('#device_details-layout-tbody').append(tr);
     });
@@ -266,7 +309,10 @@ function CreateTableHistory(IdDevice, borrows) {
 
         tr.append($(`<td>${GetQuantityDeviceInBorrow(IdDevice, item.BorrowDevices)}</td>`));
 
-        tr.append($(`<td style="max-width: 200px;">${item.Note}</td>`));
+        tr.append($(`<td>${item.Status}</td>`));
+        tr.append($(`<td style="max-width: 200px;">${item.Note}</td>`));     
+
+        console.log(item);
 
         $('#device_details-history-tbody').append(tr);
     });
@@ -675,6 +721,19 @@ async function FillEditDeviceData(data) {
     $('#device_edit-Vendor').val(data.device.IdVendor).trigger('change');
     $('#device_edit-Unit').val(data.device.Unit);
 
+    if (data.device.DeliveryTime) {
+        var temp = data.device.DeliveryTime.split(' ');
+        $('#device_edit-DeliveryTime1').val(temp[0]);
+
+        var selectVal = '';
+        for (let i = 1; i < temp.length; i++) {
+            selectVal += ' ' + temp[i];
+        }
+        $('#device_edit-DeliveryTime2').val(selectVal.trim());
+    }
+
+
+
     $('#layout-container').empty();
     var DeviceLayouts = data.device.DeviceWarehouseLayouts;
     $.each(DeviceLayouts, function (k, item) {
@@ -694,7 +753,7 @@ async function FillEditDeviceData(data) {
                             <span class="col-2 input-group-text">Layout ${k + 1} </span>
                         </div>`);
         inputGroup.append(selectLayout);
-        inputGroup.append(deleteButton)   
+        inputGroup.append(deleteButton)
 
         $('#layout-container').append(inputGroup);
     });
@@ -716,7 +775,7 @@ $('#button-save_modal').on('click', function (e) {
         dataType: "json",
         contentType: "application/json;charset=utf-8",
         success: function (response) {
-            if (response.status) {              
+            if (response.status) {
                 var row = DrawRowEditDevice(response.device);
                 tableDeviceInfo.row(Index).data(row).draw(false);
 
@@ -759,6 +818,8 @@ function GetModalData() {
         IdStation: $('#device_edit-Station').val(),
         IdGroup: $('#device_edit-Group').val(),
         IdVendor: $('#device_edit-Vendor').val(),
+
+        DeliveryTime: $('#device_edit-DeliveryTime1').val() + ' ' + $('#device_edit-DeliveryTime2').val(),
     }
 }
 
@@ -792,7 +853,6 @@ $('#new-layout').on('click', async function (e) {
 var WarehouseLayouts;
 $('#device_edit-WareHouse').on('change', function (e) {
     e.preventDefault();
-
     GetWarehouseLayouts($(this).val());
 })
 function GetWarehouseLayouts(IdWarehouse) {
@@ -872,7 +932,7 @@ $('#filter-refresh').click(function (e) {
     $('#filter_Type').val("Type");
     $('#filter_Status').val("Status");
 
-    $('#filter').click(); 
+    $('#filter').click();
 });
 
 

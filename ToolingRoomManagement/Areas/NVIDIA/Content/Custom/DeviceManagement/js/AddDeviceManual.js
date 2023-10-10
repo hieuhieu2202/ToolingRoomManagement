@@ -55,10 +55,7 @@ $('#AddDeviceManual').on('click', function (e) {
     e.preventDefault();
 
     const formData = GetFormData();
-
-    //console.log(...formData);
-    //console.log(formData.getAll('Layout'));
-    //return;
+    formData.append('DeliveryTime', `${$('#device_add-DeliveryTime1').val()} ${$('#device_add-DeliveryTime2').val()}`);
 
     $.ajax({
         type: "POST",
@@ -89,7 +86,20 @@ function GetFormData() {
         const inputElement = $(this).find('input, select')[0];
         //const id = inputElement.id;
         const value = $(inputElement).val();
-        
+
+        // Check continue
+        var checkContinue = false;
+        var continueItems = ['DeliveryTime'];
+        continueItems.forEach(function (item) {
+            if (item === label) {
+                checkContinue = true;
+                return false;
+            }
+        });
+        if (checkContinue) return;
+
+
+        // Get label data
         if (label) {
             if (label.includes('Layout')) {
                 formData.append('Layout', value);

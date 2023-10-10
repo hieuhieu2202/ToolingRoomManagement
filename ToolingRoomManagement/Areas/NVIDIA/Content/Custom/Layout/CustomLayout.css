@@ -44,3 +44,13 @@ body::-webkit-scrollbar {
 .hl-danger {
     background-color: rgb(220 53 69 / 10%);
 }
+.modal-fullscreen {
+    padding: 30px 50px;
+}
+    .modal-fullscreen .modal-content {
+        border-radius: 10px;
+    }
+        .modal-fullscreen .modal-content .card {
+            box-shadow: 0px 0px 5px 0px #3b3b3b !important;
+            border-radius: 10px;
+        }

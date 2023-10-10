@@ -273,7 +273,7 @@
 
 <!-- Details modal -->
 <div class="modal fade" id="device_details-modal" aria-hidden="true">
-    <div class="modal-dialog modal-xl modal-dialog-scrollable">
+    <div class="modal-dialog modal-fullscreen modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="device_details-title">Device Details</h5>
@@ -282,216 +282,236 @@
             <div class="modal-body">
                 <!-- Details -->
                 <h5 class="font-weight-light text-center text-primary py-3" id="borrow_modal-name">DEVICE DETAILS</h5>
-                <div class="row">
-                    <div class="col-6">
-                        <!-- Id + Status-->
-                        <div class="row">
-                            <div class="col-6">
-                                <div class="input-group mb-3">
-                                    <span class="col-6 input-group-text">ID</span>
-                                    <input type="text" class="col-6 form-control" id="device_details-DeviceId" details disabled>
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="input-group mb-3">
-                                    <span class="col-6 input-group-text">Status</span>
-                                    <input class="col-6 form-control" type="text" id="device_details-Status" details disabled />
-                                </div>
-                            </div>
-                        </div>
 
-                        <!-- WareHouse + Relation -->
-                        <div class="row">
-                            <div class="col-6">
-                                <div class="input-group mb-3">
-                                    <span class="col-6 input-group-text">Warehouse</span>
-                                    <input class="col-6 form-control" id="device_details-WareHouse" details disabled />
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="input-group mb-3">
-                                    <span class="col-6 input-group-text">Relation</span>
-                                    <input class="col-6 form-control" type="text" id="device_details-Relation" details disabled>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Buffer + LifeCycle-->
-                        <div class="row">
-                            <div class="col-6">
-                                <div class="input-group mb-3">
-                                    <span class="col-6 input-group-text">Buffer</span>
-                                    <input class="col-6 form-control" type="number" id="device_details-Buffer" details disabled>
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="input-group mb-3">
-                                    <span class="col-6 input-group-text">Life Cycle</span>
-                                    <input class="col-6 form-control" type="number" id="device_details-LifeCycle" details disabled>
-                                </div>
-                            </div>
-                        </div>
+                <!-- Basic Info -->
+                <div class="card">
+                    <div class="card-body">
+                        <h6 class="mb-0 text-uppercase">Basic Information</h6>
+                        <hr>
 
-                        <!-- Forcast + Quantity -->
                         <div class="row">
                             <div class="col-6">
+                                <!-- Id + Device Code-->
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="input-group mb-3">
+                                            <span class="col-4 input-group-text">ID</span>
+                                            <input type="text" class="col-6 form-control" id="device_details-DeviceId" details disabled>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="input-group mb-3">
+                                            <span class="col-3 input-group-text" style="width: 135px">Device Code</span>
+                                            <input class="form-control" type="text" id="device_details-DeviceCode" details disabled>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Device Name -->
                                 <div class="input-group mb-3">
-                                    <span class="col-6 input-group-text">Forcast</span>
-                                    <input class="col-6 form-control" type="number" id="device_details-Forcast" details disabled>
+                                    <span class="col-3 input-group-text">Device name</span>
+                                    <input class="form-control" type="text" id="device_details-DeviceName" details disabled>
+                                </div>
+                                <!-- Specification -->
+                                <div class="input-group mb-3">
+                                    <span class="col-3 input-group-text">Specification</span>
+                                    <input class="form-control" type="text" id="device_details-Specification" details disabled>
                                 </div>
                             </div>
                             <div class="col-6">
-                                <div class="input-group mb-3">
-                                    <span class="col-6 input-group-text">Quantity</span>
-                                    <input class="col-6 form-control" type="number" id="device_details-Quantity" details disabled>
+                                <!-- Status + Type -->
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="input-group mb-3">
+                                            <span class="col-6 input-group-text">Status</span>
+                                            <input class="col-6 form-control" type="text" id="device_details-Status" details disabled />
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="input-group mb-3">
+                                            <span class="col-6 input-group-text">Type</span>
+                                            <input class="col-6 form-control" type="text" id="device_details-Type" details disabled />
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                        <!-- QtyConfirm + RealQty -->
-                        <div class="row">
-                            <div class="col-6">
+                                <!-- Device Date -->
                                 <div class="input-group mb-3">
-                                    <span class="col-6 input-group-text">Qty Confirm</span>
-                                    <input class="col-6 form-control" type="number" id="device_details-QtyConfirm" details disabled>
+                                    <span class="col-3 input-group-text">Created date</span>
+                                    <input class="form-control" type="datetime-local" id="device_details-DeviceDate" details disabled>
                                 </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="input-group mb-3">
-                                    <span class="col-6 input-group-text fw-bold text-info">Real Quantity</span>
-                                    <input class="col-6 form-control" type="number" id="device_details-RealQty" details disabled>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- ACC_KIT + Type -->
-                        <div class="row">
-                            <div class="col-6">
-                                <div class="input-group mb-3">
-                                    <span class="col-6 input-group-text">ACC KIT</span>
-                                    <input class="col-6 form-control" type="text" id="device_details-AccKit" details disabled />
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="input-group mb-3">
-                                    <span class="col-6 input-group-text">Type</span>
-                                    <input class="col-6 form-control" type="text" id="device_details-Type" details disabled />
-                                </div>
-                            </div>
-                        </div>
 
-                        <!-- Group + Vendor -->
-                        <div class="row">
-                            <div class="col-6">
+                                <!-- DeliveryTime -->
                                 <div class="input-group mb-3">
-                                    <span class="col-6 input-group-text">Group</span>
-                                    <input class="col-6 form-control" id="device_details-Group" type="text" details disabled />
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="input-group mb-3">
-                                    <span class="col-6 input-group-text">Vendor</span>
-                                    <input class="col-6 form-control" id="device_details-Vendor" type="text" details disabled />
+                                    <span class="col-3 input-group-text">DeliveryTime</span>
+                                    <input class="form-control" type="text" id="device_details-DeliveryTime" details disabled>
                                 </div>
                             </div>
                         </div>
-
-                    </div>
-
-                    <div class="col-6">
-                        <!-- Device Code + Unit -->
-                        <div class="row">
-                            <div class="col-8">
-                                <div class="input-group mb-3">
-                                    <span class="col-4 input-group-text" style="width: 135px">Device Code</span>
-                                    <input class="col-8 form-control" type="text" id="device_details-DeviceCode" details disabled>
-                                </div>
-                            </div>
-                            <div class="col-4">
-                                <div class="input-group mb-3">
-                                    <span class="col-6 input-group-text">Unit</span>
-                                    <input class="col-6 form-control" type="text" id="device_details-Unit" details disabled>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Device Name -->
-                        <div class="input-group mb-3">
-                            <span class="col-3 input-group-text">Device name</span>
-                            <input class="col-9 form-control" type="text" id="device_details-DeviceName" details disabled>
-                        </div>
-                        <!-- Specification -->
-                        <div class="input-group mb-3">
-                            <span class="col-3 input-group-text">Specification</span>
-                            <input class="col-9 form-control" type="text" id="device_details-Specification" details disabled>
-                        </div>
-                        <!-- Device Date -->
-                        <div class="input-group mb-3">
-                            <span class="col-3 input-group-text">Created date</span>
-                            <input class="form-control" type="datetime-local" id="device_details-DeviceDate" details disabled>
-                        </div>
-                        <!-- Product -->
-                        <div class="input-group mb-3">
-                            <span class="col-3 input-group-text">Product</span>
-                            <input class="col-9 form-control" id="device_details-Product" type="text" details disabled />
-                        </div>
-                        <!-- Model -->
-                        <div class="input-group mb-3">
-                            <span class="col-3 input-group-text">Model</span>
-                            <input class="col-9 form-control" id="device_details-Model" type="text" details disabled />
-                        </div>
-                        <!-- Station -->
-                        <div class="input-group mb-3">
-                            <span class="col-3 input-group-text">Station</span>
-                            <input class="col-9 form-control" id="device_details-Station" type="text" details disabled />
-                        </div>
-                    </div>
-
-                    <!-- Layout -->
-                    <h5 class="font-weight-light text-center text-primary py-3" id="borrow_modal-name">DEVICE LOCATION</h5>
-                    <div>
-                        <table class="table table-bordered" id="device_details-layout">
-                            <thead>
-                                <tr class="fw-bold" style="background-color: #3e464c">
-                                    <td>Factory</td>
-                                    <td>Factory Floor</td>
-                                    <td>Warehouse Manager</td>
-                                    <td>Warehouse</td>
-                                    <td>Line</td>
-                                    <td>Floor</td>
-                                    <td>Cell</td>
-                                </tr>
-                            </thead>
-                            <tbody id="device_details-layout-tbody">
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <!-- History -->
-                    <h5 class="font-weight-light text-center text-primary py-3" id="borrow_modal-name">DEVICE HISTORY</h5>
-                    <div>
-                        <table class="table table-bordered" id="device_details-history">
-                            <thead>
-                                <tr class="align-middle fw-bold" style="background-color: #3e464c">
-                                    <td>Type</td>
-                                    <td>Date Borrow</td>
-                                    <td>Date Return</td>
-                                    <td>User</td>
-                                    <td>For Model</td>
-                                    <td>For Station</td>
-                                    <td>Borrow Quantity</td>
-                                    <td style="max-width: 200px;">Note</td>
-                                </tr>
-                            </thead>
-                            <tbody id="device_details-history-tbody"></tbody>
-                        </table>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" id="button-save_modal">Save changes</button>
+
+                <!-- Details Info-->
+                <div class="card">
+                    <div class="card-body">
+                        <h6 class="mb-0 text-uppercase">Details Information</h6>
+                        <hr>
+
+                        <div class="row">
+                            <div class="col-6">
+
+                                <!-- WareHouse + Relation -->
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="input-group mb-3">
+                                            <span class="col-4 input-group-text">Warehouse</span>
+                                            <input class="form-control" id="device_details-WareHouse" details disabled />
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="input-group mb-3">
+                                            <span class="col-4 input-group-text">Relation</span>
+                                            <input class="form-control" type="text" id="device_details-Relation" details disabled>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Buffer + LifeCycle-->
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="input-group mb-3">
+                                            <span class="col-4 input-group-text">Buffer</span>
+                                            <input class="form-control" type="number" id="device_details-Buffer" details disabled>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="input-group mb-3">
+                                            <span class="col-4 input-group-text">Life Cycle</span>
+                                            <input class="form-control" type="number" id="device_details-LifeCycle" details disabled>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Quantity  + Unit -->
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="input-group mb-3">
+                                            <span class="col-4 input-group-text">Quantity</span>
+                                            <input class="form-control" type="number" id="device_details-Quantity" details disabled>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="input-group mb-3">
+                                            <span class="col-4 input-group-text">Unit</span>
+                                            <input class="form-control" type="text" id="device_details-Unit" details disabled>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- QtyConfirm + RealQty -->
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="input-group mb-3">
+                                            <span class="col-4 input-group-text">Qty Confirm</span>
+                                            <input class="form-control" type="number" id="device_details-QtyConfirm" details disabled>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="input-group mb-3">
+                                            <span class="col-4 input-group-text fw-bold text-info">Real Quantity</span>
+                                            <input class="form-control" type="number" id="device_details-RealQty" details disabled>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- ACC_KIT + Type -->
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="input-group mb-3">
+                                            <span class="col-4 input-group-text">ACC KIT</span>
+                                            <input class="form-control" type="text" id="device_details-AccKit" details disabled />
+                                        </div>
+                                    </div>
+                                    <div class="col-6"></div>
+                                </div>
+                            </div>
+
+                            <div class="col-6">
+                                <!-- Group -->
+                                <div class="input-group mb-3">
+                                    <span class="col-3 input-group-text">Group</span>
+                                    <input class="form-control" id="device_details-Group" type="text" details disabled />
+                                </div>
+                                <!-- Vendor -->
+                                <div class="input-group mb-3">
+                                    <span class="col-3 input-group-text">Vendor</span>
+                                    <input class="form-control" id="device_details-Vendor" type="text" details disabled />
+                                </div>
+                                <!-- Product -->
+                                <div class="input-group mb-3">
+                                    <span class="col-3 input-group-text">Product</span>
+                                    <input class="col-9 form-control" id="device_details-Product" type="text" details disabled />
+                                </div>
+                                <!-- Model -->
+                                <div class="input-group mb-3">
+                                    <span class="col-3 input-group-text">Model</span>
+                                    <input class="col-9 form-control" id="device_details-Model" type="text" details disabled />
+                                </div>
+                                <!-- Station -->
+                                <div class="input-group mb-3">
+                                    <span class="col-3 input-group-text">Station</span>
+                                    <input class="col-9 form-control" id="device_details-Station" type="text" details disabled />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+
+                <!-- Layout -->
+                <h5 class="font-weight-light text-center text-primary py-3" id="borrow_modal-name">DEVICE LOCATION</h5>
+                <div>
+                    <table class="table table-bordered" id="device_details-layout">
+                        <thead>
+                            <tr class="fw-bold" style="background-color: #3e464c">
+                                <td>Factory</td>
+                                <td>Factory Floor</td>
+                                <td>Warehouse Manager</td>
+                                <td>Warehouse</td>
+                                <td>Line</td>
+                                <td>Cell</td>
+                                <td>Floor</td>
+                            </tr>
+                        </thead>
+                        <tbody id="device_details-layout-tbody">
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- History -->
+                <h5 class="font-weight-light text-center text-primary py-3" id="borrow_modal-name">DEVICE HISTORY</h5>
+                <div>
+                    <table class="table table-bordered" id="device_details-history">
+                        <thead>
+                            <tr class="align-middle fw-bold" style="background-color: #3e464c">
+                                <td>Type</td>
+                                <td>Date Borrow</td>
+                                <td>Date Return</td>
+                                <td>User</td>
+                                <td>For Model</td>
+                                <td>For Station</td>
+                                <td>Borrow Quantity</td>
+                                <td style="max-width: 200px;">Note</td>
+                            </tr>
+                        </thead>
+                        <tbody id="device_details-history-tbody"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
 </div>
-
 
 @section scripts{
     <!-- Vendor -->

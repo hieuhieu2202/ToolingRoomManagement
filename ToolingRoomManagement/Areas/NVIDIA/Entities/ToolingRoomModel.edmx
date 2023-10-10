@@ -66,6 +66,8 @@
           <Property Name="ImagePath" Type="nvarchar" MaxLength="300" />
           <Property Name="Specification" Type="nvarchar" MaxLength="300" />
           <Property Name="Unit" Type="nvarchar" MaxLength="50" />
+          <Property Name="DeliveryTime" Type="nvarchar" MaxLength="50" />
+          <Property Name="SysQuantity" Type="int" />
         </EntityType>
         <EntityType Name="DeviceWarehouseLayout">
           <Key>
@@ -841,6 +843,8 @@
           <NavigationProperty Name="DeviceWarehouseLayouts" Relationship="ToolingRoomModel.FK_DeviceWarehouseLayout_Device" FromRole="Device" ToRole="DeviceWarehouseLayout" />
           <Property Name="Specification" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
           <Property Name="Unit" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DeliveryTime" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SysQuantity" Type="Int32" />
         </EntityType>
         <Association Name="FK_Device_Group">
           <End Type="ToolingRoomModel.Group" Role="Group" Multiplicity="0..1" />
@@ -1245,6 +1249,8 @@
           <EntitySetMapping Name="Devices">
             <EntityTypeMapping TypeName="ToolingRoomModel.Device">
               <MappingFragment StoreEntitySet="Device">
+                <ScalarProperty Name="SysQuantity" ColumnName="SysQuantity" />
+                <ScalarProperty Name="DeliveryTime" ColumnName="DeliveryTime" />
                 <ScalarProperty Name="Unit" ColumnName="Unit" />
                 <ScalarProperty Name="Specification" ColumnName="Specification" />
                 <ScalarProperty Name="ImagePath" ColumnName="ImagePath" />

@@ -1,4 +1,5 @@
-﻿using OfficeOpenXml.FormulaParsing.Excel.Functions.Math;
+﻿using Model.EF;
+using OfficeOpenXml.FormulaParsing.Excel.Functions.Math;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -125,16 +126,18 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 us.Status = "Approved";
                 us.DateSign = DateTime.Now;
 
+                // check xem đơn được ký hoàn toàn
                 if (us.SignOrder == (borrow.UserBorrowSigns.Count - 1))
                 {
                     borrow.Status = "Approved";
-
+                    
                     if (us.Type == "Return")
                     {
                         //return device if type == return
-                        foreach (var BorrowDevice in borrow.BorrowDevices)
+                        foreach (var borrowDevice in borrow.BorrowDevices)
                         {
-                            BorrowDevice.Device.RealQty += BorrowDevice.BorrowQuantity;
+                            borrowDevice.Device.RealQty += borrowDevice.BorrowQuantity;
+                            borrowDevice.Device.Status = Data.Common.CheckStatus(borrowDevice.Device);
                         }
 
                         // Send Mail
@@ -142,6 +145,13 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                     }
                     else
                     {
+                        // trừ vào số lượng thực tế 
+                        foreach (var borrowDevice in borrow.BorrowDevices)
+                        {
+                            borrowDevice.Device.RealQty -= borrowDevice.BorrowQuantity;
+                            borrowDevice.Device.Status = Data.Common.CheckStatus(borrowDevice.Device);
+                        }
+                      
                         // Send Mail
                         Data.Common.SendApproveMail(borrow);
                     }
@@ -175,41 +185,75 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 {
                     UserBorrowSign us = borrow.UserBorrowSigns.FirstOrDefault(u => u.Status == "Pending");
 
-                    if (us.Id == IdSign)
+                    if(borrow.Type == "Borrow" || borrow.Type == "Take")
                     {
-                        us.Status = "Rejected";
-                        us.DateSign = DateTime.Now;
-                        us.Note = Note;
-
-                        borrow.Status = "Rejected";
-
-                        // return quantity
-                        foreach(var borrowDevice in borrow.BorrowDevices)
+                        if (us.Id == IdSign)
                         {
-                            borrowDevice.Device.RealQty += borrowDevice.BorrowQuantity;
-                            borrowDevice.Device.Status = "Confirmed";
-                        }
+                            us.Status = "Rejected";
+                            us.DateSign = DateTime.Now;
+                            us.Note = Note;
 
+                            borrow.Status = "Rejected";
 
-                        // close sign
-                        foreach(var sign in borrow.UserBorrowSigns)
-                        {
-                            if(sign.SignOrder > us.SignOrder)
+                            // return quantity
+                            foreach (var borrowDevice in borrow.BorrowDevices)
                             {
-                                sign.Status = "Closed";
+                                borrowDevice.Device.SysQuantity += borrowDevice.BorrowQuantity;
+                                borrowDevice.Device.Status = Data.Common.CheckStatus(borrowDevice.Device);
                             }
+
+
+                            // close sign
+                            foreach (var sign in borrow.UserBorrowSigns)
+                            {
+                                if (sign.SignOrder > us.SignOrder)
+                                {
+                                    sign.Status = "Closed";
+                                }
+                            }
+
+                            // Send Mail
+                            Data.Common.SendRejectMail(borrow);
+
+
+                            db.SaveChanges();
+                            return Json(new { status = true, borrow = JsonSerializer.Serialize(borrow) });
                         }
-
-                        // Send Mail
-                        Data.Common.SendRejectMail(borrow);
-
-
-                        db.SaveChanges();
-                        return Json(new { status = true, borrow = JsonSerializer.Serialize(borrow) });
+                        else
+                        {
+                            return Json(new { status = false, message = "Sign not found." });
+                        }
                     }
-                    else
+                    else // Type = "Return"
                     {
-                        return Json(new { status = false, message = "Sign not found." });
+                        if (us.Id == IdSign)
+                        {
+                            us.Status = "Rejected";
+                            us.DateSign = DateTime.Now;
+                            us.Note = Note;
+
+                            borrow.Status = "Rejected";
+
+                            // close sign
+                            foreach (var sign in borrow.UserBorrowSigns)
+                            {
+                                if (sign.SignOrder > us.SignOrder)
+                                {
+                                    sign.Status = "Closed";
+                                }
+                            }
+
+                            // Send Mail
+                            Data.Common.SendRejectMail(borrow);
+
+
+                            db.SaveChanges();
+                            return Json(new { status = true, borrow = JsonSerializer.Serialize(borrow) });
+                        }
+                        else
+                        {
+                            return Json(new { status = false, message = "Sign not found." });
+                        }
                     }
                 }
                 else
@@ -260,9 +304,9 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
 
                     if (device != null)
                     {
-                        if (device.RealQty - QtyDevices[i] >= 0)
+                        if (device.SysQuantity - QtyDevices[i] >= 0)
                         {
-                            device.RealQty -= QtyDevices[i]; // trừ vào số lượng thực tế
+                            device.SysQuantity -= QtyDevices[i]; // trừ vào số lượng ảo
                             Entities.BorrowDevice borrowDevice = new Entities.BorrowDevice
                             {
                                 IdBorrow = borrow.Id,
@@ -384,7 +428,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
             {
                 Entities.User user = (Entities.User)Session["SignSession"];
 
-                List<Borrow> borrows = db.Borrows.Where(b => b.IdUser == user.Id && b.Status == "Approved" && b.Type == "Borrow").ToList();
+                List<Borrow> borrows = db.Borrows.Where(b => b.IdUser == user.Id && b.Status == "Approved" && (b.Type == "Borrow" || b.Type == "Take")).ToList();
 
                 return Json(new { status = true, borrows = JsonSerializer.Serialize(borrows) }, JsonRequestBehavior.AllowGet);
             }
@@ -459,9 +503,9 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
 
                     if (device != null)
                     {
-                        if (device.RealQty - QtyDevices[i] >= 0)
+                        if (device.SysQuantity - QtyDevices[i] >= 0)
                         {
-                            device.RealQty -= QtyDevices[i]; // trừ vào số lượng thực tế
+                            device.SysQuantity -= QtyDevices[i]; // trừ vào số lượng ảo
                             Entities.BorrowDevice borrowDevice = new Entities.BorrowDevice
                             {
                                 IdBorrow = borrow.Id,
@@ -494,7 +538,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                         IdUser = SignProcess[i],
                         IdBorrow = borrow.Id,
                         SignOrder = i,
-                        Type = "Take"
+                        Type = "Borrow"
                     };
                     if (i == 0)
                     {

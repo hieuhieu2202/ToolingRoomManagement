@@ -3,6 +3,7 @@ using OfficeOpenXml;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Migrations;
+using System.Drawing.Printing;
 using System.Globalization;
 using System.Linq;
 using System.Text.Json;
@@ -40,10 +41,11 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                     Type = form["Type"],
                     Status = form["Status"],
                     Specification = form["Specification"],
-                    Unit = form["Unit"]
-
+                    Unit = form["Unit"],                  
+                    DeliveryTime = form["DeliveryTime"],
                 };
                 int dIdWarehouse = int.TryParse(form["Warehouse"], out dIdWarehouse) ? dIdWarehouse : 0;
+
                 device.IdWareHouse = dIdWarehouse;
 
                 if (!db.Devices.Any(d => d.DeviceCode == device.DeviceCode && d.IdWareHouse == device.IdWareHouse))
@@ -120,6 +122,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
 
                     device.CreatedDate = DateTime.Now;
                     device.RealQty = dQtyConfirm;
+                    device.SysQuantity = dQtyConfirm;
 
                     device.Status = Data.Common.CheckStatus(device);
 
@@ -143,6 +146,8 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                             }
                         }
                     }
+
+
                     db.SaveChanges();
                     return Json(new { status = true });
                 }
@@ -226,15 +231,16 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                     {
                         return Json(new { status = false, message = "Real Quantity > Quantity confirm." });
                     }
+                    if (device.Buffer == null) device.Buffer = 0;
 
                     device.CreatedDate = DateTime.Now;
                     device.Status = Data.Common.CheckStatus(device);
+                    device.SysQuantity = device.RealQty;
 
+                   
                     // Layout
                     List<DeviceWarehouseLayout> deviceWarehouseLayouts = db.DeviceWarehouseLayouts.Where(dl => dl.IdDevice == device.Id).ToList();
                     db.DeviceWarehouseLayouts.RemoveRange(deviceWarehouseLayouts);
-
-                    if (IdLayouts == null) System.Diagnostics.Debug.WriteLine("SSS");
 
                     if(IdLayouts != null)
                     {
@@ -274,22 +280,19 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
             }
         }
         [HttpPost]
-        public JsonResult GetWarehouseDevices(int IdWarehouse)
+        public JsonResult GetWarehouseDevices(int IdWarehouse, int PageNum)
         {
             try
             {
                 Entities.Warehouse warehouse = db.Warehouses.FirstOrDefault(w => w.Id == IdWarehouse);
 
-                if (IdWarehouse == 0)
-                {
-                    Entities.User user = (Entities.User)Session["SignSession"];
-                    warehouse = db.Warehouses.FirstOrDefault(w => w.IdUserManager == user.Id);
-                    if (warehouse == null)
-                    {
-                        warehouse = db.Warehouses.Take(1).FirstOrDefault();
-                    }
-                }
-                warehouse.Devices.OrderByDescending(d => d.CreatedDate);
+                var skipAmount = 1000 * (PageNum - 1);
+
+                var Devices = db.Devices.Where(d => d.IdWareHouse == warehouse.Id).OrderByDescending(d => d.Id).Skip(skipAmount).Take(1000).ToList();
+
+                //var Devices = db.Devices.Where(d => d.IdWareHouse == warehouse.Id).OrderByDescending(d => d.Id).ToList();
+
+                warehouse.Devices = Devices;
                 return Json(new { status = true, warehouse });
             }
             catch (Exception ex)
@@ -354,9 +357,9 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                         {
                             var deviceCode = worksheet.Cells[row, 10].Value?.ToString();
                             var isRealBOM = worksheet.Cells[row, 20].Value?.ToString();
-                            if (string.IsNullOrEmpty(deviceCode) || isRealBOM != "Y") continue;
+                            //if (string.IsNullOrEmpty(deviceCode) || isRealBOM != "Y") continue;
 
-
+                            if (string.IsNullOrEmpty(deviceCode)) continue;
                             // Create device in row excel
                             var device = CreateDevice(worksheet, row, IdWareHouse);
 
@@ -414,8 +417,8 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                             }
 
                             if (!products.Any(p => p.Id == device.Product.Id) && (device.Product.ProductName != null || device.Product.MTS != null)) products.Add(device.Product);
-                            if (!models.Any(m => m.Id == device.Model.Id) && device.Model.ModelName != null) models.Add(device.Model);
-                            if (!stations.Any(s => s.Id == device.Station.Id) && device.Station.StationName != null) stations.Add(device.Station);
+                            //if (!models.Any(m => m.Id == device.Model.Id) && device.Model.ModelName != null) models.Add(device.Model);
+                            //if (!stations.Any(s => s.Id == device.Station.Id) && device.Station.StationName != null) stations.Add(device.Station);
                             if (!groups.Any(g => g.Id == device.Group.Id) && device.Group.GroupName != null) groups.Add(device.Group);
                             if (!vendors.Any(v => v.Id == device.Vendor.Id) && device.Vendor.VendorName != null) vendors.Add(device.Vendor);
                         }
@@ -441,25 +444,25 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
             // Lấy các giá trị từ worksheet
             var productName = worksheet.Cells[row, 1].Value?.ToString();
             var productMTS = worksheet.Cells[row, 2].Value?.ToString();
-            var modelName = worksheet.Cells[row, 22].Value?.ToString();
-            var stationName = worksheet.Cells[row, 23].Value?.ToString();
+            //var modelName = worksheet.Cells[row, 22].Value?.ToString();
+            //var stationName = worksheet.Cells[row, 23].Value?.ToString();
             var groupName = worksheet.Cells[row, 12].Value?.ToString();
             var vendorName = worksheet.Cells[row, 13].Value?.ToString();
             var deviceCode = worksheet.Cells[row, 10].Value?.ToString();
             var deviceName = worksheet.Cells[row, 11].Value?.ToString();
-            var ACC_KIT = worksheet.Cells[row, 17].Value?.ToString();
-            var relation = worksheet.Cells[row, 18].Value?.ToString();
+            //var ACC_KIT = worksheet.Cells[row, 17].Value?.ToString();
+            //var relation = worksheet.Cells[row, 18].Value?.ToString();
 
             // Lấy các giá trị khác từ worksheet
-            DateTime deviceDate = DateTime.TryParseExact(worksheet.Cells[row, 15].Value?.ToString(), "M/d/yyyy h:mm:ss tt", CultureInfo.InvariantCulture, DateTimeStyles.None, out deviceDate) ? deviceDate : DateTime.Now;
-            double deviceBuffer = double.TryParse(worksheet.Cells[row, 30].Value?.ToString(), out deviceBuffer) ? deviceBuffer : 0;
-            double forcast = double.TryParse(worksheet.Cells[row, 27].Value?.ToString(), out forcast) ? forcast : 0;
+            //DateTime deviceDate = DateTime.TryParseExact(worksheet.Cells[row, 15].Value?.ToString(), "M/d/yyyy h:mm:ss tt", CultureInfo.InvariantCulture, DateTimeStyles.None, out deviceDate) ? deviceDate : DateTime.Now;
+            //double deviceBuffer = double.TryParse(worksheet.Cells[row, 30].Value?.ToString(), out deviceBuffer) ? deviceBuffer : 0;
+            //double forcast = double.TryParse(worksheet.Cells[row, 27].Value?.ToString(), out forcast) ? forcast : 0;
 
-            string deviceType = worksheet.Cells[row, 29].Value?.ToString();
+            //string deviceType = worksheet.Cells[row, 29].Value?.ToString();
 
             int deviceQty = int.TryParse(worksheet.Cells[row, 14].Value?.ToString(), out deviceQty) ? deviceQty : 0;
-            int stationQty = int.TryParse(worksheet.Cells[row, 26].Value?.ToString(), out stationQty) ? stationQty : 0;
-            int lifeCycle = int.TryParse(worksheet.Cells[row, 28].Value?.ToString(), out lifeCycle) ? lifeCycle : 0;
+            //int stationQty = int.TryParse(worksheet.Cells[row, 26].Value?.ToString(), out stationQty) ? stationQty : 0;
+            //int lifeCycle = int.TryParse(worksheet.Cells[row, 28].Value?.ToString(), out lifeCycle) ? lifeCycle : 0;
 
 
             #region Product
@@ -478,25 +481,25 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
             #endregion
 
             #region Model
-            Entities.Model model = db.Models.FirstOrDefault(m => m.ModelName == modelName);
-            if (model == null)
-            {
-                model = new Entities.Model { ModelName = modelName };
-                db.Models.Add(model);
-            }
-            device.IdModel = model.Id;
-            device.Model = model;
-            #endregion
+            //Entities.Model model = db.Models.FirstOrDefault(m => m.ModelName == modelName);
+            //if (model == null)
+            //{
+            //    model = new Entities.Model { ModelName = modelName };
+            //    db.Models.Add(model);
+            //}
+            //device.IdModel = model.Id;
+            //device.Model = model;
+            //#endregion
 
-            #region Station
-            Entities.Station station = db.Stations.FirstOrDefault(s => s.StationName == stationName);
-            if (station == null)
-            {
-                station = new Entities.Station { StationName = stationName };
-                db.Stations.Add(station);
-            }
-            device.IdStation = station.Id;
-            device.Station = station;
+            //#region Station
+            //Entities.Station station = db.Stations.FirstOrDefault(s => s.StationName == stationName);
+            //if (station == null)
+            //{
+            //    station = new Entities.Station { StationName = stationName };
+            //    db.Stations.Add(station);
+            //}
+            //device.IdStation = station.Id;
+            //device.Station = station;
             #endregion
 
             #region Group
@@ -524,36 +527,36 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
             #region Device
             device.DeviceCode = deviceCode;
             device.DeviceName = deviceName;
-            device.DeviceDate = deviceDate;
-            device.Buffer = deviceBuffer;
-            device.ACC_KIT = ACC_KIT;
-            device.Relation = relation;
+            //device.DeviceDate = deviceDate;
+            //device.Buffer = deviceBuffer;
+            //device.ACC_KIT = ACC_KIT;
+            //device.Relation = relation;
             device.Quantity = 0;
-            device.Type = deviceType;
+            //device.Type = deviceType;
             device.Status = "Unconfirmed";
             device.IdWareHouse = IdWareHouse;
             device.CreatedDate = DateTime.Now;
-            device.LifeCycle = lifeCycle;
-            device.Forcast = forcast;
+            //device.LifeCycle = lifeCycle;
+            //device.Forcast = forcast;
             device.QtyConfirm = 0;
             device.RealQty = 0;
 
-            if (device.Type == "D")
-            {
-                double cal = (double)(device.Forcast * 1000 / device.LifeCycle);
-                if (cal < stationQty)
-                {
-                    device.Quantity = stationQty;
-                }
-                else
-                {
-                    device.Quantity = (int)Math.Ceiling(cal);
-                }
-            }
-            else if (device.Type == "S")
-            {
-                device.Quantity = (int)Math.Ceiling((double)(deviceQty * stationQty * (1 + deviceBuffer)));
-            }
+            //if (device.Type == "D")
+            //{
+            //    double cal = (double)(device.Forcast * 1000 / device.LifeCycle);
+            //    if (cal < stationQty)
+            //    {
+            //        device.Quantity = stationQty;
+            //    }
+            //    else
+            //    {
+            //        device.Quantity = (int)Math.Ceiling(cal);
+            //    }
+            //}
+            //else if (device.Type == "S")
+            //{
+            //    device.Quantity = (int)Math.Ceiling((double)(deviceQty * stationQty * (1 + deviceBuffer)));
+            //}
 
             #endregion
 

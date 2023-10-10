@@ -41,7 +41,7 @@
                     </div>
                     <!-- Device Name -->
                     <div class="input-group mb-3">
-                        <span class="col-4 input-group-text">Device name</span>
+                        <span class="col-4 input-group-text">Device Name</span>
                         <input class="col-8 form-control" type="text" id="device_add-DeviceName" maxlength="255" autocomplete="off" placeholder="Tên thiết bị">
                     </div>
                     <!-- Specification -->
@@ -69,8 +69,52 @@
                         <span class="col-4 input-group-text">Quantity</span>
                         <input class="col-8 form-control" type="number" id="device_add-Quantity" autocomplete="off" placeholder="Số lượng nhập vào kho">
                     </div>
+                    <!-- Unit -->
+                    <div class="input-group mb-3">
+                        <span class="col-4 input-group-text">Unit</span>
+                        <input class="col-8 form-control" type="text" id="device_add-Unit" list="device_add-Unit_List" autocomplete="off" placeholder="Đơn vị tính" maxlength="50">
+                        <datalist id="device_add-Unit_List">
+                            <option value="N/A">N/A</option>
+                            <option value="PCS">PCS (Cái)</option>
+                            <option value="BAG">BAG (Bao)</option>
+                            <option value="BOX">BOX (Hộp)</option>
+                            <option value="SET">SET (Bộ)</option>
+                            <option value="M">M (Meter)</option>
+                            <option value="CM">CM (Centimet)</option>
+                            <option value="KG">KG (Kilogram)</option>
+                            <option value="G">G (Gram)</option>
+                            <option value="L">L (Liter)</option>
+                            <option value="ML">ML (Mililiter)</option>
+                        </datalist>
+                    </div>
                 </div>
+
                 <div class="col-4">
+                    <!-- Type -->
+                    <div class="input-group mb-3">
+                        <span class="col-4 input-group-text">Type</span>
+                        <select class="form-select" id="device_add-Type">
+                            <option value="#N/A">N/A</option>
+                            <option value="S">Static (Cố định)</option>
+                            <option value="D">Dynamic (Tiêu hao)</option>
+                            <option value="Consign">Consign (Khách hàng tặng)</option>
+                            <option value="Fixture">Fixture (Khuôn)</option>
+                        </select>
+                    </div>
+                    <!-- DeliveryTime -->
+                    <div class="input-group mb-3">
+                        <span class="col-4 input-group-text">DeliveryTime</span>
+
+                        <input class="form-control" id="device_add-DeliveryTime1" type="number" />
+
+                        <select class="form-select" id="device_add-DeliveryTime2">
+                            <option value="Day (Ngày)">Day (Ngày)</option>
+                            <option value="Week (Tuần)" selected>Week (Tuần)</option>
+                            <option value="Month (Tháng)">Month (Tháng)</option>
+                            <option value="Quarter (Quý)">Quarter (Quý)</option>
+                            <option value="Year (Năm)">Year (Năm)</option>
+                        </select>
+                    </div>
                     <!-- WareHouse -->
                     <div class="input-group mb-3">
                         <span class="col-4 input-group-text">Warehouse</span>
@@ -106,41 +150,6 @@
                         <input class="col-8 form-control" type="text" id="device_add-Vendor" list="device_add-Vendor_List" autocomplete="off" placeholder="Nhà cung ứng" maxlength="120">
                         <datalist id="device_add-Vendor_List"></datalist>
                     </div>
-                    <!-- Type -->
-                    <div class="row">
-                        <div class="col-6">
-                            <div class="input-group mb-3">
-                                <span class="col-4 input-group-text">Type</span>
-                                <select class="form-select" id="device_add-Type">
-                                    <option value="#N/A">N/A</option>
-                                    <option value="S">Static (Cố định)</option>
-                                    <option value="D">Dynamic (Tiêu hao)</option>
-                                    <option value="Consign">Consign (Khách hàng tặng)</option>
-                                    <option value="Fixture">Fixture (Khuôn)</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="input-group mb-3">
-                                <span class="col-4 input-group-text">Unit</span>
-                                <input class="col-8 form-control" type="text" id="device_add-Unit" list="device_add-Unit_List" autocomplete="off" placeholder="Đơn vị tính" maxlength="50">
-                                <datalist id="device_add-Unit_List">
-                                    <option value="N/A">N/A</option>
-                                    <option value="PCS">PCS (Cái)</option>
-                                    <option value="BAG">BAG (Bao)</option>
-                                    <option value="BOX">BOX (Hộp)</option>
-                                    <option value="SET">SET (Bộ)</option>
-                                    <option value="M">M (Meter)</option>
-                                    <option value="CM">CM (Centimet)</option>
-                                    <option value="KG">KG (Kilogram)</option>
-                                    <option value="G">G (Gram)</option>
-                                    <option value="L">L (Liter)</option>
-                                    <option value="ML">ML (Mililiter)</option>
-                                </datalist>
-                            </div>
-                        </div>
-                    </div>
-                    
                 </div>
                 <div class="col-4">                   
                     <!-- Layout -->
