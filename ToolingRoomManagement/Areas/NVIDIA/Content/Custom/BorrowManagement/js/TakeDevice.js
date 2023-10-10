@@ -420,6 +420,7 @@ function CreateTableHistory(IdDevice, borrows) {
 
         tr.append($(`<td>${GetQuantityDeviceInBorrow(IdDevice, item.BorrowDevices)}</td>`));
 
+        tr.append($(`<td>${item.Status}</td>`));
         tr.append($(`<td style="max-width: 200px;">${item.Note}</td>`));
 
         $('#device_details-history-tbody').append(tr);
