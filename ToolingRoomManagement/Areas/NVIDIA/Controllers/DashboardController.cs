@@ -33,21 +33,23 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 int[] thisWeekDevices = new int[7];
                 string[] thisWeekDate = new string[7];
 
-                var thisWeek = DateTime.Now.Date.AddDays(-7);
-                var lastWeek = DateTime.Now.Date.AddDays(-14);
+
+                DateTime today = DateTime.Now.Date;
+                var thisWeek = today.AddDays(((int)DayOfWeek.Monday - (int)today.DayOfWeek - 7) % 7);
+                var lastWeek = thisWeek.AddDays(-7);
 
                 totalDevice = db.Devices.Count();
                 thisWeekDevice = db.Devices.Where(d => d.DeviceDate >= thisWeek).Count();
                 lastWeekDevice = db.Devices.Where(d => d.DeviceDate >= lastWeek && d.DeviceDate < thisWeek).Count();
 
-                for (int i = 1; i <= 7; i++)
+                for (int i = 0; i < 7; i++)
                 {
                     var date = thisWeek.AddDays(i);
                     var nextDate = date.AddDays(1);
                     int dateDevice = db.Devices.Where(d => d.DeviceDate >= date && d.DeviceDate < nextDate).Count();
 
-                    thisWeekDevices[i - 1] = dateDevice;
-                    thisWeekDate[i - 1] = date.ToString("MM-dd");
+                    thisWeekDevices[i] = dateDevice;
+                    thisWeekDate[i] = date.ToString("MM-dd");
                 }
 
                 return Json(new { status = true, totalDevice, thisWeekDevice, lastWeekDevice, thisWeekDevices, thisWeekDate }, JsonRequestBehavior.AllowGet);
@@ -68,21 +70,22 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 int[] arrWeekQuantity = new int[7];
                 string[] arrWeekDate = new string[7];
 
-                var thisWeek = DateTime.Now.Date.AddDays(-7);
-                var lastWeek = DateTime.Now.Date.AddDays(-14);
+                DateTime today = DateTime.Now.Date;
+                var thisWeek = today.AddDays(((int)DayOfWeek.Monday - (int)today.DayOfWeek - 7) % 7);
+                var lastWeek = thisWeek.AddDays(-7);
 
                 totalQuantity = db.Devices.Sum(d => d.QtyConfirm) ?? 0;
                 thisWeekQuantity = db.Devices.Where(d => d.DeviceDate >= thisWeek).Sum(d => d.QtyConfirm) ?? 0;
                 lastWeekQuantity = db.Devices.Where(d => d.DeviceDate >= lastWeek && d.DeviceDate < thisWeek).Sum(d => d.QtyConfirm) ?? 0;
 
-                for (int i = 1; i <= 7; i++)
+                for (int i = 0; i < 7; i++)
                 {
                     var date = thisWeek.AddDays(i);
                     var nextDate = date.AddDays(1);
                     int dateQuantity = db.Devices.Where(d => d.DeviceDate >= date && d.DeviceDate < nextDate).Sum(d => d.QtyConfirm) ?? 0;
 
-                    arrWeekQuantity[i - 1] = dateQuantity;
-                    arrWeekDate[i - 1] = date.ToString("MM-dd");
+                    arrWeekQuantity[i] = dateQuantity;
+                    arrWeekDate[i] = date.ToString("MM-dd");
                 }
 
                 return Json(new { status = true, totalQuantity, thisWeekQuantity, lastWeekQuantity, arrWeekQuantity, arrWeekDate }, JsonRequestBehavior.AllowGet);
@@ -103,21 +106,22 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 int[] arrWeekUser = new int[7];
                 string[] arrWeekDate = new string[7];
 
-                var thisWeek = DateTime.Now.Date.AddDays(-7);
-                var lastWeek = DateTime.Now.Date.AddDays(-14);
+                DateTime today = DateTime.Now.Date;
+                var thisWeek = today.AddDays(((int)DayOfWeek.Monday - (int)today.DayOfWeek - 7) % 7);
+                var lastWeek = thisWeek.AddDays(-7);
 
                 totalUser = db.Users.Count();
                 thisWeekUser = db.Users.Where(d => d.LastSignIn >= thisWeek).Count();
                 lastWeekUser = db.Users.Where(d => d.LastSignIn >= lastWeek && d.LastSignIn < thisWeek).Count();
 
-                for (int i = 1; i <= 7; i++)
+                for (int i = 0; i < 7; i++)
                 {
                     var date = thisWeek.AddDays(i);
                     var nextDate = date.AddDays(1);
                     int dateQuantity = db.Users.Where(d => d.LastSignIn >= date && d.LastSignIn < nextDate).Count();
 
-                    arrWeekUser[i - 1] = dateQuantity;
-                    arrWeekDate[i - 1] = date.ToString("MM-dd");
+                    arrWeekUser[i ] = dateQuantity;
+                    arrWeekDate[i] = date.ToString("MM-dd");
                 }
 
                 return Json(new { status = true, totalUser, thisWeekUser, lastWeekUser, arrWeekUser, arrWeekDate }, JsonRequestBehavior.AllowGet);
@@ -138,21 +142,22 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 int[] arrWeekBorrow = new int[7];
                 string[] arrWeekDate = new string[7];
 
-                var thisWeek = DateTime.Now.Date.AddDays(-7);
-                var lastWeek = DateTime.Now.Date.AddDays(-14);
+                DateTime today = DateTime.Now.Date;
+                var thisWeek = today.AddDays(((int)DayOfWeek.Monday - (int)today.DayOfWeek - 7) % 7);
+                var lastWeek = thisWeek.AddDays(-7);
 
                 totalBorrow = db.Borrows.Count();
                 thisWeekBorrow = db.Borrows.Where(d => d.DateBorrow >= thisWeek).Count();
                 lastWeekBorrow = db.Borrows.Where(d => d.DateBorrow >= lastWeek && d.DateBorrow < thisWeek).Count();
 
-                for (int i = 1; i <= 7; i++)
+                for (int i = 0; i < 7; i++)
                 {
                     var date = thisWeek.AddDays(i);
                     var nextDate = date.AddDays(1);
                     int dateQuantity = db.Borrows.Where(d => d.DateBorrow >= date && d.DateBorrow < nextDate).Count();
 
-                    arrWeekBorrow[i - 1] = dateQuantity;
-                    arrWeekDate[i - 1] = date.ToString("MM-dd");
+                    arrWeekBorrow[i] = dateQuantity;
+                    arrWeekDate[i] = date.ToString("MM-dd");
                 }
 
                 return Json(new { status = true, totalBorrow, thisWeekBorrow, lastWeekBorrow, arrWeekBorrow, arrWeekDate }, JsonRequestBehavior.AllowGet);
@@ -173,21 +178,22 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 int[] arrWeekApprove = new int[7];
                 string[] arrWeekDate = new string[7];
 
-                var thisWeek = DateTime.Now.Date.AddDays(-7);
-                var lastWeek = DateTime.Now.Date.AddDays(-14);
+                DateTime today = DateTime.Now.Date;
+                var thisWeek = today.AddDays(((int)DayOfWeek.Monday - (int)today.DayOfWeek - 7) % 7);
+                var lastWeek = thisWeek.AddDays(-7);
 
                 totalApprove = db.Borrows.Where(d => d.Status == "Approved").Count();
                 thisWeekApprove = db.Borrows.Where(d => d.DateBorrow >= thisWeek && d.Status == "Approved").Count();
                 lastWeekApprove = db.Borrows.Where(d => d.DateBorrow >= lastWeek && d.DateBorrow < thisWeek && d.Status == "Approved").Count();
 
-                for (int i = 1; i <= 7; i++)
+                for (int i = 0; i < 7; i++)
                 {
                     var date = thisWeek.AddDays(i);
                     var nextDate = date.AddDays(1);
                     int dateQuantity = db.Borrows.Where(d => d.DateBorrow >= date && d.DateBorrow < nextDate && d.Status == "Approved").Count();
 
-                    arrWeekApprove[i - 1] = dateQuantity;
-                    arrWeekDate[i - 1] = date.ToString("MM-dd");
+                    arrWeekApprove[i] = dateQuantity;
+                    arrWeekDate[i] = date.ToString("MM-dd");
                 }
 
                 return Json(new { status = true, totalApprove, thisWeekApprove, lastWeekApprove, arrWeekApprove, arrWeekDate }, JsonRequestBehavior.AllowGet);
@@ -197,6 +203,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 return Json(new { status = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
+
         public JsonResult GetDataChart6(string type)
         {
             try
@@ -344,27 +351,36 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
         {
             try
             {
-                int[] WeekApprove = new int[7];
-                int[] WeekPending = new int[7];
-                int[] WeekReject = new int[7];
+                List<Borrow> borrows = db.Borrows.ToList();
 
-                string[] listDate = new string[7];
+                DateTime dateNow = DateTime.Now;
+                Borrow newestBorrow = db.Borrows.OrderBy(b => b.DateBorrow).FirstOrDefault();
 
-                var thisWeek = DateTime.Now.Date.AddDays(-7);
-                for (int i = 1; i <= 7; i++)
+                TimeSpan difference = (dateNow - (DateTime)newestBorrow.DateBorrow);
+                int rangeDay = difference.Days;
+
+                int[] WeekApprove = new int[rangeDay];
+                int[] WeekPending = new int[rangeDay];
+                int[] WeekReject = new int[rangeDay];
+                string[] listDate = new string[rangeDay];
+
+
+                DateTime nextDate = (DateTime)newestBorrow.DateBorrow;
+                for (int i = 0; i < rangeDay; i++)
                 {
-                    var thisDate = thisWeek.AddDays(i);
-                    var nextDate = thisDate.AddDays(1);
-                    var thisDateBorrow = db.Borrows.Where(b => b.DateBorrow >= thisDate && b.DateBorrow < nextDate);
+                    var thisDate = nextDate;
+                    nextDate = nextDate.AddDays(1);
+
+                    var thisDateBorrow = borrows.Where(b => b.DateBorrow >= thisDate && b.DateBorrow <= nextDate);
 
                     int approve = thisDateBorrow.Where(b => b.Status == "Approved").Count();
                     int pending = thisDateBorrow.Where(b => b.Status == "Pending").Count();
                     int reject = thisDateBorrow.Where(b => b.Status == "Rejected").Count();
 
-                    WeekApprove[i - 1] = approve;
-                    WeekPending[i - 1] = pending;
-                    WeekReject[i - 1] = reject;
-                    listDate[i - 1] = thisDate.ToString("MM-dd");
+                    WeekApprove[i] = approve;
+                    WeekPending[i] = pending;
+                    WeekReject[i] = reject;
+                    listDate[i] = thisDate.ToString("MM-dd");
                 }
 
                 return Json(new { status = true, WeekApprove, WeekPending, WeekReject, listDate }, JsonRequestBehavior.AllowGet);
@@ -395,14 +411,26 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
         {
             try
             {
-                int TotalQuantity = db.Devices.Where(d => d.Status != "Unconfirmed").Sum(d => d.QtyConfirm) ?? 0;
-                int TotalRealQuantity = db.Devices.Where(d => d.Status != "Unconfirmed").Sum(d => d.RealQty) ?? 0;
+                var warehouses = db.Warehouses.ToList();
+
+
+                int[] WarehouseDeviceCount = new int[warehouses.Count];
+                string [] WarehouseDeviceName = new string[warehouses.Count];
+
+                for (int i = 0; i < warehouses.Count; i++)
+                {
+                    var wh = warehouses[i];
+                    WarehouseDeviceCount[i] = wh.Devices.Count;
+                    WarehouseDeviceName[i] = wh.WarehouseName;
+                }
 
                 int TotalStatic = db.Devices.Where(d => d.Type == "S").Count();
                 int TotalDynamic = db.Devices.Where(d => d.Type == "D").Count();
-                int TotalOrther = db.Devices.Where(d => d.Type != "D" || d.Type != "S").Count();
+                int TotalConsign = db.Devices.Where(d => d.Type == "Consign").Count();
+                int TotalFixture = db.Devices.Where(d => d.Type == "Fixture").Count();
+                int TotalOrther = db.Devices.Count() - (TotalStatic + TotalDynamic + TotalConsign + TotalFixture);
 
-                return Json(new { status = true, TotalQuantity, TotalRealQuantity, TotalStatic, TotalDynamic, TotalOrther }, JsonRequestBehavior.AllowGet);
+                return Json(new { status = true, WarehouseDeviceCount, WarehouseDeviceName, TotalStatic, TotalDynamic, TotalConsign, TotalFixture, TotalOrther }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {

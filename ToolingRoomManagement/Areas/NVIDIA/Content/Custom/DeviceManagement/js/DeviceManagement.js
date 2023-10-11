@@ -281,8 +281,8 @@ function CreateTableLayout(device, warehouses) {
 
         var tr = $('<tr></tr>');
         tr.append($(`<td>${warehouse.Factory ? warehouse.Factory : ""}</td>`));
-        tr.append($(`<td>${warehouse.Floor ? warehouse.Floor : ""}</td>`));
-        tr.append($(`<td>${CreateUserName(warehouse.User)}</td>`));
+        tr.append($(`<td>${warehouse.Floors ? warehouse.Floors : ""}</td>`));
+        tr.append($(`<td>${CreateUserName(warehouse.UserManager)}</td>`));
         tr.append($(`<td>${warehouse.WarehouseName ? warehouse.WarehouseName : ""}</td>`));
         tr.append($(`<td>${layout.Line ? layout.Line : ""}</td>`));
         tr.append($(`<td>${layout.Cell ? layout.Cell : ""}</td>`));
@@ -312,8 +312,6 @@ function CreateTableHistory(IdDevice, borrows) {
         tr.append($(`<td>${item.Status}</td>`));
         tr.append($(`<td style="max-width: 200px;">${item.Note}</td>`));     
 
-        console.log(item);
-
         $('#device_details-history-tbody').append(tr);
     });
 }
@@ -340,7 +338,7 @@ function GetSelectData() {
                 $('#input_WareHouse').change();
                 // Product
                 $('#device_edit-Product').empty();
-                $('#filter_Product').html($('<option value="Product" selected>Product</option>'));
+                $('#filter_Product').html($('<option value="Product" selected>Product (All)</option>'));
                 $.each(response.products, function (k, item) {
                     let opt = $(`<option value="${item.Id}">${item.ProductName} | ${item.MTS != null ? item.MTS : ''}</option>`);
                     $('#device_edit-Product').append(opt);
@@ -350,7 +348,7 @@ function GetSelectData() {
                 });
                 // Model
                 $('#device_edit-Model').empty();
-                $('#filter_Model').html($('<option value="Model" selected>Model</option>'));
+                $('#filter_Model').html($('<option value="Model" selected>Model (All)</option>'));
                 $.each(response.models, function (k, item) {
                     let opt = $(`<option value="${item.Id}">${item.ModelName}</option>`);
                     $('#device_edit-Model').append(opt);
@@ -360,7 +358,7 @@ function GetSelectData() {
                 });
                 // Station
                 $('#device_edit-Station').empty();
-                $('#filter_Station').html($('<option value="Station" selected>Station</option>'));
+                $('#filter_Station').html($('<option value="Station" selected>Station (All)</option>'));
                 $.each(response.stations, function (k, item) {
                     let opt = $(`<option value="${item.Id}">${item.StationName}</option>`);
                     $('#device_edit-Station').append(opt);
@@ -370,7 +368,7 @@ function GetSelectData() {
                 });
                 // Group
                 $('#device_edit-Group').empty();
-                $('#filter_Group').html($('<option value="Group" selected>Group</option>'));
+                $('#filter_Group').html($('<option value="Group" selected>Group (All)</option>'));
                 $.each(response.groups, function (k, item) {
                     let opt = $(`<option value="${item.Id}">${item.GroupName}</option>`);
                     $('#device_edit-Group').append(opt);
@@ -380,7 +378,7 @@ function GetSelectData() {
                 });
                 // Vendor
                 $('#device_edit-Vendor').empty();
-                $('#filter_Vendor').html($('<option value="Vendor" selected>Vendor</option>'));
+                $('#filter_Vendor').html($('<option value="Vendor" selected>Vendor (All)</option>'));
                 $.each(response.vendors, function (k, item) {
                     let opt = $(`<option value="${item.Id}">${item.VendorName}</option>`);
                     $('#device_edit-Vendor').append(opt);
@@ -924,13 +922,13 @@ $('#filter').on('click', function (e) {
 $('#filter-refresh').click(function (e) {
     e.preventDefault();
 
-    $('#filter_Product').val("Product");
-    $('#filter_Model').val("Model");
-    $('#filter_Station').val("Station");
-    $('#filter_Group').val("Group");
-    $('#filter_Vendor').val("Vendor");
-    $('#filter_Type').val("Type");
-    $('#filter_Status').val("Status");
+    $('#filter_Product').val("Product").trigger('change');
+    $('#filter_Model').val("Model").trigger('change');
+    $('#filter_Station').val("Station").trigger('change');
+    $('#filter_Group').val("Group").trigger('change');
+    $('#filter_Vendor').val("Vendor").trigger('change');
+    $('#filter_Type').val("Type").trigger('change');
+    $('#filter_Status').val("Status").trigger('change');
 
     $('#filter').click();
 });

@@ -58,11 +58,11 @@
     <div class="modal-dialog modal-xl modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">New Warehouse Modal</h5>
+                <h5 class="modal-title" id="AddModal-HeadTitle">New Warehouse Modal</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <h2 class="font-weight-light text-center text-primary py-3">NEW WAREHOUSE</h2>
+                <h2 class="font-weight-light text-center text-primary py-3" id="AddModal-BodyTitle">NEW WAREHOUSE</h2>
                 <div class="row">
                     <div class="col-6">
                         <div class="col-md-12 mb-3">
@@ -80,13 +80,26 @@
                     </div>
                     <div class="col-6">
                         <div class="col-md-12 mb-3">
-                            <label class="form-label">Manager</label>
-                            <select type="text" class="form-control" id="wh-Manager"></select>
+                            <label class="form-label">Manager 1</label>
+                            <select type="text" class="form-control" id="wh-Manager1">
+                            </select>
                         </div>
                         <div class="col-md-12 mb-3">
-                            <label class="form-label">Description</label>
-                            <textarea type="text" class="form-control" id="wh-Description"></textarea>
+                            <label class="form-label">Manager 2</label>
+                            <select type="text" class="form-control" id="wh-Manager2">
+                                <option value="" selected></option>
+                            </select>
                         </div>
+                        <div class="col-md-12 mb-3">
+                            <label class="form-label">Manager 3</label>
+                            <select type="text" class="form-control" id="wh-Manager3">
+                                <option value="" selected></option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-12 mb-3">
+                        <label class="form-label">Description</label>
+                        <textarea type="text" class="form-control" rows="2" id="wh-Description"></textarea>
                     </div>
                 </div>
             </div>
@@ -110,7 +123,15 @@
     <!-- Custom -->
     <script src="~/Areas/NVIDIA/Content/Custom/Warehouse/js/Management.js?v=@Guid.NewGuid()"></script>
     <script type="text/javascript">
-        $('#wh-Manager').select2({
+        $('#wh-Manager1').select2({
+            theme: 'bootstrap4',
+            dropdownParent: $("#warehouse-modal"),
+        });
+        $('#wh-Manager2').select2({
+            theme: 'bootstrap4',
+            dropdownParent: $("#warehouse-modal"),
+        });
+        $('#wh-Manager3').select2({
             theme: 'bootstrap4',
             dropdownParent: $("#warehouse-modal"),
         });

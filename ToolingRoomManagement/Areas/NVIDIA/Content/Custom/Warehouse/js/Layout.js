@@ -156,7 +156,7 @@ function JsTreeInit(treeData) {
             },
         },
     }).on('ready.jstree', function () {
-        $(this).jstree("open_all");
+       
     });
 }
 

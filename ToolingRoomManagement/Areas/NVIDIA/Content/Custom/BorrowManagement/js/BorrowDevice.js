@@ -393,8 +393,8 @@ function CreateTableLayout(device, warehouses) {
 
         var tr = $('<tr></tr>');
         tr.append($(`<td>${warehouse.Factory ? warehouse.Factory : ""}</td>`));
-        tr.append($(`<td>${warehouse.Floor ? warehouse.Floor : ""}</td>`));
-        tr.append($(`<td>${CreateUserName(warehouse.User)}</td>`));
+        tr.append($(`<td>${warehouse.Floors ? warehouse.Floors : ""}</td>`));
+        tr.append($(`<td>${CreateUserName(warehouse.UserManager)}</td>`));
         tr.append($(`<td>${warehouse.WarehouseName ? warehouse.WarehouseName : ""}</td>`));
         tr.append($(`<td>${layout.Line ? layout.Line : ""}</td>`));
         tr.append($(`<td>${layout.Floor ? layout.Floor : ""}</td>`));
@@ -468,13 +468,13 @@ $('#filter').on('click', function (e) {
 $('#filter-refresh').click(function (e) {
     e.preventDefault();
 
-    $('#filter_Product').val("Product");
-    $('#filter_Model').val("Model");
-    $('#filter_Station').val("Station");
-    $('#filter_Group').val("Group");
-    $('#filter_Vendor').val("Vendor");
-    $('#filter_Type').val("Type");
-    $('#filter_Status').val("Status");
+    $('#filter_Product').val("Product").trigger('change');
+    $('#filter_Model').val("Model").trigger('change');
+    $('#filter_Station').val("Station").trigger('change');
+    $('#filter_Group').val("Group").trigger('change');
+    $('#filter_Vendor').val("Vendor").trigger('change');
+    $('#filter_Type').val("Type").trigger('change');
+    $('#filter_Status').val("Status").trigger('change');
 
     $('#filter').click();
 });
@@ -648,39 +648,27 @@ $('#btn_addSign').on('click', function (e) {
 $('#button_send').on('click', function (e) {
     e.preventDefault();
 
-    var IdDevices = $('#table_borrow-tbody tr').map(function () {
-        return $(this).data('id');
-    }).get();
+    // Get Data
     var IndexDevices = $('#table_borrow-tbody tr').map(function () {
         return $(this).data('index');
     }).get();
-    var QtyDevices = $('#table_borrow-tbody tr').map(function () {
-        return parseInt($(this).find('.form-control').val());
-    }).get();
-    var SignProcess = $('#sign-container [select-user]').map(function () {
-        return parseInt($(this).val());
-    }).get();
-    var UserBorrow = $('#CardID').text();
-    var BorrowDate = $('#form_borrow-BorrowDate').val();
-    var DueDate = $('#form_borrow-DuaDate').val();
-    var Model = $('#form_borrow-Model').val();
-    var Station = $('#form_borrow-Station').val();
-    var Note = $('#form_borrow-Note').val();
 
     var BorrowData = {
-        IdDevices: IdDevices,
-        QtyDevices: QtyDevices,
-        SignProcess: SignProcess,
-        UserBorrow: UserBorrow,
-        BorrowDate: BorrowDate,
-        DueDate: DueDate,
-        IdModel: Model,
-        IdStation: Station,
-        Note: Note
+        IdDevices: $('#table_borrow-tbody tr').map(function () { return $(this).data('id'); }).get(),
+        QtyDevices: $('#table_borrow-tbody tr').map(function () { return parseInt($(this).find('.form-control').val()); }).get(),
+        SignProcess: $('#sign-container [select-user]').map(function () { return parseInt($(this).val()); }).get(),
+        UserBorrow: $('#CardID').text(),
+        BorrowDate: $('#form_borrow-BorrowDate').val(),
+        DueDate: $('#form_borrow-DuaDate').val(),
+        IdModel: $('#form_borrow-Model').val(),
+        IdStation: $('#form_borrow-Station').val(),
+        Note: $('#form_borrow-Note').val()
     }
 
+    // Validate
     if (!ValidateSendFormData(BorrowData)) return;
 
+    // Tạo đơn mượn
     $.ajax({
         type: "POST",
         url: "/NVIDIA/BorrowManagement/BorrowDevice",
@@ -765,36 +753,36 @@ function CreateUserOption(user) {
 function ValidateSendFormData(BorrowData) {
     var check = true;
 
+    if (BorrowData.DueDate === "") { toastr["warning"]('Please enter the Due Date', "WARNING"); return false; };
+    if ($('#form_borrow-Model :selected').text() == "") { toastr["warning"]('Please enter the Use For Model', "WARNING"); return false; };
+    if ($('#form_borrow-Station :selected').text() == "") { toastr["warning"]('Please enter the Use For Station', "WARNING"); return false; };
+
     $.each(BorrowData.QtyDevices, function (index, item) {
-        if (item < 0 || isNaN(item)) {
-            toastr["error"]('Please check Device Borrow Quantity', "ERROR");
+        if (item == 0 || isNaN(item)) {
+            toastr["warning"]('Please enter Device Borrow Quantity', "WARNING");
             check = false;
-            return false; // Dừng vòng lặp khi gặp lỗi
+            return false;
         }
     });
 
     $.each(BorrowData.IdDevices, function (index, item) {
-        if (item < 0 || isNaN(item)) {
-            toastr["error"]('Please check List Device Borrow', "ERROR");
+        if (item == 0 || isNaN(item)) {
+            toastr["warning"]('Please check List Device Borrow', "WARNING");
             check = false;
             return false; // Dừng vòng lặp khi gặp lỗi
         }
     });
 
     $.each(BorrowData.SignProcess, function (index, item) {
-        if (item < 0 || isNaN(item)) {
-            toastr["error"]('Please check List Device Borrow', "ERROR");
+        if (item == 0 || isNaN(item)) {
+            toastr["warning"]('Please check Sign Process', "WARNING");
             check = false;
             return false; // Dừng vòng lặp khi gặp lỗi
         }
     });
 
     if (BorrowData.UserBorrow == undefined || BorrowData.UserBorrow == '') {
-        toastr["error"]('Please check your session or Sign In again.', "ERROR");
-        check = false;
-    }
-    if (BorrowData.BorrowDate == undefined || BorrowData.UserBorrow == '') {
-        toastr["error"]('Please select Borrow Date', "ERROR");
+        toastr["warning"]('Please check your session or Sign In again.', "WARNING");
         check = false;
     }
 

@@ -40,7 +40,7 @@
             type.arrow = 'arrow-down';
         }
 
-        return `<span class="text-${type.text}" title="this week: ${Num_1}, last week: ${Num_2}"><i class="lni lni-${type.arrow}"></i> ${displayPercentageChange}%</span> vs last 7 days`;
+        return `<span class="text-${type.text}" title="this week: ${Num_1}, last week: ${Num_2}"><i class="lni lni-${type.arrow}"></i> ${displayPercentageChange}%</span> vs last week`;
     }
     //<!-- Tổng số thiết bị -->
     function CreateChart1() {
@@ -846,7 +846,7 @@
 
                     var ratioApprove = ((sumApprove / totalSum) * 100).toFixed(2);
                     var ratioPending = ((sumPending / totalSum) * 100).toFixed(2);
-                    var ratioReject = 100 - ratioApprove - ratioPending;
+                    var ratioReject = 100 - (parseFloat(ratioApprove) + parseFloat(ratioPending));
 
                     $('#chart8-rate').text(`${ratioApprove}%`);
                     $('#chart9-rate').text(`${ratioPending}%`);
@@ -1238,7 +1238,7 @@
         chart.render();
     }
 
-    //<!-- Thiết bị trong kho, ngoài kho - Loại thiết bị (dynamic/static) -->
+    //<!-- Thiết bị trong kho, ngoài kho - Loại thiết bị (dynamic/static/fixture/consign/orther) -->
     function CreateChart12() {
         $.ajax({
             type: "GET",
@@ -1252,20 +1252,22 @@
                         TotalRealQuantity: response.TotalRealQuantity,
                         TotalStatic: response.TotalStatic,
                         TotalDynamic: response.TotalDynamic,
+                        TotalConsign: response.TotalConsign,
+                        TotalFixture: response.TotalFixture,
                         TotalOrther: response.TotalOrther
                     }
-                    data.TotalStatus = data.TotalStatic + data.TotalDynamic + data.TotalOrther;
+                    data.TotalStatus = data.TotalStatic + data.TotalDynamic + data.TotalConsign + data.TotalFixture + data.TotalOrther;
 
-                    data.InLine = parseFloat(((data.TotalQuantity - data.TotalRealQuantity) / data.TotalQuantity * 100).toFixed(2));
-                    data.InWarehouse = 100 - data.InLine;
+                    var WarehouseDeviceCount = response.WarehouseDeviceCount;
+                    var WarehouseDeviceName = response.WarehouseDeviceName;
 
-                    $('#chart12-RateInLine').text(`${data.InLine}%`);
-                    $('#chart12-RateInWarehouse').text(`${data.InWarehouse}%`);
-
+                    Chart12(WarehouseDeviceCount, WarehouseDeviceName);
 
                     data.RateStatic = parseFloat((data.TotalStatic / data.TotalStatus * 100).toFixed(2));
                     data.RateDynamic = parseFloat((data.TotalDynamic / data.TotalStatus * 100).toFixed(2));
-                    data.RateOrther = (100 - (data.RateStatic + data.RateDynamic)).toFixed(2);
+                    data.RateConsign = parseFloat((data.TotalConsign / data.TotalStatus * 100).toFixed(2));
+                    data.RateFixture = parseFloat((data.TotalFixture / data.TotalStatus * 100).toFixed(2));
+                    data.RateOrther = (100 - (data.RateStatic + data.RateDynamic + data.RateConsign + data.RateFixture)).toFixed(2);
 
                     $('#chart12-RateStatic').text(`${data.RateStatic}%`);
                     $('#chart12-RateStaticBar').css('width', `${data.RateStatic}%`);
@@ -1273,10 +1275,16 @@
                     $('#chart12-RateDynamic').text(`${data.RateDynamic}%`);
                     $('#chart12-RateDynamicBar').css('width', `${data.RateDynamic}%`);
 
+                    $('#chart12-RateConsign').text(`${data.RateConsign}%`);
+                    $('#chart12-RateConsignBar').css('width', `${data.RateConsign}%`);
+
+                    $('#chart12-RateFixture').text(`${data.RateFixture}%`);
+                    $('#chart12-RateFixtureBar').css('width', `${data.RateFixture}%`);
+
                     $('#chart12-RateOrther').text(`${data.RateOrther}%`);
                     $('#chart12-RateOrtherBar').css('width', `${data.RateOrther}%`);
 
-                    Chart12(data);
+                    ;
                 }
                 else {
                     toastr["error"](response.message, "ERROR");
@@ -1287,26 +1295,31 @@
             }
         });
     }
-    function Chart12(data) {
+    function Chart12(data, labels) {
         var options = {
             chart: {
-                width: 190,
-                height: 190,
+                width: 350,
+                height: 350,
                 type: 'pie',
             },
-            series: [data.InWarehouse, data.InLine],
-            labels: ['In Warehouse', 'In Line'],
-            colors: ['#2a8ff7', '#ed415e'], // Thay đổi mã màu theo ý muốn
+            series: data,
+            labels: labels,
             dataLabels: {
                 enabled: false
             },
             legend: {
-                show: false
+                show: true,
+                labels: {
+                    colors: ['#fff']
+                },
+                formatter: function (val) {
+                    return 'Warehouse ' + val;
+                }
             },
             tooltip: {
                 y: {
                     formatter: function (val) {
-                        return val + '%';
+                        return val + ' devives';
                     }
                 }
             },

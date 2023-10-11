@@ -616,7 +616,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 foreach(var warehouse in warehouses)
                 {
                     warehouse.Devices.Clear();
-                    warehouse.User.Password = "";
+                    warehouse.UserManager.Password = "";
                     warehouse.WarehouseLayouts.Clear();
                 }
 

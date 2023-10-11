@@ -68,3 +68,9 @@ html.dark-theme .select2-container--bootstrap4 .select2-selection {
 .dt-buttons.btn-group button {
     line-height: 1;
 }
+
+#input_WareHouse + .select2-container .select2-selection {
+    height: calc(1.5em + 0.75rem - 2px);
+    font-size: 0.875rem;
+    line-height: calc(1.5em + 0.7rem);
+}

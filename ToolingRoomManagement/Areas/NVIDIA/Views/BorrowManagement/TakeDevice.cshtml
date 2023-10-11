@@ -42,50 +42,78 @@
                             <span class="col-5 input-group-text">Warehouse</span>
                             <select class="col-7 form-select" id="input_WareHouse"></select>
                         </div>
-                        <div class="dropdown ms-3">
+
+                        <div class="dropdown ms-3" id="dropdown_filter">
                             <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" title="Filter"><i class="bx bx-filter"></i></button>
-                            <div class="dropdown-menu" style="width:320px;">
+                            <div class="dropdown-menu" style="width:600px;">
                                 <div class="row">
                                     <div class="col-6">
-                                        <select class="form-select form-select-sm mb-3" id="filter_Product">
-                                            <option value="" selected>Product</option>
-                                        </select>
-                                        <select class="form-select form-select-sm mb-3" id="filter_Model">
-                                            <option value="" selected>Model</option>
-                                        </select>
-                                        <select class="form-select form-select-sm mb-3" id="filter_Station">
-                                            <option value="" selected>Station</option>
-                                        </select>
-                                        <select class="form-select form-select-sm" id="filter_Group">
-                                            <option value="" selected>Group</option>
-                                        </select>
+                                        <!--Filter product -->
+                                        <div class="input-group input-group-sm mb-3">
+                                            <span class="col-3 input-group-text">Product</span>
+                                            <select class="form-select form-select-sm" id="filter_Product">
+                                                <option value="" selected>Product (All)</option>
+                                            </select>
+                                        </div>
+                                        <!--Filter model -->
+                                        <div class="input-group input-group-sm mb-3">
+                                            <span class="col-3 input-group-text">Model</span>
+                                            <select class="form-select form-select-sm" id="filter_Model">
+                                                <option value="" selected>Model (All)</option>
+                                            </select>
+                                        </div>
+                                        <!--Filter station -->
+                                        <div class="input-group input-group-sm mb-3">
+                                            <span class="col-3 input-group-text">Station</span>
+                                            <select class="form-select form-select-sm" id="filter_Station">
+                                                <option value="" selected>Station (All)</option>
+                                            </select>
+                                        </div>
+                                        <!--Filter group -->
+                                        <div class="input-group input-group-sm mb-3">
+                                            <span class="col-3 input-group-text">Group</span>
+                                            <select class="form-select form-select-sm" id="filter_Group">
+                                                <option value="" selected>Group (All)</option>
+                                            </select>
+                                        </div>
+
                                     </div>
                                     <div class="col-6">
-                                        <select class="form-select form-select-sm mb-3" id="filter_Vendor">
-                                            <option value="" selected>Vendor</option>
-                                        </select>
-                                        <select class="form-select form-select-sm mb-3" id="filter_Type">
-                                            <option value="Type" selected>Type</option>
-                                            <option value="N/A">N/A </option>
-                                            <option value="Static">Static</option>
-                                            <option value="Dynamic">Dynamic</option>
-                                            <option value="Consign">Consign</option>
-                                            <option value="Fixture">Fixture</option>
-
-                                        </select>
-                                        <select class="form-select form-select-sm mb-3" id="filter_Status">
-                                            <option value="Status" selected>Status</option>
-                                            <option value="Unconfirmed">Unconfirmed</option>
-                                            <option value="Part Confirmed">Part Confirmed</option>
-                                            <option value="Confirmed">Part Confirmed</option>
-                                            <option value="Locked">Locked</option>
-                                            <option value="Out Range">Out Range</option>
-                                        </select>
-
+                                        <!--Filter Vendor -->
+                                        <div class="input-group input-group-sm mb-3">
+                                            <span class="col-3 input-group-text">Vendor</span>
+                                            <select class="form-select form-select-sm" id="filter_Vendor">
+                                                <option value="" selected>Vendor (All)</option>
+                                            </select>
+                                        </div>
+                                        <!--Filter Type -->
+                                        <div class="input-group input-group-sm mb-3">
+                                            <span class="col-3 input-group-text">Type</span>
+                                            <select class="form-select form-select-sm" id="filter_Type">
+                                                <option value="Type" selected>Type (All)</option>
+                                                <option value="N/A">N/A </option>
+                                                <option value="Static">Static</option>
+                                                <option value="Dynamic">Dynamic</option>
+                                                <option value="Consign">Consign</option>
+                                                <option value="Fixture">Fixture</option>
+                                            </select>
+                                        </div>
+                                        <!--Filter Status -->
+                                        <div class="input-group input-group-sm mb-3">
+                                            <span class="col-3 input-group-text">Status</span>
+                                            <select class="form-select form-select-sm" id="filter_Status">
+                                                <option value="Status" selected>Status (All)</option>
+                                                <option value="Unconfirmed">Unconfirmed</option>
+                                                <option value="Part Confirmed">Part Confirmed</option>
+                                                <option value="Confirmed">Confirmed</option>
+                                                <option value="Locked">Locked</option>
+                                                <option value="Out Range">Out Range</option>
+                                            </select>
+                                        </div>
                                     </div>
-                                    <div class="col-12 mt-3 d-flex justify-content-between">
-                                        <button class="btn btn-sm btn-outline-info" style="width: inherit" id="filter">Filter</button>
-                                        <button class="btn btn-sm btn-outline-secondary border-0 ms-3" id="filter-refresh"><i class="fa-solid fa-rotate-left"></i></button>
+                                    <div class="col-12 d-flex justify-content-between">
+                                        <button class="btn btn-sm btn-primary" style="width: 80%" id="filter"><i class="fa-solid fa-arrow-down-small-big"></i> Filter</button>
+                                        <button class="btn btn-sm btn-outline-secondary ms-3" id="filter-refresh"><i class="fa-sharp fa-regular fa-arrows-rotate"></i> Refresh</button>
                                     </div>
                                 </div>
                             </div>
@@ -107,9 +135,9 @@
                                 <!-- 3 -->
                                 <th>Station</th>
                                 <!-- 4 -->
-                                <th>Device Code</th>
+                                <th>PN</th>
                                 <!-- 5 -->
-                                <th>Device Name</th>
+                                <th>Description</th>
                                 <!-- 6 -->
                                 <th>Group</th>
                                 <!-- 7 -->
@@ -202,8 +230,8 @@
                     <table class="table table-bordered" id="table_borrow">
                         <thead>
                             <tr>
-                                <th>Device Code</th>
-                                <th>Device Name</th>
+                                <th>PN</th>
+                                <th>Description</th>
                                 <th>Specification</th>
                                 <th>Model</th>
                                 <th>Station</th>
@@ -298,14 +326,14 @@
                                     </div>
                                     <div class="col-6">
                                         <div class="input-group mb-3">
-                                            <span class="col-3 input-group-text" style="width: 135px">Device Code</span>
+                                            <span class="col-3 input-group-text" style="width: 135px">PN</span>
                                             <input class="form-control" type="text" id="device_details-DeviceCode" details disabled>
                                         </div>
                                     </div>
                                 </div>
                                 <!-- Device Name -->
                                 <div class="input-group mb-3">
-                                    <span class="col-3 input-group-text">Device name</span>
+                                    <span class="col-3 input-group-text">Description</span>
                                     <input class="form-control" type="text" id="device_details-DeviceName" details disabled>
                                 </div>
                                 <!-- Specification -->
@@ -521,4 +549,58 @@
     <script src="~/Areas/NVIDIA/Content/Template/Sysadmin/assets/plugins/select2/js/select2.min.js"></script>
     <!-- Custom -->
     <script src="~/Areas/NVIDIA/Content/Custom/BorrowManagement/js/TakeDevice.js?@Guid.NewGuid()"></script>
+    <script type="text/javascript">
+        // Filter
+        $(document).ready(function () {
+            var dropdownOpen = false;
+            $('#dropdown_filter').on('click', function (event) {
+                event.stopPropagation();
+
+                dropdownOpen = !dropdownOpen;
+
+                if (dropdownOpen) {
+                    $(this).addClass('show');
+                } else {
+                    $(this).removeClass('show');
+                }
+            });
+
+            $(document).on('click', function (event) {
+                if (dropdownOpen && !$(event.target).closest('#dropdown_filter').length) {
+                    $('#dropdown_filter').removeClass('show');
+                    dropdownOpen = false;
+                }
+            });
+        });
+        $('#filter_Product').select2({
+            theme: 'bootstrap4',
+            width: '75%',
+        });
+        $('#filter_Model').select2({
+            theme: 'bootstrap4',
+            width: '75%',
+        });
+        $('#filter_Vendor').select2({
+            theme: 'bootstrap4',
+            width: '75%',
+        });
+        $('#filter_Type').select2({
+            theme: 'bootstrap4',
+            width: '75%',
+            minimumResultsForSearch: -1,
+        });
+        $('#filter_Station').select2({
+            theme: 'bootstrap4',
+            width: '75%',
+        });
+        $('#filter_Group').select2({
+            theme: 'bootstrap4',
+            width: '75%',
+        });
+        $('#filter_Status').select2({
+            theme: 'bootstrap4',
+            width: '75%',
+            minimumResultsForSearch: -1,
+        });
+    </script>
 }

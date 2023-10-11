@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -27,9 +28,20 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 db.Configuration.LazyLoadingEnabled = false;
                 List<Entities.Warehouse> warehouses = db.Warehouses.ToList();
 
-                foreach (var warehouse in warehouses)
+                foreach (Warehouse warehouse in warehouses)
                 {
-                    warehouse.User = db.Users.FirstOrDefault(u => u.Id == warehouse.IdUserManager);
+                    if (warehouse.IdUserManager != null)
+                    {
+                        warehouse.UserManager = db.Users.FirstOrDefault(u => u.Id == warehouse.IdUserManager);
+                    }
+                    if (warehouse.IdUserDeputy1 != null)
+                    {
+                        warehouse.UserDeputy1 = db.Users.FirstOrDefault(u => u.Id == warehouse.IdUserDeputy1);
+                    }
+                    if (warehouse.IdUserDeputy2 != null)
+                    {
+                        warehouse.UserDeputy2 = db.Users.FirstOrDefault(u => u.Id == warehouse.IdUserDeputy2);
+                    }
                 }
 
                 return Json(new { status = true, warehouses = JsonSerializer.Serialize(warehouses) }, JsonRequestBehavior.AllowGet);
@@ -54,8 +66,120 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
             }
         }
 
+        public JsonResult GetWarehouse(int Id)
+        {
+            try
+            {
+                db.Configuration.LazyLoadingEnabled = false;
 
+                Warehouse warehouse = db.Warehouses.FirstOrDefault(w => w.Id == Id);
+                if (warehouse != null)
+                {
+                    warehouse.Devices.Clear();
+                    return Json(new { status = true, warehouse = JsonSerializer.Serialize(warehouse) }, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    return Json(new { status = false, message = "Warehouse not found." }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        public JsonResult AddWarehouse(Warehouse warehouse)
+        {
+            try
+            {
+                if (warehouse.IdUserManager != null) warehouse.UserManager = db.Users.FirstOrDefault(u => u.Id == warehouse.IdUserManager);
+                if (warehouse.IdUserDeputy1 != null) warehouse.UserDeputy1 = db.Users.FirstOrDefault(u => u.Id == warehouse.IdUserDeputy1);
+                if (warehouse.IdUserDeputy1 != null) warehouse.UserDeputy2 = db.Users.FirstOrDefault(u => u.Id == warehouse.IdUserDeputy2);
 
+                if (!db.Warehouses.Any(w => w.WarehouseName.Trim().ToUpper() == warehouse.WarehouseName.Trim().ToUpper()))
+                {
+                    db.Warehouses.Add(warehouse);
+                    db.SaveChanges();
+                    return Json(new { status = true, warehouse });
+                }
+                else
+                {
+                    return Json(new { status = false, message = "Warehouse already exist." });
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = false, message = ex.Message });
+            }
+        }
+        public JsonResult UpdateWarehouse(Warehouse warehouse)
+        {
+            try
+            {
+                if (db.Warehouses.Any(w => w.Id == warehouse.Id))
+                {
+                    if (warehouse.IdUserManager != null) warehouse.UserManager = db.Users.FirstOrDefault(u => u.Id == warehouse.IdUserManager);
+                    if (warehouse.IdUserDeputy1 != null) warehouse.UserDeputy1 = db.Users.FirstOrDefault(u => u.Id == warehouse.IdUserDeputy1);
+                    if (warehouse.IdUserDeputy1 != null) warehouse.UserDeputy2 = db.Users.FirstOrDefault(u => u.Id == warehouse.IdUserDeputy2);
+
+                    db.Warehouses.AddOrUpdate(warehouse);
+
+                    db.SaveChanges();
+                    return Json(new { status = true, warehouse = JsonSerializer.Serialize(warehouse) });
+                }
+                else
+                {
+                    return Json(new { status = false, message = "Warehouse not found." });
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = false, message = ex.Message });
+            }
+        }
+        public JsonResult DeleteWarehouse(int Id)
+        {
+            try
+            {
+                if(Id == 1) return Json(new { status = false, message = "No delete Warehouse." });
+                if (db.Warehouses.Any(w => w.Id == Id))
+                {
+                    Warehouse warehouse = db.Warehouses.FirstOrDefault(w => w.Id == Id);
+
+                    db.Warehouses.Remove(warehouse);
+
+                    db.SaveChanges();
+                    return Json(new { status = true});
+                }
+                else
+                {
+                    return Json(new { status = false, message = "Warehouse already exist." });
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = false, message = ex.Message });
+            }
+        }
+
+        // private
+        private Warehouse GetUserWarehouse(Warehouse warehouse)
+        {
+            if(warehouse.IdUserManager != null)
+            {
+                warehouse.UserManager = db.Users.FirstOrDefault(u => u.Id == warehouse.IdUserManager);
+            }
+            if (warehouse.IdUserDeputy1 != null)
+            {
+                warehouse.UserDeputy1 = db.Users.FirstOrDefault(u => u.Id == warehouse.IdUserDeputy1);
+            }
+            if (warehouse.IdUserDeputy2 != null)
+            {
+                warehouse.UserDeputy2 = db.Users.FirstOrDefault(u => u.Id == warehouse.IdUserDeputy2);
+            }
+            return warehouse;
+        }
+        
         //Layouts
         public ActionResult Layout()
         {
