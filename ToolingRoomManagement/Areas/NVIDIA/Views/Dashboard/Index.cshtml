@@ -12,8 +12,19 @@
 
 <div class="dash-wrapper bg-dark">
     <div class="row row-cols-1 row-cols-md-2 row-cols-xl-4 row-cols-xxl-5">
-        <!-- Tổng số thiết bị -->
+        <!-- Tổng số người dùng -->
         <div class="col border-end border-light-2">
+            <div class="card bg-transparent shadow-none mb-0">
+                <div class="card-body text-center">
+                    <p class="mb-1 text-white">User</p>
+                    <h3 class="mb-3 text-white" id="chart3-totalUser">0</h3>
+                    <p class="font-13 text-white" id="chart3-rateUser"></p>
+                    <div id="chart3"></div>
+                </div>
+            </div>
+        </div>
+        <!-- Tổng số thiết bị -->
+        <div class="col-8 border-end border-light-2">
             <div class="card bg-transparent shadow-none mb-0">
                 <div class="card-body text-center">
                     <p class="mb-1 text-white">Devices</p>
@@ -27,24 +38,14 @@
         <div class="col border-end border-light-2">
             <div class="card bg-transparent shadow-none mb-0">
                 <div class="card-body text-center">
-                    <p class="mb-1 text-white">Quantity</p>
+                    <p class="mb-1 text-white">Borrow/Take Quantity</p>
                     <h3 class="mb-3 text-white" id="chart2-totalQty">0</h3>
                     <p class="font-13 text-white" id="chart2-rateQty"></p>
                     <div id="chart2"></div>
                 </div>
             </div>
         </div>
-        <!-- Tổng số người dùng -->
-        <div class="col border-end border-light-2">
-            <div class="card bg-transparent shadow-none mb-0">
-                <div class="card-body text-center">
-                    <p class="mb-1 text-white">User</p>
-                    <h3 class="mb-3 text-white" id="chart3-totalUser">0</h3>
-                    <p class="font-13 text-white" id="chart3-rateUser"></p>
-                    <div id="chart3"></div>
-                </div>
-            </div>
-        </div>
+
         <!-- Tổng số yêu cầu mượn -->
         <div class="col border-end border-light-2">
             <div class="card bg-transparent shadow-none mb-0">
@@ -94,11 +95,12 @@
             <div class="card-body">
                 <div class="d-flex align-items-center">
                     <div>
-                        <h6 class="mb-0">Borrow/Return Quantity</h6>
+                        <h6 class="mb-0">Quantity Overview</h6>
                     </div>
                     <div class="d-flex align-items-center ms-auto font-13 gap-2">
-                        <span class="border px-1 rounded cursor-pointer"><i class='bx bxs-circle text-primary me-1'></i>Borrow Quantity</span>
-                        <span class="border px-1 rounded cursor-pointer"><i class='bx bxs-circle text-sky-light me-1'></i>Return Quantity</span>
+                        <span class="border px-1 rounded cursor-pointer"><i class='bx bxs-circle text-secondary me-1'></i>Take Qty</span>
+                        <span class="border px-1 rounded cursor-pointer"><i class='bx bxs-circle text-primary me-1'></i>Borrow Qty</span>
+                        <span class="border px-1 rounded cursor-pointer"><i class='bx bxs-circle text-info me-1'></i>Return Qty</span>
                     </div>
                     <select class="form-select ms-3" id="chart7-selectType" style="width: unset;">
                         <option value="week">Week</option>
@@ -250,8 +252,17 @@
 
             <div class="card radius-10 shadow-none bg-transparent border">
                 <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <div>
+                            <h6 class="mb-0">Device Distribution by Warehouse</h6>
+                        </div>
+                        <div class="font-22 ms-auto">
+                            <i class="bx bx-dots-horizontal-rounded"></i>
+                        </div>
+                    </div>
                     <div class="d-flex align-items-center justify-content-center justify-content-lg-start">
-                        <div id="chart12"></div>                      
+
+                        <div id="chart12"></div>
                     </div>
                 </div>
             </div>

@@ -45,7 +45,9 @@ async function CreateTableAddDevice(devices) {
         row.append(`<td title="(Quantity / Quantity Confirm / Real Quantity) [Borrowed: ${item.QtyConfirm - item.RealQty}]">${item.Quantity} / ${item.QtyConfirm} / <span class="fw-bold text-info">${item.RealQty}</span></td>`);
         // 12 Unit
         row.append(`<td>${item.Unit ? item.Unit : ''}</td>`);
-        // 13 Type
+        // 13 Unit
+        row.append(`<td>${item.DeliveryTime ? item.DeliveryTime : ''}</td>`);
+        // 14 Type
         switch (item.Type) {
             case "S": {
                 row.append(`<td><span class="text-success fw-bold">Static</span></td>`);
@@ -68,7 +70,7 @@ async function CreateTableAddDevice(devices) {
                 break;
             }
         }
-        // 14 Status
+        // 15 Status
         switch (item.Status) {
             case "Unconfirmed": {
                 row.append(`<td><span class="badge bg-primary">Unconfirmed</span></td>`);
@@ -95,7 +97,7 @@ async function CreateTableAddDevice(devices) {
                 break;
             }
         }
-        // 15 Action
+        // 16 Action
         row.append(`<td class="order-action d-flex text-center justify-content-center">
                         <a href="javascript:;" class="text-info bg-light-info border-0" title="Details" data-id="${item.Id}" onclick="Details(this, event)"><i class="fa-regular fa-circle-info"></i></a>
                         <a href="javascript:;" class="text-warning bg-light-warning border-0" title="Edit   " data-id="${item.Id}" onclick="Edit(this, event)   "><i class="fa-duotone fa-pen"></i></a>
@@ -111,9 +113,9 @@ async function CreateTableAddDevice(devices) {
         order: [],
         autoWidth: false,
         columnDefs: [
-            { targets: [0, 4, 10, 11, 13], orderable: true },
+            { targets: [4, 14], orderable: true },
             { targets: "_all", orderable: false },
-            { targets: [9, 10, 11, 13, 14], className: "text-center" },
+            { targets: [9, 10, 11, 15, 16], className: "text-center" },
             { targets: [15], className: "text-center", width: '120px' },
             { targets: [0, 1, 2, 3, 6, 7], visible: false },
         ],
@@ -127,7 +129,7 @@ async function CreateTableAddDevice(devices) {
     };
     tableDeviceInfo = $('#table_Devices').DataTable(options);
     tableDeviceInfo.columns.adjust();
-}
+};
 
 // get data device
 var ListDevices;
@@ -272,6 +274,8 @@ async function FillDetailsDeviceData(data) {
     $('#device_details-Unit').val(data.Unit ? data.Unit : '');
     $('#device_details-DeliveryTime').val(data.DeliveryTime ? data.DeliveryTime : '');
 
+    $('#device_details-MinQty').val(data.MinQty ? data.MinQty : '');
+
 }
 function CreateTableLayout(device, warehouses) {
     $('#device_details-layout-tbody').empty();
@@ -296,7 +300,7 @@ function CreateTableHistory(IdDevice, borrows) {
     $.each(borrows, function (k, item) {
         if (item.Status == 'Rejected') return;
 
-        var tr = $('<tr class="align-middle"></tr>');
+        var tr = $(`<tr class="align-middle hover-tr" data-id="${item.Id}" style="cursor: pointer;"></tr>`);
         tr.append($(`<td>${item.Type}</td>`));
         tr.append($(`<td>${moment(item.DateBorrow).format('YYYY-MM-DD HH:mm')}</td>`));
 
@@ -313,9 +317,170 @@ function CreateTableHistory(IdDevice, borrows) {
         tr.append($(`<td style="max-width: 200px;">${item.Note}</td>`));     
 
         $('#device_details-history-tbody').append(tr);
+
+        tr.dblclick(function (e) {
+            BorrowDetails($(this).data('id'));
+        });
     });
 }
 
+
+// borrow details
+function BorrowDetails(Id) {
+    //var Id = $(elm).data('id');
+
+    $.ajax({
+        type: "GET",
+        url: "/NVIDIA/BorrowManagement/GetBorrow?Id=" + Id,
+        dataType: "json",
+        contentType: "application/json;charset=utf-8",
+        success: function (response) {
+            if (response.status) {
+                var borrow = JSON.parse(response.borrow);
+
+                CreateModal(borrow);
+
+                $('#borrow_modal').modal('show');
+            }
+            else {
+                toastr["error"](response.message, "ERROR");
+            }
+        },
+        error: function (error) {
+            Swal.fire("Something went wrong!", GetAjaxErrorMessage(error), "error");
+        }
+    });
+}
+function CreateModal(borrow) {
+    $('#borrow_modal-CardId').val(borrow.User.Username);
+    $('#borrow_modal-Username').val(CreateUserName(borrow.User));
+
+    $('#borrow_modal-Model').val(borrow.Model ? borrow.Model.ModelName ? borrow.Model.ModelName : '' : '');
+    $('#borrow_modal-Station').val(borrow.Station ? borrow.Station.StationName ? borrow.Station.StationName : '' : '');
+
+    $('#borrow_modal-BorrowDate').val(moment(borrow.DateBorrow).format('YYYY-MM-DDTHH:mm:ss'));
+    $('#borrow_modal-DuaDate').val(moment(borrow.DateDue).format('YYYY-MM-DDTHH:mm:ss'));
+    $('#borrow_modal-ReturnDate').val(moment(borrow.DateReturn).format('YYYY-MM-DDTHH:mm:ss'));
+
+    $('#borrow_modal-Note').html(`<p>${borrow.Note}</p>`);
+
+    $('div[checkType]').show();
+    $('label[typeName]').html('Date Borrow');
+    if (borrow.Type == 'Return') {
+        $('#borrow_modal-title').text('Return Request Details');
+        $('#borrow_modal-name').text('RETURN REQUEST');
+    }
+    else if (borrow.Type == 'Take') {
+        $('#borrow_modal-title').text('Take Device Request Details');
+        $('#borrow_modal-name').text('TAKE DEVICE REQUEST');
+        $('div[checkType]').hide();
+        $('label[typeName]').html('Date');
+    }
+    else {
+        $('#borrow_modal-title').text('Borrow Request Details');
+        $('#borrow_modal-name').text('BORROW REQUEST');
+    }
+
+    $('#borrow_modal-table-tbody').empty();
+    $.each(borrow.BorrowDevices, function (k, item) {
+        var borrowQty = item.BorrowQuantity ? item.BorrowQuantity : '';
+        var deviceCode = item.Device.DeviceCode ? item.Device.DeviceCode : '';
+        var deviceName = item.Device.DeviceName ? item.Device.DeviceName : '';
+        var deviceModel = item.Device.Model ? item.Device.Model.ModelName : '';
+        var deviceStation = item.Device.Station ? item.Device.Station.StationName : '';
+        var deviceSpecification = item.Device.Specification ? item.Device.Specification : '';
+        var deviceUnit = item.Device.deviceUnit ? item.Device.deviceUnit : '';
+
+        var row = $('<tr></tr>');
+        row.append(`<td>${deviceCode}</td>`);
+        row.append(`<td>${deviceName}</td>`);
+        row.append(`<td>${deviceSpecification}</td>`);
+        row.append(`<td>${deviceModel}</td>`);
+        row.append(`<td>${deviceStation}</td>`);
+        row.append(`<td class="text-center">${deviceUnit}</td>`);
+        row.append(`<td class="text-center">${borrowQty}</td>`);
+
+        $('#borrow_modal-table-tbody').append(row);
+    });
+
+    $('#sign-container').empty();
+    $('#sign-container').append(`<h4 class="font-weight-light text-center text-white py-3">SIGN PROCESS</h4>`);
+    $.each(borrow.UserBorrowSigns, function (k, bs) { //bs == borrow sign
+        var username = CreateUserName(bs.User);
+        var date = moment(bs.DateSign).format('YYYY-MM-DD | h:mm A');
+
+        var title = {
+            Approved: { color: 'success', text: 'Approved', icon: 'check' },
+            Rejected: { color: 'danger', text: 'Rejected', icon: 'xmark' },
+            Pending: { color: 'warning', text: 'Pending', icon: 'timer' },
+            Waitting: { color: 'secondary', text: 'Waitting', icon: 'circle-pause' },
+        }[bs.Status] || { color: 'secondary', text: 'Closed' };
+
+        var line = {
+            top: k === 0 ? '' : 'border-end',
+            bot: (k === 0 && borrow.UserBorrowSigns.length === 1) ? '' : 'border-end'
+        };
+
+        var span = '';
+        switch (bs.Type) {
+            case "Borrow": {
+                span = `<span class="badge bg-primary"><i class="fa-solid fa-left-to-line"></i> Borrow</span>`;
+                break;
+            }
+            case "Take": {
+                span = `<span class="badge bg-secondary"><i class="fa-regular fa-inbox-full"></i> Take</span>`;
+                break;
+            }
+            case "Return": {
+                span = `<span class="badge bg-info"><i class="fa-solid fa-right-to-line"></i> Return</span>`;
+                break;
+            }
+            default: {
+                span = `<td><span class="badge bg-secondary">N/A</span></td>`;
+                break;
+            }
+        }
+
+        var lineDot = `<div class="col-sm-1 text-center flex-column d-none d-sm-flex">
+                           <div class="row h-50">
+                               <div class="col ${line.top}">&nbsp;</div>
+                               <div class="col">&nbsp;</div>
+                           </div>
+                           <h5 class="m-2 red-dot">
+                               <span class="badge rounded-pill bg-${title.color}">&nbsp;</span>
+                           </h5>
+                           <div class="row h-50">
+                               <div class="col ${line.bot}">&nbsp;</div>
+                               <div class="col">&nbsp;</div>
+                           </div>
+                       </div>`;
+        var signCard = `<div class="row">
+                        ${k % 2 === 0 ? '' : '<div class="col-sm"></div>'}
+                        ${k % 2 === 0 ? '' : lineDot}
+                        <div class="col-sm py-2">
+                            <div class="card border-primary shadow radius-15 card-sign">
+                                <div class="card-body">
+                                    <div class="float-end">${date === 'Invalid date' ? '' : date}</div>
+                                    <label class="mb-3"><span class="badge bg-${title.color}"><i class="fa-solid fa-${title.icon}"></i> ${title.text}</span></label>
+                                    <label class="mb-3">${span}</label>
+                                    <p class="card-text mb-1">${username}</p>
+                                    <p class="card-text mb-1">${bs.User.Email || ''}</p>
+                                    <button class="btn btn-sm btn-outline-secondary collapsed ${title.text == null ? 'd-none' : title.text != 'Rejected' ? 'd-none' : ''}" type="button" data-bs-target="#details_${k}" data-bs-toggle="collapse" aria-expanded="false">Show Details ▼</button>
+                                    <div class="border collapse" id="details_${k}" style="">
+                                        <div class="p-2 text-monospace">
+                                            <div>${bs.Note}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        ${k % 2 === 0 ? lineDot : ''}
+                        ${k % 2 === 0 ? '<div class="col-sm"></div>' : ''}
+                    </div>`;
+
+        $('#sign-container').append(signCard);
+    });
+}
 
 // Get Select data
 function GetSelectData() {
@@ -435,7 +600,9 @@ function DrawRowEditDevice(item) {
         row.push(`<td title="(Quantity / Quantity Confirm / Real Quantity) [Borrowed: ${item.QtyConfirm - item.RealQty}]">${item.Quantity} / ${item.QtyConfirm} / <span class="fw-bold text-info">${item.RealQty}</span></td>`);
         // 12 Unit
         row.push(`<td>${item.Unit ? item.Unit : ''}</td>`);
-        // 13 Type
+        // 13 Unit
+        row.push(`<td>${item.DeliveryTime ? item.DeliveryTime : ''}</td>`);
+        // 14 Type
         switch (item.Type) {
             case "S": {
                 row.push(`<td><span class="text-success fw-bold">Static</span></td>`);
@@ -458,7 +625,7 @@ function DrawRowEditDevice(item) {
                 break;
             }
         }
-        // 14 Status
+        // 15 Status
         switch (item.Status) {
             case "Unconfirmed": {
                 row.push(`<td><span class="badge bg-primary">Unconfirmed</span></td>`);
@@ -485,7 +652,7 @@ function DrawRowEditDevice(item) {
                 break;
             }
         }
-        // 15 Action
+        // 16 Action
         row.push(`<td class="order-action d-flex text-center justify-content-center">
                         <a href="javascript:;" class="text-info bg-light-info border-0" title="Details" data-id="${item.Id}" onclick="Details(this, event)"><i class="fa-regular fa-circle-info"></i></a>
                         <a href="javascript:;" class="text-warning bg-light-warning border-0" title="Edit   " data-id="${item.Id}" onclick="Edit(this, event)   "><i class="fa-duotone fa-pen"></i></a>
@@ -719,6 +886,8 @@ async function FillEditDeviceData(data) {
     $('#device_edit-Vendor').val(data.device.IdVendor).trigger('change');
     $('#device_edit-Unit').val(data.device.Unit);
 
+    $('#device_edit-MinQty').val(data.device.MinQty);
+
     if (data.device.DeliveryTime) {
         var temp = data.device.DeliveryTime.split(' ');
         $('#device_edit-DeliveryTime1').val(temp[0]);
@@ -817,6 +986,8 @@ function GetModalData() {
         IdGroup: $('#device_edit-Group').val(),
         IdVendor: $('#device_edit-Vendor').val(),
 
+        MinQty: $('#device_edit-MinQty').val(),
+
         DeliveryTime: $('#device_edit-DeliveryTime1').val() + ' ' + $('#device_edit-DeliveryTime2').val(),
     }
 }
@@ -911,10 +1082,10 @@ $('#filter').on('click', function (e) {
         tableDeviceInfo.column(7).search("^" + filter_Vendor + "$", true, false);
     }
     if (filter_Type !== "Type" && filter_Type !== null && filter_Type !== undefined) {
-        tableDeviceInfo.column(13).search("^" + filter_Type + "$", true, false);
+        tableDeviceInfo.column(14).search("^" + filter_Type + "$", true, false);
     }
     if (filter_Status !== "Status" && filter_Status !== null && filter_Status !== undefined) {
-        tableDeviceInfo.column(14).search("^" + filter_Status + "$", true, false);
+        tableDeviceInfo.column(15).search("^" + filter_Status + "$", true, false);
     }
 
     tableDeviceInfo.draw();

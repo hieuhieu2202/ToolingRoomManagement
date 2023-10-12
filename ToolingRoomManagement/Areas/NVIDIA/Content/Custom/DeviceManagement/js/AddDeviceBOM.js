@@ -15,15 +15,6 @@ $('#fileInput').on('change', function (e) {
 
     $('#bom-info').fadeOut(300);
     $('#card-device-details').fadeOut(300);
-
-    //const processInterval = setInterval(() => {
-    //	count += 1;
-    //	progressMove(count);
-    //	$('.uploaded-file__info-process').css('width', `${count}%`);
-    //	if (count == 100 || count == '100') {
-    //		clearInterval(processInterval);
-    //	}
-    //},50)
 });
 function SendFileToServer() {
     const fileInput = document.querySelector('#fileInput');
@@ -32,7 +23,6 @@ function SendFileToServer() {
     const formData = new FormData();
     formData.append('file', file);
 
-    formData.append('IdWareHouse', $('#input_WareHouse').val());
     //formData.append('IdWareHouse', 1);
 
     Pace.on('progress', function (progress) {
@@ -49,11 +39,13 @@ function SendFileToServer() {
             contentType: false,
             success: function (response) {
                 if (response.status) {
-                    var devices = response.devices;
+                    var data = response.data;
 
-                    CreateTableAddDevice(devices);
-                    CreateBomFileInfo(response);
-                    GetSelectData();
+                    console.log(data);
+
+                    //CreateTableAddDevice(devices);
+                    //CreateBomFileInfo(response);
+                    //GetSelectData();
                 }
                 else {
                     Swal.fire('Sorry, something went wrong!', response.message, 'error');

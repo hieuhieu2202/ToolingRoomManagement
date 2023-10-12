@@ -730,7 +730,7 @@
             contentType: "application/json;charset=utf-8",
             success: function (response) {
                 if (response.status) {
-                    Chart7(response.listBorrowQty, response.listReturnQty, response.listDate);
+                    Chart7(response.listTakeQty, response.listBorrowQty, response.listReturnQty, response.listDate);
                 }
                 else {
                     toastr["error"](response.message, "ERROR");
@@ -741,16 +741,20 @@
             }
         });
     }
-    function Chart7(data1, data2, categories) {
+    function Chart7(data1, data2, data3, categories) {
         var options = {
-            series: [{
-                name: 'Borrow Quantity',
-                data: data1
+            series: [
+                {
+                    name: 'Take Quantity',
+                    data: data1
+                }, {
+                    name: 'Borrow Quantity',
+                    data: data2
 
-            }, {
-                name: 'Return Quantity',
-                data: data2
-            }],
+                }, {
+                    name: 'Return Quantity',
+                    data: data3
+                }],
             chart: {
                 foreColor: '#9ba7b2',
                 type: 'bar',
@@ -781,7 +785,7 @@
                 width: 3,
                 colors: ['transparent']
             },
-            colors: ["#8833ff", '#cba6ff'],
+            colors: ["#a8adb0", "#8833ff", '#0dcaf0'],
             xaxis: {
                 categories: categories,
             },
@@ -810,6 +814,9 @@
 
                 }, {
                     data: data2
+
+                }, {
+                    data: data3
                 }],
             })
         }
@@ -1238,7 +1245,7 @@
         chart.render();
     }
 
-    //<!-- Thiết bị trong kho, ngoài kho - Loại thiết bị (dynamic/static/fixture/consign/orther) -->
+    //<!-- Thiết bị trong mỗi kho - Loại thiết bị (dynamic/static/fixture/consign/orther) -->
     function CreateChart12() {
         $.ajax({
             type: "GET",
@@ -1305,7 +1312,7 @@
             series: data,
             labels: labels,
             dataLabels: {
-                enabled: false
+                enabled: true
             },
             legend: {
                 show: true,

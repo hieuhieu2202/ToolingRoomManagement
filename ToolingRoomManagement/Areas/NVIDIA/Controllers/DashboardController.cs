@@ -74,15 +74,53 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 var thisWeek = today.AddDays(((int)DayOfWeek.Monday - (int)today.DayOfWeek - 7) % 7);
                 var lastWeek = thisWeek.AddDays(-7);
 
-                totalQuantity = db.Devices.Sum(d => d.QtyConfirm) ?? 0;
-                thisWeekQuantity = db.Devices.Where(d => d.DeviceDate >= thisWeek).Sum(d => d.QtyConfirm) ?? 0;
-                lastWeekQuantity = db.Devices.Where(d => d.DeviceDate >= lastWeek && d.DeviceDate < thisWeek).Sum(d => d.QtyConfirm) ?? 0;
+                // total borrow qty
+                var totalBorrowAprroved = db.Borrows.Where(b => b.Type == "Borrow" || b.Type == "Take" && b.Status == "Approved").ToList();
+                foreach (var borrow in totalBorrowAprroved)
+                {
+                    foreach (var borrowDevice in borrow.BorrowDevices)
+                    {
+                        totalQuantity += borrowDevice.BorrowQuantity ?? 0;
+                    }
 
+                }
+                // this week borrow qty
+                var thisWeekBorrowAprroved = totalBorrowAprroved.Where(b => b.DateBorrow >= thisWeek).ToList();
+                foreach (var borrow in thisWeekBorrowAprroved)
+                {
+                    foreach (var borrowDevice in borrow.BorrowDevices)
+                    {
+                        thisWeekQuantity += borrowDevice.BorrowQuantity ?? 0;
+                    }
+
+                }
+                // last week borrow qty
+                var lastWeekBorrowAprroved = totalBorrowAprroved.Where(b => b.DateBorrow >= lastWeek && b.DateBorrow < thisWeek);
+                foreach (var borrow in lastWeekBorrowAprroved)
+                {
+                    foreach (var borrowDevice in borrow.BorrowDevices)
+                    {
+                        lastWeekQuantity += borrowDevice.BorrowQuantity ?? 0;
+                    }
+
+                }
+
+                // get borrow qty by day (this week)
                 for (int i = 0; i < 7; i++)
                 {
                     var date = thisWeek.AddDays(i);
                     var nextDate = date.AddDays(1);
-                    int dateQuantity = db.Devices.Where(d => d.DeviceDate >= date && d.DeviceDate < nextDate).Sum(d => d.QtyConfirm) ?? 0;
+
+                    int dateQuantity = 0;
+                    var dateBorrows = totalBorrowAprroved.Where(b => b.DateBorrow >= date && b.DateBorrow < nextDate);
+                    foreach (var borrow in dateBorrows)
+                    {
+                        foreach (var borrowDevice in borrow.BorrowDevices)
+                        {
+                            dateQuantity += borrowDevice.BorrowQuantity ?? 0;
+                        }
+
+                    }
 
                     arrWeekQuantity[i] = dateQuantity;
                     arrWeekDate[i] = date.ToString("MM-dd");
@@ -262,6 +300,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
             {
                 List<int> listReturnQty = new List<int>();
                 List<int> listBorrowQty = new List<int>();
+                List<int> listTakeQty = new List<int>();
 
                 List<string> listDate = new List<string>();
 
@@ -269,15 +308,18 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 {
                     case "week":
                         {
-                            var thisWeek = DateTime.Now.Date.AddDays(-7);
-                            for (int i = 1; i <= 7; i++)
+                            DateTime today = DateTime.Now.Date;
+                            var thisWeek = today.AddDays(((int)DayOfWeek.Monday - (int)today.DayOfWeek - 7) % 7);
+
+                            for (int i = 0; i < 7; i++)
                             {
                                 var thisDate = thisWeek.AddDays(i);
                                 var nextDate = thisDate.AddDays(1);
 
-                                var Borrows = db.Borrows.Where(b => b.DateBorrow >= thisDate && b.DateBorrow < nextDate && b.Status == "Approved");
+                                var Borrows = db.Borrows.Where(b => b.DateBorrow >= thisDate && b.DateBorrow < nextDate && b.Status == "Approved").ToList();
                                 var borrowQty = 0;
                                 var returnQty = 0;
+                                var takeQty = 0;
                                 foreach (var borrow in Borrows)
                                 {
                                     var DeviceBorrows = borrow.BorrowDevices;
@@ -291,12 +333,17 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                                         {
                                             returnQty += device.BorrowQuantity ?? 0;
                                         }
+                                        else if (borrow.Type == "Take")
+                                        {
+                                            takeQty += device.BorrowQuantity ?? 0;
+                                        }
                                     }
 
                                 }
 
                                 listBorrowQty.Add(borrowQty);
                                 listReturnQty.Add(returnQty);
+                                listTakeQty.Add(takeQty);
                                 listDate.Add(thisDate.ToString("MM-dd"));
                             }
                             break;
@@ -314,6 +361,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                                 var Borrows = db.Borrows.Where(b => b.DateBorrow >= iFirstThisMonth && b.DateBorrow <= iLastThisMonth && b.Status == "Approved");
                                 var borrowQty = 0;
                                 var returnQty = 0;
+                                var takeQty = 0;
                                 foreach (var borrow in Borrows)
                                 {
                                     var DeviceBorrows = borrow.BorrowDevices;
@@ -327,11 +375,20 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                                         {
                                             returnQty += device.BorrowQuantity ?? 0;
                                         }
+                                        else if (borrow.Type == "Take")
+                                        {
+                                            takeQty += device.BorrowQuantity ?? 0;
+                                        }
                                     }
                                 }
-                                listReturnQty.Add(returnQty);
-                                listBorrowQty.Add(borrowQty);
-                                listDate.Add(iFirstThisMonth.ToString("yyyy-MM"));
+                                if(returnQty > 0 || returnQty > 0 || takeQty > 0)
+                                {
+                                    listReturnQty.Add(returnQty);
+                                    listBorrowQty.Add(borrowQty);
+                                    listTakeQty.Add(takeQty);
+                                    listDate.Add(iFirstThisMonth.ToString("yyyy-MM"));
+                                }
+                                
                             }
                             break;
                         }
@@ -340,7 +397,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                             goto case "week";
                         }
                 }
-                return Json(new { status = true, listBorrowQty = listBorrowQty.ToArray(), listReturnQty = listReturnQty.ToArray(), listDate = listDate.ToArray() }, JsonRequestBehavior.AllowGet);
+                return Json(new { status = true, listTakeQty = listTakeQty.ToArray(), listBorrowQty = listBorrowQty.ToArray(), listReturnQty = listReturnQty.ToArray(), listDate = listDate.ToArray() }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {

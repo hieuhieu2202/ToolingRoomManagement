@@ -1,5 +1,6 @@
 ﻿using Model.EF;
 using OfficeOpenXml;
+using OfficeOpenXml.FormulaParsing.Excel.Functions.Text;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Migrations;
@@ -13,6 +14,7 @@ using System.Web;
 using System.Web.Mvc;
 using ToolingRoomManagement.Areas.NVIDIA.Entities;
 using ToolingRoomManagement.Attributes;
+using ToolingRoomManagement.Models;
 
 namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
 {
@@ -34,14 +36,14 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
             {
                 Entities.Device device = new Entities.Device
                 {
-                    DeviceCode = form["DeviceCode"],
-                    DeviceName = form["DeviceName"],
+                    DeviceCode = form["PN"],
+                    DeviceName = form["Description"],
                     Relation = form["Relation"],
                     ACC_KIT = form["ACCKIT"],
                     Type = form["Type"],
                     Status = form["Status"],
                     Specification = form["Specification"],
-                    Unit = form["Unit"],                  
+                    Unit = form["Unit"],
                     DeliveryTime = form["DeliveryTime"],
                 };
                 int dIdWarehouse = int.TryParse(form["Warehouse"], out dIdWarehouse) ? dIdWarehouse : 0;
@@ -64,7 +66,10 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
 
                     int dQtyConfirm = int.TryParse(form["Quantity"], out dQtyConfirm) ? dQtyConfirm : 0;
                     device.QtyConfirm = dQtyConfirm;
-                    
+
+                    int dMinQty = int.TryParse(form["MinQty"], out dMinQty) ? dMinQty : 0;
+                    device.MinQty = dMinQty;
+
                     string dProductName = form["Product"];
                     string dModelName = form["Model"];
                     string dStationName = form["Station"];
@@ -237,12 +242,12 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                     device.Status = Data.Common.CheckStatus(device);
                     device.SysQuantity = device.RealQty;
 
-                   
+
                     // Layout
                     List<DeviceWarehouseLayout> deviceWarehouseLayouts = db.DeviceWarehouseLayouts.Where(dl => dl.IdDevice == device.Id).ToList();
                     db.DeviceWarehouseLayouts.RemoveRange(deviceWarehouseLayouts);
 
-                    if(IdLayouts != null)
+                    if (IdLayouts != null)
                     {
                         foreach (var IdLayout in IdLayouts)
                         {
@@ -335,7 +340,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
             return View();
         }
         [HttpPost]
-        public JsonResult AddDeviceAuto(HttpPostedFileBase file, int IdWareHouse)
+        public JsonResult AddDeviceAuto(HttpPostedFileBase file)
         {
             try
             {
@@ -343,88 +348,81 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 {
                     using (var package = new ExcelPackage(file.InputStream))
                     {
+                        List<Entities.DeviceBOM> deviceBOMs = new List<DeviceBOM>();
                         var worksheet = package.Workbook.Worksheets[1];
 
-                        var products = new List<Entities.Product>();
-                        var models = new List<Entities.Model>();
-                        var stations = new List<Entities.Station>();
-                        var groups = new List<Entities.Group>();
-                        var vendors = new List<Entities.Vendor>();
-
-                        var devices = new List<Entities.Device>();
-
-                        foreach (int row in Enumerable.Range(2, worksheet.Dimension.End.Row - 1))
+                        foreach(int row in Enumerable.Range(2, worksheet.Dimension.End.Row - 1))
                         {
-                            var deviceCode = worksheet.Cells[row, 10].Value?.ToString();
-                            var isRealBOM = worksheet.Cells[row, 20].Value?.ToString();
-                            //if (string.IsNullOrEmpty(deviceCode) || isRealBOM != "Y") continue;
+                            var _productName = worksheet.Cells[row, 1].Value?.ToString();
+                            var _productMTS = worksheet.Cells[row, 2].Value?.ToString();
+                            var _groupName = worksheet.Cells[row, 12].Value?.ToString();
+                            var _vendorName = worksheet.Cells[row, 13].Value?.ToString();
+                            var _deviceCode = worksheet.Cells[row, 10].Value?.ToString();
+                            var _deviceName = worksheet.Cells[row, 11].Value?.ToString();
+                            int _deviceQty = int.TryParse(worksheet.Cells[row, 14].Value?.ToString(), out _deviceQty) ? _deviceQty : 0;
+                            int _minQty = int.TryParse(worksheet.Cells[row, 15].Value?.ToString(), out _minQty) ? _minQty : 0;
 
-                            if (string.IsNullOrEmpty(deviceCode)) continue;
-                            // Create device in row excel
-                            var device = CreateDevice(worksheet, row, IdWareHouse);
+                            
 
-                            // Get device in db to check
-                            var dbDevice = db.Devices.FirstOrDefault(d =>
-                                d.IdProduct == device.IdProduct &&
-                                d.IdModel == device.IdModel &&
-                                d.IdStation == device.IdStation &&
-                                d.IdGroup == device.IdGroup &&
-                                d.IdVendor == device.IdVendor &&
-                                d.DeviceCode == device.DeviceCode &&
-                                d.DeviceName == device.DeviceName);
-                            // 1. Chưa có => tạo mới                           
-                            if (dbDevice == null)
+                            #region Product
+                            Entities.ProductBOM product = db.ProductBOMs.FirstOrDefault(p => p.ProductName == _productName && p.MTS == _productMTS);
+                            if (product == null)
                             {
-                                devices.Add(device);
-                                db.Devices.Add(device);
-                                db.SaveChanges();
+                                product = new Entities.ProductBOM
+                                {
+                                    ProductName = _productName,
+                                    MTS = _productMTS
+                                };
+                                db.ProductBOMs.Add(product);
                             }
-                            // 2. Đã có
+                            #endregion
+
+                            #region Device
+                            Entities.DeviceBOM device = db.DeviceBOMs.FirstOrDefault(d => d.DeviceCode == _deviceCode);
+                            if (device == null)
+                            {
+                                device = new Entities.DeviceBOM
+                                {
+                                    DeviceCode = _deviceCode,
+                                    DeviceName = _deviceName,
+                                    Quantity = _deviceQty,
+                                    Group = _groupName,
+                                    Vendor = _vendorName,
+                                };
+                            }
                             else
                             {
-                                // device after change
-                                var iDevice = devices.FirstOrDefault(d => d.Id == dbDevice.Id);
-
-                                if (iDevice != null)
-                                {
-                                    iDevice.Quantity = dbDevice.Quantity;
-                                    iDevice.Status = dbDevice.Status;
-                                }
-                                else
-                                {
-                                    iDevice = dbDevice;
-                                    iDevice.Status = dbDevice.Status;
-
-                                    devices.Add(iDevice);
-                                }
-
-                                // Change in DB
-                                int? qty = dbDevice.Quantity + device.Quantity;
-                                dbDevice.Quantity = qty;
-                                device.Quantity = qty;
-
-                                dbDevice.Status = Data.Common.CheckStatus(dbDevice);
-
-                                db.Devices.AddOrUpdate(dbDevice);
-                                db.SaveChanges();
-
-                                //Task SaveLog = Task.Run(() =>
-                                //{
-                                //    Entities.User user = (Entities.User)Session["SignSession"];
-                                //    string path = Server.MapPath("/Areas/NVIDIA/Data/DeviceHistoryLog");
-                                //    Data.Common.SaveDeviceHistoryLog(user, null, dbDevice, path);
-                                //});
+                                device.Quantity += _deviceQty;
+                                device.MinQty += _minQty;
                             }
+                            db.DeviceBOMs.Add(device);
+                            deviceBOMs.Add(device);
+                            #endregion
 
-                            if (!products.Any(p => p.Id == device.Product.Id) && (device.Product.ProductName != null || device.Product.MTS != null)) products.Add(device.Product);
-                            //if (!models.Any(m => m.Id == device.Model.Id) && device.Model.ModelName != null) models.Add(device.Model);
-                            //if (!stations.Any(s => s.Id == device.Station.Id) && device.Station.StationName != null) stations.Add(device.Station);
-                            if (!groups.Any(g => g.Id == device.Group.Id) && device.Group.GroupName != null) groups.Add(device.Group);
-                            if (!vendors.Any(v => v.Id == device.Vendor.Id) && device.Vendor.VendorName != null) vendors.Add(device.Vendor);
+                            #region link
+                            Entities.ProductDeviceBOM productDeviceBOM;
+                            if (!db.ProductDeviceBOMs.Any(c => c.IdProduct == product.Id && c.IdDevice == device.Id))
+                            {
+                                productDeviceBOM = new ProductDeviceBOM
+                                {
+                                    IdDevice = device.Id,
+                                    IdProduct = product.Id,
+                                };
+                                db.ProductDeviceBOMs.Add(productDeviceBOM);
+                            }
+                            else
+                            {
+                                productDeviceBOM = db.ProductDeviceBOMs.FirstOrDefault(c => c.IdProduct == product.Id && c.IdDevice == device.Id);
+                            }
+                            db.ProductDeviceBOMs.Add(productDeviceBOM);
+                            #endregion
                         }
 
+                        db.SaveChanges();
 
-                        return Json(new { status = true, products, models, stations, groups, vendors, devices });
+
+
+                        return Json(new { status = true, data = deviceBOMs });
                     }
                 }
                 else
@@ -437,130 +435,73 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 return Json(new { status = false, message = ex.Message });
             }
         }
-        private Entities.Device CreateDevice(ExcelWorksheet worksheet, int row, int IdWareHouse)
+        private Entities.ProductDeviceBOM CreateDevice(ExcelWorksheet worksheet, int row)
         {
-            Entities.Device device = new Entities.Device();
-
-            // Lấy các giá trị từ worksheet
-            var productName = worksheet.Cells[row, 1].Value?.ToString();
-            var productMTS = worksheet.Cells[row, 2].Value?.ToString();
-            //var modelName = worksheet.Cells[row, 22].Value?.ToString();
-            //var stationName = worksheet.Cells[row, 23].Value?.ToString();
-            var groupName = worksheet.Cells[row, 12].Value?.ToString();
-            var vendorName = worksheet.Cells[row, 13].Value?.ToString();
-            var deviceCode = worksheet.Cells[row, 10].Value?.ToString();
-            var deviceName = worksheet.Cells[row, 11].Value?.ToString();
-            //var ACC_KIT = worksheet.Cells[row, 17].Value?.ToString();
-            //var relation = worksheet.Cells[row, 18].Value?.ToString();
-
-            // Lấy các giá trị khác từ worksheet
-            //DateTime deviceDate = DateTime.TryParseExact(worksheet.Cells[row, 15].Value?.ToString(), "M/d/yyyy h:mm:ss tt", CultureInfo.InvariantCulture, DateTimeStyles.None, out deviceDate) ? deviceDate : DateTime.Now;
-            //double deviceBuffer = double.TryParse(worksheet.Cells[row, 30].Value?.ToString(), out deviceBuffer) ? deviceBuffer : 0;
-            //double forcast = double.TryParse(worksheet.Cells[row, 27].Value?.ToString(), out forcast) ? forcast : 0;
-
-            //string deviceType = worksheet.Cells[row, 29].Value?.ToString();
-
-            int deviceQty = int.TryParse(worksheet.Cells[row, 14].Value?.ToString(), out deviceQty) ? deviceQty : 0;
-            //int stationQty = int.TryParse(worksheet.Cells[row, 26].Value?.ToString(), out stationQty) ? stationQty : 0;
-            //int lifeCycle = int.TryParse(worksheet.Cells[row, 28].Value?.ToString(), out lifeCycle) ? lifeCycle : 0;
 
 
-            #region Product
-            Entities.Product product = db.Products.FirstOrDefault(p => p.ProductName == productName && p.MTS == productMTS);
-            if (product == null)
-            {
-                product = new Entities.Product
-                {
-                    ProductName = productName,
-                    MTS = productMTS
-                };
-                db.Products.Add(product);
-            }
-            device.IdProduct = product.Id;
-            device.Product = product;
-            #endregion
+            var _productName = worksheet.Cells[row, 1].Value?.ToString();
+            var _productMTS = worksheet.Cells[row, 2].Value?.ToString();
+            var _groupName = worksheet.Cells[row, 12].Value?.ToString();
+            var _vendorName = worksheet.Cells[row, 13].Value?.ToString();
+            var _deviceCode = worksheet.Cells[row, 10].Value?.ToString();
+            var _deviceName = worksheet.Cells[row, 11].Value?.ToString();
+            int _deviceQty = int.TryParse(worksheet.Cells[row, 14].Value?.ToString(), out _deviceQty) ? _deviceQty : 0;
 
-            #region Model
-            //Entities.Model model = db.Models.FirstOrDefault(m => m.ModelName == modelName);
-            //if (model == null)
-            //{
-            //    model = new Entities.Model { ModelName = modelName };
-            //    db.Models.Add(model);
-            //}
-            //device.IdModel = model.Id;
-            //device.Model = model;
-            //#endregion
-
-            //#region Station
-            //Entities.Station station = db.Stations.FirstOrDefault(s => s.StationName == stationName);
-            //if (station == null)
-            //{
-            //    station = new Entities.Station { StationName = stationName };
-            //    db.Stations.Add(station);
-            //}
-            //device.IdStation = station.Id;
-            //device.Station = station;
-            #endregion
-
-            #region Group
-            Entities.Group group = db.Groups.FirstOrDefault(g => g.GroupName == groupName);
-            if (group == null)
-            {
-                group = new Entities.Group { GroupName = groupName };
-                db.Groups.Add(group);
-            }
-            device.IdGroup = group.Id;
-            device.Group = group;
-            #endregion
-
-            #region Vendor
-            Entities.Vendor vendor = db.Vendors.FirstOrDefault(v => v.VendorName == vendorName);
-            if (vendor == null)
-            {
-                vendor = new Entities.Vendor { VendorName = vendorName };
-                db.Vendors.Add(vendor);
-            }
-            device.IdVendor = vendor.Id;
-            device.Vendor = vendor;
-            #endregion
 
             #region Device
-            device.DeviceCode = deviceCode;
-            device.DeviceName = deviceName;
-            //device.DeviceDate = deviceDate;
-            //device.Buffer = deviceBuffer;
-            //device.ACC_KIT = ACC_KIT;
-            //device.Relation = relation;
-            device.Quantity = 0;
-            //device.Type = deviceType;
-            device.Status = "Unconfirmed";
-            device.IdWareHouse = IdWareHouse;
-            device.CreatedDate = DateTime.Now;
-            //device.LifeCycle = lifeCycle;
-            //device.Forcast = forcast;
-            device.QtyConfirm = 0;
-            device.RealQty = 0;
+            Entities.DeviceBOM device = db.DeviceBOMs.FirstOrDefault(d => d.DeviceCode == _deviceCode);
+            if (device == null)
+            {
+                device = new Entities.DeviceBOM
+                {
+                    DeviceCode = _deviceCode,
+                    DeviceName = _deviceName,
+                    Quantity = _deviceQty,
+                    Group = _groupName,
+                    Vendor = _vendorName,
+                };
 
-            //if (device.Type == "D")
-            //{
-            //    double cal = (double)(device.Forcast * 1000 / device.LifeCycle);
-            //    if (cal < stationQty)
-            //    {
-            //        device.Quantity = stationQty;
-            //    }
-            //    else
-            //    {
-            //        device.Quantity = (int)Math.Ceiling(cal);
-            //    }
-            //}
-            //else if (device.Type == "S")
-            //{
-            //    device.Quantity = (int)Math.Ceiling((double)(deviceQty * stationQty * (1 + deviceBuffer)));
-            //}
-
+            }
+            else
+            {
+                device.Quantity += _deviceQty;
+            }
+            db.DeviceBOMs.AddOrUpdate(device);
             #endregion
 
-            return device;
+            #region Product
+            Entities.ProductBOM product = db.ProductBOMs.FirstOrDefault(p => p.ProductName == _productName && p.MTS == _productMTS);
+            if (product == null)
+            {
+                product = new Entities.ProductBOM
+                {
+                    ProductName = _productName,
+                    MTS = _productMTS
+                };
+                db.ProductBOMs.Add(product);
+            }
+            #endregion
+
+            #region link
+            if (!db.ProductDeviceBOMs.Any(c => c.IdProduct == product.Id && c.IdDevice == device.Id))
+            {
+                Entities.ProductDeviceBOM productDeviceBOM = new ProductDeviceBOM
+                {
+                    IdDevice = device.Id,
+                    IdProduct = product.Id,
+                };
+                db.ProductDeviceBOMs.Add(productDeviceBOM);
+
+                return productDeviceBOM;
+            }
+            else
+            {
+                Entities.ProductDeviceBOM productDeviceBOM = db.ProductDeviceBOMs.FirstOrDefault(c => c.IdProduct == product.Id && c.IdDevice == device.Id);
+
+                return productDeviceBOM;
+
+            }
+            #endregion
         }
 
         // GET: COMMON
@@ -595,7 +536,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 // Get All Borrow Of Device
                 List<Entities.BorrowDevice> borrowDevices = db.BorrowDevices.Where(b => b.IdDevice == Id).ToList();
                 List<Entities.Borrow> borrows = new List<Borrow>();
-                foreach(var borrowdevice in borrowDevices)
+                foreach (var borrowdevice in borrowDevices)
                 {
                     Entities.Borrow borrow = db.Borrows.FirstOrDefault(b => b.Id == borrowdevice.IdBorrow);
 
@@ -606,14 +547,14 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 }
                 // Get Warehouse by layout
                 List<Entities.Warehouse> warehouses = new List<Warehouse>();
-                foreach(var dwl in device.DeviceWarehouseLayouts)
+                foreach (var dwl in device.DeviceWarehouseLayouts)
                 {
-                    
+
                     Entities.WarehouseLayout layout = dwl.WarehouseLayout;
                     Entities.Warehouse warehouse = db.Warehouses.FirstOrDefault(w => w.Id == layout.IdWareHouse);
                     warehouses.Add(warehouse);
                 }
-                foreach(var warehouse in warehouses)
+                foreach (var warehouse in warehouses)
                 {
                     warehouse.Devices.Clear();
                     warehouse.UserManager.Password = "";
@@ -640,7 +581,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
             {
                 Warehouse warehouse = db.Warehouses.FirstOrDefault(w => w.Id == IdWarehouse);
 
-                if(warehouse != null)
+                if (warehouse != null)
                 {
                     return Json(new { status = true, layouts = warehouse.WarehouseLayouts }, JsonRequestBehavior.AllowGet);
                 }
@@ -653,6 +594,6 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
             {
                 return Json(new { status = false, message = ex.Message });
             }
-        }      
+        }
     }
 }

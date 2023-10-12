@@ -2571,6 +2571,9 @@
     <Compile Include="Areas\NVIDIA\Entities\Device.cs">
       <DependentUpon>ToolingRoomModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Areas\NVIDIA\Entities\DeviceBOM.cs">
+      <DependentUpon>ToolingRoomModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Areas\NVIDIA\Entities\DeviceWarehouseLayout.cs">
       <DependentUpon>ToolingRoomModel.tt</DependentUpon>
     </Compile>
@@ -2584,6 +2587,12 @@
       <DependentUpon>ToolingRoomModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Areas\NVIDIA\Entities\Product.cs">
+      <DependentUpon>ToolingRoomModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\NVIDIA\Entities\ProductBOM.cs">
+      <DependentUpon>ToolingRoomModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\NVIDIA\Entities\ProductDeviceBOM.cs">
       <DependentUpon>ToolingRoomModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Areas\NVIDIA\Entities\Role.cs">
