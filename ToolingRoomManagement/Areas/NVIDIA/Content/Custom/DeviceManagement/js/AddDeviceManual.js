@@ -1,5 +1,6 @@
 ﻿$(function () {
     GetSelectData();
+    GetDevicesBOM();
 });
 
 // Get Select data
@@ -49,6 +50,92 @@ function GetSelectData() {
         }
     });
 }
+
+// Sự kiện nhập từ BOM
+var deviceBoms;
+function GetDevicesBOM() {
+    $.ajax({
+        type: "GET",
+        url: "/NVIDIA/DeviceManagement/GetDevicesBOM",
+        dataType: "json",
+        contentType: "application/json;charset=utf-8",
+        success: function (response) {
+            if (response.status) {
+                console.log(response.data);
+
+                deviceBoms = response.data;
+
+                $('#device_add-ListDeviceCode').empty();
+                $('#device_add-ListDeviceName').empty();
+                $.each(response.data, function (k, device) {
+                    $('#device_add-ListDeviceCode').append(`<option value="${device.DeviceCode}"></option>`);
+                    $('#device_add-ListDeviceName').append(`<option value="${device.DeviceName}"></option>`);
+                });
+
+            } else {
+                toastr["error"](response.message, "ERROR");
+            }
+        },
+        error: function (error) {
+            Swal.fire("Something went wrong!", GetAjaxErrorMessage(error), "error");
+        }
+    });
+}
+
+$('#device_add-DeviceCode').on('keyup', function (e) {
+    if ($(this).val() === '') {
+        GetSelectData();
+    }
+});
+$('#device_add-DeviceCode').change(function (e) {
+    var val = $(this).val();
+
+    $.each(deviceBoms, function (index, item) {
+        if (item.DeviceCode == val) {
+            $('#device_add-DeviceName').val(item.DeviceName);
+            $('#device_add-Group').val(item.Group);
+            $('#device_add-Vendor').val(item.Vendor);
+            $('#device_add-MinQty').val(item.MinQty);
+            $('#device_add-Quantity').val(item.Quantity);
+            $('#device_add-DeviceDate').val(moment().format('YYYY-MM-DDTHH:mm:ss'));
+
+            $('#device_add-Product_List').empty();
+            if (item.ProductDeviceBOMs.length == 1) {
+                $('#device_add-Product').val(item.ProductDeviceBOMs[0].ProductBOM.ProductName);
+            }
+            else {
+                $.each(item.ProductDeviceBOMs, function (i, product) {
+                    $('#device_add-Product_List').append(`<option value="${product.ProductBOM.ProductName}"></option>`);
+                });
+            }
+           
+        }
+    });
+});
+$('#device_add-DeviceName').change(function (e) {
+    var val = $(this).val();
+
+    $.each(deviceBoms, function (index, item) {
+        if (item.DeviceName == val) {
+            $('#device_add-DeviceCode').val(item.DeviceCode);
+            $('#device_add-Group').val(item.Group);
+            $('#device_add-Vendor').val(item.Vendor);
+            $('#device_add-MinQty').val(item.MinQty);
+            $('#device_add-Quantity').val(item.Quantity);
+            $('#device_add-DeviceDate').val(moment().format('YYYY-MM-DDTHH:mm:ss'));
+
+            $('#device_add-Product_List').empty();
+            if (item.ProductDeviceBOMs.length == 1) {
+                $('#device_add-Product').val(item.ProductDeviceBOMs[0].ProductBOM.ProductName);
+            }
+            else {
+                $.each(item.ProductDeviceBOMs, function (i, product) {
+                    $('#device_add-Product_List').append(`<option value="${product.ProductBOM.ProductName}"></option>`);
+                });
+            }
+        }
+    });
+});
 
 // Add Device Manual
 $('#AddDeviceManual').on('click', function (e) {

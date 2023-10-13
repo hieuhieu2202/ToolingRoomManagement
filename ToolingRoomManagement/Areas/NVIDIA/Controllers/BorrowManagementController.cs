@@ -275,10 +275,31 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
         }
 
         [HttpPost]
-        public ActionResult BorrowDevice(int[] IdDevices, int[] QtyDevices, int[] SignProcess, string UserBorrow, DateTime BorrowDate, DateTime? DueDate,int IdModel, int IdStation, string Note)
+        public ActionResult BorrowDevice(int[] IdDevices, int[] QtyDevices, int[] SignProcess, string UserBorrow, DateTime BorrowDate, DateTime? DueDate,string Model, string Station, string Note)
         {
             try
             {
+                // Model
+                Entities.Model model = db.Models.FirstOrDefault(m => m.ModelName == Model);
+                if (model == null)
+                {
+                    model = new Entities.Model
+                    {
+                        ModelName = Model
+                    };
+                    db.Models.Add(model);
+                }
+                // Station
+                Entities.Station station = db.Stations.FirstOrDefault(m => m.StationName == Station);
+                if (station == null)
+                {
+                    station = new Entities.Station
+                    {
+                        StationName = Station
+                    };
+                    db.Stations.Add(station);
+                }
+
                 // Device
                 Entities.Borrow borrow = new Entities.Borrow();
                 borrow.DateBorrow = BorrowDate;
@@ -288,8 +309,8 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 }
                 borrow.Status = "Pending";
                 borrow.Type = "Borrow";
-                borrow.IdModel = IdModel;
-                borrow.IdStation = IdStation;
+                borrow.IdModel = model.Id;
+                borrow.IdStation = station.Id;
                 borrow.Note = Note;
                 borrow.IdUser = db.Users.FirstOrDefault(u => u.Username == UserBorrow).Id;
                 db.Borrows.Add(borrow);
@@ -478,17 +499,38 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
         }
 
         [HttpPost]
-        public ActionResult TakeDevice(int[] IdDevices, int[] QtyDevices, int[] SignProcess, string UserBorrow, DateTime BorrowDate, int IdModel, int IdStation, string Note)
+        public ActionResult TakeDevice(int[] IdDevices, int[] QtyDevices, int[] SignProcess, string UserBorrow, DateTime BorrowDate, string Model, string Station, string Note)
         {
             try
             {
+                // Model
+                Entities.Model model = db.Models.FirstOrDefault(m => m.ModelName == Model);
+                if(model == null)
+                {
+                    model = new Entities.Model
+                    {
+                        ModelName = Model
+                    };
+                    db.Models.Add(model);
+                }
+                // Station
+                Entities.Station station = db.Stations.FirstOrDefault(m => m.StationName == Station);
+                if (station == null)
+                {
+                    station = new Entities.Station
+                    {
+                        StationName = Station
+                    };
+                    db.Stations.Add(station);
+                }                
+
                 // Device
                 Entities.Borrow borrow = new Entities.Borrow();
                 borrow.DateBorrow = BorrowDate;
                 borrow.Status = "Pending";
                 borrow.Type = "Take";
-                borrow.IdModel = IdModel;
-                borrow.IdStation = IdStation;
+                borrow.IdModel = model.Id;
+                borrow.IdStation = station.Id;
                 borrow.Note = Note;
                 borrow.IdUser = db.Users.FirstOrDefault(u => u.Username == UserBorrow).Id;
                 db.Borrows.Add(borrow);

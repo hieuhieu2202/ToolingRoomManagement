@@ -25,63 +25,18 @@ function GetSelectData() {
                     $('#input_WareHouse').append(opt2);
                 });
                 $('#input_WareHouse').change();
-                // Product
-                $('#device_edit-Product').empty();
-                $('#filter_Product').html($('<option value="Product" selected>Product</option>'));
-                $.each(response.products, function (k, item) {
-                    let opt = $(`<option value="${item.Id}">${item.ProductName} | ${item.MTS}</option>`);
-                    $('#device_edit-Product').append(opt);
 
-                    let opt1 = $(`<option value="${item.ProductName}">${item.ProductName}</option>`);
-                    $('#filter_Product').append(opt1);
-                });
                 // Model
-                $('#device_edit-Model').empty();
-                $('#form_borrow-Model').empty();
-                $('#filter_Model').html($('<option value="Model" selected>Model</option>'));
+                $('#form_borrow-ListModel').empty();
                 $.each(response.models, function (k, item) {
-                    let opt = $(`<option value="${item.Id}">${item.ModelName}</option>`);
-                    $('#device_edit-Model').append(opt);
-
-                    let opt1 = $(`<option value="${item.ModelName}">${item.ModelName}</option>`);
-                    $('#filter_Model').append(opt1);
-
-                    let opt2 = $(`<option value="${item.Id}">${item.ModelName != null ? item.ModelName : 'unknown'}</option>`);
-                    $('#form_borrow-Model').append(opt2);
+                    let opt = $(`<option value="${item.ModelName}"></option>`);
+                    $('#form_borrow-ListModel').append(opt);
                 });
                 // Station
-                $('#device_edit-Station').empty();
-                $('#form_borrow-Station').empty();
-                $('#filter_Station').html($('<option value="Station" selected>Station</option>'));
+                $('#form_borrow-ListStation').empty();
                 $.each(response.stations, function (k, item) {
-                    let opt = $(`<option value="${item.Id}">${item.StationName}</option>`);
-                    $('#device_edit-Station').append(opt);
-
-                    let opt1 = $(`<option value="${item.StationName}">${item.StationName}</option>`);
-                    $('#filter_Station').append(opt1);
-
-                    let opt2 = $(`<option value="${item.Id}">${item.StationName != null ? item.StationName : 'unknown'}</option>`);
-                    $('#form_borrow-Station').append(opt2);
-                });
-                // Group
-                $('#device_edit-Group').empty();
-                $('#filter_Group').html($('<option value="Group" selected>Group</option>'));
-                $.each(response.groups, function (k, item) {
-                    let opt = $(`<option value="${item.Id}">${item.GroupName}</option>`);
-                    $('#device_edit-Group').append(opt);
-
-                    let opt1 = $(`<option value="${item.GroupName}">${item.GroupName}</option>`);
-                    $('#filter_Group').append(opt1);
-                });
-                // Vendor
-                $('#device_edit-Vendor').empty();
-                $('#filter_Vendor').html($('<option value="Vendor" selected>Vendor</option>'));
-                $.each(response.vendors, function (k, item) {
-                    let opt = $(`<option value="${item.Id}">${item.VendorName}</option>`);
-                    $('#device_edit-Vendor').append(opt);
-
-                    let opt1 = $(`<option value="${item.VendorName}">${item.VendorName}</option>`);
-                    $('#filter_Vendor').append(opt1);
+                    let opt = $(`<option value="${item.StationName}"></option>`);
+                    $('#form_borrow-ListStation').append(opt);
                 });
             }
             else {
@@ -132,8 +87,8 @@ function GetWarehouseDevices(IdWarehouse = 0) {
                     CreateTableAddDevice(devices);
 
                     $('#sign-WarehouseManagerUser').empty();
-                    if (warehouse.User != null) {
-                        var opt = CreateWarehouseUserOption(warehouse.User);
+                    if (warehouse.UserManager != null) {
+                        var opt = CreateWarehouseUserOption(warehouse.UserManager);
                         $('#sign-WarehouseManagerUser').append(opt);
                     }
 
@@ -668,15 +623,13 @@ $('#button_send').on('click', function (e) {
         SignProcess: $('#sign-container [select-user]').map(function () {return parseInt($(this).val()); }).get(),
         UserBorrow: $('#CardID').text(),
         BorrowDate: $('#form_borrow-BorrowDate').val(),
-        IdModel: $('#form_borrow-Model').val(),
-        IdStation: $('#form_borrow-Station').val(),
+        Model: $('#form_borrow-Model').val(),
+        Station: $('#form_borrow-Station').val(),
         Note: $('#form_borrow-Note').val()
     }
 
     // Validate
     if (!ValidateSendFormData(BorrowData)) return;
-
-    return;
 
     // Tạo đơn lĩnh
     $.ajax({
@@ -763,8 +716,8 @@ function CreateUserOption(user) {
 function ValidateSendFormData(BorrowData) {
     var check = true;
 
-    if ($('#form_borrow-Model :selected').text() == "") { toastr["warning"]('Please enter the Use For Model', "WARNING"); return false; };
-    if ($('#form_borrow-Station :selected').text() == "") { toastr["warning"]('Please enter the Use For Station', "WARNING"); return false; };
+    if ($('#form_borrow-Model').val() == "") { toastr["warning"]('Please enter the Use For Model', "WARNING"); return false; };
+    if ($('#form_borrow-Station').val() == "") { toastr["warning"]('Please enter the Use For Station', "WARNING"); return false; };
 
     $.each(BorrowData.QtyDevices, function (index, item) {
         if (item == 0 || isNaN(item)) {

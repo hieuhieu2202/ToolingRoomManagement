@@ -37,12 +37,14 @@
                     <!-- Device Code -->
                     <div class="input-group mb-3">
                         <span class="col-4 input-group-text">PN</span>
-                        <input class="col-8 form-control" type="text" id="device_add-DeviceCode" maxlength="25" autocomplete="off" placeholder="Mã thiết bị">
+                        <input class="col-8 form-control" type="text" id="device_add-DeviceCode" maxlength="25" autocomplete="off" placeholder="Mã thiết bị" list="device_add-ListDeviceCode">
+                        <datalist id="device_add-ListDeviceCode"></datalist>
                     </div>
                     <!-- Device Name -->
                     <div class="input-group mb-3">
                         <span class="col-4 input-group-text">Description</span>
-                        <input class="col-8 form-control" type="text" id="device_add-DeviceName" maxlength="255" autocomplete="off" placeholder="Tên thiết bị">
+                        <input class="col-8 form-control" type="text" id="device_add-DeviceName" maxlength="255" autocomplete="off" placeholder="Tên thiết bị" list="device_add-ListDeviceName">
+                        <datalist id="device_add-ListDeviceName"></datalist>
                     </div>
                     <!-- Specification -->
                     <div class="input-group mb-3">
@@ -51,7 +53,7 @@
                     </div>
                     <!-- Device Date -->
                     <div class="input-group mb-3">
-                        <span class="col-4 input-group-text">Created date</span>
+                        <span class="col-4 input-group-text">Created Date</span>
                         <input class="col-8 form-control" type="datetime-local" id="device_add-DeviceDate" autocomplete="off">
                     </div>
                     <!-- Buffer -->
@@ -108,7 +110,7 @@
                     </div>
                     <!-- DeliveryTime -->
                     <div class="input-group mb-3">
-                        <span class="col-4 input-group-text">List Time</span>
+                        <span class="col-4 input-group-text">Lead Time</span>
 
                         <input class="form-control" id="device_add-DeliveryTime1" type="number" />
 

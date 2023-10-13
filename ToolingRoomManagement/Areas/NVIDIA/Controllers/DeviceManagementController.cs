@@ -168,6 +168,22 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
         }
 
         // GET: Device Management
+
+        [HttpGet]
+        public JsonResult GetDevicesBOM()
+        {
+            try
+            {
+                List<Entities.DeviceBOM> deviceBOMs = db.DeviceBOMs.ToList();
+
+                return Json(new { status = true, data = deviceBOMs }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
         [HttpGet]
         public ActionResult DeviceManagement()
         {
@@ -351,8 +367,9 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                         List<Entities.DeviceBOM> deviceBOMs = new List<DeviceBOM>();
                         var worksheet = package.Workbook.Worksheets[1];
 
-                        foreach(int row in Enumerable.Range(2, worksheet.Dimension.End.Row - 1))
+                        foreach (int row in Enumerable.Range(2, worksheet.Dimension.End.Row - 1))
                         {
+                            System.Diagnostics.Debug.WriteLine("Row: " + row);
                             var _productName = worksheet.Cells[row, 1].Value?.ToString();
                             var _productMTS = worksheet.Cells[row, 2].Value?.ToString();
                             var _groupName = worksheet.Cells[row, 12].Value?.ToString();
@@ -361,8 +378,6 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                             var _deviceName = worksheet.Cells[row, 11].Value?.ToString();
                             int _deviceQty = int.TryParse(worksheet.Cells[row, 14].Value?.ToString(), out _deviceQty) ? _deviceQty : 0;
                             int _minQty = int.TryParse(worksheet.Cells[row, 15].Value?.ToString(), out _minQty) ? _minQty : 0;
-
-                            
 
                             #region Product
                             Entities.ProductBOM product = db.ProductBOMs.FirstOrDefault(p => p.ProductName == _productName && p.MTS == _productMTS);
@@ -388,20 +403,20 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                                     Quantity = _deviceQty,
                                     Group = _groupName,
                                     Vendor = _vendorName,
+                                    MinQty = _minQty,
                                 };
+                                db.DeviceBOMs.Add(device);
                             }
                             else
                             {
                                 device.Quantity += _deviceQty;
-                                device.MinQty += _minQty;
+                                device.MinQty = _minQty;
                             }
-                            db.DeviceBOMs.Add(device);
-                            deviceBOMs.Add(device);
                             #endregion
 
                             #region link
-                            Entities.ProductDeviceBOM productDeviceBOM;
-                            if (!db.ProductDeviceBOMs.Any(c => c.IdProduct == product.Id && c.IdDevice == device.Id))
+                            Entities.ProductDeviceBOM productDeviceBOM = db.ProductDeviceBOMs.FirstOrDefault(c => c.IdProduct == product.Id && c.IdDevice == device.Id);
+                            if (productDeviceBOM == null)
                             {
                                 productDeviceBOM = new ProductDeviceBOM
                                 {
@@ -409,18 +424,12 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                                     IdProduct = product.Id,
                                 };
                                 db.ProductDeviceBOMs.Add(productDeviceBOM);
+                                db.SaveChanges();
                             }
-                            else
-                            {
-                                productDeviceBOM = db.ProductDeviceBOMs.FirstOrDefault(c => c.IdProduct == product.Id && c.IdDevice == device.Id);
-                            }
-                            db.ProductDeviceBOMs.Add(productDeviceBOM);
                             #endregion
                         }
 
                         db.SaveChanges();
-
-
 
                         return Json(new { status = true, data = deviceBOMs });
                     }

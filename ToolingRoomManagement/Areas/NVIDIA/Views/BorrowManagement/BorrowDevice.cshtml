@@ -215,11 +215,13 @@
                     <!-- row 2-->
                     <div class="col-md-3 mt-3">
                         <label class="form-label">Use for Model</label>
-                        <select class="form-select" id="form_borrow-Model"></select>
+                        <input type="text" class="form-control" id="form_borrow-Model" list="form_borrow-ListModel" />
+                        <datalist id="form_borrow-ListModel"></datalist>
                     </div>
                     <div class="col-md-3 mt-3">
                         <label class="form-label">Use for Station</label>
-                        <select class="form-select" id="form_borrow-Station"></select>
+                        <input type="text" class="form-control" id="form_borrow-Station" list="form_borrow-ListStation" />
+                        <datalist id="form_borrow-ListStation"></datalist>
                     </div>
                     <!-- row 3-->
                     <div class="col-md-12 mt-3">
@@ -368,7 +370,7 @@
 
                                 <!-- DeliveryTime -->
                                 <div class="input-group mb-3">
-                                    <span class="col-3 input-group-text">List Time</span>
+                                    <span class="col-3 input-group-text">Lead Time</span>
                                     <input class="form-control" type="text" id="device_details-DeliveryTime" details disabled>
                                 </div>
                             </div>
