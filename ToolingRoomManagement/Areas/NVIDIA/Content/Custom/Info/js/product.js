@@ -67,12 +67,11 @@ async function CreateProductTable() {
             { targets: [4], className: 'order-action d-flex text-center justify-content-center' },
         ],  
         createdRow: function (row, data, dataIndex) {
-            $(row).data('id', data[1]);
+            $(row).data('id', data[0]);
         },
     };
 
     table_Products = $('#table_Products').DataTable(options);
-    $('button[aria-controls="table_Products"]').removeClass('btn-outline-secondary');
     table_Products.columns.adjust();
 }
 $(".toggle-icon").click(function () {

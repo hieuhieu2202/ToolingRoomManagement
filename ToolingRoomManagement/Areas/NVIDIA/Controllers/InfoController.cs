@@ -13,7 +13,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
         // GET: NVIDIA/Info
         private ToolingRoomEntities db = new ToolingRoomEntities();
 
-        // Product
+        /*** roduct ***/
         public ActionResult Product()
         {
             return View();
@@ -122,5 +122,225 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
             }
             
         }
+
+        /*** Model + Station ***/
+        public ActionResult ModelStation()
+        {
+            return View();
+        }
+
+        #region Model
+        public JsonResult GetModels()
+        {
+            try
+            {
+                List<Entities.Model> models = db.Models.ToList();
+                foreach (var model in models)
+                {
+                    model.DeviceCount = db.Devices.Where(d => d.IdModel == model.Id).Count();
+                }
+
+                return Json(new { status = true, models }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        public JsonResult GetModel(int Id)
+        {
+            try
+            {
+                if (db.Models.Any(p => p.Id == Id))
+                {
+                    Entities.Model model = db.Models.FirstOrDefault(p => p.Id == Id);
+                    List<Entities.Device> devices = db.Devices.Where(d => d.IdModel == model.Id).ToList();
+
+                    return Json(new { status = true, model, devices }, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    return Json(new { status = false, message = "Model not found." }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = false, message = ex.Message });
+            }
+        }
+        public JsonResult CreateModel(Entities.Model model)
+        {
+            try
+            {
+                if (!db.Models.Any(p => p.ModelName == model.ModelName))
+                {
+                    db.Models.Add(model);
+                    db.SaveChanges();
+
+                    return Json(new { status = true, model });
+                }
+                else
+                {
+                    return Json(new { status = false, message = "Model allready exists." });
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = false, message = ex.Message });
+            }
+        }
+        public JsonResult EditModel(Entities.Model model)
+        {
+            try
+            {
+                if (db.Models.Any(p => p.Id == model.Id))
+                {
+                    db.Models.AddOrUpdate(model);
+                    db.SaveChanges();
+
+                    return Json(new { status = true, model });
+                }
+                else
+                {
+                    return Json(new { status = false, message = "Model not found." });
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = false, message = ex.Message });
+            }
+
+        }
+        public JsonResult DeleteModel(int Id)
+        {
+            try
+            {
+                if (db.Models.Any(p => p.Id == Id))
+                {
+                    Entities.Model model = db.Models.FirstOrDefault(p => p.Id == Id);
+                    db.Models.Remove(model);
+                    db.SaveChanges();
+
+                    return Json(new { status = true });
+                }
+                else
+                {
+                    return Json(new { status = false, message = "Model not found." });
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = false, message = ex.Message });
+            }
+
+        }
+        #endregion
+
+        #region Station
+        public JsonResult GetStations()
+        {
+            try
+            {
+                List<Entities.Station> stations = db.Stations.ToList();
+                foreach (var station in stations)
+                {
+                    station.DeviceCount = db.Devices.Where(d => d.IdStation == station.Id).Count();
+                }
+
+                return Json(new { status = true, stations }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        public JsonResult GetStation(int Id)
+        {
+            try
+            {
+                if (db.Stations.Any(p => p.Id == Id))
+                {
+                    Entities.Station station = db.Stations.FirstOrDefault(p => p.Id == Id);
+                    List<Entities.Device> devices = db.Devices.Where(d => d.IdStation == station.Id).ToList();
+
+                    return Json(new { status = true, station, devices }, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    return Json(new { status = false, message = "Station not found." }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = false, message = ex.Message });
+            }
+        }
+        public JsonResult CreateStation(Entities.Station station)
+        {
+            try
+            {
+                if (!db.Stations.Any(p => p.StationName == station.StationName))
+                {
+                    db.Stations.Add(station);
+                    db.SaveChanges();
+
+                    return Json(new { status = true, station });
+                }
+                else
+                {
+                    return Json(new { status = false, message = "Station allready exists." });
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = false, message = ex.Message });
+            }
+        }
+        public JsonResult EditStation(Entities.Station station)
+        {
+            try
+            {
+                if (db.Stations.Any(p => p.Id == station.Id))
+                {
+                    db.Stations.AddOrUpdate(station);
+                    db.SaveChanges();
+
+                    return Json(new { status = true, station });
+                }
+                else
+                {
+                    return Json(new { status = false, message = "Station not found." });
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = false, message = ex.Message });
+            }
+
+        }
+        public JsonResult DeleteStation(int Id)
+        {
+            try
+            {
+                if (db.Stations.Any(p => p.Id == Id))
+                {
+                    Entities.Station station = db.Stations.FirstOrDefault(p => p.Id == Id);
+                    db.Stations.Remove(station);
+                    db.SaveChanges();
+
+                    return Json(new { status = true });
+                }
+                else
+                {
+                    return Json(new { status = false, message = "Station not found." });
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = false, message = ex.Message });
+            }
+
+        }
+        #endregion
     }
 }
