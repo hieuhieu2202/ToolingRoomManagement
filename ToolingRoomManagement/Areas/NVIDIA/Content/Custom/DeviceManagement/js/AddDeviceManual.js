@@ -153,7 +153,7 @@ $('#AddDeviceManual').on('click', function (e) {
         contentType: false,
         success: function (response) {
             if (response.status) {
-                toastr["success"]("Edit device success.", "SUCCRESS");
+                toastr["success"]("Add new device success.", "SUCCRESS");
             }
             else {
                 toastr["error"](response.message, "ERROR");

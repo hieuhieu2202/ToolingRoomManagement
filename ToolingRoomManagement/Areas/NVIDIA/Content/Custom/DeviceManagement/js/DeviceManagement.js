@@ -45,8 +45,9 @@ async function CreateTableAddDevice(devices) {
         row.append(`<td title="(Quantity / Quantity Confirm / Real Quantity) [Borrowed: ${item.QtyConfirm - item.RealQty}]">${item.Quantity} / ${item.QtyConfirm} / <span class="fw-bold text-info">${item.RealQty}</span></td>`);
         // 12 Unit
         row.append(`<td>${item.Unit ? item.Unit : ''}</td>`);
-        // 13 Unit
-        row.append(`<td>${item.DeliveryTime ? item.DeliveryTime : ''}</td>`);
+        // 13 Lead Time
+        var LeadTime = item.DeliveryTime.charAt(0) == ' ' ? '' : item.DeliveryTime;
+        row.append(`<td>${LeadTime}</td>`);
         // 14 Type
         switch (item.Type) {
             case "S": {
@@ -130,6 +131,12 @@ async function CreateTableAddDevice(devices) {
     tableDeviceInfo = $('#table_Devices').DataTable(options);
     tableDeviceInfo.columns.adjust();
 };
+$(".toggle-icon").click(function () {
+    setTimeout(() => {
+        tableDeviceInfo.columns.adjust();
+    }, 310);
+    
+});
 
 // get data device
 var ListDevices;

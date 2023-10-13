@@ -379,6 +379,14 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
 
                 borrow.Model = db.Models.FirstOrDefault(m => m.Id == borrow.IdModel);
                 borrow.Station = db.Stations.FirstOrDefault(m => m.Id == borrow.IdStation);
+                if (borrow.Model == null)
+                {
+                    borrow.Model = model;
+                }
+                if (borrow.Station == null)
+                {
+                    borrow.Station = station;
+                }
                 // Send mail
                 Data.Common.SendSignMail(borrow);
 
@@ -599,6 +607,16 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
 
                 borrow.Model = db.Models.FirstOrDefault(m => m.Id == borrow.IdModel);
                 borrow.Station = db.Stations.FirstOrDefault(m => m.Id == borrow.IdStation);
+
+                if(borrow.Model == null)
+                {
+                    borrow.Model = model;
+                }
+                if(borrow.Station == null)
+                {
+                    borrow.Station = station;
+                }
+
                 // Send mail
                 Data.Common.SendSignMail(borrow);
 

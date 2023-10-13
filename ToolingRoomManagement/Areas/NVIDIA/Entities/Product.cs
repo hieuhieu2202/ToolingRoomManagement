@@ -17,5 +17,6 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Entities
         public int Id { get; set; }
         public string ProductName { get; set; }
         public string MTS { get; set; }
+        public int DeviceCount { get; set; }
     }
 }

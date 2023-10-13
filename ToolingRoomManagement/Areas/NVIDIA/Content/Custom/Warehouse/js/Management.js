@@ -96,7 +96,7 @@ function WarehouseTable(warehouses) {
         dom: 'Bfrtip',
         buttons: [
             {
-                className: 'btn-outline-primary',
+                className: 'btn-sm btn-outline-primary',
                 text: '<i class="fa-solid fa-plus"></i> New Warehouse',
                 action: function () {
                     ModalAdd();

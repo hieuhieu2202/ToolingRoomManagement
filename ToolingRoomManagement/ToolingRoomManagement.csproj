@@ -194,6 +194,8 @@
     <Content Include="Areas\NVIDIA\Content\Custom\DeviceManagement\js\AddDeviceBOM.js" />
     <Content Include="Areas\NVIDIA\Content\Custom\DeviceManagement\js\AddDeviceManual.js" />
     <Content Include="Areas\NVIDIA\Content\Custom\DeviceManagement\js\DeviceManagement.js" />
+    <Content Include="Areas\NVIDIA\Content\Custom\Info\css\product.css" />
+    <Content Include="Areas\NVIDIA\Content\Custom\Info\js\product.js" />
     <Content Include="Areas\NVIDIA\Content\Custom\Layout\CustomLayout.css" />
     <Content Include="Areas\NVIDIA\Content\Custom\Layout\CustomLayout.js" />
     <Content Include="Areas\NVIDIA\Content\Custom\Warehouse\css\Layout.css" />
@@ -2554,6 +2556,7 @@
     <Compile Include="Areas\NVIDIA\Controllers\BorrowManagementController.cs" />
     <Compile Include="Areas\NVIDIA\Controllers\DashboardController.cs" />
     <Compile Include="Areas\NVIDIA\Controllers\DeviceManagementController.cs" />
+    <Compile Include="Areas\NVIDIA\Controllers\InfoController.cs" />
     <Compile Include="Areas\NVIDIA\Controllers\UserManagementController.cs" />
     <Compile Include="Areas\NVIDIA\Controllers\WarehouseController.cs" />
     <Compile Include="Areas\NVIDIA\Data\Common.cs" />
@@ -3011,6 +3014,7 @@
     <Content Include="Areas\NVIDIA\Views\Warehouse\Management.cshtml" />
     <Content Include="Areas\NVIDIA\Views\Warehouse\Layout.cshtml" />
     <Content Include="Areas\NVIDIA\Views\BorrowManagement\TakeDevice.cshtml" />
+    <Content Include="Areas\NVIDIA\Views\Info\Product.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
