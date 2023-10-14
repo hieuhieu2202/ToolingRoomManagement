@@ -46,5 +46,6 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Entities
         public virtual DbSet<DeviceBOM> DeviceBOMs { get; set; }
         public virtual DbSet<ProductBOM> ProductBOMs { get; set; }
         public virtual DbSet<ProductDeviceBOM> ProductDeviceBOMs { get; set; }
+        public virtual DbSet<DeviceUnconfirm> DeviceUnconfirms { get; set; }
     }
 }

@@ -2581,6 +2581,9 @@
     <Compile Include="Areas\NVIDIA\Entities\DeviceBOM.cs">
       <DependentUpon>ToolingRoomModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Areas\NVIDIA\Entities\DeviceUnconfirm.cs">
+      <DependentUpon>ToolingRoomModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Areas\NVIDIA\Entities\DeviceWarehouseLayout.cs">
       <DependentUpon>ToolingRoomModel.tt</DependentUpon>
     </Compile>
@@ -3021,6 +3024,8 @@
     <Content Include="Areas\NVIDIA\Views\Info\Product.cshtml" />
     <Content Include="Areas\NVIDIA\Views\Info\ModelStation.cshtml" />
     <Content Include="Areas\NVIDIA\Views\Info\GroupVendor.cshtml" />
+    <Content Include="Areas\NVIDIA\Views\DeviceManagement\DeviceUnconfirm.cshtml" />
+    <Content Include="Areas\NVIDIA\Views\DeviceManagement\DeviceConfirm.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

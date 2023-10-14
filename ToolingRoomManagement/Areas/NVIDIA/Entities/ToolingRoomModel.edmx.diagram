@@ -49,6 +49,19 @@
         <EntityTypeShape EntityType="ToolingRoomModel.ProductDeviceBOM" Width="1.5" PointX="13.625" PointY="11" />
         <AssociationConnector Association="ToolingRoomModel.FK_ProductDeviceBOM_DeviceBOM" />
         <AssociationConnector Association="ToolingRoomModel.FK_ProductDeviceBOM_ProductBOM" />
+        <EntityTypeShape EntityType="ToolingRoomModel.DeviceUnconfirm" Width="1.5" PointX="1.375" PointY="9.375" />
+        <AssociationConnector Association="ToolingRoomModel.FK_DeviceUnconfirm_Group" />
+        <AssociationConnector Association="ToolingRoomModel.FK_DeviceUnconfirm_Model" />
+        <AssociationConnector Association="ToolingRoomModel.FK_DeviceUnconfirm_Product" />
+        <AssociationConnector Association="ToolingRoomModel.FK_DeviceUnconfirm_Station" />
+        <AssociationConnector Association="ToolingRoomModel.FK_DeviceUnconfirm_Vendor" />
+        <AssociationConnector Association="ToolingRoomModel.FK_DeviceUnconfirm_Warehouse" ManuallyRouted="true" >
+          <ConnectorPoint PointX="7.375" PointY="8.1436979166666656" />
+          <ConnectorPoint PointX="7.21165" PointY="65.270040571884024" />
+          <ConnectorPoint PointX="7.21165" PointY="6.5571907552083317" />
+          <ConnectorPoint PointX="2.125" PointY="6.5571907552083317" />
+          <ConnectorPoint PointX="2.125" PointY="9.375" />
+        </AssociationConnector>
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

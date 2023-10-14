@@ -604,5 +604,219 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 return Json(new { status = false, message = ex.Message });
             }
         }
+
+        #region Device Unconfirm
+        [HttpGet]
+        public ActionResult DeviceConfirm()
+        {
+            return View();
+        }
+        [HttpPost]
+        public JsonResult AddDeviceUnconfirm(HttpPostedFileBase file)
+        {
+            try
+            {
+                if (file != null && file.ContentLength > 0)
+                {
+                    using (var package = new ExcelPackage(file.InputStream))
+                    {
+                        var worksheet = package.Workbook.Worksheets[1];
+
+                        List<Entities.DeviceUnconfirm> devices = new List<Entities.DeviceUnconfirm>();
+
+                        foreach (int row in Enumerable.Range(2, worksheet.Dimension.End.Row - 1))
+                        {
+                            var deviceCode = worksheet.Cells[row, 10].Value?.ToString();
+                            if (string.IsNullOrEmpty(deviceCode)) continue;
+
+
+                            // Create device in row excel
+                            Entities.DeviceUnconfirm device = CreateDeviceUnconfirm(worksheet, row);
+
+                            // Get device in db to check
+                            var dbDevice = db.DeviceUnconfirms.FirstOrDefault(d =>
+                                d.IdProduct == device.IdProduct &&
+                                d.IdModel == device.IdModel &&
+                                d.IdStation == device.IdStation &&
+                                d.IdGroup == device.IdGroup &&
+                                d.IdVendor == device.IdVendor &&
+                                d.DeviceCode == device.DeviceCode &&
+                                d.DeviceName == device.DeviceName);
+                            // 1. Chưa có => tạo mới                           
+                            if (dbDevice == null)
+                            {
+                                devices.Add(device);
+                                db.DeviceUnconfirms.Add(device);
+                                db.SaveChanges();
+                            }
+                            // 2. Đã có
+                            else
+                            {
+                                // device after change
+                                var iDevice = devices.FirstOrDefault(d => d.Id == dbDevice.Id);
+
+                                if (iDevice != null)
+                                {
+                                    iDevice.Quantity = dbDevice.Quantity;
+                                    iDevice.Status = dbDevice.Status;
+                                }
+                                else
+                                {
+                                    iDevice = dbDevice;
+                                    iDevice.Status = dbDevice.Status;
+
+                                    devices.Add(iDevice);
+                                }
+
+                                // Change in DB
+                                int? qty = dbDevice.Quantity + device.Quantity;
+                                dbDevice.Quantity = qty;
+                                device.Quantity = qty;
+
+                                db.DeviceUnconfirms.AddOrUpdate(dbDevice);
+                                db.SaveChanges();
+                            }
+
+                        }
+
+
+                        return Json(new { status = true, devices });
+                    }
+                }
+                else
+                {
+                    return Json(new { status = false, message = "File is empty" });
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = false, message = ex.Message });
+            }
+        }
+        private Entities.DeviceUnconfirm CreateDeviceUnconfirm(ExcelWorksheet worksheet, int row)
+        {
+            Entities.DeviceUnconfirm device = new Entities.DeviceUnconfirm();
+
+            // Lấy các giá trị từ worksheet
+            var productName = worksheet.Cells[row, 1].Value?.ToString();
+            var productMTS = worksheet.Cells[row, 2].Value?.ToString();
+            var modelName = worksheet.Cells[row, 22].Value?.ToString();
+            var stationName = worksheet.Cells[row, 23].Value?.ToString();
+            var groupName = worksheet.Cells[row, 12].Value?.ToString();
+            var vendorName = worksheet.Cells[row, 13].Value?.ToString();
+            var deviceCode = worksheet.Cells[row, 10].Value?.ToString();
+            var deviceName = worksheet.Cells[row, 11].Value?.ToString();
+            var ACC_KIT = worksheet.Cells[row, 17].Value?.ToString();
+            var relation = worksheet.Cells[row, 18].Value?.ToString();
+
+            // Lấy các giá trị khác từ worksheet
+            DateTime deviceDate = DateTime.TryParseExact(worksheet.Cells[row, 15].Value?.ToString(), "M/d/yyyy h:mm:ss tt", CultureInfo.InvariantCulture, DateTimeStyles.None, out deviceDate) ? deviceDate : DateTime.Now;
+            double deviceBuffer = double.TryParse(worksheet.Cells[row, 30].Value?.ToString(), out deviceBuffer) ? deviceBuffer : 0;
+            double forcast = double.TryParse(worksheet.Cells[row, 27].Value?.ToString(), out forcast) ? forcast : 0;
+
+            string deviceType = worksheet.Cells[row, 29].Value?.ToString();
+
+            int deviceQty = int.TryParse(worksheet.Cells[row, 14].Value?.ToString(), out deviceQty) ? deviceQty : 0;
+            int stationQty = int.TryParse(worksheet.Cells[row, 26].Value?.ToString(), out stationQty) ? stationQty : 0;
+            int lifeCycle = int.TryParse(worksheet.Cells[row, 28].Value?.ToString(), out lifeCycle) ? lifeCycle : 0;
+
+
+            #region Product
+            Entities.Product product = db.Products.FirstOrDefault(p => p.ProductName == productName && p.MTS == productMTS);
+            if (product == null)
+            {
+                product = new Entities.Product
+                {
+                    ProductName = productName,
+                    MTS = productMTS
+                };
+                db.Products.Add(product);
+            }
+            device.IdProduct = product.Id;
+            device.Product = product;
+            #endregion
+
+            #region Model
+            Entities.Model model = db.Models.FirstOrDefault(m => m.ModelName == modelName);
+            if (model == null)
+            {
+                model = new Entities.Model { ModelName = modelName };
+                db.Models.Add(model);
+            }
+            device.IdModel = model.Id;
+            device.Model = model;
+            #endregion
+
+            #region Station
+            Entities.Station station = db.Stations.FirstOrDefault(s => s.StationName == stationName);
+            if (station == null)
+            {
+                station = new Entities.Station { StationName = stationName };
+                db.Stations.Add(station);
+            }
+            device.IdStation = station.Id;
+            device.Station = station;
+            #endregion
+
+            #region Group
+            Entities.Group group = db.Groups.FirstOrDefault(g => g.GroupName == groupName);
+            if (group == null)
+            {
+                group = new Entities.Group { GroupName = groupName };
+                db.Groups.Add(group);
+            }
+            device.IdGroup = group.Id;
+            device.Group = group;
+            #endregion
+
+            #region Vendor
+            Entities.Vendor vendor = db.Vendors.FirstOrDefault(v => v.VendorName == vendorName);
+            if (vendor == null)
+            {
+                vendor = new Entities.Vendor { VendorName = vendorName };
+                db.Vendors.Add(vendor);
+            }
+            device.IdVendor = vendor.Id;
+            device.Vendor = vendor;
+            #endregion
+
+            #region Device
+            device.DeviceCode = deviceCode;
+            device.DeviceName = deviceName;
+            device.DeviceDate = deviceDate;
+            device.Buffer = deviceBuffer;
+            device.ACC_KIT = ACC_KIT;
+            device.Relation = relation;
+            device.Quantity = 0;
+            device.Type = deviceType;
+            device.Status = "Unconfirmed";
+            device.CreatedDate = DateTime.Now;
+            device.LifeCycle = lifeCycle;
+            device.Forcast = forcast;
+            device.QtyConfirm = 0;
+            device.RealQty = 0;
+
+            if (device.Type == "D")
+            {
+                double cal = (double)(device.Forcast * 1000 / device.LifeCycle);
+                if (cal < stationQty)
+                {
+                    device.Quantity = stationQty;
+                }
+                else
+                {
+                    device.Quantity = (int)Math.Ceiling(cal);
+                }
+            }
+            else if (device.Type == "S")
+            {
+                device.Quantity = (int)Math.Ceiling((double)(deviceQty * stationQty * (1 + deviceBuffer)));
+            }
+
+            #endregion
+
+            return device;
+        }
+        #endregion
     }
 }
