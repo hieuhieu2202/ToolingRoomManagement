@@ -33,7 +33,7 @@ async function CreateProductTable() {
     // Draw rows
     $('#table_Products-body').empty();
     $.each(products, function (no, product) {
-        var row = $(`<tr class="align-middle"></tr>`);
+        var row = $(`<tr class="align-middle" data-id="${product.Id}" style="cursor:pointer;"></tr>`);
 
         // 0 ID
         row.append(`<td>${product.Id}</td>`);
@@ -191,6 +191,11 @@ function Details(elm, e) {
         }
     });
 }
+$('#table_Products tbody').on('dblclick', 'tr', function (event) {
+
+    var dataId = $(`<div data-id="${$(this).data('id')}"></div>`);
+    Details(dataId, event);
+});
 // Edit
 function Edit(elm, e) {
     e.preventDefault();

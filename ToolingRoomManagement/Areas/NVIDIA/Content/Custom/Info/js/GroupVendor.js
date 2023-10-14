@@ -1,19 +1,20 @@
 ﻿$(function () {
-    CreateModelTable();
-    CreateStationTable();
-})
+    CreateGroupTable();
+    CreateVendorTable();
+});
 
 // Table
-function GetModels() {
+function GetGroups() {
     return new Promise((resolve, reject) => {
         $.ajax({
             type: "GET",
-            url: "/NVIDIA/Info/GetModels",
+            url: "/NVIDIA/Info/GetGroups",
             dataType: "json",
             contentType: "application/json;charset=utf-8",
             success: function (response) {
                 if (response.status) {
-                    resolve(response.models);
+                    resolve(response.groups);
+
                 } else {
                     toastr["error"](response.message, "ERROR");
                 }
@@ -24,33 +25,33 @@ function GetModels() {
         });
     });
 }
-var table_Model;
-async function CreateModelTable() {
-    var models = await GetModels();
+var table_Group;
+async function CreateGroupTable() {
+    var groups = await GetGroups();
 
     // Destroy Old Table
-    if (table_Model) table_Model.destroy();
+    if (table_Group) table_Group.destroy();
 
     // Draw rows
-    $('#table_Model-body').empty();
-    $.each(models, function (no, model) {
-        var row = $(`<tr class="align-middle" data-id="${model.Id}" style="cursor:pointer;"></tr>`);
+    $('#table_Group-body').empty();
+    $.each(groups, function (no, group) {
+        var row = $(`<tr class="align-middle" data-id="${group.Id}" style="cursor:pointer;"></tr>`);
 
         // 0 ID
-        row.append(`<td>${model.Id}</td>`);
-        // 2 Model Name
-        row.append(`<td>${model.ModelName ? model.ModelName : ''}</td>`);
+        row.append(`<td>${group.Id}</td>`);
+        // 2 Group Name
+        row.append(`<td>${group.GroupName ? group.GroupName : ''}</td>`);
         // 3 Total Device
-        row.append(`<td>${model.DeviceCount}</td>`);
+        row.append(`<td>${group.DeviceCount}</td>`);
         // 4 Action
         row.append(`<td>
-                         <a href="javascript:;" class="text-info bg-light-info border-0      " title="Details" data-id="${model.Id}" onclick="ModelDetails(this, event)"><i class="fa-regular fa-circle-info"></i></a>
-                         <a href="javascript:;" class="text-warning bg-light-warning border-0" title="Edit"    data-id="${model.Id}" onclick="ModelEdit(this, event)   "><i class="fa-duotone fa-pen"></i></a>
-                         <a href="javascript:;" class="text-danger bg-light-danger border-0  " title="Delete"  data-id="${model.Id}" onclick="ModelDelete(this, event) "><i class="fa-duotone fa-trash"></i></a>
+                         <a href="javascript:;" class="text-info bg-light-info border-0      " title="Details" data-id="${group.Id}" onclick="GroupDetails(this, event)"><i class="fa-regular fa-circle-info"></i></a>
+                         <a href="javascript:;" class="text-warning bg-light-warning border-0" title="Edit"    data-id="${group.Id}" onclick="GroupEdit(this, event)   "><i class="fa-duotone fa-pen"></i></a>
+                         <a href="javascript:;" class="text-danger bg-light-danger border-0  " title="Delete"  data-id="${group.Id}" onclick="GroupDelete(this, event) "><i class="fa-duotone fa-trash"></i></a>
                     </td>`);
 
 
-        $('#table_Model-body').append(row);
+        $('#table_Group-body').append(row);
     });
 
     // Create Datatable
@@ -70,46 +71,46 @@ async function CreateModelTable() {
         },
     };
 
-    table_Model = $('#table_Model').DataTable(options);
-    table_Model.columns.adjust();
+    table_Group = $('#table_Group').DataTable(options);
+    table_Group.columns.adjust();
 }
 $(".toggle-icon").click(function () {
     setTimeout(() => {
-        table_Model.columns.adjust();
+        table_Group.columns.adjust();
     }, 310);
 });
 
 // Add
-$('#btn-NewModel').click(function (e) {
+$('#btn-NewGroup').click(function (e) {
     e.preventDefault();
 
-    $('#ModelModal-HeadTitle').text('Model Modal');
-    $('#ModelModal-BodyTitle').text('New Model');
+    $('#GroupModal-HeadTitle').text('Group Modal');
+    $('#GroupModal-BodyTitle').text('New Group');
 
-    $('#Model-ModelName').text('');
+    $('#Group-GroupName').text('');
 
-    $('#ModelModal-button_send').data('type', 'add');
+    $('#GroupModal-button_send').data('type', 'add');
 
-    $('#ModelModal-modal').modal('show');
+    $('#GroupModal-modal').modal('show');
 });
 // Details
-function ModelDetails(elm, e) {
+function GroupDetails(elm, e) {
     e.preventDefault();
 
     var Id = $(elm).data('id');
 
     $.ajax({
         type: "GET",
-        url: "/NVIDIA/Info/GetModel?Id=" + Id,
+        url: "/NVIDIA/Info/GetGroup?Id=" + Id,
         dataType: "json",
         contentType: "application/json;charset=utf-8",
         success: function (response) {
             if (response.status) {
-                var model = response.model;
+                var group = response.group;
 
-                $('#ModelDetails-ModelName').val(model.ModelName);
+                $('#GroupDetails-GroupName').val(group.GroupName);
 
-                $('#table_ModelDetails-body').empty();
+                $('#table_GroupDetails-body').empty();
                 $.each(response.devices, function (k, device) {
                     var tr = $(`<tr data-id="${device.Id}" style="vertical-align: middle;"></tr>`);
                     tr.append(`<td class="text-center">${k + 1}</td>`);
@@ -175,10 +176,10 @@ function ModelDetails(elm, e) {
                     }
                     tr.append(`<td class="text-center">${status}</td>`);
 
-                    $('#table_ModelDetails-body').append(tr);
+                    $('#table_GroupDetails-body').append(tr);
                 });
 
-                $('#ModelDetails-modal').modal('show');
+                $('#GroupDetails-modal').modal('show');
             } else {
                 toastr["error"](response.message, "ERROR");
             }
@@ -188,37 +189,37 @@ function ModelDetails(elm, e) {
         }
     });
 }
-$('#table_Model tbody').on('dblclick', 'tr', function (event) {
+$('#table_Group tbody').on('dblclick', 'tr', function (event) {
 
     var dataId = $(`<div data-id="${$(this).data('id')}"></div>`);
-    ModelDetails(dataId, event);
+    GroupDetails(dataId, event);
 });
 // Edit
-function ModelEdit(elm, e) {
+function GroupEdit(elm, e) {
     e.preventDefault();
 
-    $('#ModelModal-HeadTitle').text('Model Modal');
-    $('#ModelModal-BodyTitle').text('Edit Model');
+    $('#GroupModal-HeadTitle').text('Group Modal');
+    $('#GroupModal-BodyTitle').text('Edit Group');
 
     var Id = $(elm).data('id');
-    var Index = table_Model.row(`[data-id="${Id}"]`).index();
+    var Index = table_Group.row(`[data-id="${Id}"]`).index();
 
     $.ajax({
         type: "GET",
-        url: "/NVIDIA/Info/GetModel?Id=" + Id,
+        url: "/NVIDIA/Info/GetGroup?Id=" + Id,
         dataType: "json",
         contentType: "application/json;charset=utf-8",
         success: function (response) {
             if (response.status) {
-                var model = response.model;
+                var group = response.group;
 
-                $('#Model-ModelName').val(model.ModelName);
+                $('#Group-GroupName').val(group.GroupName);
 
-                $('#ModelModal-button_send').data('type', 'edit');
-                $('#ModelModal-button_send').data('id', model.Id);
-                $('#ModelModal-button_send').data('index', Index);
+                $('#GroupModal-button_send').data('type', 'edit');
+                $('#GroupModal-button_send').data('id', group.Id);
+                $('#GroupModal-button_send').data('index', Index);
 
-                $('#ModelModal-modal').modal('show');
+                $('#GroupModal-modal').modal('show');
             } else {
                 toastr["error"](response.message, "ERROR");
             }
@@ -229,26 +230,26 @@ function ModelEdit(elm, e) {
     });
 }
 // Delete
-function ModelDelete(elm, e) {
+function GroupDelete(elm, e) {
     var Id = $(elm).data('id');
-    var Index = table_Model.row(`[data-id="${Id}"]`).index();
+    var Index = table_Group.row(`[data-id="${Id}"]`).index();
 
     $.ajax({
         type: "GET",
-        url: "/NVIDIA/Info/GetModel?Id=" + Id,
+        url: "/NVIDIA/Info/GetGroup?Id=" + Id,
         dataType: "json",
         contentType: "application/json;charset=utf-8",
         success: function (response) {
             if (response.status) {
-                var model = response.model;
+                var group = response.group;
 
                 Swal.fire({
-                    title: `<strong style="font-size: 25px;">Do you want Delete this Model?</strong>`,
+                    title: `<strong style="font-size: 25px;">Do you want Delete this Group?</strong>`,
                     html: `<table class="table table-striped table-bordered table-message">
                                <tbody>
                                    <tr>
                                        <td>Product Name</td>
-                                       <td>${model.ModelName}</td>
+                                       <td>${group.GroupName}</td>
                                    </tr>
                                    <tr>
                                        <td>Device Count</td>
@@ -272,15 +273,15 @@ function ModelDelete(elm, e) {
                     if (result.isConfirmed) {
                         $.ajax({
                             type: "POST",
-                            url: "/NVIDIA/Info/DeleteModel",
+                            url: "/NVIDIA/Info/DeleteGroup",
                             data: JSON.stringify({ Id }),
                             dataType: "json",
                             contentType: "application/json;charset=utf-8",
                             success: function (response) {
                                 if (response.status) {
-                                    table_Model.row(Index).remove().draw(false);
+                                    table_Group.row(Index).remove().draw(false);
 
-                                    toastr["success"]("Delete Model success.", "SUCCRESS");
+                                    toastr["success"]("Delete Group success.", "SUCCRESS");
                                 }
                                 else {
                                     toastr["error"](response.message, "ERROR");
@@ -302,28 +303,27 @@ function ModelDelete(elm, e) {
         }
     });
 }
-
 // Send Add or Edit data
-$('#ModelModal-button_send').click(function (e) {
-    var model = {
-        ModelName: $('#Model-ModelName').val()
+$('#GroupModal-button_send').click(function (e) {
+    var group = {
+        GroupName: $('#Group-GroupName').val()
     }
 
     if ($(this).data('type') == 'add') {
         $.ajax({
             type: "POST",
-            url: "/NVIDIA/Info/CreateModel",
-            data: JSON.stringify(model),
+            url: "/NVIDIA/Info/CreateGroup",
+            data: JSON.stringify(group),
             dataType: "json",
             contentType: "application/json;charset=utf-8",
             success: function (response) {
                 if (response.status) {
-                    var model = response.model;
+                    var group = response.group;
 
-                    table_Model.row.add(CreateNewRowModel(model)).draw(false);
+                    table_Group.row.add(CreateNewRowGroup(group)).draw(false);
 
-                    toastr["success"]("Add New Model success.", "SUCCRESS");
-                    $('#ModelModal-modal').modal('hide');
+                    toastr["success"]("Add New Group success.", "SUCCRESS");
+                    $('#GroupModal-modal').modal('hide');
                 } else {
                     toastr["error"](response.message, "ERROR");
                 }
@@ -334,24 +334,24 @@ $('#ModelModal-button_send').click(function (e) {
         });
     }
     else {
-        model.Id = $(this).data('id');
+        group.Id = $(this).data('id');
         var Index = $(this).data('index');
 
         $.ajax({
             type: "POST",
-            url: "/NVIDIA/Info/EditModel",
-            data: JSON.stringify(model),
+            url: "/NVIDIA/Info/EditGroup",
+            data: JSON.stringify(group),
             dataType: "json",
             contentType: "application/json;charset=utf-8",
             success: function (response) {
                 if (response.status) {
-                    var model = response.model;
+                    var group = response.group;
 
-                    table_Model.row(Index).data(CreateNewRowModel(model)).draw(false);
+                    table_Group.row(Index).data(CreateNewRowGroup(group)).draw(false);
 
-                    toastr["success"]("Edit Model success.", "SUCCRESS");
+                    toastr["success"]("Edit Group success.", "SUCCRESS");
 
-                    $('#ModelModal-modal').modal('hide');
+                    $('#GroupModal-modal').modal('hide');
                 } else {
                     toastr["error"](response.message, "ERROR");
                 }
@@ -362,38 +362,38 @@ $('#ModelModal-button_send').click(function (e) {
         });
     }
 });
-function CreateNewRowModel(model) {
+function CreateNewRowGroup(group) {
     var row = [];
 
     // 0 ID
-    row.push(`<td>${model.Id}</td>`);
-    // 1 Model Name
-    row.push(`<td>${model.ModelName ? model.ModelName : ''}</td>`);
+    row.push(`<td>${group.Id}</td>`);
+    // 1 station Name
+    row.push(`<td>${group.GroupName ? group.GroupName : ''}</td>`);
     // 2 Total Device
-    row.push(`<td>${model.DeviceCount}</td>`);
+    row.push(`<td>${group.DeviceCount}</td>`);
     // 3 Action
     row.push(`<td>
-                         <a href="javascript:;" class="text-info bg-light-info border-0      " title="Details" data-id="${model.Id}" onclick="ModelDetails(this, event)"><i class="fa-regular fa-circle-info"></i></a>
-                         <a href="javascript:;" class="text-warning bg-light-warning border-0" title="Edit"    data-id="${model.Id}" onclick="ModelEdit(this, event)   "><i class="fa-duotone fa-pen"></i></a>
-                         <a href="javascript:;" class="text-danger bg-light-danger border-0  " title="Delete"  data-id="${model.Id}" onclick="ModelDelete(this, event) "><i class="fa-duotone fa-trash"></i></a>
+                         <a href="javascript:;" class="text-info bg-light-info border-0      " title="Details" data-id="${group.Id}" onclick="GroupDetails(this, event)"><i class="fa-regular fa-circle-info"></i></a>
+                         <a href="javascript:;" class="text-warning bg-light-warning border-0" title="Edit"    data-id="${group.Id}" onclick="GroupEdit(this, event)   "><i class="fa-duotone fa-pen"></i></a>
+                         <a href="javascript:;" class="text-danger bg-light-danger border-0  " title="Delete"  data-id="${group.Id}" onclick="GroupDelete(this, event) "><i class="fa-duotone fa-trash"></i></a>
                     </td>`);
 
     return row;
 }
 
 
-
 // Table
-function GetStations() {
+function GetVendors() {
     return new Promise((resolve, reject) => {
         $.ajax({
             type: "GET",
-            url: "/NVIDIA/Info/GetStations",
+            url: "/NVIDIA/Info/GetVendors",
             dataType: "json",
             contentType: "application/json;charset=utf-8",
             success: function (response) {
                 if (response.status) {
-                    resolve(response.stations);
+                    resolve(response.vendors);
+
                 } else {
                     toastr["error"](response.message, "ERROR");
                 }
@@ -404,33 +404,33 @@ function GetStations() {
         });
     });
 }
-var table_Station;
-async function CreateStationTable() {
-    var stations = await GetStations();
+var table_Vendor;
+async function CreateVendorTable() {
+    var vendors = await GetVendors();
 
     // Destroy Old Table
-    if (table_Station) table_Station.destroy();
+    if (table_Vendor) table_Vendor.destroy();
 
     // Draw rows
-    $('#table_Station-body').empty();
-    $.each(stations, function (no, station) {
-        var row = $(`<tr class="align-middle" data-id="${station.Id}" style="cursor:pointer;"></tr>`);
+    $('#table_Vendor-body').empty();
+    $.each(vendors, function (no, vendor) {
+        var row = $(`<tr class="align-middle" data-id="${vendor.Id}" style="cursor:pointer;"></tr>`);
 
         // 0 ID
-        row.append(`<td>${station.Id}</td>`);
-        // 2 Station Name
-        row.append(`<td>${station.StationName ? station.StationName : ''}</td>`);
+        row.append(`<td>${vendor.Id}</td>`);
+        // 2 Vendor Name
+        row.append(`<td>${vendor.VendorName ? vendor.VendorName : ''}</td>`);
         // 3 Total Device
-        row.append(`<td>${station.DeviceCount}</td>`);
+        row.append(`<td>${vendor.DeviceCount}</td>`);
         // 4 Action
         row.append(`<td>
-                         <a href="javascript:;" class="text-info bg-light-info border-0      " title="Details" data-id="${station.Id}" onclick="StationDetails(this, event)"><i class="fa-regular fa-circle-info"></i></a>
-                         <a href="javascript:;" class="text-warning bg-light-warning border-0" title="Edit"    data-id="${station.Id}" onclick="StationEdit(this, event)   "><i class="fa-duotone fa-pen"></i></a>
-                         <a href="javascript:;" class="text-danger bg-light-danger border-0  " title="Delete"  data-id="${station.Id}" onclick="StationDelete(this, event) "><i class="fa-duotone fa-trash"></i></a>
+                         <a href="javascript:;" class="text-info bg-light-info border-0      " title="Details" data-id="${vendor.Id}" onclick="VendorDetails(this, event)"><i class="fa-regular fa-circle-info"></i></a>
+                         <a href="javascript:;" class="text-warning bg-light-warning border-0" title="Edit"    data-id="${vendor.Id}" onclick="VendorEdit(this, event)   "><i class="fa-duotone fa-pen"></i></a>
+                         <a href="javascript:;" class="text-danger bg-light-danger border-0  " title="Delete"  data-id="${vendor.Id}" onclick="VendorDelete(this, event) "><i class="fa-duotone fa-trash"></i></a>
                     </td>`);
 
 
-        $('#table_Station-body').append(row);
+        $('#table_Vendor-body').append(row);
     });
 
     // Create Datatable
@@ -450,46 +450,46 @@ async function CreateStationTable() {
         },
     };
 
-    table_Station = $('#table_Station').DataTable(options);
-    table_Station.columns.adjust();
+    table_Vendor = $('#table_Vendor').DataTable(options);
+    table_Vendor.columns.adjust();
 }
 $(".toggle-icon").click(function () {
     setTimeout(() => {
-        table_Station.columns.adjust();
+        table_Vendor.columns.adjust();
     }, 310);
 });
 
 // Add
-$('#btn-NewStation').click(function (e) {
+$('#btn-NewVendor').click(function (e) {
     e.preventDefault();
 
-    $('#StationModal-HeadTitle').text('Station Modal');
-    $('#StationModal-BodyTitle').text('New Station');
+    $('#VendorModal-HeadTitle').text('Vendor Modal');
+    $('#VendorModal-BodyTitle').text('New Vendor');
 
-    $('#Station-StationName').text('');
+    $('#Vendor-VendorName').text('');
 
-    $('#StationModal-button_send').data('type', 'add');
+    $('#VendorModal-button_send').data('type', 'add');
 
-    $('#StationModal-modal').modal('show');
+    $('#VendorModal-modal').modal('show');
 });
 // Details
-function StationDetails(elm, e) {
+function VendorDetails(elm, e) {
     e.preventDefault();
 
     var Id = $(elm).data('id');
 
     $.ajax({
         type: "GET",
-        url: "/NVIDIA/Info/GetStation?Id=" + Id,
+        url: "/NVIDIA/Info/GetVendor?Id=" + Id,
         dataType: "json",
         contentType: "application/json;charset=utf-8",
         success: function (response) {
             if (response.status) {
-                var station = response.station;
+                var vendor = response.vendor;
 
-                $('#StationDetails-StationName').val(station.StationName);
+                $('#VendorDetails-VendorName').val(vendor.VendorName);
 
-                $('#table_StationDetails-body').empty();
+                $('#table_VendorDetails-body').empty();
                 $.each(response.devices, function (k, device) {
                     var tr = $(`<tr data-id="${device.Id}" style="vertical-align: middle;"></tr>`);
                     tr.append(`<td class="text-center">${k + 1}</td>`);
@@ -555,10 +555,10 @@ function StationDetails(elm, e) {
                     }
                     tr.append(`<td class="text-center">${status}</td>`);
 
-                    $('#table_StationDetails-body').append(tr);
+                    $('#table_VendorDetails-body').append(tr);
                 });
 
-                $('#StationDetails-modal').modal('show');
+                $('#VendorDetails-modal').modal('show');
             } else {
                 toastr["error"](response.message, "ERROR");
             }
@@ -568,37 +568,37 @@ function StationDetails(elm, e) {
         }
     });
 }
-$('#table_Station tbody').on('dblclick', 'tr', function (event) {
+$('#table_Vendor tbody').on('dblclick', 'tr', function (event) {
 
     var dataId = $(`<div data-id="${$(this).data('id')}"></div>`);
-    StationDetails(dataId, event);
+    VendorDetails(dataId, event);
 });
 // Edit
-function StationEdit(elm, e) {
+function VendorEdit(elm, e) {
     e.preventDefault();
 
-    $('#StationModal-HeadTitle').text('Station Modal');
-    $('#StationModal-BodyTitle').text('Edit Station');
+    $('#VendorModal-HeadTitle').text('Vendor Modal');
+    $('#VendorModal-BodyTitle').text('Edit Vendor');
 
     var Id = $(elm).data('id');
-    var Index = table_Station.row(`[data-id="${Id}"]`).index();
+    var Index = table_Vendor.row(`[data-id="${Id}"]`).index();
 
     $.ajax({
         type: "GET",
-        url: "/NVIDIA/Info/GetStation?Id=" + Id,
+        url: "/NVIDIA/Info/GetVendor?Id=" + Id,
         dataType: "json",
         contentType: "application/json;charset=utf-8",
         success: function (response) {
             if (response.status) {
-                var station = response.station;
+                var vendor = response.vendor;
 
-                $('#Station-StationName').val(station.StationName);
+                $('#Vendor-VendorName').val(vendor.VendorName);
 
-                $('#StationModal-button_send').data('type', 'edit');
-                $('#StationModal-button_send').data('id', station.Id);
-                $('#StationModal-button_send').data('index', Index);
+                $('#VendorModal-button_send').data('type', 'edit');
+                $('#VendorModal-button_send').data('id', vendor.Id);
+                $('#VendorModal-button_send').data('index', Index);
 
-                $('#StationModal-modal').modal('show');
+                $('#VendorModal-modal').modal('show');
             } else {
                 toastr["error"](response.message, "ERROR");
             }
@@ -609,26 +609,26 @@ function StationEdit(elm, e) {
     });
 }
 // Delete
-function StationDelete(elm, e) {
+function VendorDelete(elm, e) {
     var Id = $(elm).data('id');
-    var Index = table_Station.row(`[data-id="${Id}"]`).index();
+    var Index = table_Vendor.row(`[data-id="${Id}"]`).index();
 
     $.ajax({
         type: "GET",
-        url: "/NVIDIA/Info/GetStation?Id=" + Id,
+        url: "/NVIDIA/Info/GetVendor?Id=" + Id,
         dataType: "json",
         contentType: "application/json;charset=utf-8",
         success: function (response) {
             if (response.status) {
-                var station = response.station;
+                var vendor = response.vendor;
 
                 Swal.fire({
-                    title: `<strong style="font-size: 25px;">Do you want Delete this Station?</strong>`,
+                    title: `<strong style="font-size: 25px;">Do you want Delete this Vendor?</strong>`,
                     html: `<table class="table table-striped table-bordered table-message">
                                <tbody>
                                    <tr>
                                        <td>Product Name</td>
-                                       <td>${station.StationName}</td>
+                                       <td>${vendor.VendorName}</td>
                                    </tr>
                                    <tr>
                                        <td>Device Count</td>
@@ -652,15 +652,15 @@ function StationDelete(elm, e) {
                     if (result.isConfirmed) {
                         $.ajax({
                             type: "POST",
-                            url: "/NVIDIA/Info/DeleteStation",
+                            url: "/NVIDIA/Info/DeleteVendor",
                             data: JSON.stringify({ Id }),
                             dataType: "json",
                             contentType: "application/json;charset=utf-8",
                             success: function (response) {
                                 if (response.status) {
-                                    table_Station.row(Index).remove().draw(false);
+                                    table_Vendor.row(Index).remove().draw(false);
 
-                                    toastr["success"]("Delete Station success.", "SUCCRESS");
+                                    toastr["success"]("Delete Vendor success.", "SUCCRESS");
                                 }
                                 else {
                                     toastr["error"](response.message, "ERROR");
@@ -683,26 +683,26 @@ function StationDelete(elm, e) {
     });
 }
 // Send Add or Edit data
-$('#StationModal-button_send').click(function (e) {
-    var station = {
-        StationName: $('#Station-StationName').val()
+$('#VendorModal-button_send').click(function (e) {
+    var vendor = {
+        VendorName: $('#Vendor-VendorName').val()
     }
 
     if ($(this).data('type') == 'add') {
         $.ajax({
             type: "POST",
-            url: "/NVIDIA/Info/CreateStation",
-            data: JSON.stringify(station),
+            url: "/NVIDIA/Info/CreateVendor",
+            data: JSON.stringify(vendor),
             dataType: "json",
             contentType: "application/json;charset=utf-8",
             success: function (response) {
                 if (response.status) {
-                    var station = response.station;
+                    var vendor = response.vendor;
 
-                    table_Station.row.add(CreateNewRowStation(station)).draw(false);
+                    table_Vendor.row.add(CreateNewRowVendor(vendor)).draw(false);
 
-                    toastr["success"]("Add New Station success.", "SUCCRESS");
-                    $('#StationModal-modal').modal('hide');
+                    toastr["success"]("Add New Vendor success.", "SUCCRESS");
+                    $('#VendorModal-modal').modal('hide');
                 } else {
                     toastr["error"](response.message, "ERROR");
                 }
@@ -713,24 +713,24 @@ $('#StationModal-button_send').click(function (e) {
         });
     }
     else {
-        station.Id = $(this).data('id');
+        vendor.Id = $(this).data('id');
         var Index = $(this).data('index');
 
         $.ajax({
             type: "POST",
-            url: "/NVIDIA/Info/EditStation",
-            data: JSON.stringify(station),
+            url: "/NVIDIA/Info/EditVendor",
+            data: JSON.stringify(vendor),
             dataType: "json",
             contentType: "application/json;charset=utf-8",
             success: function (response) {
                 if (response.status) {
-                    var station = response.station;
+                    var vendor = response.vendor;
 
-                    table_Station.row(Index).data(CreateNewRowStation(station)).draw(false);
+                    table_Vendor.row(Index).data(CreateNewRowVendor(vendor)).draw(false);
 
-                    toastr["success"]("Edit Station success.", "SUCCRESS");
+                    toastr["success"]("Edit Vendor success.", "SUCCRESS");
 
-                    $('#StationModal-modal').modal('hide');
+                    $('#VendorModal-modal').modal('hide');
                 } else {
                     toastr["error"](response.message, "ERROR");
                 }
@@ -741,20 +741,20 @@ $('#StationModal-button_send').click(function (e) {
         });
     }
 });
-function CreateNewRowStation(station) {
+function CreateNewRowVendor(vendor) {
     var row = [];
 
     // 0 ID
-    row.push(`<td>${station.Id}</td>`);
-    // 1 station Name
-    row.push(`<td>${station.StationName ? station.StationName : ''}</td>`);
+    row.push(`<td>${vendor.Id}</td>`);
+    // 1 Vendor Name
+    row.push(`<td>${vendor.VendorName ? vendor.VendorName : ''}</td>`);
     // 2 Total Device
-    row.push(`<td>${station.DeviceCount}</td>`);
+    row.push(`<td>${vendor.DeviceCount}</td>`);
     // 3 Action
     row.push(`<td>
-                         <a href="javascript:;" class="text-info bg-light-info border-0      " title="Details" data-id="${station.Id}" onclick="StationDetails(this, event)"><i class="fa-regular fa-circle-info"></i></a>
-                         <a href="javascript:;" class="text-warning bg-light-warning border-0" title="Edit"    data-id="${station.Id}" onclick="StationEdit(this, event)   "><i class="fa-duotone fa-pen"></i></a>
-                         <a href="javascript:;" class="text-danger bg-light-danger border-0  " title="Delete"  data-id="${station.Id}" onclick="StationDelete(this, event) "><i class="fa-duotone fa-trash"></i></a>
+                         <a href="javascript:;" class="text-info bg-light-info border-0      " title="Details" data-id="${vendor.Id}" onclick="VendorDetails(this, event)"><i class="fa-regular fa-circle-info"></i></a>
+                         <a href="javascript:;" class="text-warning bg-light-warning border-0" title="Edit"    data-id="${vendor.Id}" onclick="VendorEdit(this, event)   "><i class="fa-duotone fa-pen"></i></a>
+                         <a href="javascript:;" class="text-danger bg-light-danger border-0  " title="Delete"  data-id="${vendor.Id}" onclick="VendorDelete(this, event) "><i class="fa-duotone fa-trash"></i></a>
                     </td>`);
 
     return row;

@@ -342,5 +342,225 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
 
         }
         #endregion
+
+        /*** Group + Vendor ***/
+        public ActionResult GroupVendor()
+        {
+            return View();
+        }
+
+        #region Group
+        public JsonResult GetGroups()
+        {
+            try
+            {
+                List<Entities.Group> groups = db.Groups.ToList();
+                foreach (var group in groups)
+                {
+                    group.DeviceCount = db.Devices.Where(d => d.IdGroup == group.Id).Count();
+                }
+
+                return Json(new { status = true, groups }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        public JsonResult GetGroup(int Id)
+        {
+            try
+            {
+                if (db.Groups.Any(p => p.Id == Id))
+                {
+                    Entities.Group group = db.Groups.FirstOrDefault(p => p.Id == Id);
+                    List<Entities.Device> devices = db.Devices.Where(d => d.IdGroup == group.Id).ToList();
+
+                    return Json(new { status = true, group, devices }, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    return Json(new { status = false, message = "Group not found." }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = false, message = ex.Message });
+            }
+        }
+        public JsonResult CreateGroup(Entities.Group group)
+        {
+            try
+            {
+                if (!db.Groups.Any(p => p.GroupName == group.GroupName))
+                {
+                    db.Groups.Add(group);
+                    db.SaveChanges();
+
+                    return Json(new { status = true, group });
+                }
+                else
+                {
+                    return Json(new { status = false, message = "Group allready exists." });
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = false, message = ex.Message });
+            }
+        }
+        public JsonResult EditGroup(Entities.Group group)
+        {
+            try
+            {
+                if (db.Groups.Any(p => p.Id == group.Id))
+                {
+                    db.Groups.AddOrUpdate(group);
+                    db.SaveChanges();
+
+                    return Json(new { status = true, group });
+                }
+                else
+                {
+                    return Json(new { status = false, message = "Group not found." });
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = false, message = ex.Message });
+            }
+
+        }
+        public JsonResult DeleteGroup(int Id)
+        {
+            try
+            {
+                if (db.Groups.Any(p => p.Id == Id))
+                {
+                    Entities.Group group = db.Groups.FirstOrDefault(p => p.Id == Id);
+                    db.Groups.Remove(group);
+                    db.SaveChanges();
+
+                    return Json(new { status = true });
+                }
+                else
+                {
+                    return Json(new { status = false, message = "Group not found." });
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = false, message = ex.Message });
+            }
+
+        }
+        #endregion
+
+        #region Vendor
+        public JsonResult GetVendors()
+        {
+            try
+            {
+                List<Entities.Vendor> vendors = db.Vendors.ToList();
+                foreach (var vendor in vendors)
+                {
+                    vendor.DeviceCount = db.Devices.Where(d => d.IdVendor == vendor.Id).Count();
+                }
+
+                return Json(new { status = true, vendors }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        public JsonResult GetVendor(int Id)
+        {
+            try
+            {
+                if (db.Vendors.Any(p => p.Id == Id))
+                {
+                    Entities.Vendor vendor = db.Vendors.FirstOrDefault(p => p.Id == Id);
+                    List<Entities.Device> devices = db.Devices.Where(d => d.IdVendor == vendor.Id).ToList();
+
+                    return Json(new { status = true, vendor, devices }, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    return Json(new { status = false, message = "Vendor not found." }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = false, message = ex.Message });
+            }
+        }
+        public JsonResult CreateVendor(Entities.Vendor vendor)
+        {
+            try
+            {
+                if (!db.Vendors.Any(p => p.VendorName == vendor.VendorName))
+                {
+                    db.Vendors.Add(vendor);
+                    db.SaveChanges();
+
+                    return Json(new { status = true, vendor });
+                }
+                else
+                {
+                    return Json(new { status = false, message = "Vendor allready exists." });
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = false, message = ex.Message });
+            }
+        }
+        public JsonResult EditVendor(Entities.Vendor vendor)
+        {
+            try
+            {
+                if (db.Vendors.Any(p => p.Id == vendor.Id))
+                {
+                    db.Vendors.AddOrUpdate(vendor);
+                    db.SaveChanges();
+
+                    return Json(new { status = true, vendor });
+                }
+                else
+                {
+                    return Json(new { status = false, message = "Vendor not found." });
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = false, message = ex.Message });
+            }
+
+        }
+        public JsonResult DeleteVendor(int Id)
+        {
+            try
+            {
+                if (db.Vendors.Any(p => p.Id == Id))
+                {
+                    Entities.Vendor vendor = db.Vendors.FirstOrDefault(p => p.Id == Id);
+                    db.Vendors.Remove(vendor);
+                    db.SaveChanges();
+
+                    return Json(new { status = true });
+                }
+                else
+                {
+                    return Json(new { status = false, message = "Vendor not found." });
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = false, message = ex.Message });
+            }
+
+        }
+        #endregion
     }
 }

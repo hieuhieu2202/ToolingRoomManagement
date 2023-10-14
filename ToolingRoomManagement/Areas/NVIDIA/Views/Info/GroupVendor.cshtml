@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewBag.Title = "Model & Station";
+    ViewBag.Title = "Group & Vendor";
     Layout = "~/Areas/NVIDIA/Views/Shared/_NvidiaLayoutShared.cshtml";
 }
 
@@ -8,12 +8,12 @@
     <!-- Vendor -->
     <link href="~/Areas/NVIDIA/Content/Template/Sysadmin/assets/plugins/datatable/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
     <!-- Custom -->
-    <link href="~/Areas/NVIDIA/Content/Custom/Info/css/ModelStation.css?v=@Guid.NewGuid()" rel="stylesheet" />
+    <link href="~/Areas/NVIDIA/Content/Custom/Info/css/GroupVendor.css" rel="stylesheet" />
 }
 
 <!-- Breadcrumb -->
 <div class="page-breadcrumb d-none d-sm-flex align-items-center py-3">
-    <div class="breadcrumb-title pe-3">Model & Station</div>
+    <div class="breadcrumb-title pe-3">Group & Vendor</div>
     <div class="ps-3">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb mb-0 p-0">
@@ -27,33 +27,31 @@
 </div>
 
 <div class="row">
-    <!-- Model -->
+    <!-- Group -->
     <div class="col-6">
         <!-- Card table -->
-        <div class="card" id="card-model">
+        <div class="card" id="card-Group">
             <div class="card-body">
                 <div class="card-title d-flex align-items-center">
-                    <h5 class="m-0 me-3">Model Details</h5>
-                    <button class="btn btn-sm btn-outline-primary" id="btn-NewModel"><i class="fa-solid fa-plus"></i> New Model</button>
+                    <h5 class="m-0 me-3">Group Details</h5>
+                    <button class="btn btn-sm btn-outline-primary" id="btn-NewGroup"><i class="fa-solid fa-plus"></i> New Group</button>
                 </div>
                 <hr />
                 <div class="form-body mt-4">
-                    <table id="table_Model" class="table table-striped table-hover table-bordered text-nowrap">
-                        <thead id="table_Model-head">
+                    <table id="table_Group" class="table table-striped table-hover table-bordered text-nowrap">
+                        <thead id="table_Group-head">
                             <tr>
                                 <!-- 0 -->
                                 <th>ID</th>
                                 <!-- 1 -->
-                                <th>Model Name</th>
+                                <th>Group Name</th>
                                 <!-- 2 -->
                                 <th>Total Devices</th>
                                 <!-- 3 -->
                                 <th>Action</th>
                             </tr>
                         </thead>
-                        <tbody id="table_Model-body">
-
-
+                        <tbody id="table_Group-body">
                         </tbody>
                     </table>
                 </div>
@@ -61,43 +59,43 @@
         </div>
 
         <!-- Add & Edit modal -->
-        <div class="modal fade" id="ModelModal-modal" aria-hidden="true">
+        <div class="modal fade" id="GroupModal-modal" aria-hidden="true">
             <div class="modal-dialog modal-lg modal-dialog-scrollable">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="ModelModal-HeadTitle"></h5>
+                        <h5 class="modal-title" id="GroupModal-HeadTitle"></h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <h2 class="font-weight-light text-center text-primary py-3" id="ModelModal-BodyTitle"></h2>
+                        <h2 class="font-weight-light text-center text-primary py-3" id="GroupModal-BodyTitle"></h2>
                         <div class="col-md-12 mb-3">
-                            <label class="form-label">Model Name</label>
-                            <input type="text" class="form-control" id="Model-ModelName" maxlength="50" />
+                            <label class="form-label">Group Name</label>
+                            <input type="text" class="form-control" id="Group-GroupName" maxlength="50" />
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" id="ModelModal-button_send">Save</button>
+                        <button type="button" class="btn btn-primary" id="GroupModal-button_send">Save</button>
                     </div>
                 </div>
             </div>
         </div>
 
         <!-- Details modal -->
-        <div class="modal fade" id="ModelDetails-modal" aria-hidden="true">
+        <div class="modal fade" id="GroupDetails-modal" aria-hidden="true">
             <div class="modal-dialog modal-xl modal-dialog-scrollable">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="ModelDetails-HeadTitle">Model Details</h5>
+                        <h5 class="modal-title" id="GroupDetails-HeadTitle">Group Details</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <h5 class="font-weight-light text-center text-primary py-3" id="ModelDetails-BodyTitle">Model Infomation</h5>
+                        <h5 class="font-weight-light text-center text-primary py-3" id="GroupDetails-BodyTitle">Group Infomation</h5>
                         <div class="col-md-12">
-                            <label class="form-label">Model Name</label>
-                            <input type="text" class="form-control" id="ModelDetails-ModelName" maxlength="50" disabled />
+                            <label class="form-label">Group Name</label>
+                            <input type="text" class="form-control" id="GroupDetails-GroupName" maxlength="50" disabled />
                         </div>
-                        <h5 class="font-weight-light text-center text-primary py-3">Devices In Model</h5>
+                        <h5 class="font-weight-light text-center text-primary py-3">Devices In Group</h5>
                         <table class="table table-bordered">
                             <thead>
                                 <tr style="background-color: #3e464c">
@@ -113,7 +111,7 @@
                                     <td>Status</td>
                                 </tr>
                             </thead>
-                            <tbody id="table_ModelDetails-body">
+                            <tbody id="table_GroupDetails-body">
                             </tbody>
                         </table>
                     </div>
@@ -124,31 +122,32 @@
             </div>
         </div>
     </div>
-    <!-- Station -->
+
+    <!-- Vendor -->
     <div class="col-6">
         <!-- Card table -->
-        <div class="card" id="card-station">
+        <div class="card" id="card-Vendor">
             <div class="card-body">
                 <div class="card-title d-flex align-items-center">
-                    <h5 class="m-0 me-3">Station Details</h5>
-                    <button class="btn btn-sm btn-outline-primary" id="btn-NewStation"><i class="fa-solid fa-plus"></i> New Station</button>
+                    <h5 class="m-0 me-3">Vendor Details</h5>
+                    <button class="btn btn-sm btn-outline-primary" id="btn-NewVendor"><i class="fa-solid fa-plus"></i> New Vendor</button>
                 </div>
                 <hr />
                 <div class="form-body mt-4">
-                    <table id="table_Station" class="table table-striped table-hover table-bordered text-nowrap">
-                        <thead id="table_Station-head">
+                    <table id="table_Vendor" class="table table-striped table-hover table-bordered text-nowrap">
+                        <thead id="table_Vendor-head">
                             <tr>
                                 <!-- 0 -->
                                 <th>ID</th>
                                 <!-- 1 -->
-                                <th>Station Name</th>
+                                <th>Vendor Name</th>
                                 <!-- 2 -->
                                 <th>Total Devices</th>
                                 <!-- 3 -->
                                 <th>Action</th>
                             </tr>
                         </thead>
-                        <tbody id="table_Station-body">
+                        <tbody id="table_Vendor-body">
                         </tbody>
                     </table>
                 </div>
@@ -156,43 +155,43 @@
         </div>
 
         <!-- Add & Edit modal -->
-        <div class="modal fade" id="StationModal-modal" aria-hidden="true">
+        <div class="modal fade" id="VendorModal-modal" aria-hidden="true">
             <div class="modal-dialog modal-lg modal-dialog-scrollable">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="StationModal-HeadTitle"></h5>
+                        <h5 class="modal-title" id="VendorModal-HeadTitle"></h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <h2 class="font-weight-light text-center text-primary py-3" id="StationModal-BodyTitle"></h2>
+                        <h2 class="font-weight-light text-center text-primary py-3" id="VendorModal-BodyTitle"></h2>
                         <div class="col-md-12 mb-3">
-                            <label class="form-label">Station Name</label>
-                            <input type="text" class="form-control" id="Station-StationName" maxlength="50" />
+                            <label class="form-label">Vendor Name</label>
+                            <input type="text" class="form-control" id="Vendor-VendorName" maxlength="50" />
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" id="StationModal-button_send">Save</button>
+                        <button type="button" class="btn btn-primary" id="VendorModal-button_send">Save</button>
                     </div>
                 </div>
             </div>
         </div>
 
         <!-- Details modal -->
-        <div class="modal fade" id="StationDetails-modal" aria-hidden="true">
+        <div class="modal fade" id="VendorDetails-modal" aria-hidden="true">
             <div class="modal-dialog modal-xl modal-dialog-scrollable">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="StationDetails-HeadTitle">Station Details</h5>
+                        <h5 class="modal-title" id="VendorDetails-HeadTitle">Vendor Details</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <h5 class="font-weight-light text-center text-primary py-3" id="StationDetails-BodyTitle">Station Infomation</h5>
+                        <h5 class="font-weight-light text-center text-primary py-3" id="VendorDetails-BodyTitle">Vendor Infomation</h5>
                         <div class="col-md-12">
-                            <label class="form-label">Station Name</label>
-                            <input type="text" class="form-control" id="StationDetails-StationName" maxlength="50" disabled />
+                            <label class="form-label">Vendor Name</label>
+                            <input type="text" class="form-control" id="VendorDetails-VendorName" maxlength="50" disabled />
                         </div>
-                        <h5 class="font-weight-light text-center text-primary py-3">Devices In Station</h5>
+                        <h5 class="font-weight-light text-center text-primary py-3">Devices In Vendor</h5>
                         <table class="table table-bordered">
                             <thead>
                                 <tr style="background-color: #3e464c">
@@ -208,7 +207,7 @@
                                     <td>Status</td>
                                 </tr>
                             </thead>
-                            <tbody id="table_StationDetails-body">
+                            <tbody id="table_VendorDetails-body">
                             </tbody>
                         </table>
                     </div>
@@ -226,5 +225,5 @@
     <script src="~/Areas/NVIDIA/Content/Template/Sysadmin/assets/plugins/datatable/js/jquery.dataTables.min.js"></script>
     <script src="~/Areas/NVIDIA/Content/Template/Sysadmin/assets/plugins/datatable/js/dataTables.bootstrap5.min.js"></script>
     <!-- Custom -->
-    <script src="~/Areas/NVIDIA/Content/Custom/Info/js/ModelStation.js?v=@Guid.NewGuid()"></script>
+    <script src="~/Areas/NVIDIA/Content/Custom/Info/js/GroupVendor.js"></script>
 }
