@@ -56,3 +56,11 @@ canvas {
         background-color: #f4623a;
         border-color: #f4623a;
     }
+.form-control, .select2-selection {
+    background-color: rgb(232, 240, 254) !important;
+    color: black !important;
+}
+
+html.dark-theme .form-control::placeholder {
+    color: gray !important;
+}

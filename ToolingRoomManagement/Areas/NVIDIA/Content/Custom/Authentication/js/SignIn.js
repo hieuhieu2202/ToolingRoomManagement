@@ -87,28 +87,6 @@ $('#SignIn').on('click', function (e) {
     });
 });
 
-$('#SignInSmartOffice').click(function (e) {
-    e.preventDefault();
-
-    $.ajax({
-        type: "GET",
-        url: "/NVIDIA/Authentication/SignInSmartOffice?Link=" + "https://mbd-cns.myfiinet.com/Login/LoginSmartOffice?return_url=10.220.130.117:5555/NVIDIA/Authentication/LoginCallback",
-        contentType: "application/json",
-        datatype: "json/text",
-        success: function (response) {
-            if (response.status) {
-                window.location.href = response.redirectTo;
-            }
-            else {
-                Swal.fire('Sorry, something went wrong!', response.message, 'error');
-            }
-        },
-        error: function (error) {
-            Swal.fire('Sorry, something went wrong!', GetAjaxErrorMessage(error), 'error');
-        }
-    });
-});
-
 // Other function
 
 function GetAjaxErrorMessage(error) {

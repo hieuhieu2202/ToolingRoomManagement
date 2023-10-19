@@ -104,26 +104,6 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
             }
         }
 
-        // SignIn SmartOffice
-        [HttpGet]
-        public ActionResult SignInSmartOffice(string Link)
-        {
-            try
-            {
-                if (Request.Cookies["SmartOfficeMessage"] != null)
-                {
-                    Response.Cookies["SmartOfficeMessage"].Expires = DateTime.Now.AddDays(-1);
-                }
-
-                return Redirect(Link);
-            }
-            catch (Exception ex)
-            {
-                return Json(new {status = false, message = ex.Message}, JsonRequestBehavior.AllowGet);
-            }
-        }
-
-
         public ActionResult Callback()
         {
             try
