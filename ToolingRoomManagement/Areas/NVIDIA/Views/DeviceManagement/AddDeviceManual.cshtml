@@ -30,50 +30,63 @@
 <!-- Card table -->
 <div class="card" id="card-device-details">
     <div class="card-body">
-        <h5 class="card-title">New Device Manual</h5>
+        <h5 class="card-title" title="Thêm mới thiết bị thủ công">New Device Manual</h5>
         <hr />
         <div class="form-body">
             <div class="row">
                 <div class="col-4">
                     <!-- Device Code -->
-                    <div class="input-group mb-3">
+                    <div class="input-group mb-3" title="Mã thiết bị">
                         <span class="col-4 input-group-text">PN</span>
                         <input class="col-8 form-control" type="text" id="device_add-DeviceCode" maxlength="25" autocomplete="off" placeholder="Mã thiết bị" list="device_add-ListDeviceCode">
                         <datalist id="device_add-ListDeviceCode"></datalist>
                     </div>
                     <!-- Device Name -->
-                    <div class="input-group mb-3">
+                    <div class="input-group mb-3" title="Tên thiết bị">
                         <span class="col-4 input-group-text">Description</span>
                         <input class="col-8 form-control" type="text" id="device_add-DeviceName" maxlength="255" autocomplete="off" placeholder="Tên thiết bị" list="device_add-ListDeviceName">
                         <datalist id="device_add-ListDeviceName"></datalist>
                     </div>
                     <!-- Specification -->
-                    <div class="input-group mb-3">
+                    <div class="input-group mb-3" title="Quy cách (thông số đặc biệt)">
                         <span class="col-4 input-group-text">Specification</span>
                         <input class="col-8 form-control" type="text" id="device_add-Specification" maxlength="300" autocomplete="off" placeholder="Quy cách">
                     </div>
                     <!-- Device Date -->
-                    <div class="input-group mb-3">
+                    <div class="input-group mb-3" title="Ngày nhập thiết bị">
                         <span class="col-4 input-group-text">Created Date</span>
                         <input class="col-8 form-control" type="datetime-local" id="device_add-DeviceDate" autocomplete="off">
                     </div>
                     <!-- Buffer -->
-                    <div class="input-group mb-3">
+                    <div class="input-group mb-3" title="Dự phòng (%)">
                         <span class="col-4 input-group-text">Buffer</span>
-                        <input class="col-8 form-control" type="number" id="device_add-Buffer" autocomplete="off" placeholder="10 thiết bị  + Buffer 0.3 (30%) = 13">
+                        <input class="col-8 form-control" type="number" id="device_add-Buffer" autocomplete="off" placeholder="vd: 30% = 30">
                     </div>
                     <!-- LifeCycle -->
-                    <div class="input-group mb-3">
+                    <div class="input-group mb-3" title="Số lần sử dụng">
                         <span class="col-4 input-group-text">Life Cycle</span>
                         <input class="col-8 form-control" type="number" id="device_add-LifeCycle" autocomplete="off" placeholder="Vòng đời (số lần sử dụng)">
                     </div>
                     <!-- Quantity -->
-                    <div class="input-group mb-3">
+                    <div class="input-group mb-3" title="Số lượng đã xác nhận">
                         <span class="col-4 input-group-text">Quantity</span>
                         <input class="col-8 form-control" type="number" id="device_add-Quantity" autocomplete="off" placeholder="Số lượng nhập vào kho">
                     </div>
+                    <!-- PO Quantity -->
+                    <div class="input-group mb-3" title="Số lượng đặt mua">
+                        <span class="col-4 input-group-text">PO Quantity</span>
+                        <input class="col-8 form-control" type="number" id="device_add-POQty" autocomplete="off" placeholder="Số lượng đặt mua">
+                    </div>
+                    <!-- Min Qty -->
+                    <div class="input-group mb-3" title="Số lượng thấp nhất">
+                        <span class="col-4 input-group-text">Min Quantity</span>
+                        <input class="col-8 form-control" type="number" id="device_add-MinQty" autocomplete="off" placeholder="Số lượng tối thiểu">
+                    </div>
+                </div>
+
+                <div class="col-4">
                     <!-- Unit -->
-                    <div class="input-group mb-3">
+                    <div class="input-group mb-3" title="Đơn vị tính">
                         <span class="col-4 input-group-text">Unit</span>
                         <input class="col-8 form-control" type="text" id="device_add-Unit" list="device_add-Unit_List" autocomplete="off" placeholder="Đơn vị tính" maxlength="50">
                         <datalist id="device_add-Unit_List">
@@ -90,16 +103,8 @@
                             <option value="ML">ML (Mililiter)</option>
                         </datalist>
                     </div>
-                    <!-- Min Qty -->
-                    <div class="input-group mb-3">
-                        <span class="col-4 input-group-text">MinQty</span>
-                        <input class="col-8 form-control" type="number" id="device_add-MinQty" autocomplete="off" placeholder="Số lượng tối thiểu">
-                    </div>
-                </div>
-
-                <div class="col-4">
                     <!-- Type -->
-                    <div class="input-group mb-3">
+                    <div class="input-group mb-3" title="Loại thiết bị">
                         <span class="col-4 input-group-text">Type</span>
                         <select class="form-select" id="device_add-Type">
                             <option value="#N/A">N/A</option>
@@ -110,7 +115,7 @@
                         </select>
                     </div>
                     <!-- DeliveryTime -->
-                    <div class="input-group mb-3">
+                    <div class="input-group mb-3" title="Khoảng thời gian [Đặt hàng - Giao hàng]">
                         <span class="col-4 input-group-text">Lead Time</span>
 
                         <input class="form-control" id="device_add-DeliveryTime1" type="number" />
@@ -124,18 +129,18 @@
                         </select>
                     </div>
                     <!-- WareHouse -->
-                    <div class="input-group mb-3">
+                    <div class="input-group mb-3" title="Kho">
                         <span class="col-4 input-group-text">Warehouse</span>
                         <select class="col-8 form-select" id="device_add-WareHouse"></select>
                     </div>
                     <!-- Product -->
-                    <div class="input-group mb-3">
+                    <div class="input-group mb-3" title="Tên sản phẩm">
                         <span class="col-4 input-group-text">Product</span>
                         <input class="col-8 form-control" type="text" id="device_add-Product" list="device_add-Product_List" autocomplete="off" placeholder="Dùng cho hàng nào..." maxlength="120">
                         <datalist id="device_add-Product_List"></datalist>
                     </div>
                     <!-- Model -->
-                    <div class="input-group mb-3">
+                    <div class="input-group mb-3" title="Tên model">
                         <span class="col-4 input-group-text">Model</span>
                         <input class="col-8 form-control" type="text" id="device_add-Model" list="device_add-Model_List" autocomplete="off" placeholder="Dùng cho model nào..." maxlength="50">
                         <datalist id="device_add-Model_List"></datalist>
@@ -147,13 +152,13 @@
                         <datalist id="device_add-Station_List"></datalist>
                     </div>
                     <!-- Group -->
-                    <div class="input-group mb-3">
+                    <div class="input-group mb-3" title="Tên nhóm thiết bị">
                         <span class="col-4 input-group-text">Group</span>
                         <input class="col-8 form-control" type="text" id="device_add-Group" list="device_add-Group_List" autocomplete="off" placeholder="Nhóm thiết bị (vd: USB)" maxlength="50">
                         <datalist id="device_add-Group_List"></datalist>
                     </div>
                     <!-- Vendor -->
-                    <div class="input-group mb-3">
+                    <div class="input-group mb-3" title="Nhà cùng ứng">
                         <span class="col-4 input-group-text">Vendor</span>
                         <input class="col-8 form-control" type="text" id="device_add-Vendor" list="device_add-Vendor_List" autocomplete="off" placeholder="Nhà cung ứng" maxlength="120">
                         <datalist id="device_add-Vendor_List"></datalist>
@@ -163,12 +168,12 @@
                     <!-- Layout -->
                     <div id="layout-container">
                     </div>
-                    <button type="button" class="btn btn-sm btn-outline-secondary w-100" id="new-layout"><i class="fa-solid fa-plus"></i> Add Layout</button>
+                    <button type="button" class="btn btn-sm btn-outline-secondary w-100" id="new-layout" title="Thêm vị trí"><i class="fa-solid fa-plus"></i> Add Layout</button>
                 </div>
             </div>
         </div>
         <div class="card-footer text-center">
-            <button type="button" class="btn btn-outline-primary" id="AddDeviceManual">Add New Device</button>
+            <button type="button" class="btn btn-outline-primary" id="AddDeviceManual" title="Thêm mới thiết bị">Add New Device</button>
         </div>
     </div>
 </div>

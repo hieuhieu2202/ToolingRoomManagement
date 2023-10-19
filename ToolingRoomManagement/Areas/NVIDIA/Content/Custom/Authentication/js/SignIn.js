@@ -1,4 +1,64 @@
-﻿$('#SignIn').on('click', function (e) {
+﻿window.onload = function () {
+    Particles.init({
+        selector: ".background"
+    });
+
+    const errorMessage = CheckErrorCookie("SmartOfficeMessage");
+    if (errorMessage != null) {
+        Swal.fire('Sorry, something went wrong!', errorMessage, 'error');
+    }
+
+};
+const particles = Particles.init({
+    selector: ".background",
+    maxParticles: 150,
+    color: ["#03dac6", "#ff0266", "#000000"],
+    connectParticles: true,
+    responsive: [
+        {
+            breakpoint: 768,
+            options: {
+                color: ["#faebd7", "#03dac6", "#ff0266"],
+                maxParticles: 80,
+                connectParticles: true
+            }
+        }, {
+            breakpoint: 425,
+            options: {
+                maxParticles: 100,
+                connectParticles: true
+            }
+        }, {
+            breakpoint: 320,
+            options: {
+                maxParticles: 0
+            }
+        }
+    ],
+});
+
+function CheckErrorCookie(cookieName) {
+    const cookies = document.cookie.split(';');
+
+    let targetCookie = null;
+    for (let i = 0; i < cookies.length; i++) {
+        const cookie = cookies[i].trim();
+        if (cookie.startsWith(cookieName + '=')) {
+            targetCookie = cookie;
+            break;
+        }
+    }
+    if (targetCookie) {
+        const cookieValue = targetCookie.substring(cookieName.length + 1);
+        document.cookie = cookieName + '=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+
+        return cookieValue;
+    } else {
+        return null;
+    }
+}
+
+$('#SignIn').on('click', function (e) {
     e.preventDefault();
 
     var LoginData = {
@@ -27,7 +87,30 @@
     });
 });
 
+$('#SignInSmartOffice').click(function (e) {
+    e.preventDefault();
+
+    $.ajax({
+        type: "GET",
+        url: "/NVIDIA/Authentication/SignInSmartOffice?Link=" + "https://mbd-cns.myfiinet.com/Login/LoginSmartOffice?return_url=10.220.130.117:5555/NVIDIA/Authentication/LoginCallback",
+        contentType: "application/json",
+        datatype: "json/text",
+        success: function (response) {
+            if (response.status) {
+                window.location.href = response.redirectTo;
+            }
+            else {
+                Swal.fire('Sorry, something went wrong!', response.message, 'error');
+            }
+        },
+        error: function (error) {
+            Swal.fire('Sorry, something went wrong!', GetAjaxErrorMessage(error), 'error');
+        }
+    });
+});
+
 // Other function
+
 function GetAjaxErrorMessage(error) {
     var regex = new RegExp(`<title>(.*?)<\/title>`);
     var match = regex.exec(error.responseText);

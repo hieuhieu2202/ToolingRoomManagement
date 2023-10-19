@@ -64,6 +64,18 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.IdentityModel.Abstractions, Version=7.0.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Abstractions.7.0.3\lib\net472\Microsoft.IdentityModel.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.JsonWebTokens, Version=7.0.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.JsonWebTokens.7.0.3\lib\net472\Microsoft.IdentityModel.JsonWebTokens.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Logging, Version=7.0.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Logging.7.0.3\lib\net472\Microsoft.IdentityModel.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Tokens, Version=7.0.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Tokens.7.0.3\lib\net472\Microsoft.IdentityModel.Tokens.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>C:\Users\Administrator\Desktop\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -73,6 +85,9 @@
     </Reference>
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.IdentityModel.Tokens.Jwt, Version=7.0.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IdentityModel.Tokens.Jwt.7.0.3\lib\net472\System.IdentityModel.Tokens.Jwt.dll</HintPath>
+    </Reference>
     <Reference Include="System.IO, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.IO.4.3.0\lib\net462\System.IO.dll</HintPath>
       <Private>True</Private>
@@ -206,25 +221,11 @@
     <Content Include="Areas\NVIDIA\Content\Custom\Warehouse\css\Management.css" />
     <Content Include="Areas\NVIDIA\Content\Custom\Warehouse\js\Layout.js" />
     <Content Include="Areas\NVIDIA\Content\Custom\Warehouse\js\Management.js" />
+    <Content Include="Areas\NVIDIA\Content\Image\backgound_auto.jpg" />
     <Content Include="Areas\NVIDIA\Content\Image\Double-Ring-loading.gif" />
     <Content Include="Areas\NVIDIA\Content\Image\favicon.ico" />
     <Content Include="Areas\NVIDIA\Content\Image\fii-logo.jpg" />
-    <Content Include="Areas\NVIDIA\Content\Image\Login\Backgrounds\1.jpg" />
-    <Content Include="Areas\NVIDIA\Content\Image\Login\Backgrounds\10.jpg" />
-    <Content Include="Areas\NVIDIA\Content\Image\Login\Backgrounds\11.jpg" />
-    <Content Include="Areas\NVIDIA\Content\Image\Login\Backgrounds\12.jpg" />
-    <Content Include="Areas\NVIDIA\Content\Image\Login\Backgrounds\13.jpg" />
-    <Content Include="Areas\NVIDIA\Content\Image\Login\Backgrounds\14.jpg" />
-    <Content Include="Areas\NVIDIA\Content\Image\Login\Backgrounds\15.jpg" />
-    <Content Include="Areas\NVIDIA\Content\Image\Login\Backgrounds\16.jpg" />
-    <Content Include="Areas\NVIDIA\Content\Image\Login\Backgrounds\2.jpg" />
-    <Content Include="Areas\NVIDIA\Content\Image\Login\Backgrounds\3.jpg" />
-    <Content Include="Areas\NVIDIA\Content\Image\Login\Backgrounds\4.jpg" />
-    <Content Include="Areas\NVIDIA\Content\Image\Login\Backgrounds\5.jpg" />
-    <Content Include="Areas\NVIDIA\Content\Image\Login\Backgrounds\6.jpg" />
-    <Content Include="Areas\NVIDIA\Content\Image\Login\Backgrounds\7.jpg" />
-    <Content Include="Areas\NVIDIA\Content\Image\Login\Backgrounds\8.jpg" />
-    <Content Include="Areas\NVIDIA\Content\Image\Login\Backgrounds\9.jpg" />
+    <Content Include="Areas\NVIDIA\Content\Image\honhai-logo.png" />
     <Content Include="Areas\NVIDIA\Content\Template\NiceAdmin\css\style.css" />
     <Content Include="Areas\NVIDIA\Content\Template\NiceAdmin\js\main.js" />
     <Content Include="Areas\NVIDIA\Content\Template\Sysadmin\app-chat-box.html" />
@@ -1247,6 +1248,7 @@
     <Content Include="Areas\NVIDIA\Content\Vendor\MomentJs\moment.js" />
     <Content Include="Areas\NVIDIA\Content\Vendor\Normalize\normalize.min.css" />
     <Content Include="Areas\NVIDIA\Content\Vendor\Particles\particles.min.js" />
+    <Content Include="Areas\NVIDIA\Content\Vendor\Particles\Particles\particles.min.js" />
     <Content Include="Areas\NVIDIA\Content\Vendor\Popper\popper.min.js" />
     <Content Include="Areas\NVIDIA\Content\Vendor\QRcode\html5-qrcode.js" />
     <Content Include="Areas\NVIDIA\Content\Vendor\Stepper\bs-stepper.min.css" />
@@ -3024,7 +3026,6 @@
     <Content Include="Areas\NVIDIA\Views\Info\Product.cshtml" />
     <Content Include="Areas\NVIDIA\Views\Info\ModelStation.cshtml" />
     <Content Include="Areas\NVIDIA\Views\Info\GroupVendor.cshtml" />
-    <Content Include="Areas\NVIDIA\Views\DeviceManagement\DeviceUnconfirm.cshtml" />
     <Content Include="Areas\NVIDIA\Views\DeviceManagement\DeviceConfirm.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

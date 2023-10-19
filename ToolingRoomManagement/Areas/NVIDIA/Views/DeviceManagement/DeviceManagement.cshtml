@@ -38,38 +38,38 @@
 
             <div class="w-50 d-flex justify-content-end">
                 <div class="input-group input-group-sm w-50">
-                    <span class="col-5 input-group-text">Warehouse</span>
+                    <span class="col-5 input-group-text" title="Kho">Warehouse</span>
                     <select class="col-7 form-select form-select-sm" id="input_WareHouse"></select>
                 </div>
 
                 <div class="dropdown ms-3" id="dropdown_filter">
-                    <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" title="Filter"><i class="bx bx-filter"></i></button>
+                    <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" title="Lọc và tìm kiếm"><i class="bx bx-filter"></i></button>
                     <div class="dropdown-menu" style="width:600px;">
                         <div class="row">
                             <div class="col-6">
                                 <!--Filter product -->
-                                <div class="input-group input-group-sm mb-3">
+                                <div class="input-group input-group-sm mb-3" title="Chọn loại sản phẩm">
                                     <span class="col-3 input-group-text">Product</span>
                                     <select class="form-select form-select-sm" id="filter_Product">
                                         <option value="" selected>Product (All)</option>
                                     </select>
                                 </div>
                                 <!--Filter model -->
-                                <div class="input-group input-group-sm mb-3">
+                                <div class="input-group input-group-sm mb-3" title="Chọn loại model">
                                     <span class="col-3 input-group-text">Model</span>
                                     <select class="form-select form-select-sm" id="filter_Model">
                                         <option value="" selected>Model (All)</option>
                                     </select>
                                 </div>
                                 <!--Filter station -->
-                                <div class="input-group input-group-sm mb-3">
+                                <div class="input-group input-group-sm mb-3" title="Chọn loại trạm">
                                     <span class="col-3 input-group-text">Station</span>
                                     <select class="form-select form-select-sm" id="filter_Station">
                                         <option value="" selected>Station (All)</option>
                                     </select>
                                 </div>
                                 <!--Filter group -->
-                                <div class="input-group input-group-sm mb-3">
+                                <div class="input-group input-group-sm mb-3" title="Chọn loại nhóm thiết bị">
                                     <span class="col-3 input-group-text">Group</span>
                                     <select class="form-select form-select-sm" id="filter_Group">
                                         <option value="" selected>Group (All)</option>
@@ -79,14 +79,14 @@
                             </div>
                             <div class="col-6">
                                 <!--Filter Vendor -->
-                                <div class="input-group input-group-sm mb-3">
+                                <div class="input-group input-group-sm mb-3" title="Chọn nhà cung ứng">
                                     <span class="col-3 input-group-text">Vendor</span>
                                     <select class="form-select form-select-sm" id="filter_Vendor">
                                         <option value="" selected>Vendor (All)</option>
                                     </select>
                                 </div>
                                 <!--Filter Type -->
-                                <div class="input-group input-group-sm mb-3">
+                                <div class="input-group input-group-sm mb-3" title="Chọn loại thiết bị">
                                     <span class="col-3 input-group-text">Type</span>
                                     <select class="form-select form-select-sm" id="filter_Type">
                                         <option value="Type" selected>Type (All)</option>
@@ -98,7 +98,7 @@
                                     </select>
                                 </div>
                                 <!--Filter Status -->
-                                <div class="input-group input-group-sm mb-3">
+                                <div class="input-group input-group-sm mb-3" title="Chọn trạng thái thiết bị">
                                     <span class="col-3 input-group-text">Status</span>
                                     <select class="form-select form-select-sm" id="filter_Status">
                                         <option value="Status" selected>Status (All)</option>
@@ -111,8 +111,8 @@
                                 </div>
                             </div>
                             <div class="col-12 d-flex justify-content-between">
-                                <button class="btn btn-sm btn-primary" style="width: 80%" id="filter"><i class="fa-solid fa-arrow-down-small-big"></i> Filter</button>
-                                <button class="btn btn-sm btn-outline-secondary ms-3" id="filter-refresh"><i class="fa-sharp fa-regular fa-arrows-rotate"></i> Refresh</button>
+                                <button class="btn btn-sm btn-primary" style="width: 80%" id="filter" title="Lọc thiết bị"><i class="fa-solid fa-arrow-down-small-big"></i> Filter</button>
+                                <button class="btn btn-sm btn-outline-secondary ms-3" id="filter-refresh" title="Làm mới lọc (Quay về mặc định)"><i class="fa-sharp fa-regular fa-arrows-rotate"></i> Refresh</button>
                             </div>
                         </div>
                     </div>
@@ -134,9 +134,9 @@
                         <!-- 3 -->
                         <th>Station</th>
                         <!-- 4 -->
-                        <th>PN</th>
+                        <th title="(Mã thiết bị)">PN</th>
                         <!-- 5 -->
-                        <th>Description</th>
+                        <th title="(Tên thiết bị)">Description</th>
                         <!-- 6 -->
                         <th>Group</th>
                         <!-- 7 -->
@@ -144,20 +144,26 @@
                         <!-- 8 -->
                         <th>Specification</th>
                         <!-- 9 -->
-                        <th>Location</th>
+                        <th title="(Vị trí)">Location</th>
                         <!-- 10 -->
-                        <th>Buffer</th>
+                        <th title="(Dự phòng - Đơn vị %)">Buffer</th>
                         <!-- 11 -->
-                        <th>Quantity</th>
+                        <th title="BOM Quantity (Số lượng trong BOM)">BOM Qty</th>
                         <!-- 12 -->
-                        <th>Unit</th>
+                        <th title="PO Quantity (Số lượng đặt mua)">PO Qty</th>
                         <!-- 13 -->
-                        <th>Lead Time</th>
+                        <th title="Confirm Quantity (Số lượng đã xác nhận)">Confirm Qty</th>
                         <!-- 14 -->
-                        <th>Type</th>
+                        <th title="Real Quantity (Số lượng thực tế)">Real Qty</th>
                         <!-- 15 -->
-                        <th>Status</th>
+                        <th title="Đơn vị tính">Unit</th>
                         <!-- 16 -->
+                        <th title="Khoảng Thời gian [đặt hàng - nhận hàng]">Lead Time</th>
+                        <!-- 17 -->
+                        <th title="Loại thiết bị">Type</th>
+                        <!-- 18 -->
+                        <th title="Trạng thái thiết bị">Status</th>
+                        <!-- 19 -->
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -173,17 +179,17 @@
     <div class="modal-dialog modal-fullscreen modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="device_edit-title">Update Device</h5>
+                <h5 class="modal-title" id="device_edit-title" title="Câp nhật thiết bị">Update Device</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <!-- Details -->
-                <h5 class="font-weight-light text-center text-primary py-3" id="borrow_modal-name">DEVICE DETAILS</h5>
+                <h5 class="font-weight-light text-center text-primary py-3" id="borrow_modal-name" title="Thông tin chi tiết về thiết bị">DEVICE DETAILS</h5>
 
                 <!-- Basic Info -->
                 <div class="card">
                     <div class="card-body">
-                        <h6 class="mb-0 text-uppercase">Basic Information</h6>
+                        <h6 class="mb-0 text-uppercase" title="Thông tin cơ bản">Basic Information</h6>
                         <hr>
 
                         <div class="row">
@@ -191,25 +197,25 @@
                                 <!-- Id + Device Code-->
                                 <div class="row">
                                     <div class="col-6">
-                                        <div class="input-group mb-3">
+                                        <div class="input-group mb-3" title="Id thiết bị trong hệ thống">
                                             <span class="col-4 input-group-text">ID</span>
                                             <input class="form-control" type="text" id="device_edit-DeviceId" disabled>
                                         </div>
                                     </div>
                                     <div class="col-6">
-                                        <div class="input-group mb-3">
+                                        <div class="input-group mb-3" title="Mã thiết bị">
                                             <span class="col-4 input-group-text">PN</span>
                                             <input class="form-control" type="text" id="device_edit-DeviceCode">
                                         </div>
                                     </div>
                                 </div>
                                 <!-- Device Name -->
-                                <div class="input-group mb-3">
+                                <div class="input-group mb-3" title="Tên thiết bị">
                                     <span class="col-3 input-group-text">Description</span>
                                     <input class="form-control" type="text" id="device_edit-DeviceName">
                                 </div>
                                 <!-- Specification -->
-                                <div class="input-group mb-3">
+                                <div class="input-group mb-3" title="Quy cách (thông số đặc biệt)">
                                     <span class="col-3 input-group-text">Specification</span>
                                     <input class="form-control" type="text" id="device_edit-Specification">
                                 </div>
@@ -218,7 +224,7 @@
                                 <!-- Status + Type -->
                                 <div class="row">
                                     <div class="col-6">
-                                        <div class="input-group mb-3">
+                                        <div class="input-group mb-3" title="Trạng thái thiết bị">
                                             <span class="col-4 input-group-text">Status</span>
                                             <select class="form-select" id="device_edit-Status">
                                                 <option value="Unconfirmed">Unconfirmed</option>
@@ -230,7 +236,7 @@
                                         </div>
                                     </div>
                                     <div class="col-6">
-                                        <div class="input-group mb-3">
+                                        <div class="input-group mb-3" title="Loại thiết bị">
                                             <span class="col-4 input-group-text">Type</span>
                                             <select class="col-6 form-select" id="device_edit-Type">
                                                 <option value="#N/A">N/A</option>
@@ -243,12 +249,12 @@
                                     </div>
                                 </div>
                                 <!-- Device Date -->
-                                <div class="input-group mb-3">
+                                <div class="input-group mb-3" title="Ngày nhập thiết bị">
                                     <span class="col-3 input-group-text">Created date</span>
                                     <input class="form-control" type="datetime-local" id="device_edit-DeviceDate">
                                 </div>
                                 <!-- DeliveryTime -->
-                                <div class="input-group mb-3">
+                                <div class="input-group mb-3" title="Khoảng thời gian [Đặt hàng - Giao hàng]">
                                     <span class="col-3 input-group-text">Lead Time</span>
                                     <input class="form-control" type="number" id="device_edit-DeliveryTime1">
                                     <select class="form-select" id="device_edit-DeliveryTime2">
@@ -267,7 +273,7 @@
                 <!-- Details Info-->
                 <div class="card">
                     <div class="card-body">
-                        <h6 class="mb-0 text-uppercase">Details Information</h6>
+                        <h6 class="mb-0 text-uppercase" title="Thông tin chi tiết">Details Information</h6>
                         <hr>
 
                         <div class="row">
@@ -275,45 +281,77 @@
                                 <!-- WareHouse + Relation -->
                                 <div class="row">
                                     <div class="col-6">
-                                        <div class="input-group mb-3">
+                                        <div class="input-group mb-3" title="Kho">
                                             <span class="col-5 input-group-text">Warehouse</span>
                                             <select class="form-select" id="device_edit-WareHouse"></select>
                                         </div>
                                     </div>
                                     <div class="col-6">
-                                        <div class="input-group mb-3">
+                                        @*<div class="input-group mb-3" title="Mối liên hệ">
                                             <span class="col-5 input-group-text">Relation</span>
                                             <input class="form-control" type="text" id="device_edit-Relation">
-                                        </div>
+                                        </div>*@
                                     </div>
                                 </div>
 
                                 <!-- Buffer + LifeCycle-->
                                 <div class="row">
                                     <div class="col-6">
-                                        <div class="input-group mb-3">
+                                        <div class="input-group mb-3" title="Dự phòng (%)">
                                             <span class="col-5 input-group-text">Buffer</span>
                                             <input class="form-control" type="number" id="device_edit-Buffer">
                                         </div>
                                     </div>
                                     <div class="col-6">
-                                        <div class="input-group mb-3">
+                                        <div class="input-group mb-3" title="Số lần sử dụng">
                                             <span class="col-5 input-group-text">Life Cycle</span>
                                             <input class="form-control" type="number" id="device_edit-LifeCycle">
                                         </div>
                                     </div>
                                 </div>
 
-                                <!-- Quantity  + Unit -->
+                                <!-- BOM Quantity  + PO Quantity -->
                                 <div class="row">
                                     <div class="col-6">
-                                        <div class="input-group mb-3">
-                                            <span class="col-5 input-group-text">Quantity</span>
+                                        <div class="input-group mb-3" title="Số lượng trong BOM">
+                                            <span class="col-5 input-group-text">BOM Quantity</span>
                                             <input class="form-control" type="number" id="device_edit-Quantity">
                                         </div>
                                     </div>
                                     <div class="col-6">
-                                        <div class="input-group mb-3">
+                                        <div class="input-group mb-3" title="Số lượng đặt mua">
+                                            <span class="col-5 input-group-text">PO Quantity</span>
+                                            <input class="form-control" type="number" id="device_edit-POQty">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- QtyConfirm + RealQty -->
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="input-group mb-3" title="Số lượng đã xác nhận">
+                                            <span class="col-5 input-group-text">Confirm Quantity</span>
+                                            <input class="form-control" type="number" id="device_edit-QtyConfirm">
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="input-group mb-3" title="Số lượng thực tế">
+                                            <span class="col-5 input-group-text fw-bold text-info">Real Quantity</span>
+                                            <input class="form-control" type="number" id="device_edit-RealQty">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Min Quantity + Unit -->
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="input-group mb-3" title="Số lượng thấp nhất">
+                                            <span class="col-5 input-group-text">Min Quantity</span>
+                                            <input class="form-control" type="number" id="device_edit-MinQty">
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="input-group mb-3" title="Đơn vị tính">
                                             <span class="col-5 input-group-text">Unit</span>
                                             <input class="form-control" type="text" id="device_edit-Unit" list="device_edit-Unit_List" maxlength="50">
                                             <datalist id="device_edit-Unit_List">
@@ -332,69 +370,43 @@
                                         </div>
                                     </div>
                                 </div>
-
-                                <!-- QtyConfirm + RealQty -->
-                                <div class="row">
-                                    <div class="col-6">
-                                        <div class="input-group mb-3">
-                                            <span class="col-5 input-group-text">Qty Confirm</span>
-                                            <input class="form-control" type="number" id="device_edit-QtyConfirm">
-                                        </div>
-                                    </div>
-                                    <div class="col-6">
-                                        <div class="input-group mb-3">
-                                            <span class="col-5 input-group-text fw-bold text-info">Real Quantity</span>
-                                            <input class="form-control" type="number" id="device_edit-RealQty">
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- ACC_KIT + Type -->
-                                <div class="row">
-                                    <div class="col-6">
-                                        <div class="input-group mb-3">
-                                            <span class="col-5 input-group-text">ACC KIT</span>
-                                            <select class="col-6 form-select" id="device_edit-AccKit">
-                                                <option value="Yes">Yes</option>
-                                                <option value="No">No</option>
-                                                <option value="N/A">N/A</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-6">
-                                        <div class="input-group mb-3">
-                                            <span class="col-5 input-group-text">Min Quantity</span>
-                                            <input class="form-control" type="number" id="device_edit-MinQty">
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
 
                             <div class="col-6">
-                                <!-- Group -->
-                                <div class="input-group mb-3">
-                                    <span class="col-3 input-group-text">Group</span>
-                                    <select class="col-6 form-select" id="device_edit-Group"></select>
-                                </div>
-                                <!-- Vendor -->
-                                <div class="input-group mb-3">
-                                    <span class="col-3 input-group-text">Vendor</span>
-                                    <select class="col-6 form-select" id="device_edit-Vendor"></select>
-                                </div>
                                 <!-- Product -->
-                                <div class="input-group mb-3">
+                                <div class="input-group mb-3" title="Tên sản phẩm">
                                     <span class="col-3 input-group-text">Product</span>
-                                    <select class="col-9 form-select" id="device_edit-Product"></select>
+                                    <input class="form-control" type="text" id="device_edit-Product" list="device_edit-Product-List" />
+                                    <datalist id="device_edit-Product-List"></datalist>
+                                    @*<select class="col-9 form-select" id="device_edit-Product"></select>*@
                                 </div>
                                 <!-- Model -->
-                                <div class="input-group mb-3">
+                                <div class="input-group mb-3" title="Tên model">
                                     <span class="col-3 input-group-text">Model</span>
-                                    <select class="col-9 form-select" id="device_edit-Model"></select>
+                                    <input class="form-control" type="text" id="device_edit-Model" list="device_edit-Model-List" />
+                                    <datalist id="device_edit-Model-List"></datalist>
+                                    @*<select class="col-9 form-select" id="device_edit-Model"></select>*@
                                 </div>
                                 <!-- Station -->
-                                <div class="input-group mb-3">
+                                <div class="input-group mb-3" title="Tên trạm">
                                     <span class="col-3 input-group-text">Station</span>
-                                    <select class="col-9 form-select" id="device_edit-Station"></select>
+                                    <input class="form-control" type="text" id="device_edit-Station" list="device_edit-Station-List" />
+                                    <datalist id="device_edit-Station-List"></datalist>
+                                    @*<select class="col-9 form-select" id="device_edit-Station"></select>*@
+                                </div>
+                                <!-- Group -->
+                                <div class="input-group mb-3" title="Nhóm thiết bị">
+                                    <span class="col-3 input-group-text">Group</span>
+                                    <input class="form-control" type="text" id="device_edit-Group" list="device_edit-Group-List" />
+                                    <datalist id="device_edit-Group-List"></datalist>
+                                    @*<select class="col-6 form-select" id="device_edit-Group"></select>*@
+                                </div>
+                                <!-- Vendor -->
+                                <div class="input-group mb-3" title="Nhà cung ứng">
+                                    <span class="col-3 input-group-text">Vendor</span>
+                                    <input class="form-control" type="text" id="device_edit-Vendor" list="device_edit-Vendor-List" />
+                                    <datalist id="device_edit-Vendor-List"></datalist>
+                                    @*<select class="col-6 form-select" id="device_edit-Vendor"></select>*@
                                 </div>
                             </div>
                         </div>
@@ -402,14 +414,14 @@
                 </div>
 
                 <!-- Layout -->
-                <h5 class="font-weight-light text-center text-primary py-3" id="borrow_modal-name">DEVICE LOCATION</h5>
+                <h5 class="font-weight-light text-center text-primary py-3" id="borrow_modal-name" title="Vị trí thiết bị">DEVICE LOCATION</h5>
                 <div id="layout-container"></div>
-                <button type="button" class="btn btn-sm btn-outline-secondary w-100" id="new-layout"><i class="fa-solid fa-plus"></i> Add Layout</button>
+                <button type="button" class="btn btn-sm btn-outline-secondary w-100" id="new-layout" title="Thêm vị trí"><i class="fa-solid fa-plus"></i> Add Layout</button>
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" id="button-save_modal">Save changes</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" title="Đóng">Close</button>
+                <button type="button" class="btn btn-primary" id="button-save_modal" title="Lưu thay đổi">Save changes</button>
             </div>
         </div>
     </div>
@@ -420,17 +432,17 @@
     <div class="modal-dialog modal-fullscreen modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="device_details-title">Device Details</h5>
+                <h5 class="modal-title" id="device_details-title" title="Bảng thông tin chi tiết thiết bị">Device Details</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <!-- Details -->
-                <h5 class="font-weight-light text-center text-primary py-3" id="borrow_modal-name">DEVICE DETAILS</h5>
+                <h5 class="font-weight-light text-center text-primary py-3" id="borrow_modal-name" title="Thông tin chi tiết thiết bị">DEVICE DETAILS</h5>
 
                 <!-- Basic Info -->
                 <div class="card">
                     <div class="card-body">
-                        <h6 class="mb-0 text-uppercase">Basic Information</h6>
+                        <h6 class="mb-0 text-uppercase" title="Thông tin cơ bản">Basic Information</h6>
                         <hr>
 
                         <div class="row">
@@ -438,25 +450,25 @@
                                 <!-- Id + Device Code-->
                                 <div class="row">
                                     <div class="col-6">
-                                        <div class="input-group mb-3">
+                                        <div class="input-group mb-3" title="Id thiết bị trong hệ thống">
                                             <span class="col-4 input-group-text">ID</span>
                                             <input type="text" class="col-6 form-control" id="device_details-DeviceId" details disabled>
                                         </div>
                                     </div>
                                     <div class="col-6">
-                                        <div class="input-group mb-3">
+                                        <div class="input-group mb-3" title="Mã thiết bị">
                                             <span class="col-3 input-group-text" style="width: 135px">PN</span>
                                             <input class="form-control" type="text" id="device_details-DeviceCode" details disabled>
                                         </div>
                                     </div>
                                 </div>
                                 <!-- Device Name -->
-                                <div class="input-group mb-3">
+                                <div class="input-group mb-3" title="Tên thiết bị">
                                     <span class="col-3 input-group-text">Description</span>
                                     <input class="form-control" type="text" id="device_details-DeviceName" details disabled>
                                 </div>
                                 <!-- Specification -->
-                                <div class="input-group mb-3">
+                                <div class="input-group mb-3" title="Quy cách (thông số đặc biệt)">
                                     <span class="col-3 input-group-text">Specification</span>
                                     <input class="form-control" type="text" id="device_details-Specification" details disabled>
                                 </div>
@@ -465,26 +477,26 @@
                                 <!-- Status + Type -->
                                 <div class="row">
                                     <div class="col-6">
-                                        <div class="input-group mb-3">
+                                        <div class="input-group mb-3" title="Trạng thái thiết bị">
                                             <span class="col-6 input-group-text">Status</span>
                                             <input class="col-6 form-control" type="text" id="device_details-Status" details disabled />
                                         </div>
                                     </div>
                                     <div class="col-6">
-                                        <div class="input-group mb-3">
+                                        <div class="input-group mb-3" title="Loại thiết bị">
                                             <span class="col-6 input-group-text">Type</span>
                                             <input class="col-6 form-control" type="text" id="device_details-Type" details disabled />
                                         </div>
                                     </div>
                                 </div>
                                 <!-- Device Date -->
-                                <div class="input-group mb-3">
+                                <div class="input-group mb-3" title="Ngày nhập thiết bị">
                                     <span class="col-3 input-group-text">Created date</span>
                                     <input class="form-control" type="datetime-local" id="device_details-DeviceDate" details disabled>
                                 </div>
 
                                 <!-- DeliveryTime -->
-                                <div class="input-group mb-3">
+                                <div class="input-group mb-3" title="Khoảng thời gian [Đặt hàng - Giao hàng]">
                                     <span class="col-3 input-group-text">Lead Time</span>
                                     <input class="form-control" type="text" id="device_details-DeliveryTime" details disabled>
                                 </div>
@@ -496,7 +508,7 @@
                 <!-- Details Info-->
                 <div class="card">
                     <div class="card-body">
-                        <h6 class="mb-0 text-uppercase">Details Information</h6>
+                        <h6 class="mb-0 text-uppercase" title="Thông tin chi tiết">Details Information</h6>
                         <hr>
 
                         <div class="row">
@@ -505,79 +517,79 @@
                                 <!-- WareHouse + Relation -->
                                 <div class="row">
                                     <div class="col-6">
-                                        <div class="input-group mb-3">
+                                        <div class="input-group mb-3" title="Kho">
                                             <span class="col-5 input-group-text">Warehouse</span>
                                             <input class="form-control" id="device_details-WareHouse" details disabled />
                                         </div>
                                     </div>
                                     <div class="col-6">
-                                        <div class="input-group mb-3">
+                                        @*<div class="input-group mb-3" title="Mối liên hệ">
                                             <span class="col-5 input-group-text">Relation</span>
                                             <input class="form-control" type="text" id="device_details-Relation" details disabled>
-                                        </div>
+                                        </div>*@
                                     </div>
                                 </div>
 
                                 <!-- Buffer + LifeCycle-->
                                 <div class="row">
                                     <div class="col-6">
-                                        <div class="input-group mb-3">
+                                        <div class="input-group mb-3" title="Dự phòng (%)">
                                             <span class="col-5 input-group-text">Buffer</span>
                                             <input class="form-control" type="number" id="device_details-Buffer" details disabled>
                                         </div>
                                     </div>
                                     <div class="col-6">
-                                        <div class="input-group mb-3">
+                                        <div class="input-group mb-3" title="Số lần sử dụng">
                                             <span class="col-5 input-group-text">Life Cycle</span>
                                             <input class="form-control" type="number" id="device_details-LifeCycle" details disabled>
                                         </div>
                                     </div>
                                 </div>
 
-                                <!-- Quantity  + Unit -->
+                                <!-- BOM Quantity  + PO Quantity -->
                                 <div class="row">
                                     <div class="col-6">
-                                        <div class="input-group mb-3">
-                                            <span class="col-5 input-group-text">Quantity</span>
+                                        <div class="input-group mb-3" title="Số lượng trong BOM">
+                                            <span class="col-5 input-group-text">BOM Quantity</span>
                                             <input class="form-control" type="number" id="device_details-Quantity" details disabled>
                                         </div>
                                     </div>
                                     <div class="col-6">
-                                        <div class="input-group mb-3">
-                                            <span class="col-5 input-group-text">Unit</span>
-                                            <input class="form-control" type="text" id="device_details-Unit" details disabled>
+                                        <div class="input-group mb-3" title="Số lượng đặt mua">
+                                            <span class="col-5 input-group-text">PO Quantity</span>
+                                            <input class="form-control" type="number" id="device_details-POQty" details disabled>
                                         </div>
                                     </div>
                                 </div>
 
-                                <!-- QtyConfirm + RealQty -->
+                                <!-- Confirm Quantity + Real Quantity -->
                                 <div class="row">
                                     <div class="col-6">
-                                        <div class="input-group mb-3">
-                                            <span class="col-5 input-group-text">Qty Confirm</span>
+                                        <div class="input-group mb-3" title="Số lượng đã xác nhận">
+                                            <span class="col-5 input-group-text">Confirm Quantity</span>
                                             <input class="form-control" type="number" id="device_details-QtyConfirm" details disabled>
                                         </div>
                                     </div>
                                     <div class="col-6">
-                                        <div class="input-group mb-3">
+                                        <div class="input-group mb-3" title="Số lượng thực tế">
                                             <span class="col-5 input-group-text fw-bold text-info">Real Quantity</span>
                                             <input class="form-control" type="number" id="device_details-RealQty" details disabled>
                                         </div>
                                     </div>
                                 </div>
 
-                                <!-- ACC_KIT + Type -->
+                                <!-- Min Quantity + Unit -->
                                 <div class="row">
                                     <div class="col-6">
-                                        <div class="input-group mb-3">
-                                            <span class="col-5 input-group-text">ACC KIT</span>
-                                            <input class="form-control" type="text" id="device_details-AccKit" details disabled />
+                                        <div class="input-group mb-3" title="Số lượng thấp nhất">
+                                            <span class="col-5 input-group-text">Min Quantity</span>
+                                            <input class="form-control" type="number" id="device_details-MinQty" details disabled>
                                         </div>
                                     </div>
                                     <div class="col-6">
-                                        <div class="input-group mb-3">
-                                            <span class="col-5 input-group-text">Min Quantity</span>
-                                            <input class="form-control" type="number" id="device_details-MinQty" details disabled>
+                                        <div class="input-group mb-3" title="Đơn vị tính">
+                                            <span class="col-5 input-group-text">Unit</span>
+                                            <input class="form-control" type="text" id="device_details-Unit" details disabled>
                                         </div>
                                     </div>
                                 </div>
@@ -585,27 +597,27 @@
 
                             <div class="col-6">
                                 <!-- Group -->
-                                <div class="input-group mb-3">
+                                <div class="input-group mb-3" title="Nhóm thiết bị">
                                     <span class="col-3 input-group-text">Group</span>
                                     <input class="form-control" id="device_details-Group" type="text" details disabled />
                                 </div>
                                 <!-- Vendor -->
-                                <div class="input-group mb-3">
+                                <div class="input-group mb-3" title="Nhà cung ứng">
                                     <span class="col-3 input-group-text">Vendor</span>
                                     <input class="form-control" id="device_details-Vendor" type="text" details disabled />
                                 </div>
                                 <!-- Product -->
-                                <div class="input-group mb-3">
+                                <div class="input-group mb-3" title="Tên sản phẩm">
                                     <span class="col-3 input-group-text">Product</span>
                                     <input class="col-9 form-control" id="device_details-Product" type="text" details disabled />
                                 </div>
                                 <!-- Model -->
-                                <div class="input-group mb-3">
+                                <div class="input-group mb-3" title="Tên model">
                                     <span class="col-3 input-group-text">Model</span>
                                     <input class="col-9 form-control" id="device_details-Model" type="text" details disabled />
                                 </div>
                                 <!-- Station -->
-                                <div class="input-group mb-3">
+                                <div class="input-group mb-3" title="Tên trạm">
                                     <span class="col-3 input-group-text">Station</span>
                                     <input class="col-9 form-control" id="device_details-Station" type="text" details disabled />
                                 </div>
@@ -615,18 +627,18 @@
                 </div>
 
                 <!-- Layout -->
-                <h5 class="font-weight-light text-center text-primary py-3" id="borrow_modal-name">DEVICE LOCATION</h5>
+                <h5 class="font-weight-light text-center text-primary py-3" id="borrow_modal-name" title="Vị trí thiết bị">DEVICE LOCATION</h5>
                 <div>
                     <table class="table table-bordered" id="device_details-layout">
                         <thead>
                             <tr class="fw-bold" style="background-color: #3e464c">
-                                <td>Factory</td>
-                                <td>Factory Floor</td>
-                                <td>Warehouse Manager</td>
-                                <td>Warehouse</td>
-                                <td>Line</td>
-                                <td>Cell</td>
-                                <td>Floor</td>
+                                <td title="Nhà xưởng">Factory</td>
+                                <td title="Tầng">Factory Floor</td>
+                                <td title="Chủ quản kho">Warehouse Manager</td>
+                                <td title="Tên kho">Warehouse</td>
+                                <td title="Hàng (Kệ)">Line</td>
+                                <td title="Ô (Khay)">Cell</td>
+                                <td title="Tầng">Floor</td>
                             </tr>
                         </thead>
                         <tbody id="device_details-layout-tbody">
@@ -635,20 +647,20 @@
                 </div>
 
                 <!-- History -->
-                <h5 class="font-weight-light text-center text-primary py-3" id="borrow_modal-name">DEVICE HISTORY</h5>
+                <h5 class="font-weight-light text-center text-primary py-3" id="borrow_modal-name" title="Lịch sử mượn thiết bị">DEVICE HISTORY</h5>
                 <div>
                     <table class="table table-bordered" id="device_details-history">
                         <thead>
                             <tr class="align-middle fw-bold" style="background-color: #3e464c">
-                                <td>Type</td>
-                                <td>Date Borrow</td>
-                                <td>Date Return</td>
-                                <td>User</td>
-                                <td>For Model</td>
-                                <td>For Station</td>
-                                <td>Borrow Quantity</td>
-                                <td>Status</td>
-                                <td style="max-width: 200px;">Note</td>
+                                <td title="Loại đơn">Type</td>
+                                <td title="Ngày mượn">Date Borrow</td>
+                                <td title="Ngày trả">Date Return</td>
+                                <td title="Người mượn">User</td>
+                                <td title="Dùng cho model">For Model</td>
+                                <td title="Dùng cho trạm">For Station</td>
+                                <td title="Số lượng mượn">Borrow Quantity</td>
+                                <td title="Trạng thái đơn">Status</td>
+                                <td title="Ghi chú" style="max-width: 200px;">Note</td>
                             </tr>
                         </thead>
                         <tbody id="device_details-history-tbody"></tbody>
@@ -779,33 +791,6 @@
             theme: 'bootstrap4',
             dropdownParent: $("#device_edit-modal"),
             minimumResultsForSearch: -1,
-            width: '50%',
-        });
-        $('#device_edit-Product').select2({
-            theme: 'bootstrap4',
-            dropdownParent: $("#device_edit-modal"),
-            width: '60%',
-        });
-        $('#device_edit-Model').select2({
-            theme: 'bootstrap4',
-            dropdownParent: $("#device_edit-modal"),
-            minimumResultsForSearch: -1,
-            width: '60%',
-        });
-        $('#device_edit-Station').select2({
-            theme: 'bootstrap4',
-            dropdownParent: $("#device_edit-modal"),
-            minimumResultsForSearch: -1,
-            width: '60%',
-        });
-        $('#device_edit-Group').select2({
-            theme: 'bootstrap4',
-            dropdownParent: $("#device_edit-modal"),
-            width: '50%',
-        });
-        $('#device_edit-Vendor').select2({
-            theme: 'bootstrap4',
-            dropdownParent: $("#device_edit-modal"),
             width: '50%',
         });
 

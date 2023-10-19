@@ -53,7 +53,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 if (!db.Devices.Any(d => d.DeviceCode == device.DeviceCode && d.IdWareHouse == device.IdWareHouse))
                 {
                     double dBuffer = double.TryParse(form["Buffer"], out dBuffer) ? dBuffer : 0;
-                    device.Buffer = dBuffer;
+                    device.Buffer = dBuffer / 100;
 
                     int dLifeCycle = int.TryParse(form["LifeCycle"], out dLifeCycle) ? dLifeCycle : 0;
                     device.LifeCycle = dLifeCycle;
@@ -67,8 +67,11 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                     int dQtyConfirm = int.TryParse(form["Quantity"], out dQtyConfirm) ? dQtyConfirm : 0;
                     device.QtyConfirm = dQtyConfirm;
 
-                    int dMinQty = int.TryParse(form["MinQty"], out dMinQty) ? dMinQty : 0;
+                    int dMinQty = int.TryParse(form["MinQuantity"], out dMinQty) ? dMinQty : 0;
                     device.MinQty = dMinQty;
+
+                    int dPOQty = int.TryParse(form["POQuantity"], out dPOQty) ? dPOQty : 0;
+                    device.POQty = dPOQty;
 
                     string dProductName = form["Product"];
                     string dModelName = form["Model"];
@@ -236,7 +239,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
             }
         }
         [HttpPost]
-        public JsonResult UpdateDevice(Entities.Device device, int[] IdLayouts)
+        public JsonResult UpdateDevice(Entities.Device device, int[] IdLayouts, string sproduct, string smodel, string sstation, string sgroup, string svendor)
         {
             try
             {
@@ -259,6 +262,53 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                     device.SysQuantity = device.RealQty;
 
 
+                    Entities.Product product = db.Products.FirstOrDefault(p => p.ProductName == sproduct);
+                    Entities.Model model = db.Models.FirstOrDefault(p => p.ModelName == smodel);
+                    Entities.Station station = db.Stations.FirstOrDefault(p => p.StationName == sstation);
+                    Entities.Group group = db.Groups.FirstOrDefault(p => p.GroupName == sgroup);
+                    Entities.Vendor vendor = db.Vendors.FirstOrDefault(p => p.VendorName == svendor);
+
+
+                    // Add & Create Product
+                    if (product == null)
+                    {
+                        product = new Entities.Product { ProductName = sproduct };
+                        db.Products.Add(product);
+                    }
+                    device.IdProduct = product.Id;
+
+                    // Add & Create Model
+                    if (model == null)
+                    {
+                        model = new Entities.Model { ModelName = smodel };
+                        db.Models.Add(model);
+                    }
+                    device.IdModel = model.Id;
+
+                    // Add & Create Station
+                    if (station == null)
+                    {
+                        station = new Entities.Station { StationName = sstation };
+                        db.Stations.Add(station);
+                    }
+                    device.IdStation = station.Id;
+
+                    // Add & Create Group
+                    if (group == null)
+                    {
+                        group = new Entities.Group { GroupName = sgroup };
+                        db.Groups.Add(group);
+                    }
+                    device.IdGroup = group.Id;
+
+                    // Add & Create Vendor
+                    if (vendor == null)
+                    {
+                        vendor = new Entities.Vendor { VendorName = svendor };
+                        db.Vendors.Add(vendor);
+                    }
+                    device.IdVendor = vendor.Id;
+
                     // Layout
                     List<DeviceWarehouseLayout> deviceWarehouseLayouts = db.DeviceWarehouseLayouts.Where(dl => dl.IdDevice == device.Id).ToList();
                     db.DeviceWarehouseLayouts.RemoveRange(deviceWarehouseLayouts);
@@ -280,13 +330,6 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
 
                     db.Devices.AddOrUpdate(device);
                     db.SaveChanges();
-
-                    //Task SaveLog = Task.Run(() =>
-                    //{
-                    //    Entities.User user = (Entities.User)Session["SignSession"];
-                    //    string path = Server.MapPath("/Areas/NVIDIA/Data/DeviceHistoryLog");
-                    //    Data.Common.SaveDeviceHistoryLog(user, afterDevice, device, path);
-                    //});
 
                     return Json(new { status = true, device });
                 }

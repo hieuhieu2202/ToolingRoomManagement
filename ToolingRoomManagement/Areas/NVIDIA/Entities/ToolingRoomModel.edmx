@@ -69,6 +69,7 @@
           <Property Name="DeliveryTime" Type="nvarchar" MaxLength="50" />
           <Property Name="SysQuantity" Type="int" />
           <Property Name="MinQty" Type="int" />
+          <Property Name="POQty" Type="int" />
         </EntityType>
         <EntityType Name="DeviceBOM">
           <Key>
@@ -1080,6 +1081,7 @@
           <Property Name="DeliveryTime" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="SysQuantity" Type="Int32" />
           <Property Name="MinQty" Type="Int32" />
+          <Property Name="POQty" Type="Int32" />
         </EntityType>
         <Association Name="FK_Device_Group">
           <End Type="ToolingRoomModel.Group" Role="Group" Multiplicity="0..1" />
@@ -1650,6 +1652,7 @@
           <EntitySetMapping Name="Devices">
             <EntityTypeMapping TypeName="ToolingRoomModel.Device">
               <MappingFragment StoreEntitySet="Device">
+                <ScalarProperty Name="POQty" ColumnName="POQty" />
                 <ScalarProperty Name="MinQty" ColumnName="MinQty" />
                 <ScalarProperty Name="SysQuantity" ColumnName="SysQuantity" />
                 <ScalarProperty Name="DeliveryTime" ColumnName="DeliveryTime" />

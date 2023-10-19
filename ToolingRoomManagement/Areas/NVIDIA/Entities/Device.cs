@@ -47,6 +47,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Entities
         public string DeliveryTime { get; set; }
         public Nullable<int> SysQuantity { get; set; }
         public Nullable<int> MinQty { get; set; }
+        public Nullable<int> POQty { get; set; }
     
         public virtual Group Group { get; set; }
         public virtual Model Model { get; set; }

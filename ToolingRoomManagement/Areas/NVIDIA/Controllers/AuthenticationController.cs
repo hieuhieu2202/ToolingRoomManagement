@@ -2,6 +2,7 @@
 using System;
 using System.CodeDom;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Net.Http;
 using System.Security.Cryptography;
@@ -18,10 +19,6 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
     public class AuthenticationController : Controller
     {        
         // GET: NVIDIA/Authentication
-        public ActionResult Index()
-        {
-            return View();
-        }
 
         // SignIn
         public ActionResult SignIn()
@@ -107,6 +104,60 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
             }
         }
 
+        // SignIn SmartOffice
+        [HttpGet]
+        public ActionResult SignInSmartOffice(string Link)
+        {
+            try
+            {
+                if (Request.Cookies["SmartOfficeMessage"] != null)
+                {
+                    Response.Cookies["SmartOfficeMessage"].Expires = DateTime.Now.AddDays(-1);
+                }
+
+                return Redirect(Link);
+            }
+            catch (Exception ex)
+            {
+                return Json(new {status = false, message = ex.Message}, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+
+        public ActionResult Callback()
+        {
+            try
+            {
+                string code = Request.Params["code"];
+
+                var handler = new JwtSecurityTokenHandler();
+                var jwtSecurityToken = handler.ReadJwtToken(code);
+
+                var username = jwtSecurityToken.Claims.FirstOrDefault(x => x.Type == "username").Value;
+                Session["OauthCode"] = code;
+                using(ToolingRoomEntities db = new ToolingRoomEntities())
+                {
+                    var user = db.Users.FirstOrDefault(u => u.Username == username);
+                    if(user != null)
+                    {
+                        SignIn(user.Username, user.Password, false);
+                        return RedirectToAction("Index", "Dashboard", "NVIDIA");
+                    }
+                    else
+                    {
+                        AddOrUpdateCookieValue("SmartOfficeMessage", "Please Sign Up and Contact us to Active your account.", 1);
+                        return RedirectToAction("SignIn", "Authentication", "NVIDIA");
+                    }
+                    
+                }
+                
+            }
+            catch (Exception ex)
+            {
+                AddOrUpdateCookieValue("SmartOfficeMessage", ex.Message, 1);
+                return RedirectToAction("SignIn", "Authentication", "NVIDIA");
+            }
+        }
         // SignOut
         [HttpPost]
         public JsonResult SignOut()
@@ -273,6 +324,19 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                     builder.Append(hashedBytes[i].ToString("x2"));
                 }
                 return builder.ToString();
+            }
+        }
+        public void AddOrUpdateCookieValue(string cookieName, string cookieValue, int expireDays)
+        {
+            if (!string.IsNullOrEmpty(cookieValue))
+            {
+                HttpCookie cookie = Request.Cookies[cookieName];
+
+                if (cookie == null) cookie = new HttpCookie(cookieName);
+
+                cookie.Value = cookieValue;
+                cookie.Expires = DateTime.Now.AddDays(expireDays);
+                Response.Cookies.Add(cookie);
             }
         }
     }
