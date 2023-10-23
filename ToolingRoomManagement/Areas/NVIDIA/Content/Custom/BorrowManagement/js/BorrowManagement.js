@@ -170,18 +170,15 @@ function CreateModal(borrow) {
     $('div[checkType]').show();
     $('label[typeName]').html('Date Borrow');
     if (borrow.Type == 'Return') {
-        $('#borrow_modal-title').text('Return Request Details');
-        $('#borrow_modal-name').text('RETURN REQUEST');
+        $('#borrow_modal-title').text('Return Device Request Details');
     }
     else if (borrow.Type == 'Take') {
         $('#borrow_modal-title').text('Take Device Request Details');
-        $('#borrow_modal-name').text('TAKE DEVICE REQUEST');
         $('div[checkType]').hide();
         $('label[typeName]').html('Date');
     }
     else {
-        $('#borrow_modal-title').text('Borrow Request Details');
-        $('#borrow_modal-name').text('BORROW REQUEST');
+        $('#borrow_modal-title').text('Borrow Device Request Details');
     }
 
     $('#borrow_modal-table-tbody').empty();
@@ -265,7 +262,7 @@ function CreateModal(borrow) {
                                 <div class="card-body">
                                     <div class="float-end">${date === 'Invalid date' ? '' : date}</div>
                                     <label class="mb-3"><span class="badge bg-${title.color}"><i class="fa-solid fa-${title.icon}"></i> ${title.text}</span></label>
-                                    <label class="mb-3">${span}</label>
+                                    <!--<label class="mb-3">${span}</label>-->
                                     <p class="card-text mb-1">${username}</p>
                                     <p class="card-text mb-1">${bs.User.Email || ''}</p>
                                     <button class="btn btn-sm btn-outline-secondary collapsed ${title.text == null ? 'd-none' : title.text != 'Rejected' ? 'd-none' : ''}" type="button" data-bs-target="#details_${k}" data-bs-toggle="collapse" aria-expanded="false">Show Details ▼</button>

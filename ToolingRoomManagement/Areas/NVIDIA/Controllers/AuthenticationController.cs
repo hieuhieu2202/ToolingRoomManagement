@@ -120,7 +120,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                     var user = db.Users.FirstOrDefault(u => u.Username == username);
                     if(user != null)
                     {
-                        SignIn(user.Username, user.Password, false);
+                        SignIn(user.Username, user.Password, true);
                         return RedirectToAction("Index", "Dashboard", "NVIDIA");
                     }
                     else

@@ -252,13 +252,19 @@ function CreateModal(borrow) {
 
     $('#borrow_modal-Note').html(`<p>${borrow.Note}</p>`);
 
+    $('div[typeCheck]').show();
+    $('label[typeName]').html('Date Borrow');
     if (borrow.Type == 'Return') {
-        $('#borrow_modal-title').text('Return Request Details');
-        $('#borrow_modal-name').text('RETURN REQUEST');
+        $('#borrow_modal-title').text('Return Device Request Details');
+    }
+    else if (borrow.Type == 'Take') {
+        $('#borrow_modal-title').text('Take Device Request Details');
+
+        $('div[typeCheck]').hide();
+        $('label[typeName]').html('Date');
     }
     else {
-        $('#borrow_modal-title').text('Borrow Request Details');
-        $('#borrow_modal-name').text('BORROW REQUEST');
+        $('#borrow_modal-title').text('Borrow Device Request Details');
     }
 
     $('#borrow_modal-table-tbody').empty();
@@ -268,12 +274,16 @@ function CreateModal(borrow) {
         var deviceName = item.Device.DeviceName ? item.Device.DeviceName : '';
         var deviceModel = item.Device.Model ? item.Device.Model.ModelName : '';
         var deviceStation = item.Device.Station ? item.Device.Station.StationName : '';
+        var deviceSpecification = item.Device.Specification ? item.Device.Specification : '';
+        var deviceUnit = item.Device.deviceUnit ? item.Device.deviceUnit : '';
 
         var row = $('<tr></tr>');
         row.append(`<td>${deviceCode}</td>`);
         row.append(`<td>${deviceName}</td>`);
+        row.append(`<td>${deviceSpecification}</td>`);
         row.append(`<td>${deviceModel}</td>`);
         row.append(`<td>${deviceStation}</td>`);
+        row.append(`<td class="text-center">${deviceUnit}</td>`);
         row.append(`<td class="text-center">${borrowQty}</td>`);
 
         $('#borrow_modal-table-tbody').append(row);
@@ -297,6 +307,26 @@ function CreateModal(borrow) {
             bot: (k === 0 && borrow.UserBorrowSigns.length === 1) ? '' : 'border-end'
         };
 
+        var span = '';
+        switch (bs.Type) {
+            case "Borrow": {
+                span = `<span class="badge bg-primary"><i class="fa-solid fa-left-to-line"></i> Borrow</span>`;
+                break;
+            }
+            case "Take": {
+                span = `<span class="badge bg-secondary"><i class="fa-regular fa-inbox-full"></i> Take</span>`;
+                break;
+            }
+            case "Return": {
+                span = `<span class="badge bg-info"><i class="fa-solid fa-right-to-line"></i> Return</span>`;
+                break;
+            }
+            default: {
+                span = `<td><span class="badge bg-secondary">N/A</span></td>`;
+                break;
+            }
+        }
+
         var lineDot = `<div class="col-sm-1 text-center flex-column d-none d-sm-flex">
                            <div class="row h-50">
                                <div class="col ${line.top}">&nbsp;</div>
@@ -318,7 +348,7 @@ function CreateModal(borrow) {
                                 <div class="card-body">
                                     <div class="float-end">${date === 'Invalid date' ? '' : date}</div>
                                     <label class="mb-3"><span class="badge bg-${title.color}"><i class="fa-solid fa-${title.icon}"></i> ${title.text}</span></label>
-                                    <label class="mb-3">${bs.Type == 'Borrow' ? '<span class="badge bg-primary"><i class="fa-solid fa-left-to-line"></i> Borrow</span>' : '<span class="badge bg-info"><i class="fa-solid fa-right-to-line"></i> Return</span>'}</label>
+                                    <!--<label class="mb-3">${span}</label>-->
                                     <p class="card-text mb-1">${username}</p>
                                     <p class="card-text mb-1">${bs.User.Email || ''}</p>
                                     <button class="btn btn-sm btn-outline-secondary collapsed ${title.text == null ? 'd-none' : title.text != 'Rejected' ? 'd-none' : ''}" type="button" data-bs-target="#details_${k}" data-bs-toggle="collapse" aria-expanded="false">Show Details ▼</button>

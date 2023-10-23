@@ -588,7 +588,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                         IdUser = SignProcess[i],
                         IdBorrow = borrow.Id,
                         SignOrder = i,
-                        Type = "Borrow"
+                        Type = "Take"
                     };
                     if (i == 0)
                     {
