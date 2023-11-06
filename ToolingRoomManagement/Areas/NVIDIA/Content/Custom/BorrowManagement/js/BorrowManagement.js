@@ -46,7 +46,9 @@ async function CreateTableBorrow(borrows) {
     $('#table_Borrows-tbody').html('');
     await $.each(borrows, function (no, item) {
         var row = $(`<tr class="align-middle" data-id="${item.Id}" title="Double-click to view device details."></tr>`);
-       
+
+        // ID
+        row.append(`<td>${moment(item.DateBorrow).format('YYYYMMDDHHmm')}-${item.Id}</td>`);
         // Created By
         row.append(CreateTableCellUser(item.User));
         // Created Date
@@ -108,11 +110,11 @@ async function CreateTableBorrow(borrows) {
     const options = {
         scrollY: 480,
         scrollX: true,
-        order: [1],
+        order: [2],
         autoWidth: false,
         columnDefs: [            
-            { targets: [5, 6], className: "text-center" },
-            { targets: [7], className: "text-center", orderable: false, width: '20px;' },
+            { targets: [6, 7], className: "text-center" },
+            { targets: [8], className: "text-center", orderable: false, width: '20px;' },
             { targets: "_all", orderable: true },
         ],
         "lengthMenu": [[10, 15, 25, 50, -1], [10, 15, 25, 50, "All"]]
@@ -182,25 +184,28 @@ function CreateModal(borrow) {
     }
 
     $('#borrow_modal-table-tbody').empty();
+
     $.each(borrow.BorrowDevices, function (k, item) {
-        var borrowQty = item.BorrowQuantity ? item.BorrowQuantity : '';
-        var deviceCode = item.Device.DeviceCode ? item.Device.DeviceCode : '';
-        var deviceName = item.Device.DeviceName ? item.Device.DeviceName : '';
-        var deviceModel = item.Device.Model ? item.Device.Model.ModelName : '';
-        var deviceStation = item.Device.Station ? item.Device.Station.StationName : '';
-        var deviceSpecification = item.Device.Specification ? item.Device.Specification : '';
-        var deviceUnit = item.Device.deviceUnit ? item.Device.deviceUnit : '';
+        if (item.Device != null) {
+            var borrowQty = item.BorrowQuantity ? item.BorrowQuantity : '';
+            var deviceCode = item.Device ? item.Device.DeviceCode ? item.Device.DeviceCode : 'N/A' : '';
+            var deviceName = item.Device ? item.Device.DeviceName ? item.Device.DeviceName : 'N/A' : '';
+            var deviceModel = item.Device.Model ? item.Device.Model.ModelName : '';
+            var deviceStation = item.Device.Station ? item.Device.Station.StationName : '';
+            var deviceSpecification = item.Device.Specification ? item.Device.Specification : '';
+            var deviceUnit = item.Device.deviceUnit ? item.Device.deviceUnit : '';
 
-        var row = $('<tr></tr>');
-        row.append(`<td>${deviceCode}</td>`);
-        row.append(`<td>${deviceName}</td>`);
-        row.append(`<td>${deviceSpecification}</td>`);
-        row.append(`<td>${deviceModel}</td>`);
-        row.append(`<td>${deviceStation}</td>`);
-        row.append(`<td class="text-center">${deviceUnit}</td>`);
-        row.append(`<td class="text-center">${borrowQty}</td>`);
+            var row = $('<tr></tr>');
+            row.append(`<td>${deviceCode}</td>`);
+            row.append(`<td>${deviceName}</td>`);
+            row.append(`<td>${deviceSpecification}</td>`);
+            row.append(`<td>${deviceModel}</td>`);
+            row.append(`<td>${deviceStation}</td>`);
+            row.append(`<td class="text-center">${deviceUnit}</td>`);
+            row.append(`<td class="text-center">${borrowQty}</td>`);
 
-        $('#borrow_modal-table-tbody').append(row);
+            $('#borrow_modal-table-tbody').append(row);
+        }      
     });
 
     $('#sign-container').empty();

@@ -34,6 +34,7 @@ $(function () {
     $('#UserAvatar').attr("src", GenerateAvatar(textUsername));
 });
 
+
 //Draw avatar
 function GenerateAvatar(text, foregroundColor = "white", backgroundColor = "black") {
     var stringText = text.charAt(0);
@@ -59,14 +60,19 @@ function GenerateAvatar(text, foregroundColor = "white", backgroundColor = "blac
 }
 //Get cookies
 function GetCookieValue(name, item) {
-    const cookieValue = decodeURIComponent(document.cookie).split(';').find(cookie => cookie.trim().startsWith(name + '='));
-    let value = null;
-    $.each(cookieValue.split('&'), function (k, v) {
-        if (v.includes(item)) {
-            value = GetText(v, item + '=', '').toString();
-        }
-    });
-    return value;
+    try {
+        const cookieValue = decodeURIComponent(document.cookie).split(';').find(cookie => cookie.trim().startsWith(name + '='));
+        let value = null;
+        $.each(cookieValue.split('&'), function (k, v) {
+            if (v.includes(item)) {
+                value = GetText(v, item + '=', '').toString();
+            }
+        });
+        return value;
+    } catch {
+        return "";
+    }
+    
 }
 //Get Text
 function GetText(Input, Start, End) {
@@ -129,3 +135,113 @@ function CreateUserName(user) {
 
     return username;
 }
+
+
+// mutil language
+$(document).ready(function () {
+    InitI18next();
+});
+function InitI18next() {
+    function loadTranslation(language) {
+        return new Promise(function (resolve, reject) {
+            $.getJSON('/Areas/NVIDIA/Content/Custom/language/' + language + '.json')
+                .done(function (data) {
+                    resolve(data);
+                })
+                .fail(function (error) {
+                    reject(error);
+                });
+        });
+    }
+
+    Promise.all([loadTranslation('vi'), loadTranslation('en')])
+        .then(function (translations) {
+
+            var lang = getDefaultLanguage();
+
+            i18next.init({
+                lng: lang,
+                debug: false,
+                fallbackLng: 'en',
+                resources: {
+                    vi: {
+                        translation: translations[0],
+                    },
+                    en: {
+                        translation: translations[1],
+                    },
+                },
+                detection: {
+                    order: ['querystring', 'cookie', 'localStorage', 'navigator', 'htmlTag', 'path', 'subdomain'],
+                },
+            });
+
+            UpdateLanguageText();
+        })
+        .catch(function (error) {
+            console.error('Failed to load translations:', error);
+        });
+}
+function ChangeLanguage(language) {
+
+    var thisLang = localStorage.getItem('language');
+    if (language === thisLang) {
+        return;
+    }
+    else {
+        i18next.changeLanguage(language, function (err, t) {
+            if (err) {
+                Swal.fire('Sorry, something went wrong!', err, 'error');
+            }
+            else {
+                localStorage.setItem('language', language);
+                UpdateLanguageText();
+            }
+        });
+    }
+}
+function UpdateLanguageText() {
+    $('[data-i18n]').each(function () {
+        var key = $(this).data('i18n');
+
+        if (key.includes('[plh]')) {
+            key = key.replace(/\[plh\]/g, '');
+            const text = i18next.t(key);
+
+            $(this).attr("placeholder", text);
+        }
+        else {
+            const text = i18next.t(key);
+            $(this).html(text);
+        }
+    });
+}
+function getDefaultLanguage() {
+    const storedLanguage = localStorage.getItem('language');
+
+    if (storedLanguage == 'vi') {
+        var select = $('#select_language').prev();
+        select.html('<i class="fi fi-vn"></i>');
+        return storedLanguage;
+    }
+    else if (storedLanguage == 'en') {
+        var select = $('#select_language').prev();
+        select.html('<i class="fi fi-gb"></i>');
+        return storedLanguage;
+    }
+    else if (storedLanguage == null) {
+        var select = $('#select_language').prev();
+        select.html('<i class="fi fi-gb"></i>');
+        return 'en';
+    }
+}
+$('#select_language a').click(function (e) {
+    e.preventDefault();
+
+    var lang = $(this).data('lang');
+    var icon = $(this).find('i').clone();
+    var select = $('#select_language').prev();
+    select.html(icon);
+
+    ChangeLanguage(lang);
+});

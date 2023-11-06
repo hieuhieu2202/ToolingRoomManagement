@@ -16,6 +16,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Data
 {
     public class Common
     {
+
         // CheckStatus
         public static string CheckStatus(Entities.Device device)
         {

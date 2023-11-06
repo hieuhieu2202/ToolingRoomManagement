@@ -5,7 +5,7 @@
 
     const errorMessage = CheckErrorCookie("SmartOfficeMessage");
     if (errorMessage != null) {
-        Swal.fire('Sorry, something went wrong!', errorMessage, 'error');
+        Swal.fire(i18next.t('global.swal_title'), errorMessage, 'error');
     }
 
 };
@@ -78,11 +78,11 @@ $('#SignIn').on('click', function (e) {
                 window.location.href = response.redirectTo;
             }
             else {
-                Swal.fire('Sorry, something went wrong!', response.message, 'error');
+                Swal.fire(i18next.t('global.swal_title'), response.message, 'error');
             }
         },
         error: function (error) {
-            Swal.fire('Sorry, something went wrong!', GetAjaxErrorMessage(error), 'error');
+            Swal.fire(i18next.t('global.swal_title'), GetAjaxErrorMessage(error), 'error');
         }
     });
 });

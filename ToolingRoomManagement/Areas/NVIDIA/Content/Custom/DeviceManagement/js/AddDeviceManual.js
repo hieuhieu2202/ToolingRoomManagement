@@ -46,7 +46,7 @@ function GetSelectData() {
             }
         },
         error: function (error) {
-            Swal.fire("Something went wrong!", GetAjaxErrorMessage(error), "error");
+            Swal.fire(i18next.t('global.swal_title'), GetAjaxErrorMessage(error), "error");
         }
     });
 }
@@ -77,7 +77,7 @@ function GetDevicesBOM() {
             }
         },
         error: function (error) {
-            Swal.fire("Something went wrong!", GetAjaxErrorMessage(error), "error");
+            Swal.fire(i18next.t('global.swal_title'), GetAjaxErrorMessage(error), "error");
         }
     });
 }
@@ -153,14 +153,14 @@ $('#AddDeviceManual').on('click', function (e) {
         contentType: false,
         success: function (response) {
             if (response.status) {
-                toastr["success"]("Add new device success.", "SUCCRESS");
+                toastr["success"](i18next.t('device.new_device.manual.add_device_success'), "SUCCRESS");
             }
             else {
                 toastr["error"](response.message, "ERROR");
             }
         },
         error: function (error) {
-            Swal.fire("Something went wrong!", GetAjaxErrorMessage(error), "error");
+            Swal.fire(i18next.t('global.swal_title'), GetAjaxErrorMessage(error), "error");
         }
     });
 });
@@ -244,11 +244,11 @@ function GetWarehouseLayouts(IdWarehouse) {
                 WarehouseLayouts = response.layouts;
             }
             else {
-                Swal.fire("Something went wrong!", response.message, "error");
+                Swal.fire(i18next.t('global.swal_title'), response.message, "error");
             }
         },
         error: function (error) {
-            Swal.fire("Something went wrong!", GetAjaxErrorMessage(error), "error");
+            Swal.fire(i18next.t('global.swal_title'), GetAjaxErrorMessage(error), "error");
         }
     });
 }

@@ -6,7 +6,6 @@
     <edmx:Diagrams>
       <Diagram DiagramId="5c3a8314d1c746b884fac96c30e5a025" Name="Diagram1" ZoomLevel="82">
         <EntityTypeShape EntityType="ToolingRoomModel.Product" Width="1.5" PointX="5.125" PointY="12.125" IsExpanded="false" />
-        <EntityTypeShape EntityType="ToolingRoomModel.Department" Width="1.5" PointX="5.25" PointY="1.375" IsExpanded="false" />
         <EntityTypeShape EntityType="ToolingRoomModel.Group" Width="1.5" PointX="5.125" PointY="11.625" IsExpanded="false" />
         <EntityTypeShape EntityType="ToolingRoomModel.Model" Width="1.5" PointX="5.125" PointY="12.625" IsExpanded="false" />
         <EntityTypeShape EntityType="ToolingRoomModel.Role" Width="1.5" PointX="9.5" PointY="1.375" IsExpanded="false" />
@@ -15,7 +14,6 @@
         <EntityTypeShape EntityType="ToolingRoomModel.UserDepartment" Width="1.5" PointX="5.25" PointY="0.5" IsExpanded="false" />
         <EntityTypeShape EntityType="ToolingRoomModel.UserRole" Width="1.5" PointX="9.5" PointY="0.5" IsExpanded="false" />
         <EntityTypeShape EntityType="ToolingRoomModel.Vendor" Width="1.5" PointX="5.125" PointY="11.125" IsExpanded="false" />
-        <AssociationConnector Association="ToolingRoomModel.FK_UserDepartment_Department" />
         <AssociationConnector Association="ToolingRoomModel.FK_UserRole_Role" />
         <AssociationConnector Association="ToolingRoomModel.FK_UserDepartment_User" />
         <AssociationConnector Association="ToolingRoomModel.FK_UserRole_User" />
@@ -56,12 +54,15 @@
         <AssociationConnector Association="ToolingRoomModel.FK_DeviceUnconfirm_Station" />
         <AssociationConnector Association="ToolingRoomModel.FK_DeviceUnconfirm_Vendor" />
         <AssociationConnector Association="ToolingRoomModel.FK_DeviceUnconfirm_Warehouse" ManuallyRouted="true" >
-          <ConnectorPoint PointX="7.375" PointY="8.1436979166666656" />
-          <ConnectorPoint PointX="7.21165" PointY="65.270040571884024" />
+          <ConnectorPoint PointX="7.375" PointY="6.3856104432457448" />
           <ConnectorPoint PointX="7.21165" PointY="6.5571907552083317" />
+          <ConnectorPoint PointX="7.083333333333333" PointY="6.5571907552083308" />
+          <ConnectorPoint PointX="6.916666666666667" PointY="6.5571907552083317" />
           <ConnectorPoint PointX="2.125" PointY="6.5571907552083317" />
           <ConnectorPoint PointX="2.125" PointY="9.375" />
         </AssociationConnector>
+        <EntityTypeShape EntityType="ToolingRoomModel.Department" Width="1.5" PointX="5.25" PointY="1.25" IsExpanded="false" />
+        <AssociationConnector Association="ToolingRoomModel.FK_UserDepartment_Department" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

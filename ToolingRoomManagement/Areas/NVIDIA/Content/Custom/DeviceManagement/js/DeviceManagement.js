@@ -14,22 +14,24 @@ async function CreateTableAddDevice(devices) {
 
         // 0 ID
         row.append(`<td>${item.Id}</td>`);
+        // 0 ID
+        row.append(`<td>${(item.Product) ? item.Product.MTS ? item.Product.MTS : "N/A" : "N/A"}</td>`);
         // 1 Product Name
-        row.append(`<td title="${(item.Product) ? item.Product.ProductName : ""}">${(item.Product) ? item.Product.ProductName : ""}</td>`);
+        row.append(`<td>${(item.Product) ? (item.Product.ProductName != "" ? item.Product.ProductName : "N/A") : "N/A"}</td>`);
         // 2 Model
-        row.append(`<td>${(item.Model) ? item.Model.ModelName : ""}</td>`);
+        row.append(`<td>${(item.Model) ? (item.Model.ModelName != "" ? item.Model.ModelName : "N/A") : "N/A"}</td>`);
         // 3 Station
-        row.append(`<td>${(item.Station) ? item.Station.StationName : ""}</td>`);
+        row.append(`<td>${(item.Station) ? (item.Station.StationName != "" ? item.Model.ModelName : "N/A") : "N/A"}</td>`);
         // 4 DeviceCode - PN
-        row.append(`<td data-id="${item.Id}" data-code="${item.DeviceCode}" title="${item.DeviceCode}">${item.DeviceCode}</td>`);
+        row.append(`<td data-id="${item.Id}" data-code="${item.DeviceCode}" title="${item.DeviceCode}">${item.DeviceCode ? item.DeviceCode : "N/A"}</td>`);
         // 5 DeviceName
-        row.append(`<td title="${item.DeviceName}">${item.DeviceName}</td>`);
+        row.append(`<td title="${item.DeviceName}">${item.DeviceName != "" ? item.DeviceName : "N/A"}</td>`);
         // 6 Group
-        row.append(`<td>${(item.Group) ? item.Group.GroupName : ""}</td>`);
+        row.append(`<td>${(item.Group) ? (item.Group.GroupName != "" ? item.Group.GroupName : "N/A") : "N/A"}</td>`);
         // 7 Vendor
-        row.append(`<td title="${(item.Vendor) ? item.Vendor.VendorName : ""}">${(item.Vendor) ? item.Vendor.VendorName : ""}</td>`);
+        row.append(`<td>${(item.Vendor) ? (item.Vendor.VendorName != "" ? item.Vendor.VendorName : "N/A") : "N/A"}</td>`);
         // 8 Specification
-        row.append(`<td title="${item.Specification}">${(item.Specification) ? item.Specification : ""}</td>`);
+        row.append(`<td>${(item.Specification) ? (item.Specification != "NA" ? item.Specification : "N/A") : "N/A"}</td>`);
         // 9 Location 
         var html = ''
         var title = ''
@@ -38,7 +40,7 @@ async function CreateTableAddDevice(devices) {
             html += `<lable>${layout.Line}${layout.Cell ? ' - ' + layout.Cell : ''}${layout.Floor ? ' - ' + layout.Floor : ''}</lable>`;
             title += `[${layout.Line}${layout.Cell ? ' - ' + layout.Cell : ''}${layout.Floor ? ' - ' + layout.Floor : ''}],`;
         });
-        row.append(`<td title="${title}">${html}</td>`);
+        row.append(`<td title="${title}">${html != "" ? html : "N/A"}</td>`);
         // 10 Buffer
         row.append(`<td title="${item.Buffer}">${item.Buffer * 100}%</td>`);
         // 11 BOM Quantity
@@ -111,6 +113,23 @@ async function CreateTableAddDevice(devices) {
                         <a href="javascript:;" class="text-warning bg-light-warning border-0" title="Edit   " data-id="${item.Id}" onclick="Edit(this, event)   "><i class="fa-duotone fa-pen"></i></a>
                         <a href="javascript:;" class="text-danger  bg-light-danger  border-0" title="Delete " data-id="${item.Id}" onclick="Delete(this, event) "><i class="fa-duotone fa-trash"></i></a>
                     </td>`);
+        row.append(`<td>${item.MinQty ? item.MinQty : 0}</td>`);
+        row.append(`<td>${(item.QtyConfirm) - (item.RealQty)}</td>`);
+
+        const riskValue = item.RealQty / item.QtyConfirm;
+
+        let riskCategory;
+
+        if (riskValue <= item.Buffer) {
+            riskCategory = 'High';
+        } else if (riskValue > item.Buffer && riskValue <= 0.7) {
+            riskCategory = 'Mid';
+        } else {
+            riskCategory = 'Low';
+        }
+
+        row.append(`<td>${riskCategory}</td>`);
+        row.append(`<td>${item.LifeCycle}</td>`);
 
         $('#table_Devices_tbody').append(row);
     });
@@ -122,17 +141,40 @@ async function CreateTableAddDevice(devices) {
         autoWidth: false,
         columnDefs: [
             { targets: "_all", orderable: false },
-            { targets: [10, 11, 12, 13, 14, 15, 16, 17, 18, 19], className: "text-center" },
-            { targets: [19], className: "text-center", width: '120px' },
-            { targets: [0, 1, 2, 3, 6, 7, 8], visible: false },
+            { targets: [11, 12, 13, 14, 15, 16, 17, 18, 19, 20], className: "text-center" },
+            { targets: [20], className: "text-center", width: '120px' },
+            { targets: [0, 1, 2, 3, 4, 7, 8, 9, 21, 22, 23, 24], visible: false },
         ],
         "lengthMenu": [[10, 15, 25, 50, -1], [10, 15, 25, 50, "All"]],
-        dom: "<'row'<'col-sm-12 col-md-1'B><'col-sm-12 col-md-2'l><'col-sm-12 col-md-9'f>>" +
+        dom: "<'row'<'w-auto'B><'col-sm-12 col-md'l><'col-sm-12 col-md'f>>" +
             "<'row'<'col-sm-12'tr>>" +
             "<'row'<'col-sm-12 col-md-7'i><'col-sm-12 col-md-5'p>>",
         buttons: [{
-            extend: 'excelHtml5',
+            text: 'Export Excel',
+            extend: 'excel',
+            exportOptions: {
+                columns: [1, 2, 5, 6, 11, 14, 15, 24, 21, 22, 23]
+            },
+            customize: function (xlsx) {
+                $('sheets sheet', xlsx.xl['workbook.xml']).attr('name', 'Devices');
+            }
+        },
+        {
+            text: 'Inventory',
+            action: function (e, dt, button, config) {
+                var input = $('<input type="file">');
+                input.on('change', function () {
+                    var file = this.files[0];
+                    
+                    sendFile(file);
+
+                });
+                input.click();
+
+
+            }
         }]
+
     };
     tableDeviceInfo = $('#table_Devices').DataTable(options);
     tableDeviceInfo.columns.adjust();
@@ -141,8 +183,59 @@ $(".toggle-icon").click(function () {
     setTimeout(() => {
         tableDeviceInfo.columns.adjust();
     }, 310);
-    
+
 });
+
+function sendFile(file) {
+    const formData = new FormData();
+    formData.append('file', file);
+
+    Pace.on('progress', function (progress) {
+        var cal = progress.toFixed(2);
+        $('#process_count').text(`${cal}%`);
+        $('#process_bar').css('width', `${cal}%`);
+    });
+    Pace.track(function () {
+        $.ajax({
+            url: "/NVIDIA/DeviceManagement/UploadFile",
+            data: formData,
+            type: "POST",
+            processData: false,
+            contentType: false,
+            success: function (response) {
+                if (response.status) {
+                    window.location.href = response.url;
+                }
+                else {
+                    Swal.fire('Sorry, something went wrong!', response.message, 'error');
+                }
+            },
+            error: function (error) {
+                Swal.fire('Sorry, something went wrong!', GetAjaxErrorMessage(error), 'error');
+            },
+            complete: function () {
+                // Dừng Pace.js sau khi AJAX request hoàn thành
+                Pace.stop();
+            }
+        });
+    });
+}
+
+// export excel
+function ExportExcel() {
+    $.ajax({
+        url: '/NVIDIA/DeviceManagement/ExportExcel',
+        method: 'POST',
+        contentType: 'application/json',
+        xhrFields: { responseType: 'blob' },
+        success: function (response, status, xhr) {
+            
+        },
+        error: function (error) {
+            Swal.fire("Something went wrong!", GetAjaxErrorMessage(error), "error");
+        }
+    });
+}
 
 // get data device
 var ListDevices;
@@ -327,7 +420,7 @@ function CreateTableHistory(IdDevice, borrows) {
         tr.append($(`<td>${GetQuantityDeviceInBorrow(IdDevice, item.BorrowDevices)}</td>`));
 
         tr.append($(`<td>${item.Status}</td>`));
-        tr.append($(`<td style="max-width: 200px;">${item.Note}</td>`));     
+        tr.append($(`<td style="max-width: 200px;">${item.Note}</td>`));
 
         $('#device_details-history-tbody').append(tr);
 
@@ -538,7 +631,7 @@ function GetSelectData() {
                     let opt = $(`<option value="${item.StationName}"></option>`);
                     $('#device_edit-Station-List').append(opt);
 
-                    let opt1 = $(`<option value="${item.StationName}"></option>`);
+                    let opt1 = $(`<option value="${item.StationName}">${item.StationName}</option>`);
                     $('#filter_Station').append(opt1);
                 });
                 // Group
@@ -881,7 +974,7 @@ async function FillEditDeviceData(data) {
     $('#device_edit-DeviceName').val(data.device.DeviceName);
     $('#device_edit-Specification').val(data.device.Specification);
     $('#device_edit-DeviceDate').val(moment(data.device.DeviceDate).format('YYYY-MM-DD HH:mm'));
-    
+
     $('#device_edit-Buffer').val(data.device.Buffer * 100);
     $('#device_edit-LifeCycle').val(data.device.LifeCycle);
     $('#device_edit-Forcast').val(data.device.Forcast);
@@ -994,7 +1087,7 @@ function GetModalData() {
         Unit: $('#device_edit-Unit').val(),
 
         DeviceDate: $('#device_edit-DeviceDate').val(),
-        
+
         Buffer: parseInt($('#device_edit-Buffer').val()) / 100,
         LifeCycle: $('#device_edit-LifeCycle').val(),
         Forcast: $('#device_edit-Forcast').val(),
@@ -1090,25 +1183,25 @@ $('#filter').on('click', function (e) {
     tableDeviceInfo.columns().search('').draw();
 
     if (filter_Product !== "Product" && filter_Product !== null && filter_Product !== undefined) {
-        tableDeviceInfo.column(1).search("^" + filter_Product + "$", true, false);
+        tableDeviceInfo.column(2).search("^" + filter_Product + "$", true, false);
     }
     if (filter_Model !== "Model" && filter_Model !== null && filter_Model !== undefined) {
-        tableDeviceInfo.column(2).search("^" + filter_Model + "$", true, false);
+        tableDeviceInfo.column(3).search("^" + filter_Model + "$", true, false);
     }
     if (filter_Station !== "Station" && filter_Station !== null && filter_Station !== undefined) {
-        tableDeviceInfo.column(3).search("^" + filter_Station + "$", true, false);
+        tableDeviceInfo.column(4).search("^" + filter_Station + "$", true, false);
     }
     if (filter_Group !== "Group" && filter_Group !== null && filter_Group !== undefined) {
-        tableDeviceInfo.column(6).search("^" + filter_Group + "$", true, false);
+        tableDeviceInfo.column(5).search("^" + filter_Group + "$", true, false);
     }
     if (filter_Vendor !== "Vendor" && filter_Vendor !== null && filter_Vendor !== undefined) {
-        tableDeviceInfo.column(7).search("^" + filter_Vendor + "$", true, false);
+        tableDeviceInfo.column(6).search("^" + filter_Vendor + "$", true, false);
     }
     if (filter_Type !== "Type" && filter_Type !== null && filter_Type !== undefined) {
-        tableDeviceInfo.column(17).search("^" + filter_Type + "$", true, false);
+        tableDeviceInfo.column(18).search("^" + filter_Type + "$", true, false);
     }
     if (filter_Status !== "Status" && filter_Status !== null && filter_Status !== undefined) {
-        tableDeviceInfo.column(18).search("^" + filter_Status + "$", true, false);
+        tableDeviceInfo.column(19).search("^" + filter_Status + "$", true, false);
     }
 
     tableDeviceInfo.draw();

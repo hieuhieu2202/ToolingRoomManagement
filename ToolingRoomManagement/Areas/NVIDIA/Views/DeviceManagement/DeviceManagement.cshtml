@@ -14,14 +14,14 @@
 
 <!-- Breadcrumb -->
 <div class="page-breadcrumb d-none d-sm-flex align-items-center py-3">
-    <div class="breadcrumb-title pe-3">Management</div>
+    <div class="breadcrumb-title pe-3" data-i18n="device.management.management">Management</div>
     <div class="ps-3">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb mb-0 p-0">
                 <li class="breadcrumb-item">
                     <a href="/NVIDIA/Dashboard"><i class="bx bx-home-alt"></i></a>
                 </li>
-                <li class="breadcrumb-item active" aria-current="page">Device</li>
+                <li class="breadcrumb-item active" aria-current="page"  data-i18n="device.management.device">Device</li>
             </ol>
         </nav>
     </div>
@@ -32,64 +32,64 @@
     <div class="card-body">
         <div class="card-title d-flex justify-content-between align-items-center">
             <div class="d-flex">
-                <h5 class="m-0 me-3">Device Details</h5>
-                <label class="text-secondary">(* Double click to view details)</label>
+                <h5 class="m-0 me-3" data-i18n="device.management.device_details">Device Details</h5>
+                <label class="text-secondary" data-i18n="device.management.table_hint">(* Double click to view details)</label>
             </div>
 
             <div class="w-50 d-flex justify-content-end">
                 <div class="input-group input-group-sm w-50">
-                    <span class="col-5 input-group-text" title="Kho">Warehouse</span>
+                    <span class="col-5 input-group-text" data-i18n="device.management.warehouse">Warehouse</span>
                     <select class="col-7 form-select form-select-sm" id="input_WareHouse"></select>
                 </div>
 
                 <div class="dropdown ms-3" id="dropdown_filter">
-                    <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" title="Lọc và tìm kiếm"><i class="bx bx-filter"></i></button>
+                    <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bx bx-filter"></i></button>
                     <div class="dropdown-menu" style="width:600px;">
                         <div class="row">
                             <div class="col-6">
                                 <!--Filter product -->
-                                <div class="input-group input-group-sm mb-3" title="Chọn loại sản phẩm">
-                                    <span class="col-3 input-group-text">Product</span>
+                                <div class="input-group input-group-sm mb-3">
+                                    <span class="col-3 input-group-text" data-i18n="device.management.product">Product</span>
                                     <select class="form-select form-select-sm" id="filter_Product">
-                                        <option value="" selected>Product (All)</option>
+                                        <option value="" selected data-i18n="device.management.product_all">Product (All)</option>
                                     </select>
                                 </div>
                                 <!--Filter model -->
-                                <div class="input-group input-group-sm mb-3" title="Chọn loại model">
-                                    <span class="col-3 input-group-text">Model</span>
+                                <div class="input-group input-group-sm mb-3">
+                                    <span class="col-3 input-group-text" data-i18n="device.management.model">Model</span>
                                     <select class="form-select form-select-sm" id="filter_Model">
-                                        <option value="" selected>Model (All)</option>
+                                        <option value="" selected data-i18n="device.management.model_all">Model (All)</option>
                                     </select>
                                 </div>
                                 <!--Filter station -->
-                                <div class="input-group input-group-sm mb-3" title="Chọn loại trạm">
-                                    <span class="col-3 input-group-text">Station</span>
+                                <div class="input-group input-group-sm mb-3">
+                                    <span class="col-3 input-group-text" data-i18n="device.management.station">Station</span>
                                     <select class="form-select form-select-sm" id="filter_Station">
-                                        <option value="" selected>Station (All)</option>
+                                        <option value="" selected data-i18n="device.management.station_all">Station (All)</option>
                                     </select>
                                 </div>
                                 <!--Filter group -->
-                                <div class="input-group input-group-sm mb-3" title="Chọn loại nhóm thiết bị">
-                                    <span class="col-3 input-group-text">Group</span>
+                                <div class="input-group input-group-sm mb-3">
+                                    <span class="col-3 input-group-text" data-i18n="device.management.group">Group</span>
                                     <select class="form-select form-select-sm" id="filter_Group">
-                                        <option value="" selected>Group (All)</option>
+                                        <option value="" selected data-i18n="device.management.group_all">Group (All)</option>
                                     </select>
                                 </div>
 
                             </div>
                             <div class="col-6">
                                 <!--Filter Vendor -->
-                                <div class="input-group input-group-sm mb-3" title="Chọn nhà cung ứng">
-                                    <span class="col-3 input-group-text">Vendor</span>
+                                <div class="input-group input-group-sm mb-3">
+                                    <span class="col-3 input-group-text" data-i18n="device.management.vendor">Vendor</span>
                                     <select class="form-select form-select-sm" id="filter_Vendor">
-                                        <option value="" selected>Vendor (All)</option>
+                                        <option value="" selected data-i18n="device.management.vendor_all">Vendor (All)</option>
                                     </select>
                                 </div>
                                 <!--Filter Type -->
-                                <div class="input-group input-group-sm mb-3" title="Chọn loại thiết bị">
-                                    <span class="col-3 input-group-text">Type</span>
+                                <div class="input-group input-group-sm mb-3">
+                                    <span class="col-3 input-group-text" data-i18n="device.management.type">Type</span>
                                     <select class="form-select form-select-sm" id="filter_Type">
-                                        <option value="Type" selected>Type (All)</option>
+                                        <option value="Type" selected data-i18n="device.management.type_all">Type (All)</option>
                                         <option value="N/A">N/A </option>
                                         <option value="Static">Static</option>
                                         <option value="Dynamic">Dynamic</option>
@@ -98,10 +98,10 @@
                                     </select>
                                 </div>
                                 <!--Filter Status -->
-                                <div class="input-group input-group-sm mb-3" title="Chọn trạng thái thiết bị">
-                                    <span class="col-3 input-group-text">Status</span>
+                                <div class="input-group input-group-sm mb-3">
+                                    <span class="col-3 input-group-text" data-i18n="device.management.status">Status</span>
                                     <select class="form-select form-select-sm" id="filter_Status">
-                                        <option value="Status" selected>Status (All)</option>
+                                        <option value="Status" selected data-i18n="device.management.status_all">Status (All)</option>
                                         <option value="Unconfirmed">Unconfirmed</option>
                                         <option value="Part Confirmed">Part Confirmed</option>
                                         <option value="Confirmed">Confirmed</option>
@@ -111,8 +111,8 @@
                                 </div>
                             </div>
                             <div class="col-12 d-flex justify-content-between">
-                                <button class="btn btn-sm btn-primary" style="width: 80%" id="filter" title="Lọc thiết bị"><i class="fa-solid fa-arrow-down-small-big"></i> Filter</button>
-                                <button class="btn btn-sm btn-outline-secondary ms-3" id="filter-refresh" title="Làm mới lọc (Quay về mặc định)"><i class="fa-sharp fa-regular fa-arrows-rotate"></i> Refresh</button>
+                                <button class="btn btn-sm btn-primary" style="width: 80%" id="filter" data-i18n="device.management.filter"><i class="fa-solid fa-arrow-down-small-big"></i> Filter</button>
+                                <button class="btn btn-sm btn-outline-secondary ms-3" id="filter-refresh" data-i18n="device.management.refresh"><i class="fa-sharp fa-regular fa-arrows-rotate"></i> Refresh</button>
                             </div>
                         </div>
                     </div>
@@ -126,45 +126,55 @@
                 <thead>
                     <tr>
                         <!-- 0 -->
-                        <th>System ID</th>
+                        <th>ID</th>
+                        <!-- 0 -->
+                        <th>MTS</th>
                         <!-- 1 -->
-                        <th>Product Name</th>
+                        <th data-i18n="device.management.product_name">Product Name</th>
                         <!-- 2 -->
-                        <th>Model</th>
+                        <th data-i18n="device.management.model">Model</th>
                         <!-- 3 -->
-                        <th>Station</th>
+                        <th data-i18n="device.management.station">Station</th>
                         <!-- 4 -->
-                        <th title="(Mã thiết bị)">PN</th>
+                        <th data-i18n="device.management.pn">PN</th>
                         <!-- 5 -->
-                        <th title="(Tên thiết bị)">Description</th>
+                        <th data-i18n="device.management.description">Description</th>
                         <!-- 6 -->
-                        <th>Group</th>
+                        <th data-i18n="device.management.group">Group</th>
                         <!-- 7 -->
-                        <th>Vendor</th>
+                        <th data-i18n="device.management.vendor">Vendor</th>
                         <!-- 8 -->
-                        <th>Specification</th>
+                        <th data-i18n="device.management.specification">Specification</th>
                         <!-- 9 -->
-                        <th title="(Vị trí)">Location</th>
+                        <th data-i18n="device.management.location">Location</th>
                         <!-- 10 -->
-                        <th title="(Dự phòng - Đơn vị %)">Buffer</th>
+                        <th data-i18n="device.management.buffer">Buffer</th>
                         <!-- 11 -->
-                        <th title="BOM Quantity (Số lượng trong BOM)">BOM Qty</th>
+                        <th data-i18n="device.management.bom_qty">BOM Qty</th>
                         <!-- 12 -->
-                        <th title="PO Quantity (Số lượng đặt mua)">PO Qty</th>
+                        <th data-i18n="device.management.po_qty">PO Qty</th>
                         <!-- 13 -->
-                        <th title="Confirm Quantity (Số lượng đã xác nhận)">Confirm Qty</th>
+                        <th data-i18n="device.management.confirm_qty">Confirm Qty</th>
                         <!-- 14 -->
-                        <th title="Real Quantity (Số lượng thực tế)">Real Qty</th>
+                        <th data-i18n="device.management.real_qty">Real Qty</th>
                         <!-- 15 -->
-                        <th title="Đơn vị tính">Unit</th>
+                        <th data-i18n="device.management.unit">Unit</th>
                         <!-- 16 -->
-                        <th title="Khoảng Thời gian [đặt hàng - nhận hàng]">Lead Time</th>
+                        <th data-i18n="device.management.lead_time">Lead Time</th>
                         <!-- 17 -->
-                        <th title="Loại thiết bị">Type</th>
+                        <th data-i18n="device.management.type"> Type</th>
                         <!-- 18 -->
-                        <th title="Trạng thái thiết bị">Status</th>
+                        <th data-i18n="device.management.status">Status</th>
                         <!-- 19 -->
-                        <th>Action</th>
+                        <th data-i18n="device.management.action">Action</th>
+                        <!-- 19 -->
+                        <th data-i18n="device.management.min_quantity">Default Min Quantity</th>
+                        <!-- 19 -->
+                        <th>GAP</th>
+                        <!-- 19 -->
+                        <th>Risk</th>
+                        <!-- 19 -->
+                        <th data-i18n="device.management.life_cycle">Life Cycle</th>
                     </tr>
                 </thead>
                 <tbody id="table_Devices_tbody">
@@ -179,17 +189,17 @@
     <div class="modal-dialog modal-fullscreen modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="device_edit-title" title="Câp nhật thiết bị">Update Device</h5>
+                <h5 class="modal-title" id="device_edit-title" data-i18n="device.management.update_device">Update Device</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <!-- Details -->
-                <h5 class="font-weight-light text-center text-primary py-3" id="borrow_modal-name" title="Thông tin chi tiết về thiết bị">DEVICE DETAILS</h5>
+                <h5 class="font-weight-light text-center text-primary py-3" id="borrow_modal-name" data-i18n="device.management.device_details" style="text-transform:uppercase">DEVICE DETAILS</h5>
 
                 <!-- Basic Info -->
                 <div class="card">
                     <div class="card-body">
-                        <h6 class="mb-0 text-uppercase" title="Thông tin cơ bản">Basic Information</h6>
+                        <h6 class="mb-0 text-uppercase" data-i18n="device.management.basic_info">Basic Information</h6>
                         <hr>
 
                         <div class="row">
@@ -197,26 +207,26 @@
                                 <!-- Id + Device Code-->
                                 <div class="row">
                                     <div class="col-6">
-                                        <div class="input-group mb-3" title="Id thiết bị trong hệ thống">
+                                        <div class="input-group mb-3">
                                             <span class="col-4 input-group-text">ID</span>
                                             <input class="form-control" type="text" id="device_edit-DeviceId" disabled>
                                         </div>
                                     </div>
                                     <div class="col-6">
                                         <div class="input-group mb-3" title="Mã thiết bị">
-                                            <span class="col-4 input-group-text">PN</span>
+                                            <span class="col-4 input-group-text" data-i18n="device.management.pn">PN</span>
                                             <input class="form-control" type="text" id="device_edit-DeviceCode">
                                         </div>
                                     </div>
                                 </div>
                                 <!-- Device Name -->
-                                <div class="input-group mb-3" title="Tên thiết bị">
-                                    <span class="col-3 input-group-text">Description</span>
+                                <div class="input-group mb-3">
+                                    <span class="col-3 input-group-text" data-i18n="device.management.description">Description</span>
                                     <input class="form-control" type="text" id="device_edit-DeviceName">
                                 </div>
                                 <!-- Specification -->
-                                <div class="input-group mb-3" title="Quy cách (thông số đặc biệt)">
-                                    <span class="col-3 input-group-text">Specification</span>
+                                <div class="input-group mb-3">
+                                    <span class="col-3 input-group-text" data-i18n="device.management.specification">Specification</span>
                                     <input class="form-control" type="text" id="device_edit-Specification">
                                 </div>
                             </div>
@@ -224,8 +234,8 @@
                                 <!-- Status + Type -->
                                 <div class="row">
                                     <div class="col-6">
-                                        <div class="input-group mb-3" title="Trạng thái thiết bị">
-                                            <span class="col-4 input-group-text">Status</span>
+                                        <div class="input-group mb-3">
+                                            <span class="col-4 input-group-text" data-i18n="device.management.status">Status</span>
                                             <select class="form-select" id="device_edit-Status">
                                                 <option value="Unconfirmed">Unconfirmed</option>
                                                 <option value="Part Confirmed">Part Confirmed</option>
@@ -236,8 +246,8 @@
                                         </div>
                                     </div>
                                     <div class="col-6">
-                                        <div class="input-group mb-3" title="Loại thiết bị">
-                                            <span class="col-4 input-group-text">Type</span>
+                                        <div class="input-group mb-3">
+                                            <span class="col-4 input-group-text" data-i18n="device.management.type">Type</span>
                                             <select class="col-6 form-select" id="device_edit-Type">
                                                 <option value="#N/A">N/A</option>
                                                 <option value="S">Static</option>
@@ -249,12 +259,12 @@
                                     </div>
                                 </div>
                                 <!-- Device Date -->
-                                <div class="input-group mb-3" title="Ngày nhập thiết bị">
-                                    <span class="col-3 input-group-text">Created date</span>
+                                <div class="input-group mb-3">
+                                    <span class="col-3 input-group-text" data-i18n="device.management.created_date">Created date</span>
                                     <input class="form-control" type="datetime-local" id="device_edit-DeviceDate">
                                 </div>
                                 <!-- DeliveryTime -->
-                                <div class="input-group mb-3" title="Khoảng thời gian [Đặt hàng - Giao hàng]">
+                                <div class="input-group mb-3" data-i18n="device.management.lead_time">
                                     <span class="col-3 input-group-text">Lead Time</span>
                                     <input class="form-control" type="number" id="device_edit-DeliveryTime1">
                                     <select class="form-select" id="device_edit-DeliveryTime2">
@@ -273,7 +283,7 @@
                 <!-- Details Info-->
                 <div class="card">
                     <div class="card-body">
-                        <h6 class="mb-0 text-uppercase" title="Thông tin chi tiết">Details Information</h6>
+                        <h6 class="mb-0 text-uppercase" data-i18n="device.management.details_info">Details Information</h6>
                         <hr>
 
                         <div class="row">
@@ -281,8 +291,8 @@
                                 <!-- WareHouse + Relation -->
                                 <div class="row">
                                     <div class="col-6">
-                                        <div class="input-group mb-3" title="Kho">
-                                            <span class="col-5 input-group-text">Warehouse</span>
+                                        <div class="input-group mb-3">
+                                            <span class="col-5 input-group-text" data-i18n="device.management.warehouse">Warehouse</span>
                                             <select class="form-select" id="device_edit-WareHouse"></select>
                                         </div>
                                     </div>
@@ -297,14 +307,14 @@
                                 <!-- Buffer + LifeCycle-->
                                 <div class="row">
                                     <div class="col-6">
-                                        <div class="input-group mb-3" title="Dự phòng (%)">
-                                            <span class="col-5 input-group-text">Buffer</span>
+                                        <div class="input-group mb-3">
+                                            <span class="col-5 input-group-text" data-i18n="device.management.buffer">Buffer</span>
                                             <input class="form-control" type="number" id="device_edit-Buffer">
                                         </div>
                                     </div>
                                     <div class="col-6">
-                                        <div class="input-group mb-3" title="Số lần sử dụng">
-                                            <span class="col-5 input-group-text">Life Cycle</span>
+                                        <div class="input-group mb-3">
+                                            <span class="col-5 input-group-text" data-i18n="device.management.life_cycle">Life Cycle</span>
                                             <input class="form-control" type="number" id="device_edit-LifeCycle">
                                         </div>
                                     </div>
@@ -313,14 +323,14 @@
                                 <!-- BOM Quantity  + PO Quantity -->
                                 <div class="row">
                                     <div class="col-6">
-                                        <div class="input-group mb-3" title="Số lượng trong BOM">
-                                            <span class="col-5 input-group-text">BOM Quantity</span>
+                                        <div class="input-group mb-3">
+                                            <span class="col-5 input-group-text" data-i18n="device.management.bom_qty">BOM Quantity</span>
                                             <input class="form-control" type="number" id="device_edit-Quantity">
                                         </div>
                                     </div>
                                     <div class="col-6">
-                                        <div class="input-group mb-3" title="Số lượng đặt mua">
-                                            <span class="col-5 input-group-text">PO Quantity</span>
+                                        <div class="input-group mb-3">
+                                            <span class="col-5 input-group-text" data-i18n="device.management.po_qty">PO Quantity</span>
                                             <input class="form-control" type="number" id="device_edit-POQty">
                                         </div>
                                     </div>
@@ -329,14 +339,14 @@
                                 <!-- QtyConfirm + RealQty -->
                                 <div class="row">
                                     <div class="col-6">
-                                        <div class="input-group mb-3" title="Số lượng đã xác nhận">
-                                            <span class="col-5 input-group-text">Confirm Quantity</span>
+                                        <div class="input-group mb-3">
+                                            <span class="col-5 input-group-text" data-i18n="device.management.confirm_qty">Confirm Quantity</span>
                                             <input class="form-control" type="number" id="device_edit-QtyConfirm">
                                         </div>
                                     </div>
                                     <div class="col-6">
-                                        <div class="input-group mb-3" title="Số lượng thực tế">
-                                            <span class="col-5 input-group-text fw-bold text-info">Real Quantity</span>
+                                        <div class="input-group mb-3">
+                                            <span class="col-5 input-group-text fw-bold text-info" data-i18n="device.management.real_qty">Real Quantity</span>
                                             <input class="form-control" type="number" id="device_edit-RealQty">
                                         </div>
                                     </div>
@@ -345,14 +355,14 @@
                                 <!-- Min Quantity + Unit -->
                                 <div class="row">
                                     <div class="col-6">
-                                        <div class="input-group mb-3" title="Số lượng thấp nhất">
-                                            <span class="col-5 input-group-text">Min Quantity</span>
+                                        <div class="input-group mb-3">
+                                            <span class="col-5 input-group-text" data-i18n="device.management.min_quantity">Min Quantity</span>
                                             <input class="form-control" type="number" id="device_edit-MinQty">
                                         </div>
                                     </div>
                                     <div class="col-6">
-                                        <div class="input-group mb-3" title="Đơn vị tính">
-                                            <span class="col-5 input-group-text">Unit</span>
+                                        <div class="input-group mb-3">
+                                            <span class="col-5 input-group-text" data-i18n="device.management.unit">Unit</span>
                                             <input class="form-control" type="text" id="device_edit-Unit" list="device_edit-Unit_List" maxlength="50">
                                             <datalist id="device_edit-Unit_List">
                                                 <option value="N/A">N/A</option>
@@ -374,36 +384,36 @@
 
                             <div class="col-6">
                                 <!-- Product -->
-                                <div class="input-group mb-3" title="Tên sản phẩm">
-                                    <span class="col-3 input-group-text">Product</span>
+                                <div class="input-group mb-3">
+                                    <span class="col-3 input-group-text" data-i18n="device.management.product">Product</span>
                                     <input class="form-control" type="text" id="device_edit-Product" list="device_edit-Product-List" />
                                     <datalist id="device_edit-Product-List"></datalist>
                                     @*<select class="col-9 form-select" id="device_edit-Product"></select>*@
                                 </div>
                                 <!-- Model -->
-                                <div class="input-group mb-3" title="Tên model">
-                                    <span class="col-3 input-group-text">Model</span>
+                                <div class="input-group mb-3">
+                                    <span class="col-3 input-group-text" data-i18n="device.management.model">Model</span>
                                     <input class="form-control" type="text" id="device_edit-Model" list="device_edit-Model-List" />
                                     <datalist id="device_edit-Model-List"></datalist>
                                     @*<select class="col-9 form-select" id="device_edit-Model"></select>*@
                                 </div>
                                 <!-- Station -->
-                                <div class="input-group mb-3" title="Tên trạm">
-                                    <span class="col-3 input-group-text">Station</span>
+                                <div class="input-group mb-3">
+                                    <span class="col-3 input-group-text" data-i18n="device.management.station">Station</span>
                                     <input class="form-control" type="text" id="device_edit-Station" list="device_edit-Station-List" />
                                     <datalist id="device_edit-Station-List"></datalist>
                                     @*<select class="col-9 form-select" id="device_edit-Station"></select>*@
                                 </div>
                                 <!-- Group -->
-                                <div class="input-group mb-3" title="Nhóm thiết bị">
-                                    <span class="col-3 input-group-text">Group</span>
+                                <div class="input-group mb-3">
+                                    <span class="col-3 input-group-text" data-i18n="device.management.group">Group</span>
                                     <input class="form-control" type="text" id="device_edit-Group" list="device_edit-Group-List" />
                                     <datalist id="device_edit-Group-List"></datalist>
                                     @*<select class="col-6 form-select" id="device_edit-Group"></select>*@
                                 </div>
                                 <!-- Vendor -->
-                                <div class="input-group mb-3" title="Nhà cung ứng">
-                                    <span class="col-3 input-group-text">Vendor</span>
+                                <div class="input-group mb-3">
+                                    <span class="col-3 input-group-text" data-i18n="device.management.vendor">Vendor</span>
                                     <input class="form-control" type="text" id="device_edit-Vendor" list="device_edit-Vendor-List" />
                                     <datalist id="device_edit-Vendor-List"></datalist>
                                     @*<select class="col-6 form-select" id="device_edit-Vendor"></select>*@
@@ -414,14 +424,14 @@
                 </div>
 
                 <!-- Layout -->
-                <h5 class="font-weight-light text-center text-primary py-3" id="borrow_modal-name" title="Vị trí thiết bị">DEVICE LOCATION</h5>
+                <h5 class="font-weight-light text-center text-primary py-3" id="borrow_modal-name" data-i18n="device.management.device_location">DEVICE LOCATION</h5>
                 <div id="layout-container"></div>
-                <button type="button" class="btn btn-sm btn-outline-secondary w-100" id="new-layout" title="Thêm vị trí"><i class="fa-solid fa-plus"></i> Add Layout</button>
+                <button type="button" class="btn btn-sm btn-outline-secondary w-100" id="new-layout" data-i18n="device.management.add_layout"><i class="fa-solid fa-plus"></i> Add Layout</button>
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" title="Đóng">Close</button>
-                <button type="button" class="btn btn-primary" id="button-save_modal" title="Lưu thay đổi">Save changes</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"data-i18n="global.close">Close</button>
+                <button type="button" class="btn btn-primary" id="button-save_modal" data-i18n="global.save">Save</button>
             </div>
         </div>
     </div>
@@ -432,17 +442,17 @@
     <div class="modal-dialog modal-fullscreen modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="device_details-title" title="Bảng thông tin chi tiết thiết bị">Device Details</h5>
+                <h5 class="modal-title" id="device_details-title" data-i18n="device.management.device_details" style="text-transform:uppercase;">Device Details</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <!-- Details -->
-                <h5 class="font-weight-light text-center text-primary py-3" id="borrow_modal-name" title="Thông tin chi tiết thiết bị">DEVICE DETAILS</h5>
+                <h5 class="font-weight-light text-center text-primary py-3" id="borrow_modal-name" data-i18n="device.management.device_details" style="text-transform:uppercase;">DEVICE DETAILS</h5>
 
                 <!-- Basic Info -->
                 <div class="card">
                     <div class="card-body">
-                        <h6 class="mb-0 text-uppercase" title="Thông tin cơ bản">Basic Information</h6>
+                        <h6 class="mb-0 text-uppercase" data-i18n="device.management.basic_info">Basic Information</h6>
                         <hr>
 
                         <div class="row">
@@ -450,26 +460,26 @@
                                 <!-- Id + Device Code-->
                                 <div class="row">
                                     <div class="col-6">
-                                        <div class="input-group mb-3" title="Id thiết bị trong hệ thống">
+                                        <div class="input-group mb-3">
                                             <span class="col-4 input-group-text">ID</span>
                                             <input type="text" class="col-6 form-control" id="device_details-DeviceId" details disabled>
                                         </div>
                                     </div>
                                     <div class="col-6">
-                                        <div class="input-group mb-3" title="Mã thiết bị">
-                                            <span class="col-3 input-group-text" style="width: 135px">PN</span>
+                                        <div class="input-group mb-3">
+                                            <span class="col-3 input-group-text" style="width: 135px" data-i18n="device.management.pn">PN</span>
                                             <input class="form-control" type="text" id="device_details-DeviceCode" details disabled>
                                         </div>
                                     </div>
                                 </div>
                                 <!-- Device Name -->
-                                <div class="input-group mb-3" title="Tên thiết bị">
-                                    <span class="col-3 input-group-text">Description</span>
+                                <div class="input-group mb-3">
+                                    <span class="col-3 input-group-text" data-i18n="device.management.description">Description</span>
                                     <input class="form-control" type="text" id="device_details-DeviceName" details disabled>
                                 </div>
                                 <!-- Specification -->
-                                <div class="input-group mb-3" title="Quy cách (thông số đặc biệt)">
-                                    <span class="col-3 input-group-text">Specification</span>
+                                <div class="input-group mb-3">
+                                    <span class="col-3 input-group-text" data-i18n="device.management.specification">Specification</span>
                                     <input class="form-control" type="text" id="device_details-Specification" details disabled>
                                 </div>
                             </div>
@@ -477,27 +487,27 @@
                                 <!-- Status + Type -->
                                 <div class="row">
                                     <div class="col-6">
-                                        <div class="input-group mb-3" title="Trạng thái thiết bị">
+                                        <div class="input-group mb-3" data-i18n="device.management.status">
                                             <span class="col-6 input-group-text">Status</span>
                                             <input class="col-6 form-control" type="text" id="device_details-Status" details disabled />
                                         </div>
                                     </div>
                                     <div class="col-6">
-                                        <div class="input-group mb-3" title="Loại thiết bị">
-                                            <span class="col-6 input-group-text">Type</span>
+                                        <div class="input-group mb-3">
+                                            <span class="col-6 input-group-text" data-i18n="device.management.type">Type</span>
                                             <input class="col-6 form-control" type="text" id="device_details-Type" details disabled />
                                         </div>
                                     </div>
                                 </div>
                                 <!-- Device Date -->
-                                <div class="input-group mb-3" title="Ngày nhập thiết bị">
-                                    <span class="col-3 input-group-text">Created date</span>
+                                <div class="input-group mb-3">
+                                    <span class="col-3 input-group-text" data-i18n="device.management.created_date">Created date</span>
                                     <input class="form-control" type="datetime-local" id="device_details-DeviceDate" details disabled>
                                 </div>
 
                                 <!-- DeliveryTime -->
-                                <div class="input-group mb-3" title="Khoảng thời gian [Đặt hàng - Giao hàng]">
-                                    <span class="col-3 input-group-text">Lead Time</span>
+                                <div class="input-group mb-3">
+                                    <span class="col-3 input-group-text" data-i18n="device.management.lead_time">Lead Time</span>
                                     <input class="form-control" type="text" id="device_details-DeliveryTime" details disabled>
                                 </div>
                             </div>
@@ -508,7 +518,7 @@
                 <!-- Details Info-->
                 <div class="card">
                     <div class="card-body">
-                        <h6 class="mb-0 text-uppercase" title="Thông tin chi tiết">Details Information</h6>
+                        <h6 class="mb-0 text-uppercase" data-i18n="device.management.details_info">Details Information</h6>
                         <hr>
 
                         <div class="row">
@@ -517,8 +527,8 @@
                                 <!-- WareHouse + Relation -->
                                 <div class="row">
                                     <div class="col-6">
-                                        <div class="input-group mb-3" title="Kho">
-                                            <span class="col-5 input-group-text">Warehouse</span>
+                                        <div class="input-group mb-3">
+                                            <span class="col-5 input-group-text" data-i18n="device.management.warehouse">Warehouse</span>
                                             <input class="form-control" id="device_details-WareHouse" details disabled />
                                         </div>
                                     </div>
@@ -533,14 +543,14 @@
                                 <!-- Buffer + LifeCycle-->
                                 <div class="row">
                                     <div class="col-6">
-                                        <div class="input-group mb-3" title="Dự phòng (%)">
-                                            <span class="col-5 input-group-text">Buffer</span>
+                                        <div class="input-group mb-3">
+                                            <span class="col-5 input-group-text" data-i18n="device.management.buffer">Buffer</span>
                                             <input class="form-control" type="number" id="device_details-Buffer" details disabled>
                                         </div>
                                     </div>
                                     <div class="col-6">
-                                        <div class="input-group mb-3" title="Số lần sử dụng">
-                                            <span class="col-5 input-group-text">Life Cycle</span>
+                                        <div class="input-group mb-3">
+                                            <span class="col-5 input-group-text" data-i18n="device.management.life_cycle">Life Cycle</span>
                                             <input class="form-control" type="number" id="device_details-LifeCycle" details disabled>
                                         </div>
                                     </div>
@@ -549,14 +559,14 @@
                                 <!-- BOM Quantity  + PO Quantity -->
                                 <div class="row">
                                     <div class="col-6">
-                                        <div class="input-group mb-3" title="Số lượng trong BOM">
-                                            <span class="col-5 input-group-text">BOM Quantity</span>
+                                        <div class="input-group mb-3">
+                                            <span class="col-5 input-group-text" data-i18n="device.management.bom_qty">BOM Quantity</span>
                                             <input class="form-control" type="number" id="device_details-Quantity" details disabled>
                                         </div>
                                     </div>
                                     <div class="col-6">
-                                        <div class="input-group mb-3" title="Số lượng đặt mua">
-                                            <span class="col-5 input-group-text">PO Quantity</span>
+                                        <div class="input-group mb-3">
+                                            <span class="col-5 input-group-text" data-i18n="device.management.po_qty">PO Quantity</span>
                                             <input class="form-control" type="number" id="device_details-POQty" details disabled>
                                         </div>
                                     </div>
@@ -565,14 +575,14 @@
                                 <!-- Confirm Quantity + Real Quantity -->
                                 <div class="row">
                                     <div class="col-6">
-                                        <div class="input-group mb-3" title="Số lượng đã xác nhận">
-                                            <span class="col-5 input-group-text">Confirm Quantity</span>
+                                        <div class="input-group mb-3">
+                                            <span class="col-5 input-group-text" data-i18n="device.management.confirm_qty">Confirm Quantity</span>
                                             <input class="form-control" type="number" id="device_details-QtyConfirm" details disabled>
                                         </div>
                                     </div>
                                     <div class="col-6">
-                                        <div class="input-group mb-3" title="Số lượng thực tế">
-                                            <span class="col-5 input-group-text fw-bold text-info">Real Quantity</span>
+                                        <div class="input-group mb-3">
+                                            <span class="col-5 input-group-text fw-bold text-info" data-i18n="device.management.real_qty">Real Quantity</span>
                                             <input class="form-control" type="number" id="device_details-RealQty" details disabled>
                                         </div>
                                     </div>
@@ -581,14 +591,14 @@
                                 <!-- Min Quantity + Unit -->
                                 <div class="row">
                                     <div class="col-6">
-                                        <div class="input-group mb-3" title="Số lượng thấp nhất">
-                                            <span class="col-5 input-group-text">Min Quantity</span>
+                                        <div class="input-group mb-3">
+                                            <span class="col-5 input-group-text" data-i18n="device.management.min_quantity">Min Quantity</span>
                                             <input class="form-control" type="number" id="device_details-MinQty" details disabled>
                                         </div>
                                     </div>
                                     <div class="col-6">
-                                        <div class="input-group mb-3" title="Đơn vị tính">
-                                            <span class="col-5 input-group-text">Unit</span>
+                                        <div class="input-group mb-3">
+                                            <span class="col-5 input-group-text" data-i18n="device.management.unit">Unit</span>
                                             <input class="form-control" type="text" id="device_details-Unit" details disabled>
                                         </div>
                                     </div>
@@ -597,28 +607,28 @@
 
                             <div class="col-6">
                                 <!-- Group -->
-                                <div class="input-group mb-3" title="Nhóm thiết bị">
-                                    <span class="col-3 input-group-text">Group</span>
+                                <div class="input-group mb-3">
+                                    <span class="col-3 input-group-text" data-i18n="device.management.group">Group</span>
                                     <input class="form-control" id="device_details-Group" type="text" details disabled />
                                 </div>
                                 <!-- Vendor -->
-                                <div class="input-group mb-3" title="Nhà cung ứng">
-                                    <span class="col-3 input-group-text">Vendor</span>
+                                <div class="input-group mb-3">
+                                    <span class="col-3 input-group-text" data-i18n="device.management.vendor">Vendor</span>
                                     <input class="form-control" id="device_details-Vendor" type="text" details disabled />
                                 </div>
                                 <!-- Product -->
-                                <div class="input-group mb-3" title="Tên sản phẩm">
-                                    <span class="col-3 input-group-text">Product</span>
+                                <div class="input-group mb-3">
+                                    <span class="col-3 input-group-text" data-i18n="device.management.product">Product</span>
                                     <input class="col-9 form-control" id="device_details-Product" type="text" details disabled />
                                 </div>
                                 <!-- Model -->
-                                <div class="input-group mb-3" title="Tên model">
-                                    <span class="col-3 input-group-text">Model</span>
+                                <div class="input-group mb-3">
+                                    <span class="col-3 input-group-text" data-i18n="device.management.model">Model</span>
                                     <input class="col-9 form-control" id="device_details-Model" type="text" details disabled />
                                 </div>
                                 <!-- Station -->
-                                <div class="input-group mb-3" title="Tên trạm">
-                                    <span class="col-3 input-group-text">Station</span>
+                                <div class="input-group mb-3">
+                                    <span class="col-3 input-group-text" data-i18n="device.management.station">Station</span>
                                     <input class="col-9 form-control" id="device_details-Station" type="text" details disabled />
                                 </div>
                             </div>
@@ -627,18 +637,18 @@
                 </div>
 
                 <!-- Layout -->
-                <h5 class="font-weight-light text-center text-primary py-3" id="borrow_modal-name" title="Vị trí thiết bị">DEVICE LOCATION</h5>
+                <h5 class="font-weight-light text-center text-primary py-3" id="borrow_modal-name" data-i18n="device.management.device_location">DEVICE LOCATION</h5>
                 <div>
                     <table class="table table-bordered" id="device_details-layout">
                         <thead>
                             <tr class="fw-bold" style="background-color: #3e464c">
-                                <td title="Nhà xưởng">Factory</td>
-                                <td title="Tầng">Factory Floor</td>
-                                <td title="Chủ quản kho">Warehouse Manager</td>
-                                <td title="Tên kho">Warehouse</td>
-                                <td title="Hàng (Kệ)">Line</td>
-                                <td title="Ô (Khay)">Cell</td>
-                                <td title="Tầng">Floor</td>
+                                <td data-i18n="device.management.factory">Factory</td>
+                                <td data-i18n="device.management.factory_floor" >Factory Floor</td>
+                                <td data-i18n="device.management.warehouse_manager">Warehouse Manager</td>
+                                <td data-i18n="device.management.warehouse">Warehouse</td>
+                                <td data-i18n="device.management.line">Line</td>
+                                <td data-i18n="device.management.cell">Cell</td>
+                                <td data-i18n="device.management.floor">Floor</td>
                             </tr>
                         </thead>
                         <tbody id="device_details-layout-tbody">
@@ -647,20 +657,20 @@
                 </div>
 
                 <!-- History -->
-                <h5 class="font-weight-light text-center text-primary py-3" id="borrow_modal-name" title="Lịch sử mượn thiết bị">DEVICE HISTORY</h5>
+                <h5 class="font-weight-light text-center text-primary py-3" id="borrow_modal-name" data-i18n="device.management.device_history">DEVICE HISTORY</h5>
                 <div>
                     <table class="table table-bordered" id="device_details-history">
                         <thead>
                             <tr class="align-middle fw-bold" style="background-color: #3e464c">
-                                <td title="Loại đơn">Type</td>
-                                <td title="Ngày mượn">Date Borrow</td>
-                                <td title="Ngày trả">Date Return</td>
-                                <td title="Người mượn">User</td>
-                                <td title="Dùng cho model">For Model</td>
-                                <td title="Dùng cho trạm">For Station</td>
-                                <td title="Số lượng mượn">Borrow Quantity</td>
-                                <td title="Trạng thái đơn">Status</td>
-                                <td title="Ghi chú" style="max-width: 200px;">Note</td>
+                                <td data-i18n="device.management.type_request">Type</td>
+                                <td data-i18n="device.management.date_borrow">Date Borrow</td>
+                                <td data-i18n="device.management.date_return">Date Return</td>
+                                <td data-i18n="device.management.user">User</td>
+                                <td data-i18n="device.management.use_for_model">For Model</td>
+                                <td data-i18n="device.management.use_for_station">For Station</td>
+                                <td data-i18n="device.management.borrow_quantity">Borrow Quantity</td>
+                                <td data-i18n="device.management.status_request">Status</td>
+                                <td data-i18n="device.management.note" style="max-width: 200px;">Note</td>
                             </tr>
                         </thead>
                         <tbody id="device_details-history-tbody"></tbody>
@@ -669,7 +679,7 @@
             </div>
 
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" data-i18n="global.close">Close</button>
             </div>
         </div>
     </div>

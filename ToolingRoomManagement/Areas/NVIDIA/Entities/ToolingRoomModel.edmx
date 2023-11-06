@@ -768,7 +768,6 @@
       <Schema Namespace="ToolingRoomModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="ToolingRoomEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Products" EntityType="ToolingRoomModel.Product" />
-          <EntitySet Name="Departments" EntityType="ToolingRoomModel.Department" />
           <EntitySet Name="Groups" EntityType="ToolingRoomModel.Group" />
           <EntitySet Name="Models" EntityType="ToolingRoomModel.Model" />
           <EntitySet Name="Roles" EntityType="ToolingRoomModel.Role" />
@@ -777,10 +776,6 @@
           <EntitySet Name="UserDepartments" EntityType="ToolingRoomModel.UserDepartment" />
           <EntitySet Name="UserRoles" EntityType="ToolingRoomModel.UserRole" />
           <EntitySet Name="Vendors" EntityType="ToolingRoomModel.Vendor" />
-          <AssociationSet Name="FK_UserDepartment_Department" Association="ToolingRoomModel.FK_UserDepartment_Department">
-            <End Role="Department" EntitySet="Departments" />
-            <End Role="UserDepartment" EntitySet="UserDepartments" />
-          </AssociationSet>
           <AssociationSet Name="FK_UserRole_Role" Association="ToolingRoomModel.FK_UserRole_Role">
             <End Role="Role" EntitySet="Roles" />
             <End Role="UserRole" EntitySet="UserRoles" />
@@ -905,6 +900,11 @@
             <End Role="Warehouse" EntitySet="Warehouses" />
             <End Role="DeviceUnconfirm" EntitySet="DeviceUnconfirms" />
           </AssociationSet>
+          <EntitySet Name="Departments" EntityType="ToolingRoomModel.Department" />
+          <AssociationSet Name="FK_UserDepartment_Department" Association="ToolingRoomModel.FK_UserDepartment_Department">
+            <End Role="Department" EntitySet="Departments" />
+            <End Role="UserDepartment" EntitySet="UserDepartments" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="Product">
           <Key>
@@ -913,15 +913,6 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ProductName" Type="String" MaxLength="120" FixedLength="false" Unicode="true" />
           <Property Name="MTS" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="Department">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="DepartCode" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
-          <Property Name="DepartName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="PropertyCode" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Group">
           <Key>
@@ -996,18 +987,6 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="VendorName" Type="String" MaxLength="120" FixedLength="false" Unicode="true" />
         </EntityType>
-        <Association Name="FK_UserDepartment_Department">
-          <End Type="ToolingRoomModel.Department" Role="Department" Multiplicity="0..1" />
-          <End Type="ToolingRoomModel.UserDepartment" Role="UserDepartment" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Department">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="UserDepartment">
-              <PropertyRef Name="IdDepartment" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_UserRole_Role">
           <End Type="ToolingRoomModel.Role" Role="Role" Multiplicity="0..1" />
           <End Type="ToolingRoomModel.UserRole" Role="UserRole" Multiplicity="*" />
@@ -1547,6 +1526,27 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Department">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DepartCode" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="DepartName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PropertyCode" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <Association Name="FK_UserDepartment_Department">
+          <End Type="ToolingRoomModel.Department" Role="Department" Multiplicity="0..1" />
+          <End Type="ToolingRoomModel.UserDepartment" Role="UserDepartment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserDepartment">
+              <PropertyRef Name="IdDepartment" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1558,16 +1558,6 @@
               <MappingFragment StoreEntitySet="Product">
                 <ScalarProperty Name="MTS" ColumnName="MTS" />
                 <ScalarProperty Name="ProductName" ColumnName="ProductName" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Departments">
-            <EntityTypeMapping TypeName="ToolingRoomModel.Department">
-              <MappingFragment StoreEntitySet="Department">
-                <ScalarProperty Name="PropertyCode" ColumnName="PropertyCode" />
-                <ScalarProperty Name="DepartName" ColumnName="DepartName" />
-                <ScalarProperty Name="DepartCode" ColumnName="DepartCode" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1832,6 +1822,16 @@
                 <ScalarProperty Name="DeviceDate" ColumnName="DeviceDate" />
                 <ScalarProperty Name="DeviceName" ColumnName="DeviceName" />
                 <ScalarProperty Name="DeviceCode" ColumnName="DeviceCode" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Departments">
+            <EntityTypeMapping TypeName="ToolingRoomModel.Department">
+              <MappingFragment StoreEntitySet="Department">
+                <ScalarProperty Name="PropertyCode" ColumnName="PropertyCode" />
+                <ScalarProperty Name="DepartName" ColumnName="DepartName" />
+                <ScalarProperty Name="DepartCode" ColumnName="DepartCode" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

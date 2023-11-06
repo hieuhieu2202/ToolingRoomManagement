@@ -18,11 +18,11 @@ function GetDepartments() {
                 });
             }
             else {
-                toastr["error"](response.message, "ERROR");
+                Swal.fire(i18next.t('global.swal_title'), response.message, "error");
             }
         },
         error: function (error) {
-            Swal.fire("Something went wrong!", GetAjaxErrorMessage(error), "error");
+            Swal.fire(i18next.t('global.swal_title'), GetAjaxErrorMessage(error), "error");
         }
     });
 }
@@ -39,7 +39,7 @@ $('#SignUp').on('click', function (e) {
             Department: $('#inputSelectDepart').val(),
         }
         if (SignUpData.CreatePassword !== SignUpData.ConfirmPassword) {
-            Swal.fire('Sorry, something went wrong!', 'Mismatched Create Password and Confirm Password.', 'error');
+            Swal.fire(i18next.t('global.swal_title'), 'Mismatched Create Password and Confirm Password.', 'error');
         }
 
         $.ajax({
@@ -53,15 +53,15 @@ $('#SignUp').on('click', function (e) {
                     //window.location.href = response.redirectTo;
 
                     Swal.fire({
-                        title: `<p style="font-size: 25px;">Sign Up Success.</p><p style="font-size: 20px;">Please contact the administrator to verify your account.</p>`,
+                        title: `<p style="font-size: 25px;">${i18next.t('signup.signup_success')}</p><p style="font-size: 20px;">${i18next.t('signup.verify_account')}</p>`,
                         html: `<table class="table table-striped table-bordered table-message">
                                <tbody>
                                    <tr>
-                                       <td>Card ID</td>
+                                       <td>${i18next.t('signup.cardid')}</td>
                                        <td>${response.user.Username}</td>
                                    </tr>
                                    <tr>
-                                       <td>Email</td>
+                                       <td>${i18next.t('signup.email')}</td>
                                        <td>${response.user.Email}</td>
                                    </tr>
                                </tbody>
@@ -69,9 +69,9 @@ $('#SignUp').on('click', function (e) {
                            `,
                         icon: 'success',
                         reverseButtons: false,
-                        confirmButtonText: 'Sign In',
+                        confirmButtonText: i18next.t('signin.signin'),
                         showCancelButton: true,
-                        cancelButtonText: 'Cancel',
+                        cancelButtonText: i18next.t('global.cancel'),
                         buttonsStyling: false,
                         reverseButtons: true,
                         customClass: {
@@ -85,7 +85,7 @@ $('#SignUp').on('click', function (e) {
                     });
                 }
                 else {
-                    Swal.fire('Sorry, something went wrong!', response.message, 'error');
+                    Swal.fire(i18next.t('global.swal_title'), response.message, 'error');
                 }
             },
             error: function (error) {

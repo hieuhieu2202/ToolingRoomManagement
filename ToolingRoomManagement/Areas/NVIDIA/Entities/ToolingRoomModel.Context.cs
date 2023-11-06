@@ -26,7 +26,6 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Entities
         }
     
         public virtual DbSet<Product> Products { get; set; }
-        public virtual DbSet<Department> Departments { get; set; }
         public virtual DbSet<Group> Groups { get; set; }
         public virtual DbSet<Model> Models { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
@@ -47,5 +46,6 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Entities
         public virtual DbSet<ProductBOM> ProductBOMs { get; set; }
         public virtual DbSet<ProductDeviceBOM> ProductDeviceBOMs { get; set; }
         public virtual DbSet<DeviceUnconfirm> DeviceUnconfirms { get; set; }
+        public virtual DbSet<Department> Departments { get; set; }
     }
 }

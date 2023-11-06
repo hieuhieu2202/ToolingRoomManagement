@@ -31,6 +31,7 @@
     <link href="~/Areas/NVIDIA/Content/Vendor/SweetAlert/swal.min.css" rel="stylesheet" />
     <link href="~/Areas/NVIDIA/Content/Template/Sysadmin/assets/plugins/select2/css/select2.min.css" rel="stylesheet" />
     <link href="~/Areas/NVIDIA/Content/Template/Sysadmin/assets/plugins/select2/css/select2-bootstrap4.css" rel="stylesheet" />
+    <link href="~/Areas/NVIDIA/Content/Vendor/flag-icons/css/flag-icons.min.css" rel="stylesheet" />
 
     <!-- Custom -->
     <link href="~/Areas/NVIDIA/Content/Custom/Layout/CustomLayout.css" rel="stylesheet" />
@@ -57,9 +58,22 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent1">
                         <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                             <li class="nav-item">
+                                <div class="dropdown">
+                                    <a class="nav-link dropdown-toggle bg-transparent border-0" href="javascript:;" data-bs-toggle="dropdown" aria-expanded="false"><i class="fi fi-vn"></i></a>
+                                    <ul class="dropdown-menu" style="" id="select_language">
+                                        <li>
+                                            <a class="dropdown-item" href="javascript:;" data-lang="vi"><i class="fi fi-vn"></i> Tiếng Việt</a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" href="javascript:;" data-lang="en"><i class="fi fi-gb"></i> English</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li class="nav-item">
                                 <ul class="navbar-nav align-items-center">
                                     <li class="nav-item dropdown dropdown-large">
-                                        <a class="nav-link dropdown-toggle dropdown-toggle-nocaret text-white" href="javascript:;" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <a class="nav-link dropdown-toggle dropdown-toggle-nocaret text-white" href="javascript:;" role="button" data-bs-toggle="dropdown" aria-expanded="false" data-i18n="global.features">
                                             <i class='bx bx-category'></i>
                                             Features
                                         </a>
@@ -68,10 +82,10 @@
                                 </ul>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link active" href="https://mbdiot.efoxconn.com/AboutUs/Index"><i class='bx bx-user me-1'></i>About</a>
+                                <a class="nav-link active" href="https://mbdiot.efoxconn.com/AboutUs/Index" data-i18n="global.about"><i class='bx bx-user me-1'></i>About</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link active" href="https://mbdiot.efoxconn.com:5555"><i class='bx bx-home-alt me-1'></i>Home</a>
+                                <a class="nav-link active" href="https://mbdiot.efoxconn.com:5555" data-i18n="global.home"><i class='bx bx-home-alt me-1'></i>Home</a>
                             </li>
                         </ul>
                     </div>
@@ -86,10 +100,8 @@
                             <div class="card-body p-0">
                                 <div class="border p-4 rounded">
                                     <div class="text-center">
-                                        <h3 class="">Sign Up</h3>
-                                        <p>
-                                            Already have an account? <a href="/NVIDIA/Authentication/SignIn">Sign in here</a>
-                                        </p>
+                                        <h3 class="" data-i18n="signup.signup">Sign Up</h3>
+                                        <p data-i18n="signup.have_account">Already have an account? <a href="/NVIDIA/Authentication/SignIn">Sign in here</a></p>
                                     </div>
                                     <div class="login-separater text-center mb-4">
                                         <hr />
@@ -97,46 +109,46 @@
                                     <div class="form-body">
                                         <div class="row g-3">
                                             <div class="col-12">
-                                                <label for="inputCardId" class="form-label">Card ID</label>
-                                                <input type="email" class="form-control" id="inputCardId" placeholder="Your Card ID" maxlength="25" autocomplete="off">
+                                                <label for="inputCardId" class="form-label" data-i18n="signup.cardid">Card ID</label>
+                                                <input type="email" class="form-control" id="inputCardId" placeholder="Your Card ID" maxlength="25" autocomplete="off" data-i18n="[plh]signup.cardid_placeholder">
                                             </div>
                                             <div class="col-12">
-                                                <label for="inputEmail" class="form-label">Email Address</label>
-                                                <input type="email" class="form-control" id="inputEmail" placeholder="example@mail.foxconn.com" maxlength="50" autocomplete="off">
+                                                <label for="inputEmail" class="form-label" data-i18n="signup.email">Email Address</label>
+                                                <input type="email" class="form-control" id="inputEmail" placeholder="example@mail.foxconn.com" maxlength="50" autocomplete="off" data-i18n="[plh]signup.email_placeholder">
                                             </div>
                                             <div class="col-12">
-                                                <label for="inputCreatePassword" class="form-label">Create Password</label>
+                                                <label for="inputCreatePassword" class="form-label" data-i18n="signup.new_password">Create Password</label>
                                                 <div class="input-group" id="show_hide_password">
-                                                    <input type="password" class="form-control border-end-0" id="inputCreatePassword" placeholder="Enter Create Password" maxlength="25" autocomplete="off">
+                                                    <input type="password" class="form-control border-end-0" id="inputCreatePassword" placeholder="Enter Create Password" maxlength="25" autocomplete="off" data-i18n="[plh]signup.new_password_placeholder">
                                                     <a href="javascript:;" class="input-group-text bg-transparent"><i class='bx bx-hide'></i></a>
                                                 </div>
                                             </div>
                                             <div class="col-12">
-                                                <label for="inputConfirmPassword" class="form-label">Confirm Password</label>
+                                                <label for="inputConfirmPassword" class="form-label" data-i18n="signup.cfn_password">Confirm Password</label>
                                                 <div class="input-group" id="show_hide_password">
-                                                    <input type="password" class="form-control border-end-0" id="inputConfirmPassword" placeholder="Enter Confirm Password" maxlength="25" autocomplete="off">
+                                                    <input type="password" class="form-control border-end-0" id="inputConfirmPassword" placeholder="Enter Confirm Password" maxlength="25" autocomplete="off" data-i18n="[plh]signup.cfn_password_placeholder">
                                                     <a href="javascript:;" class="input-group-text bg-transparent"><i class='bx bx-hide'></i></a>
                                                 </div>
                                             </div>
                                             <div class="col-6">
-                                                <label for="inputSelectDepart" class="form-label">Department</label>
+                                                <label for="inputSelectDepart" class="form-label" data-i18n="signup.dept">Department</label>
                                                 <select class="form-select" id="inputSelectDepart">
                                                 </select>
                                             </div>
                                             <div class="col-6">
-                                                <label for="inputSelectDepart" class="form-label">Role</label>
+                                                <label for="inputSelectDepart" class="form-label" data-i18n="signup.role">Role</label>
                                                 <select class="form-select" id="inputSelectRole">
                                                 </select>
                                             </div>
                                             <div class="col-12">
                                                 <div class="form-check form-switch">
                                                     <input class="form-check-input" type="checkbox" id="CheckChecked">
-                                                    <label class="form-check-label" for="CheckChecked">I read and agree to Terms & Conditions</label>
+                                                    <label class="form-check-label" for="CheckChecked" data-i18n="signup.agree">I read and agree to Terms & Conditions</label>
                                                 </div>
                                             </div>
                                             <div class="col-12">
                                                 <div class="d-grid">
-                                                    <button type="button" class="btn btn-primary" id="SignUp"><i class='bx bx-user'></i>Sign up</button>
+                                                    <button type="button" class="btn btn-primary" id="SignUp" data-i18n="signup.signup"><i class='bx bx-user'></i>Sign up</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -164,9 +176,12 @@
     <script src="~/Areas/NVIDIA/Content/Vendor/SweetAlert/swal.min.js"></script>
     <script src="~/Areas/NVIDIA/Content/Template/Sysadmin/assets/plugins/select2/js/select2.min.js"></script>
 
+    <script src="~/Areas/NVIDIA/Content/Vendor/i18next/i18next.min.js"></script>
+
     <!-- Custom -->
     <script src="~/Areas/NVIDIA/Content/Vendor/Particles/Particles/particles.min.js"></script>
     <script src="~/Areas/NVIDIA/Content/Custom/Authentication/js/SignUp.js?v=@Guid.NewGuid()"></script>
+    <script src="~/Areas/NVIDIA/Content/Custom/Layout/CustomLayout.js?v=@Guid.NewGuid()"></script>
     <script>
         // Show pass
         $(document).ready(function () {

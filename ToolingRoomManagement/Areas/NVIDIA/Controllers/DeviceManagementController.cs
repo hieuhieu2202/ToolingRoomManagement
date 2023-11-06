@@ -1,20 +1,18 @@
-﻿using Model.EF;
-using OfficeOpenXml;
-using OfficeOpenXml.FormulaParsing.Excel.Functions.Text;
+﻿using OfficeOpenXml;
+using OfficeOpenXml.Style;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data.Entity.Migrations;
-using System.Drawing.Printing;
+using System.Drawing;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Text.Json;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using ToolingRoomManagement.Areas.NVIDIA.Entities;
 using ToolingRoomManagement.Attributes;
-using ToolingRoomManagement.Models;
 
 namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
 {
@@ -403,6 +401,8 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
         {
             try
             {
+                ExcelPackage.LicenseContext = OfficeOpenXml.LicenseContext.NonCommercial;
+
                 if (file != null && file.ContentLength > 0)
                 {
                     using (var package = new ExcelPackage(file.InputStream))
@@ -648,6 +648,75 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
             }
         }
 
+        // GET: Export Excel
+        public ActionResult ExportExcel()
+        {
+            try
+            {
+                ExcelPackage.LicenseContext = OfficeOpenXml.LicenseContext.NonCommercial;
+
+                string fileName = $"Devices - {DateTime.Now.ToString("yyyy.MM.dd HH.mm.ss.ff")}.xlsx";
+                string folderPath = Server.MapPath("/Data/NewToolingroom");
+                string filePath = Path.Combine(folderPath, fileName);
+
+                #region Check Folder
+                if (!Directory.Exists(folderPath))
+                {
+                    Directory.CreateDirectory(folderPath);
+                }
+                else
+                {
+                    foreach (string file in Directory.GetFiles(folderPath))
+                    {
+                        System.IO.File.Delete(file);
+                    }
+                }
+                #endregion
+
+                List<Entities.Device> devices = db.Devices.ToList();
+
+                using(var DevicesExcel = new ExcelPackage(filePath))
+                {
+                    var worksheet = DevicesExcel.Workbook.Worksheets.Add("Devices");
+
+
+                    #region Sheet Style
+                    worksheet.Cells.Style.Font.Name = "Calibri";
+                    worksheet.Cells.Style.Font.Size = 12;
+                    worksheet.Cells.Style.Fill.PatternType = ExcelFillStyle.Solid;
+                    worksheet.Cells.Style.Fill.BackgroundColor.SetColor(Color.Transparent);
+                    worksheet.Cells.Style.VerticalAlignment = ExcelVerticalAlignment.Center;
+                    worksheet.Cells.Style.HorizontalAlignment = ExcelHorizontalAlignment.Left;
+                    #endregion
+
+                    #region Header
+                    // Style
+                    {
+                        ExcelRange cell = worksheet.Cells["A1:K1"];
+                        cell.Merge = true;
+                        cell.Value = "";
+                        cell.Style.Fill.PatternType = ExcelFillStyle.Solid;
+                        cell.Style.Fill.BackgroundColor.SetColor(Color.DodgerBlue);
+                        cell.Style.Font.Size = 16;
+                        cell.Style.Font.Color.SetColor(Color.White);
+                        cell.Style.Font.Bold = true;
+                        cell.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                        cell.Style.Border.BorderAround(ExcelBorderStyle.Thin, Color.Black);
+                    }
+                    
+                    #endregion
+
+
+                    DevicesExcel.Save();
+                    return File(filePath, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", fileName);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = false, message = ex.Message });
+            }
+        }
+
         #region Device Unconfirm
         [HttpGet]
         public ActionResult DeviceConfirm()
@@ -659,6 +728,8 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
         {
             try
             {
+                ExcelPackage.LicenseContext = OfficeOpenXml.LicenseContext.NonCommercial;
+
                 if (file != null && file.ContentLength > 0)
                 {
                     using (var package = new ExcelPackage(file.InputStream))
@@ -861,5 +932,123 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
             return device;
         }
         #endregion
+
+        // POST: Upload
+        public ActionResult UploadFile(HttpPostedFileBase file)
+        {
+            try
+            {
+                ExcelPackage.LicenseContext = OfficeOpenXml.LicenseContext.NonCommercial;
+
+                if (file != null && file.ContentLength > 0)
+                {
+                    string fileName = $"Devices - {DateTime.Now.ToString("yyyy.MM.dd HH.mm.ss.ff")}.xlsx";
+                    string folderPath = Server.MapPath("/Data/NewToolingroom");
+                    string filePath = Path.Combine(folderPath, fileName);
+
+                    #region Check Folder
+                    if (!Directory.Exists(folderPath))
+                    {
+                        Directory.CreateDirectory(folderPath);
+                    }
+                    else
+                    {
+                        foreach (string fileii in Directory.GetFiles(folderPath))
+                        {
+                            System.IO.File.Delete(fileii);
+                        }
+                    }
+                    #endregion
+
+                    using (var outputPackage = new ExcelPackage(filePath))
+                    using (var package = new ExcelPackage(file.InputStream))
+                    {
+                       
+
+
+                        var outWorksheet = outputPackage.Workbook.Worksheets.Add("Inventory");
+                        var worksheet = package.Workbook.Worksheets[0];
+
+                        //header
+                        outWorksheet.Cells[1, 1].Value = "PN";
+                        outWorksheet.Cells[1, 1].Style.Font.Bold = true;
+                        outWorksheet.Cells[1, 2].Value = "Description";
+                        outWorksheet.Cells[1, 2].Style.Font.Bold = true;
+                        outWorksheet.Cells[1, 3].Value = "Quantity";
+                        outWorksheet.Cells[1, 3].Style.Font.Bold = true;
+                        outWorksheet.Cells[1, 4].Value = "Request";
+                        outWorksheet.Cells[1, 4].Style.Font.Bold = true;
+                        outWorksheet.Cells[1, 5].Value = "Default Min Quantity";
+                        outWorksheet.Cells[1, 5].Style.Font.Bold = true;
+                        outWorksheet.Cells[1, 6].Value = "GAP";
+                        outWorksheet.Cells[1, 6].Style.Font.Bold = true;
+                        outWorksheet.Cells[1, 7].Value = "Risk";
+                        outWorksheet.Cells[1, 7].Style.Font.Bold = true;
+
+                        outWorksheet.Cells["A1:G1"].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
+                        outWorksheet.Cells["A1:G1"].Style.Border.Top.Style = ExcelBorderStyle.Thin;
+                        outWorksheet.Cells["A1:G1"].Style.Border.Left.Style = ExcelBorderStyle.Thin;
+                        outWorksheet.Cells["A1:G1"].Style.Border.Right.Style = ExcelBorderStyle.Thin;
+
+                        foreach (int row in Enumerable.Range(2, worksheet.Dimension.End.Row - 1))
+                        {
+                            var _PN = worksheet.Cells[row, 1].Value?.ToString();
+                            var _RequestQty = int.Parse(worksheet.Cells[row, 2].Value?.ToString());
+
+                            Entities.Device device = db.Devices.FirstOrDefault(d => d.DeviceCode.ToLower().Trim() == _PN.ToLower().Trim());
+                            if (device != null)
+                            {
+                                outWorksheet.Cells[row, 1].Value = device.DeviceCode;
+                                outWorksheet.Cells[row, 2].Value = device.DeviceName;
+                                outWorksheet.Cells[row, 3].Value = device.QtyConfirm;
+                                outWorksheet.Cells[row, 4].Value = _RequestQty;
+                                outWorksheet.Cells[row, 5].Value = device.MinQty;
+
+                                int gap = (device.QtyConfirm ?? 0) - _RequestQty;
+                                outWorksheet.Cells[row, 6].Value = gap;
+
+                                if (gap > 0 && device.QtyConfirm > device.MinQty)
+                                {
+                                    outWorksheet.Cells[row, 7].Value = "Low";
+                                }
+                                else
+                                {
+                                    outWorksheet.Cells[row, 7].Value = "High";
+
+                                    outWorksheet.Cells[row, 7].Style.Fill.PatternType = ExcelFillStyle.Solid;
+                                    outWorksheet.Cells[row, 7].Style.Fill.BackgroundColor.SetColor(Color.Red);
+                                }
+                            }
+                            else
+                            {
+                                outWorksheet.Cells[row, 1].Value = _PN;
+                                outWorksheet.Cells[row, 4].Value = _RequestQty;
+
+                                outWorksheet.Cells[$"A{row}:G{row}"].Style.Fill.PatternType = ExcelFillStyle.Solid;
+                                outWorksheet.Cells[$"A{row}:G{row}"].Style.Fill.BackgroundColor.SetColor(Color.LightGray);
+                            }
+
+                            outWorksheet.Cells[$"A{row}:G{row}"].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
+                            outWorksheet.Cells[$"A{row}:G{row}"].Style.Border.Top.Style = ExcelBorderStyle.Thin;
+                            outWorksheet.Cells[$"A{row}:G{row}"].Style.Border.Left.Style = ExcelBorderStyle.Thin;
+                            outWorksheet.Cells[$"A{row}:G{row}"].Style.Border.Right.Style = ExcelBorderStyle.Thin;
+                        }
+
+                        outWorksheet.Cells[outWorksheet.Dimension.Address].AutoFitColumns();
+                        outputPackage.Save();
+
+                        return Json(new { status = true, url = $"/Data/NewToolingroom/{fileName}" });
+                    }
+                }
+                else
+                {
+                    return Json(new { status = false, message = "File is empty" });
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = false, message = ex.Message });
+            }
+        }
     }
 }

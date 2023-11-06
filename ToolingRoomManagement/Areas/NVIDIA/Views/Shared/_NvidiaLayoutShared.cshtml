@@ -26,6 +26,7 @@
     <link href="~/Areas/NVIDIA/Content/Template/Sysadmin/assets/plugins/metismenu/css/metisMenu.min.css" rel="stylesheet" />
     <link href="~/Areas/NVIDIA/Content/Vendor/SweetAlert/swal.min.css" rel="stylesheet" />
     <link href="~/Areas/NVIDIA/Content/Vendor/Toats/toastr.min.css" rel="stylesheet" />
+    <link href="~/Areas/NVIDIA/Content/Vendor/flag-icons/css/flag-icons.min.css" rel="stylesheet" />
 
     <!-- Font -->
     <link href="~/Areas/NVIDIA/Content/Vendor/Font/font-roboto/font-roboto.css" rel="stylesheet" />
@@ -71,27 +72,27 @@
                         <div class="parent-icon">
                             <i class='bx bx-home'></i>
                         </div>
-                        <div class="menu-title">Dashboard</div>
+                        <div class="menu-title" data-i18n="layout.dashboard">Dashboard</div>
                     </a>
                 </li>
-                <li class="menu-label">Management</li>
+                <li class="menu-label" data-i18n="layout.management">Management</li>
                 <!-- Device -->
                 <li>
                     <a class="has-arrow" href="javascript:;">
                         <div class="parent-icon">
                             <i class='bx bx-microchip'></i>
                         </div>
-                        <div class="menu-title">Device</div>
+                        <div class="menu-title" data-i18n="layout.device">Device</div>
                     </a>
                     <ul>
                         <li>
-                            <a href="/NVIDIA/DeviceManagement/DeviceManagement">Management</a>
+                            <a href="/NVIDIA/DeviceManagement/DeviceManagement" data-i18n="layout.device_management">Management</a>
                         </li>
                         <li>
-                            <a class="has-arrow" href="javascript:;">New Device</a>
+                            <a class="has-arrow" href="javascript:;" data-i18n="layout.new_device">New Device</a>
                             <ul>
-                                <li><a href="/NVIDIA/DeviceManagement/AddDeviceManual">Manual</a></li>
-                                <li><a href="/NVIDIA/DeviceManagement/AddDeviceBOM">BOM File</a></li>
+                                <li><a href="/NVIDIA/DeviceManagement/AddDeviceManual"data-i18n="layout.new_device_manual">Manual</a></li>
+                                <li><a href="/NVIDIA/DeviceManagement/AddDeviceBOM" data-i18n="layout.new_device_bom">BOM File</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -102,21 +103,21 @@
                         <div class="parent-icon">
                             <i class='bx bx-transfer-alt'></i>
                         </div>
-                        <div class="menu-title">Request Handling</div>
+                        <div class="menu-title" data-i18n="layout.request_handling">Request Handling</div>
                     </a>
                     <ul>
                         <li>
-                            <a href="/NVIDIA/BorrowManagement/BorrowManagement">Management</a>
+                            <a href="/NVIDIA/BorrowManagement/BorrowManagement" data-i18n="layout.rq_management">Management</a>
                         </li>
                         <li>
-                            <a href="/NVIDIA/BorrowManagement/Sign">Sign</a>
+                            <a href="/NVIDIA/BorrowManagement/Sign" data-i18n="layout.rq_sign">Sign</a>
                         </li>
                         <li>
-                            <a class="has-arrow" href="javascript:;">Request</a>
+                            <a class="has-arrow" href="javascript:;" data-i18n="layout.rq_request">Request</a>
                             <ul>
-                                <li><a href="/NVIDIA/BorrowManagement/TakeDevice">Take</a></li>
-                                <li><a href="/NVIDIA/BorrowManagement/BorrowDevice">Borrow</a></li>
-                                <li><a href="/NVIDIA/BorrowManagement/ReturnDevice">Return</a></li>
+                                <li><a href="/NVIDIA/BorrowManagement/TakeDevice" data-i18n="layout.rq_request_take">Take</a></li>
+                                <li><a href="/NVIDIA/BorrowManagement/BorrowDevice" data-i18n="layout.rq_request_borrow">Borrow</a></li>
+                                <li><a href="/NVIDIA/BorrowManagement/ReturnDevice" data-i18n="layout.rq_request_return">Return</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -127,14 +128,14 @@
                         <div class="parent-icon">
                             <i class='bx bx-grid-alt'></i>
                         </div>
-                        <div class="menu-title">Warehouse</div>
+                        <div class="menu-title" data-i18n="layout.warehouse">Warehouse</div>
                     </a>
                     <ul>
                         <li>
-                            <a href="/NVIDIA/Warehouse/Management">Management</a>
+                            <a href="/NVIDIA/Warehouse/Management" data-i18n="layout.wh_management">Management</a>
                         </li>
                         <li>
-                            <a href="/NVIDIA/Warehouse/Layout">Layout</a>
+                            <a href="/NVIDIA/Warehouse/Layout" data-i18n="layout.wh_layout">Layout</a>
                         </li>
                     </ul>
                 </li>
@@ -144,28 +145,28 @@
                         <div class="parent-icon">
                             <i class='bx bx-info-circle'></i>
                         </div>
-                        <div class="menu-title">Infomation</div>
+                        <div class="menu-title" data-i18n="layout.infomation">Infomation</div>
                     </a>
                     <ul>
                         <li>
-                            <a href="/NVIDIA/Info/Product">Products</a>
+                            <a href="/NVIDIA/Info/Product" data-i18n="layout.info_product">Products</a>
                         </li>
                         <li>
-                            <a href="/NVIDIA/Info/ModelStation">Model & Station</a>
+                            <a href="/NVIDIA/Info/ModelStation" data-i18n="layout.info_modelstation">Model & Station</a>
                         </li>
                         <li>
-                            <a href="/NVIDIA/Info/GroupVendor">Group & Vendor</a>
+                            <a href="/NVIDIA/Info/GroupVendor" data-i18n="layout.info_groupvendor">Group & Vendor</a>
                         </li>
                     </ul>
                 </li>
                 <!-- Others-->
-                <li class="menu-label">Others</li>
+                <li class="menu-label" data-i18n="layout.others">Others</li>
                 <li>
                     <a href="javascript:;" target="_blank">
                         <div class="parent-icon">
                             <i class='bx bx-file'></i>
                         </div>
-                        <div class="menu-title">Documentation</div>
+                        <div class="menu-title" data-i18n="layout.documentation">Documentation</div>
                     </a>
                 </li>
                 <li>
@@ -173,7 +174,7 @@
                         <div class="parent-icon">
                             <i class='bx bx-headphone'></i>
                         </div>
-                        <div class="menu-title">Support</div>
+                        <div class="menu-title" data-i18n="layout.support">Support</div>
                     </a>
                 </li>
                 <li class="menu-label">Sign Out</li>
@@ -182,7 +183,7 @@
                         <div class="parent-icon">
                             <i class='bx bx-log-out'></i>
                         </div>
-                        <div class="menu-title">Sign Out</div>
+                        <div class="menu-title" data-i18n="layout.signout">Sign Out</div>
                     </a>
                 </li>
             </ul>
@@ -199,6 +200,19 @@
 
                     <div class="top-menu ms-auto">
                         <ul class="navbar-nav align-items-center">
+                            <li class="nav-item">
+                                <div class="dropdown">
+                                    <a class="nav-link dropdown-toggle bg-transparent border-0" href="javascript:;" data-bs-toggle="dropdown" aria-expanded="false"><i class="fi fi-vn"></i></a>
+                                    <ul class="dropdown-menu" style="" id="select_language">
+                                        <li>
+                                            <a class="dropdown-item" href="javascript:;" data-lang="vi"><i class="fi fi-vn"></i> Tiếng Việt</a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" href="javascript:;" data-lang="en"><i class="fi fi-gb"></i> English</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
                             <li class="nav-item dropdown dropdown-large">
                                 <a class="nav-link dropdown-toggle dropdown-toggle-nocaret text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     <i class='bx bx-category'></i>
@@ -218,13 +232,13 @@
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end">
                             <li>
-                                <a class="dropdown-item" href="javascript:;"><i class="bx bx-user"></i><span>Profile</span></a>
+                                <a class="dropdown-item" href="javascript:;" data-i18n="global.profile"><i class="bx bx-user"></i><span>Profile</span></a>
                             </li>
                             <li>
                                 <div class="dropdown-divider mb-0"></div>
                             </li>
                             <li>
-                                <a class="dropdown-item" href="javascript:;" onclick="SignOut()"><i class='bx bx-log-out-circle'></i><span>Sign Out</span></a>
+                                <a class="dropdown-item" href="javascript:;" onclick="SignOut()" data-i18n="global.signout"><i class='bx bx-log-out-circle'></i><span>Sign Out</span></a>
                             </li>
                         </ul>
                     </div>
@@ -260,6 +274,9 @@
     <script src="~/Areas/NVIDIA/Content/Template/Sysadmin/assets/plugins/perfect-scrollbar/js/perfect-scrollbar.js"></script>
     <script src="~/Areas/NVIDIA/Content/Vendor/SweetAlert/swal.min.js"></script>
     <script src="~/Areas/NVIDIA/Content/Vendor/Toats/toastr.min.js"></script>
+
+    <script src="~/Areas/NVIDIA/Content/Vendor/i18next/i18next.min.js"></script>
+    <script src="~/Areas/NVIDIA/Content/Vendor/i18next/i18nextBrowserLanguageDetector.min.js"></script>
 
     <!-- Template-->
     <script src="~/Areas/NVIDIA/Content/Template/Sysadmin/assets/js/app.js"></script>

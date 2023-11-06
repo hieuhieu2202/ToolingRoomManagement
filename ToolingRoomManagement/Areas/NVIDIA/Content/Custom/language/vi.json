@@ -1,0 +1,112 @@
+{
+  "global": {
+    "features": "<i class='bx bx-category'></i> Hệ thống khác",
+    "about": "<i class='bx bx-user me-1'></i> Về chúng tôi",
+    "home": "<i class='bx bx-home-alt me-1'></i> Trang chủ",
+    "swal_title": "Đã có lỗi đã xảy ra!",
+    "cancel": "Huỷ bỏ",
+    "profile": "<i class='bx bx-user'></i><span>Thông tin cá nhân</span>",
+    "signout": "<i class='bx bx-log-out-circle'></i><span> Đăng xuất</span>"   
+  },
+  "layout": {
+    "management": "Quản lý",
+    "dashboard": "Bảng điều khiển",
+
+    "device": "Thiết bị",
+    "device_management": "Quản lý thiết bị",
+    "new_device": "Thêm mới thiết bị",
+    "new_device_manual": "Thêm mới thủ công",
+    "new_device_bom": "Thêm mới từ BOM",
+
+    "request_handling": "Xử lý đơn",
+    "rq_management": "Quản lý đơn",
+    "rq_sign": "Ký duyệt",
+    "rq_request": "Tạo đơn",
+    "rq_request_take": "Tạo đơn lĩnh",
+    "rq_request_borrow": "Tạo đơn mượn",
+    "rq_request_return": "Tạo đơn trả",
+
+    "warehouse": "Kho",
+    "wh_management": "Quản lý kho",
+    "wh_layout": "Sắp xêp kho",
+
+    "infomation": "Thông tin",
+    "info_product": "Sản phẩm",
+    "info_modelstation": "Model & Trạm",
+    "info_groupvendor": "Nhóm & Nhà cung ứng",
+
+    "others": "Khác",
+    "documentation": "Tài liệu",
+    "support": "Hỗ trợ",
+    "signout": "Đăng xuất"
+  },
+  "signin": {
+    "signin": "Đăng nhập",
+    "no_account": "Bạn chưa có tài khoản? <a href=\"/NVIDIA/Authentication/SignUp\"> Đăng ký ở đây.</a>",
+    "cardid": "Mã thẻ",
+    "cardid_placeholder": "Nhập mã thẻ",
+    "password": "Mật khẩu",
+    "password_placeholder": "Nhập mật khẩu",
+    "remember": "Ghi nhớ tài khoản",
+    "forgotpass": "Quên mật khẩu?",
+    "or": "Hoặc",
+    "signin_smartoffice": "Đăng nhập với Smart Office" 
+  },
+  "signup": {
+    "signup": "Đăng ký",
+    "have_account": "Bạn đã có tài khoản? <a href=\"/NVIDIA/Authentication/SignIn\">Đăng nhập ở đây</a>",
+    "cardid": "Mã thẻ",
+    "cardid_placeholder": "Nhập mã thẻ",
+    "new_password": "Mật khẩu mới",
+    "new_password_placeholder": "Nhập mật khẩu mới",
+    "cfn_password": "Nhập lại mật khẩu",
+    "cfn_password_placeholder": "Nhập lại mật khẩu",
+    "email": "Email",
+    "email_placeholder": "Nhập email",
+    "dept": "Bộ phận",
+    "role": "Chức vụ",
+    "agree": "Tôi đã đọc và đồng ý với Điều khoản & Điều kiện",
+    "signup_success": "Đăng ký thành công",
+    "verify_account": "Vui lòng liên hệ với quản trị viên để kích hoạt tài khoản của bạn."
+  },
+  "dashboard": {
+    "user": "Người dùng",
+    "devices": "Thiết bị",
+    "bt_qty": "Số lượng mượn/lĩnh",
+    "request": "Tổng số đơn",
+    "approve_request": "Số đơn được chấp nhận"
+  },
+  "device": {
+    "new_device": {
+      "manual": {
+        "manual": "Thêm mới thủ công",
+        "device": "Thiết bị",
+        "new_device": "Thêm mới thiết bị",
+        "new_device_manual": "Thêm mới thiết bị thủ công",
+        "pn": "Mã thiết bị",
+        "description": "Tên thiết bị",
+        "specfication": "Quy cách",
+        "created_date": "Ngày nhập kho",
+        "buffer": "Dự phòng",
+        "life_cycle": "Số lần sử dụng",
+        "quantity": "Số lượng",
+        "po_quantity": "Số lượng đặt mua",
+        "min_quantity": "Số lượng tối thiểu",
+        "unit": "Đơn vị",
+        "type": "Phân loại",
+        "lead_time": "Thời gian đặt mua",
+        "warehouse": "Nhập vào kho",
+        "product": "Dùng cho hàng",
+        "model": "Dùng cho model",
+        "station": "Dùng cho trạm",
+        "group": "Nhóm thiết bị",
+        "vendor": "Nhà cung ứng",
+        "add_layout": "<i class='fa-solid fa-plus'></i> Thêm vị trí",
+        "add_new_device": "Thêm mới thiết bị",
+
+        "add_device_success": "Thêm mới thiết bị thành công"
+      }
+    }
+    
+  }
+}
