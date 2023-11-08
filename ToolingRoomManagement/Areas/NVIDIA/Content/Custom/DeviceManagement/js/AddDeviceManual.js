@@ -1,6 +1,8 @@
 ﻿$(function () {
     GetSelectData();
-    GetDevicesBOM();
+    GetDevicesBOM();    
+
+    $('.carousel').carousel();
 });
 
 // Get Select data
@@ -61,8 +63,6 @@ function GetDevicesBOM() {
         contentType: "application/json;charset=utf-8",
         success: function (response) {
             if (response.status) {
-                console.log(response.data);
-
                 deviceBoms = response.data;
 
                 $('#device_add-ListDeviceCode').empty();
@@ -143,6 +143,10 @@ $('#AddDeviceManual').on('click', function (e) {
 
     const formData = GetFormData();
     formData.append('DeliveryTime', `${$('#device_add-DeliveryTime1').val()} ${$('#device_add-DeliveryTime2').val()}`);
+
+    selectedFiles.forEach(function (file) {
+        formData.append('files', file);
+    });
 
     $.ajax({
         type: "POST",
@@ -226,6 +230,102 @@ $('#new-layout').on('click', async function (e) {
 
     $('#layout-container').append(inputGroup);
 });
+
+// Image
+$('a[data-slide="prev"]').click(function () {
+    $('.carousel').carousel('prev');
+});
+$('a[data-slide="next"]').click(function () {
+    $('.carousel').carousel('next');
+});
+
+var selectedFiles = [];
+$('#btn-new-image').click(function (e) {
+    var selectFile = $('<input type="file" accept="image/*" multiple/>');
+    selectFile.change(function () {
+        var newFiles = Array.from(selectFile[0].files);
+        selectedFiles = newFiles;    
+
+        InsertCarousel();
+    });
+
+    selectFile.click();
+});
+$('#btn-delete-image').click(function (e) {
+    selectedFiles = [];
+
+    $('.carousel-indicators').empty();
+    $('.carousel-inner').empty();
+    $('#images').empty();
+
+    $('#image-container').fadeOut(300);
+    $('#btn-delete-image').fadeOut(300);
+});
+
+function InsertCarousel() {
+    $('.carousel-indicators').empty();
+    $('.carousel-inner').empty();
+    $('#images').empty();
+
+    $.each(selectedFiles, function (k, file) {
+         // CarouselSlides
+        var CarouselSlides = $('.carousel-indicators');
+        var SlideItem = $(`<li data-bs-target="#carousel" data-bs-slide-to="${k}"></li>`);
+
+        //CarouselItem
+        var CarouselItem = $(`<div class="carousel-item"><img class="d-block w-100" src=""></div>`);
+        var img = $(`<img class="d-block w-100" src="${URL.createObjectURL(file)}">`);
+        img.click(() => { viewPreview.show() });
+        CarouselItem.append(img);
+        
+        // Carousel First check
+        if (CarouselSlides.find('li').length == 0) {
+            SlideItem.addClass('active');
+            CarouselItem.addClass('active');
+        }    
+
+        // Append Carousel
+        $('.carousel-indicators').append(SlideItem);
+        $('.carousel-inner').append(CarouselItem);  
+
+        // Galley
+        var GalleyItem = $(`<li><img src="${URL.createObjectURL(file)}"><li>`);
+        $('#images').append(GalleyItem);
+
+    });
+
+    InitViewer();
+    $('#image-container').fadeIn(300);
+    $('#btn-delete-image').fadeIn(300);
+}
+
+var viewPreview;
+function InitViewer() {
+    if (viewPreview) viewPreview.destroy();
+
+    viewPreview = new Viewer(document.getElementById('images'), {
+        backdrop: true,
+        button: true,
+        focus: true,
+        fullscreen: true,
+        loading: true,
+        loop: true,
+        keyboard: true,
+        movable: true,
+        navbar: true,
+        rotatable: true,
+        scalable: true,
+        slideOnTouch: true,
+        title: true,
+        toggleOnDbclick: true,
+        toolbar: true,
+        tooltip: true,
+        transition: true,
+        zoomable: true,
+        zoomOnTouch: true,
+        zoomOnWheel: true
+    });
+}
 
 var WarehouseLayouts;
 $('#device_add-WareHouse').on('change', function (e) {

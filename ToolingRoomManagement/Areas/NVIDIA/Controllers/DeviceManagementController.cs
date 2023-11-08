@@ -1,4 +1,5 @@
-﻿using OfficeOpenXml;
+﻿using Model.EF;
+using OfficeOpenXml;
 using OfficeOpenXml.Style;
 using System;
 using System.Collections.Generic;
@@ -11,6 +12,7 @@ using System.Linq;
 using System.Text.Json;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Services.Description;
 using ToolingRoomManagement.Areas.NVIDIA.Entities;
 using ToolingRoomManagement.Attributes;
 
@@ -48,123 +50,153 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
 
                 device.IdWareHouse = dIdWarehouse;
 
-                if (!db.Devices.Any(d => d.DeviceCode == device.DeviceCode && d.IdWareHouse == device.IdWareHouse))
+                double dBuffer = double.TryParse(form["Buffer"], out dBuffer) ? dBuffer : 0;
+                device.Buffer = dBuffer / 100;
+
+                int dLifeCycle = int.TryParse(form["LifeCycle"], out dLifeCycle) ? dLifeCycle : 0;
+                device.LifeCycle = dLifeCycle;
+
+                int dForcast = int.TryParse(form["Forcast"], out dForcast) ? dForcast : 0;
+                device.Forcast = dForcast;
+
+                int dQuantity = int.TryParse(form["Quantity"], out dQuantity) ? dQuantity : 0;
+                device.Quantity = dQuantity;
+
+                int dQtyConfirm = int.TryParse(form["Quantity"], out dQtyConfirm) ? dQtyConfirm : 0;
+                device.QtyConfirm = dQtyConfirm;
+
+                int dMinQty = int.TryParse(form["MinQuantity"], out dMinQty) ? dMinQty : 0;
+                device.MinQty = dMinQty;
+
+                int dPOQty = int.TryParse(form["POQuantity"], out dPOQty) ? dPOQty : 0;
+                device.POQty = dPOQty;
+
+                string dProductName = form["Product"];
+                string dModelName = form["Model"];
+                string dStationName = form["Station"];
+                string dGroupName = form["Group"];
+                string dVendorName = form["Vendor"];
+
+                Entities.Product product = db.Products.FirstOrDefault(p => p.ProductName == dProductName);
+                Entities.Model model = db.Models.FirstOrDefault(p => p.ModelName == dModelName);
+                Entities.Station station = db.Stations.FirstOrDefault(p => p.StationName == dStationName);
+                Entities.Group group = db.Groups.FirstOrDefault(p => p.GroupName == dGroupName);
+                Entities.Vendor vendor = db.Vendors.FirstOrDefault(p => p.VendorName == dVendorName);
+
+                // Add & Create Product
+                if (product == null)
                 {
-                    double dBuffer = double.TryParse(form["Buffer"], out dBuffer) ? dBuffer : 0;
-                    device.Buffer = dBuffer / 100;
+                    product = new Entities.Product { ProductName = dProductName };
+                    db.Products.Add(product);
+                }
+                device.IdProduct = product.Id;
 
-                    int dLifeCycle = int.TryParse(form["LifeCycle"], out dLifeCycle) ? dLifeCycle : 0;
-                    device.LifeCycle = dLifeCycle;
+                // Add & Create Model
+                if (model == null)
+                {
+                    model = new Entities.Model { ModelName = dModelName };
+                    db.Models.Add(model);
+                }
+                device.IdModel = model.Id;
 
-                    int dForcast = int.TryParse(form["Forcast"], out dForcast) ? dForcast : 0;
-                    device.Forcast = dForcast;
+                // Add & Create Station
+                if (station == null)
+                {
+                    station = new Entities.Station { StationName = dStationName };
+                    db.Stations.Add(station);
+                }
+                device.IdStation = station.Id;
 
-                    int dQuantity = int.TryParse(form["Quantity"], out dQuantity) ? dQuantity : 0;
-                    device.Quantity = dQuantity;
+                // Add & Create Group
+                if (group == null)
+                {
+                    group = new Entities.Group { GroupName = dGroupName };
+                    db.Groups.Add(group);
+                }
+                device.IdGroup = group.Id;
 
-                    int dQtyConfirm = int.TryParse(form["Quantity"], out dQtyConfirm) ? dQtyConfirm : 0;
-                    device.QtyConfirm = dQtyConfirm;
+                // Add & Create Vendor
+                if (vendor == null)
+                {
+                    vendor = new Entities.Vendor { VendorName = dVendorName };
+                    db.Vendors.Add(vendor);
+                }
+                device.IdVendor = vendor.Id;
 
-                    int dMinQty = int.TryParse(form["MinQuantity"], out dMinQty) ? dMinQty : 0;
-                    device.MinQty = dMinQty;
+                DateTime dDeviceDate = DateTime.TryParse(form["Createddate"], out dDeviceDate) ? dDeviceDate : DateTime.Now;
+                device.DeviceDate = dDeviceDate;
 
-                    int dPOQty = int.TryParse(form["POQuantity"], out dPOQty) ? dPOQty : 0;
-                    device.POQty = dPOQty;
+                device.CreatedDate = DateTime.Now;
+                device.RealQty = dQtyConfirm;
+                device.SysQuantity = dQtyConfirm;
 
-                    string dProductName = form["Product"];
-                    string dModelName = form["Model"];
-                    string dStationName = form["Station"];
-                    string dGroupName = form["Group"];
-                    string dVendorName = form["Vendor"];
+                device.Status = Data.Common.CheckStatus(device);
 
-                    Entities.Product product = db.Products.FirstOrDefault(p => p.ProductName == dProductName);
-                    Entities.Model model = db.Models.FirstOrDefault(p => p.ModelName == dModelName);
-                    Entities.Station station = db.Stations.FirstOrDefault(p => p.StationName == dStationName);
-                    Entities.Group group = db.Groups.FirstOrDefault(p => p.GroupName == dGroupName);
-                    Entities.Vendor vendor = db.Vendors.FirstOrDefault(p => p.VendorName == dVendorName);
+                db.Devices.Add(device);
 
-                    // Add & Create Product
-                    if (product == null)
+                // Create Layout
+                if (form["Layout"] != null)
+                {
+                    var IdLayouts = form["Layout"].Split(',').Select(Int32.Parse).ToArray();
+
+                    foreach (var IdLayout in IdLayouts)
                     {
-                        product = new Entities.Product { ProductName = dProductName };
-                        db.Products.Add(product);
-                    }
-                    device.IdProduct = product.Id;
-
-                    // Add & Create Model
-                    if (model == null)
-                    {
-                        model = new Entities.Model { ModelName = dModelName };
-                        db.Models.Add(model);
-                    }
-                    device.IdModel = model.Id;
-
-                    // Add & Create Station
-                    if (station == null)
-                    {
-                        station = new Entities.Station { StationName = dStationName };
-                        db.Stations.Add(station);
-                    }
-                    device.IdStation = station.Id;
-
-                    // Add & Create Group
-                    if (group == null)
-                    {
-                        group = new Entities.Group { GroupName = dGroupName };
-                        db.Groups.Add(group);
-                    }
-                    device.IdGroup = group.Id;
-
-                    // Add & Create Vendor
-                    if (vendor == null)
-                    {
-                        vendor = new Entities.Vendor { VendorName = dVendorName };
-                        db.Vendors.Add(vendor);
-                    }
-                    device.IdVendor = vendor.Id;
-
-                    DateTime dDeviceDate = DateTime.TryParse(form["Createddate"], out dDeviceDate) ? dDeviceDate : DateTime.Now;
-                    device.DeviceDate = dDeviceDate;
-
-                    device.CreatedDate = DateTime.Now;
-                    device.RealQty = dQtyConfirm;
-                    device.SysQuantity = dQtyConfirm;
-
-                    device.Status = Data.Common.CheckStatus(device);
-
-                    db.Devices.Add(device);
-
-                    // Create Layout
-                    if (form["Layout"] != null)
-                    {
-                        var IdLayouts = form["Layout"].Split(',').Select(Int32.Parse).ToArray();
-
-                        foreach (var IdLayout in IdLayouts)
+                        if (!db.DeviceWarehouseLayouts.Any(l => l.IdDevice == device.Id && l.IdWarehouseLayout == IdLayout))
                         {
-                            if (!db.DeviceWarehouseLayouts.Any(l => l.IdDevice == device.Id && l.IdWarehouseLayout == IdLayout))
+                            DeviceWarehouseLayout layout = new DeviceWarehouseLayout
                             {
-                                DeviceWarehouseLayout layout = new DeviceWarehouseLayout
-                                {
-                                    IdDevice = device.Id,
-                                    IdWarehouseLayout = IdLayout
-                                };
-                                db.DeviceWarehouseLayouts.Add(layout);
-                            }
+                                IdDevice = device.Id,
+                                IdWarehouseLayout = IdLayout
+                            };
+                            db.DeviceWarehouseLayouts.Add(layout);
                         }
                     }
-
-
-                    db.SaveChanges();
-                    return Json(new { status = true });
                 }
-                else
+
+                db.SaveChanges();
+                // Images
+                var files = Request.Files;
+
+                if (Request.Files.Count > 0)
                 {
-                    return Json(new { status = false, message = "The device already exists." });
+                    for (int i = 0; i < Request.Files.Count; i++)
+                    {
+                        HttpPostedFileBase imagefile = Request.Files[i];
+                        var imagePath = SaveImage(imagefile, device);
+                        if (string.IsNullOrEmpty(device.ImagePath))
+                        {
+                            device.ImagePath = imagePath;
+                        }
+                    }
                 }
+
+                db.SaveChanges();
+                return Json(new { status = true });
             }
             catch (Exception ex)
             {
                 return Json(new { status = false, message = ex.Message });
+            }
+        }
+        private string SaveImage(HttpPostedFileBase file, Entities.Device device)
+        {
+            try
+            {
+                var fileName = Path.GetFileNameWithoutExtension(file.FileName);
+                var fileExtention = Path.GetExtension(file.FileName);
+
+                var folderPath = Server.MapPath($"~/Data/NewToolingRoom/DeviceImages/{device.Id}");
+                if (!Directory.Exists(folderPath)) Directory.CreateDirectory(folderPath);
+
+                var savePath = Path.Combine(folderPath, $"{fileName} - {DateTime.Now.ToString("yyyy-MM-dd HH.mm.ss.ff")}{fileExtention}");
+
+                file.SaveAs(savePath);
+
+                return folderPath;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
             }
         }
 
@@ -257,7 +289,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
 
                     device.CreatedDate = DateTime.Now;
                     device.Status = Data.Common.CheckStatus(device);
-                    device.SysQuantity = device.RealQty;
+                    device.SysQuantity = device.RealQty - (db.Devices.FirstOrDefault(d => d.Id == device.Id).RealQty - db.Devices.FirstOrDefault(d => d.Id == device.Id).SysQuantity);
 
 
                     Entities.Product product = db.Products.FirstOrDefault(p => p.ProductName == sproduct);
@@ -326,10 +358,54 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                         }
                     }
 
+                    device.ImagePath = db.Devices.FirstOrDefault(d => d.Id == device.Id).ImagePath;
+
                     db.Devices.AddOrUpdate(device);
                     db.SaveChanges();
 
                     return Json(new { status = true, device });
+                }
+                else
+                {
+                    return Json(new { status = false, message = "Device not found." });
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = false, message = ex.Message });
+            }
+        }
+        [HttpPost]
+        public JsonResult UpdateImage(FormCollection form)
+        {
+            try
+            {
+                int id = int.Parse(form["deviceid"]);
+
+                var device = db.Devices.FirstOrDefault(d => d.Id == id);
+                if(device != null)
+                {
+                    var files = Request.Files;
+                    if (Request.Files.Count > 0)
+                    {
+                        for (int i = 0; i < Request.Files.Count; i++)
+                        {
+                            HttpPostedFileBase imagefile = Request.Files[i];
+                            var imagePath = SaveImage(imagefile, device);
+                            if (string.IsNullOrEmpty(device.ImagePath))
+                            {
+                                device.ImagePath = imagePath;
+                            }
+                        }
+                    }
+
+                    db.Devices.AddOrUpdate(device);
+                    db.SaveChanges();
+
+                    List<string> images = new List<string>();
+                    if (!string.IsNullOrEmpty(device.ImagePath)) images = Directory.GetFiles(device.ImagePath).ToList();
+
+                    return Json(new { status = true, images });
                 }
                 else
                 {
@@ -373,6 +449,13 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
 
                     if (device != null)
                     {
+                        if (!string.IsNullOrEmpty(device.ImagePath)){
+                            if (Directory.Exists(device.ImagePath))
+                            {
+                                Directory.Delete(device.ImagePath, true);
+                            }
+                        }
+
                         db.Devices.Remove(device);
                         db.SaveChanges();
                         return Json(new { status = true });
@@ -386,6 +469,35 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
             catch (Exception ex)
             {
                 return Json(new { status = false, message = ex.Message });
+            }
+        }
+        [HttpGet]
+        public JsonResult DeleteImage(string src)
+        {
+            try
+            {
+                string filePath = Path.Combine(Server.MapPath(src));
+
+                if (System.IO.File.Exists(filePath))
+                {
+                    System.IO.File.Delete(filePath);
+
+                    string directoryName = Path.GetDirectoryName(filePath);
+
+                    List<string> images = new List<string>();
+
+                    images = Directory.GetFiles(directoryName).ToList();
+
+                    return Json(new { status = true, images }, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    return Json(new { status = false, message = "File not found." }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
 
@@ -613,9 +725,14 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                     warehouse.WarehouseLayouts.Clear();
                 }
 
+
+
                 if (device != null)
                 {
-                    return Json(new { status = true, device, borrows = JsonSerializer.Serialize(borrows), warehouses });
+                    List<string> images = new List<string>();
+                    if (!string.IsNullOrEmpty(device.ImagePath)) images = Directory.GetFiles(device.ImagePath).ToList();
+
+                    return Json(new { status = true, device, borrows = JsonSerializer.Serialize(borrows), warehouses, images });
                 }
                 else
                 {
@@ -675,7 +792,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
 
                 List<Entities.Device> devices = db.Devices.ToList();
 
-                using(var DevicesExcel = new ExcelPackage(filePath))
+                using (var DevicesExcel = new ExcelPackage(filePath))
                 {
                     var worksheet = DevicesExcel.Workbook.Worksheets.Add("Devices");
 
@@ -703,7 +820,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                         cell.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
                         cell.Style.Border.BorderAround(ExcelBorderStyle.Thin, Color.Black);
                     }
-                    
+
                     #endregion
 
 
@@ -960,78 +1077,131 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                     }
                     #endregion
 
+                    //var bg_light_danger = (System.Drawing.Color)System.Windows.Media.ColorConverter.ConvertFromString("#ffc7ce");
+                    //var text_danger = (System.Drawing.Color)System.Windows.Media.ColorConverter.ConvertFromString("#9c0006");
+
+                    //var bg_light_success = (System.Drawing.Color)System.Windows.Media.ColorConverter.ConvertFromString("#c6efce");
+                    //var text_success = (System.Drawing.Color)System.Windows.Media.ColorConverter.ConvertFromString("#006100");
+
                     using (var outputPackage = new ExcelPackage(filePath))
                     using (var package = new ExcelPackage(file.InputStream))
                     {
-                       
-
-
                         var outWorksheet = outputPackage.Workbook.Worksheets.Add("Inventory");
                         var worksheet = package.Workbook.Worksheets[0];
 
                         //header
-                        outWorksheet.Cells[1, 1].Value = "PN";
-                        outWorksheet.Cells[1, 1].Style.Font.Bold = true;
-                        outWorksheet.Cells[1, 2].Value = "Description";
-                        outWorksheet.Cells[1, 2].Style.Font.Bold = true;
-                        outWorksheet.Cells[1, 3].Value = "Quantity";
-                        outWorksheet.Cells[1, 3].Style.Font.Bold = true;
-                        outWorksheet.Cells[1, 4].Value = "Request";
-                        outWorksheet.Cells[1, 4].Style.Font.Bold = true;
-                        outWorksheet.Cells[1, 5].Value = "Default Min Quantity";
-                        outWorksheet.Cells[1, 5].Style.Font.Bold = true;
-                        outWorksheet.Cells[1, 6].Value = "GAP";
-                        outWorksheet.Cells[1, 6].Style.Font.Bold = true;
-                        outWorksheet.Cells[1, 7].Value = "Risk";
-                        outWorksheet.Cells[1, 7].Style.Font.Bold = true;
+                        outWorksheet.Cells[1, 1].Value = "MTS"; //
+                        outWorksheet.Cells[1, 2].Value = "MTS Details"; //
+                        outWorksheet.Cells[1, 3].Value = "Product"; //
+                        outWorksheet.Cells[1, 4].Value = "Model"; //
+                        outWorksheet.Cells[1, 5].Value = "Station"; //
 
-                        outWorksheet.Cells["A1:G1"].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
-                        outWorksheet.Cells["A1:G1"].Style.Border.Top.Style = ExcelBorderStyle.Thin;
-                        outWorksheet.Cells["A1:G1"].Style.Border.Left.Style = ExcelBorderStyle.Thin;
-                        outWorksheet.Cells["A1:G1"].Style.Border.Right.Style = ExcelBorderStyle.Thin;
+                        outWorksheet.Cells[1, 6].Value = "PN";                       
+                        outWorksheet.Cells[1, 7].Value = "Description";
+
+                        outWorksheet.Cells[1, 8].Value = "Group"; //
+                        outWorksheet.Cells[1, 90].Value = "Vendor"; //
+                        outWorksheet.Cells[1, 10].Value = "Buffer"; //
+
+                        outWorksheet.Cells[1, 11].Value = "Dynamic/Static"; //
+
+                        outWorksheet.Cells[1, 12].Value = "Quantity";
+
+                        outWorksheet.Cells[1, 13].Value = "Relation"; //
+
+                        outWorksheet.Cells[1, 14].Value = "Request";
+                        outWorksheet.Cells[1, 15].Value = "Default Min Quantity";
+                        outWorksheet.Cells[1, 16].Value = "GAP";
+
+                        outWorksheet.Cells[1, 17].Value = "MOQ"; //
+                        outWorksheet.Cells[1, 18].Value = "Life Cycle"; //
+
+                        outWorksheet.Cells[1, 19].Value = "Risk";
+
+                        outWorksheet.Cells["A1:S1"].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
+                        outWorksheet.Cells["A1:S1"].Style.Border.Top.Style = ExcelBorderStyle.Thin;
+                        outWorksheet.Cells["A1:S1"].Style.Border.Left.Style = ExcelBorderStyle.Thin;
+                        outWorksheet.Cells["A1:S1"].Style.Border.Right.Style = ExcelBorderStyle.Thin;
+                        outWorksheet.Cells["A1:S1"].Style.Font.Bold = true;
 
                         foreach (int row in Enumerable.Range(2, worksheet.Dimension.End.Row - 1))
                         {
                             var _PN = worksheet.Cells[row, 1].Value?.ToString();
                             var _RequestQty = int.Parse(worksheet.Cells[row, 2].Value?.ToString());
 
-                            Entities.Device device = db.Devices.FirstOrDefault(d => d.DeviceCode.ToLower().Trim() == _PN.ToLower().Trim());
-                            if (device != null)
+                            var devices = db.Devices.Where(d => d.DeviceCode.ToLower().Trim() == _PN.ToLower().Trim()).ToList();
+                            if (devices.Count > 0)
                             {
-                                outWorksheet.Cells[row, 1].Value = device.DeviceCode;
-                                outWorksheet.Cells[row, 2].Value = device.DeviceName;
-                                outWorksheet.Cells[row, 3].Value = device.QtyConfirm;
-                                outWorksheet.Cells[row, 4].Value = _RequestQty;
-                                outWorksheet.Cells[row, 5].Value = device.MinQty;
+                                string deviceName = "";
+                                int qtyConfirm = 0;
+                                int minQty = 0;
 
-                                int gap = (device.QtyConfirm ?? 0) - _RequestQty;
-                                outWorksheet.Cells[row, 6].Value = gap;
-
-                                if (gap > 0 && device.QtyConfirm > device.MinQty)
+                                foreach (var _device in devices)
                                 {
-                                    outWorksheet.Cells[row, 7].Value = "Low";
+                                    deviceName = _device.DeviceName;
+                                    qtyConfirm += _device.QtyConfirm ?? 0;
+                                    minQty = _device.MinQty ?? 0;
                                 }
-                                else
-                                {
-                                    outWorksheet.Cells[row, 7].Value = "High";
 
-                                    outWorksheet.Cells[row, 7].Style.Fill.PatternType = ExcelFillStyle.Solid;
-                                    outWorksheet.Cells[row, 7].Style.Fill.BackgroundColor.SetColor(Color.Red);
+                                var device = devices.First();
+
+                                outWorksheet.Cells[row, 1].Value = device.Product == null ? "" : device.Product.MTS;
+                                outWorksheet.Cells[row, 2].Value = "";
+                                outWorksheet.Cells[row, 3].Value = device.Product == null ? "" : device.Product.ProductName;
+                                outWorksheet.Cells[row, 4].Value = device.Model == null ? "" : device.Model.ModelName;
+                                outWorksheet.Cells[row, 5].Value = device.Station == null ? "" : device.Station.StationName;
+
+                                outWorksheet.Cells[row, 6].Value = _PN;
+                                outWorksheet.Cells[row, 7].Value = device.DeviceName;
+
+                                outWorksheet.Cells[row, 8].Value = device.Group == null ? "" : device.Group.GroupName;
+                                outWorksheet.Cells[row, 9].Value = device.Vendor == null ? "" : device.Vendor.VendorName;
+                                outWorksheet.Cells[row, 10].Value = device.Buffer == null ? "" : device.Buffer.ToString();
+
+                                outWorksheet.Cells[row, 11].Value = device.Type != "D" ? "S" : "D";
+                                outWorksheet.Cells[row, 12].Value = qtyConfirm;
+                                outWorksheet.Cells[row, 13].Value = device.Relation == null ? "" : device.Relation;
+
+                                outWorksheet.Cells[row, 14].Value = _RequestQty;
+                                outWorksheet.Cells[row, 15].Value = minQty;
+
+                                int gap = qtyConfirm - _RequestQty;
+                                outWorksheet.Cells[row, 16].Value = gap;
+
+                                outWorksheet.Cells[row, 17].Value = "";
+                                outWorksheet.Cells[row, 18].Value = device.LifeCycle == null ? "" : device.LifeCycle.ToString();
+
+                                if (gap > 0 && qtyConfirm > minQty)
+                                {
+                                    outWorksheet.Cells[row, 19].Value = "Low";
+
+                                    outWorksheet.Cells[$"A{row}:S{row}"].Style.Fill.PatternType = ExcelFillStyle.Solid;
+                                    outWorksheet.Cells[$"A{row}:S{row}"].Style.Fill.BackgroundColor.SetColor(Color.LightGreen);
+                                    outWorksheet.Cells[$"A{row}:S{row}"].Style.Font.Color.SetColor(Color.DarkGreen);
+
+                                }                           
+                                else                        
+                                {                           
+                                    outWorksheet.Cells[row, 19].Value = "High";
+                                                            
+                                    outWorksheet.Cells[$"A{row}:S{row}"].Style.Fill.PatternType = ExcelFillStyle.Solid;
+                                    outWorksheet.Cells[$"A{row}:S{row}"].Style.Fill.BackgroundColor.SetColor(Color.LightCoral);
+                                    outWorksheet.Cells[$"A{row}:S{row}"].Style.Font.Color.SetColor(Color.Maroon);
                                 }
                             }
                             else
                             {
-                                outWorksheet.Cells[row, 1].Value = _PN;
-                                outWorksheet.Cells[row, 4].Value = _RequestQty;
+                                outWorksheet.Cells[row, 6].Value = _PN;
+                                outWorksheet.Cells[row, 14].Value = _RequestQty;
 
-                                outWorksheet.Cells[$"A{row}:G{row}"].Style.Fill.PatternType = ExcelFillStyle.Solid;
-                                outWorksheet.Cells[$"A{row}:G{row}"].Style.Fill.BackgroundColor.SetColor(Color.LightGray);
+                                outWorksheet.Cells[$"A{row}:S{row}"].Style.Fill.PatternType = ExcelFillStyle.Solid;
+                                outWorksheet.Cells[$"A{row}:S{row}"].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.LightGray);
                             }
 
-                            outWorksheet.Cells[$"A{row}:G{row}"].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
-                            outWorksheet.Cells[$"A{row}:G{row}"].Style.Border.Top.Style = ExcelBorderStyle.Thin;
-                            outWorksheet.Cells[$"A{row}:G{row}"].Style.Border.Left.Style = ExcelBorderStyle.Thin;
-                            outWorksheet.Cells[$"A{row}:G{row}"].Style.Border.Right.Style = ExcelBorderStyle.Thin;
+                            outWorksheet.Cells[$"A{row}:S{row}"].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
+                            outWorksheet.Cells[$"A{row}:S{row}"].Style.Border.Top.Style = ExcelBorderStyle.Thin;
+                            outWorksheet.Cells[$"A{row}:S{row}"].Style.Border.Left.Style = ExcelBorderStyle.Thin;
+                            outWorksheet.Cells[$"A{row}:S{row}"].Style.Border.Right.Style = ExcelBorderStyle.Thin;
                         }
 
                         outWorksheet.Cells[outWorksheet.Dimension.Address].AutoFitColumns();

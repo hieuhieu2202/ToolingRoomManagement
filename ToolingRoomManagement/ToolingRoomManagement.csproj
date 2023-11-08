@@ -206,6 +206,7 @@
     <Content Include="Areas\NVIDIA\Content\Custom\BorrowManagement\css\BorrowManagement.css" />
     <Content Include="Areas\NVIDIA\Content\Custom\BorrowManagement\css\BorrowSign.css" />
     <Content Include="Areas\NVIDIA\Content\Custom\BorrowManagement\css\ReturnDevice.css" />
+    <Content Include="Areas\NVIDIA\Content\Custom\BorrowManagement\js\RequestDetails.js" />
     <Content Include="Areas\NVIDIA\Content\Custom\BorrowManagement\js\TakeDevice.js" />
     <Content Include="Areas\NVIDIA\Content\Custom\BorrowManagement\js\BorrowDevice.js" />
     <Content Include="Areas\NVIDIA\Content\Custom\BorrowManagement\js\BorrowManagement.js" />
@@ -218,7 +219,9 @@
     <Content Include="Areas\NVIDIA\Content\Custom\DeviceManagement\css\DeviceManagement.css" />
     <Content Include="Areas\NVIDIA\Content\Custom\DeviceManagement\js\AddDeviceBOM.js" />
     <Content Include="Areas\NVIDIA\Content\Custom\DeviceManagement\js\AddDeviceManual.js" />
+    <Content Include="Areas\NVIDIA\Content\Custom\DeviceManagement\js\DeviceDetails.js" />
     <Content Include="Areas\NVIDIA\Content\Custom\DeviceManagement\js\DeviceManagement.js" />
+    <Content Include="Areas\NVIDIA\Content\Custom\DeviceManagement\js\DeviceUpdate.js" />
     <Content Include="Areas\NVIDIA\Content\Custom\Info\css\GroupVendor.css" />
     <Content Include="Areas\NVIDIA\Content\Custom\Info\css\ModelStation.css" />
     <Content Include="Areas\NVIDIA\Content\Custom\Info\css\product.css" />
@@ -1815,6 +1818,7 @@
     <Content Include="Areas\NVIDIA\Content\Vendor\UploadAreaDropzone\Excel_Icon.svg" />
     <Content Include="Areas\NVIDIA\Content\Vendor\UploadAreaDropzone\UploadAreaDropzone.css" />
     <Content Include="Areas\NVIDIA\Content\Vendor\UploadAreaDropzone\UploadAreaDropzone.js" />
+    <Content Include="Areas\NVIDIA\Content\Vendor\Viewer JS\viewer.js" />
     <Content Include="Areas\NVIDIA\Content\Vendor\Viewer JS\viewer.min.css" />
     <Content Include="Areas\NVIDIA\Content\Vendor\Viewer JS\viewer.min.js" />
     <Content Include="Areas\NVIDIA\Content\Vendor\Wave\style.css" />
@@ -3582,6 +3586,8 @@
     <Content Include="Areas\NVIDIA\Views\Info\ModelStation.cshtml" />
     <Content Include="Areas\NVIDIA\Views\Info\GroupVendor.cshtml" />
     <Content Include="Areas\NVIDIA\Views\DeviceManagement\DeviceConfirm.cshtml" />
+    <Content Include="Areas\NVIDIA\Views\DeviceManagement\_DeviceDetails_Modal.cshtml" />
+    <Content Include="Areas\NVIDIA\Views\BorrowManagement\_RequestDetails_Modal.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

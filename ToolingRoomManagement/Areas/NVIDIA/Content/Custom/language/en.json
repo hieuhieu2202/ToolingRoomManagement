@@ -9,7 +9,8 @@
     "delete": "Delete",
     "profile": "<i class='bx bx-user'></i><span> Profile</span>",
     "signout": "<i class='bx bx-log-out-circle'></i><span> Sign Out</span>",
-    "save": "Save"
+    "save": "Save",
+    "confirm": "Confirm"
 
   },
   "layout": {
@@ -107,8 +108,8 @@
         "vendor": "Vendor",
         "add_layout": "<i class='fa-solid fa-plus'></i> Add layout",
         "add_new_device": "Add New Device",
-
-        "add_device_success": "Add new device success"
+        "add_device_success": "Add new device success",
+        "add_image": "<i class=\"fa-solid fa-plus\"></i> Add Image"        
       }
     },
     "management": {
@@ -131,14 +132,11 @@
       "type_all": "Type (All)",
       "status": "Status",
       "status_all": "Status (All)",
-
       "filter": "<i class='fa-solid fa-arrow-down-small-big'></i> Filter",
       "refresh": "<i class='fa-sharp fa-regular fa-arrows-rotate'></i> Refresh",
       "export_excel": "Export Excel",
       "inventory": "Inventory",
-
       "product_name": "Product Name",
-
       "pn": "PN",
       "description": "Description",
       "specification": "Specification",
@@ -154,12 +152,9 @@
       "action": "Action",
       "life_cycle": "Life Cycle",
       "min_quantity": "Min Quantity",
-
       "update_device": "Update Device",
-
       "basic_info": "BASIC INFORMATION",
       "details_info": "DETAILS INFORMATION",
-
       "device_location": "DEVICE LOCATION",
       "add_layout": "<i class='fa-solid fa-plus'></i> Add Layout",
       "factory": "Factory",
@@ -168,7 +163,6 @@
       "line": "Line",
       "cell": "Cell",
       "floor": "Floor",
-
       "device_history": "DEVICE HISTORY",
       "type_request": "Type",
       "date_borrow": "Date Borrow",
@@ -179,9 +173,36 @@
       "borrow_quantity": "Borrow Quantity",
       "status_request": "Status",
       "note": "Note",
-
-      "delete_message": "Do you want Delete this device?"
-
+      "delete_title": "Do you want Delete this device?",
+      "confirm_title": "Do you want Confirm this device?",
+      "modal_take": "Take Device Request Details",
+      "modal_borrow": "Borrow Device Request Details",
+      "modal_return": "Return Device Request Details",
+      "request_details": "REQUEST DETAILS",
+      "card_id": "Card ID",
+      "user_name": "User name",
+      "date": "Date",
+      "due_date": "Due date",
+      "return_date": "Return date",
+      "device_list": "DEVICES LIST",
+      "sign_process": "SIGN PROCESS",
+      "approved": "Approved",
+      "rejected": "Rejected",
+      "pending": "Pending",
+      "Waitting": "Waitting",
+      "closed": "Closed",
+      "quantity": "Quantity",
+      "details": "Details",
+      "edit": "Edit",
+      "delete": "Delete",
+      "borrow": "Borrow",
+      "take": "Take",
+      "return": "Return",
+      "qty_confirm": "Quantity confirm",
+      "layout": "Layout",
+      "image": "IMAGES",
+      "add_image": "Add Image",
+      "update_success_message": "Add image success."
     }
   }
 }

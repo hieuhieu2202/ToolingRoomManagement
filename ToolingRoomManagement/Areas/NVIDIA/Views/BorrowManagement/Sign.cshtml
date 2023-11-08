@@ -7,6 +7,7 @@
 @section styles{
     <!-- Vendor -->
     <link href="~/Areas/NVIDIA/Content/Template/Sysadmin/assets/plugins/datatable/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
+    <link href="~/Areas/NVIDIA/Content/Vendor/Viewer JS/viewer.min.css" rel="stylesheet" />
     <!-- Custom -->
     <link href="~/Areas/NVIDIA/Content/Custom/BorrowManagement/css/BorrowSign.css?v=@Guid.NewGuid()" rel="stylesheet" />
 }
@@ -122,93 +123,18 @@
 </div>
 
 <!-- Borrow Request modal -->
-<div class="modal fade" id="borrow_modal" aria-hidden="true" data-bs-focus="false">
-    <div class="modal-dialog modal-xl modal-dialog-scrollable">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="borrow_modal-title"></h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <h2 class="font-weight-light text-center text-primary py-3" id="borrow_modal-name">REQUEST DETAILS</h2>
+@Html.Partial("~/Areas/NVIDIA/Views/BorrowManagement/_RequestDetails_Modal.cshtml")
 
-                <div class="row">
-                    <div class="col-md-2">
-                        <label class="form-label">Card Id</label>
-                        <input type="text" class="form-control form-control-sm" id="borrow_modal-CardId" disabled>
-                    </div>
-                    <div class="col-md-4">
-                        <label class="form-label">User Name</label>
-                        <input type="text" class="form-control form-control-sm" id="borrow_modal-Username" disabled>
-                    </div>
-                    <div class="col-md-3">
-                        <label class="form-label">Use for Model</label>
-                        <input type="text" class="form-control form-control-sm" id="borrow_modal-Model" disabled>
-                    </div>
-                    <div class="col-md-3">
-                        <label class="form-label">Use for Station</label>
-                        <input type="text" class="form-control form-control-sm" id="borrow_modal-Station" disabled>
-                    </div>
-
-                    <div class="col-md-4 mt-3">
-                        <label class="form-label" typeName>Date Borrow</label>
-                        <input type="datetime-local" class="form-control form-control-sm" id="borrow_modal-BorrowDate" disabled>
-                    </div>
-                    <div class="col-md-4 mt-3" typeCheck>
-                        <label class="form-label">Due Date</label>
-                        <input type="datetime-local" class="form-control form-control-sm" id="borrow_modal-DuaDate" disabled>
-                    </div>
-                    <div class="col-md-4 mt-3" typeCheck>
-                        <label class="form-label">Return Date</label>
-                        <input type="datetime-local" class="form-control form-control-sm" id="borrow_modal-ReturnDate" disabled>
-                    </div>
-                    <div class="col-md-12 mt-3">
-                        <label class="form-label">Note</label>
-                        <div class="form-control" rows="3" id="borrow_modal-Note"><p></p></div>
-                    </div>
-                </div>
-
-                <div class="mt-3">
-                    <h4 class="font-weight-light text-center text-white py-3">DEVICES LIST</h4>
-                    <table class="table table-bordered" id="borrow_modal-table">
-                        <thead>
-                            <tr>
-                                <th style="min-width: 120px;">PN</th>
-                                <th>Description</th>
-                                <th>Specification</th>
-                                <th>Model</th>
-                                <th>Station</th>
-                                <th class="text-center">Unit</th>
-                                <th class="text-danger text-center" style="width: 200px;">Quantity Borrow</th>
-                            </tr>
-                        </thead>
-                        <tbody id="borrow_modal-table-tbody">
-                        </tbody>
-                    </table>
-                </div>
-
-                <div class="container py-2" id="sign-container">
-                    <h4 class="font-weight-light text-center text-white py-3">SIGN PROCESS</h4>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <div class="w-100 text-center" id="action_footer">
-                    <button type="button" class="btn btn-outline-danger" btn-reject onclick="Reject(this, event)"><i class="bx bx-x"></i>Reject</button>
-                    <button type="button" class="btn btn-success ms-3" btn-approve onclick="Approve(this, event)"><i class="bx bx-check"></i>Approve</button>
-                </div>
-                <div id="normal_footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                </div>
-
-            </div>
-        </div>
-    </div>
-</div>
+<!-- Details modal -->
+@Html.Partial("~/Areas/NVIDIA/Views/DeviceManagement/_DeviceDetails_Modal.cshtml")
 
 @section scripts{
     <!-- Vendor -->
     <script src="~/Areas/NVIDIA/Content/Template/Sysadmin/assets/plugins/datatable/js/jquery.dataTables.min.js"></script>
     <script src="~/Areas/NVIDIA/Content/Vendor/MomentJs/moment.js"></script>
+    <script src="~/Areas/NVIDIA/Content/Vendor/Viewer JS/viewer.min.js"></script>
     <!-- Custom -->
     <script src="~/Areas/NVIDIA/Content/Custom/BorrowManagement/js/BorrowSign.js?v=@Guid.NewGuid()"></script>
+    <script src="~/Areas/NVIDIA/Content/Custom/BorrowManagement/js/RequestDetails.js?v=@Guid.NewGuid()"></script>
+    <script src="~/Areas/NVIDIA/Content/Custom/DeviceManagement/js/DeviceDetails.js?v=@Guid.NewGuid()"></script>
 }

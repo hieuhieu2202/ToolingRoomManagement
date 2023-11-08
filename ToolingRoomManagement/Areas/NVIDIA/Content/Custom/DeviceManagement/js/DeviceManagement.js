@@ -10,7 +10,7 @@ async function CreateTableAddDevice(devices) {
     $('#table_Devices_tbody').html('');
     await $.each(devices, async function (no, item) {
 
-        var row = $(`<tr class="align-middle" data-id="${item.Id}" title="Double-click to view device details."></tr>`);
+        var row = $(`<tr class="align-middle" data-id="${item.Id}"></tr>`);
 
         // 0 ID
         row.append(`<td>${item.Id}</td>`);
@@ -109,27 +109,27 @@ async function CreateTableAddDevice(devices) {
         }
         // 19 Action
         row.append(`<td class="order-action d-flex text-center justify-content-center">
-                        <a href="javascript:;" class="text-info bg-light-info border-0" title="Details" data-id="${item.Id}" onclick="Details(this, event)"><i class="fa-regular fa-circle-info"></i></a>
-                        <a href="javascript:;" class="text-warning bg-light-warning border-0" title="Edit   " data-id="${item.Id}" onclick="Edit(this, event)   "><i class="fa-duotone fa-pen"></i></a>
-                        <a href="javascript:;" class="text-danger  bg-light-danger  border-0" title="Delete " data-id="${item.Id}" onclick="Delete(this, event) "><i class="fa-duotone fa-trash"></i></a>
+                        <a href="javascript:;" class="text-info bg-light-info border-0"       title="${i18next.t('device.management.details')}" data-id="${item.Id}" onclick="Details(this, event)"><i class="fa-regular fa-circle-info"></i></a>
+                        <a href="javascript:;" class="text-warning bg-light-warning border-0" title="${i18next.t('device.management.edit')   }   " data-id="${item.Id}" onclick="Edit(this, event)   "><i class="fa-duotone fa-pen"></i></a>
+                        <a href="javascript:;" class="text-danger  bg-light-danger  border-0" title="${i18next.t('device.management.delete') } " data-id="${item.Id}" onclick="Delete(this, event) "><i class="fa-duotone fa-trash"></i></a>
                     </td>`);
-        row.append(`<td>${item.MinQty ? item.MinQty : 0}</td>`);
-        row.append(`<td>${(item.QtyConfirm) - (item.RealQty)}</td>`);
+        //row.append(`<td>${item.MinQty ? item.MinQty : 0}</td>`);
+        //row.append(`<td>${(item.QtyConfirm) - (item.RealQty)}</td>`);
 
-        const riskValue = item.RealQty / item.QtyConfirm;
+        //const riskValue = item.RealQty / item.QtyConfirm;
 
-        let riskCategory;
+        //let riskCategory;
 
-        if (riskValue <= item.Buffer) {
-            riskCategory = 'High';
-        } else if (riskValue > item.Buffer && riskValue <= 0.7) {
-            riskCategory = 'Mid';
-        } else {
-            riskCategory = 'Low';
-        }
+        //if (riskValue <= item.Buffer) {
+        //    riskCategory = 'High';
+        //} else if (riskValue > item.Buffer && riskValue <= 0.7) {
+        //    riskCategory = 'Mid';
+        //} else {
+        //    riskCategory = 'Low';
+        //}
 
-        row.append(`<td>${riskCategory}</td>`);
-        row.append(`<td>${item.LifeCycle}</td>`);
+        //row.append(`<td>${riskCategory}</td>`);
+        //row.append(`<td>${item.LifeCycle}</td>`);
 
         $('#table_Devices_tbody').append(row);
     });
@@ -143,24 +143,24 @@ async function CreateTableAddDevice(devices) {
             { targets: "_all", orderable: false },
             { targets: [11, 12, 13, 14, 15, 16, 17, 18, 19, 20], className: "text-center" },
             { targets: [20], className: "text-center", width: '120px' },
-            { targets: [0, 1, 2, 3, 4, 7, 8, 9, 21, 22, 23, 24], visible: false },
+            { targets: [0, 1, 2, 3, 4, 7, 8, 9], visible: false },
         ],
         "lengthMenu": [[10, 15, 25, 50, -1], [10, 15, 25, 50, "All"]],
         dom: "<'row'<'w-auto'B><'col-sm-12 col-md'l><'col-sm-12 col-md'f>>" +
             "<'row'<'col-sm-12'tr>>" +
             "<'row'<'col-sm-12 col-md-7'i><'col-sm-12 col-md-5'p>>",
         buttons: [{
-            text: 'Export Excel',
+            text: i18next.t('device.management.export_excel'),
             extend: 'excel',
             exportOptions: {
-                columns: [1, 2, 5, 6, 11, 14, 15, 24, 21, 22, 23]
+                columns: [1, 2, 5, 6, 11, 14, 15]
             },
             customize: function (xlsx) {
                 $('sheets sheet', xlsx.xl['workbook.xml']).attr('name', 'Devices');
             }
         },
         {
-            text: 'Inventory',
+            text: i18next.t('device.management.inventory'),
             action: function (e, dt, button, config) {
                 var input = $('<input type="file">');
                 input.on('change', function () {
@@ -207,11 +207,11 @@ function sendFile(file) {
                     window.location.href = response.url;
                 }
                 else {
-                    Swal.fire('Sorry, something went wrong!', response.message, 'error');
+                    Swal.fire(i18next.t('global.swal_title'), response.message, 'error');
                 }
             },
             error: function (error) {
-                Swal.fire('Sorry, something went wrong!', GetAjaxErrorMessage(error), 'error');
+                Swal.fire(i18next.t('global.swal_title'), GetAjaxErrorMessage(error), 'error');
             },
             complete: function () {
                 // Dừng Pace.js sau khi AJAX request hoàn thành
@@ -232,7 +232,7 @@ function ExportExcel() {
             
         },
         error: function (error) {
-            Swal.fire("Something went wrong!", GetAjaxErrorMessage(error), "error");
+            Swal.fire(i18next.t('global.swal_title'), GetAjaxErrorMessage(error), "error");
         }
     });
 }
@@ -266,11 +266,11 @@ function GetWarehouseDevices(IdWarehouse = 0) {
 
                 }
                 else {
-                    Swal.fire('Sorry, something went wrong!', response.message, 'error');
+                    Swal.fire(i18next.t('global.swal_title'), response.message, 'error');
                 }
             },
             error: function (error) {
-                Swal.fire('Sorry, something went wrong!', GetAjaxErrorMessage(error), 'error');
+                Swal.fire(i18next.t('global.swal_title'), GetAjaxErrorMessage(error), 'error');
             },
             complete: function () {
                 Pace.stop();
@@ -287,16 +287,13 @@ function _GetWarehouseDevices(IdWarehouse, PageNum) {
             dataType: "json",
             contentType: "application/json;charset=utf-8",
             success: function (response) {
-                if (response.status) {
-                    // Giải quyết Promise với danh sách devices
+                if (response.status) {                   
                     resolve(response.warehouse.Devices);
                 } else {
-                    // Reject Promise nếu có lỗi
                     reject(response.message);
                 }
             },
             error: function (error) {
-                // Reject Promise nếu có lỗi
                 reject(GetAjaxErrorMessage(error));
             },
             complete: function () {
@@ -306,12 +303,10 @@ function _GetWarehouseDevices(IdWarehouse, PageNum) {
         });
     });
 }
-
 $('#input_WareHouse').on('change', function (e) {
     e.preventDefault();
     GetWarehouseDevices($(this).val());
 });
-
 
 // Show Details
 function Details(elm, e) {
@@ -326,263 +321,9 @@ $('#table_Devices tbody').on('dblclick', 'tr', function (event) {
     GetDeviceDetails(dataId)
 });
 
-function GetDeviceDetails(Id) {
-    $.ajax({
-        type: "POST",
-        url: "/NVIDIA/DeviceManagement/GetDevice",
-        data: JSON.stringify({ Id: Id }),
-        dataType: "json",
-        contentType: "application/json;charset=utf-8",
-        success: function (response) {
-            if (response.status) {
-                var device = response.device;
-                var borrows = JSON.parse(response.borrows);
-                var warehouses = response.warehouses;
-
-                FillDetailsDeviceData(device);
-                CreateTableLayout(device, warehouses);
-                CreateTableHistory(Id, borrows);
-                $('#device_details-modal').modal('show');
-            }
-            else {
-                toastr["error"](response.message, "ERROR");
-            }
-        },
-        error: function (error) {
-            Swal.fire("Something went wrong!", GetAjaxErrorMessage(error), "error");
-        }
-    });
-}
-async function FillDetailsDeviceData(data) {
-    $('#device_details-DeviceId').val(data.Id);
-    $('#device_details-DeviceCode').val(data.DeviceCode);
-    $('#device_details-DeviceName').val(data.DeviceName);
-    $('#device_details-Specification').val(data.Specification);
-
-    $('#device_details-DeviceDate').val(moment(data.DeviceDate).format('YYYY-MM-DD HH:mm'));
-    $('#device_details-Relation').val(data.Relation);
-    $('#device_details-Buffer').val((data.Buffer * 100));
-    $('#device_details-LifeCycle').val(data.LifeCycle);
-    $('#device_details-Forcast').val(data.Forcast);
-    $('#device_details-Quantity').val(data.Quantity);
-    $('#device_details-QtyConfirm').val(data.QtyConfirm);
-    $('#device_details-RealQty').val(data.RealQty);
-    $('#device_details-POQty').val(data.POQty ? data.POQty : 0);
-    $('#device_details-Type').val(data.Type == 'S' ? 'Static' : data.Type == 'D' ? 'Dynamic' : data.Type);
-    $('#device_details-Status').val(data.Status);
-    $('#device_details-Product').val(data.Product ? data.Product.ProductName : '');
-    $('#device_details-Model').val(data.Model ? data.Model.ModelName : '');
-    $('#device_details-Station').val(data.Station ? data.Station.StationName : '');
-    $('#device_details-WareHouse').val($('#input_WareHouse option:selected').text());
-    $('#device_details-Group').val(data.Group ? data.Group.GroupName : '');
-    $('#device_details-Vendor').val(data.Vendor ? data.Vendor.VendorName : '');
-
-    $('#device_details-Unit').val(data.Unit ? data.Unit : '');
-    $('#device_details-DeliveryTime').val(data.DeliveryTime ? data.DeliveryTime : '');
-
-    $('#device_details-MinQty').val(data.MinQty ? data.MinQty : '');
-
-}
-function CreateTableLayout(device, warehouses) {
-    $('#device_details-layout-tbody').empty();
-    $.each(device.DeviceWarehouseLayouts, function (k, item) {
-        var warehouse = warehouses[k];
-        var layout = item.WarehouseLayout;
-
-        var tr = $('<tr></tr>');
-        tr.append($(`<td>${warehouse.Factory ? warehouse.Factory : ""}</td>`));
-        tr.append($(`<td>${warehouse.Floors ? warehouse.Floors : ""}</td>`));
-        tr.append($(`<td>${CreateUserName(warehouse.UserManager)}</td>`));
-        tr.append($(`<td>${warehouse.WarehouseName ? warehouse.WarehouseName : ""}</td>`));
-        tr.append($(`<td>${layout.Line ? layout.Line : ""}</td>`));
-        tr.append($(`<td>${layout.Cell ? layout.Cell : ""}</td>`));
-        tr.append($(`<td>${layout.Floor ? layout.Floor : ""}</td>`));
-
-        $('#device_details-layout-tbody').append(tr);
-    });
-}
-function CreateTableHistory(IdDevice, borrows) {
-    $('#device_details-history-tbody').empty();
-    $.each(borrows, function (k, item) {
-        if (item.Status == 'Rejected') return;
-
-        var tr = $(`<tr class="align-middle hover-tr" data-id="${item.Id}" style="cursor: pointer;"></tr>`);
-        tr.append($(`<td>${item.Type}</td>`));
-        tr.append($(`<td>${moment(item.DateBorrow).format('YYYY-MM-DD HH:mm')}</td>`));
-
-        var dateReturn = moment(item.DateReturn).format('YYYY-MM-DD HH:mm');
-        tr.append($(`<td>${dateReturn != 'Invalid date' ? dateReturn : ""}</td>`));
-
-        tr.append($(`<td>${CreateUserName(item.User)}</td>`));
-        tr.append($(`<td>${item.Model ? item.Model.ModelName ? item.Model.ModelName : '' : ''}</td>`));
-        tr.append($(`<td>${item.Station ? item.Station.StationName ? item.Station.StationName : '' : ''}</td>`));
-
-        tr.append($(`<td>${GetQuantityDeviceInBorrow(IdDevice, item.BorrowDevices)}</td>`));
-
-        tr.append($(`<td>${item.Status}</td>`));
-        tr.append($(`<td style="max-width: 200px;">${item.Note}</td>`));
-
-        $('#device_details-history-tbody').append(tr);
-
-        tr.dblclick(function (e) {
-            BorrowDetails($(this).data('id'));
-        });
-    });
-}
-
-
 // borrow details
 function BorrowDetails(Id) {
-    //var Id = $(elm).data('id');
-
-    $.ajax({
-        type: "GET",
-        url: "/NVIDIA/BorrowManagement/GetBorrow?Id=" + Id,
-        dataType: "json",
-        contentType: "application/json;charset=utf-8",
-        success: function (response) {
-            if (response.status) {
-                var borrow = JSON.parse(response.borrow);
-
-                CreateModal(borrow);
-
-                $('#borrow_modal').modal('show');
-            }
-            else {
-                toastr["error"](response.message, "ERROR");
-            }
-        },
-        error: function (error) {
-            Swal.fire("Something went wrong!", GetAjaxErrorMessage(error), "error");
-        }
-    });
-}
-function CreateModal(borrow) {
-    $('#borrow_modal-CardId').val(borrow.User.Username);
-    $('#borrow_modal-Username').val(CreateUserName(borrow.User));
-
-    $('#borrow_modal-Model').val(borrow.Model ? borrow.Model.ModelName ? borrow.Model.ModelName : '' : '');
-    $('#borrow_modal-Station').val(borrow.Station ? borrow.Station.StationName ? borrow.Station.StationName : '' : '');
-
-    $('#borrow_modal-BorrowDate').val(moment(borrow.DateBorrow).format('YYYY-MM-DDTHH:mm:ss'));
-    $('#borrow_modal-DuaDate').val(moment(borrow.DateDue).format('YYYY-MM-DDTHH:mm:ss'));
-    $('#borrow_modal-ReturnDate').val(moment(borrow.DateReturn).format('YYYY-MM-DDTHH:mm:ss'));
-
-    $('#borrow_modal-Note').html(`<p>${borrow.Note}</p>`);
-
-    $('div[checkType]').show();
-    $('label[typeName]').html('Date Borrow');
-    if (borrow.Type == 'Return') {
-        $('#borrow_modal-title').text('Return Device Request Details');
-    }
-    else if (borrow.Type == 'Take') {
-        $('#borrow_modal-title').text('Take Device Request Details');
-        $('div[checkType]').hide();
-        $('label[typeName]').html('Date');
-    }
-    else {
-        $('#borrow_modal-title').text('Borrow Device Request Details');
-    }
-
-    $('#borrow_modal-table-tbody').empty();
-    $.each(borrow.BorrowDevices, function (k, item) {
-        var borrowQty = item.BorrowQuantity ? item.BorrowQuantity : '';
-        var deviceCode = item.Device.DeviceCode ? item.Device.DeviceCode : '';
-        var deviceName = item.Device.DeviceName ? item.Device.DeviceName : '';
-        var deviceModel = item.Device.Model ? item.Device.Model.ModelName : '';
-        var deviceStation = item.Device.Station ? item.Device.Station.StationName : '';
-        var deviceSpecification = item.Device.Specification ? item.Device.Specification : '';
-        var deviceUnit = item.Device.deviceUnit ? item.Device.deviceUnit : '';
-
-        var row = $('<tr></tr>');
-        row.append(`<td>${deviceCode}</td>`);
-        row.append(`<td>${deviceName}</td>`);
-        row.append(`<td>${deviceSpecification}</td>`);
-        row.append(`<td>${deviceModel}</td>`);
-        row.append(`<td>${deviceStation}</td>`);
-        row.append(`<td class="text-center">${deviceUnit}</td>`);
-        row.append(`<td class="text-center">${borrowQty}</td>`);
-
-        $('#borrow_modal-table-tbody').append(row);
-    });
-
-    $('#sign-container').empty();
-    $('#sign-container').append(`<h4 class="font-weight-light text-center text-white py-3">SIGN PROCESS</h4>`);
-    $.each(borrow.UserBorrowSigns, function (k, bs) { //bs == borrow sign
-        var username = CreateUserName(bs.User);
-        var date = moment(bs.DateSign).format('YYYY-MM-DD | h:mm A');
-
-        var title = {
-            Approved: { color: 'success', text: 'Approved', icon: 'check' },
-            Rejected: { color: 'danger', text: 'Rejected', icon: 'xmark' },
-            Pending: { color: 'warning', text: 'Pending', icon: 'timer' },
-            Waitting: { color: 'secondary', text: 'Waitting', icon: 'circle-pause' },
-        }[bs.Status] || { color: 'secondary', text: 'Closed' };
-
-        var line = {
-            top: k === 0 ? '' : 'border-end',
-            bot: (k === 0 && borrow.UserBorrowSigns.length === 1) ? '' : 'border-end'
-        };
-
-        var span = '';
-        switch (bs.Type) {
-            case "Borrow": {
-                span = `<span class="badge bg-primary"><i class="fa-solid fa-left-to-line"></i> Borrow</span>`;
-                break;
-            }
-            case "Take": {
-                span = `<span class="badge bg-secondary"><i class="fa-regular fa-inbox-full"></i> Take</span>`;
-                break;
-            }
-            case "Return": {
-                span = `<span class="badge bg-info"><i class="fa-solid fa-right-to-line"></i> Return</span>`;
-                break;
-            }
-            default: {
-                span = `<td><span class="badge bg-secondary">N/A</span></td>`;
-                break;
-            }
-        }
-
-        var lineDot = `<div class="col-sm-1 text-center flex-column d-none d-sm-flex">
-                           <div class="row h-50">
-                               <div class="col ${line.top}">&nbsp;</div>
-                               <div class="col">&nbsp;</div>
-                           </div>
-                           <h5 class="m-2 red-dot">
-                               <span class="badge rounded-pill bg-${title.color}">&nbsp;</span>
-                           </h5>
-                           <div class="row h-50">
-                               <div class="col ${line.bot}">&nbsp;</div>
-                               <div class="col">&nbsp;</div>
-                           </div>
-                       </div>`;
-        var signCard = `<div class="row">
-                        ${k % 2 === 0 ? '' : '<div class="col-sm"></div>'}
-                        ${k % 2 === 0 ? '' : lineDot}
-                        <div class="col-sm py-2">
-                            <div class="card border-primary shadow radius-15 card-sign">
-                                <div class="card-body">
-                                    <div class="float-end">${date === 'Invalid date' ? '' : date}</div>
-                                    <label class="mb-3"><span class="badge bg-${title.color}"><i class="fa-solid fa-${title.icon}"></i> ${title.text}</span></label>
-                                    <!--<label class="mb-3">${span}</label>-->
-                                    <p class="card-text mb-1">${username}</p>
-                                    <p class="card-text mb-1">${bs.User.Email || ''}</p>
-                                    <button class="btn btn-sm btn-outline-secondary collapsed ${title.text == null ? 'd-none' : title.text != 'Rejected' ? 'd-none' : ''}" type="button" data-bs-target="#details_${k}" data-bs-toggle="collapse" aria-expanded="false">Show Details ▼</button>
-                                    <div class="border collapse" id="details_${k}" style="">
-                                        <div class="p-2 text-monospace">
-                                            <div>${bs.Note}</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        ${k % 2 === 0 ? lineDot : ''}
-                        ${k % 2 === 0 ? '<div class="col-sm"></div>' : ''}
-                    </div>`;
-
-        $('#sign-container').append(signCard);
-    });
+    RequestDetails(Id, false);
 }
 
 // Get Select data
@@ -665,109 +406,6 @@ function GetSelectData() {
     });
 }
 
-// Other function
-function DrawRowEditDevice(item) {
-    var row = [];
-    // 0 MTS
-    row.push(`<td>${item.Id}</td>`);
-    // 1 Product Name
-    row.push(`<td title="${(item.Product) ? item.Product.ProductName : ""}">${(item.Product) ? item.Product.ProductName : ""}</td>`);
-    // 2 Model
-    row.push(`<td>${(item.Model) ? item.Model.ModelName : ""}</td>`);
-    // 3 Station
-    row.push(`<td>${(item.Station) ? item.Station.StationName : ""}</td>`);
-    // 4 DeviceCode - PN
-    row.push(`<td data-id="${item.Id}" data-code="${item.DeviceCode}" title="${item.DeviceCode}">${item.DeviceCode}</td>`);
-    // 5 DeviceName
-    row.push(`<td title="${item.DeviceName}">${item.DeviceName}</td>`);
-    // 6 Group
-    row.push(`<td>${(item.Group) ? item.Group.GroupName : ""}</td>`);
-    // 7 Vendor
-    row.push(`<td title="${(item.Vendor) ? item.Vendor.VendorName : ""}">${(item.Vendor) ? item.Vendor.VendorName : ""}</td>`);
-    // 8 Specification
-    row.push(`<td title="${item.Specification}">${(item.Specification) ? item.Specification : ""}</td>`);
-    // 9 Location 
-    var html = ''
-    var title = ''
-    $.each(item.DeviceWarehouseLayouts, function (k, sss) {
-        var layout = sss.WarehouseLayout;
-        html += `<lable>${layout.Line}${layout.Cell ? ' - ' + layout.Cell : ''}${layout.Floor ? ' - ' + layout.Floor : ''}</lable>`;
-        title += `[${layout.Line}${layout.Cell ? ' - ' + layout.Cell : ''}${layout.Floor ? ' - ' + layout.Floor : ''}],`;
-    });
-    row.push(`<td title="${title}">${html}</td>`);
-    // 10 Buffer
-    row.push(`<td title="${item.Buffer}">${item.Buffer * 100}%</td>`);
-    // 11 BOM Quantity
-    row.push(`<td title="BOM Quantity">${item.Quantity ? item.Quantity : 0}</td>`);
-    // 12 PO Quantity
-    row.push(`<td title="PO Quantity">${item.POQty ? item.POQty : 0}</td>`);
-    // 13 Confirm Quantity
-    row.push(`<td title="Confirm Quantity">${item.QtyConfirm ? item.QtyConfirm : 0}</td>`);
-    // 14 Real Quantity
-    row.push(`<td title="Real Quantity">${item.RealQty ? item.RealQty : 0}</td>`);
-    // 15 Unit
-    row.push(`<td>${item.Unit ? item.Unit : ''}</td>`);
-    // 16 Lead Time
-    var LeadTime = item.DeliveryTime.charAt(0) == ' ' ? '' : item.DeliveryTime;
-    row.push(`<td>${LeadTime}</td>`);
-    // 17 Type
-    switch (item.Type) {
-        case "S": {
-            row.push(`<td><span class="text-success fw-bold">Static</span></td>`);
-            break;
-        }
-        case "D": {
-            row.push(`<td><span class="text-info fw-bold">Dynamic</span></td>`);
-            break;
-        }
-        case "Consign": {
-            row.push(`<td><span class="text-warning fw-bold">Consign</span></td>`);
-            break;
-        }
-        case "Fixture": {
-            row.push(`<td><span class="text-primary fw-bold">Fixture</span></td>`);
-            break;
-        }
-        default: {
-            row.push(`<td><span class="text-secondary fw-bold">N/A</span></td>`);
-            break;
-        }
-    }
-    // 18 Status
-    switch (item.Status) {
-        case "Unconfirmed": {
-            row.push(`<td><span class="badge bg-primary">Unconfirmed</span></td>`);
-            break;
-        }
-        case "Part Confirmed": {
-            row.push(`<td><span class="badge bg-warning">Part Confirmed</span></td>`);
-            break;
-        }
-        case "Confirmed": {
-            row.push(`<td><span class="badge bg-success">Confirmed</span></td>`);
-            break;
-        }
-        case "Locked": {
-            row.push(`<td><span class="badge bg-secondary">Locked</span></td>`);
-            break;
-        }
-        case "Out Range": {
-            row.push(`<td><span class="badge bg-danger">Out Range</span></td>`);
-            break;
-        }
-        default: {
-            row.push(`<td>N/A</td>`);
-            break;
-        }
-    }
-    // 19 Action
-    row.push(`<td class="order-action d-flex text-center justify-content-center">
-                        <a href="javascript:;" class="text-info bg-light-info border-0" title="Details" data-id="${item.Id}" onclick="Details(this, event)"><i class="fa-regular fa-circle-info"></i></a>
-                        <a href="javascript:;" class="text-warning bg-light-warning border-0" title="Edit   " data-id="${item.Id}" onclick="Edit(this, event)   "><i class="fa-duotone fa-pen"></i></a>
-                        <a href="javascript:;" class="text-danger  bg-light-danger  border-0" title="Delete " data-id="${item.Id}" onclick="Delete(this, event) "><i class="fa-duotone fa-trash"></i></a>
-                    </td>`);
-    return row;
-}
 
 // confirm function
 function Confirm(elm, e) {
@@ -787,34 +425,34 @@ function Confirm(elm, e) {
                 var device = response.device;
                 // message box
                 Swal.fire({
-                    title: `<strong style="font-size: 25px;">Do you want Confirm this device?</strong>`,
+                    title: `<strong style="font-size: 25px;">${i18next.t('device.management.confirm_title')}</strong>`,
                     html: `<table class="table table-striped table-bordered table-message">
                                <tbody>
                                    <tr>
-                                       <td>Device Name</td>
+                                       <td>${i18next.t('device.management.pn')}</td>
                                        <td>${device.DeviceName}</td>
                                    </tr>
                                    <tr>
-                                       <td>Quantity</td>
-                                       <td>${device.Quantity}</td>
+                                       <td>${i18next.t('device.management.real_qty')}</td>
+                                       <td>${device.RealQty}</td>
                                    </tr>
                                    <tr>
-                                       <td>Buffer</td>
+                                       <td>${i18next.t('device.management.buffer')}</td>
                                        <td>${device.Buffer}</td>
                                    </tr>
                                </tbody>
                            </table>
                            <div class="input-group mb-3">
-                                <span class="input-group-text" style="min-width: 180px;">Quantity Confirm</span>
+                                <span class="input-group-text" style="min-width: 180px;">${i18next.t('device.management.qty_confirm')}</span>
                                 <input class="form-control" type="number" id="device_confirm-QtyConfirm" placeholder="${device.QtyConfirm} + input">
                            </div>
                            `,
                     icon: 'question',
                     iconColor: '#ffc107',
                     reverseButtons: false,
-                    confirmButtonText: 'Confirm',
+                    confirmButtonText: i18next.t('global.confirm'),
                     showCancelButton: true,
-                    cancelButtonText: 'Cancel',
+                    cancelButtonText: i18next.t('global.cancel'),
                     buttonsStyling: false,
                     reverseButtons: true,
                     customClass: {
@@ -843,7 +481,7 @@ function Confirm(elm, e) {
                                 }
                             },
                             error: function (error) {
-                                Swal.fire("Something went wrong!", GetAjaxErrorMessage(error), "error");
+                                Swal.fire(i18next.t('global.swal_title'), GetAjaxErrorMessage(error), "error");
                             }
                         });
                     }
@@ -854,7 +492,7 @@ function Confirm(elm, e) {
             }
         },
         error: function (error) {
-            Swal.fire("Something went wrong!", GetAjaxErrorMessage(error), "error");
+            Swal.fire(i18next.t('global.swal_title'), GetAjaxErrorMessage(error), "error");
         }
     });
 }
@@ -877,20 +515,20 @@ function Delete(elm, e) {
                 var device = response.device;
                 // message box
                 Swal.fire({
-                    title: `<strong style="font-size: 25px;">Do you want Delete this device?</strong>`,
+                    title: `<strong style="font-size: 25px;">${i18next.t('device.management.delete_title')}</strong>`,
                     html: `<table class="table table-striped table-bordered table-message">
                                <tbody>
                                     <tr>
-                                       <td>Device Code</td>
+                                       <td>${i18next.t('device.management.pn')}</td>
                                        <td>${device.DeviceCode}</td>
                                    </tr>
                                    <tr>
-                                       <td>Device Name</td>
+                                       <td>${i18next.t('device.management.description')}</td>
                                        <td>${device.DeviceName}</td>
                                    </tr>
                                    <tr>
-                                       <td>Quantity</td>
-                                       <td>${device.Quantity}</td>
+                                       <td>${i18next.t('device.management.real_qty')}</td>
+                                       <td>${device.RealQty}</td>
                                    </tr>
                                </tbody>
                            </table>
@@ -898,9 +536,9 @@ function Delete(elm, e) {
                     icon: 'question',
                     iconColor: '#dc3545',
                     reverseButtons: false,
-                    confirmButtonText: 'Delete',
+                    confirmButtonText: i18next.t('global.delete'),
                     showCancelButton: true,
-                    cancelButtonText: 'Cancel',
+                    cancelButtonText: i18next.t('global.cancel'),
                     buttonsStyling: false,
                     reverseButtons: true,
                     customClass: {
@@ -926,7 +564,7 @@ function Delete(elm, e) {
                                 }
                             },
                             error: function (error) {
-                                Swal.fire("Something went wrong!", GetAjaxErrorMessage(error), "error");
+                                Swal.fire(i18next.t('global.swal_title'), GetAjaxErrorMessage(error), "error");
                             }
                         });
                     }
@@ -937,7 +575,7 @@ function Delete(elm, e) {
             }
         },
         error: function (error) {
-            Swal.fire("Something went wrong!", GetAjaxErrorMessage(error), "error");
+            Swal.fire(i18next.t('global.swal_title'), GetAjaxErrorMessage(error), "error");
         }
     });
 }
@@ -946,166 +584,7 @@ function Delete(elm, e) {
 function Edit(elm, e) {
     e.preventDefault();
 
-    var Id = $(elm).data('id');
-
-    $.ajax({
-        type: "POST",
-        url: "/NVIDIA/DeviceManagement/GetDevice",
-        data: JSON.stringify({ Id: Id }),
-        dataType: "json",
-        contentType: "application/json;charset=utf-8",
-        success: function (response) {
-            if (response.status) {
-                FillEditDeviceData(response);
-                $('#device_edit-modal').modal('show');
-            }
-            else {
-                toastr["error"](response.message, "ERROR");
-            }
-        },
-        error: function (error) {
-            Swal.fire("Something went wrong!", GetAjaxErrorMessage(error), "error");
-        }
-    });
-}
-async function FillEditDeviceData(data) {
-    $('#device_edit-DeviceId').val(data.device.Id);
-    $('#device_edit-DeviceCode').val(data.device.DeviceCode);
-    $('#device_edit-DeviceName').val(data.device.DeviceName);
-    $('#device_edit-Specification').val(data.device.Specification);
-    $('#device_edit-DeviceDate').val(moment(data.device.DeviceDate).format('YYYY-MM-DD HH:mm'));
-
-    $('#device_edit-Buffer').val(data.device.Buffer * 100);
-    $('#device_edit-LifeCycle').val(data.device.LifeCycle);
-    $('#device_edit-Forcast').val(data.device.Forcast);
-    $('#device_edit-Quantity').val(data.device.Quantity);
-    $('#device_edit-QtyConfirm').val(data.device.QtyConfirm);
-    $('#device_edit-RealQty').val(data.device.RealQty);
-
-    $('#device_edit-POQty').val(data.device.POQty ? data.device.POQty : 0);
-
-    $('#device_edit-AccKit').val(data.device.ACC_KIT).trigger('change');
-    $('#device_edit-Type').val(data.device.Type).trigger('change');
-    $('#device_edit-Status').val(data.device.Status).trigger('change');
-    $('#device_edit-WareHouse').val(data.device.IdWareHouse).trigger('change');
-
-
-    $('#device_edit-Product').val(data.device.Product ? data.device.Product.ProductName : '');
-    $('#device_edit-Model').val(data.device.Model ? data.device.Model.ModelName : '');
-    $('#device_edit-Station').val(data.device.Station ? data.device.Station.StationName : '');
-    $('#device_edit-Group').val(data.device.Group ? data.device.Group.GroupName : '');
-    $('#device_edit-Vendor').val(data.device.Vendor ? data.device.Vendor.VendorName : '');
-
-    $('#device_edit-Unit').val(data.device.Unit);
-
-    $('#device_edit-MinQty').val(data.device.MinQty);
-
-    if (data.device.DeliveryTime) {
-        var temp = data.device.DeliveryTime.split(' ');
-        $('#device_edit-DeliveryTime1').val(temp[0]);
-
-        var selectVal = '';
-        for (let i = 1; i < temp.length; i++) {
-            selectVal += ' ' + temp[i];
-        }
-        $('#device_edit-DeliveryTime2').val(selectVal.trim());
-    }
-
-
-
-    $('#layout-container').empty();
-    var DeviceLayouts = data.device.DeviceWarehouseLayouts;
-    $.each(DeviceLayouts, function (k, item) {
-        var layout = item.WarehouseLayout;
-
-        var selectLayout = $(`<select class="form-select">
-                                  <option value="${layout.Id}">${layout.Line}${layout.Floor ? ' - ' + layout.Floor : ''}${layout.Cell ? ' - ' + layout.Cell : ''}</option>
-                              </select>`);
-        var deleteButton = $(`<span class="input-group-text bg-light-danger text-danger" style="width:40px" delete><i class="fa-solid fa-trash"></i></span>`);
-
-        deleteButton.on('click', function (e) {
-            var element = $(this).closest('[group-layout]');
-            element.remove();
-        });
-
-        var inputGroup = $(`<div class="input-group mb-3" group-layout>
-                            <span class="col-2 input-group-text">Layout ${k + 1} </span>
-                        </div>`);
-        inputGroup.append(selectLayout);
-        inputGroup.append(deleteButton)
-
-        $('#layout-container').append(inputGroup);
-    });
-}
-$('#button-save_modal').on('click', function (e) {
-    e.preventDefault();
-
-    var device = GetModalData();
-
-    sproduct = $('#device_edit-Product').val()
-    smodel = $('#device_edit-Model').val()
-    sstation = $('#device_edit-Station').val()
-    sgroup = $('#device_edit-Group').val()
-    svendor = $('#device_edit-Vendor').val()
-
-    var Index = tableDeviceInfo.row(`[data-id="${device.Id}"]`).index();
-
-    var IdLayouts = $('#layout-container option:selected').map(function () {
-        return $(this).val();
-    }).get();
-
-    $.ajax({
-        type: "POST",
-        url: "/NVIDIA/DeviceManagement/UpdateDevice",
-        data: JSON.stringify({ device, IdLayouts, sproduct, smodel, sstation, sgroup, svendor }),
-        dataType: "json",
-        contentType: "application/json;charset=utf-8",
-        success: function (response) {
-            if (response.status) {
-                var row = DrawRowEditDevice(response.device);
-                tableDeviceInfo.row(Index).data(row).draw(false);
-
-                $('#device_edit-modal').modal('hide');
-
-                toastr["success"]("Edit device success.", "SUCCRESS");
-            }
-            else {
-                toastr["error"](response.message, "ERROR");
-            }
-        },
-        error: function (error) {
-            Swal.fire("Something went wrong!", GetAjaxErrorMessage(error), "error");
-        }
-    });
-});
-function GetModalData() {
-    return data = {
-        Id: $('#device_edit-DeviceId').val(),
-        DeviceCode: $('#device_edit-DeviceCode').val(),
-        DeviceName: $('#device_edit-DeviceName').val(),
-        Specification: $('#device_edit-Specification').val(),
-        Unit: $('#device_edit-Unit').val(),
-
-        DeviceDate: $('#device_edit-DeviceDate').val(),
-
-        Buffer: parseInt($('#device_edit-Buffer').val()) / 100,
-        LifeCycle: $('#device_edit-LifeCycle').val(),
-        Forcast: $('#device_edit-Forcast').val(),
-        Quantity: $('#device_edit-Quantity').val(),
-        QtyConfirm: $('#device_edit-QtyConfirm').val(),
-        RealQty: $('#device_edit-RealQty').val(),
-
-        POQty: $('#device_edit-POQty').val(),
-
-        ACC_KIT: $('#device_edit-AccKit').val(),
-        Type: $('#device_edit-Type').val(),
-        Status: $('#device_edit-Status').val(),
-        IdWareHouse: $('#device_edit-WareHouse').val(),
-
-        MinQty: $('#device_edit-MinQty').val(),
-
-        DeliveryTime: $('#device_edit-DeliveryTime1').val() + ' ' + $('#device_edit-DeliveryTime2').val(),
-    }
+    DeviceUpdate(elm, e);
 }
 
 // Add more layout dynamic
@@ -1128,7 +607,7 @@ $('#new-layout').on('click', async function (e) {
     selectLayout.append(await LayoutOption());
 
     var inputGroup = $(`<div class="input-group mb-3" group-layout>
-                            <span class="col-2 input-group-text">Layout ${layoutlength + 1} </span>
+                            <span class="col-2 input-group-text">${i18next.t('device.management.layout')} ${layoutlength + 1} </span>
                         </div>`);
     inputGroup.append(selectLayout);
     inputGroup.append(deleteButton)
@@ -1151,11 +630,11 @@ function GetWarehouseLayouts(IdWarehouse) {
                 WarehouseLayouts = response.layouts;
             }
             else {
-                Swal.fire("Something went wrong!", response.message, "error");
+                Swal.fire(i18next.t('global.swal_title'), response.message, "error");
             }
         },
         error: function (error) {
-            Swal.fire("Something went wrong!", GetAjaxErrorMessage(error), "error");
+            Swal.fire(i18next.t('global.swal_title'), GetAjaxErrorMessage(error), "error");
         }
     });
 }
@@ -1219,15 +698,3 @@ $('#filter-refresh').click(function (e) {
 
     $('#filter').click();
 });
-
-
-function GetQuantityDeviceInBorrow(IdDevice, BorrowDevices) {
-    var quantity = 0;
-    $.each(BorrowDevices, function (k, item) {
-        if (item.IdDevice == IdDevice) {
-            quantity = item.BorrowQuantity;
-            return false;
-        }
-    });
-    return quantity;
-}

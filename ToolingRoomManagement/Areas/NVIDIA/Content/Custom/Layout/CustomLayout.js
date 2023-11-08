@@ -34,6 +34,7 @@ $(function () {
     $('#UserAvatar').attr("src", GenerateAvatar(textUsername));
 });
 
+var viewPreview;
 
 //Draw avatar
 function GenerateAvatar(text, foregroundColor = "white", backgroundColor = "black") {
@@ -209,6 +210,12 @@ function UpdateLanguageText() {
             const text = i18next.t(key);
 
             $(this).attr("placeholder", text);
+        }
+        else if ($(this).is('th')) {
+            key = key.replace(/\[plh\]/g, '');
+            const text = i18next.t(key);
+
+            $(this).attr("title", text);
         }
         else {
             const text = i18next.t(key);
