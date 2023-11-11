@@ -101,7 +101,7 @@ async function CreateTableBorrow(borrows) {
         }
         // Action
         row.append(`<td class="order-action d-flex text-center justify-content-center">
-                         <a href="javascript:;" class="text-info bg-light-info border-0" title="Details" data-id="${item.Id}" onclick="BorrowDetails(${item.Id})"><i class="fa-regular fa-circle-info"></i></a>
+                         <a href="javascript:;" class="text-info bg-light-info border-0" title="Details" data-id="${item.Id}" onclick="RequestDetails(${item.Id})"><i class="fa-regular fa-circle-info"></i></a>
                     </td>`);
 
         $('#table_Borrows-tbody').append(row);

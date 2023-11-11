@@ -20,21 +20,21 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Data
         // CheckStatus
         public static string CheckStatus(Entities.Device device)
         {
+            string status = "NA";
+
             if (device.Status == "Locked")
-                return "Locked";
-            if (device.QtyConfirm == 0)
-                return "Unconfirmed";
+                status = "Locked";
+            else if (device.QtyConfirm == 0)
+                status = "Unconfirmed";
+            else if (device.QtyConfirm < device.Quantity)
+                status = "Part Confirmed";
+            else if (device.QtyConfirm >= device.Quantity)
+                status = "Confirmed";
 
+            if (device.RealQty <= (device.QtyConfirm * device.Buffer))
+                status = "Out Range";
 
-            if (device.RealQty <= device.Quantity * device.Buffer)
-                return "Out Range";
-
-            if (device.QtyConfirm < device.Quantity)
-                return "Part Confirmed";
-            if (device.Quantity == device.QtyConfirm)
-                return "Confirmed";
-
-            return "N/A";
+            return status;
         }
 
 

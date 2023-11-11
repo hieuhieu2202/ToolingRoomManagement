@@ -48,6 +48,9 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Entities
         public Nullable<int> SysQuantity { get; set; }
         public Nullable<int> MinQty { get; set; }
         public Nullable<int> POQty { get; set; }
+        public string Type_BOM { get; set; }
+        public Nullable<int> MOQ { get; set; }
+        public Nullable<bool> isConsign { get; set; }
     
         public virtual Group Group { get; set; }
         public virtual Model Model { get; set; }

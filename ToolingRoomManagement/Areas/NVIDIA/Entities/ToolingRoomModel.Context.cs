@@ -42,9 +42,6 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Entities
         public virtual DbSet<Borrow> Borrows { get; set; }
         public virtual DbSet<HistoryUpdateDevice> HistoryUpdateDevices { get; set; }
         public virtual DbSet<Warehouse> Warehouses { get; set; }
-        public virtual DbSet<DeviceBOM> DeviceBOMs { get; set; }
-        public virtual DbSet<ProductBOM> ProductBOMs { get; set; }
-        public virtual DbSet<ProductDeviceBOM> ProductDeviceBOMs { get; set; }
         public virtual DbSet<DeviceUnconfirm> DeviceUnconfirms { get; set; }
         public virtual DbSet<Department> Departments { get; set; }
     }

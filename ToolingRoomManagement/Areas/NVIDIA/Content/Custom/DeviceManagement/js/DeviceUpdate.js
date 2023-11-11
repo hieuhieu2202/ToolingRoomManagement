@@ -30,36 +30,24 @@
 }
 async function FillEditDeviceData(data) {
     $('#device_edit-DeviceId').val(data.device.Id);
-    $('#device_edit-DeviceCode').val(data.device.DeviceCode);
+
+    // basic
+    $('#device_edit-DeviceCode').val(data.device.DeviceCode != null ? data.device.DeviceCode : "");
     $('#device_edit-DeviceName').val(data.device.DeviceName);
     $('#device_edit-Specification').val(data.device.Specification);
-    $('#device_edit-DeviceDate').val(moment(data.device.DeviceDate).format('YYYY-MM-DD HH:mm'));
-
-    $('#device_edit-Buffer').val(data.device.Buffer * 100);
-    $('#device_edit-LifeCycle').val(data.device.LifeCycle);
-    $('#device_edit-Forcast').val(data.device.Forcast);
-    $('#device_edit-Quantity').val(data.device.Quantity);
-    $('#device_edit-QtyConfirm').val(data.device.QtyConfirm);
-    $('#device_edit-RealQty').val(data.device.RealQty);
-
-    $('#device_edit-POQty').val(data.device.POQty ? data.device.POQty : 0);
-
-    $('#device_edit-AccKit').val(data.device.ACC_KIT).trigger('change');
-    $('#device_edit-Type').val(data.device.Type).trigger('change');
     $('#device_edit-Status').val(data.device.Status).trigger('change');
-    $('#device_edit-WareHouse').val(data.device.IdWareHouse).trigger('change');
-
-
-    $('#device_edit-Product').val(data.device.Product ? data.device.Product.ProductName : '');
-    $('#device_edit-Model').val(data.device.Model ? data.device.Model.ModelName : '');
-    $('#device_edit-Station').val(data.device.Station ? data.device.Station.StationName : '');
-    $('#device_edit-Group').val(data.device.Group ? data.device.Group.GroupName : '');
-    $('#device_edit-Vendor').val(data.device.Vendor ? data.device.Vendor.VendorName : '');
-
-    $('#device_edit-Unit').val(data.device.Unit);
-
-    $('#device_edit-MinQty').val(data.device.MinQty);
-
+    var type = "";
+    if (data.device.Type == "S") data.device.Type = "Static";
+    if (data.device.Type == "D") data.device.Type = "Dynamic";
+    if (data.device.Type == "Consign") data.device.Type = "NA";
+    if (data.device.isConsign == true) {
+        type = "consign_" + data.device.Type;
+    }
+    else {
+        type = "normal_" + data.device.Type;
+    }
+    $('#device_edit-Type').val(type).trigger('change');
+    $('#device_edit-DeviceDate').val(moment(data.device.DeviceDate).format('YYYY-MM-DD HH:mm'));
     if (data.device.DeliveryTime) {
         var temp = data.device.DeliveryTime.split(' ');
         $('#device_edit-DeliveryTime1').val(temp[0]);
@@ -70,6 +58,24 @@ async function FillEditDeviceData(data) {
         }
         $('#device_edit-DeliveryTime2').val(selectVal.trim());
     }
+    // details
+    $('#device_edit-WareHouse').val(data.device.IdWareHouse).trigger('change');
+    $('#device_edit-Buffer').val(data.device.Buffer * 100);
+    $('#device_edit-Quantity').val(data.device.Quantity);
+    $('#device_edit-POQty').val(data.device.POQty ? data.device.POQty : 0);
+    $('#device_edit-Unit').val(data.device.Unit);
+
+    $('#device_edit-Relation').val(data.device.Relation);
+    $('#device_edit-LifeCycle').val(data.device.LifeCycle);
+    $('#device_edit-QtyConfirm').val(data.device.QtyConfirm);
+    $('#device_edit-RealQty').val(data.device.RealQty);
+    $('#device_edit-MinQty').val(data.device.MinQty);
+
+    $('#device_edit-Product').val(data.device.Product ? data.device.Product.ProductName : '');
+    $('#device_edit-Model').val(data.device.Model ? data.device.Model.ModelName : '');
+    $('#device_edit-Station').val(data.device.Station ? data.device.Station.StationName : '');
+    $('#device_edit-Group').val(data.device.Group ? data.device.Group.GroupName : '');
+    $('#device_edit-Vendor').val(data.device.Vendor ? data.device.Vendor.VendorName : '');
 
     $('#add-image').data('deviceid', data.device.Id);
 
@@ -100,26 +106,16 @@ async function FillEditDeviceData(data) {
 $('#button-save_modal').on('click', function (e) {
     e.preventDefault();
 
-    var device = GetModalData();
-
-    sproduct = $('#device_edit-Product').val()
-    smodel = $('#device_edit-Model').val()
-    sstation = $('#device_edit-Station').val()
-    sgroup = $('#device_edit-Group').val()
-    svendor = $('#device_edit-Vendor').val()
-
-    var Index = tableDeviceInfo.row(`[data-id="${device.Id}"]`).index();
-
-    var IdLayouts = $('#layout-container option:selected').map(function () {
-        return $(this).val();
-    }).get();
+    var formData = GetModalData();
+    var Index = tableDeviceInfo.row(`[data-id="${$('#device_edit-DeviceId').val()}"]`).index();
 
     $.ajax({
         type: "POST",
         url: "/NVIDIA/DeviceManagement/UpdateDevice",
-        data: JSON.stringify({ device, IdLayouts, sproduct, smodel, sstation, sgroup, svendor }),
+        data: formData,
         dataType: "json",
-        contentType: "application/json;charset=utf-8",
+        processData: false,
+        contentType: false,
         success: function (response) {
             if (response.status) {
                 var row = DrawRowEditDevice(response.device);
@@ -139,57 +135,68 @@ $('#button-save_modal').on('click', function (e) {
     });
 });
 function GetModalData() {
-    return data = {
-        Id: $('#device_edit-DeviceId').val(),
-        DeviceCode: $('#device_edit-DeviceCode').val(),
-        DeviceName: $('#device_edit-DeviceName').val(),
-        Specification: $('#device_edit-Specification').val(),
-        Unit: $('#device_edit-Unit').val(),
+    var formData = new FormData();
+    formData.append('Id', $('#device_edit-DeviceId').val());
 
-        DeviceDate: $('#device_edit-DeviceDate').val(),
+    formData.append('DeviceCode', $('#device_edit-DeviceCode').val());
+    formData.append('DeviceName', $('#device_edit-DeviceName').val());
+    formData.append('Specification', $('#device_edit-Specification').val());
 
-        Buffer: parseInt($('#device_edit-Buffer').val()) / 100,
-        LifeCycle: $('#device_edit-LifeCycle').val(),
-        Forcast: $('#device_edit-Forcast').val(),
-        Quantity: $('#device_edit-Quantity').val(),
-        QtyConfirm: $('#device_edit-QtyConfirm').val(),
-        RealQty: $('#device_edit-RealQty').val(),
+    formData.append('Type', $('#device_edit-Type').val());
+    formData.append('DeviceDate', $('#device_edit-DeviceDate').val());
+    formData.append('DeliveryTime', $('#device_edit-DeliveryTime1').val() + ' ' + $('#device_edit-DeliveryTime2').val());
 
-        POQty: $('#device_edit-POQty').val(),
+    formData.append('IdWareHouse', $('#device_edit-WareHouse').val());
+    formData.append('Buffer', parseInt($('#device_edit-Buffer').val()) / 100);
+    formData.append('Quantity', $('#device_edit-Quantity').val());
+    formData.append('POQty', $('#device_edit-POQty').val());
+    formData.append('Unit', $('#device_edit-Unit').val());
 
-        ACC_KIT: $('#device_edit-AccKit').val(),
-        Type: $('#device_edit-Type').val(),
-        Status: $('#device_edit-Status').val(),
-        IdWareHouse: $('#device_edit-WareHouse').val(),
+    formData.append('Relation', $('#device_edit-Relation').val());
+    formData.append('LifeCycle', $('#device_edit-LifeCycle').val());
+    formData.append('QtyConfirm', $('#device_edit-QtyConfirm').val());
+    formData.append('RealQty', $('#device_edit-RealQty').val());
+    formData.append('MinQty', $('#device_edit-MinQty').val());
+    
 
-        MinQty: $('#device_edit-MinQty').val(),
+    formData.append('Product', $('#device_edit-Product').val());
+    formData.append('Model', $('#device_edit-Model').val());
+    formData.append('Station', $('#device_edit-Station').val());
+    formData.append('Group', $('#device_edit-Group').val());
+    formData.append('Vendor', $('#device_edit-Vendor').val());
 
-        DeliveryTime: $('#device_edit-DeliveryTime1').val() + ' ' + $('#device_edit-DeliveryTime2').val(),
-    }
+    // layout
+    $('#layout-container option:selected').map(function () {
+        formData.append('Layout', $(this).val());
+    });
+
+    return formData;
 }
+
+
 function DrawRowEditDevice(item) {
     var row = [];
     // 0 ID
     row.push(`<td>${item.Id}</td>`);
-    // 0 MTS
-    row.push(`<td>${(item.Product) ? item.Product.MTS ? item.Product.MTS : "N/A" : "N/A"}</td>`);
-    // 1 Product Name
+    // 1 MTS
+    row.push(`<td>${(item.Product) ? item.Product.MTS ? item.Product.MTS : "NA" : "NA"}</td>`);
+    // 2 Product Name
     row.push(`<td title="${(item.Product) ? item.Product.ProductName : ""}">${(item.Product) ? item.Product.ProductName : ""}</td>`);
-    // 2 Model
+    // 3 Model
     row.push(`<td>${(item.Model) ? item.Model.ModelName : ""}</td>`);
-    // 3 Station
+    // 4 Station
     row.push(`<td>${(item.Station) ? item.Station.StationName : ""}</td>`);
-    // 4 DeviceCode - PN
-    row.push(`<td data-id="${item.Id}" data-code="${item.DeviceCode}" title="${item.DeviceCode}">${item.DeviceCode}</td>`);
-    // 5 DeviceName
+    // 5 DeviceCode - PN
+    row.push(`<td>${item.DeviceCode != "null" ? item.DeviceCode : "NA"}</td>`);
+    // 6 DeviceName
     row.push(`<td title="${item.DeviceName}">${item.DeviceName}</td>`);
-    // 6 Group
+    // 7 Group
     row.push(`<td>${(item.Group) ? item.Group.GroupName : ""}</td>`);
-    // 7 Vendor
+    // 8 Vendor
     row.push(`<td title="${(item.Vendor) ? item.Vendor.VendorName : ""}">${(item.Vendor) ? item.Vendor.VendorName : ""}</td>`);
-    // 8 Specification
+    // 9 Specification
     row.push(`<td title="${item.Specification}">${(item.Specification) ? item.Specification : ""}</td>`);
-    // 9 Location 
+    // 10 Location 
     var html = ''
     var title = ''
     $.each(item.DeviceWarehouseLayouts, function (k, sss) {
@@ -197,47 +204,61 @@ function DrawRowEditDevice(item) {
         html += `<lable>${layout.Line}${layout.Cell ? ' - ' + layout.Cell : ''}${layout.Floor ? ' - ' + layout.Floor : ''}</lable>`;
         title += `[${layout.Line}${layout.Cell ? ' - ' + layout.Cell : ''}${layout.Floor ? ' - ' + layout.Floor : ''}],`;
     });
-    row.push(`<td title="${title}">${html == '' ? 'N/A' : html}</td>`);
-    // 10 Buffer
+    row.push(`<td title="${title}">${html == '' ? 'NA' : html}</td>`);
+    // 11 Buffer
     row.push(`<td title="${item.Buffer}">${item.Buffer * 100}%</td>`);
-    // 11 BOM Quantity
+    // 12 BOM Quantity
     row.push(`<td title="BOM Quantity">${item.Quantity ? item.Quantity : 0}</td>`);
-    // 12 PO Quantity
+    // 13 PO Quantity
     row.push(`<td title="PO Quantity">${item.POQty ? item.POQty : 0}</td>`);
-    // 13 Confirm Quantity
+    // 14 Confirm Quantity
     row.push(`<td title="Confirm Quantity">${item.QtyConfirm ? item.QtyConfirm : 0}</td>`);
-    // 14 Real Quantity
+    // 15 Real Quantity
     row.push(`<td title="Real Quantity">${item.RealQty ? item.RealQty : 0}</td>`);
-    // 15 Unit
+    // 16 Unit
     row.push(`<td>${item.Unit ? item.Unit : ''}</td>`);
-    // 16 Lead Time
-    var LeadTime = (item.DeliveryTime.charAt(0) == ' ' || item.DeliveryTime.charAt(0) == '0') ? 'N/A' : item.DeliveryTime;
-    if (item.Type == 'Consign') LeadTime = 'N/A';
+    // 17 Lead Time
+    var LeadTime = (item.DeliveryTime.charAt(0) == ' ' || item.DeliveryTime.charAt(0) == '0') ? 'NA' : item.DeliveryTime;
+    if (item.Type == 'Consign') LeadTime = 'NA';
     row.push(`<td>${LeadTime}</td>`);
-    // 17 Type
+    // 18 Type
     switch (item.Type) {
-        case "S": {
-            row.push(`<td><span class="text-success fw-bold">Static</span></td>`);
+        case "S":
+        case "Static": {
+            row.push(`<td class="py-0">
+                                <span class="text-success fw-bold">Static</span>
+                                </br>
+                                <span class="text-${item.isConsign ? "warning" : "primary"} fw-bold" style="font-size: 10px;">${item.isConsign ? "Consign" : "Normal"}</span>
+                            </td>`);
             break;
         }
-        case "D": {
-            row.push(`<td><span class="text-info fw-bold">Dynamic</span></td>`);
-            break;
-        }
-        case "Consign": {
-            row.push(`<td><span class="text-warning fw-bold">Consign</span></td>`);
+        case "D":
+        case "Dynamic": {
+            row.push(`<td class="py-0">
+                                <span class="text-info fw-bold">Dynamic</span>
+                                </br>
+                                <span class="text-${item.isConsign ? "warning" : "primary"} fw-bold" style="font-size: 10px;">${item.isConsign ? "Consign" : "Normal"}</span>
+                            </td>`);
             break;
         }
         case "Fixture": {
-            row.push(`<td><span class="text-primary fw-bold">Fixture</span></td>`);
+            row.push(`<td class="py-0">
+                                <span class="text-primary fw-bold">Fixture</span>
+                                </br>
+                                <span class="text-${item.isConsign ? "warning" : "primary"} fw-bold" style="font-size: 10px;">${item.isConsign ? "Consign" : "Normal"}</span>
+                            </td>`);
             break;
         }
         default: {
-            row.push(`<td><span class="text-secondary fw-bold">N/A</span></td>`);
+            row.push(`<td class="py-0">
+                                <span class="text-secondary fw-bold">NA</span>
+                                </br>
+                                <span class="text-${item.isConsign ? "warning" : "primary"} fw-bold" style="font-size: 10px;">${item.isConsign ? "Consign" : "Normal"}</span>
+                            </td>`);
             break;
         }
     }
-    // 18 Status
+    // 19 Status
     switch (item.Status) {
         case "Unconfirmed": {
             row.push(`<td><span class="badge bg-primary">Unconfirmed</span></td>`);
@@ -260,16 +281,18 @@ function DrawRowEditDevice(item) {
             break;
         }
         default: {
-            row.push(`<td>N/A</td>`);
+            row.push(`<td>NA</td>`);
             break;
         }
     }
-    // 19 Action
+    // 20 Action
     row.push(`<td class="order-action d-flex text-center justify-content-center">
                         <a href="javascript:;" class="text-info bg-light-info border-0"       title="${i18next.t('device.management.details')}" data-id="${item.Id}" onclick="Details(this, event)"><i class="fa-regular fa-circle-info"></i></a>
                         <a href="javascript:;" class="text-warning bg-light-warning border-0" title="${i18next.t('device.management.edit')}" data-id="${item.Id}" onclick="Edit(this, event)   "><i class="fa-duotone fa-pen"></i></a>
                         <a href="javascript:;" class="text-danger  bg-light-danger  border-0" title="${i18next.t('device.management.delete')}" data-id="${item.Id}" onclick="Delete(this, event) "><i class="fa-duotone fa-trash"></i></a>
                     </td>`);
+    // 21 isConsign (Hidden)
+    row.push(`<td>${item.isConsign ? "consign" : "normal"} </td>`);
     return row;
 }
 
@@ -319,7 +342,6 @@ function CreateImages_Update(images) {
 
     $('#images-edit-container').show();
 }
-
 function InitViewer() {
     if (viewPreview) viewPreview.destroy();
 
@@ -346,7 +368,6 @@ function InitViewer() {
         zoomOnWheel: true
     });
 }
-
 function DeleteImage(deletebutton) {
     var elm = $(deletebutton);
 
@@ -374,7 +395,6 @@ function DeleteImage(deletebutton) {
         }
     });
 }
-
 var selectedFiles = [];
 $('#add-image').click(function () {
     var selectFile = $('<input type="file" accept="image/*" multiple/>');

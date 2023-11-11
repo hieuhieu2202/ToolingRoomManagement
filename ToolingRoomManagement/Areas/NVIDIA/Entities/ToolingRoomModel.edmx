@@ -70,19 +70,9 @@
           <Property Name="SysQuantity" Type="int" />
           <Property Name="MinQty" Type="int" />
           <Property Name="POQty" Type="int" />
-        </EntityType>
-        <EntityType Name="DeviceBOM">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="DeviceCode" Type="nvarchar" MaxLength="25" />
-          <Property Name="DeviceName" Type="nvarchar" MaxLength="255" />
-          <Property Name="Quantity" Type="int" />
-          <Property Name="Group" Type="nvarchar" MaxLength="50" />
-          <Property Name="Vendor" Type="nvarchar" MaxLength="50" />
-          <Property Name="MinQty" Type="int" />
-          <Property Name="Buffer" Type="float" />
+          <Property Name="Type_BOM" Type="nvarchar" MaxLength="10" />
+          <Property Name="MOQ" Type="int" />
+          <Property Name="isConsign" Type="bit" />
         </EntityType>
         <EntityType Name="DeviceUnconfirm">
           <Key>
@@ -115,6 +105,10 @@
           <Property Name="DeliveryTime" Type="nvarchar" MaxLength="50" />
           <Property Name="SysQuantity" Type="int" />
           <Property Name="MinQty" Type="int" />
+          <Property Name="POQty" Type="int" />
+          <Property Name="Type_BOM" Type="nvarchar" MaxLength="10" />
+          <Property Name="MOQ" Type="int" />
+          <Property Name="isConsign" Type="bit" />
         </EntityType>
         <EntityType Name="DeviceWarehouseLayout">
           <Key>
@@ -158,22 +152,6 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="MTS" Type="nvarchar" MaxLength="25" />
           <Property Name="ProductName" Type="nvarchar" MaxLength="120" />
-        </EntityType>
-        <EntityType Name="ProductBOM">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="ProductName" Type="nvarchar" MaxLength="255" />
-          <Property Name="MTS" Type="nvarchar" MaxLength="25" />
-        </EntityType>
-        <EntityType Name="ProductDeviceBOM">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="IdProduct" Type="int" />
-          <Property Name="IdDevice" Type="int" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -303,7 +281,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_BorrowDevice_Borrow">
-          <End Role="Borrow" Type="Self.Borrow" Multiplicity="0..1" />
+          <End Role="Borrow" Type="Self.Borrow" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="BorrowDevice" Type="Self.BorrowDevice" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Borrow">
@@ -434,18 +414,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_DeviceUnconfirm_Station">
-          <End Role="Station" Type="Self.Station" Multiplicity="0..1" />
-          <End Role="DeviceUnconfirm" Type="Self.DeviceUnconfirm" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Station">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="DeviceUnconfirm">
-              <PropertyRef Name="IdStation" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_DeviceUnconfirm_Vendor">
           <End Role="Vendor" Type="Self.Vendor" Multiplicity="0..1" />
           <End Role="DeviceUnconfirm" Type="Self.DeviceUnconfirm" Multiplicity="*" />
@@ -458,15 +426,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_DeviceUnconfirm_Warehouse">
-          <End Role="Warehouse" Type="Self.Warehouse" Multiplicity="0..1" />
+        <Association Name="FK_DeviceUnconfirme_Station">
+          <End Role="Station" Type="Self.Station" Multiplicity="0..1" />
           <End Role="DeviceUnconfirm" Type="Self.DeviceUnconfirm" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Warehouse">
+            <Principal Role="Station">
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="DeviceUnconfirm">
-              <PropertyRef Name="IdWareHouse" />
+              <PropertyRef Name="IdStation" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -496,36 +464,10 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ProductDeviceBOM_DeviceBOM">
-          <End Role="DeviceBOM" Type="Self.DeviceBOM" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="ProductDeviceBOM" Type="Self.ProductDeviceBOM" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="DeviceBOM">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="ProductDeviceBOM">
-              <PropertyRef Name="IdDevice" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ProductDeviceBOM_ProductBOM">
-          <End Role="ProductBOM" Type="Self.ProductBOM" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="ProductDeviceBOM" Type="Self.ProductDeviceBOM" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ProductBOM">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="ProductDeviceBOM">
-              <PropertyRef Name="IdProduct" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_UserBorrowSign_Borrow">
-          <End Role="Borrow" Type="Self.Borrow" Multiplicity="0..1" />
+          <End Role="Borrow" Type="Self.Borrow" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="UserBorrowSign" Type="Self.UserBorrowSign" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Borrow">
@@ -627,15 +569,12 @@
           <EntitySet Name="BorrowDevice" EntityType="Self.BorrowDevice" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Department" EntityType="Self.Department" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Device" EntityType="Self.Device" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="DeviceBOM" EntityType="Self.DeviceBOM" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DeviceUnconfirm" EntityType="Self.DeviceUnconfirm" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DeviceWarehouseLayout" EntityType="Self.DeviceWarehouseLayout" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Group" EntityType="Self.Group" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="HistoryUpdateDevice" EntityType="Self.HistoryUpdateDevice" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Model" EntityType="Self.Model" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="ProductBOM" EntityType="Self.ProductBOM" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="ProductDeviceBOM" EntityType="Self.ProductDeviceBOM" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Station" EntityType="Self.Station" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
@@ -701,16 +640,12 @@
             <End Role="Product" EntitySet="Product" />
             <End Role="DeviceUnconfirm" EntitySet="DeviceUnconfirm" />
           </AssociationSet>
-          <AssociationSet Name="FK_DeviceUnconfirm_Station" Association="Self.FK_DeviceUnconfirm_Station">
-            <End Role="Station" EntitySet="Station" />
-            <End Role="DeviceUnconfirm" EntitySet="DeviceUnconfirm" />
-          </AssociationSet>
           <AssociationSet Name="FK_DeviceUnconfirm_Vendor" Association="Self.FK_DeviceUnconfirm_Vendor">
             <End Role="Vendor" EntitySet="Vendor" />
             <End Role="DeviceUnconfirm" EntitySet="DeviceUnconfirm" />
           </AssociationSet>
-          <AssociationSet Name="FK_DeviceUnconfirm_Warehouse" Association="Self.FK_DeviceUnconfirm_Warehouse">
-            <End Role="Warehouse" EntitySet="Warehouse" />
+          <AssociationSet Name="FK_DeviceUnconfirme_Station" Association="Self.FK_DeviceUnconfirme_Station">
+            <End Role="Station" EntitySet="Station" />
             <End Role="DeviceUnconfirm" EntitySet="DeviceUnconfirm" />
           </AssociationSet>
           <AssociationSet Name="FK_DeviceWarehouseLayout_Device" Association="Self.FK_DeviceWarehouseLayout_Device">
@@ -720,14 +655,6 @@
           <AssociationSet Name="FK_DeviceWarehouseLayout_WarehouseLayout" Association="Self.FK_DeviceWarehouseLayout_WarehouseLayout">
             <End Role="WarehouseLayout" EntitySet="WarehouseLayout" />
             <End Role="DeviceWarehouseLayout" EntitySet="DeviceWarehouseLayout" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ProductDeviceBOM_DeviceBOM" Association="Self.FK_ProductDeviceBOM_DeviceBOM">
-            <End Role="DeviceBOM" EntitySet="DeviceBOM" />
-            <End Role="ProductDeviceBOM" EntitySet="ProductDeviceBOM" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ProductDeviceBOM_ProductBOM" Association="Self.FK_ProductDeviceBOM_ProductBOM">
-            <End Role="ProductBOM" EntitySet="ProductBOM" />
-            <End Role="ProductDeviceBOM" EntitySet="ProductDeviceBOM" />
           </AssociationSet>
           <AssociationSet Name="FK_UserBorrowSign_Borrow" Association="Self.FK_UserBorrowSign_Borrow">
             <End Role="Borrow" EntitySet="Borrow" />
@@ -863,17 +790,6 @@
           <AssociationSet Name="FK_WarehouseLayout_Warehouse" Association="ToolingRoomModel.FK_WarehouseLayout_Warehouse">
             <End Role="Warehouse" EntitySet="Warehouses" />
             <End Role="WarehouseLayout" EntitySet="WarehouseLayouts" />
-          </AssociationSet>
-          <EntitySet Name="DeviceBOMs" EntityType="ToolingRoomModel.DeviceBOM" />
-          <EntitySet Name="ProductBOMs" EntityType="ToolingRoomModel.ProductBOM" />
-          <EntitySet Name="ProductDeviceBOMs" EntityType="ToolingRoomModel.ProductDeviceBOM" />
-          <AssociationSet Name="FK_ProductDeviceBOM_DeviceBOM" Association="ToolingRoomModel.FK_ProductDeviceBOM_DeviceBOM">
-            <End Role="DeviceBOM" EntitySet="DeviceBOMs" />
-            <End Role="ProductDeviceBOM" EntitySet="ProductDeviceBOMs" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ProductDeviceBOM_ProductBOM" Association="ToolingRoomModel.FK_ProductDeviceBOM_ProductBOM">
-            <End Role="ProductBOM" EntitySet="ProductBOMs" />
-            <End Role="ProductDeviceBOM" EntitySet="ProductDeviceBOMs" />
           </AssociationSet>
           <EntitySet Name="DeviceUnconfirms" EntityType="ToolingRoomModel.DeviceUnconfirm" />
           <AssociationSet Name="FK_DeviceUnconfirm_Group" Association="ToolingRoomModel.FK_DeviceUnconfirm_Group">
@@ -1061,6 +977,9 @@
           <Property Name="SysQuantity" Type="Int32" />
           <Property Name="MinQty" Type="Int32" />
           <Property Name="POQty" Type="Int32" />
+          <Property Name="Type_BOM" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="MOQ" Type="Int32" />
+          <Property Name="isConsign" Type="Boolean" />
         </EntityType>
         <Association Name="FK_Device_Group">
           <End Type="ToolingRoomModel.Group" Role="Group" Multiplicity="0..1" />
@@ -1362,61 +1281,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="DeviceBOM">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="DeviceCode" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
-          <Property Name="DeviceName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Quantity" Type="Int32" />
-          <Property Name="Group" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Vendor" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="MinQty" Type="Int32" />
-          <Property Name="Buffer" Type="Double" />
-          <NavigationProperty Name="ProductDeviceBOMs" Relationship="ToolingRoomModel.FK_ProductDeviceBOM_DeviceBOM" FromRole="DeviceBOM" ToRole="ProductDeviceBOM" />
-        </EntityType>
-        <EntityType Name="ProductBOM">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ProductName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="MTS" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="ProductDeviceBOM">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="IdProduct" Type="Int32" />
-          <Property Name="IdDevice" Type="Int32" />
-          <NavigationProperty Name="ProductBOM" Relationship="ToolingRoomModel.FK_ProductDeviceBOM_ProductBOM" FromRole="ProductDeviceBOM" ToRole="ProductBOM" />
-        </EntityType>
-        <Association Name="FK_ProductDeviceBOM_DeviceBOM">
-          <End Type="ToolingRoomModel.DeviceBOM" Role="DeviceBOM" Multiplicity="0..1" />
-          <End Type="ToolingRoomModel.ProductDeviceBOM" Role="ProductDeviceBOM" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="DeviceBOM">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="ProductDeviceBOM">
-              <PropertyRef Name="IdDevice" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ProductDeviceBOM_ProductBOM">
-          <End Type="ToolingRoomModel.ProductBOM" Role="ProductBOM" Multiplicity="0..1" />
-          <End Type="ToolingRoomModel.ProductDeviceBOM" Role="ProductDeviceBOM" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ProductBOM">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="ProductDeviceBOM">
-              <PropertyRef Name="IdProduct" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="DeviceUnconfirm">
           <Key>
             <PropertyRef Name="Id" />
@@ -1453,6 +1317,10 @@
           <NavigationProperty Name="Product" Relationship="ToolingRoomModel.FK_DeviceUnconfirm_Product" FromRole="DeviceUnconfirm" ToRole="Product" />
           <NavigationProperty Name="Station" Relationship="ToolingRoomModel.FK_DeviceUnconfirm_Station" FromRole="DeviceUnconfirm" ToRole="Station" />
           <NavigationProperty Name="Vendor" Relationship="ToolingRoomModel.FK_DeviceUnconfirm_Vendor" FromRole="DeviceUnconfirm" ToRole="Vendor" />
+          <Property Name="POQty" Type="Int32" />
+          <Property Name="Type_BOM" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="MOQ" Type="Int32" />
+          <Property Name="isConsign" Type="Boolean" />
         </EntityType>
         <Association Name="FK_DeviceUnconfirm_Group">
           <End Type="ToolingRoomModel.Group" Role="Group" Multiplicity="0..1" />
@@ -1642,6 +1510,9 @@
           <EntitySetMapping Name="Devices">
             <EntityTypeMapping TypeName="ToolingRoomModel.Device">
               <MappingFragment StoreEntitySet="Device">
+                <ScalarProperty Name="isConsign" ColumnName="isConsign" />
+                <ScalarProperty Name="MOQ" ColumnName="MOQ" />
+                <ScalarProperty Name="Type_BOM" ColumnName="Type_BOM" />
                 <ScalarProperty Name="POQty" ColumnName="POQty" />
                 <ScalarProperty Name="MinQty" ColumnName="MinQty" />
                 <ScalarProperty Name="SysQuantity" ColumnName="SysQuantity" />
@@ -1761,41 +1632,13 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="DeviceBOMs">
-            <EntityTypeMapping TypeName="ToolingRoomModel.DeviceBOM">
-              <MappingFragment StoreEntitySet="DeviceBOM">
-                <ScalarProperty Name="Buffer" ColumnName="Buffer" />
-                <ScalarProperty Name="MinQty" ColumnName="MinQty" />
-                <ScalarProperty Name="Vendor" ColumnName="Vendor" />
-                <ScalarProperty Name="Group" ColumnName="Group" />
-                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
-                <ScalarProperty Name="DeviceName" ColumnName="DeviceName" />
-                <ScalarProperty Name="DeviceCode" ColumnName="DeviceCode" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ProductBOMs">
-            <EntityTypeMapping TypeName="ToolingRoomModel.ProductBOM">
-              <MappingFragment StoreEntitySet="ProductBOM">
-                <ScalarProperty Name="MTS" ColumnName="MTS" />
-                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ProductDeviceBOMs">
-            <EntityTypeMapping TypeName="ToolingRoomModel.ProductDeviceBOM">
-              <MappingFragment StoreEntitySet="ProductDeviceBOM">
-                <ScalarProperty Name="IdDevice" ColumnName="IdDevice" />
-                <ScalarProperty Name="IdProduct" ColumnName="IdProduct" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="DeviceUnconfirms">
             <EntityTypeMapping TypeName="ToolingRoomModel.DeviceUnconfirm">
               <MappingFragment StoreEntitySet="DeviceUnconfirm">
+                <ScalarProperty Name="isConsign" ColumnName="isConsign" />
+                <ScalarProperty Name="MOQ" ColumnName="MOQ" />
+                <ScalarProperty Name="Type_BOM" ColumnName="Type_BOM" />
+                <ScalarProperty Name="POQty" ColumnName="POQty" />
                 <ScalarProperty Name="MinQty" ColumnName="MinQty" />
                 <ScalarProperty Name="SysQuantity" ColumnName="SysQuantity" />
                 <ScalarProperty Name="DeliveryTime" ColumnName="DeliveryTime" />

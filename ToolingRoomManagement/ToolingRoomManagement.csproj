@@ -216,9 +216,11 @@
     <Content Include="Areas\NVIDIA\Content\Custom\Dashboard\Dashboard.js" />
     <Content Include="Areas\NVIDIA\Content\Custom\DeviceManagement\css\AddDeviceBOM.css" />
     <Content Include="Areas\NVIDIA\Content\Custom\DeviceManagement\css\AddDeviceManual.css" />
+    <Content Include="Areas\NVIDIA\Content\Custom\DeviceManagement\css\ConfirmDevice.css" />
     <Content Include="Areas\NVIDIA\Content\Custom\DeviceManagement\css\DeviceManagement.css" />
     <Content Include="Areas\NVIDIA\Content\Custom\DeviceManagement\js\AddDeviceBOM.js" />
     <Content Include="Areas\NVIDIA\Content\Custom\DeviceManagement\js\AddDeviceManual.js" />
+    <Content Include="Areas\NVIDIA\Content\Custom\DeviceManagement\js\ConfirmDevice.js" />
     <Content Include="Areas\NVIDIA\Content\Custom\DeviceManagement\js\DeviceDetails.js" />
     <Content Include="Areas\NVIDIA\Content\Custom\DeviceManagement\js\DeviceManagement.js" />
     <Content Include="Areas\NVIDIA\Content\Custom\DeviceManagement\js\DeviceUpdate.js" />
@@ -3139,9 +3141,6 @@
     <Compile Include="Areas\NVIDIA\Entities\Device.cs">
       <DependentUpon>ToolingRoomModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Areas\NVIDIA\Entities\DeviceBOM.cs">
-      <DependentUpon>ToolingRoomModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Areas\NVIDIA\Entities\DeviceUnconfirm.cs">
       <DependentUpon>ToolingRoomModel.tt</DependentUpon>
     </Compile>
@@ -3158,12 +3157,6 @@
       <DependentUpon>ToolingRoomModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Areas\NVIDIA\Entities\Product.cs">
-      <DependentUpon>ToolingRoomModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Areas\NVIDIA\Entities\ProductBOM.cs">
-      <DependentUpon>ToolingRoomModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Areas\NVIDIA\Entities\ProductDeviceBOM.cs">
       <DependentUpon>ToolingRoomModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Areas\NVIDIA\Entities\Role.cs">
@@ -3585,9 +3578,10 @@
     <Content Include="Areas\NVIDIA\Views\Info\Product.cshtml" />
     <Content Include="Areas\NVIDIA\Views\Info\ModelStation.cshtml" />
     <Content Include="Areas\NVIDIA\Views\Info\GroupVendor.cshtml" />
-    <Content Include="Areas\NVIDIA\Views\DeviceManagement\DeviceConfirm.cshtml" />
     <Content Include="Areas\NVIDIA\Views\DeviceManagement\_DeviceDetails_Modal.cshtml" />
     <Content Include="Areas\NVIDIA\Views\BorrowManagement\_RequestDetails_Modal.cshtml" />
+    <Content Include="Areas\NVIDIA\Views\DeviceManagement\ConfirmDevice.cshtml" />
+    <Content Include="Areas\NVIDIA\Views\DeviceManagement\_DeviceUpdate_Modal.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

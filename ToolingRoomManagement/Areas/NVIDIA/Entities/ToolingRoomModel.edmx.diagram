@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="5c3a8314d1c746b884fac96c30e5a025" Name="Diagram1" ZoomLevel="82">
+      <Diagram DiagramId="5c3a8314d1c746b884fac96c30e5a025" Name="Diagram1" ZoomLevel="71">
         <EntityTypeShape EntityType="ToolingRoomModel.Product" Width="1.5" PointX="5.125" PointY="12.125" IsExpanded="false" />
         <EntityTypeShape EntityType="ToolingRoomModel.Group" Width="1.5" PointX="5.125" PointY="11.625" IsExpanded="false" />
         <EntityTypeShape EntityType="ToolingRoomModel.Model" Width="1.5" PointX="5.125" PointY="12.625" IsExpanded="false" />
@@ -42,24 +42,13 @@
         <AssociationConnector Association="ToolingRoomModel.FK_Device_Warehouse" />
         <AssociationConnector Association="ToolingRoomModel.FK_Warehouse_User" />
         <AssociationConnector Association="ToolingRoomModel.FK_WarehouseLayout_Warehouse" />
-        <EntityTypeShape EntityType="ToolingRoomModel.DeviceBOM" Width="1.5" PointX="16.125" PointY="10.625" />
-        <EntityTypeShape EntityType="ToolingRoomModel.ProductBOM" Width="1.5" PointX="11" PointY="10.75" />
-        <EntityTypeShape EntityType="ToolingRoomModel.ProductDeviceBOM" Width="1.5" PointX="13.625" PointY="11" />
-        <AssociationConnector Association="ToolingRoomModel.FK_ProductDeviceBOM_DeviceBOM" />
-        <AssociationConnector Association="ToolingRoomModel.FK_ProductDeviceBOM_ProductBOM" />
-        <EntityTypeShape EntityType="ToolingRoomModel.DeviceUnconfirm" Width="1.5" PointX="1.375" PointY="9.375" />
+        <EntityTypeShape EntityType="ToolingRoomModel.DeviceUnconfirm" Width="1.75" PointX="1.375" PointY="9.375" />
         <AssociationConnector Association="ToolingRoomModel.FK_DeviceUnconfirm_Group" />
         <AssociationConnector Association="ToolingRoomModel.FK_DeviceUnconfirm_Model" />
         <AssociationConnector Association="ToolingRoomModel.FK_DeviceUnconfirm_Product" />
         <AssociationConnector Association="ToolingRoomModel.FK_DeviceUnconfirm_Station" />
         <AssociationConnector Association="ToolingRoomModel.FK_DeviceUnconfirm_Vendor" />
-        <AssociationConnector Association="ToolingRoomModel.FK_DeviceUnconfirm_Warehouse" ManuallyRouted="true" >
-          <ConnectorPoint PointX="7.375" PointY="6.3856104432457448" />
-          <ConnectorPoint PointX="7.21165" PointY="6.5571907552083317" />
-          <ConnectorPoint PointX="7.083333333333333" PointY="6.5571907552083308" />
-          <ConnectorPoint PointX="6.916666666666667" PointY="6.5571907552083317" />
-          <ConnectorPoint PointX="2.125" PointY="6.5571907552083317" />
-          <ConnectorPoint PointX="2.125" PointY="9.375" />
+        <AssociationConnector Association="ToolingRoomModel.FK_DeviceUnconfirm_Warehouse" ManuallyRouted="false" >
         </AssociationConnector>
         <EntityTypeShape EntityType="ToolingRoomModel.Department" Width="1.5" PointX="5.25" PointY="1.25" IsExpanded="false" />
         <AssociationConnector Association="ToolingRoomModel.FK_UserDepartment_Department" />

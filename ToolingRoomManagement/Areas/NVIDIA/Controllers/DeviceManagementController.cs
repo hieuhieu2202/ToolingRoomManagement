@@ -1,18 +1,16 @@
-﻿using Model.EF;
-using OfficeOpenXml;
+﻿using OfficeOpenXml;
 using OfficeOpenXml.Style;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data.Entity.Migrations;
 using System.Drawing;
-using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Numerics;
+using System.Runtime.CompilerServices;
 using System.Text.Json;
 using System.Web;
 using System.Web.Mvc;
-using System.Web.Services.Description;
 using ToolingRoomManagement.Areas.NVIDIA.Entities;
 using ToolingRoomManagement.Attributes;
 
@@ -40,12 +38,16 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                     DeviceName = form["Description"],
                     Relation = form["Relation"],
                     ACC_KIT = form["ACCKIT"],
-                    Type = form["Type"],
                     Status = form["Status"],
-                    Specification = form["Specification"],
+                    Specification = form["Specfication"],
                     Unit = form["Unit"],
                     DeliveryTime = form["DeliveryTime"],
                 };
+                // Check Type
+                var types = form["Type"].Split('_');
+                device.Type = types[1];
+                device.isConsign = types[0] == "normal" ? false : true;
+
                 int dIdWarehouse = int.TryParse(form["Warehouse"], out dIdWarehouse) ? dIdWarehouse : 0;
 
                 device.IdWareHouse = dIdWarehouse;
@@ -71,57 +73,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 int dPOQty = int.TryParse(form["POQuantity"], out dPOQty) ? dPOQty : 0;
                 device.POQty = dPOQty;
 
-                string dProductName = form["Product"];
-                string dModelName = form["Model"];
-                string dStationName = form["Station"];
-                string dGroupName = form["Group"];
-                string dVendorName = form["Vendor"];
-
-                Entities.Product product = db.Products.FirstOrDefault(p => p.ProductName == dProductName);
-                Entities.Model model = db.Models.FirstOrDefault(p => p.ModelName == dModelName);
-                Entities.Station station = db.Stations.FirstOrDefault(p => p.StationName == dStationName);
-                Entities.Group group = db.Groups.FirstOrDefault(p => p.GroupName == dGroupName);
-                Entities.Vendor vendor = db.Vendors.FirstOrDefault(p => p.VendorName == dVendorName);
-
-                // Add & Create Product
-                if (product == null)
-                {
-                    product = new Entities.Product { ProductName = dProductName };
-                    db.Products.Add(product);
-                }
-                device.IdProduct = product.Id;
-
-                // Add & Create Model
-                if (model == null)
-                {
-                    model = new Entities.Model { ModelName = dModelName };
-                    db.Models.Add(model);
-                }
-                device.IdModel = model.Id;
-
-                // Add & Create Station
-                if (station == null)
-                {
-                    station = new Entities.Station { StationName = dStationName };
-                    db.Stations.Add(station);
-                }
-                device.IdStation = station.Id;
-
-                // Add & Create Group
-                if (group == null)
-                {
-                    group = new Entities.Group { GroupName = dGroupName };
-                    db.Groups.Add(group);
-                }
-                device.IdGroup = group.Id;
-
-                // Add & Create Vendor
-                if (vendor == null)
-                {
-                    vendor = new Entities.Vendor { VendorName = dVendorName };
-                    db.Vendors.Add(vendor);
-                }
-                device.IdVendor = vendor.Id;
+                device = AddNavigation(form, device);
 
                 DateTime dDeviceDate = DateTime.TryParse(form["Createddate"], out dDeviceDate) ? dDeviceDate : DateTime.Now;
                 device.DeviceDate = dDeviceDate;
@@ -135,34 +87,15 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 db.Devices.Add(device);
 
                 // Create Layout
-                if (form["Layout"] != null)
-                {
-                    var IdLayouts = form["Layout"].Split(',').Select(Int32.Parse).ToArray();
+                device.DeviceWarehouseLayouts = AddLayout(form, device);
 
-                    foreach (var IdLayout in IdLayouts)
-                    {
-                        if (!db.DeviceWarehouseLayouts.Any(l => l.IdDevice == device.Id && l.IdWarehouseLayout == IdLayout))
-                        {
-                            DeviceWarehouseLayout layout = new DeviceWarehouseLayout
-                            {
-                                IdDevice = device.Id,
-                                IdWarehouseLayout = IdLayout
-                            };
-                            db.DeviceWarehouseLayouts.Add(layout);
-                        }
-                    }
-                }
-
-                db.SaveChanges();
                 // Images
-                var files = Request.Files;
-
                 if (Request.Files.Count > 0)
                 {
                     for (int i = 0; i < Request.Files.Count; i++)
                     {
                         HttpPostedFileBase imagefile = Request.Files[i];
-                        var imagePath = SaveImage(imagefile, device);
+                        var imagePath = SaveImage(imagefile, device.Id);
                         if (string.IsNullOrEmpty(device.ImagePath))
                         {
                             device.ImagePath = imagePath;
@@ -178,14 +111,15 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 return Json(new { status = false, message = ex.Message });
             }
         }
-        private string SaveImage(HttpPostedFileBase file, Entities.Device device)
+        private string SaveImage(HttpPostedFileBase file, int IdDevice, bool isUnconfirm = false)
         {
             try
             {
                 var fileName = Path.GetFileNameWithoutExtension(file.FileName);
                 var fileExtention = Path.GetExtension(file.FileName);
+                string folderName = isUnconfirm ? "DeviceUnconfirmImages" : "DeviceImages";
 
-                var folderPath = Server.MapPath($"~/Data/NewToolingRoom/DeviceImages/{device.Id}");
+                var folderPath = Server.MapPath($"~/Data/NewToolingRoom/{folderName}/{IdDevice}");
                 if (!Directory.Exists(folderPath)) Directory.CreateDirectory(folderPath);
 
                 var savePath = Path.Combine(folderPath, $"{fileName} - {DateTime.Now.ToString("yyyy-MM-dd HH.mm.ss.ff")}{fileExtention}");
@@ -200,23 +134,115 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
             }
         }
 
-        // GET: Device Management
-
-        [HttpGet]
-        public JsonResult GetDevicesBOM()
+        private Entities.Device AddNavigation(FormCollection form, Entities.Device device)
         {
-            try
-            {
-                List<Entities.DeviceBOM> deviceBOMs = db.DeviceBOMs.ToList();
+            string dProductName = form["Product"];
+            string dModelName = form["Model"];
+            string dStationName = form["Station"];
+            string dGroupName = form["Group"];
+            string dVendorName = form["Vendor"];
 
-                return Json(new { status = true, data = deviceBOMs }, JsonRequestBehavior.AllowGet);
-            }
-            catch (Exception ex)
+            var dProductNames = dProductName.Split('|');
+            Entities.Product product = new Product();
+            if (dProductNames.Length <= 1)
             {
-                return Json(new { status = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
+                string sProductname = dProductNames[0].Trim();
+                product = db.Products.FirstOrDefault(p => p.ProductName == sProductname);
             }
+            else if(dProductNames.Length == 2)
+            {
+                string sProductname = dProductNames[0].Trim();
+                string sMTS = dProductNames[1].Trim();
+                product = db.Products.FirstOrDefault(p => p.ProductName == sProductname && p.MTS == sMTS);
+            }
+            
+            Entities.Model model = db.Models.FirstOrDefault(p => p.ModelName == dModelName);
+            Entities.Station station = db.Stations.FirstOrDefault(p => p.StationName == dStationName);
+            Entities.Group group = db.Groups.FirstOrDefault(p => p.GroupName == dGroupName);
+            Entities.Vendor vendor = db.Vendors.FirstOrDefault(p => p.VendorName == dVendorName);
+            // Add & Create Product
+            if (product == null)
+            {
+                product = new Entities.Product { ProductName = dProductName };
+                db.Products.Add(product);
+            }
+            device.IdProduct = product.Id;
+            device.Product = product;
+
+            // Add & Create Model
+            if (model == null)
+            {
+                model = new Entities.Model { ModelName = dModelName };
+                db.Models.Add(model);
+            }
+            device.IdModel = model.Id;
+            device.Model = model;
+
+            // Add & Create Station
+            if (station == null)
+            {
+                station = new Entities.Station { StationName = dStationName };
+                db.Stations.Add(station);
+            }
+            device.IdStation = station.Id;
+            device.Station = station;
+
+            // Add & Create Group
+            if (group == null)
+            {
+                group = new Entities.Group { GroupName = dGroupName };
+                db.Groups.Add(group);
+            }
+            device.IdGroup = group.Id;
+            device.Group = group;
+
+            // Add & Create Vendor
+            if (vendor == null)
+            {
+                vendor = new Entities.Vendor { VendorName = dVendorName };
+                db.Vendors.Add(vendor);
+            }
+            device.IdVendor = vendor.Id;
+            device.Vendor = vendor;
+
+            return device;
+        }
+        private List<DeviceWarehouseLayout> AddLayout(FormCollection form, Entities.Device device)
+        {
+            if (form["Layout"] != null)
+            {
+                var IdLayouts = form["Layout"].Split(',').Select(Int32.Parse).Distinct().ToArray();
+
+                var layouts = new List<DeviceWarehouseLayout>();
+                foreach (var IdLayout in IdLayouts)
+                {
+                    var deviceWarehouseLayout = db.DeviceWarehouseLayouts.FirstOrDefault(l => l.IdDevice == device.Id && l.IdWarehouseLayout == IdLayout);
+                    if (deviceWarehouseLayout == null)
+                    {
+                        deviceWarehouseLayout = new DeviceWarehouseLayout
+                        {
+                            IdDevice = device.Id,
+                            IdWarehouseLayout = IdLayout
+                        };
+                        db.DeviceWarehouseLayouts.Add(deviceWarehouseLayout);
+                        layouts.Add(deviceWarehouseLayout);
+                    }
+                    else
+                    {
+                        layouts.Add(deviceWarehouseLayout);
+                    }
+                }
+
+                return layouts;
+            }
+            else
+            {
+                return null;
+            }
+
         }
 
+        // GET: Device Management
         [HttpGet]
         public ActionResult DeviceManagement()
         {
@@ -269,96 +295,59 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
             }
         }
         [HttpPost]
-        public JsonResult UpdateDevice(Entities.Device device, int[] IdLayouts, string sproduct, string smodel, string sstation, string sgroup, string svendor)
+        public JsonResult UpdateDevice(FormCollection form)
         {
             try
             {
-                var afterDevice = device;
-                if (db.Devices.Any(d => d.Id == device.Id))
+                int Id = int.Parse(form["Id"]);
+                var oldDevice = db.Devices.FirstOrDefault(d => d.Id == Id);             
+                if (oldDevice != null)
                 {
-                    if (device.QtyConfirm > device.Quantity || device.RealQty > device.Quantity)
+                    Entities.Device device = new Device
                     {
-                        return Json(new { status = false, message = "Quantity confirm or Real Quantity > Quantity." });
-                    }
+                        Id = oldDevice.Id,
+                        DeviceCode = form["DeviceCode"],
+                        DeviceName = form["DeviceName"],
+                        Specification = form["Specification"],
 
-                    if (device.RealQty > device.QtyConfirm)
-                    {
-                        return Json(new { status = false, message = "Real Quantity > Quantity confirm." });
-                    }
-                    if (device.Buffer == null) device.Buffer = 0;
+                        //Type = form["Type"],
+                        DeviceDate = DateTime.Parse(form["DeviceDate"]),
+                        DeliveryTime = form["DeliveryTime"],
 
-                    device.CreatedDate = DateTime.Now;
+                        IdWareHouse = int.Parse(form["IdWareHouse"]),
+                        Buffer = (double)Math.Round(double.Parse(form["Buffer"]), 2),
+                        Quantity = int.Parse(form["Quantity"]),
+                        POQty = int.Parse(form["POQty"]),
+                        Unit = form["Unit"],
+
+                        Relation = form["Relation"],
+                        LifeCycle = int.Parse(form["LifeCycle"]),
+                        QtyConfirm = int.Parse(form["QtyConfirm"]),
+                        RealQty = int.Parse(form["RealQty"]),
+                        MinQty = int.Parse(form["MinQty"]),
+
+                        // Other data                       
+                        Forcast = oldDevice.Forcast,
+                        ACC_KIT = oldDevice.ACC_KIT,                       
+                        MOQ = oldDevice.MOQ,
+                        CreatedDate = oldDevice.CreatedDate,
+                        ImagePath = oldDevice.ImagePath,
+                        Type_BOM = oldDevice.Type_BOM,
+                    };
+                    // ***
+                    device.SysQuantity = device.RealQty - oldDevice.RealQty - oldDevice.SysQuantity;
+
+                    // Add Navigation Data
+                    device = AddNavigation(form, device);
+                    device.DeviceWarehouseLayouts = AddLayout(form, device);
                     device.Status = Data.Common.CheckStatus(device);
-                    device.SysQuantity = device.RealQty - (db.Devices.FirstOrDefault(d => d.Id == device.Id).RealQty - db.Devices.FirstOrDefault(d => d.Id == device.Id).SysQuantity);
 
+                    // Check Type
+                    var types = form["Type"].Split('_');
+                    device.Type = types[1];
+                    device.isConsign = types[0] == "normal" ? false : true;
 
-                    Entities.Product product = db.Products.FirstOrDefault(p => p.ProductName == sproduct);
-                    Entities.Model model = db.Models.FirstOrDefault(p => p.ModelName == smodel);
-                    Entities.Station station = db.Stations.FirstOrDefault(p => p.StationName == sstation);
-                    Entities.Group group = db.Groups.FirstOrDefault(p => p.GroupName == sgroup);
-                    Entities.Vendor vendor = db.Vendors.FirstOrDefault(p => p.VendorName == svendor);
-
-
-                    // Add & Create Product
-                    if (product == null)
-                    {
-                        product = new Entities.Product { ProductName = sproduct };
-                        db.Products.Add(product);
-                    }
-                    device.IdProduct = product.Id;
-
-                    // Add & Create Model
-                    if (model == null)
-                    {
-                        model = new Entities.Model { ModelName = smodel };
-                        db.Models.Add(model);
-                    }
-                    device.IdModel = model.Id;
-
-                    // Add & Create Station
-                    if (station == null)
-                    {
-                        station = new Entities.Station { StationName = sstation };
-                        db.Stations.Add(station);
-                    }
-                    device.IdStation = station.Id;
-
-                    // Add & Create Group
-                    if (group == null)
-                    {
-                        group = new Entities.Group { GroupName = sgroup };
-                        db.Groups.Add(group);
-                    }
-                    device.IdGroup = group.Id;
-
-                    // Add & Create Vendor
-                    if (vendor == null)
-                    {
-                        vendor = new Entities.Vendor { VendorName = svendor };
-                        db.Vendors.Add(vendor);
-                    }
-                    device.IdVendor = vendor.Id;
-
-                    // Layout
-                    List<DeviceWarehouseLayout> deviceWarehouseLayouts = db.DeviceWarehouseLayouts.Where(dl => dl.IdDevice == device.Id).ToList();
-                    db.DeviceWarehouseLayouts.RemoveRange(deviceWarehouseLayouts);
-
-                    if (IdLayouts != null)
-                    {
-                        foreach (var IdLayout in IdLayouts)
-                        {
-                            DeviceWarehouseLayout deviceWarehouse = new DeviceWarehouseLayout
-                            {
-                                IdDevice = device.Id,
-                                IdWarehouseLayout = IdLayout,
-                                WarehouseLayout = db.WarehouseLayouts.FirstOrDefault(wh => wh.Id == IdLayout)
-                            };
-                            db.DeviceWarehouseLayouts.Add(deviceWarehouse);
-                            device.DeviceWarehouseLayouts.Add(deviceWarehouse);
-                        }
-                    }
-
-                    device.ImagePath = db.Devices.FirstOrDefault(d => d.Id == device.Id).ImagePath;
+                    string temp = JsonSerializer.Serialize(oldDevice);
 
                     db.Devices.AddOrUpdate(device);
                     db.SaveChanges();
@@ -391,7 +380,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                         for (int i = 0; i < Request.Files.Count; i++)
                         {
                             HttpPostedFileBase imagefile = Request.Files[i];
-                            var imagePath = SaveImage(imagefile, device);
+                            var imagePath = SaveImage(imagefile, device.Id);
                             if (string.IsNullOrEmpty(device.ImagePath))
                             {
                                 device.ImagePath = imagePath;
@@ -424,11 +413,11 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
             {
                 Entities.Warehouse warehouse = db.Warehouses.FirstOrDefault(w => w.Id == IdWarehouse);
 
-                var skipAmount = 1000 * (PageNum - 1);
+                //var skipAmount = 1000 * (PageNum - 1);
 
-                var Devices = db.Devices.Where(d => d.IdWareHouse == warehouse.Id).OrderByDescending(d => d.Id).Skip(skipAmount).Take(1000).ToList();
+                //var Devices = db.Devices.Where(d => d.IdWareHouse == warehouse.Id).OrderByDescending(d => d.Id).Skip(skipAmount).Take(1000).ToList();
 
-                //var Devices = db.Devices.Where(d => d.IdWareHouse == warehouse.Id).OrderByDescending(d => d.Id).ToList();
+                var Devices = db.Devices.Where(d => d.IdWareHouse == warehouse.Id).OrderByDescending(d => d.Id).ToList();
 
                 warehouse.Devices = Devices;
                 return Json(new { status = true, warehouse });
@@ -509,7 +498,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
             return View();
         }
         [HttpPost]
-        public JsonResult AddDeviceAuto(HttpPostedFileBase file)
+        public JsonResult AddDeviceUnconfirm(HttpPostedFileBase file, int IdWarehouse)
         {
             try
             {
@@ -519,74 +508,41 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 {
                     using (var package = new ExcelPackage(file.InputStream))
                     {
-                        List<Entities.DeviceBOM> deviceBOMs = new List<DeviceBOM>();
-                        var worksheet = package.Workbook.Worksheets[1];
+                        var worksheet = package.Workbook.Worksheets[0];
+
+                        List<Entities.DeviceUnconfirm> devices = new List<Entities.DeviceUnconfirm>();
 
                         foreach (int row in Enumerable.Range(2, worksheet.Dimension.End.Row - 1))
                         {
-                            System.Diagnostics.Debug.WriteLine("Row: " + row);
-                            var _productName = worksheet.Cells[row, 1].Value?.ToString();
-                            var _productMTS = worksheet.Cells[row, 2].Value?.ToString();
-                            var _groupName = worksheet.Cells[row, 12].Value?.ToString();
-                            var _vendorName = worksheet.Cells[row, 13].Value?.ToString();
-                            var _deviceCode = worksheet.Cells[row, 10].Value?.ToString();
-                            var _deviceName = worksheet.Cells[row, 11].Value?.ToString();
-                            int _deviceQty = int.TryParse(worksheet.Cells[row, 14].Value?.ToString(), out _deviceQty) ? _deviceQty : 0;
-                            int _minQty = int.TryParse(worksheet.Cells[row, 15].Value?.ToString(), out _minQty) ? _minQty : 0;
-
-                            #region Product
-                            Entities.ProductBOM product = db.ProductBOMs.FirstOrDefault(p => p.ProductName == _productName && p.MTS == _productMTS);
-                            if (product == null)
+                            string deviceCode = worksheet.Cells[row, 7].Value?.ToString();
+                            if (string.IsNullOrEmpty(deviceCode))
                             {
-                                product = new Entities.ProductBOM
-                                {
-                                    ProductName = _productName,
-                                    MTS = _productMTS
-                                };
-                                db.ProductBOMs.Add(product);
+                                continue;
                             }
-                            #endregion
 
-                            #region Device
-                            Entities.DeviceBOM device = db.DeviceBOMs.FirstOrDefault(d => d.DeviceCode == _deviceCode);
-                            if (device == null)
-                            {
-                                device = new Entities.DeviceBOM
-                                {
-                                    DeviceCode = _deviceCode,
-                                    DeviceName = _deviceName,
-                                    Quantity = _deviceQty,
-                                    Group = _groupName,
-                                    Vendor = _vendorName,
-                                    MinQty = _minQty,
-                                };
-                                db.DeviceBOMs.Add(device);
-                            }
-                            else
-                            {
-                                device.Quantity += _deviceQty;
-                                device.MinQty = _minQty;
-                            }
-                            #endregion
+                            // Create device in row excel
+                            Entities.DeviceUnconfirm device = CreateDeviceUnconfirm(worksheet, row);
+                            device.IdWareHouse = IdWarehouse;
 
-                            #region link
-                            Entities.ProductDeviceBOM productDeviceBOM = db.ProductDeviceBOMs.FirstOrDefault(c => c.IdProduct == product.Id && c.IdDevice == device.Id);
-                            if (productDeviceBOM == null)
+                            var dbDevice = CheckDevice(device);
+
+                            // 1. Chưa có => tạo mới                           
+                            if (dbDevice == null)
                             {
-                                productDeviceBOM = new ProductDeviceBOM
-                                {
-                                    IdDevice = device.Id,
-                                    IdProduct = product.Id,
-                                };
-                                db.ProductDeviceBOMs.Add(productDeviceBOM);
+                                devices.Add(device);
+                                db.DeviceUnconfirms.Add(device);
+
                                 db.SaveChanges();
                             }
-                            #endregion
-                        }
+                            // 2. Đã có
+                            else
+                            {
+                                db.SaveChanges();
+                                continue;
+                            }                      
+                        }                      
 
-                        db.SaveChanges();
-
-                        return Json(new { status = true, data = deviceBOMs });
+                        return Json(new { status = true, devices });
                     }
                 }
                 else
@@ -599,73 +555,136 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 return Json(new { status = false, message = ex.Message });
             }
         }
-        private Entities.ProductDeviceBOM CreateDevice(ExcelWorksheet worksheet, int row)
+        private Entities.DeviceUnconfirm CreateDeviceUnconfirm(ExcelWorksheet worksheet, int row)
         {
+            Entities.DeviceUnconfirm device = new Entities.DeviceUnconfirm();
+
+            // Lấy các giá trị từ worksheet
+            var productName = worksheet.Cells[row, 1].Value?.ToString();
+            var productMTS = worksheet.Cells[row, 2].Value?.ToString();
+
+            var deviceCode = worksheet.Cells[row, 7].Value?.ToString();
+            var deviceName = worksheet.Cells[row, 8].Value?.ToString();
+            var groupName = worksheet.Cells[row, 9].Value?.ToString();
+            var vendorName = worksheet.Cells[row, 10].Value?.ToString();
+
+            int minQty = int.TryParse(worksheet.Cells[row, 12].Value?.ToString(), out minQty) ? minQty : 0;
+            var ACC_KIT = worksheet.Cells[row, 13].Value?.ToString();
+            var relation = worksheet.Cells[row, 14].Value?.ToString();
+            var modelName = worksheet.Cells[row, 15].Value?.ToString();
+            var stationName = worksheet.Cells[row, 16].Value?.ToString();
+
+            double forcast = double.TryParse(worksheet.Cells[row, 18].Value?.ToString(), out forcast) ? forcast : 0;
+            int lifeCycle = int.TryParse(worksheet.Cells[row, 19].Value?.ToString(), out lifeCycle) ? lifeCycle : 0;
+            var Dynamic_Static = worksheet.Cells[row, 20].Value?.ToString();
+            double deviceBuffer = double.TryParse(worksheet.Cells[row, 21].Value?.ToString(), out deviceBuffer) ? deviceBuffer : 0;
+            int quantity = int.TryParse(worksheet.Cells[row, 22].Value?.ToString(), out quantity) ? quantity : 0;
+
+            int moq = int.TryParse(worksheet.Cells[row, 24].Value?.ToString(), out moq) ? moq : 0;
 
 
-            var _productName = worksheet.Cells[row, 1].Value?.ToString();
-            var _productMTS = worksheet.Cells[row, 2].Value?.ToString();
-            var _groupName = worksheet.Cells[row, 12].Value?.ToString();
-            var _vendorName = worksheet.Cells[row, 13].Value?.ToString();
-            var _deviceCode = worksheet.Cells[row, 10].Value?.ToString();
-            var _deviceName = worksheet.Cells[row, 11].Value?.ToString();
-            int _deviceQty = int.TryParse(worksheet.Cells[row, 14].Value?.ToString(), out _deviceQty) ? _deviceQty : 0;
-
-
-            #region Device
-            Entities.DeviceBOM device = db.DeviceBOMs.FirstOrDefault(d => d.DeviceCode == _deviceCode);
-            if (device == null)
-            {
-                device = new Entities.DeviceBOM
-                {
-                    DeviceCode = _deviceCode,
-                    DeviceName = _deviceName,
-                    Quantity = _deviceQty,
-                    Group = _groupName,
-                    Vendor = _vendorName,
-                };
-
-            }
-            else
-            {
-                device.Quantity += _deviceQty;
-            }
-            db.DeviceBOMs.AddOrUpdate(device);
-            #endregion
 
             #region Product
-            Entities.ProductBOM product = db.ProductBOMs.FirstOrDefault(p => p.ProductName == _productName && p.MTS == _productMTS);
+            Entities.Product product = db.Products.FirstOrDefault(p => p.ProductName == productName.Trim() && p.MTS == productMTS.Trim());
+
             if (product == null)
             {
-                product = new Entities.ProductBOM
+                product = new Entities.Product
                 {
-                    ProductName = _productName,
-                    MTS = _productMTS
+                    ProductName = productName.Trim(),
+                    MTS = productMTS.Trim()
                 };
-                db.ProductBOMs.Add(product);
+                db.Products.Add(product);
             }
+            device.IdProduct = product.Id;
+            device.Product = product;
             #endregion
 
-            #region link
-            if (!db.ProductDeviceBOMs.Any(c => c.IdProduct == product.Id && c.IdDevice == device.Id))
+            #region Model
+            Entities.Model model = db.Models.FirstOrDefault(m => m.ModelName == modelName.Trim());
+            if (model == null)
             {
-                Entities.ProductDeviceBOM productDeviceBOM = new ProductDeviceBOM
-                {
-                    IdDevice = device.Id,
-                    IdProduct = product.Id,
-                };
-                db.ProductDeviceBOMs.Add(productDeviceBOM);
-
-                return productDeviceBOM;
+                model = new Entities.Model { ModelName = modelName.Trim() };
+                db.Models.Add(model);
             }
-            else
-            {
-                Entities.ProductDeviceBOM productDeviceBOM = db.ProductDeviceBOMs.FirstOrDefault(c => c.IdProduct == product.Id && c.IdDevice == device.Id);
-
-                return productDeviceBOM;
-
-            }
+            device.IdModel = model.Id;
+            device.Model = model;
             #endregion
+
+            #region Station
+            Entities.Station station = db.Stations.FirstOrDefault(s => s.StationName == stationName.Trim());
+            if (station == null)
+            {
+                station = new Entities.Station { StationName = stationName.Trim() };
+                db.Stations.Add(station);
+            }
+            device.IdStation = station.Id;
+            device.Station = station;
+            #endregion
+
+            #region Group
+            Entities.Group group = db.Groups.FirstOrDefault(g => g.GroupName == groupName.Trim());
+            if (group == null)
+            {
+                group = new Entities.Group { GroupName = groupName.Trim() };
+                db.Groups.Add(group);
+            }
+            device.IdGroup = group.Id;
+            device.Group = group;
+            #endregion
+
+            #region Vendor
+            Entities.Vendor vendor = db.Vendors.FirstOrDefault(v => v.VendorName == vendorName.Trim());
+            if (vendor == null)
+            {
+                vendor = new Entities.Vendor { VendorName = vendorName.Trim() };
+                db.Vendors.Add(vendor);
+            }
+            device.IdVendor = vendor.Id;
+            device.Vendor = vendor;
+            #endregion
+
+            #region Device
+            device.DeviceCode = deviceCode;
+            device.DeviceName = deviceName;
+
+            device.MinQty = minQty;
+            device.ACC_KIT = ACC_KIT;
+            device.Relation = relation;
+
+            device.Forcast = forcast;
+            device.LifeCycle = lifeCycle;
+            device.Type_BOM = Dynamic_Static;
+            device.Buffer = deviceBuffer;
+            device.Quantity = quantity;
+
+            device.MOQ = moq;
+
+            device.Status = "Unconfirmed";
+            device.CreatedDate = DateTime.Now;
+
+            #endregion
+
+            return device;
+        }
+        private DeviceUnconfirm CheckDevice(DeviceUnconfirm device)
+        {
+            // Get device in db to check
+            var dbDevice = db.DeviceUnconfirms.FirstOrDefault(d =>
+                d.IdProduct == device.IdProduct &&
+                d.IdModel == device.IdModel &&
+                d.IdStation == device.IdStation &&
+                d.IdGroup == device.IdGroup &&
+                d.IdVendor == device.IdVendor &&
+                d.DeviceCode == device.DeviceCode &&
+                d.DeviceName == device.DeviceName);
+
+            if (dbDevice != null) {
+                dbDevice.IdWareHouse = device.IdWareHouse;
+                return dbDevice;
+            }
+            
+            else return null;
         }
 
         // GET: COMMON
@@ -730,7 +749,12 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 if (device != null)
                 {
                     List<string> images = new List<string>();
-                    if (!string.IsNullOrEmpty(device.ImagePath)) images = Directory.GetFiles(device.ImagePath).ToList();
+                    try
+                    {
+                        if (!string.IsNullOrEmpty(device.ImagePath)) images = Directory.GetFiles(device.ImagePath).ToList();
+                    }
+                    catch {}
+                    
 
                     return Json(new { status = true, device, borrows = JsonSerializer.Serialize(borrows), warehouses, images });
                 }
@@ -765,7 +789,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
             }
         }
 
-        // GET: Export Excel
+        // GET: Export Excel / Inventory
         public ActionResult ExportExcel()
         {
             try
@@ -833,224 +857,6 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 return Json(new { status = false, message = ex.Message });
             }
         }
-
-        #region Device Unconfirm
-        [HttpGet]
-        public ActionResult DeviceConfirm()
-        {
-            return View();
-        }
-        [HttpPost]
-        public JsonResult AddDeviceUnconfirm(HttpPostedFileBase file)
-        {
-            try
-            {
-                ExcelPackage.LicenseContext = OfficeOpenXml.LicenseContext.NonCommercial;
-
-                if (file != null && file.ContentLength > 0)
-                {
-                    using (var package = new ExcelPackage(file.InputStream))
-                    {
-                        var worksheet = package.Workbook.Worksheets[1];
-
-                        List<Entities.DeviceUnconfirm> devices = new List<Entities.DeviceUnconfirm>();
-
-                        foreach (int row in Enumerable.Range(2, worksheet.Dimension.End.Row - 1))
-                        {
-                            var deviceCode = worksheet.Cells[row, 10].Value?.ToString();
-                            if (string.IsNullOrEmpty(deviceCode)) continue;
-
-
-                            // Create device in row excel
-                            Entities.DeviceUnconfirm device = CreateDeviceUnconfirm(worksheet, row);
-
-                            // Get device in db to check
-                            var dbDevice = db.DeviceUnconfirms.FirstOrDefault(d =>
-                                d.IdProduct == device.IdProduct &&
-                                d.IdModel == device.IdModel &&
-                                d.IdStation == device.IdStation &&
-                                d.IdGroup == device.IdGroup &&
-                                d.IdVendor == device.IdVendor &&
-                                d.DeviceCode == device.DeviceCode &&
-                                d.DeviceName == device.DeviceName);
-                            // 1. Chưa có => tạo mới                           
-                            if (dbDevice == null)
-                            {
-                                devices.Add(device);
-                                db.DeviceUnconfirms.Add(device);
-                                db.SaveChanges();
-                            }
-                            // 2. Đã có
-                            else
-                            {
-                                // device after change
-                                var iDevice = devices.FirstOrDefault(d => d.Id == dbDevice.Id);
-
-                                if (iDevice != null)
-                                {
-                                    iDevice.Quantity = dbDevice.Quantity;
-                                    iDevice.Status = dbDevice.Status;
-                                }
-                                else
-                                {
-                                    iDevice = dbDevice;
-                                    iDevice.Status = dbDevice.Status;
-
-                                    devices.Add(iDevice);
-                                }
-
-                                // Change in DB
-                                int? qty = dbDevice.Quantity + device.Quantity;
-                                dbDevice.Quantity = qty;
-                                device.Quantity = qty;
-
-                                db.DeviceUnconfirms.AddOrUpdate(dbDevice);
-                                db.SaveChanges();
-                            }
-
-                        }
-
-
-                        return Json(new { status = true, devices });
-                    }
-                }
-                else
-                {
-                    return Json(new { status = false, message = "File is empty" });
-                }
-            }
-            catch (Exception ex)
-            {
-                return Json(new { status = false, message = ex.Message });
-            }
-        }
-        private Entities.DeviceUnconfirm CreateDeviceUnconfirm(ExcelWorksheet worksheet, int row)
-        {
-            Entities.DeviceUnconfirm device = new Entities.DeviceUnconfirm();
-
-            // Lấy các giá trị từ worksheet
-            var productName = worksheet.Cells[row, 1].Value?.ToString();
-            var productMTS = worksheet.Cells[row, 2].Value?.ToString();
-            var modelName = worksheet.Cells[row, 22].Value?.ToString();
-            var stationName = worksheet.Cells[row, 23].Value?.ToString();
-            var groupName = worksheet.Cells[row, 12].Value?.ToString();
-            var vendorName = worksheet.Cells[row, 13].Value?.ToString();
-            var deviceCode = worksheet.Cells[row, 10].Value?.ToString();
-            var deviceName = worksheet.Cells[row, 11].Value?.ToString();
-            var ACC_KIT = worksheet.Cells[row, 17].Value?.ToString();
-            var relation = worksheet.Cells[row, 18].Value?.ToString();
-
-            // Lấy các giá trị khác từ worksheet
-            DateTime deviceDate = DateTime.TryParseExact(worksheet.Cells[row, 15].Value?.ToString(), "M/d/yyyy h:mm:ss tt", CultureInfo.InvariantCulture, DateTimeStyles.None, out deviceDate) ? deviceDate : DateTime.Now;
-            double deviceBuffer = double.TryParse(worksheet.Cells[row, 30].Value?.ToString(), out deviceBuffer) ? deviceBuffer : 0;
-            double forcast = double.TryParse(worksheet.Cells[row, 27].Value?.ToString(), out forcast) ? forcast : 0;
-
-            string deviceType = worksheet.Cells[row, 29].Value?.ToString();
-
-            int deviceQty = int.TryParse(worksheet.Cells[row, 14].Value?.ToString(), out deviceQty) ? deviceQty : 0;
-            int stationQty = int.TryParse(worksheet.Cells[row, 26].Value?.ToString(), out stationQty) ? stationQty : 0;
-            int lifeCycle = int.TryParse(worksheet.Cells[row, 28].Value?.ToString(), out lifeCycle) ? lifeCycle : 0;
-
-
-            #region Product
-            Entities.Product product = db.Products.FirstOrDefault(p => p.ProductName == productName && p.MTS == productMTS);
-            if (product == null)
-            {
-                product = new Entities.Product
-                {
-                    ProductName = productName,
-                    MTS = productMTS
-                };
-                db.Products.Add(product);
-            }
-            device.IdProduct = product.Id;
-            device.Product = product;
-            #endregion
-
-            #region Model
-            Entities.Model model = db.Models.FirstOrDefault(m => m.ModelName == modelName);
-            if (model == null)
-            {
-                model = new Entities.Model { ModelName = modelName };
-                db.Models.Add(model);
-            }
-            device.IdModel = model.Id;
-            device.Model = model;
-            #endregion
-
-            #region Station
-            Entities.Station station = db.Stations.FirstOrDefault(s => s.StationName == stationName);
-            if (station == null)
-            {
-                station = new Entities.Station { StationName = stationName };
-                db.Stations.Add(station);
-            }
-            device.IdStation = station.Id;
-            device.Station = station;
-            #endregion
-
-            #region Group
-            Entities.Group group = db.Groups.FirstOrDefault(g => g.GroupName == groupName);
-            if (group == null)
-            {
-                group = new Entities.Group { GroupName = groupName };
-                db.Groups.Add(group);
-            }
-            device.IdGroup = group.Id;
-            device.Group = group;
-            #endregion
-
-            #region Vendor
-            Entities.Vendor vendor = db.Vendors.FirstOrDefault(v => v.VendorName == vendorName);
-            if (vendor == null)
-            {
-                vendor = new Entities.Vendor { VendorName = vendorName };
-                db.Vendors.Add(vendor);
-            }
-            device.IdVendor = vendor.Id;
-            device.Vendor = vendor;
-            #endregion
-
-            #region Device
-            device.DeviceCode = deviceCode;
-            device.DeviceName = deviceName;
-            device.DeviceDate = deviceDate;
-            device.Buffer = deviceBuffer;
-            device.ACC_KIT = ACC_KIT;
-            device.Relation = relation;
-            device.Quantity = 0;
-            device.Type = deviceType;
-            device.Status = "Unconfirmed";
-            device.CreatedDate = DateTime.Now;
-            device.LifeCycle = lifeCycle;
-            device.Forcast = forcast;
-            device.QtyConfirm = 0;
-            device.RealQty = 0;
-
-            if (device.Type == "D")
-            {
-                double cal = (double)(device.Forcast * 1000 / device.LifeCycle);
-                if (cal < stationQty)
-                {
-                    device.Quantity = stationQty;
-                }
-                else
-                {
-                    device.Quantity = (int)Math.Ceiling(cal);
-                }
-            }
-            else if (device.Type == "S")
-            {
-                device.Quantity = (int)Math.Ceiling((double)(deviceQty * stationQty * (1 + deviceBuffer)));
-            }
-
-            #endregion
-
-            return device;
-        }
-        #endregion
-
-        // POST: Upload
         public ActionResult UploadFile(HttpPostedFileBase file)
         {
             try
@@ -1096,7 +902,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                         outWorksheet.Cells[1, 4].Value = "Model"; //
                         outWorksheet.Cells[1, 5].Value = "Station"; //
 
-                        outWorksheet.Cells[1, 6].Value = "PN";                       
+                        outWorksheet.Cells[1, 6].Value = "PN";
                         outWorksheet.Cells[1, 7].Value = "Description";
 
                         outWorksheet.Cells[1, 8].Value = "Group"; //
@@ -1179,11 +985,11 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                                     outWorksheet.Cells[$"A{row}:S{row}"].Style.Fill.BackgroundColor.SetColor(Color.LightGreen);
                                     outWorksheet.Cells[$"A{row}:S{row}"].Style.Font.Color.SetColor(Color.DarkGreen);
 
-                                }                           
-                                else                        
-                                {                           
+                                }
+                                else
+                                {
                                     outWorksheet.Cells[row, 19].Value = "High";
-                                                            
+
                                     outWorksheet.Cells[$"A{row}:S{row}"].Style.Fill.PatternType = ExcelFillStyle.Solid;
                                     outWorksheet.Cells[$"A{row}:S{row}"].Style.Fill.BackgroundColor.SetColor(Color.LightCoral);
                                     outWorksheet.Cells[$"A{row}:S{row}"].Style.Font.Color.SetColor(Color.Maroon);
@@ -1220,5 +1026,222 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 return Json(new { status = false, message = ex.Message });
             }
         }
+
+        #region Device Confirm
+        [HttpGet]
+        public ActionResult ConfirmDevice()
+        {
+            return View();
+        }
+        [HttpGet]
+        public JsonResult GetDevicesUnconfirm(int IdWarehouse)
+        {
+            try
+            {
+                var devices = db.DeviceUnconfirms.Where(d => d.IdWareHouse == IdWarehouse).OrderByDescending(d => d.Id).ToList();
+
+                return Json(new { status = true, devices }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new {status = false, message = ex.Message}, JsonRequestBehavior.AllowGet);
+            }
+        }
+        [HttpGet]
+        public JsonResult GetDeviceUnconfirm(int Id)
+        {
+            try
+            {
+                var device = db.DeviceUnconfirms.FirstOrDefault(d => d.Id == Id);
+
+                if (device != null)
+                {
+                    List<string> images = new List<string>();
+                    if (!string.IsNullOrEmpty(device.ImagePath)) images = Directory.GetFiles(device.ImagePath).ToList();
+
+                    return Json(new { status = true, device, images }, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    return Json(new { status = false, message = "Device not found." });
+                }              
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        [HttpPost]
+        public JsonResult DeviceUnconfirm_UpdateImage(FormCollection form)
+        {
+            try
+            {
+                int id = int.Parse(form["deviceid"]);
+
+                var device = db.DeviceUnconfirms.FirstOrDefault(d => d.Id == id);
+                if (device != null)
+                {
+                    var files = Request.Files;
+                    if (Request.Files.Count > 0)
+                    {
+                        for (int i = 0; i < Request.Files.Count; i++)
+                        {
+                            HttpPostedFileBase imagefile = Request.Files[i];
+                            var imagePath = SaveImage(imagefile, device.Id, true);
+                            if (string.IsNullOrEmpty(device.ImagePath))
+                            {
+                                device.ImagePath = imagePath;
+                            }
+                        }
+                    }
+
+                    db.DeviceUnconfirms.AddOrUpdate(device);
+                    db.SaveChanges();
+
+                    List<string> images = new List<string>();
+                    if (!string.IsNullOrEmpty(device.ImagePath)) images = Directory.GetFiles(device.ImagePath).ToList();
+
+                    return Json(new { status = true, images });
+                }
+                else
+                {
+                    return Json(new { status = false, message = "Device not found." });
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = false, message = ex.Message });
+            }
+        }
+        [HttpGet]
+        public JsonResult DeviceUnconfirm_DeleteImage(string src)
+        {
+            try
+            {
+                string filePath = Path.Combine(Server.MapPath(src));
+
+                if (System.IO.File.Exists(filePath))
+                {
+                    System.IO.File.Delete(filePath);
+
+                    string directoryName = Path.GetDirectoryName(filePath);
+
+                    List<string> images = new List<string>();
+
+                    images = Directory.GetFiles(directoryName).ToList();
+
+                    return Json(new { status = true, images }, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    return Json(new { status = false, message = "File not found." }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        [HttpPost] 
+        public JsonResult AddConfirmDevice(FormCollection form)
+        {
+            try
+            {
+                int IdDeviceUnconfirm = int.Parse(form["Id"]);
+                var deviceUnconfirm = db.DeviceUnconfirms.FirstOrDefault(d => d.Id == IdDeviceUnconfirm);
+
+                if (deviceUnconfirm != null)
+                {
+                    Entities.Device device = new Device
+                    {
+                        DeviceCode = form["DeviceCode"],
+                        DeviceName = form["DeviceName"],
+                        Specification = form["Specification"],
+
+                        //Type = form["Type"],
+                        DeviceDate = DateTime.Parse(form["DeviceDate"]),
+                        DeliveryTime = form["DeliveryTime"],
+
+                        IdWareHouse = int.Parse(form["IdWareHouse"]),
+                        Buffer = (double)Math.Round(double.Parse(form["Buffer"]), 2),
+                        POQty = int.Parse(form["POQty"]),
+                        MinQty = int.Parse(form["MinQty"]),
+
+                        Relation = form["Relation"],
+                        LifeCycle = int.Parse(form["LifeCycle"]),
+                        QtyConfirm = int.Parse(form["QtyConfirm"]),
+                        Unit = form["Unit"],
+
+                        // Other data
+                        Quantity = deviceUnconfirm.Quantity,
+                        CreatedDate = deviceUnconfirm.CreatedDate,
+                        Forcast = deviceUnconfirm.Forcast,
+                        ACC_KIT = deviceUnconfirm.ACC_KIT,
+                        RealQty = int.Parse(form["QtyConfirm"]),
+                        SysQuantity = int.Parse(form["QtyConfirm"]),
+                        Type_BOM = deviceUnconfirm.Type_BOM,
+                        MOQ = deviceUnconfirm.MOQ,
+                    };
+
+                    // Add Navigation Data
+                    device = AddNavigation(form, device);
+                    device.DeviceWarehouseLayouts = AddLayout(form, device);
+                    device.Status = Data.Common.CheckStatus(device);
+
+                    // Check Type
+                    var types = form["Type"].Split('_');
+                    device.Type = types[1];
+                    device.isConsign = types[0] == "normal" ? false : true;
+                    db.Devices.Add(device);
+                    db.SaveChanges();
+
+                    // Copy Image
+                    device.ImagePath = CopyImages(deviceUnconfirm, device);
+                    db.Devices.AddOrUpdate(device);
+                    db.SaveChanges();
+
+                    return Json(new { status = true });
+                }
+                else
+                {
+                    return Json(new { status = false, message = "Device not found." });
+                }
+
+
+                
+            }
+            catch (Exception ex)
+            {
+                return Json(new {status = false, message = ex.Message});
+            }
+        }
+        private string CopyImages(DeviceUnconfirm deviceUnconfirm, Entities.Device device)
+        {
+            string sourcePath = deviceUnconfirm.ImagePath;
+            string destinationPath = Server.MapPath($"~/Data/NewToolingRoom/DeviceImages/{device.Id}"); ;
+
+            List<string> images = new List<string>();
+
+            if (!Directory.Exists(destinationPath)) Directory.CreateDirectory(destinationPath);
+
+            if (Directory.Exists(sourcePath))
+            {
+                images = Directory.GetFiles(sourcePath).ToList();
+
+                foreach (string imagePath in images)
+                {
+                    string destinationFile = Path.Combine(destinationPath, Path.GetFileName(imagePath));
+                    System.IO.File.Copy(imagePath, destinationFile, true);
+                }
+
+                return destinationPath;
+            }
+            else
+            {
+                return string.Empty;
+            }
+        }
+
+        #endregion
     }
 }

@@ -42,8 +42,8 @@
                     <select class="col-7 form-select form-select-sm" id="input_WareHouse"></select>
                 </div>
 
-                <div class="dropdown ms-3" id="dropdown_filter">
-                    <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bx bx-filter"></i></button>
+                <div class="ms-3" id="dropdown_filter">
+                    <button class="btn btn-sm btn-outline-secondary dropdown-toggle" id="filter_dropdown_btn"><i class="bx bx-filter"></i></button>
                     <div class="dropdown-menu" style="width:600px;">
                         <div class="row">
                             <div class="col-6">
@@ -90,11 +90,18 @@
                                     <span class="col-3 input-group-text" data-i18n="device.management.type">Type</span>
                                     <select class="form-select form-select-sm" id="filter_Type">
                                         <option value="Type" selected data-i18n="device.management.type_all">Type (All)</option>
-                                        <option value="N/A">N/A </option>
-                                        <option value="Static">Static</option>
-                                        <option value="Dynamic">Dynamic</option>
-                                        <option value="Consign">Consign</option>
-                                        <option value="Fixture">Fixture</option>
+                                        <optgroup label="Normal">
+                                            <option value="normal_NA" selected>NA</option>
+                                            <option value="normal_Fixture">Fixture</option>
+                                            <option value="normal_Static">Static</option>
+                                            <option value="normal_Dynamic">Dynamic</option>
+                                        </optgroup>
+                                        <optgroup label="Consign">
+                                            <option value="consign_NA">NA</option>
+                                            <option value="consign_Fixture">Fixture</option>
+                                            <option value="consign_Static">Static</option>
+                                            <option value="consign_Dynamic">Dynamic</option>
+                                        </optgroup>
                                     </select>
                                 </div>
                                 <!--Filter Status -->
@@ -127,54 +134,48 @@
                     <tr>
                         <!-- 0 -->
                         <th>ID</th>
-                        <!-- 0 -->
-                        <th>MTS</th>
                         <!-- 1 -->
-                        <th data-i18n="device.management.product_name">Product Name</th>
+                        <th>MTS</th>
                         <!-- 2 -->
-                        <th data-i18n="device.management.model">Model</th>
+                        <th data-i18n="device.management.product_name">Product Name</th>
                         <!-- 3 -->
-                        <th data-i18n="device.management.station">Station</th>
+                        <th data-i18n="device.management.model">Model</th>
                         <!-- 4 -->
-                        <th data-i18n="device.management.pn">PN</th>
+                        <th data-i18n="device.management.station">Station</th>
                         <!-- 5 -->
-                        <th data-i18n="device.management.description">Description</th>
+                        <th data-i18n="device.management.pn">PN</th>
                         <!-- 6 -->
-                        <th data-i18n="device.management.group">Group</th>
+                        <th data-i18n="device.management.description">Description</th>
                         <!-- 7 -->
-                        <th data-i18n="device.management.vendor">Vendor</th>
+                        <th data-i18n="device.management.group">Group</th>
                         <!-- 8 -->
-                        <th data-i18n="device.management.specification">Specification</th>
+                        <th data-i18n="device.management.vendor">Vendor</th>
                         <!-- 9 -->
-                        <th data-i18n="device.management.location">Location</th>
+                        <th data-i18n="device.management.specification">Specification</th>
                         <!-- 10 -->
-                        <th data-i18n="device.management.buffer">Buffer</th>
+                        <th data-i18n="device.management.location">Location</th>
                         <!-- 11 -->
-                        <th data-i18n="device.management.bom_qty">BOM Qty</th>
+                        <th data-i18n="device.management.buffer">Buffer</th>
                         <!-- 12 -->
-                        <th data-i18n="device.management.po_qty">PO Qty</th>
+                        <th data-i18n="device.management.bom_qty">BOM Qty</th>
                         <!-- 13 -->
-                        <th data-i18n="device.management.confirm_qty">Confirm Qty</th>
+                        <th data-i18n="device.management.po_qty">PO Qty</th>
                         <!-- 14 -->
-                        <th data-i18n="device.management.real_qty">Real Qty</th>
+                        <th data-i18n="device.management.confirm_qty">Confirm Quantity</th>
                         <!-- 15 -->
-                        <th data-i18n="device.management.unit">Unit</th>
+                        <th data-i18n="device.management.real_qty">Real Quantity</th>
                         <!-- 16 -->
-                        <th data-i18n="device.management.lead_time">Lead Time</th>
+                        <th data-i18n="device.management.unit">Unit</th>
                         <!-- 17 -->
-                        <th data-i18n="device.management.type"> Type</th>
+                        <th data-i18n="device.management.lead_time">Lead Time</th>
                         <!-- 18 -->
+                        <th data-i18n="device.management.type"> Type</th>
+                        <!-- 19 -->
                         <th data-i18n="device.management.status">Status</th>
-                        <!-- 19 -->
+                        <!-- 20 -->
                         <th data-i18n="device.management.action">Action</th>
-                        <!-- 19 -->
-                        <!--<th data-i18n="device.management.min_quantity">Default Min Quantity</th>-->
-                        <!-- 19 -->
-                        <!--<th>GAP</th>-->
-                        <!-- 19 -->
-                        <!--<th>Risk</th>-->
-                        <!-- 19
-                        <th data-i18n="device.management.life_cycle">Life Cycle</th>-->
+                        <!-- 21 -->
+                        <th>isConsign</th>
                     </tr>
                 </thead>
                 <tbody id="table_Devices_tbody">
@@ -185,289 +186,7 @@
 </div>
 
 <!-- Edit modal -->
-<div class="modal fade" id="device_edit-modal" aria-hidden="true">
-    <div class="modal-dialog modal-fullscreen modal-dialog-scrollable">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="device_edit-title" data-i18n="device.management.update_device">Update Device</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <!-- Details -->
-                <h5 class="font-weight-light text-center text-primary py-3" id="borrow_modal-name" data-i18n="device.management.device_details" style="text-transform:uppercase">DEVICE DETAILS</h5>
-
-                <!-- Basic Info -->
-                <div class="row">
-                    <div class="col-8">
-                        <div class="card">
-                            <div class="card-body">
-                                <h6 class="mb-0 text-uppercase" data-i18n="device.management.basic_info">Basic Information</h6>
-                                <hr>
-
-                                <div class="row">
-                                    <div class="col-6">
-                                        <!-- Id + Device Code-->
-                                        <div class="row">
-                                            <div class="col-6">
-                                                <div class="input-group mb-3">
-                                                    <span class="col-6 input-group-text">ID</span>
-                                                    <input class="form-control" type="text" id="device_edit-DeviceId" disabled>
-                                                </div>
-                                            </div>
-                                            <div class="col-6">
-                                                <div class="input-group mb-3" title="Mã thiết bị">
-                                                    <span class="col-6 input-group-text" data-i18n="device.management.pn">PN</span>
-                                                    <input class="form-control" type="text" id="device_edit-DeviceCode">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- Device Name -->
-                                        <div class="input-group mb-3">
-                                            <span class="col-4 input-group-text" data-i18n="device.management.description">Description</span>
-                                            <input class="form-control" type="text" id="device_edit-DeviceName">
-                                        </div>
-                                        <!-- Specification -->
-                                        <div class="input-group mb-3">
-                                            <span class="col-4 input-group-text" data-i18n="device.management.specification">Specification</span>
-                                            <input class="form-control" type="text" id="device_edit-Specification">
-                                        </div>
-                                    </div>
-                                    <div class="col-6">
-                                        <!-- Status + Type -->
-                                        <div class="row">
-                                            <div class="col-6">
-                                                <div class="input-group mb-3">
-                                                    <span class="col-6 input-group-text" data-i18n="device.management.status">Status</span>
-                                                    <select class="form-select" id="device_edit-Status">
-                                                        <option value="Unconfirmed">Unconfirmed</option>
-                                                        <option value="Part Confirmed">Part Confirmed</option>
-                                                        <option value="Confirmed">Confirmed</option>
-                                                        <option value="Locked">Locked</option>
-                                                        <option value="Out Range">Out Range</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="col-6">
-                                                <div class="input-group mb-3">
-                                                    <span class="col-6 input-group-text" data-i18n="device.management.type">Type</span>
-                                                    <select class="col-6 form-select" id="device_edit-Type">
-                                                        <option value="#N/A">N/A</option>
-                                                        <option value="S">Static</option>
-                                                        <option value="D">Dynamic</option>
-                                                        <option value="Consign">Consign</option>
-                                                        <option value="Fixture">Fixture</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- Device Date -->
-                                        <div class="input-group mb-3">
-                                            <span class="col-4 input-group-text" data-i18n="device.management.created_date">Created date</span>
-                                            <input class="form-control" type="datetime-local" id="device_edit-DeviceDate">
-                                        </div>
-                                        <!-- DeliveryTime -->
-                                        <div class="input-group mb-3">
-                                            <span class="col-4 input-group-text" data-i18n="device.management.lead_time">Lead Time</span>
-                                            <input class="form-control" type="number" id="device_edit-DeliveryTime1">
-                                            <select class="form-select" id="device_edit-DeliveryTime2">
-                                                <option value="Day (Ngày)">Day (Ngày)</option>
-                                                <option value="Week (Tuần)" selected>Week (Tuần)</option>
-                                                <option value="Month (Tháng)">Month (Tháng)</option>
-                                                <option value="Quarter (Quý)">Quarter (Quý)</option>
-                                                <option value="Year (Năm)">Year (Năm)</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-4">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="d-flex justify-content-between">
-                                    <h6 class="mb-0 text-uppercase" data-i18n="device.management.image">Images</h6>
-                                    <h6 class="text-primary cursor-pointer" id="add-image" data-i18n="device.management.add_image"> Add Image</h6>
-                                </div>
-
-                                <hr>
-                                <div id="images-edit-container">
-                                    <div class="carousel slide" data-ride="carousel">
-                                        <ol class="carousel-indicators"></ol>
-                                        <div class="carousel-inner"></div>
-                                        <a class="carousel-control-prev" href="#carousel" role="button" data-slide="prev">
-                                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                            <span class="sr-only">Previous</span>
-                                        </a>
-                                        <a class="carousel-control-next" href="#carousel" role="button" data-slide="next">
-                                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                            <span class="sr-only">Next</span>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
-                <!-- Details Info-->
-                <div class="card">
-                    <div class="card-body">
-                        <h6 class="mb-0 text-uppercase" data-i18n="device.management.details_info">Details Information</h6>
-                        <hr>
-
-                        <div class="row">
-                            <div class="col-6">
-                                <!-- WareHouse + Relation -->
-                                <div class="row">
-                                    <div class="col-6">
-                                        <div class="input-group mb-3">
-                                            <span class="col-5 input-group-text" data-i18n="device.management.warehouse">Warehouse</span>
-                                            <select class="form-select" id="device_edit-WareHouse"></select>
-                                        </div>
-                                    </div>
-                                    <div class="col-6">
-                                        @*<div class="input-group mb-3" title="Mối liên hệ">
-                                                <span class="col-5 input-group-text">Relation</span>
-                                                <input class="form-control" type="text" id="device_edit-Relation">
-                                            </div>*@
-                                    </div>
-                                </div>
-
-                                <!-- Buffer + LifeCycle-->
-                                <div class="row">
-                                    <div class="col-6">
-                                        <div class="input-group mb-3">
-                                            <span class="col-5 input-group-text" data-i18n="device.management.buffer">Buffer</span>
-                                            <input class="form-control" type="number" id="device_edit-Buffer">
-                                        </div>
-                                    </div>
-                                    <div class="col-6">
-                                        <div class="input-group mb-3">
-                                            <span class="col-5 input-group-text" data-i18n="device.management.life_cycle">Life Cycle</span>
-                                            <input class="form-control" type="number" id="device_edit-LifeCycle">
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- BOM Quantity  + PO Quantity -->
-                                <div class="row">
-                                    <div class="col-6">
-                                        <div class="input-group mb-3">
-                                            <span class="col-5 input-group-text" data-i18n="device.management.bom_qty">BOM Quantity</span>
-                                            <input class="form-control" type="number" id="device_edit-Quantity">
-                                        </div>
-                                    </div>
-                                    <div class="col-6">
-                                        <div class="input-group mb-3">
-                                            <span class="col-5 input-group-text" data-i18n="device.management.po_qty">PO Quantity</span>
-                                            <input class="form-control" type="number" id="device_edit-POQty">
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- QtyConfirm + RealQty -->
-                                <div class="row">
-                                    <div class="col-6">
-                                        <div class="input-group mb-3">
-                                            <span class="col-5 input-group-text" data-i18n="device.management.confirm_qty">Confirm Quantity</span>
-                                            <input class="form-control" type="number" id="device_edit-QtyConfirm">
-                                        </div>
-                                    </div>
-                                    <div class="col-6">
-                                        <div class="input-group mb-3">
-                                            <span class="col-5 input-group-text fw-bold text-info" data-i18n="device.management.real_qty">Real Quantity</span>
-                                            <input class="form-control" type="number" id="device_edit-RealQty">
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Min Quantity + Unit -->
-                                <div class="row">
-                                    <div class="col-6">
-                                        <div class="input-group mb-3">
-                                            <span class="col-5 input-group-text" data-i18n="device.management.min_quantity">Min Quantity</span>
-                                            <input class="form-control" type="number" id="device_edit-MinQty">
-                                        </div>
-                                    </div>
-                                    <div class="col-6">
-                                        <div class="input-group mb-3">
-                                            <span class="col-5 input-group-text" data-i18n="device.management.unit">Unit</span>
-                                            <input class="form-control" type="text" id="device_edit-Unit" list="device_edit-Unit_List" maxlength="50">
-                                            <datalist id="device_edit-Unit_List">
-                                                <option value="N/A">N/A</option>
-                                                <option value="PCS">PCS (Cái)</option>
-                                                <option value="BAG">BAG (Bao)</option>
-                                                <option value="BOX">BOX (Hộp)</option>
-                                                <option value="SET">SET (Bộ)</option>
-                                                <option value="M">M (Meter)</option>
-                                                <option value="CM">CM (Centimet)</option>
-                                                <option value="KG">KG (Kilogram)</option>
-                                                <option value="G">G (Gram)</option>
-                                                <option value="L">L (Liter)</option>
-                                                <option value="ML">ML (Mililiter)</option>
-                                            </datalist>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-6">
-                                <!-- Product -->
-                                <div class="input-group mb-3">
-                                    <span class="col-3 input-group-text" data-i18n="device.management.product">Product</span>
-                                    <input class="form-control" type="text" id="device_edit-Product" list="device_edit-Product-List" />
-                                    <datalist id="device_edit-Product-List"></datalist>
-                                    @*<select class="col-9 form-select" id="device_edit-Product"></select>*@
-                                </div>
-                                <!-- Model -->
-                                <div class="input-group mb-3">
-                                    <span class="col-3 input-group-text" data-i18n="device.management.model">Model</span>
-                                    <input class="form-control" type="text" id="device_edit-Model" list="device_edit-Model-List" />
-                                    <datalist id="device_edit-Model-List"></datalist>
-                                    @*<select class="col-9 form-select" id="device_edit-Model"></select>*@
-                                </div>
-                                <!-- Station -->
-                                <div class="input-group mb-3">
-                                    <span class="col-3 input-group-text" data-i18n="device.management.station">Station</span>
-                                    <input class="form-control" type="text" id="device_edit-Station" list="device_edit-Station-List" />
-                                    <datalist id="device_edit-Station-List"></datalist>
-                                    @*<select class="col-9 form-select" id="device_edit-Station"></select>*@
-                                </div>
-                                <!-- Group -->
-                                <div class="input-group mb-3">
-                                    <span class="col-3 input-group-text" data-i18n="device.management.group">Group</span>
-                                    <input class="form-control" type="text" id="device_edit-Group" list="device_edit-Group-List" />
-                                    <datalist id="device_edit-Group-List"></datalist>
-                                    @*<select class="col-6 form-select" id="device_edit-Group"></select>*@
-                                </div>
-                                <!-- Vendor -->
-                                <div class="input-group mb-3">
-                                    <span class="col-3 input-group-text" data-i18n="device.management.vendor">Vendor</span>
-                                    <input class="form-control" type="text" id="device_edit-Vendor" list="device_edit-Vendor-List" />
-                                    <datalist id="device_edit-Vendor-List"></datalist>
-                                    @*<select class="col-6 form-select" id="device_edit-Vendor"></select>*@
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Layout -->
-                <h5 class="font-weight-light text-center text-primary py-3" id="borrow_modal-name" data-i18n="device.management.device_location">DEVICE LOCATION</h5>
-                <div id="layout-container"></div>
-                <button type="button" class="btn btn-sm btn-outline-secondary w-100" id="new-layout" data-i18n="device.management.add_layout"><i class="fa-solid fa-plus"></i> Add Layout</button>
-
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" data-i18n="global.close">Close</button>
-                <button type="button" class="btn btn-primary" id="button-save_modal" data-i18n="global.save">Save</button>
-            </div>
-        </div>
-    </div>
-</div>
+@Html.Partial("~/Areas/NVIDIA/Views/DeviceManagement/_DeviceUpdate_Modal.cshtml")
 
 <!-- Details modal -->
 @Html.Partial("~/Areas/NVIDIA/Views/DeviceManagement/_DeviceDetails_Modal.cshtml")
@@ -487,90 +206,4 @@
     <script src="~/Areas/NVIDIA/Content/Custom/DeviceManagement/js/DeviceDetails.js?v=@Guid.NewGuid()"></script>
     <script src="~/Areas/NVIDIA/Content/Custom/DeviceManagement/js/DeviceUpdate.js?v=@Guid.NewGuid()"></script>
     <script src="~/Areas/NVIDIA/Content/Custom/BorrowManagement/js/RequestDetails.js?v=@Guid.NewGuid()"></script>
-    <script type="text/javascript">
-        // Warehouse
-        $('#input_WareHouse', document).select2({
-            theme: 'bootstrap4',
-            minimumResultsForSearch: -1,
-        });
-
-        // Modal
-        $('#device_edit-AccKit').select2({
-            theme: 'bootstrap4',
-            dropdownParent: $("#device_edit-modal"),
-            minimumResultsForSearch: -1,
-            width: '50%',
-        });
-        $('#device_edit-Type').select2({
-            theme: 'bootstrap4',
-            dropdownParent: $("#device_edit-modal"),
-            minimumResultsForSearch: -1,
-            width: '50%',
-        });
-        $('#device_edit-Status').select2({
-            theme: 'bootstrap4',
-            dropdownParent: $("#device_edit-modal"),
-            minimumResultsForSearch: -1,
-            width: '50%',
-        });
-        $('#device_edit-WareHouse').select2({
-            theme: 'bootstrap4',
-            dropdownParent: $("#device_edit-modal"),
-            minimumResultsForSearch: -1,
-            width: '50%',
-        });
-
-        // Filter
-        $(document).ready(function () {
-            var dropdownOpen = false;
-            $('#dropdown_filter').on('click', function (event) {
-                event.stopPropagation();
-
-                dropdownOpen = !dropdownOpen;
-
-                if (dropdownOpen) {
-                    $(this).addClass('show');
-                } else {
-                    $(this).removeClass('show');
-                }
-            });
-
-            $(document).on('click', function (event) {
-                if (dropdownOpen && !$(event.target).closest('#dropdown_filter').length) {
-                    $('#dropdown_filter').removeClass('show');
-                    dropdownOpen = false;
-                }
-            });
-        });
-        $('#filter_Product').select2({
-            theme: 'bootstrap4',
-            width: '75%',
-        });
-        $('#filter_Model').select2({
-            theme: 'bootstrap4',
-            width: '75%',
-        });
-        $('#filter_Vendor').select2({
-            theme: 'bootstrap4',
-            width: '75%',
-        });
-        $('#filter_Type').select2({
-            theme: 'bootstrap4',
-            width: '75%',
-            minimumResultsForSearch: -1,
-        });
-        $('#filter_Station').select2({
-            theme: 'bootstrap4',
-            width: '75%',
-        });
-        $('#filter_Group').select2({
-            theme: 'bootstrap4',
-            width: '75%',
-        });
-        $('#filter_Status').select2({
-            theme: 'bootstrap4',
-            width: '75%',
-            minimumResultsForSearch: -1,
-        });
-    </script>
 }

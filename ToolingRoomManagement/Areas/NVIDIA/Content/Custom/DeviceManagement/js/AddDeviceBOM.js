@@ -23,7 +23,7 @@ function SendFileToServer() {
     const formData = new FormData();
     formData.append('file', file);
 
-    //formData.append('IdWareHouse', 1);
+    formData.append('IdWareHouse', $('#input_WareHouse').val());
 
     Pace.on('progress', function (progress) {
         var cal = progress.toFixed(2);
@@ -32,7 +32,7 @@ function SendFileToServer() {
     });
     Pace.track(function () {
         $.ajax({
-            url: "/NVIDIA/DeviceManagement/AddDeviceAuto",
+            url: "/NVIDIA/DeviceManagement/AddDeviceUnconfirm",
             data: formData,
             type: "POST",
             processData: false,
@@ -44,7 +44,7 @@ function SendFileToServer() {
                     console.log(data);
 
                     //CreateTableAddDevice(devices);
-                    //CreateBomFileInfo(response);
+                    CreateBomFileInfo(devices);
                     //GetSelectData();
                 }
                 else {
@@ -102,7 +102,7 @@ async function CreateTableAddDevice(devices) {
                 break;
             }
             default: {
-                row.append(`<td><span class="text-secondary fw-bold">N/A</span></td>`);
+                row.append(`<td><span class="text-secondary fw-bold">NA</span></td>`);
                 break;
             }
         }
@@ -129,7 +129,7 @@ async function CreateTableAddDevice(devices) {
                 break;
             }
             default: {
-                row.append(`<td>N/A</td>`);
+                row.append(`<td>NA</td>`);
                 break;
             }
         }
@@ -575,7 +575,7 @@ function DrawRowEditDevice(item) {
                 break;
             }
             default: {
-                row.push(`<td><span class="text-secondary fw-bold">N/A</span></td>`);
+                row.push(`<td><span class="text-secondary fw-bold">NA</span></td>`);
                 break;
             }
         }
@@ -602,7 +602,7 @@ function DrawRowEditDevice(item) {
                 break;
             }
             default: {
-                row.push(`<td>N/A</td>`);
+                row.push(`<td>NA</td>`);
                 break;
             }
         }

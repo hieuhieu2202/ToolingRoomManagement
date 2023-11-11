@@ -1,0 +1,411 @@
+﻿
+@{
+    ViewBag.Title = "ConfirmDevice";
+    Layout = "~/Areas/NVIDIA/Views/Shared/_NvidiaLayoutShared.cshtml";
+}
+
+
+@section styles{
+    <!-- Vendor -->
+    <link href="~/Areas/NVIDIA/Content/Template/Sysadmin/assets/plugins/datatable/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
+    <link href="~/Areas/NVIDIA/Content/Template/Sysadmin/assets/plugins/select2/css/select2.min.css" rel="stylesheet" />
+    <link href="~/Areas/NVIDIA/Content/Template/Sysadmin/assets/plugins/select2/css/select2-bootstrap4.css" rel="stylesheet" />
+    <link href="~/Areas/NVIDIA/Content/Vendor/Viewer JS/viewer.min.css" rel="stylesheet" />
+    <!-- Custom -->
+    <link href="~/Areas/NVIDIA/Content/Custom/DeviceManagement/css/ConfirmDevice.css" rel="stylesheet" />
+
+}
+
+<!-- Breadcrumb -->
+<div class="page-breadcrumb d-none d-sm-flex align-items-center py-3">
+    <div class="breadcrumb-title pe-3">Confirm Device</div>
+    <div class="ps-3">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-0 p-0">
+                <li class="breadcrumb-item">
+                    <a href="/NVIDIA/Dashboard"><i class="bx bx-home-alt"></i></a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a href="javascript:;">Device</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">New Device</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+
+<!-- Card table -->
+<div class="card" id="card-device-details">
+    <div class="card-body">
+        <div class="card-title d-flex justify-content-between align-items-center">
+            <div class="d-flex">
+                <h5 class="m-0 me-3">Devices</h5>
+                <label class="text-secondary" data-i18n="device.management.table_hint">(* Double click to view details)</label>
+            </div>
+
+            <div class="w-50 d-flex justify-content-end">
+                <div class="input-group input-group-sm w-50">
+                    <span class="col-5 input-group-text" data-i18n="device.management.warehouse">Warehouse</span>
+                    <select class="col-7 form-select form-select-sm" id="input_WareHouse"></select>
+                </div>
+
+                <div class="dropdown ms-3" id="dropdown_filter">
+                    <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bx bx-filter"></i></button>
+                    <div class="dropdown-menu" style="width:600px;">
+                        <div class="row">
+                            <div class="col-6">
+                                <!--Filter product -->
+                                <div class="input-group input-group-sm mb-3">
+                                    <span class="col-3 input-group-text" data-i18n="device.management.product">Product</span>
+                                    <select class="form-select form-select-sm" id="filter_Product">
+                                        <option value="" selected data-i18n="device.management.product_all">Product (All)</option>
+                                    </select>
+                                </div>
+                                <!--Filter model -->
+                                <div class="input-group input-group-sm mb-3">
+                                    <span class="col-3 input-group-text" data-i18n="device.management.model">Model</span>
+                                    <select class="form-select form-select-sm" id="filter_Model">
+                                        <option value="" selected data-i18n="device.management.model_all">Model (All)</option>
+                                    </select>
+                                </div>
+                                <!--Filter station -->
+                                <div class="input-group input-group-sm mb-3">
+                                    <span class="col-3 input-group-text" data-i18n="device.management.station">Station</span>
+                                    <select class="form-select form-select-sm" id="filter_Station">
+                                        <option value="" selected data-i18n="device.management.station_all">Station (All)</option>
+                                    </select>
+                                </div>
+                                <!--Filter group -->
+                                <div class="input-group input-group-sm mb-3">
+                                    <span class="col-3 input-group-text" data-i18n="device.management.group">Group</span>
+                                    <select class="form-select form-select-sm" id="filter_Group">
+                                        <option value="" selected data-i18n="device.management.group_all">Group (All)</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <!--Filter Vendor -->
+                                <div class="input-group input-group-sm mb-3">
+                                    <span class="col-3 input-group-text" data-i18n="device.management.vendor">Vendor</span>
+                                    <select class="form-select form-select-sm" id="filter_Vendor">
+                                        <option value="" selected data-i18n="device.management.vendor_all">Vendor (All)</option>
+                                    </select>
+                                </div>
+                                <!--Filter Type -->
+                                <div class="input-group input-group-sm mb-3">
+                                    <span class="col-3 input-group-text" data-i18n="device.management.type">Type</span>
+                                    <select class="form-select form-select-sm" id="filter_Type">
+                                        <option value="Type" selected data-i18n="device.management.type_all">Type (All)</option>
+                                        <option value="Static">Static</option>
+                                        <option value="Dynamic">Dynamic</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-12 d-flex justify-content-between">
+                                <button class="btn btn-sm btn-primary" style="width: 80%" id="filter" data-i18n="device.management.filter"><i class="fa-solid fa-arrow-down-small-big"></i> Filter</button>
+                                <button class="btn btn-sm btn-outline-secondary ms-3" id="filter-refresh" data-i18n="device.management.refresh"><i class="fa-sharp fa-regular fa-arrows-rotate"></i> Refresh</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <hr />
+        <div class="form-body mt-4">
+            <table id="table_Devices" class="table table-striped table-hover table-bordered text-nowrap">
+                <thead>
+                    <tr>
+                        <!-- 0 -->
+                        <th>ID</th>
+                        <!-- 1 -->
+                        <th>MTS</th>
+                        <!-- 2 -->
+                        <th>Product Name</th>
+                        <!-- 3 -->
+                        <th>PN</th>
+                        <!-- 4 -->
+                        <th>Description</th>
+                        <!-- 5 -->
+                        <th>Group</th>
+                        <!-- 6 -->
+                        <th>Vendor</th>
+                        <!-- 7 -->
+                        <th>Model</th>
+                        <!-- 8 -->
+                        <th>Station</th>
+                        <!-- 9 -->
+                        <th>Life Cycle</th>
+                        <!-- 10 -->
+                        <th>Buffer</th>
+                        <!-- 11 -->
+                        <th>Quantity</th>
+                        <!-- 12 -->
+                        <th>Min Quantity</th>
+                        <!-- 13 -->
+                        <th>MOQ</th>
+                        <!-- 14 -->
+                        <th>Type</th>
+                        <!-- 15 -->
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="table_Devices_tbody">
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Confirm -->
+<ul class="d-none" id="images"></ul>
+<div class="modal fade" id="device_confirm-modal" aria-hidden="true">
+    <div class="modal-dialog modal-fullscreen modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Confirm Device</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Details -->
+                <h5 class="font-weight-light text-center text-primary py-3" data-i18n="device.management.device_details" style="text-transform:uppercase">DEVICE DETAILS</h5>
+
+                <!-- Basic Info -->
+                <div class="row">
+                    <div class="col-8">
+                        <div class="card">
+                            <div class="card-body">
+                                <h6 class="mb-0 text-uppercase" data-i18n="device.management.basic_info">Basic Information</h6>
+                                <hr>
+
+                                <div class="row">
+                                    <input type="hidden" id="device_confirm-DeviceId"/>
+                                    <div class="col-6">
+                                        <!-- Device Code-->
+                                        <div class="input-group mb-3">
+                                            <span class="col-4 input-group-text" data-i18n="device.management.pn">PN</span>
+                                            <input class="form-control" type="text" id="device_confirm-DeviceCode">
+                                        </div>
+                                        <!-- Device Name -->
+                                        <div class="input-group mb-3">
+                                            <span class="col-4 input-group-text" data-i18n="device.management.description">Description</span>
+                                            <input class="form-control" type="text" id="device_confirm-DeviceName">
+                                        </div>
+                                        <!-- Specification -->
+                                        <div class="input-group mb-3">
+                                            <span class="col-4 input-group-text text-warning" data-i18n="device.management.specification">Specification</span>
+                                            <input class="form-control" type="text" id="device_confirm-Specification">
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <!-- Status + Type -->
+                                        <div class="input-group mb-3">
+                                            <span class="col-4 input-group-text text-warning" data-i18n="device.management.type">Type</span>
+                                            <select class="form-select" id="device_confirm-Type">
+                                                <optgroup label="Normal">
+                                                    <option value="normal_NA" selected>NA</option>
+                                                    <option value="normal_Fixture">Fixture</option>
+                                                    <option value="normal_Static">Static</option>
+                                                    <option value="normal_Dynamic">Dynamic</option>
+                                                </optgroup>
+                                                <optgroup label="Consign">
+                                                    <option value="consign_NA">NA</option>
+                                                    <option value="consign_Fixture">Fixture</option>
+                                                    <option value="consign_Static">Static</option>
+                                                    <option value="consign_Dynamic">Dynamic</option>
+                                                </optgroup>
+                                            </select>
+                                        </div>
+                                        <!-- Device Date -->
+                                        <div class="input-group mb-3">
+                                            <span class="col-4 input-group-text" data-i18n="device.management.created_date">Created date</span>
+                                            <input class="form-control" type="datetime-local" id="device_confirm-DeviceDate">
+                                        </div>
+                                        <!-- DeliveryTime -->
+                                        <div class="input-group mb-3">
+                                            <span class="col-4 input-group-text text-warning" data-i18n="device.management.lead_time">Lead Time</span>
+                                            <input class="form-control" type="number" id="device_confirm-DeliveryTime1">
+                                            <select class="form-select" id="device_confirm-DeliveryTime2">
+                                                <option value="Day">Day</option>
+                                                <option value="Week" selected>Week</option>
+                                                <option value="Month">Month</option>
+                                                <option value="Quarter">Quarter</option>
+                                                <option value="Year">Year</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between">
+                                    <h6 class="mb-0 text-uppercase" data-i18n="device.management.image">Images</h6>
+                                    <h6 class="text-primary cursor-pointer m-0" id="add-image" data-i18n="device.management.add_image"> Add Image</h6>
+                                </div>
+
+                                <hr>
+                                <div id="images-confirm-container">
+                                    <div class="carousel slide" data-ride="carousel">
+                                        <ol class="carousel-indicators"></ol>
+                                        <div class="carousel-inner"></div>
+                                        <a class="carousel-control-prev" href="javascript:;" role="button" data-slide="prev">
+                                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                            <span class="sr-only">Previous</span>
+                                        </a>
+                                        <a class="carousel-control-next" href="javascript:;" role="button" data-slide="next">
+                                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                            <span class="sr-only">Next</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Details Info-->
+                <div class="card">
+                    <div class="card-body">
+                        <h6 class="mb-0 text-uppercase" data-i18n="device.management.details_info">Device Information</h6>
+                        <hr>
+
+                        <div class="row">
+                            <div class="col-6">                            
+                                <div class="row">                                   
+                                    <div class="col-6">
+                                        <!-- WareHouse -->
+                                        <div class="input-group mb-3">
+                                            <span class="col-5 input-group-text text-warning" data-i18n="device.management.warehouse">Warehouse</span>
+                                            <select class="form-select" id="device_confirm-WareHouse"></select>
+                                        </div>
+                                        <!-- Buffer -->
+                                        <div class="input-group mb-3">
+                                            <span class="col-5 input-group-text" data-i18n="device.management.buffer">Buffer</span>
+                                            <input class="form-control" type="number" id="device_confirm-Buffer">
+                                            <span class="input-group-text">%</span>
+                                        </div>
+                                        <!-- Quantity -->
+                                        <div class="input-group mb-3">
+                                            <span class="col-5 input-group-text text-warning" data-i18n="device.management.bom_qty">BOM Quantity</span>
+                                            <input class="form-control" type="number" id="device_confirm-Quantity">
+                                        </div>
+                                        <!-- PO Quantity -->
+                                        <div class="input-group mb-3">
+                                            <span class="col-5 input-group-text text-warning" data-i18n="device.management.po_qty">PO Quantity</span>
+                                            <input class="form-control" type="number" id="device_confirm-POQty">
+                                        </div>                                        
+                                        <!-- Unit -->
+                                        <div class="input-group mb-3">
+                                            <span class="col-5 input-group-text text-warning" data-i18n="device.management.unit">Unit</span>
+                                            <input class="form-control" type="text" id="device_confirm-Unit" list="device_confirm-Unit_List" maxlength="50">
+                                            <datalist id="device_confirm-Unit_List">
+                                                <option value="NA">NA</option>
+                                                <option value="PCS">PCS (Cái)</option>
+                                                <option value="BAG">BAG (Bao)</option>
+                                                <option value="BOX">BOX (Hộp)</option>
+                                                <option value="SET">SET (Bộ)</option>
+                                                <option value="M">M (Meter)</option>
+                                                <option value="CM">CM (Centimet)</option>
+                                                <option value="KG">KG (Kilogram)</option>
+                                                <option value="G">G (Gram)</option>
+                                                <option value="L">L (Liter)</option>
+                                                <option value="ML">ML (Mililiter)</option>
+                                            </datalist>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-6">
+                                        <!-- Relation -->
+                                        <div class="input-group mb-3">
+                                            <span class="col-5 input-group-text">Relation</span>
+                                            <input class="form-control" type="text" id="device_confirm-Relation">
+                                        </div>
+                                        <!-- LifeCycle-->
+                                        <div class="input-group mb-3">
+                                            <span class="col-5 input-group-text" data-i18n="device.management.life_cycle">Life Cycle</span>
+                                            <input class="form-control" type="number" id="device_confirm-LifeCycle">
+                                        </div>
+                                        <!-- Confirm Quantity-->
+                                        <div class="input-group mb-3">
+                                            <span class="col-5 input-group-text text-success fw-bold" data-i18n="device.management.confirm_qty">Confirm Quantity</span>
+                                            <input class="form-control" type="number" id="device_confirm-QtyConfirm">
+                                        </div>
+                                        <!-- Min Quantity -->
+                                        <div class="input-group mb-3">
+                                            <span class="col-5 input-group-text" data-i18n="device.management.min_quantity">Min Quantity</span>
+                                            <input class="form-control" type="number" id="device_confirm-MinQty">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <!-- Product -->
+                                <div class="input-group mb-3">
+                                    <span class="col-3 input-group-text" data-i18n="device.management.product">Product</span>
+                                    <input class="form-control" type="text" id="device_confirm-Product" list="device_confirm-Product-List" />
+                                    <datalist id="device_confirm-Product-List"></datalist>
+                                </div>
+                                <!-- Model -->
+                                <div class="input-group mb-3">
+                                    <span class="col-3 input-group-text" data-i18n="device.management.model">Model</span>
+                                    <input class="form-control" type="text" id="device_confirm-Model" list="device_confirm-Model-List" />
+                                    <datalist id="device_confirm-Model-List"></datalist>
+                                </div>
+                                <!-- Station -->
+                                <div class="input-group mb-3">
+                                    <span class="col-3 input-group-text" data-i18n="device.management.station">Station</span>
+                                    <input class="form-control" type="text" id="device_confirm-Station" list="device_confirm-Station-List" />
+                                    <datalist id="device_confirm-Station-List"></datalist>
+                                </div>
+                                <!-- Group -->
+                                <div class="input-group mb-3">
+                                    <span class="col-3 input-group-text" data-i18n="device.management.group">Group</span>
+                                    <input class="form-control" type="text" id="device_confirm-Group" list="device_confirm-Group-List" />
+                                    <datalist id="device_confirm-Group-List"></datalist>
+                                </div>
+                                <!-- Vendor -->
+                                <div class="input-group mb-3">
+                                    <span class="col-3 input-group-text" data-i18n="device.management.vendor">Vendor</span>
+                                    <input class="form-control" type="text" id="device_confirm-Vendor" list="device_confirm-Vendor-List" />
+                                    <datalist id="device_confirm-Vendor-List"></datalist>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Layout -->
+                <h5 class="font-weight-light text-center text-primary py-3" data-i18n="device.management.device_location">DEVICE LOCATION</h5>
+                <div id="layout-container"></div>
+                <button type="button" class="btn btn-sm btn-outline-secondary w-100" id="new-layout" data-i18n="device.management.add_layout"><i class="fa-solid fa-plus"></i> Add Layout</button>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" data-i18n="global.close">Close</button>
+                <button type="button" class="btn btn-primary" id="device_confirm-btn_save" >Confirm Device</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <!-- Vendor -->
+    <script src="~/Areas/NVIDIA/Content/Template/Sysadmin/assets/plugins/datatable/js/jquery.dataTables.min.js"></script>
+    <script src="~/Areas/NVIDIA/Content/Template/Sysadmin/assets/plugins/datatable/js/dataTables.bootstrap5.min.js"></script>
+    <script src="~/Areas/NVIDIA/Content/Vendor/MomentJs/moment.js"></script>
+    <script src="~/Areas/NVIDIA/Content/Template/Sysadmin/assets/plugins/select2/js/select2.min.js"></script>
+    <script src="~/Areas/NVIDIA/Content/Vendor/Viewer JS/viewer.js"></script>
+    <!-- Custom -->
+    <script src="~/Areas/NVIDIA/Content/Custom/DeviceManagement/js/ConfirmDevice.js"></script>
+    <script type="text/javascript">
+        
+        
+    </script>
+
+}
+

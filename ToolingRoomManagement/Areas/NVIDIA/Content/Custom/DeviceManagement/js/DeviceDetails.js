@@ -34,8 +34,7 @@ function GetDeviceDetails(Id) {
     });
 }
 async function FillDetailsDeviceData(data) {
-    $('#device_details-DeviceId').val(data.Id);
-    $('#device_details-DeviceCode').val(data.DeviceCode);
+    $('#device_details-DeviceCode').val(data.DeviceCode != "null" ? data.DeviceCode : "NA");
     $('#device_details-DeviceName').val(data.DeviceName);
     $('#device_details-Specification').val(data.Specification);
 
