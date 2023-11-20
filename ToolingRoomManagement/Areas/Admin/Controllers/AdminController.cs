@@ -761,7 +761,7 @@ namespace ToolingRoomManagement.Areas.Admin.Controllers
                            into tbl_W_S
                            from ws in tbl_W_S.DefaultIfEmpty()
                            where w.part == sessionPart.part
-                           orderby ws.station_name
+                           orderby w.create_date descending
                            select new View_WeeklyCheckListModel
                            {
                                weekly = w,

@@ -73,6 +73,7 @@
           <Property Name="Type_BOM" Type="nvarchar" MaxLength="10" />
           <Property Name="MOQ" Type="int" />
           <Property Name="isConsign" Type="bit" />
+          <Property Name="NG_Qty" Type="int" />
         </EntityType>
         <EntityType Name="DeviceUnconfirm">
           <Key>
@@ -153,6 +154,26 @@
           <Property Name="MTS" Type="nvarchar" MaxLength="25" />
           <Property Name="ProductName" Type="nvarchar" MaxLength="120" />
         </EntityType>
+        <EntityType Name="Return">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DateReturn" Type="datetime" />
+          <Property Name="IdUser" Type="int" />
+          <Property Name="Note" Type="nvarchar" MaxLength="300" />
+          <Property Name="Status" Type="nvarchar" MaxLength="50" />
+          <Property Name="Type" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="ReturnDevice">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdReturn" Type="int" />
+          <Property Name="IdDevice" Type="int" />
+          <Property Name="ReturnQuantity" Type="int" />
+        </EntityType>
         <EntityType Name="Role">
           <Key>
             <PropertyRef Name="Id" />
@@ -205,6 +226,19 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="IdUser" Type="int" />
           <Property Name="IdDepartment" Type="int" />
+        </EntityType>
+        <EntityType Name="UserReturnSign">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdReturn" Type="int" />
+          <Property Name="DateSign" Type="datetime" />
+          <Property Name="Note" Type="int" />
+          <Property Name="SignOrder" Type="int" />
+          <Property Name="Status" Type="nvarchar" MaxLength="50" />
+          <Property Name="Type" Type="nvarchar" MaxLength="50" />
+          <Property Name="IdUser" Type="int" />
         </EntityType>
         <EntityType Name="UserRole">
           <Key>
@@ -464,6 +498,42 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Return_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Return" Type="Self.Return" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Return">
+              <PropertyRef Name="IdUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ReturnDevice_Device">
+          <End Role="Device" Type="Self.Device" Multiplicity="0..1" />
+          <End Role="ReturnDevice" Type="Self.ReturnDevice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Device">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ReturnDevice">
+              <PropertyRef Name="IdDevice" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ReturnDevice_Return">
+          <End Role="Return" Type="Self.Return" Multiplicity="0..1" />
+          <End Role="ReturnDevice" Type="Self.ReturnDevice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Return">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ReturnDevice">
+              <PropertyRef Name="IdReturn" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_UserBorrowSign_Borrow">
           <End Role="Borrow" Type="Self.Borrow" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
@@ -510,6 +580,30 @@
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="UserDepartment">
+              <PropertyRef Name="IdUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserReturnSign_Return">
+          <End Role="Return" Type="Self.Return" Multiplicity="0..1" />
+          <End Role="UserReturnSign" Type="Self.UserReturnSign" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Return">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserReturnSign">
+              <PropertyRef Name="IdReturn" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserReturnSign_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="UserReturnSign" Type="Self.UserReturnSign" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserReturnSign">
               <PropertyRef Name="IdUser" />
             </Dependent>
           </ReferentialConstraint>
@@ -575,11 +669,14 @@
           <EntitySet Name="HistoryUpdateDevice" EntityType="Self.HistoryUpdateDevice" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Model" EntityType="Self.Model" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Return" EntityType="Self.Return" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ReturnDevice" EntityType="Self.ReturnDevice" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Station" EntityType="Self.Station" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserBorrowSign" EntityType="Self.UserBorrowSign" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserDepartment" EntityType="Self.UserDepartment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserReturnSign" EntityType="Self.UserReturnSign" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserRole" EntityType="Self.UserRole" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Vendor" EntityType="Self.Vendor" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Warehouse" EntityType="Self.Warehouse" Schema="dbo" store:Type="Tables" />
@@ -656,6 +753,18 @@
             <End Role="WarehouseLayout" EntitySet="WarehouseLayout" />
             <End Role="DeviceWarehouseLayout" EntitySet="DeviceWarehouseLayout" />
           </AssociationSet>
+          <AssociationSet Name="FK_Return_User" Association="Self.FK_Return_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Return" EntitySet="Return" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ReturnDevice_Device" Association="Self.FK_ReturnDevice_Device">
+            <End Role="Device" EntitySet="Device" />
+            <End Role="ReturnDevice" EntitySet="ReturnDevice" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ReturnDevice_Return" Association="Self.FK_ReturnDevice_Return">
+            <End Role="Return" EntitySet="Return" />
+            <End Role="ReturnDevice" EntitySet="ReturnDevice" />
+          </AssociationSet>
           <AssociationSet Name="FK_UserBorrowSign_Borrow" Association="Self.FK_UserBorrowSign_Borrow">
             <End Role="Borrow" EntitySet="Borrow" />
             <End Role="UserBorrowSign" EntitySet="UserBorrowSign" />
@@ -671,6 +780,14 @@
           <AssociationSet Name="FK_UserDepartment_User" Association="Self.FK_UserDepartment_User">
             <End Role="User" EntitySet="User" />
             <End Role="UserDepartment" EntitySet="UserDepartment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserReturnSign_Return" Association="Self.FK_UserReturnSign_Return">
+            <End Role="Return" EntitySet="Return" />
+            <End Role="UserReturnSign" EntitySet="UserReturnSign" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserReturnSign_User" Association="Self.FK_UserReturnSign_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="UserReturnSign" EntitySet="UserReturnSign" />
           </AssociationSet>
           <AssociationSet Name="FK_UserRole_Role" Association="Self.FK_UserRole_Role">
             <End Role="Role" EntitySet="Role" />
@@ -820,6 +937,29 @@
           <AssociationSet Name="FK_UserDepartment_Department" Association="ToolingRoomModel.FK_UserDepartment_Department">
             <End Role="Department" EntitySet="Departments" />
             <End Role="UserDepartment" EntitySet="UserDepartments" />
+          </AssociationSet>
+          <EntitySet Name="Returns" EntityType="ToolingRoomModel.Return" />
+          <EntitySet Name="ReturnDevices" EntityType="ToolingRoomModel.ReturnDevice" />
+          <EntitySet Name="UserReturnSigns" EntityType="ToolingRoomModel.UserReturnSign" />
+          <AssociationSet Name="FK_ReturnDevice_Device" Association="ToolingRoomModel.FK_ReturnDevice_Device">
+            <End Role="Device" EntitySet="Devices" />
+            <End Role="ReturnDevice" EntitySet="ReturnDevices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Return_User" Association="ToolingRoomModel.FK_Return_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Return" EntitySet="Returns" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ReturnDevice_Return" Association="ToolingRoomModel.FK_ReturnDevice_Return">
+            <End Role="Return" EntitySet="Returns" />
+            <End Role="ReturnDevice" EntitySet="ReturnDevices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserReturnSign_Return" Association="ToolingRoomModel.FK_UserReturnSign_Return">
+            <End Role="Return" EntitySet="Returns" />
+            <End Role="UserReturnSign" EntitySet="UserReturnSigns" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserReturnSign_User" Association="ToolingRoomModel.FK_UserReturnSign_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="UserReturnSign" EntitySet="UserReturnSigns" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="Product">
@@ -980,6 +1120,7 @@
           <Property Name="Type_BOM" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="MOQ" Type="Int32" />
           <Property Name="isConsign" Type="Boolean" />
+          <Property Name="NG_Qty" Type="Int32" />
         </EntityType>
         <Association Name="FK_Device_Group">
           <End Type="ToolingRoomModel.Group" Role="Group" Multiplicity="0..1" />
@@ -1415,6 +1556,104 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Return">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DateReturn" Type="DateTime" Precision="3" />
+          <Property Name="IdUser" Type="Int32" />
+          <Property Name="Note" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="User" Relationship="ToolingRoomModel.FK_Return_User" FromRole="Return" ToRole="User" />
+          <NavigationProperty Name="ReturnDevices" Relationship="ToolingRoomModel.FK_ReturnDevice_Return" FromRole="Return" ToRole="ReturnDevice" />
+          <NavigationProperty Name="UserReturnSigns" Relationship="ToolingRoomModel.FK_UserReturnSign_Return" FromRole="Return" ToRole="UserReturnSign" />
+        </EntityType>
+        <EntityType Name="ReturnDevice">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdReturn" Type="Int32" />
+          <Property Name="IdDevice" Type="Int32" />
+          <Property Name="ReturnQuantity" Type="Int32" />
+          <NavigationProperty Name="Device" Relationship="ToolingRoomModel.FK_ReturnDevice_Device" FromRole="ReturnDevice" ToRole="Device" />
+        </EntityType>
+        <EntityType Name="UserReturnSign">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdReturn" Type="Int32" />
+          <Property Name="DateSign" Type="DateTime" Precision="3" />
+          <Property Name="Note" Type="Int32" />
+          <Property Name="SignOrder" Type="Int32" />
+          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IdUser" Type="Int32" />
+          <NavigationProperty Name="User" Relationship="ToolingRoomModel.FK_UserReturnSign_User" FromRole="UserReturnSign" ToRole="User" />
+        </EntityType>
+        <Association Name="FK_ReturnDevice_Device">
+          <End Type="ToolingRoomModel.Device" Role="Device" Multiplicity="0..1" />
+          <End Type="ToolingRoomModel.ReturnDevice" Role="ReturnDevice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Device">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ReturnDevice">
+              <PropertyRef Name="IdDevice" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Return_User">
+          <End Type="ToolingRoomModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="ToolingRoomModel.Return" Role="Return" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Return">
+              <PropertyRef Name="IdUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ReturnDevice_Return">
+          <End Type="ToolingRoomModel.Return" Role="Return" Multiplicity="0..1" />
+          <End Type="ToolingRoomModel.ReturnDevice" Role="ReturnDevice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Return">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ReturnDevice">
+              <PropertyRef Name="IdReturn" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserReturnSign_Return">
+          <End Type="ToolingRoomModel.Return" Role="Return" Multiplicity="0..1" />
+          <End Type="ToolingRoomModel.UserReturnSign" Role="UserReturnSign" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Return">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserReturnSign">
+              <PropertyRef Name="IdReturn" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserReturnSign_User">
+          <End Type="ToolingRoomModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="ToolingRoomModel.UserReturnSign" Role="UserReturnSign" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserReturnSign">
+              <PropertyRef Name="IdUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1510,6 +1749,7 @@
           <EntitySetMapping Name="Devices">
             <EntityTypeMapping TypeName="ToolingRoomModel.Device">
               <MappingFragment StoreEntitySet="Device">
+                <ScalarProperty Name="NG_Qty" ColumnName="NG_Qty" />
                 <ScalarProperty Name="isConsign" ColumnName="isConsign" />
                 <ScalarProperty Name="MOQ" ColumnName="MOQ" />
                 <ScalarProperty Name="Type_BOM" ColumnName="Type_BOM" />
@@ -1675,6 +1915,42 @@
                 <ScalarProperty Name="PropertyCode" ColumnName="PropertyCode" />
                 <ScalarProperty Name="DepartName" ColumnName="DepartName" />
                 <ScalarProperty Name="DepartCode" ColumnName="DepartCode" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Returns">
+            <EntityTypeMapping TypeName="ToolingRoomModel.Return">
+              <MappingFragment StoreEntitySet="Return">
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="IdUser" ColumnName="IdUser" />
+                <ScalarProperty Name="DateReturn" ColumnName="DateReturn" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ReturnDevices">
+            <EntityTypeMapping TypeName="ToolingRoomModel.ReturnDevice">
+              <MappingFragment StoreEntitySet="ReturnDevice">
+                <ScalarProperty Name="ReturnQuantity" ColumnName="ReturnQuantity" />
+                <ScalarProperty Name="IdDevice" ColumnName="IdDevice" />
+                <ScalarProperty Name="IdReturn" ColumnName="IdReturn" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserReturnSigns">
+            <EntityTypeMapping TypeName="ToolingRoomModel.UserReturnSign">
+              <MappingFragment StoreEntitySet="UserReturnSign">
+                <ScalarProperty Name="IdUser" ColumnName="IdUser" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="SignOrder" ColumnName="SignOrder" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="DateSign" ColumnName="DateSign" />
+                <ScalarProperty Name="IdReturn" ColumnName="IdReturn" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

@@ -22,6 +22,7 @@
     "new_device": "New Device",
     "new_device_manual": "Manual",
     "new_device_bom": "BOM File",
+    "confirm_device": "Confirm Device",
 
     "request_handling": "Request Handling",
     "rq_management": "Management",

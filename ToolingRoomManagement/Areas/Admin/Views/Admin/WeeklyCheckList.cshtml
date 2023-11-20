@@ -204,7 +204,7 @@
                                                             { dem++; }
                                                             <tr>
                                                                 <th style="text-align: center;">@dem</th>
-                                                                <td style="text-align: center;">@item.station.station_name</td>
+                                                                <td style="text-align: center;">@(item.station != null ? item.station.station_name : "")</td>
                                                                 <td style="text-align: center;">@item.weekly.create_date.Value.ToString("dd/MM/yyyy")</td>
                                                                 <td style="text-align: center;">@item.weekly.create_date.Value.ToString("hh:mm")</td>
                                                                 <td style="text-align: center;">@item.weekly.sheilding_mac</td>

@@ -227,39 +227,49 @@
                                                     {
                                                         foreach (var item in Model)
                                                         {
-                                                            if (item.weekly.part == sessionPart.part || item.weekly.part == sessionPart.part.ToUpper() || item.weekly.part == sessionPart.part.ToLower())
+                                                            try
                                                             {
-                                                                { dem++; }
-                                                    <tr>
-                                                        <th style="text-align: center;">@dem</th>
-                                                        <td style="text-align: center;">@item.station.station_name</td>
-                                                        <td style="text-align: center;">@item.weekly.create_date.Value.ToString("dd/MM/yyyy")</td>
-                                                        <td style="text-align: center;">@item.weekly.create_date.Value.ToString("hh:mm")</td>
-                                                        @if (item.weekly.sheilding_mac == null)
-                                                        {
-                                                            <td style="text-align: center;"></td>
-                                                        }
-                                                        else
-                                                        {
-                                                            <td style="text-align: center;">@item.weekly.sheilding_mac</td>
-                                                        }
-                                                        <td style="text-align: center;">@(item.weekly.issue_1 == 1 ? "OK" : "R")</td>
-                                                        <td style="text-align: center;">@(item.weekly.issue_2 == 1 ? "OK" : "R")</td>
-                                                        <td style="text-align: center;">@(item.weekly.issue_3 == 1 ? "OK" : "R")</td>
-                                                        <td style="text-align: center;">@(item.weekly.issue_4 == 1 ? "OK" : "R")</td>
-                                                        <td style="text-align: center;">@(item.weekly.issue_5 == 1 ? "OK" : "R")</td>
-                                                        <td style="text-align: center;">@(item.weekly.issue_6 == 1 ? "OK" : "R")</td>
-                                                        <td style="text-align: center;">@(item.weekly.issue_7 == 1 ? "OK" : "R")</td>
-                                                        <td style="text-align: center;">@(item.weekly.issue_8 == 1 ? "OK" : item.weekly.issue_8 == 2 ? "R" : "X")</td>
-                                                        <td style="text-align: center;">@(item.weekly.note != null ? item.weekly.note : "")</td>
-                                                        <td style="text-align: center;">@item.weekly.create_by_name</td>
-                                                        <td style="text-align: center;">@item.weekly.part</td>
-                                                        <td style="text-align:center;">
-                                                            <button class="fa fa-edit" style="width: 40%;height: 25px;background: #1b2a47;color: chartreuse;border: 0px;" onclick="OpenModel_Edit('@item.weekly.id','@item.weekly.station_id','@item.station.station_name','@item.weekly.sheilding_mac.Trim()','@item.weekly.issue_1','@item.weekly.issue_2','@item.weekly.issue_3','@item.weekly.issue_4','@item.weekly.issue_5','@item.weekly.issue_6','@item.weekly.issue_7','@item.weekly.issue_8','@(item.weekly.note != null ? item.weekly.note : "")')"></button>*
-                                                            <button class="fa fa-trash" style="width: 40%;height: 25px;background: #1b2a47;color: red;border: 0px;" onclick="Delete('@item.weekly.id')"></button>
-                                                        </td>
-                                                    </tr>
+
+                                                                if (item.weekly.part == sessionPart.part || item.weekly.part == sessionPart.part.ToUpper() || item.weekly.part == sessionPart.part.ToLower())
+                                                                {
+                                                                    { dem++; }
+                                                                    <tr>
+                                                                        <th style="text-align: center;">@dem</th>
+                                                                        <td style="text-align: center;">@(item.station != null ? item.station.station_name : "")</td>
+                                                                        <td style="text-align: center;">@item.weekly.create_date.Value.ToString("dd/MM/yyyy")</td>
+                                                                        <td style="text-align: center;">@item.weekly.create_date.Value.ToString("hh:mm")</td>
+                                                                        @if (item.weekly.sheilding_mac == null)
+                                                                        {
+                                                                            <td style="text-align: center;"></td>
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <td style="text-align: center;">@item.weekly.sheilding_mac</td>
+                                                                        }
+                                                                        <td style="text-align: center;">@(item.weekly.issue_1 == 1 ? "OK" : "R")</td>
+                                                                        <td style="text-align: center;">@(item.weekly.issue_2 == 1 ? "OK" : "R")</td>
+                                                                        <td style="text-align: center;">@(item.weekly.issue_3 == 1 ? "OK" : "R")</td>
+                                                                        <td style="text-align: center;">@(item.weekly.issue_4 == 1 ? "OK" : "R")</td>
+                                                                        <td style="text-align: center;">@(item.weekly.issue_5 == 1 ? "OK" : "R")</td>
+                                                                        <td style="text-align: center;">@(item.weekly.issue_6 == 1 ? "OK" : "R")</td>
+                                                                        <td style="text-align: center;">@(item.weekly.issue_7 == 1 ? "OK" : "R")</td>
+                                                                        <td style="text-align: center;">@(item.weekly.issue_8 == 1 ? "OK" : item.weekly.issue_8 == 2 ? "R" : "X")</td>
+                                                                        <td style="text-align: center;">@(item.weekly.note != null ? item.weekly.note : "")</td>
+                                                                        <td style="text-align: center;">@item.weekly.create_by_name</td>
+                                                                        <td style="text-align: center;">@item.weekly.part</td>
+                                                                        <td style="text-align:center;">
+                                                                            <button class="fa fa-edit" style="width: 40%;height: 25px;background: #1b2a47;color: chartreuse;border: 0px;" onclick="OpenModel_Edit('@item.weekly.id','@item.weekly.station_id','@item.station.station_name','@item.weekly.sheilding_mac.Trim()','@item.weekly.issue_1','@item.weekly.issue_2','@item.weekly.issue_3','@item.weekly.issue_4','@item.weekly.issue_5','@item.weekly.issue_6','@item.weekly.issue_7','@item.weekly.issue_8','@(item.weekly.note != null ? item.weekly.note : "")')"></button>
+                                                                            <button class="fa fa-trash" style="width: 40%;height: 25px;background: #1b2a47;color: red;border: 0px;" onclick="Delete('@item.weekly.id')"></button>
+                                                                        </td>
+                                                                    </tr>
+                                                                }
                                                             }
+                                                            catch
+                                                            {
+                                                                <tr></tr>
+                                                                continue;
+                                                            }
+
                                                         }
                                                     }
                                                     else
@@ -344,12 +354,12 @@
                         <td>Tên trạm : </td>
                         <td id="station">
                             @*<select class="" style="width: 165px;height: 40px;border: 1px solid #a58147;border-radius: 20px;">
-                        @foreach(var item in listAllStation)
-                        {
-                            <option value="@item.id">@item.station_name</option>
-                        }
-                    </select>
-                <button class="fa fa-plus" id="btnAddStation"></button>*@
+                                        @foreach(var item in listAllStation)
+                                        {
+                                            <option value="@item.id">@item.station_name</option>
+                                        }
+                                    </select>
+                                <button class="fa fa-plus" id="btnAddStation"></button>*@
                         </td>
                     </tr>
                     <tr style="height:45px;">
@@ -394,14 +404,14 @@
                         </td>
                     </tr>
                     <tr style="height:45px;">
-                       
+
                         <td>Ngoại quan sạch sẽ, tem mác hoàn chỉnh : </td>
                         <td>
                             <input type="radio" id="issue_7_OK" name="issue_7" value="1" /> OK <input type="radio" id="issue_7_NG" name="issue_7" value="2" /> NG
                         </td>
                     </tr>
                     <tr style="height:45px;">
-                        
+
                         <td>Ngoại quan xốp cách âm, bông cách âm không hỏng : </td>
                         <td>
                             <input type="radio" id="issue_8_OK" name="issue_8" value="1" /> OK <input type="radio" id="issue_8_NG" name="issue_8" value="2" /> NG
@@ -511,7 +521,7 @@
         $("#issue_7_NG").prop("checked", false)
         $("#issue_8_OK").prop("checked", false)
         $("#issue_8_NG").prop("checked", false)
-        
+
         $("#note").val("");
         modal.style.display = "block";
     }
@@ -753,7 +763,7 @@
         }
         if (issue_8 == 1) {
             $("#issue_8_OK").prop('checked', true);
-        } else if(issue_8 == 2)  {
+        } else if (issue_8 == 2) {
             $("#issue_8_NG").prop('checked', true);
         }
         $("#note").val(note);

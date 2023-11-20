@@ -593,7 +593,7 @@ $('#new-layout').on('click', async function (e) {
 
     var layoutlength = $('#layout-container [group-layout]').length;
 
-    if (layoutlength > 4) {
+    if (layoutlength > 10) {
         return false;
     }
 

@@ -3159,6 +3159,12 @@
     <Compile Include="Areas\NVIDIA\Entities\Product.cs">
       <DependentUpon>ToolingRoomModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Areas\NVIDIA\Entities\Return.cs">
+      <DependentUpon>ToolingRoomModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\NVIDIA\Entities\ReturnDevice.cs">
+      <DependentUpon>ToolingRoomModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Areas\NVIDIA\Entities\Role.cs">
       <DependentUpon>ToolingRoomModel.tt</DependentUpon>
     </Compile>
@@ -3187,6 +3193,9 @@
       <DependentUpon>ToolingRoomModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Areas\NVIDIA\Entities\UserDepartment.cs">
+      <DependentUpon>ToolingRoomModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\NVIDIA\Entities\UserReturnSign.cs">
       <DependentUpon>ToolingRoomModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Areas\NVIDIA\Entities\UserRole.cs">

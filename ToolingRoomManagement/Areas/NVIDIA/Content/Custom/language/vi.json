@@ -20,7 +20,8 @@
     "device_management": "Quản lý thiết bị",
     "new_device": "Thêm mới thiết bị",
     "new_device_manual": "Thêm mới thủ công",
-    "new_device_bom": "Thêm mới từ BOM",
+    "new_device_bom": "Thêm thiết bị từ BOM",
+    "confirm_device": "Xác nhận thiết bị",
 
     "request_handling": "Xử lý đơn",
     "rq_management": "Quản lý đơn",

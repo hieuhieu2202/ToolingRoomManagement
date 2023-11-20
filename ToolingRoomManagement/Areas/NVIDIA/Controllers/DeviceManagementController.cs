@@ -213,30 +213,31 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
             {
                 var IdLayouts = form["Layout"].Split(',').Select(Int32.Parse).Distinct().ToArray();
 
+                // Remove old layout of device
+                var deviceWarehouseLayouts = db.DeviceWarehouseLayouts.Where(l => l.IdDevice == device.Id).ToList();
+                db.DeviceWarehouseLayouts.RemoveRange(deviceWarehouseLayouts);
+
+                // Add new layout of device
                 var layouts = new List<DeviceWarehouseLayout>();
                 foreach (var IdLayout in IdLayouts)
                 {
-                    var deviceWarehouseLayout = db.DeviceWarehouseLayouts.FirstOrDefault(l => l.IdDevice == device.Id && l.IdWarehouseLayout == IdLayout);
-                    if (deviceWarehouseLayout == null)
+                    var deviceWarehouseLayout = new DeviceWarehouseLayout
                     {
-                        deviceWarehouseLayout = new DeviceWarehouseLayout
-                        {
-                            IdDevice = device.Id,
-                            IdWarehouseLayout = IdLayout
-                        };
-                        db.DeviceWarehouseLayouts.Add(deviceWarehouseLayout);
-                        layouts.Add(deviceWarehouseLayout);
-                    }
-                    else
-                    {
-                        layouts.Add(deviceWarehouseLayout);
-                    }
+                        IdDevice = device.Id,
+                        IdWarehouseLayout = IdLayout,
+                        WarehouseLayout = db.WarehouseLayouts.FirstOrDefault(wl => wl.Id == IdLayout)
+                    };
+                    db.DeviceWarehouseLayouts.Add(deviceWarehouseLayout);
+                    layouts.Add(deviceWarehouseLayout);
                 }
 
                 return layouts;
             }
             else
             {
+                // Remove all layout of device if null
+                var deviceWarehouseLayouts = db.DeviceWarehouseLayouts.Where(l => l.IdDevice == device.Id).ToList();
+                db.DeviceWarehouseLayouts.RemoveRange(deviceWarehouseLayouts);
                 return null;
             }
 
@@ -334,8 +335,8 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                         ImagePath = oldDevice.ImagePath,
                         Type_BOM = oldDevice.Type_BOM,
                     };
-                    // ***
-                    device.SysQuantity = device.RealQty - oldDevice.RealQty - oldDevice.SysQuantity;
+                    // *** Đừng xoá ngoặc :((
+                    device.SysQuantity = device.RealQty - (oldDevice.RealQty - oldDevice.SysQuantity);
 
                     // Add Navigation Data
                     device = AddNavigation(form, device);
