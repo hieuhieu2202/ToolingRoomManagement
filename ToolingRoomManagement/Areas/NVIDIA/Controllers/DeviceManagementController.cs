@@ -326,11 +326,11 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                         QtyConfirm = int.Parse(form["QtyConfirm"]),
                         RealQty = int.Parse(form["RealQty"]),
                         MinQty = int.Parse(form["MinQty"]),
+                        MOQ = int.Parse(form["MOQ"]) != oldDevice.MOQ ? int.Parse(form["MOQ"]) : oldDevice.MOQ,
 
                         // Other data                       
                         Forcast = oldDevice.Forcast,
                         ACC_KIT = oldDevice.ACC_KIT,                       
-                        MOQ = oldDevice.MOQ,
                         CreatedDate = oldDevice.CreatedDate,
                         ImagePath = oldDevice.ImagePath,
                         Type_BOM = oldDevice.Type_BOM,
@@ -570,18 +570,18 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
             var vendorName = worksheet.Cells[row, 10].Value?.ToString();
 
             int minQty = int.TryParse(worksheet.Cells[row, 12].Value?.ToString(), out minQty) ? minQty : 0;
-            var ACC_KIT = worksheet.Cells[row, 13].Value?.ToString();
-            var relation = worksheet.Cells[row, 14].Value?.ToString();
-            var modelName = worksheet.Cells[row, 15].Value?.ToString();
-            var stationName = worksheet.Cells[row, 16].Value?.ToString();
+            var ACC_KIT = worksheet.Cells[row, 15].Value?.ToString();
+            var relation = worksheet.Cells[row, 16].Value?.ToString();
+            //var modelName = worksheet.Cells[row, 15].Value?.ToString();
+            //var stationName = worksheet.Cells[row, 16].Value?.ToString();
 
-            double forcast = double.TryParse(worksheet.Cells[row, 18].Value?.ToString(), out forcast) ? forcast : 0;
-            int lifeCycle = int.TryParse(worksheet.Cells[row, 19].Value?.ToString(), out lifeCycle) ? lifeCycle : 0;
-            var Dynamic_Static = worksheet.Cells[row, 20].Value?.ToString();
-            double deviceBuffer = double.TryParse(worksheet.Cells[row, 21].Value?.ToString(), out deviceBuffer) ? deviceBuffer : 0;
-            int quantity = int.TryParse(worksheet.Cells[row, 22].Value?.ToString(), out quantity) ? quantity : 0;
+            //double forcast = double.TryParse(worksheet.Cells[row, 18].Value?.ToString(), out forcast) ? forcast : 0;
+            //int lifeCycle = int.TryParse(worksheet.Cells[row, 19].Value?.ToString(), out lifeCycle) ? lifeCycle : 0;
+            //var Dynamic_Static = worksheet.Cells[row, 20].Value?.ToString();
+            //double deviceBuffer = double.TryParse(worksheet.Cells[row, 21].Value?.ToString(), out deviceBuffer) ? deviceBuffer : 0;
+            int quantity = int.TryParse(worksheet.Cells[row, 11].Value?.ToString(), out quantity) ? quantity : 0;
 
-            int moq = int.TryParse(worksheet.Cells[row, 24].Value?.ToString(), out moq) ? moq : 0;
+            //int moq = int.TryParse(worksheet.Cells[row, 24].Value?.ToString(), out moq) ? moq : 0;
 
 
 
@@ -602,25 +602,25 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
             #endregion
 
             #region Model
-            Entities.Model model = db.Models.FirstOrDefault(m => m.ModelName == modelName.Trim());
-            if (model == null)
-            {
-                model = new Entities.Model { ModelName = modelName.Trim() };
-                db.Models.Add(model);
-            }
-            device.IdModel = model.Id;
-            device.Model = model;
+            //Entities.Model model = db.Models.FirstOrDefault(m => m.ModelName == modelName.Trim());
+            //if (model == null)
+            //{
+            //    model = new Entities.Model { ModelName = modelName.Trim() };
+            //    db.Models.Add(model);
+            //}
+            //device.IdModel = model.Id;
+            //device.Model = model;
             #endregion
 
             #region Station
-            Entities.Station station = db.Stations.FirstOrDefault(s => s.StationName == stationName.Trim());
-            if (station == null)
-            {
-                station = new Entities.Station { StationName = stationName.Trim() };
-                db.Stations.Add(station);
-            }
-            device.IdStation = station.Id;
-            device.Station = station;
+            //Entities.Station station = db.Stations.FirstOrDefault(s => s.StationName == stationName.Trim());
+            //if (station == null)
+            //{
+            //    station = new Entities.Station { StationName = stationName.Trim() };
+            //    db.Stations.Add(station);
+            //}
+            //device.IdStation = station.Id;
+            //device.Station = station;
             #endregion
 
             #region Group
@@ -653,13 +653,13 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
             device.ACC_KIT = ACC_KIT;
             device.Relation = relation;
 
-            device.Forcast = forcast;
-            device.LifeCycle = lifeCycle;
-            device.Type_BOM = Dynamic_Static;
-            device.Buffer = deviceBuffer;
+            //device.Forcast = forcast;
+            //device.LifeCycle = lifeCycle;
+            //device.Type_BOM = Dynamic_Static;
+            //device.Buffer = deviceBuffer;
             device.Quantity = quantity;
 
-            device.MOQ = moq;
+            //device.MOQ = moq;
 
             device.Status = "Unconfirmed";
             device.CreatedDate = DateTime.Now;
@@ -936,7 +936,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                             var _PN = worksheet.Cells[row, 1].Value?.ToString();
                             var _RequestQty = int.Parse(worksheet.Cells[row, 2].Value?.ToString());
 
-                            var devices = db.Devices.Where(d => d.DeviceCode.ToLower().Trim() == _PN.ToLower().Trim()).ToList();
+                            var devices = db.Devices.Where(d => d.DeviceCode.ToUpper().Trim() == _PN.ToUpper().Trim()).ToList();
                             if (devices.Count > 0)
                             {
                                 string deviceName = "";
@@ -1028,6 +1028,8 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
             }
         }
 
+
+        // Confirm Device
         #region Device Confirm
         [HttpGet]
         public ActionResult ConfirmDevice()

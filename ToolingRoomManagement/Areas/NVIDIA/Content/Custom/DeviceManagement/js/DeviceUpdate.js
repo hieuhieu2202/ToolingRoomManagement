@@ -64,6 +64,7 @@ async function FillEditDeviceData(data) {
     $('#device_edit-Quantity').val(data.device.Quantity);
     $('#device_edit-POQty').val(data.device.POQty ? data.device.POQty : 0);
     $('#device_edit-Unit').val(data.device.Unit);
+    $('#device_edit-MOQ').val(data.device.MOQ ? data.device.MOQ : 0);
 
     $('#device_edit-Relation').val(data.device.Relation);
     $('#device_edit-LifeCycle').val(data.device.LifeCycle);
@@ -151,13 +152,14 @@ function GetModalData() {
     formData.append('Quantity', $('#device_edit-Quantity').val());
     formData.append('POQty', $('#device_edit-POQty').val());
     formData.append('Unit', $('#device_edit-Unit').val());
+    formData.append('MOQ', $('#device_edit-MOQ').val());
+
 
     formData.append('Relation', $('#device_edit-Relation').val());
     formData.append('LifeCycle', $('#device_edit-LifeCycle').val());
     formData.append('QtyConfirm', $('#device_edit-QtyConfirm').val());
     formData.append('RealQty', $('#device_edit-RealQty').val());
-    formData.append('MinQty', $('#device_edit-MinQty').val());
-    
+    formData.append('MinQty', $('#device_edit-MinQty').val());    
 
     formData.append('Product', $('#device_edit-Product').val());
     formData.append('Model', $('#device_edit-Model').val());

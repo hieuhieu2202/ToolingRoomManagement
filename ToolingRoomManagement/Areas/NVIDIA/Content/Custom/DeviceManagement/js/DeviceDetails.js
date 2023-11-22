@@ -47,6 +47,9 @@ async function FillDetailsDeviceData(data) {
     $('#device_details-QtyConfirm').val(data.QtyConfirm);
     $('#device_details-RealQty').val(data.RealQty);
     $('#device_details-POQty').val(data.POQty ? data.POQty : 0);
+    $('#device_details-MOQ').val(data.MOQ ? data.MOQ : 0);
+
+
     $('#device_details-Type').val(data.Type == 'S' ? 'Static' : data.Type == 'D' ? 'Dynamic' : data.Type);
     $('#device_details-Status').val(data.Status);
     $('#device_details-Product').val(data.Product ? data.Product.ProductName : '');

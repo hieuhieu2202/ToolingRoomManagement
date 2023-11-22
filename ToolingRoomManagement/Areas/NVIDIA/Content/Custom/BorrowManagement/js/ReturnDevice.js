@@ -1,4 +1,6 @@
-﻿$(function () {
+﻿var users, roles;
+$(function () {
+    GetUserAndRole();
     GetListBorrowRequests();
 });
 function GetListBorrowRequests() {
@@ -22,6 +24,26 @@ function GetListBorrowRequests() {
         }
     });
 }
+function GetUserAndRole() {
+    $.ajax({
+        type: "GET",
+        url: "/NVIDIA/BorrowManagement/GetUserAndRole",
+        dataType: "json",
+        contentType: "application/json;charset=utf-8",
+        success: function (response) {
+            if (response.status) {
+                users = response.users;
+                roles = response.roles;
+            }
+            else {
+                toastr["error"](response.message, "ERROR");
+            }
+        },
+        error: function (error) {
+            Swal.fire("Something went wrong!", GetAjaxErrorMessage(error), "error");
+        }
+    });
+}
 
 // table
 var table_Borrow;
@@ -30,41 +52,28 @@ async function CreateTableBorrow(borrows) {
 
     $('#table_Borrows-tbody').html('');
     await $.each(borrows, function (no, item) {
-        var dueDate;
-        var currentDate;
-        var overDate = false;
-     
-        // check due date
-        if (item.DateDue) {
-            dueDate = new Date(item.DateDue);
-            currentDate = new Date();
+        var row = $(`<tr class="align-middle" data-id="${item.Id}" title="Double-click to view device details."></tr>`);
 
-            if (currentDate > dueDate) {
-                overDate = true;
-            }
-            else {
-                overDate = false;
-            }
-        }
-        else {
-            overDate = false;
-        }
-
-        var row = $(`<tr class="align-middle" data-id="${item.Id}"></tr>`);
-
+        // ID
+        row.append(`<td>${moment(item.DateBorrow).format('YYYYMMDDHHmm')}-${item.Id}</td>`);
         // Created By
         row.append(CreateTableCellUser(item.User));
         // Created Date
         row.append(`<td>${moment(item.DateBorrow).format('YYYY-MM-DD HH:mm:ss')}</td>`);
         // Due Date
-        row.append(`<td class="${overDate ? 'fw-bold text-danger' : ''}">${item.DateDue ? moment(item.DateDue).format('YYYY-MM-DD HH:mm:ss') : ''}</td>`);
-
-        // Total Quantity       
-        row.append(`<td>${item.BorrowDevices.reduce((acc, bd) => acc + bd.BorrowQuantity, 0)}</td>`);
+        row.append(`<td>${item.DateDue ? moment(item.DateDue).format('YYYY-MM-DD HH:mm:ss') : ''}</td>`);
+        // Return Date
+        row.append(`<td>${item.DateReturn ? moment(item.DateReturn).format('YYYY-MM-DD HH:mm:ss') : ''}</td>`);
+        // Note
+        row.append(`<td title="${item.Note ? item.Note : ''}s">${item.Note ? item.Note : ''}</td>`);
         // Type
         switch (item.Type) {
             case "Borrow": {
                 row.append(`<td><span class="badge bg-primary"><i class="fa-solid fa-left-to-line"></i> Borrow</span></td>`);
+                break;
+            }
+            case "Take": {
+                row.append(`<td><span class="badge bg-secondary"><i class="fa-regular fa-inbox-full"></i> Take</span></td>`);
                 break;
             }
             case "Return": {
@@ -80,6 +89,7 @@ async function CreateTableBorrow(borrows) {
         switch (item.Status) {
             case "Pending": {
                 row.append(`<td><span class="badge bg-warning"><i class="fa-solid fa-timer"></i> Pending</span></td>`);
+                row.addClass('hl-pending');
                 break;
             }
             case "Approved": {
@@ -96,22 +106,22 @@ async function CreateTableBorrow(borrows) {
             }
         }
         // Action
-        row.append(`<td>
-                        <button type="button" class="btn btn-hover p-0 m-0 border-0" data-id="${item.Id}" onclick="Return(this, event)" title="Return"><span class="badge bg-light-info text-info"><i class="fa-solid fa-right-to-line"></i> Return</span></button>
-                   </td>`);
+        row.append(`<td class="order-action d-flex text-center justify-content-center">
+                         <a href="javascript:;" class="text-info bg-light-info border-0" title="Return" data-id="${item.Id}" onclick="Return(${item.Id})"><i class="fa-regular fa-arrow-turn-down-left"></i></a>
+                    </td>`);
 
         $('#table_Borrows-tbody').append(row);
     });
 
     const options = {
-        scrollY: 460,
+        scrollY: 480,
         scrollX: true,
-        order: [1],
+        order: [0],
         autoWidth: false,
         columnDefs: [         
-            { targets: [4, 5], className: "text-center" },
-            { targets: [6], className: "text-end", orderable: false, width: '70px' },
-            { targets: "_all", orderable: true },
+            { targets: [4], visible: false },
+            { targets: [6], className: "text-end", width: '70px' },        
+            { targets: "_all", orderable: false },
         ],
         "lengthMenu": [[10, 15, 25, 50, -1], [10, 15, 25, 50, "All"]]
     };
@@ -120,11 +130,7 @@ async function CreateTableBorrow(borrows) {
 }
 
 // Return
-function Return(elm, e) {
-    e.preventDefault();
-
-    var Id = $(elm).data('id');
-
+function Return(Id) {
     $.ajax({
         type: "GET",
         url: "/NVIDIA/BorrowManagement/GetBorrow?Id=" + Id,
@@ -134,11 +140,13 @@ function Return(elm, e) {
             if (response.status) {
                 var borrow = JSON.parse(response.borrow);
 
+                console.log(borrow);
+
                 CreateReturnModal(borrow);
 
-                $('#ReturnButton').data('id', Id);
+                //$('#ReturnButton').data('id', Id);
 
-                $('#borrow_modal').modal('show');
+                $('#return_modal').modal('show');
             }
             else {
                 toastr["error"](response.message, "ERROR");
@@ -150,226 +158,172 @@ function Return(elm, e) {
     });
 }
 function CreateReturnModal(borrow) {
-    $('#borrow_modal-CardId').val(borrow.User.Username);
-    $('#borrow_modal-Username').val(borrow.User.VnName ? borrow.User.VnName : (borrow.User.CnName ? borrow.User.CnName : (borrow.User.EnName ? borrow.User.EnName : "")));
+    $('#CreateReturnRequest').data('idborrow', borrow.Id);
+    $('#CreateReturnRequest').data('iduser', borrow.User.Id);
 
-    $('#borrow_modal-BorrowDate').val(moment(borrow.DateBorrow).format('YYYY-MM-DDTHH:mm:ss'));
-    $('#borrow_modal-DuaDate').val(moment(borrow.DateDue).format('YYYY-MM-DDTHH:mm:ss'));
-    $('#borrow_modal-ReturnDate').val(moment().format('YYYY-MM-DDTHH:mm:ss'));
+    $('#return_modal-CardId').val(borrow.User.Username);
+    $('#return_modal-Username').val(CreateUserName(borrow.User));
 
-    $('#borrow_modal-Note').html(`<p>${borrow.Note}</p>`);
+    $('#return_modal-BorrowDate').val(moment(borrow.DateBorrow).format('YYYY-MM-DDTHH:mm:ss'));
+    $('#return_modal-DuaDate').val(moment(borrow.DateDue).format('YYYY-MM-DDTHH:mm:ss'));
+    $('#return_modal-ReturnDate').val(moment().format('YYYY-MM-DDTHH:mm:ss'));
 
-    $('#borrow_modal-table-tbody').empty();
+    $('#return_modal-Note').text('');
+
+    $('#return_modal-table-tbody').empty();
     $.each(borrow.BorrowDevices, function (k, item) {
         var borrowQty = item.BorrowQuantity ? item.BorrowQuantity : '';
         var deviceCode = item.Device.DeviceCode ? item.Device.DeviceCode : '';
         var deviceName = item.Device.DeviceName ? item.Device.DeviceName : '';
-        var deviceModel = item.Device.Model ? item.Device.Model.ModelName : '';
-        var deviceStation = item.Device.Station ? item.Device.Station.StationName : '';
+        var unit = item.Device.Unit ? item.Device.Unit : 'NA';
 
-        var row = $('<tr></tr>');
+        var row = $(`<tr data-iddevice="${item.Device.Id}"></tr>`);
         row.append(`<td>${deviceCode}</td>`);
         row.append(`<td>${deviceName}</td>`);
-        row.append(`<td>${deviceModel}</td>`);
-        row.append(`<td>${deviceStation}</td>`);
         row.append(`<td class="text-center">${borrowQty}</td>`);
+        row.append(`<td class="text-center">${unit}</td>`);
+        row.append(`<td><input type="number" class="form-control" placeholder="No return No enter quantity" data-index="${k}" returnqty min="0"/></td>`);
+        row.append(`<td class="text-center"><input class="form-check-input" type="checkbox" data-index="${k}" ng></td>`);
+        row.append(`<td class="text-center"><input class="form-check-input" type="checkbox" data-index="${k}" swap></td>`);
 
-        $('#borrow_modal-table-tbody').append(row);
+        row.dblclick(function (e) {
+            if ($(e.target).is('input')) return;   
+            GetDeviceDetails(item.Device.Id);
+        });
+
+        $('#return_modal-table-tbody').append(row);
+    });
+
+    // sign
+
+    //// Leader
+    $.each(roles, function (k, role) {
+        if (role.Id == 4) {
+            var otp = $(`<option value="${role.Id}">${role.RoleName}</option>`);
+            $('#sign-LeaderRole').append(otp);
+        }
+    });
+    $.each(users, function (k, user) {
+        $.each(user.UserRoles, function (k, UserRole) {
+            if (UserRole.Role.Id == 4) {
+                var opt = CreateUserOption(user);
+                $('#sign-LeaderUser').append(opt);
+            }
+        });
+    });
+    //// WH manager
+    $.each(roles, function (k, role) {
+        if (role.Id == 3) {
+            var otp = $(`<option value="${role.Id}">${role.RoleName}</option>`);
+            $('#sign-WarehouseManagerRole').append(otp);
+        }        
+    });
+    $.each(users, function (k, user) {
+        $.each(user.UserRoles, function (k, UserRole) {
+            if (UserRole.Role.Id == 3) {
+                var opt = CreateUserOption(user);
+                $('#sign-WarehouseManagerUser').append(opt);
+            }   
+        });      
     });
 }
-$('#ReturnButton').on('click', function (e) {
+$('#CreateReturnRequest').click(function (e) {
     e.preventDefault();
 
-    var IdBorrow = $(this).data('id');
+    var IdBorrow = $(this).data('idborrow');
+    var IdUser = $(this).data('iduser');
+    var data = GetDataReturn(IdBorrow, IdUser);
 
     $.ajax({
         type: "POST",
         url: "/NVIDIA/BorrowManagement/ReturnDevices",
-        data: JSON.stringify({ IdBorrow: IdBorrow }),
+        data: JSON.stringify(data),
         dataType: "json",
         contentType: "application/json;charset=utf-8",
         success: function (response) {
             if (response.status) {
-                toastr["success"]("Create Return Reuqest success.", "SUCCRESS");
-
-                var Index = table_Borrow.row(`[data-id="${IdBorrow}"]`).index();
-                table_Borrow.row(Index).remove().draw(false);
-
-                $('#borrow_modal-modal').modal('hide');
+                toastr["success"]("@@", "SUCCRESS");
             }
             else {
                 toastr["error"](response.message, "ERROR");
             }
         },
         error: function (error) {
-            Swal.fire("Something went wrong!", GetAjaxErrorMessage(error), "error");
+            Swal.fire(i18next.t('global.swal_title'), GetAjaxErrorMessage(error), "error");
         }
     });
+
+    console.log(data);
 });
+function GetDataReturn(idborrow, iduser) {
+    var data = {
+        IdBorrow: idborrow,
+        DateReturn: $('#return_modal-ReturnDate').val(),
+        IdUser: iduser,
+        Note: $('#return_modal-Note').val(),
+        Type: "Return",
+        Status: "Pending",
+        ReturnDevices: [],
+        UserReturnSigns: []
+    }
+
+    // Devices
+    var rows = $('#return_modal-table-tbody tr');
+    $.each(rows, function (k, row) {
+        if ($(row).find('[returnqty]').val() > 0) {
+            var ReturnDevice = {
+                IdDevice: $(row).data('iddevice'),
+                ReturnQuantity: $(row).find('[returnqty]').val(),
+                IsNG: $(row).find('[ng]').is(':checked'),
+                IsSwap: $(row).find('[swap]').is(':checked'),
+            }
+            data.ReturnDevices.push(ReturnDevice);
+        }
+    });
+
+    // Sign
+    data.UserReturnSigns.push({
+        SignOrder: 1,
+        Status: "Pending",
+        Type: "Return",
+        IdUser: $('#sign-LeaderUser').val()
+    });
+    data.UserReturnSigns.push({
+        SignOrder: 2,
+        Status: "Waitting",
+        Type: "Return",
+        IdUser: $('#sign-WarehouseManagerUser').val()
+    });
+    return data;
+}
 
 // Details
 $('#table_Borrows tbody').on('dblclick', 'tr', function (event) {
-
     var dataId = $(this).data('id');
-
-    BorrowDetails(dataId);
+    RequestDetails(dataId);
 });
-function BorrowDetails(Id) {
-    //var Id = $(elm).data('id');
+function CreateUserOption(user) {
+    var opt = $(`<option value="${user.Id}"></option>`);
 
-    $.ajax({
-        type: "GET",
-        url: "/NVIDIA/BorrowManagement/GetBorrow?Id=" + Id,
-        dataType: "json",
-        contentType: "application/json;charset=utf-8",
-        success: function (response) {
-            if (response.status) {
-                var borrow = JSON.parse(response.borrow);
+    if (user.VnName && user.VnName != '') {
+        opt.text(`${user.Username} - ${user.VnName}`);
+    }
+    else if (user.CnName && user.CnName != '') {
+        opt.text(`${user.Username} - ${user.CnName}`);
+    }
 
-                CreateModal(borrow);
-
-                $('#borrow_modal').modal('show');
-            }
-            else {
-                toastr["error"](response.message, "ERROR");
-            }
-        },
-        error: function (error) {
-            Swal.fire("Something went wrong!", GetAjaxErrorMessage(error), "error");
-        }
-    });
+    if (user.EnName != null && user.EnName != '') {
+        var addUserEnName = opt.text();
+        addUserEnName += ` (${user.EnName})`;
+        opt.text(addUserEnName);
+    }
+    //if (user.Email != null && user.Email != '') {
+    //    var addUserEnName = opt.text();
+    //    addUserEnName += ` - [${user.Email}]`;
+    //    opt.text(addUserEnName);
+    //}
+    return opt;
 }
-function CreateModal(borrow) {
-    $('#borrow_modal-CardId').val(borrow.User.Username);
-    $('#borrow_modal-Username').val(CreateUserName(borrow.User));
-
-    $('#borrow_modal-Model').val(borrow.Model ? borrow.Model.ModelName ? borrow.Model.ModelName : '' : '');
-    $('#borrow_modal-Station').val(borrow.Station ? borrow.Station.StationName ? borrow.Station.StationName : '' : '');
-
-    $('#borrow_modal-BorrowDate').val(moment(borrow.DateBorrow).format('YYYY-MM-DDTHH:mm:ss'));
-    $('#borrow_modal-DuaDate').val(moment(borrow.DateDue).format('YYYY-MM-DDTHH:mm:ss'));
-    $('#borrow_modal-ReturnDate').val(moment(borrow.DateReturn).format('YYYY-MM-DDTHH:mm:ss'));
-
-    $('#borrow_modal-Note').html(`<p>${borrow.Note}</p>`);
-
-    $('div[typeCheck]').show();
-    $('label[typeName]').html('Date Borrow');
-    if (borrow.Type == 'Return') {
-        $('#borrow_modal-title').text('Return Device Request Details');
-    }
-    else if (borrow.Type == 'Take') {
-        $('#borrow_modal-title').text('Take Device Request Details');
-
-        $('div[typeCheck]').hide();
-        $('label[typeName]').html('Date');
-    }
-    else {
-        $('#borrow_modal-title').text('Borrow Device Request Details');
-    }
-
-    $('#borrow_modal-table-tbody').empty();
-    $.each(borrow.BorrowDevices, function (k, item) {
-        var borrowQty = item.BorrowQuantity ? item.BorrowQuantity : '';
-        var deviceCode = item.Device.DeviceCode ? item.Device.DeviceCode : '';
-        var deviceName = item.Device.DeviceName ? item.Device.DeviceName : '';
-        var deviceModel = item.Device.Model ? item.Device.Model.ModelName : '';
-        var deviceStation = item.Device.Station ? item.Device.Station.StationName : '';
-        var deviceSpecification = item.Device.Specification ? item.Device.Specification : '';
-        var deviceUnit = item.Device.deviceUnit ? item.Device.deviceUnit : '';
-
-        var row = $('<tr></tr>');
-        row.append(`<td>${deviceCode}</td>`);
-        row.append(`<td>${deviceName}</td>`);
-        row.append(`<td>${deviceSpecification}</td>`);
-        row.append(`<td>${deviceModel}</td>`);
-        row.append(`<td>${deviceStation}</td>`);
-        row.append(`<td class="text-center">${deviceUnit}</td>`);
-        row.append(`<td class="text-center">${borrowQty}</td>`);
-
-        $('#borrow_modal-table-tbody').append(row);
-    });
-
-    $('#sign-container').empty();
-    $('#sign-container').append(`<h4 class="font-weight-light text-center text-white py-3">SIGN PROCESS</h4>`);
-    $.each(borrow.UserBorrowSigns, function (k, bs) { //bs == borrow sign
-        var username = CreateUserName(bs.User);
-        var date = moment(bs.DateSign).format('YYYY-MM-DD | h:mm A');
-
-        var title = {
-            Approved: { color: 'success', text: 'Approved', icon: 'check' },
-            Rejected: { color: 'danger', text: 'Rejected', icon: 'xmark' },
-            Pending: { color: 'warning', text: 'Pending', icon: 'timer' },
-            Waitting: { color: 'secondary', text: 'Waitting', icon: 'circle-pause' },
-        }[bs.Status] || { color: 'secondary', text: 'Closed' };
-
-        var line = {
-            top: k === 0 ? '' : 'border-end',
-            bot: (k === 0 && borrow.UserBorrowSigns.length === 1) ? '' : 'border-end'
-        };
-
-        var span = '';
-        switch (bs.Type) {
-            case "Borrow": {
-                span = `<span class="badge bg-primary"><i class="fa-solid fa-left-to-line"></i> Borrow</span>`;
-                break;
-            }
-            case "Take": {
-                span = `<span class="badge bg-secondary"><i class="fa-regular fa-inbox-full"></i> Take</span>`;
-                break;
-            }
-            case "Return": {
-                span = `<span class="badge bg-info"><i class="fa-solid fa-right-to-line"></i> Return</span>`;
-                break;
-            }
-            default: {
-                span = `<td><span class="badge bg-secondary">N/A</span></td>`;
-                break;
-            }
-        }
-
-        var lineDot = `<div class="col-sm-1 text-center flex-column d-none d-sm-flex">
-                           <div class="row h-50">
-                               <div class="col ${line.top}">&nbsp;</div>
-                               <div class="col">&nbsp;</div>
-                           </div>
-                           <h5 class="m-2 red-dot">
-                               <span class="badge rounded-pill bg-${title.color}">&nbsp;</span>
-                           </h5>
-                           <div class="row h-50">
-                               <div class="col ${line.bot}">&nbsp;</div>
-                               <div class="col">&nbsp;</div>
-                           </div>
-                       </div>`;
-        var signCard = `<div class="row">
-                        ${k % 2 === 0 ? '' : '<div class="col-sm"></div>'}
-                        ${k % 2 === 0 ? '' : lineDot}
-                        <div class="col-sm py-2">
-                            <div class="card border-primary shadow radius-15 card-sign">
-                                <div class="card-body">
-                                    <div class="float-end">${date === 'Invalid date' ? '' : date}</div>
-                                    <label class="mb-3"><span class="badge bg-${title.color}"><i class="fa-solid fa-${title.icon}"></i> ${title.text}</span></label>
-                                    <!--<label class="mb-3">${span}</label>-->
-                                    <p class="card-text mb-1">${username}</p>
-                                    <p class="card-text mb-1">${bs.User.Email || ''}</p>
-                                    <button class="btn btn-sm btn-outline-secondary collapsed ${title.text == null ? 'd-none' : title.text != 'Rejected' ? 'd-none' : ''}" type="button" data-bs-target="#details_${k}" data-bs-toggle="collapse" aria-expanded="false">Show Details ▼</button>
-                                    <div class="border collapse" id="details_${k}" style="">
-                                        <div class="p-2 text-monospace">
-                                            <div>${bs.Note}</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        ${k % 2 === 0 ? lineDot : ''}
-                        ${k % 2 === 0 ? '<div class="col-sm"></div>' : ''}
-                    </div>`;
-
-        $('#sign-container').append(signCard);
-    });
-}
-
-
-// other
 function CreateTableCellUser(user) {
     var opt = $(`<td></td>`);
 

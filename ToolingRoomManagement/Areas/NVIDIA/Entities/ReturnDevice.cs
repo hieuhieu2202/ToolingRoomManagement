@@ -18,6 +18,8 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Entities
         public Nullable<int> IdReturn { get; set; }
         public Nullable<int> IdDevice { get; set; }
         public Nullable<int> ReturnQuantity { get; set; }
+        public Nullable<bool> IsNG { get; set; }
+        public Nullable<bool> IsSwap { get; set; }
     
         public virtual Device Device { get; set; }
     }

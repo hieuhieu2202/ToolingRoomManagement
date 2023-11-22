@@ -27,11 +27,13 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Entities
         public string Note { get; set; }
         public string Status { get; set; }
         public string Type { get; set; }
+        public Nullable<int> IdBorrow { get; set; }
     
         public virtual User User { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ReturnDevice> ReturnDevices { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserReturnSign> UserReturnSigns { get; set; }
+        public virtual Borrow Borrow { get; set; }
     }
 }

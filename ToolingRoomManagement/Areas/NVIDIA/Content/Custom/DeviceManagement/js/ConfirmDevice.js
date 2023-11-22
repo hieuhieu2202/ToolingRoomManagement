@@ -4,7 +4,8 @@
 
 // Get Device in Warehouse
 $('#input_WareHouse').change(function () {
-    GetDevices(14);
+    
+    GetDevices($(this).val());
 });
 function GetDevices(IdWarehouse) {
     $.ajax({
@@ -266,6 +267,7 @@ function CreateConfirmModal(device) {
     $('#device_confirm-Buffer').val(device.Buffer * 100);
     $('#device_confirm-POQty').val(0);
     $('#device_confirm-MinQty').val(device.MinQty);
+    $('#device_confirm-MOQ').val(device.MOQ);
 
     $('#device_confirm-Relation').val(device.Relation);
     $('#device_confirm-LifeCycle').val(device.LifeCycle);

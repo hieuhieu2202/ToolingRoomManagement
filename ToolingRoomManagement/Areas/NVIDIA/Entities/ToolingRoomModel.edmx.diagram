@@ -57,13 +57,14 @@
         <EntityTypeShape EntityType="ToolingRoomModel.UserReturnSign" Width="1.5" PointX="13.5" PointY="5.75" />
         <AssociationConnector Association="ToolingRoomModel.FK_ReturnDevice_Device" />
         <AssociationConnector Association="ToolingRoomModel.FK_Return_User" ManuallyRouted="true" >
-          <ConnectorPoint PointX="8.875" PointY="2.3557028274899432" />
-          <ConnectorPoint PointX="15.40625" PointY="2.3557028274899432" />
+          <ConnectorPoint PointX="8.875" PointY="3.024249674479166" />
+          <ConnectorPoint PointX="15.40625" PointY="3.024249674479166" />
           <ConnectorPoint PointX="15.40625" PointY="10.25" />
         </AssociationConnector>
         <AssociationConnector Association="ToolingRoomModel.FK_ReturnDevice_Return" />
         <AssociationConnector Association="ToolingRoomModel.FK_UserReturnSign_Return" />
         <AssociationConnector Association="ToolingRoomModel.FK_UserReturnSign_User" />
+        <AssociationConnector Association="ToolingRoomModel.FK_Return_Borrow" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

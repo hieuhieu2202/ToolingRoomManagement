@@ -30,9 +30,12 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
             {
 
                 List<Borrow> borrows = new List<Borrow>();
-                borrows = db.Borrows.ToList();
+                borrows = db.Borrows.OrderByDescending(b => b.DateBorrow).ToList();
 
-                return Json(new { status = true, borrows = JsonSerializer.Serialize(borrows) }, JsonRequestBehavior.AllowGet);
+                List<Return> returns = new List<Return>();
+                returns = db.Returns.OrderByDescending(r => r.DateReturn).ToList();
+
+                return Json(new { status = true, borrows = borrows, returns }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
@@ -46,7 +49,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
         {
             try
             {
-                Borrow borrow = db.Borrows.FirstOrDefault(b => b.Id == Id);
+                Borrow borrow = db.Borrows.FirstOrDefault(b => b.Id == Id);               
 
                 return Json(new { status = true, borrow = JsonSerializer.Serialize(borrow) }, JsonRequestBehavior.AllowGet);
             }
@@ -456,7 +459,6 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
             try
             {
                 Entities.User user = (Entities.User)Session["SignSession"];
-
                 List<Borrow> borrows = db.Borrows.Where(b => b.IdUser == user.Id && b.Status == "Approved" && (b.Type == "Borrow" || b.Type == "Take")).ToList();
 
                 return Json(new { status = true, borrows = JsonSerializer.Serialize(borrows) }, JsonRequestBehavior.AllowGet);
@@ -467,28 +469,11 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
             }
         }
         [HttpPost]
-        public ActionResult ReturnDevices(int IdBorrow)
+        public ActionResult ReturnDevices(Return data)
         {
             try
             {
-                Borrow borrow = db.Borrows.FirstOrDefault(b => b.Id == IdBorrow);
-                
-
-                borrow.Status = "Pending";
-                borrow.Type = "Return";
-                borrow.DateReturn = DateTime.Now;
-
-                UserBorrowSign WmSign = borrow.UserBorrowSigns.OrderBy(s => s.SignOrder).First();
-                UserBorrowSign newSign = new UserBorrowSign
-                {
-                    IdUser = WmSign.IdUser,
-                    IdBorrow = WmSign.IdBorrow,
-                    SignOrder = borrow.UserBorrowSigns.Count(),
-                    Type = "Return",
-                    Status = "Pending",
-                };               
-                borrow.UserBorrowSigns.Add(newSign);
-
+                db.Returns.Add(data);
                 db.SaveChanges();
 
                 return Json(new { status = true});
@@ -496,6 +481,19 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
             catch (Exception ex)
             {
                 return Json(new { status = false, message = ex.Message });
+            }
+        }
+        public JsonResult GetReturn(int Id)
+        {
+            try
+            {
+                Return _return = db.Returns.FirstOrDefault(b => b.Id == Id);
+
+                return Json(new { status = true, _return }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
 

@@ -164,6 +164,7 @@
           <Property Name="Note" Type="nvarchar" MaxLength="300" />
           <Property Name="Status" Type="nvarchar" MaxLength="50" />
           <Property Name="Type" Type="nvarchar" MaxLength="50" />
+          <Property Name="IdBorrow" Type="int" />
         </EntityType>
         <EntityType Name="ReturnDevice">
           <Key>
@@ -173,6 +174,8 @@
           <Property Name="IdReturn" Type="int" />
           <Property Name="IdDevice" Type="int" />
           <Property Name="ReturnQuantity" Type="int" />
+          <Property Name="IsNG" Type="bit" />
+          <Property Name="IsSwap" Type="bit" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -498,6 +501,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Return_Borrow">
+          <End Role="Borrow" Type="Self.Borrow" Multiplicity="0..1" />
+          <End Role="Return" Type="Self.Return" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Borrow">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Return">
+              <PropertyRef Name="IdBorrow" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Return_User">
           <End Role="User" Type="Self.User" Multiplicity="0..1" />
           <End Role="Return" Type="Self.Return" Multiplicity="*" />
@@ -753,6 +768,10 @@
             <End Role="WarehouseLayout" EntitySet="WarehouseLayout" />
             <End Role="DeviceWarehouseLayout" EntitySet="DeviceWarehouseLayout" />
           </AssociationSet>
+          <AssociationSet Name="FK_Return_Borrow" Association="Self.FK_Return_Borrow">
+            <End Role="Borrow" EntitySet="Borrow" />
+            <End Role="Return" EntitySet="Return" />
+          </AssociationSet>
           <AssociationSet Name="FK_Return_User" Association="Self.FK_Return_User">
             <End Role="User" EntitySet="User" />
             <End Role="Return" EntitySet="Return" />
@@ -960,6 +979,10 @@
           <AssociationSet Name="FK_UserReturnSign_User" Association="ToolingRoomModel.FK_UserReturnSign_User">
             <End Role="User" EntitySet="Users" />
             <End Role="UserReturnSign" EntitySet="UserReturnSigns" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Return_Borrow" Association="ToolingRoomModel.FK_Return_Borrow">
+            <End Role="Borrow" EntitySet="Borrows" />
+            <End Role="Return" EntitySet="Returns" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="Product">
@@ -1569,6 +1592,8 @@
           <NavigationProperty Name="User" Relationship="ToolingRoomModel.FK_Return_User" FromRole="Return" ToRole="User" />
           <NavigationProperty Name="ReturnDevices" Relationship="ToolingRoomModel.FK_ReturnDevice_Return" FromRole="Return" ToRole="ReturnDevice" />
           <NavigationProperty Name="UserReturnSigns" Relationship="ToolingRoomModel.FK_UserReturnSign_Return" FromRole="Return" ToRole="UserReturnSign" />
+          <Property Name="IdBorrow" Type="Int32" />
+          <NavigationProperty Name="Borrow" Relationship="ToolingRoomModel.FK_Return_Borrow" FromRole="Return" ToRole="Borrow" />
         </EntityType>
         <EntityType Name="ReturnDevice">
           <Key>
@@ -1579,6 +1604,8 @@
           <Property Name="IdDevice" Type="Int32" />
           <Property Name="ReturnQuantity" Type="Int32" />
           <NavigationProperty Name="Device" Relationship="ToolingRoomModel.FK_ReturnDevice_Device" FromRole="ReturnDevice" ToRole="Device" />
+          <Property Name="IsNG" Type="Boolean" />
+          <Property Name="IsSwap" Type="Boolean" />
         </EntityType>
         <EntityType Name="UserReturnSign">
           <Key>
@@ -1651,6 +1678,18 @@
             </Principal>
             <Dependent Role="UserReturnSign">
               <PropertyRef Name="IdUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Return_Borrow">
+          <End Type="ToolingRoomModel.Borrow" Role="Borrow" Multiplicity="0..1" />
+          <End Type="ToolingRoomModel.Return" Role="Return" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Borrow">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Return">
+              <PropertyRef Name="IdBorrow" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1922,6 +1961,7 @@
           <EntitySetMapping Name="Returns">
             <EntityTypeMapping TypeName="ToolingRoomModel.Return">
               <MappingFragment StoreEntitySet="Return">
+                <ScalarProperty Name="IdBorrow" ColumnName="IdBorrow" />
                 <ScalarProperty Name="Type" ColumnName="Type" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="Note" ColumnName="Note" />
@@ -1934,6 +1974,8 @@
           <EntitySetMapping Name="ReturnDevices">
             <EntityTypeMapping TypeName="ToolingRoomModel.ReturnDevice">
               <MappingFragment StoreEntitySet="ReturnDevice">
+                <ScalarProperty Name="IsSwap" ColumnName="IsSwap" />
+                <ScalarProperty Name="IsNG" ColumnName="IsNG" />
                 <ScalarProperty Name="ReturnQuantity" ColumnName="ReturnQuantity" />
                 <ScalarProperty Name="IdDevice" ColumnName="IdDevice" />
                 <ScalarProperty Name="IdReturn" ColumnName="IdReturn" />

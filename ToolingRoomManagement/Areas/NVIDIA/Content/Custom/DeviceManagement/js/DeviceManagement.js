@@ -144,7 +144,7 @@ async function CreateTableAddDevice(devices) {
             { targets: [11, 12, 13, 14, 15, 16, 17, 18, 19, 20], className: "text-center" },
             { targets: [20], className: "text-center", width: '120px' },
             
-            { targets: [0, 1, 2, 3, 4, 7, 8, 9,12,13, 21], visible: false },
+            { targets: [0, 2, 3, 4, 7, 8, 9,12,13, 21], visible: false },
         ],
         "lengthMenu": [[10, 15, 25, 50, -1], [10, 15, 25, 50, "All"]],
         dom: "<'row'<'w-auto'B><'col-sm-12 col-md'l><'col-sm-12 col-md'f>>" +
