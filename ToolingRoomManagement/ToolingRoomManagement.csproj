@@ -3592,6 +3592,7 @@
     <Content Include="Areas\NVIDIA\Views\BorrowManagement\_RequestDetails_Modal.cshtml" />
     <Content Include="Areas\NVIDIA\Views\DeviceManagement\ConfirmDevice.cshtml" />
     <Content Include="Areas\NVIDIA\Views\DeviceManagement\_DeviceUpdate_Modal.cshtml" />
+    <Content Include="Areas\NVIDIA\Views\BorrowManagement\_ReturnDetails.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

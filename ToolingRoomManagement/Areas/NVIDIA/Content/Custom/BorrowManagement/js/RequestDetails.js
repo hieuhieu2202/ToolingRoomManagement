@@ -52,20 +52,16 @@ function CreateModal(borrow, showDevice) {
 
     $.each(borrow.BorrowDevices, function (k, item) {
         if (item.Device != null) {
+            var mts = item.Device.Product ? item.Device.Product.MTS: '';
             var borrowQty = item.BorrowQuantity ? item.BorrowQuantity : '';
             var deviceCode = item.Device ? item.Device.DeviceCode ? item.Device.DeviceCode : 'N/A' : '';
             var deviceName = item.Device ? item.Device.DeviceName ? item.Device.DeviceName : 'N/A' : '';
-            var deviceModel = item.Device.Model ? item.Device.Model.ModelName : '';
-            var deviceStation = item.Device.Station ? item.Device.Station.StationName : '';
-            var deviceSpecification = item.Device.Specification ? item.Device.Specification : '';
-            var deviceUnit = item.Device.deviceUnit ? item.Device.deviceUnit : '';
+            var deviceUnit = item.Device.Unit ? item.Device.Unit : '';
 
             var row = $(`<tr data-id="${item.Device.Id}" class="cursor-pointer"></tr>`);
+            row.append(`<td>${mts}</td>`);
             row.append(`<td>${deviceCode}</td>`);
             row.append(`<td>${deviceName}</td>`);
-            row.append(`<td>${deviceSpecification}</td>`);
-            row.append(`<td>${deviceModel}</td>`);
-            row.append(`<td>${deviceStation}</td>`);
             row.append(`<td class="text-center">${deviceUnit}</td>`);
             row.append(`<td class="text-center">${borrowQty}</td>`);
 

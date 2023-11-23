@@ -126,14 +126,14 @@ async function CreateTableAddDevice(devices) {
 
         // 0 MTS
         row.append(`<td>${item.Id}</td>`);
-        // 1 Product Name
-        row.append(`<td title="${(item.Product) ? item.Product.ProductName : ""}">${(item.Product) ? item.Product.ProductName : ""}</td>`);
+        // 1 MTS
+        row.append(`<td title="${(item.Product) ? item.Product.MTS ? item.Product.MTS : "NA" : "NA"}">${(item.Product) ? item.Product.MTS ? item.Product.MTS : "NA" : "NA"}</td>`);
         // 2 Model
         row.append(`<td>${(item.Model) ? item.Model.ModelName : ""}</td>`);
         // 3 Station
         row.append(`<td>${(item.Station) ? item.Station.StationName : ""}</td>`);
         // 4 DeviceCode - PN
-        row.append(`<td data-id="${item.Id}" data-code="${item.DeviceCode}" title="${item.DeviceCode}">${item.DeviceCode}</td>`);
+        row.append(`<td data-id="${item.Id}" data-code="${item.DeviceCode}" title="${item.DeviceCode}">${item.DeviceCode ? item.DeviceCode != 'null' ? item.DeviceCode : 'NA' : "NA"}</td>`);
         // 5 DeviceName
         row.append(`<td title="${item.DeviceName}">${item.DeviceName}</td>`);
         // 6 Group
@@ -150,24 +150,38 @@ async function CreateTableAddDevice(devices) {
         row.append(`<td>${item.Unit ? item.Unit : ''}</td>`);
         // 12 Type
         switch (item.Type) {
-            case "S": {
-                row.append(`<td><span class="text-success fw-bold">Static</span></td>`);
+            case "S":
+            case "Static": {
+                row.append(`<td class="py-0">
+                                <span class="text-success fw-bold">Static</span>
+                                </br>
+                                <span class="text-${item.isConsign ? "warning" : "primary"} fw-bold" style="font-size: 10px;">${item.isConsign ? "Consign" : "Normal"}</span>
+                            </td>`);
                 break;
             }
-            case "D": {
-                row.append(`<td><span class="text-info fw-bold">Dynamic</span></td>`);
-                break;
-            }
-            case "Consign": {
-                row.append(`<td><span class="text-warning fw-bold">Consign</span></td>`);
+            case "D":
+            case "Dynamic": {
+                row.append(`<td class="py-0">
+                                <span class="text-info fw-bold">Dynamic</span>
+                                </br>
+                                <span class="text-${item.isConsign ? "warning" : "primary"} fw-bold" style="font-size: 10px;">${item.isConsign ? "Consign" : "Normal"}</span>
+                            </td>`);
                 break;
             }
             case "Fixture": {
-                row.append(`<td><span class="text-primary fw-bold">Fixture</span></td>`);
+                row.append(`<td class="py-0">
+                                <span class="text-primary fw-bold">Fixture</span>
+                                </br>
+                                <span class="text-${item.isConsign ? "warning" : "primary"} fw-bold" style="font-size: 10px;">${item.isConsign ? "Consign" : "Normal"}</span>
+                            </td>`);
                 break;
             }
             default: {
-                row.append(`<td><span class="text-secondary fw-bold">N/A</span></td>`);
+                row.append(`<td class="py-0">
+                                <span class="text-secondary fw-bold">NA</span>
+                                </br>
+                                <span class="text-${item.isConsign ? "warning" : "primary"} fw-bold" style="font-size: 10px;">${item.isConsign ? "Consign" : "Normal"}</span>
+                            </td>`);
                 break;
             }
         }
@@ -216,6 +230,8 @@ async function CreateTableAddDevice(devices) {
             title += `[${layout.Line}${layout.Floor ? ' - ' + layout.Floor : ''}${layout.Cell ? ' - ' + layout.Cell : ''}], `;
         });
         row.append(`<td title="${title}">${html}</td>`);
+        //16 Sysquantity
+        row.append(`<td>${item.SysQuantity}</td>`);
 
         $('#table_Devices_tbody').append(row);
     });
@@ -230,7 +246,7 @@ async function CreateTableAddDevice(devices) {
         columnDefs: [
             { targets: "_all", orderable: false },
             { targets: [9, 10, 11, 12, 13, 14], className: "text-center" },
-            { targets: [0, 1, 2, 3, 6, 7, 9, 15], visible: false },
+            { targets: [0, 2, 3, 6, 7,8, 9, 15, 16], visible: false },
         ],
         "lengthMenu": [[10, 15, 25, 50, -1], [10, 15, 25, 50, "All"]],
         createdRow: function (row, data, dataIndex) {
@@ -281,9 +297,7 @@ function attachButtonClickEvent(row, data, dataIndex) {
 
 // Details
 $('#table_Devices tbody').on('dblclick', 'tr', function (event) {
-
     var dataId = $(this).data('id');
-
     GetDeviceDetails(dataId);
 });
 
@@ -339,7 +353,6 @@ $('#filter-refresh').click(function (e) {
 
     $('#filter').click();
 });
-
 $('#input_WareHouse').on('change', function (e) {
     e.preventDefault();
 
@@ -385,7 +398,7 @@ $('#CreateBorrowForm').on('click', function (e) {
         tr.append(`<td>${deviceData[2]}</td>`);
         tr.append(`<td>${deviceData[3]}</td>`);
         tr.append(`<td class="text-center">${deviceData[11]}</td>`);
-        tr.append(`<td style="max-width: 120px;"><input class="form-control" type="number" placeholder="max = ${deviceData[10]}" autocomplete="off"></td>`);
+        tr.append(`<td style="max-width: 120px;"><input class="form-control" type="number" placeholder="max = ${deviceData[16]}" autocomplete="off"></td>`);
 
         $('#table_borrow-tbody').append(tr);
     });
@@ -552,32 +565,28 @@ $('#button_send').on('click', function (e) {
                     var deviceData = tableDeviceInfo.row(v).data();
 
                     // Quantity
-                    var oldQtyCell = deviceData[9].split('/');
-
-                    var newRealQuantity = parseInt(oldQtyCell[2] - QtyDevices[k]);
-                    var newQtyCell = `${oldQtyCell[0]} / ${oldQtyCell[1]} / ${newRealQuantity}`;
-
-                    deviceData[9] = newQtyCell;
+                    var oldQuantity = parseInt(deviceData[16]);
+                    deviceData[16] = parseInt(deviceData[16] - BorrowData.QtyDevices[k]);
 
                     // Status
-                    var bufferString = deviceData[8].replace("%", "");
+                    var bufferString = deviceData[9].replace("%", "");
                     var buffernumber = parseFloat(bufferString) / 100;
-                    var quantityNumber = parseInt(oldQtyCell[0]);
+                    var quantityNumber = parseInt(deviceData[16]);
 
-                    if (newRealQuantity < (quantityNumber * buffernumber)) {
+                    if (quantityNumber <= (oldQuantity * buffernumber)) {
                         // nếu realQty < giới hạn
                         // lớn hơn 1: báo warning
                         // bằng 0   : báo danger
-                        if (newRealQuantity >= 1) {
+                        if (quantityNumber > 0) {
                             tableDeviceInfo.row(v).nodes().to$().addClass('bg-light-danger');
-                            deviceData[11] = '<span class="badge bg-danger">Out Range</span>';
+                            deviceData[13] = '<span class="badge bg-danger">Out Range</span>';
 
                             tableDeviceInfo.row(v).data(deviceData).draw(false); // cập nhật data của row
                             attachButtonClickEvent(tableDeviceInfo.row(v).node(), deviceData, v); // add lại sự kiện
                         }
                         else {
                             tableDeviceInfo.row(v).nodes().to$().addClass('bg-dark');
-                            deviceData[11] = '<span class="badge bg-secondary">Locked</span>';
+                            deviceData[13] = '<span class="badge bg-secondary">Locked</span>';
 
                             tableDeviceInfo.row(v).data(deviceData).draw(false); // cập nhật data của row
                         }

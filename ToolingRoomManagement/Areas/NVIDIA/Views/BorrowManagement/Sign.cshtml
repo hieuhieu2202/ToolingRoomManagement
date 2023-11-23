@@ -122,8 +122,11 @@
     </div>
 </div>
 
+
+
 <!-- Borrow Request modal -->
 @Html.Partial("~/Areas/NVIDIA/Views/BorrowManagement/_RequestDetails_Modal.cshtml")
+@Html.Partial("~/Areas/NVIDIA/Views/BorrowManagement/_ReturnDetails.cshtml")
 
 <!-- Details modal -->
 @Html.Partial("~/Areas/NVIDIA/Views/DeviceManagement/_DeviceDetails_Modal.cshtml")
@@ -137,4 +140,5 @@
     <script src="~/Areas/NVIDIA/Content/Custom/BorrowManagement/js/BorrowSign.js?v=@Guid.NewGuid()"></script>
     <script src="~/Areas/NVIDIA/Content/Custom/BorrowManagement/js/RequestDetails.js?v=@Guid.NewGuid()"></script>
     <script src="~/Areas/NVIDIA/Content/Custom/DeviceManagement/js/DeviceDetails.js?v=@Guid.NewGuid()"></script>
+    <script src="~/Areas/NVIDIA/Content/Custom/BorrowManagement/js/ReturnDetails.js?v=@Guid.NewGuid()"></script>
 }

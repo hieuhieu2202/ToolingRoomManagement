@@ -176,12 +176,14 @@ function CreateReturnModal(borrow) {
         var deviceCode = item.Device.DeviceCode ? item.Device.DeviceCode : '';
         var deviceName = item.Device.DeviceName ? item.Device.DeviceName : '';
         var unit = item.Device.Unit ? item.Device.Unit : 'NA';
+        var mts = item.Device.Product.MTS;
 
         var row = $(`<tr data-iddevice="${item.Device.Id}"></tr>`);
+        row.append(`<td>${mts}</td>`);
         row.append(`<td>${deviceCode}</td>`);
         row.append(`<td>${deviceName}</td>`);
-        row.append(`<td class="text-center">${borrowQty}</td>`);
         row.append(`<td class="text-center">${unit}</td>`);
+        row.append(`<td class="text-center">${borrowQty}</td>`);      
         row.append(`<td><input type="number" class="form-control" placeholder="No return No enter quantity" data-index="${k}" returnqty min="0"/></td>`);
         row.append(`<td class="text-center"><input class="form-check-input" type="checkbox" data-index="${k}" ng></td>`);
         row.append(`<td class="text-center"><input class="form-check-input" type="checkbox" data-index="${k}" swap></td>`);
@@ -258,7 +260,6 @@ $('#CreateReturnRequest').click(function (e) {
 function GetDataReturn(idborrow, iduser) {
     var data = {
         IdBorrow: idborrow,
-        DateReturn: $('#return_modal-ReturnDate').val(),
         IdUser: iduser,
         Note: $('#return_modal-Note').val(),
         Type: "Return",

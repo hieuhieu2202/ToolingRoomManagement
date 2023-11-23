@@ -1,19 +1,19 @@
 ﻿$(function () {
     GetUserSigns();
 });
-$(document).off('focusin.modal');
 function GetUserSigns(IsTable = true) {
     $.ajax({
         type: "POST",
-        url: "/NVIDIA/BorrowManagement/GetUserBorrowSigns",
+        url: "/NVIDIA/BorrowManagement/GetUserSigns",
         dataType: "json",
         contentType: "application/json;charset=utf-8",
         success: function (response) {
             if (response.status) {
-                var borrows = JSON.parse(response.borrows);
+                var borrows = response.borrows;
+                var returns = response.returns;
 
-                const counts = {
-                    totalRequest: borrows.length,
+                var counts = {
+                    totalRequest: borrows.length + returns.length,
                     totalPending: 0,
                     totalApproved: 0,
                     totalRejected: 0
@@ -22,13 +22,17 @@ function GetUserSigns(IsTable = true) {
                 $.each(borrows, function (index, borrow) {
                     counts["total" + borrow.Status]++;
                 });
+                $.each(returns, function (index, _return) {
+                    counts["total" + _return.Status]++;
+                });
+
                 $('#info-request').text(counts.totalRequest);
                 $('#info-pending').text(counts.totalPending);
                 $('#info-approved').text(counts.totalApproved);
                 $('#info-rejected').text(counts.totalRejected);
 
                 if (IsTable)
-                    CreateTableBorrow(borrows);
+                    CreateTableBorrow(borrows, returns);
             }
             else {
                 toastr["error"](response.message, "ERROR");
@@ -42,12 +46,20 @@ function GetUserSigns(IsTable = true) {
 
 // table
 var table_Borrow;
-async function CreateTableBorrow(borrows) {
+async function CreateTableBorrow(borrows, returns) {
     if (table_Borrow) table_Borrow.destroy();
 
     $('#table_Borrows-tbody').html('');
+
+    // Borrow
     await $.each(borrows, function (no, item) {
-        var row = DrawDatatableRow(no, item);
+        var row = DrawDatatableRow_Borrow(no, item);
+
+        $('#table_Borrows-tbody').append(row);
+    });
+    // Return
+    await $.each(returns, function (no, item) {
+        var row = DrawDatatableRow_Return(no, item);
 
         $('#table_Borrows-tbody').append(row);
     });
@@ -55,12 +67,13 @@ async function CreateTableBorrow(borrows) {
     const options = {
         scrollY: 480,
         scrollX: true,
-        order: [],
+        order: [2, 'desc'],
         autoWidth: false,
-        columnDefs: [           
-            { targets: [7], className: "text-center", orderable: false, width: "50px" },
-            { targets: [4, 5, 6], className: "text-center", orderable: true, width: "100px" },
+        columnDefs: [                 
+            { targets: [7], className: "text-center", width: "50px" },
+            { targets: [4, 5, 6], className: "text-center", width: "100px" },
             { targets: "_all", orderable: false },
+            
         ],
         "lengthMenu": [[10, 15, 25, 50, -1], [10, 15, 25, 50, "All"]]
     };
@@ -74,31 +87,58 @@ $('#table_Borrows tbody').on('dblclick', 'tr', function (event) {
     var Id = $(this).data('id');
     var IdSign = $(this).data('idsign')
 
-    Details(Id, IdSign);
+    if ($(this).is('[IsBorrow]')) {
+        Details(Id, IdSign, 'B');
+    }
+    else if ($(this).is('[IsReturn]')) {
+        Details(Id, IdSign, 'R');
+    }
+
+    
 });
-function Details(Id, IdSign) {
-    if (IdSign) {
-        $('#action_footer').show();
-        $('#normal_footer').hide();
+function Details(Id, IdSign, type) {
 
-        $('#action_footer button[btn-reject]').data('id', Id);
-        $('#action_footer button[btn-reject]').data('idsign', IdSign);
+    if (type == "B") {
+        if (IdSign) {
+            $('#borrow_action_footer').show();
+            $('#borrow_normal_footer').hide();
 
-        $('#action_footer button[btn-approve]').data('id', Id);      
-        $('#action_footer button[btn-approve]').data('idsign', IdSign);
+            $('#borrow_action_footer button[btn-reject]').data('id', Id);
+            $('#borrow_action_footer button[btn-reject]').data('idsign', IdSign);
+
+            $('#borrow_action_footer button[btn-approve]').data('id', Id);
+            $('#borrow_action_footer button[btn-approve]').data('idsign', IdSign);
+        }
+        else {
+            $('#borrow_action_footer').hide();
+            $('#borrow_normal_footer').show()
+        }
+
+        RequestDetails(Id);
     }
-    else {
-        $('#action_footer').hide();
-        $('#normal_footer').show();
+    else if (type == "R") {
+        if (IdSign) {
+            $('#return_action_footer').show();
+            $('#return_normal_footer').hide();
+
+            $('#return_action_footer button[btn-reject]').data('id', Id);
+            $('#return_action_footer button[btn-reject]').data('idsign', IdSign);
+
+            $('#return_action_footer button[btn-approve]').data('id', Id);
+            $('#return_action_footer button[btn-approve]').data('idsign', IdSign);
+        }
+        else {
+            $('#return_action_footer').hide();
+            $('#return_normal_footer').show();
+        }
+
+        ReturnDetails(Id);
     }
-
-    RequestDetails(Id);
-
     
 }
 
 // approve
-function Approve(elm, e) {
+function Approve(elm, e, type) {
     e.preventDefault();
 
     var Ids = {
@@ -107,80 +147,159 @@ function Approve(elm, e) {
     };
     var Index = table_Borrow.row(`[data-id="${Ids.IdBorrow}"]`).index();
 
-    $.ajax({
-        type: "GET",
-        url: "/NVIDIA/BorrowManagement/GetBorrow?Id=" + Ids.IdBorrow,
-        dataType: "json",
-        contentType: "application/json;charset=utf-8",
-        success: async function (response) {
-            if (response.status) {
-                var borrow = JSON.parse(response.borrow);
+    // Borrow
+    if (type == "B") {
+        $.ajax({
+            type: "GET",
+            url: "/NVIDIA/BorrowManagement/GetBorrow?Id=" + Ids.IdBorrow,
+            dataType: "json",
+            contentType: "application/json;charset=utf-8",
+            success: async function (response) {
+                if (response.status) {
+                    var borrow = JSON.parse(response.borrow);
 
-                var html = $(`<p>User: <b>${CreateUserName(borrow.User)}</b></p>`);              
+                    var html = $(`<p>User: <b>${CreateUserName(borrow.User)}</b></p>`);
 
-                html.append(`<p>Created Date: <b>${moment(borrow.DateBorrow).format('YYYY-MM-DD HH:mm:ss') }</b></p>`);
+                    html.append(`<p>Created Date: <b>${moment(borrow.DateBorrow).format('YYYY-MM-DD HH:mm:ss')}</b></p>`);
 
-                Swal.fire({
-                    title: `<strong style="font-size: 25px;">Do you want Approve this borrow request?</strong>`,
-                    html: html,
-                    icon: 'question',
-                    reverseButtons: false,
-                    confirmButtonText: 'Approve',
-                    showCancelButton: true,
-                    cancelButtonText: 'Cancel',
-                    buttonsStyling: false,
-                    reverseButtons: true,
-                    customClass: {
-                        cancelButton: 'btn btn-outline-secondary fw-bold me-3',
-                        confirmButton: 'btn btn-success fw-bold'
-                    },
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        $.ajax({
-                            type: "POST",
-                            url: "/NVIDIA/BorrowManagement/Approve",
-                            data: JSON.stringify(Ids),
-                            dataType: "json",
-                            contentType: "application/json;charset=utf-8",
-                            success: function (response) {
-                                if (response.status) {
-                                    var row = DrawDatatableArray(JSON.parse(response.borrow));
+                    Swal.fire({
+                        title: `<strong style="font-size: 25px;">Do you want Approve this borrow request?</strong>`,
+                        html: html,
+                        icon: 'question',
+                        reverseButtons: false,
+                        confirmButtonText: 'Approve',
+                        showCancelButton: true,
+                        cancelButtonText: 'Cancel',
+                        buttonsStyling: false,
+                        reverseButtons: true,
+                        customClass: {
+                            cancelButton: 'btn btn-outline-secondary fw-bold me-3',
+                            confirmButton: 'btn btn-success fw-bold'
+                        },
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            $.ajax({
+                                type: "POST",
+                                url: "/NVIDIA/BorrowManagement/Borrow_Approve",
+                                data: JSON.stringify(Ids),
+                                dataType: "json",
+                                contentType: "application/json;charset=utf-8",
+                                success: function (response) {
+                                    if (response.status) {
+                                        var row = DrawDatatableArray(response.borrow);
 
 
 
-                                    var rows = table_Borrow.row(Index).data(row).draw(false);
-                                    var rowElement = rows.node();
-                                    if (rowElement) {
-                                        rowElement.classList.remove('hl-pending');
+                                        var rows = table_Borrow.row(Index).data(row).draw(false);
+                                        var rowElement = rows.node();
+                                        if (rowElement) {
+                                            rowElement.classList.remove('hl-pending');
+                                        }
+
+                                        GetUserSigns(false);
+
+                                        toastr["success"]("Borrow request was Approved.", "SUCCRESS");
+
+                                        $('#borrow_modal').modal('hide');
                                     }
-
-                                    GetUserSigns(false);
-
-                                    toastr["success"]("Borrow request was Approved.", "SUCCRESS");
-
-                                    $('#borrow_modal').modal('hide');
+                                    else {
+                                        toastr["error"](response.message, "ERROR");
+                                    }
+                                },
+                                error: function (error) {
+                                    Swal.fire("Something went wrong!", GetAjaxErrorMessage(error), "error");
                                 }
-                                else {
-                                    toastr["error"](response.message, "ERROR");
+                            });
+                        }
+                    });
+                }
+                else {
+                    toastr["error"](response.message, "ERROR");
+                }
+            },
+            error: function (error) {
+                Swal.fire("Something went wrong!", GetAjaxErrorMessage(error), "error");
+            }
+        });
+    }
+    // Return
+    else if (type == "R") {
+        $.ajax({
+            type: "GET",
+            url: "/NVIDIA/BorrowManagement/GetReturn?Id=" + Ids.IdBorrow,
+            dataType: "json",
+            contentType: "application/json;charset=utf-8",
+            success: async function (response) {
+                if (response.status) {
+                    var borrow = response._return;
+
+                    var html = $(`<p>User: <b>${CreateUserName(borrow.User)}</b></p>`);
+
+                    html.append(`<p>Created Date: <b>${moment(borrow.DateReturn).format('YYYY-MM-DD HH:mm:ss')}</b></p>`);
+
+                    Swal.fire({
+                        title: `<strong style="font-size: 25px;">Do you want Approve this borrow request?</strong>`,
+                        html: html,
+                        icon: 'question',
+                        reverseButtons: false,
+                        confirmButtonText: 'Approve',
+                        showCancelButton: true,
+                        cancelButtonText: 'Cancel',
+                        buttonsStyling: false,
+                        reverseButtons: true,
+                        customClass: {
+                            cancelButton: 'btn btn-outline-secondary fw-bold me-3',
+                            confirmButton: 'btn btn-success fw-bold'
+                        },
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            $.ajax({
+                                type: "POST",
+                                url: "/NVIDIA/BorrowManagement/Approve",
+                                data: JSON.stringify(Ids),
+                                dataType: "json",
+                                contentType: "application/json;charset=utf-8",
+                                success: function (response) {
+                                    if (response.status) {
+                                        var row = DrawDatatableArray(JSON.parse(response.borrow));
+
+
+
+                                        var rows = table_Borrow.row(Index).data(row).draw(false);
+                                        var rowElement = rows.node();
+                                        if (rowElement) {
+                                            rowElement.classList.remove('hl-pending');
+                                        }
+
+                                        GetUserSigns(false);
+
+                                        toastr["success"]("Borrow request was Approved.", "SUCCRESS");
+
+                                        $('#borrow_modal').modal('hide');
+                                    }
+                                    else {
+                                        toastr["error"](response.message, "ERROR");
+                                    }
+                                },
+                                error: function (error) {
+                                    Swal.fire("Something went wrong!", GetAjaxErrorMessage(error), "error");
                                 }
-                            },
-                            error: function (error) {
-                                Swal.fire("Something went wrong!", GetAjaxErrorMessage(error), "error");
-                            }
-                        });
-                    }
-                });
+                            });
+                        }
+                    });
+                }
+                else {
+                    toastr["error"](response.message, "ERROR");
+                }
+            },
+            error: function (error) {
+                Swal.fire("Something went wrong!", GetAjaxErrorMessage(error), "error");
             }
-            else {
-                toastr["error"](response.message, "ERROR");
-            }
-        },
-        error: function (error) {
-            Swal.fire("Something went wrong!", GetAjaxErrorMessage(error), "error");
-        }
-    });
+        });
+    }
+    
 }
-function Reject(elm, e) {
+function Reject(elm, e, type) {
     e.preventDefault();
 
     var Ids = {
@@ -189,83 +308,167 @@ function Reject(elm, e) {
     };
     var Index = table_Borrow.row(`[data-id="${Ids.IdBorrow}"]`).index();
 
-    $.ajax({
-        type: "GET",
-        url: "/NVIDIA/BorrowManagement/GetBorrow?Id=" + Ids.IdBorrow,
-        dataType: "json",
-        contentType: "application/json;charset=utf-8",
-        success: async function (response) {
-            if (response.status) {
-                var borrow = JSON.parse(response.borrow);
+    // Borrow
+    if (type == "B") {
+        $.ajax({
+            type: "GET",
+            url: "/NVIDIA/BorrowManagement/GetBorrow?Id=" + Ids.IdBorrow,
+            dataType: "json",
+            contentType: "application/json;charset=utf-8",
+            success: async function (response) {
+                if (response.status) {
+                    var borrow = JSON.parse(response.borrow);
 
 
-                var html = $(`<div></div>`);
-                html.append(`<p>User: <b>${CreateUserName(borrow.User)}</b></p>`);
-                html.append(`<p>Created Date: <b>${moment(borrow.DateBorrow).format('YYYY-MM-DD HH:mm:ss')}</b></p>`);
-                html.append(`<div class="text-start">
+                    var html = $(`<div></div>`);
+                    html.append(`<p>User: <b>${CreateUserName(borrow.User)}</b></p>`);
+                    html.append(`<p>Created Date: <b>${moment(borrow.DateBorrow).format('YYYY-MM-DD HH:mm:ss')}</b></p>`);
+                    html.append(`<div class="text-start">
                                  <label class="form-label">Note</label>
                                  <textarea class="form-control" rows="3" style="resize: none" id="reject-Note"></textarea>
                              </div>`);
-                Swal.fire({
-                    title: `<strong style="font-size: 25px;">Do you want Reject this borrow request?</strong>`,
-                    html: html,
-                    icon: 'question',
-                    reverseButtons: false,
-                    confirmButtonText: 'Reject',
-                    showCancelButton: true,
-                    cancelButtonText: 'Cancel',
-                    buttonsStyling: false,
-                    reverseButtons: true,
-                    customClass: {
-                        cancelButton: 'btn btn-outline-secondary fw-bold me-3',
-                        confirmButton: 'btn btn-danger fw-bold'
-                    },
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        Ids.Note = $('#reject-Note').val();
+                    Swal.fire({
+                        title: `<strong style="font-size: 25px;">Do you want Reject this borrow request?</strong>`,
+                        html: html,
+                        icon: 'question',
+                        reverseButtons: false,
+                        confirmButtonText: 'Reject',
+                        showCancelButton: true,
+                        cancelButtonText: 'Cancel',
+                        buttonsStyling: false,
+                        reverseButtons: true,
+                        customClass: {
+                            cancelButton: 'btn btn-outline-secondary fw-bold me-3',
+                            confirmButton: 'btn btn-danger fw-bold'
+                        },
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            Ids.Note = $('#reject-Note').val();
 
-                        $.ajax({
-                            type: "POST",
-                            url: "/NVIDIA/BorrowManagement/Reject",
-                            data: JSON.stringify(Ids),
-                            dataType: "json",
-                            contentType: "application/json;charset=utf-8",
-                            success: function (response) {
-                                if (response.status) {
-                                    var row = DrawDatatableArray(JSON.parse(response.borrow));                                    
+                            $.ajax({
+                                type: "POST",
+                                url: "/NVIDIA/BorrowManagement/Reject",
+                                data: JSON.stringify(Ids),
+                                dataType: "json",
+                                contentType: "application/json;charset=utf-8",
+                                success: function (response) {
+                                    if (response.status) {
+                                        var row = DrawDatatableArray(JSON.parse(response.borrow));
 
-                                    var rows = table_Borrow.row(Index).data(row).draw(false);
-                                    var rowElement = rows.node();
-                                    if (rowElement) {
-                                        rowElement.classList.remove('hl-pending');
+                                        var rows = table_Borrow.row(Index).data(row).draw(false);
+                                        var rowElement = rows.node();
+                                        if (rowElement) {
+                                            rowElement.classList.remove('hl-pending');
+                                        }
+
+                                        GetUserSigns(false);
+
+                                        toastr["success"]("Borrow request was Approved.", "SUCCRESS");
                                     }
-
-                                    GetUserSigns(false);
-
-                                    toastr["success"]("Borrow request was Approved.", "SUCCRESS");
+                                    else {
+                                        toastr["error"](response.message, "ERROR");
+                                    }
+                                },
+                                error: function (error) {
+                                    Swal.fire("Something went wrong!", GetAjaxErrorMessage(error), "error");
                                 }
-                                else {
-                                    toastr["error"](response.message, "ERROR");
-                                }
-                            },
-                            error: function (error) {
-                                Swal.fire("Something went wrong!", GetAjaxErrorMessage(error), "error");
-                            }
-                        });  
+                            });
 
-                        $('#borrow_modal').modal('hide');
-                    }
-                });
-                
+                            $('#borrow_modal').modal('hide');
+                        }
+                    });
+
+                }
+                else {
+                    toastr["error"](response.message, "ERROR");
+                }
+            },
+            error: function (error) {
+                Swal.fire("Something went wrong!", GetAjaxErrorMessage(error), "error");
             }
-            else {
-                toastr["error"](response.message, "ERROR");
+        });
+    }
+    // Return
+    else if (type == "R") {
+        $.ajax({
+            type: "GET",
+            url: "/NVIDIA/BorrowManagement/GetReturn?Id=" + Ids.IdBorrow,
+            dataType: "json",
+            contentType: "application/json;charset=utf-8",
+            success: async function (response) {
+                if (response.status) {
+                    var borrow = JSON.parse(response.borrow);
+
+
+                    var html = $(`<div></div>`);
+                    html.append(`<p>User: <b>${CreateUserName(borrow.User)}</b></p>`);
+                    html.append(`<p>Created Date: <b>${moment(borrow.DateBorrow).format('YYYY-MM-DD HH:mm:ss')}</b></p>`);
+                    html.append(`<div class="text-start">
+                                 <label class="form-label">Note</label>
+                                 <textarea class="form-control" rows="3" style="resize: none" id="reject-Note"></textarea>
+                             </div>`);
+                    Swal.fire({
+                        title: `<strong style="font-size: 25px;">Do you want Reject this borrow request?</strong>`,
+                        html: html,
+                        icon: 'question',
+                        reverseButtons: false,
+                        confirmButtonText: 'Reject',
+                        showCancelButton: true,
+                        cancelButtonText: 'Cancel',
+                        buttonsStyling: false,
+                        reverseButtons: true,
+                        customClass: {
+                            cancelButton: 'btn btn-outline-secondary fw-bold me-3',
+                            confirmButton: 'btn btn-danger fw-bold'
+                        },
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            Ids.Note = $('#reject-Note').val();
+
+                            $.ajax({
+                                type: "POST",
+                                url: "/NVIDIA/BorrowManagement/Reject",
+                                data: JSON.stringify(Ids),
+                                dataType: "json",
+                                contentType: "application/json;charset=utf-8",
+                                success: function (response) {
+                                    if (response.status) {
+                                        var row = DrawDatatableArray(JSON.parse(response.borrow));
+
+                                        var rows = table_Borrow.row(Index).data(row).draw(false);
+                                        var rowElement = rows.node();
+                                        if (rowElement) {
+                                            rowElement.classList.remove('hl-pending');
+                                        }
+
+                                        GetUserSigns(false);
+
+                                        toastr["success"]("Borrow request was Approved.", "SUCCRESS");
+                                    }
+                                    else {
+                                        toastr["error"](response.message, "ERROR");
+                                    }
+                                },
+                                error: function (error) {
+                                    Swal.fire("Something went wrong!", GetAjaxErrorMessage(error), "error");
+                                }
+                            });
+
+                            $('#borrow_modal').modal('hide');
+                        }
+                    });
+
+                }
+                else {
+                    toastr["error"](response.message, "ERROR");
+                }
+            },
+            error: function (error) {
+                Swal.fire("Something went wrong!", GetAjaxErrorMessage(error), "error");
             }
-        },
-        error: function (error) {
-            Swal.fire("Something went wrong!", GetAjaxErrorMessage(error), "error");
-        }
-    });
+        });
+    }
+    
 }
 
 // other
@@ -286,8 +489,7 @@ function CreateTableCellUser(user) {
     }
     return opt;
 }
-
-function DrawDatatableRow(no, item) {
+function DrawDatatableRow_Borrow(no, item) {
     var showButton = false;
     var idSign = 0;
     var signStatus = '';
@@ -307,10 +509,10 @@ function DrawDatatableRow(no, item) {
         }
     });
 
-    var row = $(`<tr class="align-middle" data-id="${item.Id}" data-idsign="${idSign}"></tr>`);
+    var row = $(`<tr class="align-middle" data-id="${item.Id}" data-idsign="${idSign}" IsBorrow></tr>`);
 
     // ID
-    row.append(`<td>${moment(item.DateBorrow).format('YYYYMMDDHHmm')}-${item.Id}</td>`);
+    row.append(`<td>B-${moment(item.DateBorrow).format('YYYYMMDDHHmm')}-${item.Id}</td>`);
     // Created By
     row.append(CreateTableCellUser(item.User));
     // Created Date
@@ -354,9 +556,7 @@ function DrawDatatableRow(no, item) {
             row.append(`<td><span class="badge bg-secondary">N/A</span></td>`);
             break;
         }
-    }
-    
-    
+    }    
 
     // Sign
     switch (signStatus) {
@@ -383,13 +583,117 @@ function DrawDatatableRow(no, item) {
     // Action
     if (showButton)
         row.append(`<td class="order-action d-flex text-center justify-content-center">
-                        <a href="javascript:;" class="text-info    bg-light-info    border-0" title="Details" onclick="Details(${item.Id}, ${idSign})"><i class="fa-regular fa-circle-info"></i></a>
-                        <a href="javascript:;" class="text-success bg-light-success border-0" title="Approve" data-id="${item.Id}" data-idsign="${idSign}" onclick="Approve(this, event)"><i class="fa-duotone fa-check"></i></a>                                
-                        <a href="javascript:;" class="text-danger  bg-light-danger  border-0" title="Reject " data-id="${item.Id}" data-idsign="${idSign}" onclick="Reject(this, event) "><i class="fa-solid fa-x"></i></a>   
+                        <a href="javascript:;" class="text-info    bg-light-info    border-0" title="Details" onclick="Details(${item.Id}, ${idSign}, 'B')"><i class="fa-regular fa-circle-info"></i></a>
+                        <a href="javascript:;" class="text-success bg-light-success border-0" title="Approve" data-id="${item.Id}" data-idsign="${idSign}" onclick="Approve(this, event, 'B')"><i class="fa-duotone fa-check"></i></a>                                
+                        <a href="javascript:;" class="text-danger  bg-light-danger  border-0" title="Reject " data-id="${item.Id}" data-idsign="${idSign}" onclick="Reject(this, event, 'B') "><i class="fa-solid fa-x"></i></a>   
                     </td>`);
     else
         row.append(`<td class="order-action d-flex text-center justify-content-center">
-                        <a href="javascript:;" class="text-info    bg-light-info    border-0" title="Details" onclick="Details(${item.Id}, ${idSign})"><i class="fa-regular fa-circle-info"></i></a> 
+                        <a href="javascript:;" class="text-info    bg-light-info    border-0" title="Details" onclick="Details(${item.Id}, ${idSign}, 'B')"><i class="fa-regular fa-circle-info"></i></a> 
+                    </td>`);
+    return row;
+}
+function DrawDatatableRow_Return(no, item) {
+    var showButton = false;
+    var idSign = 0;
+    var signStatus = '';
+    $.each(item.UserReturnSigns, function (k, v) {
+        if (v.Status == "Pending") {
+            if (v.User.Username == $('#CardID').text()) {
+                showButton = true;
+                idSign = v.Id;
+                signStatus = v.Status;
+                return false;
+            }
+        }
+        else {
+            if (v.User.Username == $('#CardID').text()) {
+                signStatus = v.Status;
+            }
+        }
+    });
+
+    var row = $(`<tr class="align-middle" data-id="${item.Id}" data-idsign="${idSign}" IsReturn></tr>`);
+
+    // ID
+    row.append(`<td>R-${moment(item.DateReturn).format('YYYYMMDDHHmm')}-${item.Id}</td>`);
+    // Created By
+    row.append(CreateTableCellUser(item.User));
+    // Created Date
+    row.append(`<td>${moment(item.DateReturn).format('YYYY-MM-DD HH:mm:ss')}</td>`);
+    // Note
+    row.append(`<td title="${item.Note}">${item.Note ? item.Note : ''}</td>`);
+    // Type
+    switch (item.Type) {
+        case "Borrow": {
+            row.append(`<td><span class="badge bg-primary"><i class="fa-solid fa-left-to-line"></i> Borrow</span></td>`);
+            break;
+        }
+        case "Return": {
+            row.append(`<td><span class="badge bg-info"><i class="fa-solid fa-right-to-line"></i> Return</span></td>`);
+            break;
+        }
+        case "Take": {
+            row.append(`<td><span class="badge bg-secondary"><i class="fa-regular fa-inbox-full"></i> Take</span></td>`);
+            break;
+        }
+        default: {
+            row.append(`<td><span class="badge bg-secondary">N/A</span></td>`);
+            break;
+        }
+    }
+    // Status
+    switch (item.Status) {
+        case "Pending": {
+            row.append(`<td><span class="badge bg-warning"><i class="fa-solid fa-timer"></i> Pending</span></td>`);
+            break;
+        }
+        case "Approved": {
+            row.append(`<td><span class="badge bg-success"><i class="fa-solid fa-check"></i> Approved</span></td>`);
+            break;
+        }
+        case "Rejected": {
+            row.append(`<td><span class="badge bg-danger"><i class="fa-solid fa-xmark"></i> Rejected</span></td>`);
+            break;
+        }
+        default: {
+            row.append(`<td><span class="badge bg-secondary">N/A</span></td>`);
+            break;
+        }
+    }
+
+    // Sign
+    switch (signStatus) {
+        case "Approved": {
+            row.append(`<td><span class="badge bg-success"><i class="fa-solid fa-check"></i> Approved</span></td>`);
+
+            break;
+        }
+        case "Rejected": {
+            row.append(`<td><span class="badge bg-danger"><i class="fa-solid fa-xmark"></i> Rejected</span></td>`);
+            //row.addClass('hl-danger');
+            break;
+        }
+        case "Pending": {
+            row.append(`<td><span class="badge bg-warning"><i class="fa-solid fa-timer"></i> Pending</span></td>`);
+            row.addClass('hl-pending');
+            break;
+        }
+        default: {
+            row.append(`<td><span class="badge bg-secondary"><i class="fa-regular fa-circle-pause"></i> Waitting</span></td>`);
+            break;
+        }
+    }
+    // Action
+    if (showButton)
+        row.append(`<td class="order-action d-flex text-center justify-content-center">
+                        <a href="javascript:;" class="text-info    bg-light-info    border-0" title="Details" onclick="Details(${item.Id}, ${idSign}, 'R')"><i class="fa-regular fa-circle-info"></i></a>
+                        <a href="javascript:;" class="text-success bg-light-success border-0" title="Approve" data-id="${item.Id}" data-idsign="${idSign}" onclick="Approve(this, event, 'R')"><i class="fa-duotone fa-check"></i></a>                                
+                        <a href="javascript:;" class="text-danger  bg-light-danger  border-0" title="Reject " data-id="${item.Id}" data-idsign="${idSign}" onclick="Reject(this, event, 'R') "><i class="fa-solid fa-x"></i></a>   
+                    </td>`);
+    else
+        row.append(`<td class="order-action d-flex text-center justify-content-center">
+                        <a href="javascript:;" class="text-info    bg-light-info    border-0" title="Details" onclick="Details(${item.Id}, ${idSign}, 'R')"><i class="fa-regular fa-circle-info"></i></a> 
                     </td>`);
     return row;
 }

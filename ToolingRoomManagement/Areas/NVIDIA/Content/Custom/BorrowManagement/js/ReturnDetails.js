@@ -10,7 +10,7 @@
 
                 CreateReturnDetailsModal(_return, showDevice);
 
-                $('#borrow_modal').modal('show');
+                $('#return_modal').modal('show');
             }
             else {
                 toastr["error"](response.message, "ERROR");
@@ -22,52 +22,49 @@
     });
 }
 function CreateReturnDetailsModal(_return, showDevice) {
-    $('#borrow_modal-CardId').val(_return.User.Username);
-    $('#borrow_modal-Username').val(CreateUserName(_return.User));
+    $('#return_modal-CardId').val(_return.User.Username);
+    $('#return_modal-Username').val(CreateUserName(_return.User));
 
-    $('#borrow_modal-Model').val(_return.Model ? _return.Model.ModelName ? _return.Model.ModelName : '' : '');
-    $('#borrow_modal-Station').val(_return.Station ? _return.Station.StationName ? _return.Station.StationName : '' : '');
+    $('#return_modal-BorrowDate').val(moment(_return.DateBorrow).format('YYYY-MM-DDTHH:mm:ss'));
+    $('#return_modal-DuaDate').val(moment(_return.Borrow.DateDue).format('YYYY-MM-DDTHH:mm:ss'));
+    $('#return_modal-ReturnDate').val(moment(_return.DateReturn).format('YYYY-MM-DDTHH:mm:ss'));
 
-    $('#borrow_modal-BorrowDate').val(moment(_return.DateBorrow).format('YYYY-MM-DDTHH:mm:ss'));
-    $('#borrow_modal-DuaDate').val(moment(_return.DateDue).format('YYYY-MM-DDTHH:mm:ss'));
-    $('#borrow_modal-ReturnDate').val(moment(_return.DateReturn).format('YYYY-MM-DDTHH:mm:ss'));
-
-    $('#borrow_modal-Note').html(`<p>${_return.Note}</p>`);
+    $('#return_modal-Note').html(`<p>${_return.Note}</p>`);
 
     $('div[checkType]').show();
     $('label[typeName]').html('Date Borrow');
     if (_return.Type == 'Return') {
-        $('#borrow_modal-title').text('Return Device Request Details');
+        $('#return_modal-title').text('Return Device Request Details');
     }
     else if (_return.Type == 'Take') {
-        $('#borrow_modal-title').text('Take Device Request Details');
+        $('#return_modal-title').text('Take Device Request Details');
         $('div[checkType]').hide();
         $('label[typeName]').html('Date');
     }
     else {
-        $('#borrow_modal-title').text('Borrow Device Request Details');
+        $('#return_modal-title').text('Borrow Device Request Details');
     }
 
-    $('#borrow_modal-table-tbody').empty();
+    $('#return_modal-table-tbody').empty();
 
     $.each(_return.ReturnDevices, function (k, item) {
         if (item.Device != null) {
-            var borrowQty = item.BorrowQuantity ? item.BorrowQuantity : '';
+            var return_qty = item.ReturnQuantity ? item.ReturnQuantity : '';
             var deviceCode = item.Device ? item.Device.DeviceCode ? item.Device.DeviceCode : 'N/A' : '';
             var deviceName = item.Device ? item.Device.DeviceName ? item.Device.DeviceName : 'N/A' : '';
-            var deviceModel = item.Device.Model ? item.Device.Model.ModelName : '';
-            var deviceStation = item.Device.Station ? item.Device.Station.StationName : '';
-            var deviceSpecification = item.Device.Specification ? item.Device.Specification : '';
-            var deviceUnit = item.Device.deviceUnit ? item.Device.deviceUnit : '';
+            var unit = item.Device.Unit ? item.Device.Unit : '';
+            var mts = item.Device.Product.MTS;
+            var isNG = item.IsNG
+            var isSwap = item.IsSwap;
 
             var row = $(`<tr data-id="${item.Device.Id}" class="cursor-pointer"></tr>`);
+            row.append(`<td>${mts}</td>`);
             row.append(`<td>${deviceCode}</td>`);
             row.append(`<td>${deviceName}</td>`);
-            row.append(`<td>${deviceSpecification}</td>`);
-            row.append(`<td>${deviceModel}</td>`);
-            row.append(`<td>${deviceStation}</td>`);
-            row.append(`<td class="text-center">${deviceUnit}</td>`);
-            row.append(`<td class="text-center">${borrowQty}</td>`);
+            row.append(`<td class="text-center">${unit}</td>`);
+            row.append(`<td class="text-center">${return_qty}</td>`);
+            row.append(`<td class="text-center">${isNG ? '<i class="fa-duotone fa-check text-success"></i>' : ''}</td>`);
+            row.append(`<td class="text-center">${isSwap ? '<i class="fa-duotone fa-check text-success"></i>' : ''}</td>`);
 
             if (showDevice) {
                 row.dblclick(function () {
@@ -76,12 +73,12 @@ function CreateReturnDetailsModal(_return, showDevice) {
                 });
             }
 
-            $('#borrow_modal-table-tbody').append(row);
+            $('#return_modal-table-tbody').append(row);
         }
     });
 
-    $('#sign-container').empty();
-    $('#sign-container').append(`<h4 class="font-weight-light text-center text-white py-3">SIGN PROCESS</h4>`);
+    $('#return_modal-sign-container').empty();
+    $('#return_modal-sign-container').append(`<h4 class="font-weight-light text-center text-white py-3">SIGN PROCESS</h4>`);
     $.each(_return.UserReturnSigns, function (k, bs) { //bs == borrow sign
         var username = CreateUserName(bs.User);
         var date = moment(bs.DateSign).format('YYYY-MM-DD | h:mm A');
@@ -155,6 +152,6 @@ function CreateReturnDetailsModal(_return, showDevice) {
                         ${k % 2 === 0 ? '<div class="col-sm"></div>' : ''}
                     </div>`;
 
-        $('#sign-container').append(signCard);
+        $('#return_modal-sign-container').append(signCard);
     });
 }

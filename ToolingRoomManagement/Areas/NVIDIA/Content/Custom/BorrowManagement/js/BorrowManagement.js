@@ -55,7 +55,7 @@ async function CreateTableBorrow(borrows, returns) {
         var row = $(`<tr class="align-middle" data-id="${item.Id}" title="Double-click to view device details." IsBorrow></tr>`);
 
         // ID
-        row.append(`<td>${moment(item.DateBorrow).format('YYYYMMDDHHmm')}-${item.Id}</td>`);
+        row.append(`<td>B-${moment(item.DateBorrow).format('YYYYMMDDHHmm')}-${item.Id}</td>`);
         // Created By
         row.append(CreateTableCellUser(item.User));
         // Created Date
@@ -117,17 +117,17 @@ async function CreateTableBorrow(borrows, returns) {
     // Return
     await $.each(returns, function (no, item) {
         var row = $(`<tr class="align-middle" data-id="${item.Id}" title="Double-click to view device details." IsReturn></tr>`);
-
         // ID
-        row.append(`<td>${moment(item.DateBorrow).format('YYYYMMDDHHmm')}-${item.Id}</td>`);
+        row.append(`<td>R-${moment(item.DateReturn).format('YYYYMMDDHHmm')}-${item.Id}</td>`);
         // Created By
         row.append(CreateTableCellUser(item.User));
         // Created Date
-        row.append(`<td>${moment(item.DateBorrow).format('YYYY-MM-DD HH:mm:ss')}</td>`);
+        row.append(`<td>${moment(item.DateReturn).format('YYYY-MM-DD HH:mm:ss')}</td>`);
         // Due Date
         row.append(`<td>${item.DateDue ? moment(item.DateDue).format('YYYY-MM-DD HH:mm:ss') : ''}</td>`);
         // Return Date
-        row.append(`<td>${item.DateReturn ? moment(item.DateReturn).format('YYYY-MM-DD HH:mm:ss') : ''}</td>`);
+        var LastSignDate = $(item.UserReturnSigns).last()[0].DateSign;
+        row.append(`<td>${LastSignDate ? moment(item.DateReturn).format('YYYY-MM-DD HH:mm:ss') : ''}</td>`);
         // Note
         row.append(`<td title="${item.Note ? item.Note : ''}s">${item.Note ? item.Note : ''}</td>`);
         // Type
@@ -181,7 +181,7 @@ async function CreateTableBorrow(borrows, returns) {
     const options = {
         scrollY: 480,
         scrollX: true,
-        order: [2],
+        order: [2, 'desc'],
         autoWidth: false,
         columnDefs: [            
             { targets: [6, 7], className: "text-center" },

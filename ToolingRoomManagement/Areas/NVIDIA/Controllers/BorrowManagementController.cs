@@ -67,216 +67,38 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
 
             return View();
         }
-        public ActionResult GetUserBorrowSigns()
+        public ActionResult GetUserSigns()
         {
             Entities.User user = (Entities.User)Session["SignSession"];
             List<Entities.UserRole> UserRoles = db.UserRoles.Where(ur => ur.IdUser == user.Id).ToList();
 
-            List<Borrow> borrows = new List<Borrow>();
-            List<UserBorrowSign> userBorrowSigns = db.UserBorrowSigns
-                                                     .Where(u => u.IdUser == user.Id && u.Status != "Waitting" && u.Status != "Closed")
-                                                     .OrderByDescending(u => u.Id)
-                                                     .ToList();
-            foreach(var userBorrowSign in userBorrowSigns)
-            {
-                if(!borrows.Any(b => b.Id == userBorrowSign.IdBorrow))
-                {
-                    Borrow borrow = db.Borrows.FirstOrDefault(b => b.Id == userBorrowSign.IdBorrow);
-                    borrow.UserBorrowSigns = borrow.UserBorrowSigns.OrderBy(u => u.SignOrder).ToList();
-                    borrows.Add(borrow);
-                }             
-            }
+            List<Borrow> borrows = db.Borrows.Where(b => b.UserBorrowSigns.FirstOrDefault(s => s.IdUser == user.Id).IdUser == user.Id ).OrderByDescending(b => b.Id).ToList();
+            List<Return> returns = db.Returns.Where(b => b.UserReturnSigns.FirstOrDefault(s => s.IdUser == user.Id).IdUser == user.Id).OrderByDescending(b => b.Id).ToList();
 
-            // if admin
-            if(UserRoles.Count > 0)
-            {
-                foreach (var userRole in UserRoles)
-                {
-                    var role = db.Roles.FirstOrDefault(r => r.Id == userRole.IdRole);
-                    if (role.RoleName == "admin")
-                    {
-                        borrows = db.Borrows.OrderByDescending(b => b.Id).ToList();
-                        break;
-                    }
-                }
-            } 
 
-            return Json(new {status = true, borrows = JsonSerializer.Serialize(borrows) });
+            //// if admin
+            //if(UserRoles.Count > 0)
+            //{
+            //    foreach (var userRole in UserRoles)
+            //    {
+            //        var role = db.Roles.FirstOrDefault(r => r.Id == userRole.IdRole);
+            //        if (role.RoleName == "admin")
+            //        {
+            //            borrows = db.Borrows.OrderByDescending(b => b.Id).ToList();
+            //            break;
+            //        }
+            //    }
+            //} 
+
+            return Json(new {status = true, borrows, returns });
         }
-        public ActionResult Approve(int IdBorrow, int IdSign)
-        {
-            try
-            {
-                Borrow borrow = db.Borrows.FirstOrDefault(b => b.Id == IdBorrow);
-
-                if (borrow == null)
-                {
-                    return Json(new { status = false, message = "Borrow request not found." });
-                }
-
-                UserBorrowSign us = borrow.UserBorrowSigns.FirstOrDefault(u => u.Status == "Pending");
-
-                if (us == null)
-                {
-                    return Json(new { status = false, message = "No pending approval process found." });
-                }
-
-                if (us.Id != IdSign)
-                {
-                    return Json(new { status = false, message = "Invalid approval signature." });
-                }
-
-                us.Status = "Approved";
-                us.DateSign = DateTime.Now;
-
-                // check xem đơn được ký hoàn toàn
-                if (us.SignOrder == (borrow.UserBorrowSigns.Count - 1))
-                {
-                    borrow.Status = "Approved";
-                    
-                    if (us.Type == "Return")
-                    {
-                        //return device if type == return
-                        foreach (var borrowDevice in borrow.BorrowDevices)
-                        {
-                            borrowDevice.Device.RealQty += borrowDevice.BorrowQuantity;
-                            borrowDevice.Device.Status = Data.Common.CheckStatus(borrowDevice.Device);
-                        }
-
-                        // Send Mail
-                        Data.Common.SendApproveMail(borrow);
-                    }
-                    else
-                    {
-                        // trừ vào số lượng thực tế 
-                        foreach (var borrowDevice in borrow.BorrowDevices)
-                        {
-                            borrowDevice.Device.RealQty -= borrowDevice.BorrowQuantity;
-                            borrowDevice.Device.Status = Data.Common.CheckStatus(borrowDevice.Device);
-                        }
-                      
-                        // Send Mail
-                        Data.Common.SendApproveMail(borrow);
-                    }
-
-                }
-                else
-                {
-                    int nextSignOrder = (int)us.SignOrder + 1;
-                    UserBorrowSign nextSign = borrow.UserBorrowSigns.FirstOrDefault(u => u.SignOrder == nextSignOrder);
-                    nextSign.Status = "Pending";
-                    // Send Mail
-                    Data.Common.SendSignMail(borrow);
-                }
-
-                db.SaveChanges();
-                return Json(new { status = true, borrow = JsonSerializer.Serialize(borrow) });
-            }
-            catch (Exception ex)
-            {
-                return Json(new { status = false, message = ex.Message });
-            }
-        }
-        public ActionResult Reject(int IdBorrow, int IdSign, string Note)
-        {
-            try
-            {
-                Borrow borrow = db.Borrows.FirstOrDefault(b => b.Id == IdBorrow);
-                borrow = db.Borrows.FirstOrDefault(b => b.Id == IdBorrow);
-
-                if (borrow != null)
-                {
-                    UserBorrowSign us = borrow.UserBorrowSigns.FirstOrDefault(u => u.Status == "Pending");
-
-                    if(borrow.Type == "Borrow" || borrow.Type == "Take")
-                    {
-                        if (us.Id == IdSign)
-                        {
-                            us.Status = "Rejected";
-                            us.DateSign = DateTime.Now;
-                            us.Note = Note;
-
-                            borrow.Status = "Rejected";
-
-                            // return quantity
-                            foreach (var borrowDevice in borrow.BorrowDevices)
-                            {
-                                borrowDevice.Device.SysQuantity += borrowDevice.BorrowQuantity;
-                                borrowDevice.Device.Status = Data.Common.CheckStatus(borrowDevice.Device);
-                            }
-
-
-                            // close sign
-                            foreach (var sign in borrow.UserBorrowSigns)
-                            {
-                                if (sign.SignOrder > us.SignOrder)
-                                {
-                                    sign.Status = "Closed";
-                                }
-                            }
-
-                            // Send Mail
-                            Data.Common.SendRejectMail(borrow);
-
-
-                            db.SaveChanges();
-                            return Json(new { status = true, borrow = JsonSerializer.Serialize(borrow) });
-                        }
-                        else
-                        {
-                            return Json(new { status = false, message = "Sign not found." });
-                        }
-                    }
-                    else // Type = "Return"
-                    {
-                        if (us.Id == IdSign)
-                        {
-                            us.Status = "Rejected";
-                            us.DateSign = DateTime.Now;
-                            us.Note = Note;
-
-                            borrow.Status = "Rejected";
-
-                            // close sign
-                            foreach (var sign in borrow.UserBorrowSigns)
-                            {
-                                if (sign.SignOrder > us.SignOrder)
-                                {
-                                    sign.Status = "Closed";
-                                }
-                            }
-
-                            // Send Mail
-                            Data.Common.SendRejectMail(borrow);
-
-
-                            db.SaveChanges();
-                            return Json(new { status = true, borrow = JsonSerializer.Serialize(borrow) });
-                        }
-                        else
-                        {
-                            return Json(new { status = false, message = "Sign not found." });
-                        }
-                    }
-                }
-                else
-                {
-                    return Json(new { status = false, message = "Borrow request is empty." });
-                }
-            }
-            catch (Exception ex)
-            {
-                return Json(new { status = false, message = ex.Message });
-            }
-        }
-        
+               
         // Borrow
         [HttpGet]
         public ActionResult BorrowDevice()
         {
             return View();
         }
-
         [HttpPost]
         public ActionResult BorrowDevice(int[] IdDevices, int[] QtyDevices, int[] SignProcess, string UserBorrow, DateTime BorrowDate, DateTime? DueDate,string Model, string Station, string Note)
         {
@@ -402,7 +224,6 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 return Json(new { status = false, message = ex.Message });
             }
         }
-
         [HttpPost]
         public JsonResult GetWarehouseDevices(int IdWarehouse)
         {
@@ -427,7 +248,6 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 return Json(new { status = false, message = ex.Message });
             }
         }
-
         [HttpGet]
         public JsonResult GetUserAndRole()
         {
@@ -444,6 +264,141 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
             catch (Exception ex)
             {
                 return Json(new { status = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        public ActionResult Borrow_Approve(int IdBorrow, int IdSign)
+        {
+            try
+            {
+                Borrow borrow = db.Borrows.FirstOrDefault(b => b.Id == IdBorrow);
+                if (borrow == null) return Json(new { status = false, message = "Borrow request not found." });
+                UserBorrowSign userBorrowSign = borrow.UserBorrowSigns.FirstOrDefault(u => u.Status == "Pending");
+                if (userBorrowSign == null) return Json(new { status = false, message = "No pending approval process found." });
+                if (userBorrowSign.Id != IdSign) return Json(new { status = false, message = "Invalid approval signature." });
+
+                userBorrowSign.Status = "Approved";
+                userBorrowSign.DateSign = DateTime.Now;
+
+                // check xem đơn được ký hoàn toàn
+                if (userBorrowSign.SignOrder == (borrow.UserBorrowSigns.Count - 1))
+                {
+                    borrow.Status = "Approved";
+                    // trừ vào số lượng thực tế 
+                    foreach (var borrowDevice in borrow.BorrowDevices)
+                    {
+                        borrowDevice.Device.RealQty -= borrowDevice.BorrowQuantity;
+                        borrowDevice.Device.Status = Data.Common.CheckStatus(borrowDevice.Device);
+                    }
+                    // Send Mail
+                    //Data.Common.SendApproveMail(borrow);
+                }
+                else
+                {
+                    int nextSignOrder = (int)us.SignOrder + 1;
+                    UserBorrowSign nextSign = borrow.UserBorrowSigns.FirstOrDefault(u => u.SignOrder == nextSignOrder);
+                    nextSign.Status = "Pending";
+                    // Send Mail
+                    //Data.Common.SendSignMail(borrow);
+                }
+
+                db.SaveChanges();
+                return Json(new { status = true, borrow });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = false, message = ex.Message });
+            }
+        }
+        public ActionResult Borrow_Reject(int IdBorrow, int IdSign, string Note)
+        {
+            try
+            {
+                Borrow borrow = db.Borrows.FirstOrDefault(b => b.Id == IdBorrow);
+                borrow = db.Borrows.FirstOrDefault(b => b.Id == IdBorrow);
+
+                if (borrow != null)
+                {
+                    UserBorrowSign us = borrow.UserBorrowSigns.FirstOrDefault(u => u.Status == "Pending");
+
+                    if (borrow.Type == "Borrow" || borrow.Type == "Take")
+                    {
+                        if (us.Id == IdSign)
+                        {
+                            us.Status = "Rejected";
+                            us.DateSign = DateTime.Now;
+                            us.Note = Note;
+
+                            borrow.Status = "Rejected";
+
+                            // return quantity
+                            foreach (var borrowDevice in borrow.BorrowDevices)
+                            {
+                                borrowDevice.Device.SysQuantity += borrowDevice.BorrowQuantity;
+                                borrowDevice.Device.Status = Data.Common.CheckStatus(borrowDevice.Device);
+                            }
+
+
+                            // close sign
+                            foreach (var sign in borrow.UserBorrowSigns)
+                            {
+                                if (sign.SignOrder > us.SignOrder)
+                                {
+                                    sign.Status = "Closed";
+                                }
+                            }
+
+                            // Send Mail
+                            Data.Common.SendRejectMail(borrow);
+
+
+                            db.SaveChanges();
+                            return Json(new { status = true, borrow });
+                        }
+                        else
+                        {
+                            return Json(new { status = false, message = "Sign not found." });
+                        }
+                    }
+                    else // Type = "Return"
+                    {
+                        if (us.Id == IdSign)
+                        {
+                            us.Status = "Rejected";
+                            us.DateSign = DateTime.Now;
+                            us.Note = Note;
+
+                            borrow.Status = "Rejected";
+
+                            // close sign
+                            foreach (var sign in borrow.UserBorrowSigns)
+                            {
+                                if (sign.SignOrder > us.SignOrder)
+                                {
+                                    sign.Status = "Closed";
+                                }
+                            }
+
+                            // Send Mail
+                            Data.Common.SendRejectMail(borrow);
+
+
+                            db.SaveChanges();
+                            return Json(new { status = true, borrow = JsonSerializer.Serialize(borrow) });
+                        }
+                        else
+                        {
+                            return Json(new { status = false, message = "Sign not found." });
+                        }
+                    }
+                }
+                else
+                {
+                    return Json(new { status = false, message = "Borrow request is empty." });
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = false, message = ex.Message });
             }
         }
 

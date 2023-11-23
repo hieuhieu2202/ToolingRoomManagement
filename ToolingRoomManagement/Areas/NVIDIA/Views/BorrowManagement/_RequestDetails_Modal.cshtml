@@ -1,5 +1,5 @@
 ﻿<!-- Borrow Request modal -->
-<div class="modal fade" id="borrow_modal" aria-hidden="true">
+<div class="modal fade" id="borrow_modal" aria-hidden="true" data-bs-focus="false">
     <div class="modal-dialog modal-xl modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
@@ -50,11 +50,9 @@
                     <table class="table table-bordered table-hover" id="borrow_modal-table">
                         <thead>
                             <tr>
+                                <th style="min-width: 120px;">MTS</th>
                                 <th style="min-width: 120px;">PN</th>
                                 <th>Description</th>
-                                <th>Specification</th>
-                                <th>Model</th>
-                                <th>Station</th>
                                 <th class="text-center">Unit</th>
                                 <th class="text-danger text-center" style="width: 200px;">Quantity</th>
                             </tr>
@@ -70,7 +68,13 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <div class="w-100 text-center" id="borrow_action_footer" style="display: none;">
+                    <button type="button" class="btn btn-outline-danger" btn-reject onclick="Reject(this, event, 'B')"><i class="bx bx-x"></i>Reject</button>
+                    <button type="button" class="btn btn-success ms-3" btn-approve onclick="Approve(this, event, 'B')"><i class="bx bx-check"></i>Approve</button>
+                </div>
+                <div id="borrow_normal_footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
             </div>
         </div>
     </div>
