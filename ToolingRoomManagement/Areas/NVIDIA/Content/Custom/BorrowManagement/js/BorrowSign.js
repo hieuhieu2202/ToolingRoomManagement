@@ -156,7 +156,7 @@ function Approve(elm, e, type) {
             contentType: "application/json;charset=utf-8",
             success: async function (response) {
                 if (response.status) {
-                    var borrow = JSON.parse(response.borrow);
+                    var borrow = response.borrow;
 
                     var html = $(`<p>User: <b>${CreateUserName(borrow.User)}</b></p>`);
 
@@ -255,15 +255,13 @@ function Approve(elm, e, type) {
                         if (result.isConfirmed) {
                             $.ajax({
                                 type: "POST",
-                                url: "/NVIDIA/BorrowManagement/Approve",
-                                data: JSON.stringify(Ids),
+                                url: "/NVIDIA/BorrowManagement/Return_Approve",
+                                data: JSON.stringify({ IdReturn: Ids.IdBorrow, IdSign: Ids.IdSign }),
                                 dataType: "json",
                                 contentType: "application/json;charset=utf-8",
                                 success: function (response) {
                                     if (response.status) {
-                                        var row = DrawDatatableArray(JSON.parse(response.borrow));
-
-
+                                        var row = DrawDatatableArray(response._return, 'R');
 
                                         var rows = table_Borrow.row(Index).data(row).draw(false);
                                         var rowElement = rows.node();
@@ -273,7 +271,7 @@ function Approve(elm, e, type) {
 
                                         GetUserSigns(false);
 
-                                        toastr["success"]("Borrow request was Approved.", "SUCCRESS");
+                                        toastr["success"]("Return request was Approved.", "SUCCRESS");
 
                                         $('#borrow_modal').modal('hide');
                                     }
@@ -317,7 +315,7 @@ function Reject(elm, e, type) {
             contentType: "application/json;charset=utf-8",
             success: async function (response) {
                 if (response.status) {
-                    var borrow = JSON.parse(response.borrow);
+                    var borrow = response.borrow;
 
 
                     var html = $(`<div></div>`);
@@ -347,13 +345,13 @@ function Reject(elm, e, type) {
 
                             $.ajax({
                                 type: "POST",
-                                url: "/NVIDIA/BorrowManagement/Reject",
+                                url: "/NVIDIA/BorrowManagement/Borrow_Reject",
                                 data: JSON.stringify(Ids),
                                 dataType: "json",
                                 contentType: "application/json;charset=utf-8",
                                 success: function (response) {
                                     if (response.status) {
-                                        var row = DrawDatatableArray(JSON.parse(response.borrow));
+                                        var row = DrawDatatableArray(response.borrow, 'B');
 
                                         var rows = table_Borrow.row(Index).data(row).draw(false);
                                         var rowElement = rows.node();
@@ -363,7 +361,7 @@ function Reject(elm, e, type) {
 
                                         GetUserSigns(false);
 
-                                        toastr["success"]("Borrow request was Approved.", "SUCCRESS");
+                                        toastr["success"]("Borrow request was Rejected.", "SUCCRESS");
                                     }
                                     else {
                                         toastr["error"](response.message, "ERROR");
@@ -397,7 +395,7 @@ function Reject(elm, e, type) {
             contentType: "application/json;charset=utf-8",
             success: async function (response) {
                 if (response.status) {
-                    var borrow = JSON.parse(response.borrow);
+                    var borrow = response._return;
 
 
                     var html = $(`<div></div>`);
@@ -427,8 +425,8 @@ function Reject(elm, e, type) {
 
                             $.ajax({
                                 type: "POST",
-                                url: "/NVIDIA/BorrowManagement/Reject",
-                                data: JSON.stringify(Ids),
+                                url: "/NVIDIA/BorrowManagement/Return_Reject",
+                                data: JSON.stringify({ IdReturn: Ids.IdBorrow, IdSign: Ids.IdSign }),
                                 dataType: "json",
                                 contentType: "application/json;charset=utf-8",
                                 success: function (response) {
@@ -443,7 +441,7 @@ function Reject(elm, e, type) {
 
                                         GetUserSigns(false);
 
-                                        toastr["success"]("Borrow request was Approved.", "SUCCRESS");
+                                        toastr["success"]("Return request was Rejected.", "SUCCRESS");
                                     }
                                     else {
                                         toastr["error"](response.message, "ERROR");
@@ -697,15 +695,15 @@ function DrawDatatableRow_Return(no, item) {
                     </td>`);
     return row;
 }
-function DrawDatatableArray(item) {
+function DrawDatatableArray(item, type) {
     var row = [];
 
     // ID
-    row.push(`${moment(item.DateBorrow).format('YYYYMMDDHHmm')}-${item.Id}`);
+    row.push(`${type}-${moment(type == 'B' ? item.DateBorrow : item.DateReturn).format('YYYYMMDDHHmm')}-${item.Id}`);
     // Created By
     row.push(CreateUserName(item.User));
     // Created Date
-    row.push(moment(item.DateBorrow).format('YYYY-MM-DD HH:mm:ss'));
+    row.push(moment(type == 'B' ? item.DateBorrow : item.DateReturn).format('YYYY-MM-DD HH:mm:ss'));
     // Note
     row.push(item.Note ? item.Note : '');
     // Type
@@ -746,24 +744,41 @@ function DrawDatatableArray(item) {
             break;
         }
     }
-    var showButton = false;
     var idSign = 0;
     var signStatus = '';
-    $.each(item.UserBorrowSigns, function (k, v) {
-        if (v.Status == "Pending") {
-            if (v.User.Username == $('#CardID').text()) {
-                showButton = true;
-                idSign = v.Id;
-                signStatus = v.Status;
-                return false;
+    if (type == 'B') {
+        $.each(item.UserBorrowSigns, function (k, v) {
+            if (v.Status == "Pending") {
+                if (v.User.Username == $('#CardID').text()) {
+                    idSign = v.Id;
+                    signStatus = v.Status;
+                    return false;
+                }
             }
-        }
-        else {
-            if (v.User.Username == $('#CardID').text()) {
-                signStatus = v.Status;
+            else {
+                if (v.User.Username == $('#CardID').text()) {
+                    signStatus = v.Status;
+                }
             }
-        }
-    });
+        });
+    }
+    else {
+        $.each(item.UserReturnSigns, function (k, v) {
+            if (v.Status == "Pending") {
+                if (v.User.Username == $('#CardID').text()) {
+                    idSign = v.Id;
+                    signStatus = v.Status;
+                    return false;
+                }
+            }
+            else {
+                if (v.User.Username == $('#CardID').text()) {
+                    signStatus = v.Status;
+                }
+            }
+        });
+    }
+    
 
     // Sign
     switch (signStatus) {
@@ -785,14 +800,7 @@ function DrawDatatableArray(item) {
         }
     }
     // Action
-    if (showButton) {
-        row.push(`<a href="javascript:;" class="text-info    bg-light-info    border-0" title="Details" onclick="Details(${item.Id}, ${idSign})"><i class="fa-regular fa-circle-info"></i></a>
-                  <a href="javascript:;" class="text-success bg-light-success border-0" title="Approve" data-id="${item.Id}" data-idsign="${idSign}" onclick="Approve(this, event)"><i class="fa-duotone fa-check"></i></a>                                
-                  <a href="javascript:;" class="text-danger  bg-light-danger  border-0" title="Reject " data-id="${item.Id}" data-idsign="${idSign}" onclick="Reject(this, event) "><i class="fa-solid fa-x"></i></a>   `);
-    }
-    else {
-        row.push(`<a href="javascript:;" class="text-info    bg-light-info    border-0" title="Details" onclick="Details(${item.Id}, ${idSign})"><i class="fa-regular fa-circle-info"></i></a> `);
-    }
+    row.push(`<a href="javascript:;" class="text-info    bg-light-info    border-0" title="Details" onclick="Details(${item.Id}, ${idSign})"><i class="fa-regular fa-circle-info"></i></a> `);
 
     return row;
 }

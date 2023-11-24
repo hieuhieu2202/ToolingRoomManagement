@@ -17,11 +17,11 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Entities
         public int Id { get; set; }
         public Nullable<int> IdReturn { get; set; }
         public Nullable<System.DateTime> DateSign { get; set; }
-        public Nullable<int> Note { get; set; }
         public Nullable<int> SignOrder { get; set; }
         public string Status { get; set; }
         public string Type { get; set; }
         public Nullable<int> IdUser { get; set; }
+        public string Note { get; set; }
     
         public virtual User User { get; set; }
     }

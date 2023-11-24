@@ -52,19 +52,15 @@
         </AssociationConnector>
         <EntityTypeShape EntityType="ToolingRoomModel.Department" Width="1.5" PointX="5.25" PointY="1.25" IsExpanded="false" />
         <AssociationConnector Association="ToolingRoomModel.FK_UserDepartment_Department" />
-        <EntityTypeShape EntityType="ToolingRoomModel.Return" Width="2" PointX="13.75" PointY="10.25" />
         <EntityTypeShape EntityType="ToolingRoomModel.ReturnDevice" Width="1.5" PointX="10" PointY="10.75" />
-        <EntityTypeShape EntityType="ToolingRoomModel.UserReturnSign" Width="1.5" PointX="13.5" PointY="5.75" />
         <AssociationConnector Association="ToolingRoomModel.FK_ReturnDevice_Device" />
-        <AssociationConnector Association="ToolingRoomModel.FK_Return_User" ManuallyRouted="true" >
-          <ConnectorPoint PointX="8.875" PointY="3.024249674479166" />
-          <ConnectorPoint PointX="15.40625" PointY="3.024249674479166" />
-          <ConnectorPoint PointX="15.40625" PointY="10.25" />
-        </AssociationConnector>
+        <EntityTypeShape EntityType="ToolingRoomModel.Return" Width="1.5" PointX="13.875" PointY="10" />
+        <AssociationConnector Association="ToolingRoomModel.FK_Return_Borrow" />
+        <AssociationConnector Association="ToolingRoomModel.FK_Return_User" />
         <AssociationConnector Association="ToolingRoomModel.FK_ReturnDevice_Return" />
+        <EntityTypeShape EntityType="ToolingRoomModel.UserReturnSign" Width="1.5" PointX="14.125" PointY="5.5" />
         <AssociationConnector Association="ToolingRoomModel.FK_UserReturnSign_Return" />
         <AssociationConnector Association="ToolingRoomModel.FK_UserReturnSign_User" />
-        <AssociationConnector Association="ToolingRoomModel.FK_Return_Borrow" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

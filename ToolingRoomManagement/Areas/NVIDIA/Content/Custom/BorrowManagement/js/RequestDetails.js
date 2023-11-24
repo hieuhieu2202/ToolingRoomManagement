@@ -6,7 +6,7 @@
         contentType: "application/json;charset=utf-8",
         success: function (response) {
             if (response.status) {
-                var borrow = JSON.parse(response.borrow);
+                var borrow = response.borrow;
 
                 CreateModal(borrow, showDevice);
 

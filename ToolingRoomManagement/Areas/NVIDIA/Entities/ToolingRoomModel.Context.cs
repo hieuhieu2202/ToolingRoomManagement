@@ -44,8 +44,8 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Entities
         public virtual DbSet<Warehouse> Warehouses { get; set; }
         public virtual DbSet<DeviceUnconfirm> DeviceUnconfirms { get; set; }
         public virtual DbSet<Department> Departments { get; set; }
-        public virtual DbSet<Return> Returns { get; set; }
         public virtual DbSet<ReturnDevice> ReturnDevices { get; set; }
+        public virtual DbSet<Return> Returns { get; set; }
         public virtual DbSet<UserReturnSign> UserReturnSigns { get; set; }
     }
 }
