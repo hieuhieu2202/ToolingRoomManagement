@@ -146,6 +146,17 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ModelName" Type="nvarchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="OnthewayDevice">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdDevice" Type="int" />
+          <Property Name="IdDeviceUnconfirm" Type="int" />
+          <Property Name="OnTheWayQuantity" Type="int" />
+          <Property Name="Type" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsConsign" Type="bit" />
+        </EntityType>
         <EntityType Name="Product">
           <Key>
             <PropertyRef Name="Id" />
@@ -501,6 +512,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_OnthewayDevice_Device">
+          <End Role="Device" Type="Self.Device" Multiplicity="0..1" />
+          <End Role="OnthewayDevice" Type="Self.OnthewayDevice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Device">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OnthewayDevice">
+              <PropertyRef Name="IdDevice" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OnthewayDevice_DeviceUnconfirm">
+          <End Role="DeviceUnconfirm" Type="Self.DeviceUnconfirm" Multiplicity="0..1" />
+          <End Role="OnthewayDevice" Type="Self.OnthewayDevice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DeviceUnconfirm">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OnthewayDevice">
+              <PropertyRef Name="IdDeviceUnconfirm" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Return_Borrow">
           <End Role="Borrow" Type="Self.Borrow" Multiplicity="0..1" />
           <End Role="Return" Type="Self.Return" Multiplicity="*" />
@@ -687,6 +722,7 @@
           <EntitySet Name="Group" EntityType="Self.Group" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="HistoryUpdateDevice" EntityType="Self.HistoryUpdateDevice" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Model" EntityType="Self.Model" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OnthewayDevice" EntityType="Self.OnthewayDevice" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Return" EntityType="Self.Return" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ReturnDevice" EntityType="Self.ReturnDevice" Schema="dbo" store:Type="Tables" />
@@ -771,6 +807,14 @@
           <AssociationSet Name="FK_DeviceWarehouseLayout_WarehouseLayout" Association="Self.FK_DeviceWarehouseLayout_WarehouseLayout">
             <End Role="WarehouseLayout" EntitySet="WarehouseLayout" />
             <End Role="DeviceWarehouseLayout" EntitySet="DeviceWarehouseLayout" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OnthewayDevice_Device" Association="Self.FK_OnthewayDevice_Device">
+            <End Role="Device" EntitySet="Device" />
+            <End Role="OnthewayDevice" EntitySet="OnthewayDevice" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OnthewayDevice_DeviceUnconfirm" Association="Self.FK_OnthewayDevice_DeviceUnconfirm">
+            <End Role="DeviceUnconfirm" EntitySet="DeviceUnconfirm" />
+            <End Role="OnthewayDevice" EntitySet="OnthewayDevice" />
           </AssociationSet>
           <AssociationSet Name="FK_Return_Borrow" Association="Self.FK_Return_Borrow">
             <End Role="Borrow" EntitySet="Borrow" />
@@ -987,6 +1031,15 @@
           <AssociationSet Name="FK_UserReturnSign_User" Association="ToolingRoomModel.FK_UserReturnSign_User">
             <End Role="User" EntitySet="Users" />
             <End Role="UserReturnSign" EntitySet="UserReturnSigns" />
+          </AssociationSet>
+          <EntitySet Name="OnthewayDevices" EntityType="ToolingRoomModel.OnthewayDevice" />
+          <AssociationSet Name="FK_OnthewayDevice_Device" Association="ToolingRoomModel.FK_OnthewayDevice_Device">
+            <End Role="Device" EntitySet="Devices" />
+            <End Role="OnthewayDevice" EntitySet="OnthewayDevices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OnthewayDevice_DeviceUnconfirm" Association="ToolingRoomModel.FK_OnthewayDevice_DeviceUnconfirm">
+            <End Role="DeviceUnconfirm" EntitySet="DeviceUnconfirms" />
+            <End Role="OnthewayDevice" EntitySet="OnthewayDevices" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="Product">
@@ -1701,6 +1754,43 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="OnthewayDevice">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdDevice" Type="Int32" />
+          <Property Name="IdDeviceUnconfirm" Type="Int32" />
+          <Property Name="OnTheWayQuantity" Type="Int32" />
+          <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsConsign" Type="Boolean" />
+          <NavigationProperty Name="Device" Relationship="ToolingRoomModel.FK_OnthewayDevice_Device" FromRole="OnthewayDevice" ToRole="Device" />
+          <NavigationProperty Name="DeviceUnconfirm" Relationship="ToolingRoomModel.FK_OnthewayDevice_DeviceUnconfirm" FromRole="OnthewayDevice" ToRole="DeviceUnconfirm" />
+        </EntityType>
+        <Association Name="FK_OnthewayDevice_Device">
+          <End Type="ToolingRoomModel.Device" Role="Device" Multiplicity="0..1" />
+          <End Type="ToolingRoomModel.OnthewayDevice" Role="OnthewayDevice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Device">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OnthewayDevice">
+              <PropertyRef Name="IdDevice" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OnthewayDevice_DeviceUnconfirm">
+          <End Type="ToolingRoomModel.DeviceUnconfirm" Role="DeviceUnconfirm" Multiplicity="0..1" />
+          <End Type="ToolingRoomModel.OnthewayDevice" Role="OnthewayDevice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DeviceUnconfirm">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OnthewayDevice">
+              <PropertyRef Name="IdDeviceUnconfirm" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2001,6 +2091,18 @@
                 <ScalarProperty Name="SignOrder" ColumnName="SignOrder" />
                 <ScalarProperty Name="DateSign" ColumnName="DateSign" />
                 <ScalarProperty Name="IdReturn" ColumnName="IdReturn" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OnthewayDevices">
+            <EntityTypeMapping TypeName="ToolingRoomModel.OnthewayDevice">
+              <MappingFragment StoreEntitySet="OnthewayDevice">
+                <ScalarProperty Name="IsConsign" ColumnName="IsConsign" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="OnTheWayQuantity" ColumnName="OnTheWayQuantity" />
+                <ScalarProperty Name="IdDeviceUnconfirm" ColumnName="IdDeviceUnconfirm" />
+                <ScalarProperty Name="IdDevice" ColumnName="IdDevice" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

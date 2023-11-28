@@ -186,7 +186,7 @@ function Approve(elm, e, type) {
                                 contentType: "application/json;charset=utf-8",
                                 success: function (response) {
                                     if (response.status) {
-                                        var row = DrawDatatableArray(response.borrow);
+                                        var row = DrawDatatableArray(response.borrow, 'B');
 
 
 

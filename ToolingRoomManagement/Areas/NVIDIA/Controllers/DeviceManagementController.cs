@@ -907,21 +907,22 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                         outWorksheet.Cells[1, 7].Value = "Description";
 
                         outWorksheet.Cells[1, 8].Value = "Group"; //
-                        outWorksheet.Cells[1, 90].Value = "Vendor"; //
+                        outWorksheet.Cells[1, 9].Value = "Vendor"; //
                         outWorksheet.Cells[1, 10].Value = "Buffer"; //
+                        outWorksheet.Cells[1, 11].Value = "Life Cycle"; //
 
-                        outWorksheet.Cells[1, 11].Value = "Dynamic/Static"; //
+                        outWorksheet.Cells[1, 12].Value = "Dynamic/Static"; //
 
-                        outWorksheet.Cells[1, 12].Value = "Quantity";
+                        outWorksheet.Cells[1, 13].Value = "Quantity";
 
-                        outWorksheet.Cells[1, 13].Value = "Relation"; //
+                        outWorksheet.Cells[1, 14].Value = "Relation"; //
 
-                        outWorksheet.Cells[1, 14].Value = "Request";
-                        outWorksheet.Cells[1, 15].Value = "Default Min Quantity";
-                        outWorksheet.Cells[1, 16].Value = "GAP";
+                        outWorksheet.Cells[1, 15].Value = "Request";
+                        outWorksheet.Cells[1, 16].Value = "Default Min Quantity";
+                        outWorksheet.Cells[1, 17].Value = "GAP";
 
-                        outWorksheet.Cells[1, 17].Value = "MOQ"; //
-                        outWorksheet.Cells[1, 18].Value = "Life Cycle"; //
+                        outWorksheet.Cells[1, 18].Value = "MOQ"; //
+                        
 
                         outWorksheet.Cells[1, 19].Value = "Risk";
 
@@ -964,42 +965,62 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                                 outWorksheet.Cells[row, 8].Value = device.Group == null ? "" : device.Group.GroupName;
                                 outWorksheet.Cells[row, 9].Value = device.Vendor == null ? "" : device.Vendor.VendorName;
                                 outWorksheet.Cells[row, 10].Value = device.Buffer == null ? "" : device.Buffer.ToString();
+                                outWorksheet.Cells[row, 11].Value = device.LifeCycle == null ? "" : device.LifeCycle.ToString();
 
-                                outWorksheet.Cells[row, 11].Value = device.Type != "D" ? "S" : "D";
-                                outWorksheet.Cells[row, 12].Value = qtyConfirm;
-                                outWorksheet.Cells[row, 13].Value = device.Relation == null ? "" : device.Relation;
+                                string type = "";
+                                if(device.Type_BOM != null)
+                                {
+                                    type = device.Type_BOM;
+                                }
+                                else
+                                {
+                                    if (device.Type == "Fixture") type = "S";
+                                    else if (device.Type == "S" || device.Type == "Static") type = "S";
+                                    else if (device.Type == "D" || device.Type == "Dynamic") type = "D";
+                                    else type = "NA";
+                                }
+                                outWorksheet.Cells[row, 12].Value = type;
 
-                                outWorksheet.Cells[row, 14].Value = _RequestQty;
-                                outWorksheet.Cells[row, 15].Value = minQty;
+                                outWorksheet.Cells[row, 13].Value = qtyConfirm;
+                                outWorksheet.Cells[row, 14].Value = device.Relation == null ? "" : device.Relation;
+
+                                outWorksheet.Cells[row, 15].Value = _RequestQty;
+                                outWorksheet.Cells[row, 16].Value = minQty;
 
                                 int gap = qtyConfirm - _RequestQty;
-                                outWorksheet.Cells[row, 16].Value = gap;
+                                outWorksheet.Cells[row, 17].Value = gap;
 
-                                outWorksheet.Cells[row, 17].Value = "";
-                                outWorksheet.Cells[row, 18].Value = device.LifeCycle == null ? "" : device.LifeCycle.ToString();
+                                outWorksheet.Cells[row, 18].Value = device.MOQ ?? 0;
+                                
 
                                 if (gap > 0 && qtyConfirm > minQty)
                                 {
                                     outWorksheet.Cells[row, 19].Value = "Low";
 
+                                    System.Drawing.Color successBackground = System.Drawing.ColorTranslator.FromHtml("#C6EFCE");
+                                    System.Drawing.Color successText = System.Drawing.ColorTranslator.FromHtml("#006100");
+
                                     outWorksheet.Cells[$"A{row}:S{row}"].Style.Fill.PatternType = ExcelFillStyle.Solid;
-                                    outWorksheet.Cells[$"A{row}:S{row}"].Style.Fill.BackgroundColor.SetColor(Color.LightGreen);
-                                    outWorksheet.Cells[$"A{row}:S{row}"].Style.Font.Color.SetColor(Color.DarkGreen);
+                                    outWorksheet.Cells[$"A{row}:S{row}"].Style.Fill.BackgroundColor.SetColor(successBackground);
+                                    outWorksheet.Cells[$"A{row}:S{row}"].Style.Font.Color.SetColor(successText);
 
                                 }
                                 else
                                 {
                                     outWorksheet.Cells[row, 19].Value = "High";
 
+                                    System.Drawing.Color dangerBackground = System.Drawing.ColorTranslator.FromHtml("#FFC7CE");
+                                    System.Drawing.Color dangerText = System.Drawing.ColorTranslator.FromHtml("#9C0006");
+
                                     outWorksheet.Cells[$"A{row}:S{row}"].Style.Fill.PatternType = ExcelFillStyle.Solid;
-                                    outWorksheet.Cells[$"A{row}:S{row}"].Style.Fill.BackgroundColor.SetColor(Color.LightCoral);
-                                    outWorksheet.Cells[$"A{row}:S{row}"].Style.Font.Color.SetColor(Color.Maroon);
+                                    outWorksheet.Cells[$"A{row}:S{row}"].Style.Fill.BackgroundColor.SetColor(dangerBackground);
+                                    outWorksheet.Cells[$"A{row}:S{row}"].Style.Font.Color.SetColor(dangerText);
                                 }
                             }
                             else
                             {
                                 outWorksheet.Cells[row, 6].Value = _PN;
-                                outWorksheet.Cells[row, 14].Value = _RequestQty;
+                                outWorksheet.Cells[row, 15].Value = _RequestQty;
 
                                 outWorksheet.Cells[$"A{row}:S{row}"].Style.Fill.PatternType = ExcelFillStyle.Solid;
                                 outWorksheet.Cells[$"A{row}:S{row}"].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.LightGray);
@@ -1244,7 +1265,46 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 return string.Empty;
             }
         }
+        #endregion
 
+        #region On The Way
+        [HttpGet]
+        public ActionResult OnTheWayDevice()
+        {
+            return View();
+        }
+        public JsonResult GetOnTheWayDevices()
+        {
+            try
+            {
+                var OnthewayDevices = db.OnthewayDevices.ToList();
+
+                return Json(new { status = true, OnthewayDevices }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = false, message = ex.Message}, JsonRequestBehavior.AllowGet);
+            }
+        }
+        public JsonResult GetOnTheWayDevice(int Id)
+        {
+            try
+            {
+                var OnthewayDevice = db.OnthewayDevices.FirstOrDefault(d => d.Id == Id);
+                if(OnthewayDevice != null)
+                {
+                    return Json(new { status = true, OnthewayDevice }, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    return Json(new { status = false, message = "On the way device not found." }, JsonRequestBehavior.AllowGet);
+                } 
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
         #endregion
     }
 }

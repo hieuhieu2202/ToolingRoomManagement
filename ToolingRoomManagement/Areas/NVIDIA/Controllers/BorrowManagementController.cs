@@ -1,7 +1,10 @@
 ﻿using Model.EF;
+using OfficeOpenXml;
 using OfficeOpenXml.FormulaParsing.Excel.Functions.Math;
+using OfficeOpenXml.Style;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text.Json;
 using System.Web.Mvc;
@@ -361,6 +364,138 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 return Json(new { status = false, message = ex.Message });
             }
         }
+        public ActionResult ExportBorrowHistory()
+        {
+            try
+            {
+                ExcelPackage.LicenseContext = OfficeOpenXml.LicenseContext.NonCommercial;
+                using (var package = new ExcelPackage())
+                {
+                    var worksheet = package.Workbook.Worksheets.Add("Borrow History");
+
+                    #region Header
+                    worksheet.Cells["A1"].Value = "Date time";
+                    worksheet.Cells["B1"].Value = "Engineer";
+                    worksheet.Cells["C1"].Value = "Type";
+                    worksheet.Cells["D1"].Value = "Warehouse";
+                    worksheet.Cells["E1"].Value = "MTS";
+                    worksheet.Cells["F1"].Value = "PN";
+                    worksheet.Cells["G1"].Value = "Description";
+                    worksheet.Cells["H1"].Value = "Quantity";
+                    worksheet.Cells["I1"].Value = "Sign Process";
+
+                    var headerStyle = worksheet.Cells["A1:I1"].Style;
+                    headerStyle.Font.Bold = true;
+                    headerStyle.Border.Top.Style = ExcelBorderStyle.Thin;
+                    headerStyle.Border.Bottom.Style = ExcelBorderStyle.Thin;
+                    headerStyle.Border.Left.Style = ExcelBorderStyle.Thin;
+                    headerStyle.Border.Right.Style = ExcelBorderStyle.Thin;
+                   
+
+                    System.Drawing.Color headerBackgroundColor = System.Drawing.ColorTranslator.FromHtml("#00B050");
+                    headerStyle.Fill.PatternType = ExcelFillStyle.Solid;
+                    headerStyle.Fill.BackgroundColor.SetColor(headerBackgroundColor);
+                    #endregion
+
+                    var borrows = db.Borrows.Where(b => b.Status == "Approved").OrderBy(b => b.DateBorrow).ToList();
+                    int index = 2;
+                    int row = 1;
+                    foreach(var borrow in borrows)
+                    {
+                        int indexNext = index + borrow.BorrowDevices.Count - 1;
+                        worksheet.Cells[$"A{index}:A{indexNext}"].Merge = true;
+                        worksheet.Cells[$"B{index}:B{indexNext}"].Merge = true;
+                        worksheet.Cells[$"C{index}:C{indexNext}"].Merge = true;
+                        worksheet.Cells[$"D{index}:D{indexNext}"].Merge = true;
+                        worksheet.Cells[$"I{index}:I{indexNext}"].Merge = true;
+
+                        if (row % 2 == 0)
+                        {
+                            var borrowStyle = worksheet.Cells[$"A{index}:I{indexNext}"].Style;
+                            borrowStyle.Fill.PatternType = ExcelFillStyle.Solid;
+                            borrowStyle.Fill.BackgroundColor.SetColor(System.Drawing.Color.LightGray);
+                        }
+                        row++;
+
+                        worksheet.Cells[$"A{index}"].Value = borrow.DateBorrow?.ToString("yyyy-MM-dd HH:mm tt");
+                        worksheet.Cells[$"B{index}"].Value = $"{borrow.User.Username}-{borrow.User.CnName}";
+                        worksheet.Cells[$"C{index}"].Value = borrow.Type;
+
+                        var IdWarehouse = borrow.BorrowDevices.ToList().First().Device.IdWareHouse;
+                        var warehouse = db.Warehouses.FirstOrDefault(w => w.Id == IdWarehouse);
+                        worksheet.Cells[$"D{index}"].Value = warehouse.WarehouseName;
+
+                        string signprocess = "";
+                        var userBorrowSign = borrow.UserBorrowSigns.ToList();
+                        for (int i = 0; i < userBorrowSign.Count; i++)
+                        {
+                            signprocess += $"[{userBorrowSign[i].User.Username}-{userBorrowSign[i].User.CnName}]";
+                            if (i < userBorrowSign.Count - 1)
+                            {
+                                signprocess += " => ";
+                            }
+                        }
+                        worksheet.Cells[$"I{index}"].Value = signprocess;
+
+                        foreach (var borrowdevice in borrow.BorrowDevices)
+                        {
+                            worksheet.Cells[$"E{index}"].Value = borrowdevice.Device?.Product?.MTS ?? "";
+                            worksheet.Cells[$"F{index}"].Value = borrowdevice.Device?.DeviceCode ?? "";
+                            worksheet.Cells[$"G{index}"].Value = borrowdevice.Device?.DeviceName ?? "";
+                            worksheet.Cells[$"H{index}"].Value = borrowdevice.BorrowQuantity;
+
+                            index++;
+                        }
+
+                    }
+
+                    // Data style
+                    #region Data Style
+                    worksheet.Cells[worksheet.Dimension.Address].AutoFitColumns();
+
+                    var dataStyle = worksheet.Cells[worksheet.Dimension.Address].Style;
+                    
+                    dataStyle.VerticalAlignment = ExcelVerticalAlignment.Center;
+
+                    dataStyle.Border.Top.Style = ExcelBorderStyle.Thin;
+                    dataStyle.Border.Bottom.Style = ExcelBorderStyle.Thin;
+                    dataStyle.Border.Left.Style = ExcelBorderStyle.Thin;
+                    dataStyle.Border.Right.Style = ExcelBorderStyle.Thin;
+
+                    worksheet.Column(3).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                    worksheet.Column(4).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                    worksheet.Column(8).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+
+                    worksheet.Column(1).Width = 20;
+                    worksheet.Column(2).Width = 20;
+                    worksheet.Column(3).Width = 10;
+                    worksheet.Column(9).Width = 60;
+
+                   
+                    #endregion
+                    // Lưu tệp tin
+                    #region Save File
+                    var fileData = package.GetAsByteArray();
+                    var fileName = "BorrowHistory.xlsx";
+                    var folderPath = Server.MapPath("/Data/NewToolingroom/BorrowHistory");
+                    if (!Directory.Exists(folderPath))
+                    {   
+                        Directory.CreateDirectory(folderPath);
+                    }
+                    var filePath = Path.Combine(folderPath, fileName);
+                    System.IO.File.WriteAllBytes(filePath, fileData);
+                    #endregion
+
+                    // Trả về
+                    var url = Url.Content("~/Data/NewToolingroom/BorrowHistory/" + fileName);
+                    return Json(new { status = true, url, filename = "BorrowHistory.xlsx" }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new {status = false, message = ex.Message}, JsonRequestBehavior.AllowGet);
+            }
+        }
 
         // Return
         [HttpGet]
@@ -388,10 +523,33 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
         {
             try
             {
-                db.Returns.Add(data);
-                db.SaveChanges();
+                var borrow = db.Borrows.FirstOrDefault(b => b.Id == data.IdBorrow);
+                if (borrow != null)
+                {
+                    if(data.ReturnDevices.Count == 0) return Json(new { status = false, message = "Please input return quantity." });
+                    // Check Return Quantity
+                    foreach (var returnDevice in data.ReturnDevices)
+                    {
+                        var returns = db.Returns.Where(r => r.IdBorrow == data.IdBorrow && r.ReturnDevices.Any(rd => rd.IdDevice == returnDevice.IdDevice)).ToList();
+                        var borrowedQuantity = borrow.BorrowDevices.FirstOrDefault(bd => bd.IdDevice == returnDevice.IdDevice)?.BorrowQuantity ?? 0;
 
-                return Json(new { status = true});
+                        int countReturnQuantity = 0;
+                        foreach (var returnn in returns)
+                        {
+                            countReturnQuantity += returnn.ReturnDevices.FirstOrDefault(rd => rd.IdDevice == returnDevice.IdDevice).ReturnQuantity ?? 0;
+                        }
+
+                        if (countReturnQuantity >= borrowedQuantity) return Json(new { status = false, message = "Return quantity > Borrow quantity." });
+                    }
+
+                    db.Returns.Add(data);
+                    db.SaveChanges();
+                    return Json(new { status = true });
+                }
+                else
+                {
+                    return Json(new { status = false, message = "Borrow request not found." });
+                }
             }
             catch (Exception ex)
             {
@@ -445,10 +603,18 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                         }
                         else if (returnDevice.IsNG == false && returnDevice.IsSwap == true) // Đổi mới
                         {
-
+                            if(returnDevice.ReturnQuantity > returnDevice.Device.RealQty)
+                            {
+                                return Json(new { status = false, message = "Please reject this return request as swapping is not allowed when the real quantity is greater than the swap quantity." });
+                            }
                         }
                         else // Trả NG và đổi mới => cộng NG_Qty và trừ thêm vào số lượng hiện tại
                         {
+                            if (returnDevice.ReturnQuantity > returnDevice.Device.RealQty)
+                            {
+                                return Json(new { status = false, message = "Please reject this return request as swapping is not allowed when the real quantity is greater than the swap quantity." });
+                            }
+
                             returnDevice.Device.NG_Qty += returnDevice.ReturnQuantity;
 
                             returnDevice.Device.RealQty -= returnDevice.ReturnQuantity;
@@ -520,6 +686,174 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
             catch (Exception ex)
             {
                 return Json(new { status = false, message = ex.Message });
+            }
+        }
+        public ActionResult ExportReturnHistory()
+        {
+            try
+            {
+                ExcelPackage.LicenseContext = OfficeOpenXml.LicenseContext.NonCommercial;
+                using (var package = new ExcelPackage())
+                {
+                    var worksheet = package.Workbook.Worksheets.Add("Return History");
+
+                    #region Header
+                    worksheet.Cells["A1"].Value = "Date time";
+                    worksheet.Cells["B1"].Value = "Engineer";
+                    worksheet.Cells["C1"].Value = "Type";
+                    worksheet.Cells["D1"].Value = "Warehouse";
+                    worksheet.Cells["E1"].Value = "MTS";
+                    worksheet.Cells["F1"].Value = "PN";
+                    worksheet.Cells["G1"].Value = "Description";
+                    worksheet.Cells["H1"].Value = "Quantity";
+                    worksheet.Cells["I1"].Value = "Status";
+                    worksheet.Cells["J1"].Value = "Swap New";
+                    worksheet.Cells["K1"].Value = "TE Leader";
+                    worksheet.Cells["L1"].Value = "Received Person";
+
+                    var headerStyle = worksheet.Cells["A1:L1"].Style;
+                    headerStyle.Font.Bold = true;
+                    headerStyle.Border.Top.Style = ExcelBorderStyle.Thin;
+                    headerStyle.Border.Bottom.Style = ExcelBorderStyle.Thin;
+                    headerStyle.Border.Left.Style = ExcelBorderStyle.Thin;
+                    headerStyle.Border.Right.Style = ExcelBorderStyle.Thin;
+
+
+                    System.Drawing.Color headerBackgroundColor = System.Drawing.ColorTranslator.FromHtml("#00B050");
+                    headerStyle.Fill.PatternType = ExcelFillStyle.Solid;
+                    headerStyle.Fill.BackgroundColor.SetColor(headerBackgroundColor);
+                    #endregion
+
+                    var returns = db.Returns.Where(r => r.Status == "Approved").OrderBy(b => b.DateReturn).ToList();
+                    int index = 2;
+                    int row = 1;
+                    foreach (var _return in returns)
+                    {
+                        int indexNext = index + _return.ReturnDevices.Count - 1;
+                        worksheet.Cells[$"A{index}:A{indexNext}"].Merge = true;
+                        worksheet.Cells[$"B{index}:B{indexNext}"].Merge = true;
+                        worksheet.Cells[$"C{index}:C{indexNext}"].Merge = true;
+                        worksheet.Cells[$"D{index}:D{indexNext}"].Merge = true;
+                        worksheet.Cells[$"K{index}:K{indexNext}"].Merge = true;
+                        worksheet.Cells[$"L{index}:L{indexNext}"].Merge = true;
+
+                        if (row % 2 == 0)
+                        {
+                            var borrowStyle = worksheet.Cells[$"A{index}:L{indexNext}"].Style;
+                            borrowStyle.Fill.PatternType = ExcelFillStyle.Solid;
+                            borrowStyle.Fill.BackgroundColor.SetColor(System.Drawing.Color.LightGray);
+                        }
+                        row++;
+
+                        worksheet.Cells[$"A{index}"].Value = _return.DateReturn?.ToString("yyyy-MM-dd HH:mm tt");
+                        worksheet.Cells[$"B{index}"].Value = $"{_return.User.Username}-{_return.User.CnName}";
+                        worksheet.Cells[$"C{index}"].Value = _return.Type;
+                        
+
+                        var IdWarehouse = _return.ReturnDevices.ToList().First().Device.IdWareHouse;
+                        var warehouse = db.Warehouses.FirstOrDefault(w => w.Id == IdWarehouse);
+                        worksheet.Cells[$"D{index}"].Value = warehouse.WarehouseName;
+
+                        #region Sign
+                        var signs = _return.UserReturnSigns.ToList();
+                        worksheet.Cells[$"K{index}"].Value = $"{signs[0].User.Username}-{signs[0].User.CnName}";
+                        worksheet.Cells[$"L{index}"].Value = $"{signs[1].User.Username}-{signs[0].User.CnName}";
+                        #endregion
+
+                        foreach (var returndevice in _return.ReturnDevices)
+                        {
+                            worksheet.Cells[$"E{index}"].Value = returndevice.Device?.Product?.MTS ?? "";
+                            worksheet.Cells[$"F{index}"].Value = returndevice.Device?.DeviceCode ?? "";
+                            worksheet.Cells[$"G{index}"].Value = returndevice.Device?.DeviceName ?? "";
+                            worksheet.Cells[$"H{index}"].Value = returndevice.ReturnQuantity;
+
+                            #region Return NG
+                            var returnStyle = worksheet.Cells[$"I{index}"].Style;
+                            returnStyle.Font.Bold = true;
+
+                            bool isNG = returndevice.IsNG ?? false;
+                            if (isNG)
+                            {
+                                worksheet.Cells[$"I{index}"].Value = "NG";
+                                returnStyle.Font.Color.SetColor(System.Drawing.Color.Red);
+                            }
+                            else
+                            {
+                                worksheet.Cells[$"I{index}"].Value = "OK";
+                                returnStyle.Font.Color.SetColor(System.Drawing.Color.Green);
+                            }
+                            #endregion
+
+                            #region Return Swap
+                            var swapStyle = worksheet.Cells[$"J{index}"].Style;
+                            swapStyle.Font.Bold = true;
+
+                            bool isSwap = returndevice.IsSwap ?? false;
+                            if (isSwap)
+                            {
+                                worksheet.Cells[$"J{index}"].Value = "Y";
+                                swapStyle.Font.Color.SetColor(System.Drawing.Color.Red);
+                            }
+                            else
+                            {                               
+                                worksheet.Cells[$"J{index}"].Value = "N";
+                                swapStyle.Font.Color.SetColor(System.Drawing.Color.Green);
+                            }
+                            #endregion
+
+                            index++;
+                        }
+                    }
+
+                    // Data style
+                    #region Data Style
+                    worksheet.Cells[worksheet.Dimension.Address].AutoFitColumns();
+
+                    var dataStyle = worksheet.Cells[worksheet.Dimension.Address].Style;
+
+                    dataStyle.VerticalAlignment = ExcelVerticalAlignment.Center;
+
+                    dataStyle.Border.Top.Style = ExcelBorderStyle.Thin;
+                    dataStyle.Border.Bottom.Style = ExcelBorderStyle.Thin;
+                    dataStyle.Border.Left.Style = ExcelBorderStyle.Thin;
+                    dataStyle.Border.Right.Style = ExcelBorderStyle.Thin;
+
+                    worksheet.Column(3).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                    worksheet.Column(4).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                    worksheet.Column(8).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                    worksheet.Column(9).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                    worksheet.Column(10).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+
+                    worksheet.Column(1).Width = 20;
+                    worksheet.Column(2).Width = 20;
+                    worksheet.Column(3).Width = 10;
+
+                    worksheet.Column(11).Width = 20;
+                    worksheet.Column(12).Width = 20;
+
+
+                    #endregion
+                    // Lưu tệp tin
+                    #region Save File
+                    var fileData = package.GetAsByteArray();
+                    var fileName = "ReturnHistory.xlsx";
+                    var folderPath = Server.MapPath("/Data/NewToolingroom/ReturnHistory");
+                    if (!Directory.Exists(folderPath))
+                    {
+                        Directory.CreateDirectory(folderPath);
+                    }
+                    var filePath = Path.Combine(folderPath, fileName);
+                    System.IO.File.WriteAllBytes(filePath, fileData);
+                    #endregion
+
+                    // Trả về
+                    var url = Url.Content("~/Data/NewToolingroom/ReturnHistory/" + fileName);
+                    return Json(new { status = true, url, filename = "ReturnHistory.xlsx" }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
 

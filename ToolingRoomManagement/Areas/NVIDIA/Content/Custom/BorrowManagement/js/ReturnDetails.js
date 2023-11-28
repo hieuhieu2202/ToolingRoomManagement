@@ -45,8 +45,36 @@ function CreateReturnDetailsModal(_return, showDevice) {
         $('#return_modal-title').text('Borrow Device Request Details');
     }
 
-    $('#return_modal-table-tbody').empty();
 
+    $('#return_modal-table-tbody-borrow').empty();
+    $.each(_return.Borrow.BorrowDevices, function (k, item) {
+        if (item.Device != null) {
+            var mts = item.Device.Product ? item.Device.Product.MTS : '';
+            var borrowQty = item.BorrowQuantity ? item.BorrowQuantity : '';
+            var deviceCode = item.Device ? item.Device.DeviceCode ? item.Device.DeviceCode : 'N/A' : '';
+            var deviceName = item.Device ? item.Device.DeviceName ? item.Device.DeviceName : 'N/A' : '';
+            var deviceUnit = item.Device.Unit ? item.Device.Unit : '';
+
+            var row = $(`<tr data-id="${item.Device.Id}" class="cursor-pointer"></tr>`);
+            row.append(`<td>${mts}</td>`);
+            row.append(`<td>${deviceCode}</td>`);
+            row.append(`<td>${deviceName}</td>`);
+            row.append(`<td class="text-center">${deviceUnit}</td>`);
+            row.append(`<td class="text-center">${borrowQty}</td>`);
+
+            if (showDevice) {
+                row.dblclick(function () {
+                    var Id = $(this).data('id');
+                    GetDeviceDetails(Id)
+                });
+            }
+
+            $('#return_modal-table-tbody-borrow').append(row);
+        }
+    });
+
+
+    $('#return_modal-table-tbody').empty();
     $.each(_return.ReturnDevices, function (k, item) {
         if (item.Device != null) {
             var return_qty = item.ReturnQuantity ? item.ReturnQuantity : '';

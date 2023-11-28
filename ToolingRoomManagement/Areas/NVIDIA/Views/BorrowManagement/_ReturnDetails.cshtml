@@ -40,7 +40,24 @@
                 </div>
 
                 <div class="mt-3">
-                    <h4 class="font-weight-light text-center text-white py-3">DEVICES LIST</h4>
+                    <h4 class="font-weight-light text-center text-white py-3">BORROW DEVICES LIST</h4>
+                    <table class="table table-bordered table-hover" id="return_modal-table-borrow">
+                        <thead>
+                            <tr>
+                                <th style="min-width: 120px;">MTS</th>
+                                <th style="min-width: 120px;">PN</th>
+                                <th>Description</th>
+                                <th class="text-center">Unit</th>
+                                <th class="text-danger text-center" style="width: 200px;">Quantity</th>
+                            </tr>
+                        </thead>
+                        <tbody id="return_modal-table-tbody-borrow">
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="mt-3">
+                    <h4 class="font-weight-light text-center text-primary py-3">RETURN DEVICES LIST</h4>
                     <table class="table table-bordered table-hover" id="return_modal-table">
                         <thead>
                             <tr>

@@ -1,9 +1,7 @@
-﻿
-@{
-    ViewBag.Title = "ConfirmDevice";
+﻿@{
+    ViewBag.Title = "On The Way Device";
     Layout = "~/Areas/NVIDIA/Views/Shared/_NvidiaLayoutShared.cshtml";
 }
-
 
 @section styles{
     <!-- Vendor -->
@@ -12,23 +10,17 @@
     <link href="~/Areas/NVIDIA/Content/Template/Sysadmin/assets/plugins/select2/css/select2-bootstrap4.css" rel="stylesheet" />
     <link href="~/Areas/NVIDIA/Content/Vendor/Viewer JS/viewer.min.css" rel="stylesheet" />
     <!-- Custom -->
-    <link href="~/Areas/NVIDIA/Content/Custom/DeviceManagement/css/ConfirmDevice.css" rel="stylesheet" />
-
+    <link href="~/Areas/NVIDIA/Content/Custom/DeviceManagement/css/OnTheWay.css" rel="stylesheet" />
 }
 
 <!-- Breadcrumb -->
 <div class="page-breadcrumb d-none d-sm-flex align-items-center py-3">
-    <div class="breadcrumb-title pe-3">Confirm Device</div>
+    <div class="breadcrumb-title pe-3">On The Way Device</div>
     <div class="ps-3">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb mb-0 p-0">
-                <li class="breadcrumb-item">
-                    <a href="/NVIDIA/Dashboard"><i class="bx bx-home-alt"></i></a>
-                </li>
-                <li class="breadcrumb-item">
-                    <a href="javascript:;">Device</a>
-                </li>
-                <li class="breadcrumb-item active" aria-current="page">New Device</li>
+                <li class="breadcrumb-item"><a href="/NVIDIA/Dashboard"><i class="bx bx-home-alt"></i></a></li>
+                <li class="breadcrumb-item"><a href="javascript:;">Device</a></li>
             </ol>
         </nav>
     </div>
@@ -39,15 +31,14 @@
     <div class="card-body">
         <div class="card-title d-flex justify-content-between align-items-center">
             <div class="d-flex">
-                <h5 class="m-0 me-3">Devices</h5>
-                <label class="text-secondary" data-i18n="device.management.table_hint">(* Double click to view details)</label>
+                <h5 class="m-0 me-3">On the way Devices</h5>
             </div>
 
             <div class="w-50 d-flex justify-content-end">
-                <div class="input-group input-group-sm w-50">
+                @*<div class="input-group input-group-sm w-50">
                     <span class="col-5 input-group-text" data-i18n="device.management.warehouse">Warehouse</span>
                     <select class="col-7 form-select form-select-sm" id="input_WareHouse"></select>
-                </div>
+                </div>*@
 
                 <div class="dropdown ms-3" id="dropdown_filter">
                     <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bx bx-filter"></i></button>
@@ -178,7 +169,7 @@
                                 <hr>
 
                                 <div class="row">
-                                    <input type="hidden" id="device_confirm-DeviceId"/>
+                                    <input type="hidden" id="device_confirm-DeviceId" />
                                     <div class="col-6">
                                         <!-- Device Code-->
                                         <div class="input-group mb-3">
@@ -274,8 +265,8 @@
                         <hr>
 
                         <div class="row">
-                            <div class="col-6">                            
-                                <div class="row">                                   
+                            <div class="col-6">
+                                <div class="row">
                                     <div class="col-6">
                                         <!-- WareHouse -->
                                         <div class="input-group mb-3">
@@ -297,7 +288,7 @@
                                         <div class="input-group mb-3">
                                             <span class="col-5 input-group-text text-warning" data-i18n="device.management.po_qty">PO Quantity</span>
                                             <input class="form-control" type="number" id="device_confirm-POQty">
-                                        </div>                                        
+                                        </div>
                                         <!-- Unit -->
                                         <div class="input-group mb-3">
                                             <span class="col-5 input-group-text text-warning" data-i18n="device.management.unit">Unit</span>
@@ -317,7 +308,7 @@
                                             </datalist>
                                         </div>
                                     </div>
-                                    
+
                                     <div class="col-6">
                                         <!-- Relation -->
                                         <div class="input-group mb-3">
@@ -391,7 +382,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" data-i18n="global.close">Close</button>
-                <button type="button" class="btn btn-primary" id="device_confirm-btn_save" >Confirm Device</button>
+                <button type="button" class="btn btn-primary" id="device_confirm-btn_save">Confirm Device</button>
             </div>
         </div>
     </div>
@@ -405,6 +396,5 @@
     <script src="~/Areas/NVIDIA/Content/Template/Sysadmin/assets/plugins/select2/js/select2.min.js"></script>
     <script src="~/Areas/NVIDIA/Content/Vendor/Viewer JS/viewer.js"></script>
     <!-- Custom -->
-    <script src="~/Areas/NVIDIA/Content/Custom/DeviceManagement/js/ConfirmDevice.js"></script>
+    <script src="~/Areas/NVIDIA/Content/Custom/DeviceManagement/js/OnTheWay.js"></script>
 }
-

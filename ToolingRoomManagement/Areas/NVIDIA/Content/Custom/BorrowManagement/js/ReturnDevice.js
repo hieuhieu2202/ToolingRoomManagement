@@ -139,13 +139,7 @@ function Return(Id) {
         success: function (response) {
             if (response.status) {
                 var borrow = response.borrow;
-
-                console.log(borrow);
-
                 CreateReturnModal(borrow);
-
-                //$('#ReturnButton').data('id', Id);
-
                 $('#return_modal').modal('show');
             }
             else {
@@ -199,6 +193,8 @@ function CreateReturnModal(borrow) {
     // sign
 
     //// Leader
+    $('#sign-LeaderRole').empty();
+    $('#sign-LeaderUser').empty();
     $.each(roles, function (k, role) {
         if (role.Id == 4) {
             var otp = $(`<option value="${role.Id}">${role.RoleName}</option>`);
@@ -214,6 +210,8 @@ function CreateReturnModal(borrow) {
         });
     });
     //// WH manager
+    $('#sign-WarehouseManagerRole').empty();
+    $('#sign-WarehouseManagerUser').empty();
     $.each(roles, function (k, role) {
         if (role.Id == 3) {
             var otp = $(`<option value="${role.Id}">${role.RoleName}</option>`);
@@ -244,7 +242,8 @@ $('#CreateReturnRequest').click(function (e) {
         contentType: "application/json;charset=utf-8",
         success: function (response) {
             if (response.status) {
-                toastr["success"]("@@", "SUCCRESS");
+                $('#return_modal').modal('hide');
+                toastr["success"]("Create return request success.", "SUCCRESS");
             }
             else {
                 toastr["error"](response.message, "ERROR");
@@ -254,8 +253,6 @@ $('#CreateReturnRequest').click(function (e) {
             Swal.fire(i18next.t('global.swal_title'), GetAjaxErrorMessage(error), "error");
         }
     });
-
-    console.log(data);
 });
 function GetDataReturn(idborrow, iduser) {
     var data = {
@@ -264,6 +261,7 @@ function GetDataReturn(idborrow, iduser) {
         Note: $('#return_modal-Note').val(),
         Type: "Return",
         Status: "Pending",
+        DateReturn: moment().format("YYYY-MM-DD HH:mm:ss"),
         ReturnDevices: [],
         UserReturnSigns: []
     }

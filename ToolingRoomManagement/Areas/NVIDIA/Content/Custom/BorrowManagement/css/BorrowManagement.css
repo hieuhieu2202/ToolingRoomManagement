@@ -54,3 +54,6 @@ td, p, label .badge {
     overflow: hidden;
     text-overflow: ellipsis;
 }
+.dt-buttons.btn-group button{
+    line-height: 1;
+}

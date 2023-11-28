@@ -188,7 +188,22 @@ async function CreateTableBorrow(borrows, returns) {
             { targets: [8], className: "text-center", orderable: false, width: '20px;' },
             { targets: "_all", orderable: false },
         ],
-        "lengthMenu": [[10, 15, 25, 50, -1], [10, 15, 25, 50, "All"]]
+        "lengthMenu": [[10, 15, 25, 50, -1], [10, 15, 25, 50, "All"]],
+        dom: "<'row'<'w-auto'B><'col-sm-12 col-md'l><'col-sm-12 col-md'f>>" +
+            "<'row'<'col-sm-12'tr>>" +
+            "<'row'<'col-sm-12 col-md-7'i><'col-sm-12 col-md-5'p>>",
+        buttons: [{
+            text: "Borrow History",
+            action: function () {
+                ExportBorrowHistory();
+            }
+        },
+        {
+            text: "Return History",
+            action: function () {
+                ExportReturnHistory();
+            }
+        }]
     };
     table_Borrow = $('#table_Borrows').DataTable(options);
     table_Borrow.columns.adjust();
@@ -201,6 +216,48 @@ $('#table_Borrows tbody').on('dblclick', 'tr', function (event) {
     if (type == "Borrow") RequestDetails(dataId);
     else if (type == "Return") ReturnDetails(dataId);
 });
+
+// Export
+function ExportBorrowHistory() {
+    $.ajax({
+        url: '/NVIDIA/BorrowManagement/ExportBorrowHistory',
+        type: 'GET',
+        success: function (data) {
+            if (data.status) {
+                var downloadLink = document.createElement('a');
+                downloadLink.href = data.url;
+                downloadLink.download = data.filename;
+                downloadLink.click();
+            }
+            else {
+                toastr["error"]("Export error.", "ERROR");
+            }
+        },
+        error: function (error) {
+            Swal.fire("Something went wrong!", GetAjaxErrorMessage(error), "error");
+        }
+    });
+}
+function ExportReturnHistory() {
+    $.ajax({
+        url: '/NVIDIA/BorrowManagement/ExportReturnHistory',
+        type: 'GET',
+        success: function (data) {
+            if (data.status) {
+                var downloadLink = document.createElement('a');
+                downloadLink.href = data.url;
+                downloadLink.download = data.filename;
+                downloadLink.click();
+            }
+            else {
+                toastr["error"]("Export error.", "ERROR");
+            }
+        },
+        error: function (error) {
+            Swal.fire("Something went wrong!", GetAjaxErrorMessage(error), "error");
+        }
+    });
+}
 
 // other
 function CreateTableCellUser(user) {
