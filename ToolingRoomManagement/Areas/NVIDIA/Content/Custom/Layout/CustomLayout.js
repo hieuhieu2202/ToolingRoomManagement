@@ -252,3 +252,23 @@ $('#select_language a').click(function (e) {
 
     ChangeLanguage(lang);
 });
+
+// Table fit
+async function TableAdjust(table, container) {
+    var currentIteration = 0;
+
+    var containerWidth = -1;
+    var tableWidth = 0;
+
+    while ((tableWidth != containerWidth || containerWidth == 0) && currentIteration < 200) {
+        try {
+            await new Promise(resolve => setTimeout(resolve, 10));
+            table.columns.adjust();
+            tableWidth = $(`${container} .table`).width() + 1;
+            containerWidth = $(`${container}`).width();
+            currentIteration++;
+        } catch (e) {
+
+        }      
+    }
+}

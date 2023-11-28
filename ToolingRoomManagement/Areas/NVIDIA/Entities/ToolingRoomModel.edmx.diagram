@@ -61,7 +61,7 @@
         <EntityTypeShape EntityType="ToolingRoomModel.UserReturnSign" Width="1.5" PointX="14.125" PointY="5.5" />
         <AssociationConnector Association="ToolingRoomModel.FK_UserReturnSign_Return" />
         <AssociationConnector Association="ToolingRoomModel.FK_UserReturnSign_User" />
-        <EntityTypeShape EntityType="ToolingRoomModel.OnthewayDevice" Width="1.875" PointX="4.375" PointY="15.5" />
+        <EntityTypeShape EntityType="ToolingRoomModel.ComingDevice" Width="1.5" PointX="4.5" PointY="16" />
         <AssociationConnector Association="ToolingRoomModel.FK_OnthewayDevice_Device" />
         <AssociationConnector Association="ToolingRoomModel.FK_OnthewayDevice_DeviceUnconfirm" />
         </Diagram>

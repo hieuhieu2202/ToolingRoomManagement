@@ -427,7 +427,7 @@ function CreateImages_Update(images) {
 
     if (images != null && images.length == 0) {
         $('#images-confirm-container').hide();
-        InitViewer();
+        //InitViewer();
         return;
     }
 

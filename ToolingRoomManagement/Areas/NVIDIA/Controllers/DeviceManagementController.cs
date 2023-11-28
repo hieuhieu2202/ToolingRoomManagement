@@ -1267,43 +1267,104 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
         }
         #endregion
 
-        #region On The Way
+        #region Coming
         [HttpGet]
-        public ActionResult OnTheWayDevice()
+        public ActionResult ComingDevice()
         {
             return View();
         }
-        public JsonResult GetOnTheWayDevices()
+        public JsonResult GetComingDevices()
         {
             try
             {
-                var OnthewayDevices = db.OnthewayDevices.ToList();
+                var ComingDevices = db.ComingDevices.ToList();
 
-                return Json(new { status = true, OnthewayDevices }, JsonRequestBehavior.AllowGet);
+                return Json(new { status = true, ComingDevices }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
                 return Json(new { status = false, message = ex.Message}, JsonRequestBehavior.AllowGet);
             }
         }
-        public JsonResult GetOnTheWayDevice(int Id)
+        public JsonResult GetComingDevice(int Id)
         {
             try
             {
-                var OnthewayDevice = db.OnthewayDevices.FirstOrDefault(d => d.Id == Id);
-                if(OnthewayDevice != null)
+                var ComingDevice = db.ComingDevices.FirstOrDefault(d => d.Id == Id);
+                if(ComingDevice != null)
                 {
-                    return Json(new { status = true, OnthewayDevice }, JsonRequestBehavior.AllowGet);
+                    return Json(new { status = true, ComingDevice }, JsonRequestBehavior.AllowGet);
                 }
                 else
                 {
-                    return Json(new { status = false, message = "On the way device not found." }, JsonRequestBehavior.AllowGet);
+                    return Json(new { status = false, message = "Coming device not found." }, JsonRequestBehavior.AllowGet);
                 } 
             }
             catch (Exception ex)
             {
                 return Json(new { status = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
             }
+        }
+        public JsonResult GetDevice(int Id, string Type)
+        {
+            try
+            {
+                if(Type == "confirm")
+                {
+                    var device = db.Devices.FirstOrDefault(d => d.Id == Id);
+                    if (device != null)
+                    {
+                        return Json(new { status = true, device }, JsonRequestBehavior.AllowGet);
+                    }
+                    else
+                    {
+                        return Json(new { status = false, message = "Device not found." }, JsonRequestBehavior.AllowGet);
+                    }
+                }
+                else if(Type == "unconfirm")
+                {
+                    var device = db.DeviceUnconfirms.FirstOrDefault(d => d.Id == Id);
+                    if (device != null)
+                    {
+                        return Json(new { status = true, device }, JsonRequestBehavior.AllowGet);
+                    }
+                    else
+                    {
+                        return Json(new { status = false, message = "Device not found." }, JsonRequestBehavior.AllowGet);
+                    }
+                }
+                else
+                {
+                    return Json(new { status = false, message = "Type not found." }, JsonRequestBehavior.AllowGet);
+                }               
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        public JsonResult GetWarehouseDevices_Coming(int Id)
+        {
+            try
+            {
+                var warehouse = db.Warehouses.FirstOrDefault(d => d.Id == Id);
+                if (warehouse != null)
+                {
+                    var devices = db.Devices.Where(d => d.IdWareHouse == Id);
+                    var deviceUnconfirms = db.DeviceUnconfirms.Where(d => d.IdWareHouse == Id);
+
+                    return Json(new { status = true, devices, deviceUnconfirms }, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    return Json(new { status = false, message = "Warehouse not found." }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new {status = false, message = ex.Message}, JsonRequestBehavior.AllowGet);
+            }
+            
         }
         #endregion
     }

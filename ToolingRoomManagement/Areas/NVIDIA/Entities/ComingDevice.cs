@@ -12,14 +12,16 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Entities
     using System;
     using System.Collections.Generic;
     
-    public partial class OnthewayDevice
+    public partial class ComingDevice
     {
         public int Id { get; set; }
         public Nullable<int> IdDevice { get; set; }
         public Nullable<int> IdDeviceUnconfirm { get; set; }
-        public Nullable<int> OnTheWayQuantity { get; set; }
+        public Nullable<int> ComingQty { get; set; }
         public string Type { get; set; }
         public Nullable<bool> IsConsign { get; set; }
+        public Nullable<System.DateTime> DateCreated { get; set; }
+        public Nullable<System.DateTime> ExpectedDate { get; set; }
     
         public virtual Device Device { get; set; }
         public virtual DeviceUnconfirm DeviceUnconfirm { get; set; }
