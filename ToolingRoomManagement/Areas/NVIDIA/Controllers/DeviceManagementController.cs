@@ -11,6 +11,7 @@ using System.Runtime.CompilerServices;
 using System.Text.Json;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Services.Description;
 using ToolingRoomManagement.Areas.NVIDIA.Entities;
 using ToolingRoomManagement.Attributes;
 
@@ -413,7 +414,6 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
             try
             {
                 Entities.Warehouse warehouse = db.Warehouses.FirstOrDefault(w => w.Id == IdWarehouse);
-
                 //var skipAmount = 1000 * (PageNum - 1);
 
                 //var Devices = db.Devices.Where(d => d.IdWareHouse == warehouse.Id).OrderByDescending(d => d.Id).Skip(skipAmount).Take(1000).ToList();
@@ -718,17 +718,11 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 Entities.Device device = db.Devices.FirstOrDefault(d => d.Id == Id);
 
                 // Get All Borrow Of Device
-                List<Entities.BorrowDevice> borrowDevices = db.BorrowDevices.Where(b => b.IdDevice == Id).ToList();
-                List<Entities.Borrow> borrows = new List<Borrow>();
-                foreach (var borrowdevice in borrowDevices)
-                {
-                    Entities.Borrow borrow = db.Borrows.FirstOrDefault(b => b.Id == borrowdevice.IdBorrow);
+                List<Entities.Borrow> borrows = db.Borrows.Where(b => b.BorrowDevices.Any(bd => bd.IdDevice == device.Id)).ToList(); ;
+              
+                // Get All Borrow Of Device               
+                List<Entities.Return> returns = db.Returns.Where(r => r.ReturnDevices.Any(rd => rd.IdDevice == device.Id)).ToList();
 
-                    if (!borrows.Any(bl => bl.Id == borrow.Id))
-                    {
-                        borrows.Add(borrow);
-                    }
-                }
                 // Get Warehouse by layout
                 List<Entities.Warehouse> warehouses = new List<Warehouse>();
                 foreach (var dwl in device.DeviceWarehouseLayouts)
@@ -741,9 +735,11 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 foreach (var warehouse in warehouses)
                 {
                     warehouse.Devices.Clear();
-                    warehouse.UserManager.Password = "";
                     warehouse.WarehouseLayouts.Clear();
                 }
+                device.Warehouse = db.Warehouses.FirstOrDefault(w => w.Id == device.IdWareHouse);
+                device.Warehouse.Devices.Clear();
+                device.Warehouse.WarehouseLayouts.Clear();
 
 
 
@@ -757,7 +753,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                     catch {}
                     
 
-                    return Json(new { status = true, device, borrows = JsonSerializer.Serialize(borrows), warehouses, images });
+                    return Json(new { status = true, device, borrows, returns, warehouses, images });
                 }
                 else
                 {
@@ -1277,8 +1273,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
         {
             try
             {
-                var ComingDevices = db.ComingDevices.ToList();
-
+                var ComingDevices = db.ComingDevices.OrderByDescending(d => d.Id).ToList();              
                 return Json(new { status = true, ComingDevices }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -1293,6 +1288,19 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 var ComingDevice = db.ComingDevices.FirstOrDefault(d => d.Id == Id);
                 if(ComingDevice != null)
                 {
+                    if (ComingDevice.Device != null)
+                    {
+                        ComingDevice.Device.Warehouse = db.Warehouses.FirstOrDefault(w => w.Id == ComingDevice.Device.IdWareHouse);
+                        ComingDevice.Device.Warehouse.Devices.Clear();
+                        ComingDevice.Device.Warehouse.WarehouseLayouts.Clear();
+                    }
+                    else if (ComingDevice.DeviceUnconfirm != null)
+                    {
+                        ComingDevice.DeviceUnconfirm.Warehouse = db.Warehouses.FirstOrDefault(w => w.Id == ComingDevice.DeviceUnconfirm.IdWareHouse);
+                        ComingDevice.DeviceUnconfirm.Warehouse.Devices.Clear();
+                        ComingDevice.DeviceUnconfirm.Warehouse.WarehouseLayouts.Clear();
+                    }
+
                     return Json(new { status = true, ComingDevice }, JsonRequestBehavior.AllowGet);
                 }
                 else
@@ -1314,6 +1322,10 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                     var device = db.Devices.FirstOrDefault(d => d.Id == Id);
                     if (device != null)
                     {
+                        device.Warehouse = db.Warehouses.FirstOrDefault(w => w.Id == device.IdWareHouse);
+                        device.Warehouse.Devices.Clear();
+                        device.Warehouse.WarehouseLayouts.Clear();
+
                         return Json(new { status = true, device }, JsonRequestBehavior.AllowGet);
                     }
                     else
@@ -1326,6 +1338,10 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                     var device = db.DeviceUnconfirms.FirstOrDefault(d => d.Id == Id);
                     if (device != null)
                     {
+                        device.Warehouse = db.Warehouses.FirstOrDefault(w => w.Id == device.IdWareHouse);
+                        device.Warehouse.Devices.Clear();
+                        device.Warehouse.WarehouseLayouts.Clear();
+
                         return Json(new { status = true, device }, JsonRequestBehavior.AllowGet);
                     }
                     else
@@ -1365,6 +1381,193 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 return Json(new {status = false, message = ex.Message}, JsonRequestBehavior.AllowGet);
             }
             
+        }
+
+        [HttpPost]
+        public JsonResult AddComingDevice(ComingDevice ComingDevice)
+        {
+            try
+            {
+                if(ComingDevice.ComingQty <= 0 || ComingDevice.ComingQty == null || (ComingDevice.IdDevice == null && ComingDevice.IdDeviceUnconfirm == null))
+                {
+                    return Json(new { status = false, message = "Please double check data." });
+                }
+
+                ComingDevice.DateCreated = DateTime.Now;
+                db.ComingDevices.Add(ComingDevice);
+                db.SaveChanges();
+
+                if (ComingDevice.IdDevice != null)
+                {
+                    ComingDevice.Device = db.Devices.FirstOrDefault(d => d.Id == ComingDevice.IdDevice);
+                }
+                else if (ComingDevice.IdDeviceUnconfirm != null)
+                {
+                    ComingDevice.DeviceUnconfirm = db.DeviceUnconfirms.FirstOrDefault(d => d.Id == ComingDevice.IdDeviceUnconfirm);
+                }
+
+                return Json(new { status = true, ComingDevice });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = false, message = ex.Message });
+            }
+        }
+        public JsonResult UpdateComingDevice(ComingDevice ComingDevice)
+        {
+            try
+            {
+                if (ComingDevice.ComingQty <= 0 || ComingDevice.ComingQty == null)
+                {
+                    return Json(new { status = false, message = "Please double check data." });
+                }
+
+                var dbComingDevice = db.ComingDevices.FirstOrDefault(db => db.Id ==  ComingDevice.Id);
+                dbComingDevice.ComingQty = ComingDevice.ComingQty;
+                dbComingDevice.Type = ComingDevice.Type;
+                dbComingDevice.IsConsign = ComingDevice.IsConsign;
+                dbComingDevice.ExpectedDate = ComingDevice.ExpectedDate;
+
+                db.ComingDevices.AddOrUpdate(dbComingDevice);
+                db.SaveChanges();
+
+                return Json(new { status = true, ComingDevice = dbComingDevice });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = false, message = ex.Message });
+            }
+        }
+        public JsonResult DeleteComingDevice(int Id)
+        {
+            try
+            {
+                var ComingDevice = db.ComingDevices.FirstOrDefault(d => d.Id == Id);
+
+                if(ComingDevice != null)
+                {
+                    db.ComingDevices.Remove(ComingDevice);
+                    //db.SaveChanges();
+                }
+                else
+                {
+                    return Json(new { status = false, message = "Coming device not found." });
+                }
+                return Json(new { status = true });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = false, message = ex.Message });
+            }
+        }
+        public JsonResult ConfirmComingDevice(int cDeviceId, int ConfirmQty)
+        {
+            try
+            {
+                var ComingDevice = db.ComingDevices.FirstOrDefault(d => d.Id == cDeviceId);
+                if(ComingDevice != null)
+                {
+                    var device = CreateDeviceInfo(ComingDevice);
+
+                    device.QtyConfirm = device.RealQty = device.SysQuantity = device.Quantity = ConfirmQty;
+                    if (!ComingDevice.IsConsign ?? false) device.POQty = ConfirmQty;
+                    device.Status = Data.Common.CheckStatus(device);
+
+                    if (ConfirmQty == ComingDevice.ComingQty) // Số lượng xác nhận == Số lượng Sắp đến => Thêm mới device, Xoá ComingDevice
+                    {
+                        db.Devices.Add(device);
+                        db.ComingDevices.Remove(ComingDevice);
+                        db.SaveChanges();
+
+                        return Json(new { status = true, ComingDevice = true });
+                    }
+                    else if (ConfirmQty < ComingDevice.ComingQty)
+                    {
+                        ComingDevice.ComingQty -= ConfirmQty;
+
+                        db.Devices.Add(device);
+                        db.ComingDevices.AddOrUpdate(ComingDevice);
+                        db.SaveChanges();
+
+                        return Json(new { status = true, ComingDevice });
+                    }
+                    else if(ConfirmQty > ComingDevice.ComingQty)
+                    {
+                        return Json(new { status = false, message = $"Please double check confirm quantity. Max = {ComingDevice.ComingQty}." });
+                    }
+                    else
+                    {
+                        return Json(new { status = false, message = "Coming device not found." });
+                    }
+                }
+                else
+                {
+                    return Json(new { status = false, message = "Confirm quantity not found." });
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = false, message = ex.Message });
+            }
+        }
+
+        private Device CreateDeviceInfo(ComingDevice ComingDevice)
+        {
+            var cDevice = ComingDevice.Device;
+            var uDevice = ComingDevice.DeviceUnconfirm;
+
+            Device device = new Device();
+
+            if (cDevice != null) // Data lấy từ bảng Device
+            {
+                device = cDevice;
+                device.Quantity = 0;
+                device.QtyConfirm = 0;
+                device.RealQty = 0;
+                device.SysQuantity = 0;
+                device.POQty = 0;
+                device.NG_Qty = 0;
+
+                return device;
+            }
+            else if (uDevice != null) // Data lấy từ bảng Device
+            {
+                device.DeviceCode = uDevice.DeviceCode;
+                device.DeviceDate = uDevice.DeviceDate;
+                device.DeviceDate = uDevice.DeviceDate;
+                device.Buffer = uDevice.Buffer;
+                device.Type = ComingDevice.Type;
+                device.isConsign = ComingDevice.IsConsign;
+                device.IdWareHouse = uDevice.IdWareHouse;
+                device.Group = uDevice.Group;
+                device.Vendor = uDevice.Vendor;
+                device.CreatedDate = uDevice.CreatedDate;
+                device.IdProduct = uDevice.IdProduct;
+                device.IdModel = uDevice.IdModel;
+                device.IdStation = uDevice.IdStation;
+                device.Relation = uDevice.Relation;
+                device.LifeCycle = uDevice.LifeCycle;
+                device.Forcast = uDevice.Forcast;
+                device.ACC_KIT = uDevice.ACC_KIT;
+                device.Specification = uDevice.Specification;
+                device.Unit = uDevice.Unit;
+                device.DeliveryTime = uDevice.DeliveryTime;
+                device.Type_BOM = uDevice.Type_BOM;
+                device.MOQ = uDevice.MOQ;
+
+                device.Quantity = 0;
+                device.QtyConfirm = 0;
+                device.RealQty = 0;
+                device.SysQuantity = 0;
+                device.POQty = 0;
+                device.NG_Qty = 0;
+
+                return device;
+            }
+            else
+            {
+                return null;
+            }
         }
         #endregion
     }

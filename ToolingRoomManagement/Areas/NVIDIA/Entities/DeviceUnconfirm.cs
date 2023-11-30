@@ -11,7 +11,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Entities
 {
     using System;
     using System.Collections.Generic;
-    
+
     public partial class DeviceUnconfirm
     {
         public int Id { get; set; }
@@ -45,11 +45,12 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Entities
         public string Type_BOM { get; set; }
         public Nullable<int> MOQ { get; set; }
         public Nullable<bool> isConsign { get; set; }
-    
+
         public virtual Group Group { get; set; }
         public virtual Model Model { get; set; }
         public virtual Product Product { get; set; }
         public virtual Station Station { get; set; }
         public virtual Vendor Vendor { get; set; }
+        public virtual Warehouse Warehouse { get; set; }
     }
 }

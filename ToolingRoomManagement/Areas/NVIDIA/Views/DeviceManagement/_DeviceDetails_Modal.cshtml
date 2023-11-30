@@ -120,10 +120,10 @@
                                             <span class="input-group-text">%</span>
                                         </div>
                                         <!-- BOM Quantity -->
-                                        <div class="input-group mb-3">
+                                        @*<div class="input-group mb-3">
                                             <span class="col-5 input-group-text" data-i18n="device.management.bom_qty">BOM Quantity</span>
                                             <input class="form-control" type="number" id="device_details-Quantity" details disabled>
-                                        </div>
+                                        </div>*@
                                         <!-- PO Quantity -->
                                         <div class="input-group mb-3">
                                             <span class="col-5 input-group-text" data-i18n="device.management.po_qty">PO Quantity</span>
@@ -178,15 +178,15 @@
                                     <input class="col-9 form-control" id="device_details-Product" type="text" details disabled />
                                 </div>
                                 <!-- Model -->
-                                <div class="input-group mb-3">
+                                @*<div class="input-group mb-3">
                                     <span class="col-3 input-group-text" data-i18n="device.management.model">Model</span>
                                     <input class="col-9 form-control" id="device_details-Model" type="text" details disabled />
-                                </div>
+                                </div>*@
                                 <!-- Station -->
-                                <div class="input-group mb-3">
+                                @*<div class="input-group mb-3">
                                     <span class="col-3 input-group-text" data-i18n="device.management.station">Station</span>
                                     <input class="col-9 form-control" id="device_details-Station" type="text" details disabled />
-                                </div>
+                                </div>*@
                                 <!-- Group -->
                                 <div class="input-group mb-3">
                                     <span class="col-3 input-group-text" data-i18n="device.management.group">Group</span>
@@ -227,17 +227,16 @@
                 <div>
                     <table class="table table-bordered" id="device_details-history">
                         <thead>
-                            <tr class="align-middle fw-bold" style="background-color: #3e464c">
-                                <td>Code</td>
-                                <td data-i18n="device.management.type_request">Type</td>
-                                <td data-i18n="device.management.date_borrow">Date Borrow</td>
-                                <td data-i18n="device.management.date_return">Date Return</td>
-                                <td data-i18n="device.management.user">User</td>
-                                <td data-i18n="device.management.use_for_model">For Model</td>
-                                <td data-i18n="device.management.use_for_station">For Station</td>
-                                <td data-i18n="device.management.borrow_quantity">Borrow Quantity</td>
-                                <td data-i18n="device.management.status_request">Status</td>
-                                <td data-i18n="device.management.note" style="max-width: 200px;">Note</td>
+                            <tr class="align-middle fw-bold text-center" style="background-color: #3e464c">
+                                <td style="min-width: 200px;">Code</td>
+                                <td style="min-width: 100px;" data-i18n="device.management.type_request">Type</td>
+                                <td style="min-width: 160px;">Date Borrow/Return</td>
+                                <td style="min-width: 220px;" data-i18n="device.management.user">User</td>
+                                <td style="min-width: 100px;" >Quantity</td>
+                                <td style="min-width: 100px;">Status</td>
+                                <td style="width: 100%;" data-i18n="device.management.note">Note</td>
+                                <td style="min-width: 50px;" class="text-danger">NG</td>
+                                <td style="min-width: 50px;" class="text-info">Swap</td>
                             </tr>
                         </thead>
                         <tbody id="device_details-history-tbody"></tbody>

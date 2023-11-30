@@ -60,5 +60,6 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Entities
         public virtual Vendor Vendor { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DeviceWarehouseLayout> DeviceWarehouseLayouts { get; set; }
+        public virtual Warehouse Warehouse { get; set; }
     }
 }

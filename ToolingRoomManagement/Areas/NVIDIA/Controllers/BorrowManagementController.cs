@@ -52,7 +52,9 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
         {
             try
             {
-                Borrow borrow = db.Borrows.FirstOrDefault(b => b.Id == Id);               
+                Borrow borrow = db.Borrows.FirstOrDefault(b => b.Id == Id);
+                borrow = CalculateBorrowQuantity(borrow);
+
 
                 return Json(new { status = true, borrow }, JsonRequestBehavior.AllowGet);
             }
@@ -510,6 +512,10 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
             {
                 Entities.User user = (Entities.User)Session["SignSession"];
                 List<Borrow> borrows = db.Borrows.Where(b => b.IdUser == user.Id && b.Status == "Approved" && (b.Type == "Borrow" || b.Type == "Take")).ToList();
+                for (int i = 0; i < borrows.Count; i++)
+                {
+                    borrows[i] = CalculateBorrowQuantity(borrows[i]);
+                }
 
                 return Json(new { status = true, borrows = JsonSerializer.Serialize(borrows) }, JsonRequestBehavior.AllowGet);
             }
@@ -523,28 +529,39 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
         {
             try
             {
+                if (data.ReturnDevices.Count == 0) return Json(new { status = false, message = "Please input return quantity." });
+
                 var borrow = db.Borrows.FirstOrDefault(b => b.Id == data.IdBorrow);
+                
                 if (borrow != null)
                 {
-                    if(data.ReturnDevices.Count == 0) return Json(new { status = false, message = "Please input return quantity." });
                     // Check Return Quantity
                     foreach (var returnDevice in data.ReturnDevices)
                     {
-                        var returns = db.Returns.Where(r => r.IdBorrow == data.IdBorrow && r.ReturnDevices.Any(rd => rd.IdDevice == returnDevice.IdDevice)).ToList();
-                        var borrowedQuantity = borrow.BorrowDevices.FirstOrDefault(bd => bd.IdDevice == returnDevice.IdDevice)?.BorrowQuantity ?? 0;
-
-                        int countReturnQuantity = 0;
-                        foreach (var returnn in returns)
+                        if (borrow.BorrowDevices.Any(br => br.IdDevice == returnDevice.IdDevice))
                         {
-                            countReturnQuantity += returnn.ReturnDevices.FirstOrDefault(rd => rd.IdDevice == returnDevice.IdDevice).ReturnQuantity ?? 0;
-                        }
+                            int totalReturnQty = db.Returns
+                                            .Where(r => r.IdBorrow == data.IdBorrow && r.ReturnDevices.Any(rd => rd.IdDevice == returnDevice.IdDevice))
+                                            .Sum(r => r.ReturnDevices.FirstOrDefault().ReturnQuantity) ?? 0;
 
-                        if (countReturnQuantity >= borrowedQuantity) return Json(new { status = false, message = "Return quantity > Borrow quantity." });
+                            int thisReturnQry = totalReturnQty + returnDevice.ReturnQuantity ?? 0;
+                            int borrowedQuantity = borrow.BorrowDevices.FirstOrDefault(bd => bd.IdDevice == returnDevice.IdDevice).BorrowQuantity ?? 0;
+                            if (thisReturnQry > borrowedQuantity) return Json(new { status = false, message = "Return quantity > Borrow quantity." });
+                        }
+                        else
+                        {
+                            return Json(new { status = false, message = "Please double check your request." });
+                        }
                     }
 
+                    // Check Return All
                     db.Returns.Add(data);
                     db.SaveChanges();
-                    return Json(new { status = true });
+
+                    var borrowAfter = CalculateBorrowQuantity(borrow);
+
+
+                    return Json(new { status = true, borrow = borrowAfter });
                 }
                 else
                 {
@@ -556,6 +573,35 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 return Json(new { status = false, message = ex.Message });
             }
         }
+
+        private Borrow CalculateBorrowQuantity(Borrow borrow)
+        {
+            List<BorrowDevice> borrowDevices = borrow.BorrowDevices.ToList();
+
+            foreach (var borrowDevice in borrowDevices)
+            {
+                var returns = db.Returns.Where(r => r.IdBorrow == borrow.Id).ToList();
+
+                int totalReturnQty = 0;
+                foreach(var ireturn in returns)
+                {
+                    var returnDevice = ireturn.ReturnDevices.FirstOrDefault(rd => rd.IdDevice == borrowDevice.IdDevice);
+                    if(returnDevice != null) totalReturnQty += returnDevice.ReturnQuantity ?? 0;
+                }
+
+                if(totalReturnQty == borrowDevice.BorrowQuantity)
+                {
+                    borrow.BorrowDevices.Remove(borrowDevice);
+                }
+                else
+                {
+                    borrowDevice.BorrowQuantity -= totalReturnQty;
+                }
+            }
+
+            return borrow;
+        }
+
         public JsonResult GetReturn(int Id)
         {
             try

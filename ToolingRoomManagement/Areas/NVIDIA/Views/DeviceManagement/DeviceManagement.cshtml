@@ -32,8 +32,8 @@
     <div class="card-body">
         <div class="card-title d-flex justify-content-between align-items-center">
             <div class="d-flex">
-                <h5 class="m-0 me-3" data-i18n="device.management.device_details">Device Details</h5>
-                <label class="text-secondary" data-i18n="device.management.table_hint">(* Double click to view details)</label>
+                <h5 class="m-0 me-3" data-i18n="device.management.device_details">Devices</h5>
+                <label class="text-secondary" data-i18n="device.management.table_hint">(Double click to view details)</label>
             </div>
 
             <div class="w-50 d-flex justify-content-end">
@@ -194,6 +194,9 @@
 <!-- Borrow Request modal -->
 @Html.Partial("~/Areas/NVIDIA/Views/BorrowManagement/_RequestDetails_Modal.cshtml")
 
+<!-- Return Request modal -->
+@Html.Partial("~/Areas/NVIDIA/Views/BorrowManagement/_ReturnDetails.cshtml")
+
 @section scripts{
     <!-- Vendor -->
     <script src="~/Areas/NVIDIA/Content/Template/Sysadmin/assets/plugins/datatable/js/jquery.dataTables.min.js"></script>
@@ -206,4 +209,5 @@
     <script src="~/Areas/NVIDIA/Content/Custom/DeviceManagement/js/DeviceDetails.js?v=@Guid.NewGuid()"></script>
     <script src="~/Areas/NVIDIA/Content/Custom/DeviceManagement/js/DeviceUpdate.js?v=@Guid.NewGuid()"></script>
     <script src="~/Areas/NVIDIA/Content/Custom/BorrowManagement/js/RequestDetails.js?v=@Guid.NewGuid()"></script>
+    <script src="~/Areas/NVIDIA/Content/Custom/BorrowManagement/js/ReturnDetails.js?v=@Guid.NewGuid()"></script>
 }

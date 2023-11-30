@@ -12,12 +12,13 @@ function GetDeviceDetails(Id) {
         success: function (response) {
             if (response.status) {
                 var device = response.device;
-                var borrows = JSON.parse(response.borrows);
+                var borrows = response.borrows;
+                var returns = response.returns;
                 var warehouses = response.warehouses;
 
                 FillDetailsDeviceData(device);
                 CreateTableLayout(device, warehouses);
-                CreateTableHistory(Id, borrows);
+                CreateTableHistory(Id, borrows, returns);
                 $('#device_details-modal').modal('show');
 
                 setTimeout(() => {
@@ -55,7 +56,7 @@ async function FillDetailsDeviceData(data) {
     $('#device_details-Product').val(data.Product ? data.Product.ProductName : '');
     $('#device_details-Model').val(data.Model ? data.Model.ModelName : '');
     $('#device_details-Station').val(data.Station ? data.Station.StationName : '');
-    $('#device_details-WareHouse').val($('#input_WareHouse option:selected').text());
+    $('#device_details-WareHouse').val(data.Warehouse.WarehouseName);
     $('#device_details-Group').val(data.Group ? data.Group.GroupName : '');
     $('#device_details-Vendor').val(data.Vendor ? data.Vendor.VendorName : '');
 
@@ -83,36 +84,121 @@ function CreateTableLayout(device, warehouses) {
         $('#device_details-layout-tbody').append(tr);
     });
 }
-function CreateTableHistory(IdDevice, borrows) {
+function CreateTableHistory(IdDevice, borrows, returns) {
     $('#device_details-history-tbody').empty();
     $.each(borrows, function (k, item) {
         if (item.Status == 'Rejected') return;
 
-        var tr = $(`<tr class="align-middle hover-tr" data-id="${item.Id}" style="cursor: pointer;"></tr>`);
-        tr.append($(`<td>${moment(item.DateBorrow).format('YYYYMMDDHHmm')}-${item.Id}</td>`));
-        tr.append($(`<td>${item.Type}</td>`));
+        var tr = $(`<tr class="align-middle hover-tr text-center" data-id="${item.Id}" IsBorrow style="cursor: pointer;"></tr>`);
+        tr.append($(`<td class="text-start">B-${moment(item.DateBorrow).format('YYYYMMDDHHmm')}-${item.Id}</td>`));
+
+        switch (item.Type) {
+            case "Borrow": {
+                tr.append(`<td><span class="badge bg-primary"><i class="fa-solid fa-left-to-line"></i> Borrow</span></td>`);
+                break;
+            }
+            case "Take": {
+                tr.append(`<td><span class="badge bg-secondary"><i class="fa-regular fa-inbox-full"></i> Take</span></td>`);
+                break;
+            }
+        }
+
         tr.append($(`<td>${moment(item.DateBorrow).format('YYYY-MM-DD HH:mm')}</td>`));
 
-        var dateReturn = moment(item.DateReturn).format('YYYY-MM-DD HH:mm');
-        tr.append($(`<td>${dateReturn != 'Invalid date' ? dateReturn : ""}</td>`));
-
         tr.append($(`<td>${CreateUserName(item.User)}</td>`));
-        tr.append($(`<td>${item.Model ? item.Model.ModelName ? item.Model.ModelName : '' : ''}</td>`));
-        tr.append($(`<td>${item.Station ? item.Station.StationName ? item.Station.StationName : '' : ''}</td>`));
 
         tr.append($(`<td>${GetQuantityDeviceInBorrow(IdDevice, item.BorrowDevices)}</td>`));
 
-        tr.append($(`<td>${item.Status}</td>`));
-        tr.append($(`<td style="max-width: 200px;">${item.Note}</td>`));
+        switch (item.Status) {
+            case "Pending": {
+                tr.append(`<td><span class="badge bg-warning"><i class="fa-solid fa-timer"></i> Pending</span></td>`);
+                break;
+            }
+            case "Approved": {
+                tr.append(`<td><span class="badge bg-success"><i class="fa-solid fa-check"></i> Approved</span></td>`);
+                break;
+            }
+        }
+
+
+        tr.append($(`<td class="text-start">${item.Note ? item.Note : ''}</td>`));
+
+        tr.append($(`<td></td>`));
+        tr.append($(`<td></td>`));
 
         $('#device_details-history-tbody').append(tr);
 
-        tr.dblclick(function (e) {
-            try {
-                BorrowDetails($(this).data('id'));
-            } catch { console.log("Sự kiện show chi tiết đơn không được hiển thị ở đây.") }
+        //tr.dblclick(function (e) {
+        //    try {
+        //        BorrowDetails($(this).data('id'));
+        //    } catch { console.log("Sự kiện show chi tiết đơn không được hiển thị ở đây.") }
             
+        //});
+    });
+
+    $.each(returns, function (k, item) {
+        if (item.Status == 'Rejected') return;
+
+        var tr = $(`<tr class="align-middle hover-tr text-center" data-id="${item.Id}" IsReturn style="cursor: pointer;"></tr>`);
+        tr.append($(`<td class="text-start">R-${moment(item.DateReturn).format('YYYYMMDDHHmm')}-${item.Id}</td>`));
+
+       
+        tr.append($(`<td><span class="badge bg-info"><i class="fa-solid fa-right-to-line"></i> Return</span></td>`));
+        tr.append($(`<td>${moment(item.DateReturn).format('YYYY-MM-DD HH:mm')}</td>`));
+
+        tr.append($(`<td>${CreateUserName(item.User)}</td>`));
+
+        tr.append($(`<td>${GetQuantityDeviceInReturn(IdDevice, item.ReturnDevices)}</td>`));
+
+        switch (item.Status) {
+            case "Pending": {
+                tr.append(`<td><span class="badge bg-warning"><i class="fa-solid fa-timer"></i> Pending</span></td>`);
+                break;
+            }
+            case "Approved": {
+                tr.append(`<td><span class="badge bg-success"><i class="fa-solid fa-check"></i> Approved</span></td>`);
+                break;
+            }
+        }
+
+        tr.append($(`<td class="text-start">${item.Note ? item.Note : ''}</td>`));
+
+        tr.append($(`<td>${item.IsNG ? '<i class="fa-duotone fa-check text-success"></i>' : '<i class="fa-solid fa-xmark text-danger"></i>'}</td>`));
+        tr.append($(`<td>${item.IsSwap ? '<i class="fa-duotone fa-check text-success"></i>' : '<i class="fa-solid fa-xmark text-danger"></i>'}</td>`));
+
+        $('#device_details-history-tbody').append(tr);
+
+        //tr.dblclick(function (e) {
+        //    try {
+        //        ReturnDetails($(this).data('id'));
+        //    } catch { console.log("Sự kiện show chi tiết đơn không được hiển thị ở đây.") }
+
+        //});
+    });
+
+    var rows = $('#device_details-history-tbody tr').toArray();
+
+    // Sắp xếp mảng dựa trên giá trị của cột "Date Borrow/Return"
+    rows.sort(function (a, b) {
+        var dateA = new Date($(a).find('td:eq(2)').text());
+        var dateB = new Date($(b).find('td:eq(2)').text());
+        return dateB - dateA;
+    });
+
+    // Xóa tất cả các dòng trong tbody
+    $('#device_details-history-tbody').empty();
+
+    // Thêm lại các dòng đã sắp xếp vào tbody
+    $.each(rows, function (index, row) {
+        $(row).dblclick(function (e) {
+            if ($(row).is('[IsBorrow]')) {
+                RequestDetails($(this).data('id'), false);
+            }
+            else {
+                ReturnDetails($(this).data('id'), false);
+            }
         });
+        $('#device_details-history-tbody').append($(row));
     });
 }
 function GetQuantityDeviceInBorrow(IdDevice, BorrowDevices) {
@@ -120,6 +206,16 @@ function GetQuantityDeviceInBorrow(IdDevice, BorrowDevices) {
     $.each(BorrowDevices, function (k, item) {
         if (item.IdDevice == IdDevice) {
             quantity = item.BorrowQuantity;
+            return false;
+        }
+    });
+    return quantity;
+}
+function GetQuantityDeviceInReturn(IdDevice, ReturnDevices) {
+    var quantity = 0;
+    $.each(ReturnDevices, function (k, item) {
+        if (item.IdDevice == IdDevice) {
+            quantity = item.ReturnQuantity;
             return false;
         }
     });

@@ -85,14 +85,14 @@ function CreateReturnDetailsModal(_return, showDevice) {
             var isNG = item.IsNG
             var isSwap = item.IsSwap;
 
-            var row = $(`<tr data-id="${item.Device.Id}" class="cursor-pointer"></tr>`);
+            var row = $(`<tr data-id="${item.Device.Id}" class="cursor-pointer align-middle"></tr>`);
             row.append(`<td>${mts}</td>`);
             row.append(`<td>${deviceCode}</td>`);
             row.append(`<td>${deviceName}</td>`);
             row.append(`<td class="text-center">${unit}</td>`);
             row.append(`<td class="text-center">${return_qty}</td>`);
-            row.append(`<td class="text-center">${isNG ? '<i class="fa-duotone fa-check text-success"></i>' : ''}</td>`);
-            row.append(`<td class="text-center">${isSwap ? '<i class="fa-duotone fa-check text-success"></i>' : ''}</td>`);
+            row.append(`<td class="text-center">${isNG ? '<i class="fa-duotone fa-check text-success"></i>' : '<i class="fa-solid fa-xmark text-danger"></i>'}</td>`);
+            row.append(`<td class="text-center">${isSwap ? '<i class="fa-duotone fa-check text-success"></i>' : '<i class="fa-solid fa-xmark text-danger"></i>'}</td>`);
 
             if (showDevice) {
                 row.dblclick(function () {

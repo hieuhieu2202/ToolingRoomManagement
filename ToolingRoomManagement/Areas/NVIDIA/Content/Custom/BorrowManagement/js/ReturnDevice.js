@@ -52,6 +52,8 @@ async function CreateTableBorrow(borrows) {
 
     $('#table_Borrows-tbody').html('');
     await $.each(borrows, function (no, item) {
+        if (item.BorrowDevices.length == 0) return;
+
         var row = $(`<tr class="align-middle" data-id="${item.Id}" title="Double-click to view device details."></tr>`);
 
         // ID
@@ -140,6 +142,9 @@ function Return(Id) {
             if (response.status) {
                 var borrow = response.borrow;
                 CreateReturnModal(borrow);
+
+                $('#CreateReturnRequest').attr('id', Id);
+
                 $('#return_modal').modal('show');
             }
             else {
@@ -232,6 +237,11 @@ $('#CreateReturnRequest').click(function (e) {
 
     var IdBorrow = $(this).data('idborrow');
     var IdUser = $(this).data('iduser');
+
+    var Id = $(this).data('id');
+    var Index = table_Borrow.row(`[data-id="${Id}"]`).index();
+    
+
     var data = GetDataReturn(IdBorrow, IdUser);
 
     $.ajax({
@@ -243,6 +253,11 @@ $('#CreateReturnRequest').click(function (e) {
         success: function (response) {
             if (response.status) {
                 $('#return_modal').modal('hide');
+
+                if (response.borrow.BorrowDevices.length == 0) {
+                    table_Borrow.row(Index).remove().draw(false);
+                }
+
                 toastr["success"]("Create return request success.", "SUCCRESS");
             }
             else {

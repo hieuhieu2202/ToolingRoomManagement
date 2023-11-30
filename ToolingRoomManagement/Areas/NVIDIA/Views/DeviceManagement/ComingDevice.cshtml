@@ -34,105 +34,33 @@
                 <h5 class="m-0 me-3">Coming Device Table</h5>
             </div>
 
-            <div class="w-50 d-flex justify-content-end">
-                <div class="dropdown ms-3" id="dropdown_filter">
-                    <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bx bx-filter"></i></button>
-                    <div class="dropdown-menu" style="width:600px;">
-                        <div class="row">
-                            <div class="col-6">
-                                <!--Filter product -->
-                                <div class="input-group input-group-sm mb-3">
-                                    <span class="col-3 input-group-text" data-i18n="device.management.product">Product</span>
-                                    <select class="form-select form-select-sm" id="filter_Product">
-                                        <option value="" selected data-i18n="device.management.product_all">Product (All)</option>
-                                    </select>
-                                </div>
-                                <!--Filter model -->
-                                <div class="input-group input-group-sm mb-3">
-                                    <span class="col-3 input-group-text" data-i18n="device.management.model">Model</span>
-                                    <select class="form-select form-select-sm" id="filter_Model">
-                                        <option value="" selected data-i18n="device.management.model_all">Model (All)</option>
-                                    </select>
-                                </div>
-                                <!--Filter station -->
-                                <div class="input-group input-group-sm mb-3">
-                                    <span class="col-3 input-group-text" data-i18n="device.management.station">Station</span>
-                                    <select class="form-select form-select-sm" id="filter_Station">
-                                        <option value="" selected data-i18n="device.management.station_all">Station (All)</option>
-                                    </select>
-                                </div>
-                                <!--Filter group -->
-                                <div class="input-group input-group-sm mb-3">
-                                    <span class="col-3 input-group-text" data-i18n="device.management.group">Group</span>
-                                    <select class="form-select form-select-sm" id="filter_Group">
-                                        <option value="" selected data-i18n="device.management.group_all">Group (All)</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <!--Filter Vendor -->
-                                <div class="input-group input-group-sm mb-3">
-                                    <span class="col-3 input-group-text" data-i18n="device.management.vendor">Vendor</span>
-                                    <select class="form-select form-select-sm" id="filter_Vendor">
-                                        <option value="" selected data-i18n="device.management.vendor_all">Vendor (All)</option>
-                                    </select>
-                                </div>
-                                <!--Filter Type -->
-                                <div class="input-group input-group-sm mb-3">
-                                    <span class="col-3 input-group-text" data-i18n="device.management.type">Type</span>
-                                    <select class="form-select form-select-sm" id="filter_Type">
-                                        <option value="Type" selected data-i18n="device.management.type_all">Type (All)</option>
-                                        <option value="Static">Static</option>
-                                        <option value="Dynamic">Dynamic</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-12 d-flex justify-content-between">
-                                <button class="btn btn-sm btn-primary" style="width: 80%" id="filter" data-i18n="device.management.filter"><i class="fa-solid fa-arrow-down-small-big"></i> Filter</button>
-                                <button class="btn btn-sm btn-outline-secondary ms-3" id="filter-refresh" data-i18n="device.management.refresh"><i class="fa-sharp fa-regular fa-arrows-rotate"></i> Refresh</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            
         </div>
 
         <hr />
         <div class="form-body mt-4">
             <table id="table_Devices" class="table table-striped table-hover table-bordered text-nowrap">
                 <thead>
-                    <tr>
+                    <tr class="align-middle">
                         <!-- 0 -->
                         <th>ID</th>
                         <!-- 1 -->
                         <th>MTS</th>
                         <!-- 2 -->
-                        <th>Product Name</th>
-                        <!-- 3 -->
                         <th>PN</th>
-                        <!-- 4 -->
+                        <!-- 3 -->
                         <th>Description</th>
-                        <!-- 5 -->
+                        <!-- 4 -->
                         <th>Group</th>
-                        <!-- 6 -->
+                        <!-- 5 -->
                         <th>Vendor</th>
+                        <!-- 6 -->
+                        <th class="text-info">Coming Quantity</th>
                         <!-- 7 -->
-                        <th>Model</th>
+                        <th>Expected Date</th>
                         <!-- 8 -->
-                        <th>Station</th>
+                        <th>Tppe</th>
                         <!-- 9 -->
-                        <th>Life Cycle</th>
-                        <!-- 10 -->
-                        <th>Buffer</th>
-                        <!-- 11 -->
-                        <th>Quantity</th>
-                        <!-- 12 -->
-                        <th>Min Quantity</th>
-                        <!-- 13 -->
-                        <th>MOQ</th>
-                        <!-- 14 -->
-                        <th>Type</th>
-                        <!-- 15 -->
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -189,7 +117,7 @@
 </div>
 
 <!-- Add device coming -->
-<div class="modal fade" id="device_comming_add-modal" aria-hidden="true">
+<div class="modal fade" id="device_comming_add-modal" data-bs-backdrop="static" aria-hidden="true">
     <div class="modal-dialog modal-xl modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
@@ -197,11 +125,128 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                
+                <div class="row">
+                    <div class="col-6">
+                        <!-- MTS -->
+                        <div class="input-group mb-3">
+                            <span class="col-4 input-group-text">MTS</span>
+                            <input class="form-control" type="text" id="coming_device_add-MTS" disabled>
+                        </div>
+                        <!-- PN (Device Code) -->
+                        <div class="input-group mb-3">
+                            <span class="col-4 input-group-text">PN</span>
+                            <input class="form-control" type="text" id="coming_device_add-DeviceCode" disabled>
+                        </div>
+                        <!-- Description (Device Name) -->
+                        <div class="input-group mb-3">
+                            <span class="col-4 input-group-text">Description</span>
+                            <input class="form-control" type="text" id="coming_device_add-Description" disabled>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <!-- Type -->
+                        <div class="input-group mb-3">
+                            <span class="col-4 input-group-text text-danger fw-bold">Type</span>
+                            <select class="form-select" id="coming_device_add-Type">
+                                <optgroup label="Normal">
+                                    <option value="normal_NA" selected>NA</option>
+                                    <option value="normal_Fixture">Fixture</option>
+                                    <option value="normal_Static">Static</option>
+                                    <option value="normal_Dynamic">Dynamic</option>
+                                </optgroup>
+                                <optgroup label="Consign">
+                                    <option value="consign_NA">NA</option>
+                                    <option value="consign_Fixture">Fixture</option>
+                                    <option value="consign_Static">Static</option>
+                                    <option value="consign_Dynamic">Dynamic</option>
+                                </optgroup>
+                            </select>
+                        </div>
+                        <!-- Coming Quantity -->
+                        <div class="input-group mb-3">
+                            <span class="col-4 input-group-text text-danger fw-bold">Coming Quantity</span>
+                            <input class="form-control" type="number" min="0" id="coming_device_add-Quantity">
+                        </div>
+                        <!-- Expected Date -->
+                        <div class="input-group mb-3">
+                            <span class="col-4 input-group-text text-danger fw-bold">Expected Date</span>
+                            <input class="form-control" type="date" id="coming_device_add-ExpectedDate">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" id="btn-close_device_coming" data-i18n="global.close">Close</button>
+                <button type="button" class="btn btn-primary" id="btn-add_device_coming">Add device</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Update device coming -->
+<div class="modal fade" id="device_comming_edit-modal" data-bs-backdrop="static" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Update Coming Device</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-6">
+                        <!-- MTS -->
+                        <div class="input-group mb-3">
+                            <span class="col-4 input-group-text">MTS</span>
+                            <input class="form-control" type="text" id="device_comming_edit-MTS" disabled>
+                        </div>
+                        <!-- PN (Device Code) -->
+                        <div class="input-group mb-3">
+                            <span class="col-4 input-group-text">PN</span>
+                            <input class="form-control" type="text" id="device_comming_edit-DeviceCode" disabled>
+                        </div>
+                        <!-- Description (Device Name) -->
+                        <div class="input-group mb-3">
+                            <span class="col-4 input-group-text">Description</span>
+                            <input class="form-control" type="text" id="device_comming_edit-Description" disabled>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <!-- Type -->
+                        <div class="input-group mb-3">
+                            <span class="col-4 input-group-text text-danger fw-bold">Type</span>
+                            <select class="form-select" id="device_comming_edit-Type">
+                                <optgroup label="Normal">
+                                    <option value="normal_NA" selected>NA</option>
+                                    <option value="normal_Fixture">Fixture</option>
+                                    <option value="normal_Static">Static</option>
+                                    <option value="normal_Dynamic">Dynamic</option>
+                                </optgroup>
+                                <optgroup label="Consign">
+                                    <option value="consign_NA">NA</option>
+                                    <option value="consign_Fixture">Fixture</option>
+                                    <option value="consign_Static">Static</option>
+                                    <option value="consign_Dynamic">Dynamic</option>
+                                </optgroup>
+                            </select>
+                        </div>
+                        <!-- Coming Quantity -->
+                        <div class="input-group mb-3">
+                            <span class="col-4 input-group-text text-danger fw-bold">Coming Quantity</span>
+                            <input class="form-control" type="number" min="0" id="device_comming_edit-Quantity">
+                        </div>
+                        <!-- Expected Date -->
+                        <div class="input-group mb-3">
+                            <span class="col-4 input-group-text text-danger fw-bold">Expected Date</span>
+                            <input class="form-control" type="date" id="device_comming_edit-ExpectedDate">
+                        </div>
+                    </div>
+                </div>
+
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" data-i18n="global.close">Close</button>
-                <button type="button" class="btn btn-primary" id="btn-add_device_coming">Add device</button>
+                <button type="button" class="btn btn-primary" id="btn-update_device_coming">Update device</button>
             </div>
         </div>
     </div>

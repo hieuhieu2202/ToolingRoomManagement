@@ -714,7 +714,6 @@ $('#filter_dropdown_btn').click(function () {
 
 
     $('.select2-results__options strong').each(function (k, item) {
-        console.log(item);
     });
 });
 $("body").on('click', '.select2-results__group', function () {
