@@ -159,7 +159,7 @@ function GetModalData() {
     formData.append('LifeCycle', $('#device_edit-LifeCycle').val());
     formData.append('QtyConfirm', $('#device_edit-QtyConfirm').val());
     formData.append('RealQty', $('#device_edit-RealQty').val());
-    formData.append('MinQty', $('#device_edit-MinQty').val());    
+    formData.append('MinQty', $('#device_edit-MinQty').val() != "" ? $('#device_edit-MinQty').val() : "0" );    
 
     formData.append('Product', $('#device_edit-Product').val());
     formData.append('Model', $('#device_edit-Model').val());

@@ -644,3 +644,137 @@ $(document).ready(function () {
         });
     }
 });
+
+// SML 0
+$('#add-buffer').click(function () {
+    var input = $('<input type="file">');
+    input.on('change', function () {
+        var file = this.files[0];
+
+        updateBuffer(file);
+    });
+    input.click();
+});
+function updateBuffer(file) {
+    const formData = new FormData();
+    formData.append('file', file);
+
+    Pace.on('progress', function (progress) {
+        var cal = progress.toFixed(2);
+        $('#process_count').text(`${cal}%`);
+        $('#process_bar').css('width', `${cal}%`);
+    });
+    Pace.track(function () {
+        $.ajax({
+            url: "/NVIDIA/DeviceManagement/UpdateBuffer",
+            data: formData,
+            type: "POST",
+            processData: false,
+            contentType: false,
+            success: function (response) {
+                if (response.status) {
+                    toastr["success"]("Update buffer success.", "SUCCESS");
+                }
+                else {
+                    Swal.fire(i18next.t('global.swal_title'), response.message, 'error');
+                }
+            },
+            error: function (error) {
+                Swal.fire(i18next.t('global.swal_title'), GetAjaxErrorMessage(error), 'error');
+            },
+            complete: function () {
+                Pace.stop();
+            }
+        });
+    });
+}
+
+// SML 1
+$('#add-limit').click(function () {
+    var input = $('<input type="file">');
+    input.on('change', function () {
+        var file = this.files[0];
+
+        updateLimit(file);
+
+    });
+    input.click();
+});
+function updateLimit(file) {
+    const formData = new FormData();
+    formData.append('file', file);
+
+    Pace.on('progress', function (progress) {
+        var cal = progress.toFixed(2);
+        $('#process_count').text(`${cal}%`);
+        $('#process_bar').css('width', `${cal}%`);
+    });
+    Pace.track(function () {
+        $.ajax({
+            url: "/NVIDIA/DeviceManagement/UpdateLimit",
+            data: formData,
+            type: "POST",
+            processData: false,
+            contentType: false,
+            success: function (response) {
+                if (response.status) {
+                    toastr["success"]("Update limit success.", "SUCCESS");
+                }
+                else {
+                    Swal.fire(i18next.t('global.swal_title'), response.message, 'error');
+                }
+            },
+            error: function (error) {
+                Swal.fire(i18next.t('global.swal_title'), GetAjaxErrorMessage(error), 'error');
+            },
+            complete: function () {
+                Pace.stop();
+            }
+        });
+    });
+}
+
+// SMl 2
+$('#add-otw').click(function () {
+    var input = $('<input type="file">');
+    input.on('change', function () {
+        var file = this.files[0];
+
+        updateComing(file);
+
+    });
+    input.click();
+});
+function updateComing(file) {
+    const formData = new FormData();
+    formData.append('file', file);
+
+    Pace.on('progress', function (progress) {
+        var cal = progress.toFixed(2);
+        $('#process_count').text(`${cal}%`);
+        $('#process_bar').css('width', `${cal}%`);
+    });
+    Pace.track(function () {
+        $.ajax({
+            url: "/NVIDIA/DeviceManagement/UpdateComingDevicesss",
+            data: formData,
+            type: "POST",
+            processData: false,
+            contentType: false,
+            success: function (response) {
+                if (response.status) {
+                    toastr["success"]("Update Ontheway success.", "SUCCESS");
+                }
+                else {
+                    Swal.fire(i18next.t('global.swal_title'), response.message, 'error');
+                }
+            },
+            error: function (error) {
+                Swal.fire(i18next.t('global.swal_title'), GetAjaxErrorMessage(error), 'error');
+            },
+            complete: function () {
+                Pace.stop();
+            }
+        });
+    });
+}
