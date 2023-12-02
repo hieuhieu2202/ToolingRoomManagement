@@ -1,0 +1,39 @@
+﻿.card {
+    box-shadow: none !important;
+}
+.card-model {
+    width: 100%;
+}
+    .card-model > p {
+        border-bottom: 1px solid #8833ff;
+        font-weight: bold;
+        font-size: 15px;
+    }
+#Model-Container .col .card {
+    transition: box-shadow 0.3s ease;
+}
+    #Model-Container .col .card:hover {
+        box-shadow: 0px 0px 10px 0px #888888 !important;
+        transition: box-shadow 0.3s ease;
+        cursor: pointer;
+    }
+.offcanvas-end {
+    width: 450px;
+}
+
+.offcanvas {
+    background-color: #171717;
+    box-shadow: 0px 0px 10px 0px #888888 !important;
+    z-index: 1050;
+}
+.offcanvas-body .card {
+    box-shadow: 0 0.1rem 0.7rem rgb(159 159 159 / 32%) !important;
+}
+
+.offcanvas-header {
+    border-bottom: 1px solid rgb(222 226 230 / 16%);
+}
+
+.offcanvas-backdrop {
+    z-index: 1040;
+}

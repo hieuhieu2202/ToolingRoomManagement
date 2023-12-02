@@ -1,0 +1,482 @@
+SN send to sfis: ZW37YKL
+Time UI-SFIS: 2021/10/20 10:37:25
+SFIS->UI: @ZW37YKL                 VML2030-FXN-V            A41162FF359AA9E11A78A0B45  7547      59811     115       3981      403       3960      18972     89626     213       3972      889       3922      2140022185     V2222222    FT8       PASS
+
+Time SFIS->UI: 2021/10/20 10:37:25
+
+Delay 1000 MiliSecond
+Wait to have OVTI Serial Port
+.
+Start connect !
+COM DUT OPENED!
+
+Wait # !
+
+
+# 
+
+
+# 
+Connect DUT sussess.
+===[ Check LTE by OV ]===
+Delay 6000 MiliSecond
+10:37:34
+DUT.Write:lte get ver
+lte get ver
+[ERROR]: network stack doesn't support multi init currently.
+fxcn_lte_init service done
+Setup async monitor socket over 0.0.0.0 50009 done
+CRC payload 02 00 
+CRC Resul:6662
+send:magic: 53525150 | length: 0006| cluster_id: 0004| payload:  | CRC: 6662
+rcv:magic: 53525150 | length: 0028| cluster_id: 0004| status: 0000| payload: 0x56 0x4d 0x4c 0x32 0x30 0x33 0x30 0x5f 0x45 0x43 0x32 0x35 0x56 0x5f 0x56 0x33 0x2e 0x30  | CRC: 28cc
+lteapi_version:VML2030_EC25V_V3.00.28_1501
+LTE Version:VML2030_EC25V_V3.00.28_1501
+
+# 
+===[ Check LTE by OV passed ... ]===
+=== [ Start Verify IRLED current ] ===
+
+10:37:34
+DUT.Write:fmcu LTEoff
+fmcu LTEoff
+FXCN_mcu_write hci data cmd=82
+
+# 
+10:37:34
+DUT.Write:led w off
+led w off
+White LED off.
+
+# 
+10:37:34
+DUT.Write:fmcu Gaugestart
+fmcu Gaugestart
+FXCN_mcu_write hci data cmd=28
+
+# 
+============Retry Time:0============
+10:37:34
+DUT.Write:led ir off
+led ir off
+IR LED off.
+
+# 
+Delay before read gauge:Delay 5000 MiliSecond
+10:37:39
+DUT.Write:fmcu Gaugeread
+fmcu Gaugeread
+Gauge devid:0x0561,percent:0 voltage:3989(mv),current:-195(mA), time to empty:0(s),Temp:-60.85(degree),flags:0x08d0
+
+# 
+IRLED.V0_2:3989
+IRLED.C0_2:195
+IRLED.V0_2 AVG:3989
+IRLED.C0_2 AVG:195
+Get C125_2 and V125_2:
+10:37:40
+DUT.Write:led ir low_cali_on
+led ir low_cali_on
+
+Calibration PWM: 7547
+Set IR LED PWM.
+LED set PWM value 7547
+=================>sub_addr =f40000, para_addr=f20000 block_size=20000
+41 
+42 
+43 
+44 
+
+max 44, min 41, max2 -1, min2 -1
+oldest item 0, latest item 3
+phy blk_no: 0x7a
+phy blk_no: 0x7b
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x1ec0 src_adr=0x203fdd00
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=988  page_count=1
+col_adr=0x0 row_adr=0x1ec1 src_adr=0x203fe500
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=4  page_count=1
+col_adr=0x0 row_adr=0x1e80 src_adr=0x203fdac8
+save address 0xf40000, new version=45
+=================>sub_addr =f40000, para_addr=f20000 block_size=20000
+45 
+42 
+43 
+44 
+
+max 45, min 42, max2 -1, min2 -1
+oldest item 1, latest item 0
+phy blk_no: 0x7c
+phy blk_no: 0x7d
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x1f40 src_adr=0x203fdd00
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=988  page_count=1
+col_adr=0x0 row_adr=0x1f41 src_adr=0x203fe500
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=4  page_count=1
+col_adr=0x0 row_adr=0x1f00 src_adr=0x203fdad8
+save address 0xf80000, new version=46
+
+# 
+10:37:40
+DUT.Write:led ir on
+led ir on
+IR LED on.
+LED set PWM value 7547
+
+# 
+Delay before read gauge:Delay 5000 MiliSecond
+10:37:45
+DUT.Write:fmcu Gaugeread
+fmcu Gaugeread
+Gauge devid:0x0561,percent:0 voltage:3981(mv),current:-299(mA), time to empty:0(s),Temp:-60.85(degree),flags:0x08d0
+
+# 
+IRLED.GGV125_2:3981
+IRLED.GGC125_2:299
+IRLED.GGV125_2 AVG:3981
+IRLED.GGC125_2 AVG:299
+Get C400_2 and V400_2:
+10:37:45
+DUT.Write:led ir high_cali_on
+led ir high_cali_on
+
+Calibration PWM: 59811
+Set IR LED PWM.
+LED set PWM value 59811
+=================>sub_addr =f40000, para_addr=f20000 block_size=20000
+45 
+46 
+43 
+44 
+
+max 46, min 43, max2 -1, min2 -1
+oldest item 2, latest item 1
+phy blk_no: 0x7e
+phy blk_no: 0x7f
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x1fc0 src_adr=0x203fdd00
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=989  page_count=1
+col_adr=0x0 row_adr=0x1fc1 src_adr=0x203fe500
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=4  page_count=1
+col_adr=0x0 row_adr=0x1f80 src_adr=0x203fdac8
+save address 0xfc0000, new version=47
+=================>sub_addr =f40000, para_addr=f20000 block_size=20000
+45 
+46 
+47 
+44 
+
+max 47, min 44, max2 -1, min2 -1
+oldest item 3, latest item 2
+phy blk_no: 0x80
+phy blk_no: 0x81
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x2040 src_adr=0x203fdd00
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=989  page_count=1
+col_adr=0x0 row_adr=0x2041 src_adr=0x203fe500
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=4  page_count=1
+col_adr=0x0 row_adr=0x2000 src_adr=0x203fdad8
+save address 0x1000000, new version=48
+
+# 
+10:37:45
+DUT.Write:led ir on
+led ir on
+IR LED on.
+LED set PWM value 59811
+
+# 
+Delay before read gauge:Delay 5000 MiliSecond
+10:37:50
+DUT.Write:fmcu Gaugeread
+fmcu Gaugeread
+Gauge devid:0x0561,percent:0 voltage:3961(mv),current:-593(mA), time to empty:0(s),Temp:-60.85(degree),flags:0x08d0
+
+# 
+IRLED.GGV400_2:3961
+IRLED.GGC400_2:593
+IRLED.GGV400_2 AVG:3961
+IRLED.GGC400_2 AVG:593
+Read parameter from DUT:
+10:37:51
+DUT.Write:burn read_irled_pwm_cv_low
+burn read_irled_pwm_cv_low
+
+Low Point Calibration Current: 125mA  Current: 115mA  Voltage: 3981mV
+
+# 
+IRLED.GGC125:115
+IRLED.GGV125:3981
+10:37:51
+DUT.Write:burn read_irled_pwm_cv_high
+burn read_irled_pwm_cv_high
+
+
+High Point Calibration Current: 400mA  Current: 403mA  Voltage: 3960mV
+
+# 
+IRLED.GGC400:403
+IRLED.GGV400:3960
+10:37:52
+DUT.Write:led ir off
+led ir off
+IR LED off.
+
+# 
+A125=0.9 [0.55,1.35] -->pass
+A400=0.99 [0.8,1.2] -->pass
+=== [ Start Verify IRLED current ] ===
+
+10:37:52
+DUT.Write:led ir off
+led ir off
+IR LED off.
+
+# 
+10:37:52
+DUT.Write:fmcu Gaugestart
+fmcu Gaugestart
+FXCN_mcu_write hci data cmd=28
+
+# 
+============Retry Time:0============
+10:37:52
+DUT.Write:led w off
+led w off
+White LED off.
+
+# 
+Delay before read gauge:Delay 5000 MiliSecond
+10:37:57
+DUT.Write:fmcu Gaugeread
+fmcu Gaugeread
+Gauge devid:0x0561,percent:0 voltage:3987(mv),current:-194(mA), time to empty:0(s),Temp:-60.85(degree),flags:0x08d0
+
+# 
+SPOTLED.V0_2:3987
+SPOTLED.C0_2:194
+SPOTLED.V0_2 AVG:3987
+SPOTLED.C0_2 AVG:194
+Get C125_2 and V125_2:
+10:37:57
+DUT.Write:led w low_cali_on
+led w low_cali_on
+
+Calibration PWM: 18972
+Set White LED PWM.
+LED set PWM value 18972
+=================>sub_addr =f40000, para_addr=f20000 block_size=20000
+45 
+46 
+47 
+48 
+
+max 48, min 45, max2 -1, min2 -1
+oldest item 0, latest item 3
+phy blk_no: 0x7a
+phy blk_no: 0x7b
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x1ec0 src_adr=0x203fdd00
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=989  page_count=1
+col_adr=0x0 row_adr=0x1ec1 src_adr=0x203fe500
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=4  page_count=1
+col_adr=0x0 row_adr=0x1e80 src_adr=0x203fdac8
+save address 0xf40000, new version=49
+=================>sub_addr =f40000, para_addr=f20000 block_size=20000
+49 
+46 
+47 
+48 
+
+max 49, min 46, max2 -1, min2 -1
+oldest item 1, latest item 0
+phy blk_no: 0x7c
+phy blk_no: 0x7d
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x1f40 src_adr=0x203fdd00
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=989  page_count=1
+col_adr=0x0 row_adr=0x1f41 src_adr=0x203fe500
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=4  page_count=1
+col_adr=0x0 row_adr=0x1f00 src_adr=0x203fdad8
+save address 0xf80000, new version=50
+
+# 
+10:37:57
+DUT.Write:led w on
+led w on
+White LED on.
+LED set PWM value 18972
+
+# 
+Delay before read gauge:Delay 5000 MiliSecond
+10:38:02
+DUT.Write:fmcu Gaugeread
+fmcu Gaugeread
+Gauge devid:0x0561,percent:0 voltage:3976(mv),current:-386(mA), time to empty:0(s),Temp:-60.85(degree),flags:0x08d0
+
+# 
+IRLED.GGV125_2:3976
+IRLED.GGC125_2:386
+IRLED.GGV125_2 AVG:3976
+IRLED.GGC125_2 AVG:386
+Get C500_2 and V500_2:
+10:38:03
+DUT.Write:led w high_cali_on
+led w high_cali_on
+
+Calibration PWM: 89626
+Set White LED PWM.
+LED set PWM value 89626
+=================>sub_addr =f40000, para_addr=f20000 block_size=20000
+49 
+50 
+47 
+48 
+
+max 50, min 47, max2 -1, min2 -1
+oldest item 2, latest item 1
+phy blk_no: 0x7e
+phy blk_no: 0x7f
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x1fc0 src_adr=0x203fdd00
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=989  page_count=1
+col_adr=0x0 row_adr=0x1fc1 src_adr=0x203fe500
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=4  page_count=1
+col_adr=0x0 row_adr=0x1f80 src_adr=0x203fdac8
+save address 0xfc0000, new version=51
+=================>sub_addr =f40000, para_addr=f20000 block_size=20000
+49 
+50 
+51 
+48 
+
+max 51, min 48, max2 -1, min2 -1
+oldest item 3, latest item 2
+phy blk_no: 0x80
+phy blk_no: 0x81
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x2040 src_adr=0x203fdd00
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=989  page_count=1
+col_adr=0x0 row_adr=0x2041 src_adr=0x203fe500
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=4  page_count=1
+col_adr=0x0 row_adr=0x2000 src_adr=0x203fdad8
+save address 0x1000000, new version=52
+
+# 
+Delay before read gauge:Delay 5000 MiliSecond
+10:38:08
+DUT.Write:fmcu Gaugeread
+fmcu Gaugeread
+Gauge devid:0x0561,percent:0 voltage:3927(mv),current:-1063(mA), time to empty:0(s),Temp:-60.85(degree),flags:0x08d0
+
+# 
+SPOTLED.GGV500_2:3927
+SPOTLED.GGC500_2:1063
+SPOTLED.GGV500_2 AVG:3927
+SPOTLED.GGC500_2 AVG:1063
+Read parameter from DUT:
+10:38:08
+DUT.Write:burn read_wled_pwm_cv_low
+burn read_wled_pwm_cv_low
+
+Low Point Calibration Current: 125mA  Current: 213mA  Voltage: 3972mV
+
+# 
+SPOTLED.GGC125:213
+SPOTLED.GGV125:3972
+10:38:09
+DUT.Write:burn read_wled_pwm_cv_high
+burn read_wled_pwm_cv_high
+
+High Point Calibration Current: 500mA  Current: 889mA  Voltage: 3922mV
+
+# 
+SPOTLED.GGC500:889
+SPOTLED.GGV500:3922
+10:38:09
+DUT.Write:led w off
+led w off
+White LED off.
+
+# 
+A125=0.9 [0.55,1.35] -->pass
+A500=0.98 [0.8,1.2] -->pass
+===[ Check PIR ]===
+10:38:09
+DUT.Write:fmcu PIRINTstart 40 3 5
+fmcu PIRINTstart 40 3 5
+pir_int_mode:
+Start PIR interrupt with sensitivity: 40,pir id =3.
+FXCN_mcu_write hci data cmd=43
+PIR interrupt pir_int_mode=0,runner times = 25
+PIR Value:0
+
+PIR Value:0
+PIR Value:0
+PIR Value:0
+PIR Value:0
+PIR Value:0
+PIR Value:0
+PIR Value:0
+PIR Value:1
+PIR1:PASS;
+
+# 
+
+===[ Test PIR passed ... ]===
+
+===[ Send Sfis ]===
+Sfis_length=238 ALSValueFlag=0 ALSCali5lux_10luxFlag=0  SendSFISFW=0   SendSFISHW=0
+SEND PASS TO SFIS: 
+UI->SFIS: @ZW37YKL                 A41162FF359AA9E11A78A0B45  VNB05_L4_FT8
+Time UI->SFIS PASS/FAIL: 2021/10/20 10:38:11
+SFIS->UI: @ZW37YKL                 A41162FF359AA9E11A78A0B45  VNB05_L4_FT8PASS
+Time SFIS->UI: 2021/10/20 10:38:11
+Time UI->SFIS RR-YR: 2021/10/20 10:38:11
+SFIS->UI: RR-YRVML2030-FXN-V            VNB05_L4_FT8000.00000.00098.61PASS
+Time SFIS->UI: 2021/10/20 10:38:11
+Delay 0 MiliSecond
+==============Start show pass================
+TEST PROGRAM VERSION:2.3.2.8  TEST CYCLE TIME:45
+
+----------------Summary all test item--------------
+Test item name                Result  Test time
+ 1.ConnectDUT                  PASS    1.93s 
+ 2.CheckLTEbyOV                PASS    6.14s 
+ 3.VerifyIRLEDCalibration      PASS    17.83s
+ 4.VerifySPOTLEDCalibration    PASS    17.62s
+ 5.CheckPIRFALCON              PASS    1.33s 
+ 6.SendSfis                    PASS    0.13s 
+---------------------------------------------------
+Write summary log server: F:\lsy\ID\U12I419\VML2030-FXN-V\FT8 -> OK
+Write summary log localD:\Arlo_Logs\U12I419\VML2030-FXN-V\FT8\20-10-2021 -> OK
+Details log local folder: D:\Arlo_Logs\U12I419\VML2030-FXN-V\FT8\20-10-2021\PASS
+Details log server folder: F:\lsy\ID\Detail\U12I419\VML2030-FXN-V\FT8\20-10-2021\PASS
+  SendSfis , 0.13 , ,SMO 2140022185,,SEMPID V2222222,,IRLED.V0_2,3989,,IRLED.C0_2,195,,IRLED.GGV125_2,3981,,IRLED.GGC125_2,299,,IRLED.GGV125,3981,,IRLED.GGC125,115,,GOV2.PWM125,7547,,IRLED.GGV400_2,3961,,IRLED.GGC400_2,593,,IRLED.GGV400,3960,,IRLED.GGC400,403,,GOV2.PWM400,59811,A125,0.9,A400,0.99,,SPOTLED.V0_2,3987,,SPOTLED.C0_2,194,,SPOTLED.GGV125_2,3976,,SPOTLED.GGC125_2,386,,SPOTLED.GGV125,3972,,SPOTLED.GGC125,213,,SPOT_GOV2.PWM125,18972,,SPOTLED.GGV500_2,3927,,SPOTLED.GGC500_2,1063,,SPOTLED.GGV500,3922,,SPOTLED.GGC500,889,,SPOT_GOV2.PWM500,89626,SP_A125,0.9,SP_A500,0.98,ConnectDUT , 1.93 , CheckLTEbyOV , 6.14 , VerifyIRLEDCalibration , 17.83 , VerifySPOTLEDCalibration , 17.62 , CheckPIRFALCON , 1.33 , 9/11/2021 12:00:00 AM,
+Start send data to mydas !
+
+Not enable mydas..

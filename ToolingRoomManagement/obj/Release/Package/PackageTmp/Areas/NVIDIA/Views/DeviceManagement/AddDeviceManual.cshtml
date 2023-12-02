@@ -1,0 +1,238 @@
+﻿@{
+    ViewBag.Title = "New Device Manual";
+    Layout = "~/Areas/NVIDIA/Views/Shared/_NvidiaLayoutShared.cshtml";
+}
+
+@section styles{
+    <!-- Vendor -->
+    <link href="~/Areas/NVIDIA/Content/Vendor/Viewer JS/viewer.min.css" rel="stylesheet" />
+    <!-- Custom -->
+    <link href="~/Areas/NVIDIA/Content/Custom/DeviceManagement/css/AddDeviceManual.css?v=@Guid.NewGuid()" rel="stylesheet" />
+}
+
+<!-- Image viewer -->
+<ul class="d-none" id="images"></ul>
+
+<!-- Breadcrumb -->
+<div class="page-breadcrumb d-none d-sm-flex align-items-center py-3">
+    <div class="breadcrumb-title pe-3" data-i18n="device.new_device.manual.manual">Manual</div>
+    <div class="ps-3">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-0 p-0">
+                <li class="breadcrumb-item">
+                    <a href="/NVIDIA/Dashboard"><i class="bx bx-home-alt"></i></a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a href="javascript:;" data-i18n="device.new_device.manual.device">Device</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page" data-i18n="device.new_device.manual.new_device">New Device</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+
+<!-- Card table -->
+<div class="card" id="card-device-details">
+    <div class="card-body">
+        <h5 class="card-title" title="Thêm mới thiết bị thủ công" data-i18n="device.new_device.manual.new_device_manual">New Device Manual</h5>
+        <hr />
+        <div class="form-body">
+            <div class="row">
+                <div class="col-4">
+                    <!-- Device Code -->
+                    <div class="input-group mb-3">
+                        <span class="col-4 input-group-text" data-i18n="device.new_device.manual.pn">PN</span>
+                        <input class="col-8 form-control" type="text" id="device_add-DeviceCode" maxlength="25" autocomplete="off" list="device_add-ListDeviceCode">
+                        <datalist id="device_add-ListDeviceCode"></datalist>
+                    </div>
+                    <!-- Device Name -->
+                    <div class="input-group mb-3">
+                        <span class="col-4 input-group-text" data-i18n="device.new_device.manual.description">Description</span>
+                        <input class="col-8 form-control" type="text" id="device_add-DeviceName" maxlength="255" autocomplete="off" list="device_add-ListDeviceName">
+                        <datalist id="device_add-ListDeviceName"></datalist>
+                    </div>
+                    <!-- Specification -->
+                    <div class="input-group mb-3">
+                        <span class="col-4 input-group-text" data-i18n="device.new_device.manual.specfication">Specification</span>
+                        <input class="col-8 form-control" type="text" id="device_add-Specification" maxlength="300" autocomplete="off">
+                    </div>
+                    <!-- Device Date -->
+                    <div class="input-group mb-3">
+                        <span class="col-4 input-group-text" data-i18n="device.new_device.manual.created_date">Created Date</span>
+                        <input class="col-8 form-control" type="datetime-local" id="device_add-DeviceDate" autocomplete="off">
+                    </div>
+                    <!-- Buffer -->
+                    <div class="input-group mb-3">
+                        <span class="col-4 input-group-text" data-i18n="device.new_device.manual.buffer">Buffer</span>
+                        <input class="col-8 form-control" type="number" id="device_add-Buffer" autocomplete="off">
+                        <span class="input-group-text">%</span>
+                    </div>
+                    <!-- LifeCycle -->
+                    <div class="input-group mb-3">
+                        <span class="col-4 input-group-text" data-i18n="device.new_device.manual.life_cycle">Life Cycle</span>
+                        <input class="col-8 form-control" type="number" id="device_add-LifeCycle" autocomplete="off">
+                    </div>
+                    <!-- Quantity -->
+                    <div class="input-group mb-3">
+                        <span class="col-4 input-group-text" data-i18n="device.new_device.manual.quantity">Quantity</span>
+                        <input class="col-8 form-control" type="number" id="device_add-Quantity" autocomplete="off">
+                    </div>
+                    <!-- PO Quantity -->
+                    <div class="input-group mb-3">
+                        <span class="col-4 input-group-text" data-i18n="device.new_device.manual.po_quantity">PO Quantity</span>
+                        <input class="col-8 form-control" type="number" id="device_add-POQty" autocomplete="off">
+                    </div>
+                    <!-- Min Qty -->
+                    <div class="input-group mb-3">
+                        <span class="col-4 input-group-text" data-i18n="device.new_device.manual.min_quantity">Min Quantity</span>
+                        <input class="col-8 form-control" type="number" id="device_add-MinQty" autocomplete="off">
+                    </div>
+                </div>
+
+                <div class="col-4">
+                    <!-- Unit -->
+                    <div class="input-group mb-3">
+                        <span class="col-4 input-group-text" data-i18n="device.new_device.manual.unit">Unit</span>
+                        <input class="col-8 form-control" type="text" id="device_add-Unit" list="device_add-Unit_List" autocomplete="off" maxlength="50">
+                        <datalist id="device_add-Unit_List">
+                            <option value="NA">NA</option>
+                            <option value="PCS">PCS (Cái)</option>
+                            <option value="BAG">BAG (Bao)</option>
+                            <option value="BOX">BOX (Hộp)</option>
+                            <option value="SET">SET (Bộ)</option>
+                            <option value="M">M (Meter)</option>
+                            <option value="CM">CM (Centimet)</option>
+                            <option value="KG">KG (Kilogram)</option>
+                            <option value="G">G (Gram)</option>
+                            <option value="L">L (Liter)</option>
+                            <option value="ML">ML (Mililiter)</option>
+                        </datalist>
+                    </div>
+                    <!-- Type -->
+                    <div class="input-group mb-3">
+                        <span class="col-4 input-group-text" data-i18n="device.new_device.manual.type">Type</span>
+                        <select class="form-select" id="device_add-Type">
+                            <optgroup label="Normal">
+                                <option value="normal_NA" selected>NA</option>
+                                <option value="normal_Fixture">Fixture</option>
+                                <option value="normal_Static">Static</option>
+                                <option value="normal_Dynamic">Dynamic</option>
+                            </optgroup>
+                            <optgroup label="Consign">
+                                <option value="consign_NA">NA</option>
+                                <option value="consign_Fixture">Fixture</option>
+                                <option value="consign_Static">Static</option>
+                                <option value="consign_Dynamic">Dynamic</option>
+                            </optgroup>
+                        </select>
+                        @*<select class="form-select" id="device_add-Type">
+                            <option value="#N/A">N/A</option>
+                            <option value="S">Static (Cố định)</option>
+                            <option value="D">Dynamic (Tiêu hao)</option>
+                            <option value="Consign">Consign (Khách hàng tặng)</option>
+                            <option value="Fixture">Fixture (Khuôn)</option>
+                        </select>*@
+                    </div>
+                    <!-- DeliveryTime -->
+                    <div class="input-group mb-3">
+                        <span class="col-4 input-group-text" data-i18n="device.new_device.manual.lead_time">Lead Time</span>
+
+                        <input class="form-control" id="device_add-DeliveryTime1" type="number" />
+
+                        <select class="form-select" id="device_add-DeliveryTime2">
+                            <option value="Day">Day</option>
+                            <option value="Week" selected>Week</option>
+                            <option value="Month">Month</option>
+                            <option value="Quarter">Quarter</option>
+                            <option value="Year">Year</option>
+                        </select>
+                    </div>
+                    <!-- WareHouse -->
+                    <div class="input-group mb-3">
+                        <span class="col-4 input-group-text" data-i18n="device.new_device.manual.warehouse">Warehouse</span>
+                        <select class="col-8 form-select" id="device_add-WareHouse"></select>
+                    </div>
+                    <!-- Product -->
+                    <div class="input-group mb-3">
+                        <span class="col-4 input-group-text" data-i18n="device.new_device.manual.product">Product</span>
+                        <input class="col-8 form-control" type="text" id="device_add-Product" list="device_add-Product_List" autocomplete="off" maxlength="120">
+                        <datalist id="device_add-Product_List"></datalist>
+                    </div>
+                    <!-- Model -->
+                    @*<div class="input-group mb-3">
+                        <span class="col-4 input-group-text" data-i18n="device.new_device.manual.model">Model</span>
+                        <input class="col-8 form-control" type="text" id="device_add-Model" list="device_add-Model_List" autocomplete="off" maxlength="50">
+                        <datalist id="device_add-Model_List"></datalist>
+                    </div>*@
+                    <!-- Station -->
+                    @*<div class="input-group mb-3">
+                        <span class="col-4 input-group-text" data-i18n="device.new_device.manual.station">Station</span>
+                        <input class="col-8 form-control" type="text" id="device_add-Station" list="device_add-Station_List" autocomplete="off" maxlength="50">
+                        <datalist id="device_add-Station_List"></datalist>
+                    </div>*@
+                    <!-- Group -->
+                    <div class="input-group mb-3">
+                        <span class="col-4 input-group-text" data-i18n="device.new_device.manual.group">Group</span>
+                        <input class="col-8 form-control" type="text" id="device_add-Group" list="device_add-Group_List" autocomplete="off" maxlength="50">
+                        <datalist id="device_add-Group_List"></datalist>
+                    </div>
+                    <!-- Vendor -->
+                    <div class="input-group mb-3">
+                        <span class="col-4 input-group-text" data-i18n="device.new_device.manual.vendor">Vendor</span>
+                        <input class="col-8 form-control" type="text" id="device_add-Vendor" list="device_add-Vendor_List" autocomplete="off" maxlength="120">
+                        <datalist id="device_add-Vendor_List"></datalist>
+                    </div>
+                </div>
+                <div class="col-4 d-flex flex-column justify-content-between">
+                    <!-- Layout -->
+                    <div>
+                        <div id="layout-container">
+                        </div>
+                        <button type="button" class="btn btn-secondary w-100" id="new-layout" data-i18n="device.new_device.manual.add_layout"><i class="fa-solid fa-plus"></i> Add Layout</button>
+                    </div>
+                    <div>
+                        <div id="image-container" class="mb-3" style="display: none">
+                            <div id="carousel" class="carousel slide" data-ride="carousel">
+                                <ol class="carousel-indicators">
+                                    @*<li data-bs-target="#carousel" data-bs-slide-to="0" class="active"></li>*@
+                                </ol>
+                                <div class="carousel-inner">
+
+                                </div>
+                                <a class="carousel-control-prev" href="javascript:;" role="button" data-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="sr-only">Previous</span>
+                                </a>
+                                <a class="carousel-control-next" href="javascript:;" role="button" data-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="sr-only">Next</span>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="d-flex mb-3">
+                            <button type="button" class="btn btn-secondary w-100" id="btn-new-image" data-i18n="device.new_device.manual.add_image"><i class="fa-solid fa-plus"></i> Add Image</button>
+                            <button type="button" class="btn btn-outline-danger ms-3 bg-light-danger" id="btn-delete-image" style="display: none"><i class="fa-solid fa-trash m-auto text-center"></i></button>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="card-footer text-center">
+            <button type="button" class="btn btn-outline-primary" id="AddDeviceManual" data-i18n="device.new_device.manual.add_new_device">Add New Device</button>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <!-- Vendor -->
+    <script src="~/Areas/NVIDIA/Content/Vendor/MomentJs/moment.js"></script>
+    <script src="~/Areas/NVIDIA/Content/Vendor/Viewer JS/viewer.min.js"></script>
+    <!-- Custom -->
+    <script src="~/Areas/NVIDIA/Content/Custom/DeviceManagement/js/AddDeviceManual.js?v=@Guid.NewGuid()"></script>
+
+    <script type="text/javascript">
+
+    </script>
+}

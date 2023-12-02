@@ -1,0 +1,48 @@
+﻿.navbar {
+    background-color: #ffffff60;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0.3px 0.7px rgba(0, 0, 0, 0.126), 0 0.9px 1.7px rgba(0, 0, 0, 0.179), 0 1.8px 3.5px rgba(0, 0, 0, 0.224), 0 3.7px 7.3px rgba(0, 0, 0, 0.277), 0 10px 20px rgba(0, 0, 0, 0.4) !important;
+}
+
+footer {
+    background-color: #ffffff60;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0.3px 0.7px rgba(0, 0, 0, 0.126), 0 0.9px 1.7px rgba(0, 0, 0, 0.179), 0 1.8px 3.5px rgba(0, 0, 0, 0.224), 0 3.7px 7.3px rgba(0, 0, 0, 0.277), 0 10px 20px rgba(0, 0, 0, 0.4) !important;
+}
+
+#card_SignIn {
+    width: 500px;
+    background-color: #ffffff60;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0.3px 0.7px rgba(0, 0, 0, 0.126), 0 0.9px 1.7px rgba(0, 0, 0, 0.179), 0 1.8px 3.5px rgba(0, 0, 0, 0.224), 0 3.7px 7.3px rgba(0, 0, 0, 0.277), 0 10px 20px rgba(0, 0, 0, 0.4) !important;
+}
+
+    #card_SignIn::-webkit-scrollbar {
+        display: none !important;
+    }
+
+canvas {
+    display: block;
+    position: fixed;
+    z-index: -1;
+}
+
+#background {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 50% 50%;
+    filter: brightness(0.5);
+    background-image: url(/Areas/NVIDIA/Content/Image/backgound_auto.jpg);
+}
+
+.form-control, .select2-selection {
+    background-color: rgb(232, 240, 254) !important;
+    color: black !important;
+}
+html.dark-theme .form-control::placeholder {
+    color: gray !important;
+}

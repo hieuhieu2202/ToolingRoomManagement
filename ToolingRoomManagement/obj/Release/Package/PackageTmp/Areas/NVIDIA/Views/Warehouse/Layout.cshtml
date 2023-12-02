@@ -1,0 +1,220 @@
+﻿
+@{
+    ViewBag.Title = "Layout Management";
+    Layout = "~/Areas/NVIDIA/Views/Shared/_NvidiaLayoutShared.cshtml";
+}
+
+@section styles{
+    <!-- Vendor -->
+    <link href="~/Areas/NVIDIA/Content/Template/Sysadmin/assets/plugins/datatable/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
+    <link href="~/Areas/NVIDIA/Content/Vendor/jquery-datatables-checkboxes/css/dataTables.checkboxes.css" rel="stylesheet" />
+    <link href="~/Areas/NVIDIA/Content/Vendor/jstree/jstree.bundle.css" rel="stylesheet" />
+    <!-- Custom -->
+    <link href="~/Areas/NVIDIA/Content/Custom/Warehouse/css/Layout.css?v=@Guid.NewGuid()" rel="stylesheet" />
+}
+
+<!-- Breadcrumb -->
+<div class="page-breadcrumb d-none d-sm-flex align-items-center py-3">
+    <div class="breadcrumb-title pe-3">Layout</div>
+    <div class="ps-3">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-0 p-0">
+                <li class="breadcrumb-item">
+                    <a href="/NVIDIA/Dashboard"><i class="bx bx-home-alt"></i></a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">Warehouse</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+
+<div id="card_Layout-container" class="">
+
+    <!-- Card Layout -->
+    <div class="card me-2" id="card_Layout-Tree">
+        <div class="card-body">
+            <div class="card-title" style="height: 31px;">
+                <h5 class="m-0">Layout</h5>
+            </div>
+            <hr />
+            <div class="accordion" id="accordion_wh">
+                <div class="input-group">
+                    <span class="input-group-text bg-transparent"><i class="bx bx-search"></i></span>
+                    <input type="text" class="form-control" placeholder="Search" id="search_Layout">
+                </div>
+                <div id="LayoutTree" class="mt-3">
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+    <!-- Card table -->
+    <div class="card ms-2" id="card_Layout-Devices" style="display: none">
+        <div class="card-body">
+            <div class="card-title d-flex justify-content-between align-items-center">
+                <h5 class="m-0">Details</h5>
+                <button class="btn btn-sm btn-primary" id="btn_Layout-AddDevice"><i class="fa-solid fa-plus"></i> Add Device to Layout</button>
+            </div>
+            <hr />
+            <div class="form-body mt-4">
+                <table id="table_Devices" class="table table-striped table-hover table-bordered text-nowrap">
+                    <thead>
+                        <tr>
+                            <!-- 0 -->
+                            <th>MTS</th>
+                            <!-- 1 -->
+                            <th>Product Name</th>
+                            <!-- 2 -->
+                            <th>Model</th>
+                            <!-- 3 -->
+                            <th>Station</th>
+                            <!-- 4 -->
+                            <th>PN</th>
+                            <!-- 5 -->
+                            <th>Description</th>
+                            <!-- 6 -->
+                            <th>Group</th>
+                            <!-- 7 -->
+                            <th>Vendor</th>
+                            <!-- 8 -->
+                            <th>Specification</th>
+                            <!-- 9 -->
+                            <th>Location</th>
+                            <!-- 10 -->
+                            <th>Buffer</th>
+                            <!-- 11 -->
+                            <th>Quantity</th>
+                            <!-- 12 -->
+                            <th>Type</th>
+                            <!-- 13 -->
+                            <th>Status</th>
+                            <!-- 14 -->
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table_Devices-tbody">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<!-- Add Device to Layout modal -->
+<div class="modal fade" id="AddDeviceLayout-modal" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="AddDeviceLayout-title"></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <table id="AddDeviceLayout_table_Devices" class="table table-striped table-hover table-bordered text-nowrap">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>PN</th>
+                            <th>Description</th>
+                            <th>Model</th>
+                            <th>Station</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="AddDeviceLayout_table_Devices-tbody">
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="AddDeviceLayout-SaveBtn">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- OffCanvas Device Detais -->
+<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasDevice" data-bs-scroll="true">
+    <div class="offcanvas-header">
+        <h5 id="offcanvasRightLabel">Device Details</h5>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        <div class="col-md-12 mb-3">
+            <label class="form-label">PN</label>
+            <input type="text" class="form-control" id="device-DeviceCode" details disabled>
+        </div>
+        <div class="col-md-12 mb-3">
+            <label class="form-label">Description</label>
+            <input type="text" class="form-control" id="device-DeviceName" details disabled>
+        </div>
+        <div class="col-md-12 mb-3">
+            <label class="form-label">Specification</label>
+            <input type="text" class="form-control" id="device-Specification" details disabled>
+        </div>
+        <div class="col-md-12 mb-3">
+            <label class="form-label">Created Date</label>
+            <input type="datetime-local" class="form-control" id="device-DeviceDate" details disabled>
+        </div>
+        <div class="col-md-12 mb-3">
+            <label class="form-label">Product</label>
+            <input type="text" class="form-control" id="device-DeviceProduct" details disabled>
+        </div>
+        <div class="col-md-12 mb-3">
+            <label class="form-label">Model</label>
+            <input type="text" class="form-control" id="device-DeviceModel" details disabled>
+        </div>
+        <div class="col-md-12 mb-3">
+            <label class="form-label">Group</label>
+            <input type="text" class="form-control" id="device-DeviceGroup" details disabled>
+        </div>
+        <div class="col-md-12 mb-3">
+            <label class="form-label">Vendor</label>
+            <input type="text" class="form-control" id="device-DeviceVendor" details disabled>
+        </div>
+        <div class="col-md-12 mb-3">
+            <label class="form-label">Station</label>
+            <input type="text" class="form-control" id="device-DeviceStation" details disabled>
+        </div>
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label class="form-label">Type</label>
+                <input type="text" class="form-control" id="device-DeviceType" details disabled>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label class="form-label">Status</label>
+                <input type="text" class="form-control" id="device-DeviceStatus" details disabled>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 mb-3">
+                <label class="form-label">Quantity</label>
+                <input type="text" class="form-control" id="device-DeviceQuantity" details disabled>
+            </div>
+            <div class="col-md-4 mb-3">
+                <label class="form-label">Confirm Quantity</label>
+                <input type="text" class="form-control" id="device-DeviceConfirmQty" details disabled>
+            </div>
+            <div class="col-md-4 mb-3">
+                <label class="form-label">Real Quantity</label>
+                <input type="text" class="form-control" id="device-DeviceRealQty" details disabled>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section scripts{
+    <!-- Vendor -->
+    <script src="~/Areas/NVIDIA/Content/Template/Sysadmin/assets/plugins/datatable/js/jquery.dataTables.min.js"></script>
+    <script src="~/Areas/NVIDIA/Content/Template/Sysadmin/assets/plugins/datatable/js/dataTables.bootstrap5.min.js"></script>
+    <script src="~/Areas/NVIDIA/Content/Vendor/jquery-datatables-checkboxes/js/dataTables.checkboxes.js"></script>
+
+    <script src="~/Areas/NVIDIA/Content/Vendor/MomentJs/moment.js"></script>
+    <script src="~/Areas/NVIDIA/Content/Vendor/jstree/jstree.bundle.js"></script>
+    <!-- Custom -->
+    <script src="~/Areas/NVIDIA/Content/Custom/Warehouse/js/Layout.js?v=@Guid.NewGuid()"></script>
+}

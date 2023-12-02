@@ -1,0 +1,224 @@
+MAC : a4 11 62 c5 4a de 
+SERIAL_NUM : A4520B7NA0675
+MODEL_NUM : VMC5040
+HW_REV : H10
+BLE_MAC : ?b?J?
+2G_SSID : testgen5
+2G_PASSWD : 123456a@123456
+5G_SSID : 
+5G_PASSWD : 
+WLAN_BAND_PREF : 0 0 0 0 
+ENC_KEY : 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+AUTH_KEY : 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+WRAP_KEY : 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+WRAP_DATA : 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+ALS_LLUX : 22.43%
+ALS_HLUX : 000170
+ALS_THLUX : 
+JSON_CERT : c0 0 18 1a 88 a6 18 1a 58 20 3a 20 a 30 31 37 30 a 30 20 30 20 30 0 0 
+SN send to sfis: A4520B7NA0675
+Time UI-SFIS: 2020/11/23 10:44:18
+SFIS->UI: @ZUEFM8K                 VMC5040B-FXN-FEM         A41162C54ADEA4520B7NA0675  2140017171     V0919299    FT5       PASS
+
+Time SFIS->UI: 2020/11/23 10:44:18
+
+ShowUIChecking ABA status...
+No record, test directly
+iaba :-1
+Program still running !
+===[ Check Grey wall Night ]===
+Close CaliTool 
+Overwrite cal_FT5_Night.ini file to \CaliTool\cal.ini
+Copy standard script before open
+***Begin open CaliTool****
+script.ini: modify IQcal_Display = 0 .
+open CaliTool.exe file !
+***open CaliTool successful****
+
+ wait 1700 secs for image stable ...
+=================Capture image time 0==================
+Waiting create folder...
+Waiting create folder...
+Waiting create folder...
+Create folder sucess...
+Create file sucess...
+NGFinish get GreyWall value..
+a41162c54ade
+lum[0], lum[1], lum[2], lum[3], lum[4], Result[0], Result[1], Result[2], Result[3], Result[4], Result
+76, 81, 153, 74, 79, PASS, PASS, PASS, PASS, PASS, OK
+NG-Calibrated : 1, 0, 0, 0, 0, 0
+NG
+a41162c54ade
+lum[0], lum[1], lum[2], lum[3], lum[4], Result[0], Result[1], Result[2], Result[3], Result[4], Result
+76, 81, 153, 74, 79, PASS, PASS, PASS, PASS, PASS, OK
+NG-Calibrated : 1, 0, 0, 0, 0, 0
+NG
+Wait close Display...
+Wait close Display...
+===[ Test Grey wall passed ... ]===
+
+===[ Check ICR ]===
+Close CaliTool 
+Overwrite cal_FT5_ICR.ini file to \CaliTool\cal.ini
+Copy standard script before open
+***Begin open CaliTool****
+script.ini: modify IQcal_Display = 0 .
+open CaliTool.exe file !
+***open CaliTool successful****
+
+ wait 3500 secs for image stable ...
+Delay 3500 MiliSecond
+=================Capture image time 0==================
+Start copy .\CaliTool\output\GreyWall to .\CaliTool\output\GreyWall_backup1.
+Datetime (yyyy-MM-dd HH:mm:ss): 2020-11-23 10:44:35
+Start copy D:\FT5(U12I386T01)\CaliTool\output\GreyWall\a41162c54ade.txt to .\CaliTool\output\GreyWall_backup1\a41162c54ade.txt.
+Copy success...
+Delete folder image, txt before capture ...
+Waiting create folder...
+Waiting create folder...
+Create folder sucess...
+Create file sucess...
+NGFinish get GreyWall value..
+a41162c54ade
+lum[0], lum[1], lum[2], lum[3], lum[4], Result[0], Result[1], Result[2], Result[3], Result[4], Result
+0, 0, 0, 0, 0, PASS, PASS, PASS, PASS, PASS, OK
+NG-Calibrated : 1, 0, 0, 0, 0, 0
+NG
+a41162c54ade
+lum[0], lum[1], lum[2], lum[3], lum[4], Result[0], Result[1], Result[2], Result[3], Result[4], Result
+0, 0, 0, 0, 0, PASS, PASS, PASS, PASS, PASS, OK
+NG-Calibrated : 1, 0, 0, 0, 0, 0
+NG
+Wait close Display...
+Wait close Display...
+Wait close Display...
+===[ Test ICR passed ... ]===
+
+===[ Check Grey wall sport light ]===
+Close CaliTool 
+Overwrite cal_FT5_Day.ini file to \CaliTool\cal.ini
+Copy standard script before open
+***Begin open CaliTool****
+script.ini: modify IQcal_Display = 0 .
+open CaliTool.exe file !
+***open CaliTool successful****
+
+ wait 4500 secs for image stable ...
+=================Capture image time 0==================
+Start copy .\CaliTool\output\GreyWall to .\CaliTool\output\GreyWall_backup1.
+Datetime (yyyy-MM-dd HH:mm:ss): 2020-11-23 10:44:46
+Start copy D:\FT5(U12I386T01)\CaliTool\output\GreyWall\a41162c54ade.txt to .\CaliTool\output\GreyWall_backup1\a41162c54ade.txt.
+Copy success...
+Delete folder image, txt before capture ...
+Waiting create folder...
+Waiting create folder...
+Waiting create folder...
+Waiting create folder...
+Create folder sucess...
+Create file sucess...
+Finish get GreyWall value..
+a41162c54ade
+lum[0], lum[1], lum[2], lum[3], lum[4], Result[0], Result[1], Result[2], Result[3], Result[4], Result
+0, 0, 0, 4, 4, NG, NG, NG, NG, NG, OK
+NG-Calibrated : 1, 0, 0, 0, 0, 0
+NG
+Close calitool before reopen ...
+Close CaliTool 
+=================Capture image time 1==================
+***Begin open CaliTool****
+script.ini: modify IQcal_Display = 0 .
+open CaliTool.exe file !
+***open CaliTool successful****
+
+ wait 4500 secs for image stable ...
+Start copy .\CaliTool\output\GreyWall to .\CaliTool\output\GreyWall_backup2.
+Datetime (yyyy-MM-dd HH:mm:ss): 2020-11-23 10:44:57
+Start copy D:\FT5(U12I386T01)\CaliTool\output\GreyWall\a41162c54ade.txt to .\CaliTool\output\GreyWall_backup2\a41162c54ade.txt.
+Copy success...
+Delete folder image, txt before capture ...
+Waiting create folder...
+Waiting create folder...
+Waiting create folder...
+Waiting create folder...
+Waiting create folder...
+Create folder sucess...
+Create file sucess...
+Finish get GreyWall value..
+a41162c54ade
+lum[0], lum[1], lum[2], lum[3], lum[4], Result[0], Result[1], Result[2], Result[3], Result[4], Result
+88, 97, 222, 80, 90, PASS, PASS, PASS, PASS, PASS, OK
+NG-Calibrated : 1, 0, 0, 0, 0, 0
+NG
+a41162c54ade
+lum[0], lum[1], lum[2], lum[3], lum[4], Result[0], Result[1], Result[2], Result[3], Result[4], Result
+88, 97, 222, 80, 90, PASS, PASS, PASS, PASS, PASS, OK
+NG-Calibrated : 1, 0, 0, 0, 0, 0
+NG
+===[ Test Grey wall sport light passed ... ]===
+
+===[ Check Color Unifomity]===
+Source file: D:\FT5(U12I386T01)\CaliTool\output\a41162c54ade\3840_2160\Capture\20201123_104459.bmp
+Found image file...
+Delete old folder...
+Delete old bmp file in dest folder...
+Delete file .\ColorUniformityTest\TestImage.bmp 
+Open Tool check color uniformity!
+PASS, 
+y_MIN_LUM_VALUE: 106.377
+y_MAX_LUM_VALUE: 222.307
+y_LS_MAX_MIN_VALUE: 115.93
+y_Corner_MAX_MIN_VALUE: 83.6881
+u_MIN_LUM_VALUE: 127.246
+u_MAX_LUM_VALUE: 128
+u_LS_MAX_MIN_VALUE: 0.60385
+u_Corner_MAX_MIN_VALUE: 0.7541
+v_MIN_LUM_VALUE: 125.072
+v_MAX_LUM_VALUE: 129.86
+v_LS_MAX_MIN_VALUE: 4.7881
+v_Corner_MAX_MIN_VALUE: 4.27725
+
+ROI number, y, u, v :
+0, 125.373, 127.965, 128.006
+1, 190.065, 127.958, 125.072
+2, 132.645, 127.928, 127.543
+3, 151.993, 127.414, 129.349
+4, 222.307, 127.85, 129.86
+5, 159.243, 127.321, 128.697
+6, 106.377, 127.246, 128.992
+7, 161.806, 128, 127.979
+8, 116.228, 127.929, 128.074
+
+===[ Test Color Unifomity pass]===
+===[ Send Sfis ]===
+Sfis_length=118 ALSValueFlag=0 ALSCali5lux_10luxFlag=0  SendSFISFW=0   SendSFISHW=0
+Don't Modify ABA database
+SEND PASS TO SFIS: 
+UI->SFIS: @ZUEFM8K                 A41162C54ADEA4520B7NA0675  L5-B05-FT5-6
+Time UI->SFIS PASS/FAIL: 2020/11/23 10:45:02
+SFIS->UI: @ZUEFM8K                 A41162C54ADEA4520B7NA0675  L5-B05-FT5-6PASS
+Time SFIS->UI: 2020/11/23 10:45:02
+Time UI->SFIS RR-YR: 2020/11/23 10:45:02
+Close CaliTool 
+SFIS->UI: RR-YRVMC5040B-FXN-FEM         L5-B05-FT5-6000.00000.00100.00PASS
+Time SFIS->UI: 2020/11/23 10:45:02
+Delay 0 MiliSecond
+==============Start show pass================
+TEST PROGRAM VERSION:2.3.2.8  TEST CYCLE TIME:44
+
+----------------Summary all test item--------------
+Test item name                Result  Test time
+ 1.CheckGreyWallGen5_Night1    PASS    9.38s 
+ 2.CheckGreyWallGen5_ICR       PASS    11.24s
+ 3.CheckGreyWallGen5_SportLight1PASS    21.01s
+ 4.CheckColorUniformity        PASS    2.14s 
+ 5.SendSfis                    PASS    0.12s 
+---------------------------------------------------
+Write summary log server: F:\lsy\ID\U12I386T01\VMC5040B-FXN-FEM\FT5 -> OK
+Write summary log localD:\Arlo_Logs\U12I386T01\VMC5040B-FXN-FEM\FT5\23-11-2020 -> OK
+Details log local folder: D:\Arlo_Logs\U12I386T01\VMC5040B-FXN-FEM\FT5\23-11-2020\PASS
+Details log server folder: F:\lsy\ID\Detail\U12I386T01\VMC5040B-FXN-FEM\FT5\23-11-2020\PASS
+  SendSfis , 0.12 , ,SMO 2140017171,,SEMPID V0919299,76, 81, 153, 74, 79, PASS, PASS, PASS, PASS, PASS, OK,0, 0, 0, 0, 0, PASS, PASS, PASS, PASS, PASS, OK,88, 97, 222, 80, 90, PASS, PASS, PASS, PASS, PASS, OK, 106.377, 222.307, 115.93, 83.6881, 127.246, 128, 0.60385, 0.7541, 125.072, 129.86, 4.7881, 4.27725,,CheckGreyWallGen5_Night1 , 9.38 , CheckGreyWallGen5_ICR , 11.24 , CheckGreyWallGen5_SportLight1 , 21.01 , CheckColorUniformity , 2.14 , 2020/06/12 9:05:46 PM,
+Start send data to mydas !
+SENDTOMYDAS:     10.224.84.104SendSfis , 0.12 , ,SMO 2140017171,,SEMPID V0919299,76, 81, 153, 74, 79, PASS, PASS, PASS, PASS, PASS, OK,0, 0, 0, 0, 0, PASS, PASS, PASS, PASS, PASS, OK,88, 97, 222, 80, 90, PASS, PASS, PASS, PASS, PASS, OK, 106.377, 222.307, 115.93, 83.6881, 127.246, 128, 0.60385, 0.7541, 125.072, 129.86, 4.7881, 4.27725,,CheckGreyWallGen5_Night1 , 9.38 , CheckGreyWallGen5_ICR , 11.24 , CheckGreyWallGen5_SportLight1 , 21.01 , CheckColorUniformity , 2.14 , 2020/06/12 9:05:46 PM,,,,,|@ZUEFM8K,1,D:\Arlo,2.3.2.8,L5-B05-FT5-6,45,2020-11-23 10:45:04,A41162C54ADE,A4520B7NA0675,   :SENDTOMYDASFINISH
+
+ Send mydas Fail...

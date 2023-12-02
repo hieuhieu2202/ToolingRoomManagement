@@ -1,0 +1,421 @@
+SN send to sfis: @ZW120UM
+Time UI-SFIS: 2021/10/04 20:47:19
+SFIS->UI: @ZW120UM                 VSC1000-FXN              24c3f90a73f3A8531970AA9D3  2140022031     V0937914    FT7       PASS
+
+Time SFIS->UI: 2021/10/04 20:47:19
+
+Wait to have OVTI Serial Port
+.
+Start connect !
+COM DUT OPENED!
+
+Wait # !
+
+
+# 
+
+
+# 
+Connect DUT sussess.
+===[ Check EFR UART ]===
+20:47:21
+fmcu ver
+
+# 
+SubG Version:v0.1.7 
+Send command to OV success!
+20:47:21
+SDUT.Send:
+ $ Send command command SubG success
+20:47:23
+SDUT.Send:rx 0
+rx 0
+
+{{(rx)}{Rx:Disabled}{Idle:Enabled}{Time:9739367}}
+$ ===[ Check EFR UART passed ... ]===
+
+===Start check PIR trigger 2G===
+Allready telneted
+Enable Golden WiFi 2G and disable wifi 5G on Golden_5G ...
+===[ START TO TEST CHANNEL 6 - 2G]===
+iperfiperfServerwindowPtr: 435553778
+Found window iperft test 
+20:47:24
+wl --init
+[WARNING]: wifi is not using saved param!
+Init wifi para
+select scio 2
+scio_init2: enter scio init, mode:4, dlldelay 0
+scio_init2: pre_init failed, got to reset init
+sdio_change_clk: read SCIO_HIGH_SPEED_REG = 0x1
+sdio_change_clk: set sdio clock 25000000
+sdio_change_clk: read again SCIO_HIGH_SPEED_REG = 0x1
+sdio function num=3, wifi_run_flag=0, err = 0
+Getting WIFI mfg FW(FW1)
+id2:15 addr = 6c0000, len = 70840
+ len 460864...board_bcm4334fw_get len 460864
+Getting WIFI FW(FW2) by 16
+id2:16 addr = 740000, len = e00
+board_firmware_get len 3584
+Getting WIFI FW(FW3) by 33
+id2:33 addr = ae0000, len = 1e40
+board_clmdata_get len 7744
+WLAN MAC Address : 00:90:4C:22:D1:00
+WLAN Firmware    : wl0: Jun 22 2020 14:10:19 version 13.18.33 (r726175 WLTEST) FWID 01-6aeead41
+WLAN CLM         : API: 18.2 Data: 9.10.0 Compiler: 1.36.1 ClmImport: 1.34.1 Creation: 2019-07-17 19:14:22 
+
+# 
+20:47:24
+wl band b
+
+# 
+20:47:25
+wl 2g_rate -r 2
+
+# 
+20:47:25
+wl mpc 0
+
+# 
+20:47:25
+wl antdiv_en 0
+var	unrecognized name, type -h for help
+
+
+# 
+20:47:25
+wl antdiv 0
+
+
+# 
+Golden 2G SSID:NETGEAR83 
+Setting DUT WiFi connection  
+20:47:25
+ov wifi_connect NETGEAR83 abcdef1234
+=================>sub_addr =f40000, para_addr=f20000 block_size=20000
+1 
+iv 
+iv 
+iv 
+
+max 1, min 1, max2 -1, min2 -1
+oldest item 1, latest item 0
+save address 0xf80000, new version=2
+
+<Dev Info>
+	sn: 00005442550a6bf6
+	pw: SbVwPXQO
+	mac: 54-42-55-a-6b-fffffff6
+<WiFi Info>
+	ssid: NETGEAR83
+	key: abcdef1234
+	country_code: US
+	security: auto
+Easycam is initialized.
+
+select scio 2
+scio_init2: enter scio init, mode:4, dlldelay 0
+sdio_change_clk: read SCIO_HIGH_SPEED_REG = 0x1
+sdio_change_clk: set sdio clock 25000000
+sdio_change_clk: read again SCIO_HIGH_SPEED_REG = 0x1
+sdio function num=3, wifi_run_flag=1, err = 0
+WLAN MAC Address : 00:90:4C:22:D1:00
+WLAN Firmware    : wl0: Jun 22 2020 14:10:19 version 13.18.33 (r726175 WLTEST) FWID 01-6aeead41
+WLAN CLM         : API: 18.2 Data: 9.10.0 Compiler: 1.36.1 ClmImport: 1.34.1 Creation: 2019-07-17 19:14:22 
+disable autoarp mode
+wwd_arp_offload_enable: successfully enabed ARP offload to 0
+wlan_is_connected: not associated!
+wlan_is_connected: not associated!
+Joining : NETGEAR83, channel 2
+wlan_msg_hdl_cb(1)
+Successfully joined : NETGEAR83
+WIFI Connected!
+wl0: addr:192.168.1.2
+ Mask:255.255.255.0
+ gw:192.168.1.1
+ dns:192.168.1.1
+wl0 DHCP Done!!
+IpAddr: 192.168.1.2
+NetMask: 255.255.255.0
+GateWay: 192.168.1.1
+
+# 
+Connect to Golden successful...
+Check ping cameraIP 
+Check ping cameraIP round: 0
+Ping reply from: 192.168.1.2 size:32 Time:3 TTL:255
+Ping reply from: 192.168.1.2 size:32 Time:2 TTL:255
+20:47:29
+wl rssi
+-52
+
+# 
+
+...-52
+Check RSSI pass
+
+
+====Start check PIR false trigger time 1 ======
+20:47:31
+fmcu PIRINT7start 10
+
+# 
+0 seconds 
+20:47:34
+fmcu PIRINT7_read
+
+# 
+PIR:status: 0 
+PIR:FAIL;
+20:47:34
+iperf -c 192.168.1.200 -u -b 3M -t 1
+iperf v2.0.5
+setting:c, 192.168.1.200
+setting:u, NULL
+setting:b, 3M
+setting:t, 1
+
+# 
+------------------------------------------------------------
+Client connecting to 192.168.1.200, UDP port 5001
+Sending 1470 byte datagrams
+UDP buffer size: -1.00 Byte (default)
+------------------------------------------------------------
+[  3] local 0.0.0.0 port 64758 connected with 192.168.1.200 port 5001
+[ ID] Interval       Transfer     Bandwidth
+[  3]  0.0- 1.0 sec  243 KBytes  1.96 Mbits/sec
+[  3] Sent 169 datagrams
+[  3] Server Report:
+[  3]  0.0- 1.2 sec  243 KBytes  1.70 Mbits/sec  11.920 ms    1/  170 (0.59%)
+iperf done
+20:47:36
+fmcu PIRINT7_read
+
+# 
+PIR:status: 0 
+PIR:FAIL;
+Count time: 2905
+1 seconds 
+20:47:39
+fmcu PIRINT7_read
+
+# 
+PIR:status: 0 
+PIR:FAIL;
+20:47:39
+iperf -c 192.168.1.200 -u -b 3M -t 1
+iperf v2.0.5
+setting:c, 192.168.1.200
+setting:u, NULL
+setting:b, 3M
+setting:t, 1
+
+# 
+------------------------------------------------------------
+Client connecting to 192.168.1.200, UDP port 5001
+Sending 1470 byte datagrams
+UDP buffer size: -1.00 Byte (default)
+------------------------------------------------------------
+[  3] local 0.0.0.0 port 64759 connected with 192.168.1.200 port 5001
+[  3]  0.0- 1.0 sec  240 KBytes  1.94 Mbits/sec
+[  3] Sent 167 datagrams
+[  3] Server Report:
+[  3]  0.0- 1.2 sec  240 KBytes  1.68 Mbits/sec  10.712 ms    1/  168 (0.6%)
+iperf done
+20:47:41
+fmcu PIRINT7_read
+
+# 
+PIR:status: 0 
+PIR:FAIL;
+Count time: 7810
+2 seconds 
+20:47:44
+fmcu PIRINT7_read
+
+# 
+PIR:status: 0 
+PIR:FAIL;
+20:47:44
+iperf -c 192.168.1.200 -u -b 3M -t 1
+iperf v2.0.5
+setting:c, 192.168.1.200
+setting:u, NULL
+setting:b, 3M
+setting:t, 1
+
+# 
+------------------------------------------------------------
+Client connecting to 192.168.1.200, UDP port 5001
+Sending 1470 byte datagrams
+UDP buffer size: -1.00 Byte (default)
+------------------------------------------------------------
+[  3] local 0.0.0.0 port 64760 connected with 192.168.1.200 port 5001
+[  3]  0.0- 1.0 sec  235 KBytes  1.91 Mbits/sec
+[  3] Sent 164 datagrams
+[  3] Server Report:
+[  3]  0.0- 1.2 sec  235 KBytes  1.54 Mbits/sec  11.599 ms    1/  165 (6.06e-001%)
+iperf done
+20:47:46
+fmcu PIRINT7_read
+
+# 
+PIR:status: 0 
+PIR:FAIL;
+========Check PIR false trigger 2G level 1 pass!========
+
+check ipert log ......
+ipert log : ------------------------------------------------------------
+Server listening on UDP port 5001
+Receiving 1470 byte datagrams
+UDP buffer size: 64.0 KByte (default)
+------------------------------------------------------------
+[228] local 192.168.1.200 port 5001 connected with 192.168.1.2 port 64758
+[ ID] Interval       Transfer     Bandwidth       Jitter   Lost/Total Datagrams
+[228]  0.0- 1.0 sec   210 KBytes  1.72 Mbits/sec  9.699 ms 1917085038/  146 (1.3e+009%)
+[228]  0.0- 1.2 sec   243 KBytes  1.70 Mbits/sec  11.920 ms    1/  170 (0.59%)
+[228] local 192.168.1.200 port 5001 connected with 192.168.1.2 port 64759
+[ ID] Interval       Transfer     Bandwidth       Jitter   Lost/Total Datagrams
+[228]  0.0- 1.0 sec   205 KBytes  1.68 Mbits/sec  8.764 ms    0/  143 (0%)
+[228]  0.0- 1.2 sec   240 KBytes  1.68 Mbits/sec  10.712 ms    1/  168 (0.6%)
+[228] local 192.168.1.200 port 5001 connected with 192.168.1.2 port 64760
+[ ID] Interval       Transfer     Bandwidth       Jitter   Lost/Total Datagrams
+[228]  0.0- 1.0 sec   204 KBytes  1.67 Mbits/sec  8.714 ms    0/  142 (0%)
+[228]  0.0- 1.2 sec   235 KBytes  1.54 Mbits/sec  11.599 ms    1/  165 (0.61%)
+
+PassRate2G = 100%
+========Check throughput 2G pass========
+mydas_detail5: ,SMO 2140022031,,SEMPID V0937914,,rssi:, -52,,AVGTX,1.665,,PassRate,100,,Channel,6,Ant1_Level_10,1,,Time1,12.7187423,
+===[ Test PIR false trigger 2G wifi passed... ]===
+
+===Start check PIR trigger SubG===
+20:47:48
+SDUT.Send:
+ $ ====Start check PIR false trigger ======
+20:47:50
+SDUT.Send:setpower 200
+setpower 200 {{(setpower)}{powerLevel:231}{power:200}}
+$ 117 seconds 
+20:47:50
+fmcu PIRINT7_read
+
+# 
+FMCU_CMD_PIR7_INT_GET_VALUE PIR int trigger: 0 PIR FAIL PIR:status: 0 
+PIR:FAIL;
+Count time: 461
+20:47:50
+SDUT.Send:startTx
+startTx Start continuous tx packet ...... You can input "printTxPacket" to see the packet payload  {{(appMode)}{ContinuousTx:Enabled}{None:Disabled}{Time:37384623}}
+$ {{(rxPacket)}{len:16}{timeUs:37438901}{timePos:4}{crc:Pass}{rssi:-69}{lqi:234}{phy:0}{isAck:False}{syncWordId:0}{antenna:0}{channelHopIdx:254}{payload: 0x0f 0x0e 0x11 0x22 0x33 0x44 0x55 0x66 0x77 0x88 0x99 0xaa 0xbb 0xcc 0xdd 0xee}}
+{{(rxPacket)}{len:16}{timeUs:37694339}{timePos:4}{crc:Pass}{rssi:-66}{lqi:234}{phy:0}{isAck:False}{syncWordId:0}{antenna:0}{channelHopIdx:254}{payload: 0x0f 0x0e 0x11 0x22 0x33 0x44 0x55 0x66 0x77 0x88 0x99 0xaa 0xbb 0xcc 0xdd 0xee}}
+{{(rxPacket)}{len:16}{timeUs:37949780}{timePos:4}{crc:Pass}{rssi:-85}{lqi:236}{phy:0}{isAck:False}{syncWordId:0}{antenna:0}{channelHopIdx:254}{payload: 0x0f 0x0e 0x11 0x22 0x33 0x44 0x55 0x66 0x77 0x88 0x99 0xaa 0xbb 0xcc 0xdd 0xee}}
+{{(rxPacket)}{len:16}{timeUs:38205229}{timePos:4}{crc:Pass}{rssi:-65}{lqi:234}{phy:0}{isAck:False}{syncWordId:0}{antenna:0}{channelHopIdx:254}{payload: 0x0f 0x0e 0x11 0x22 0x33 0x44 0x55 0x66 0x77 0x88 0x99 0xaa 0xbb 0xcc 0xdd 0xee}}
+{{(rxPacket)}{len:16}{timeUs:38460676}{timePos:4}{crc:Pass}{rssi:-54}{lqi:234}{phy:0}{isAck:False}{syncWordId:0}{antenna:0}{channelHopIdx:254}{payload: 0x0f 0x0e 0x11 0x22 0x33 0x44 0x55 0x66 0x77 0x88 0x99 0xaa 0xbb 0xcc 0xdd 0xee}}
+{{(rxPacket)}{len:16}{timeUs:38716102}{timePos:4}{crc:Pass}{rssi:-57}{lqi:234}{phy:0}{isAck:False}{syncWordId:0}{antenna:0}{channelHopIdx:254}{payload: 0x0f 0x0e 0x11 0x22 0x33 0x44 0x55 0x66 0x77 0x88 0x99 0xaa 0xbb 0xcc 0xdd 0xee}}
+{{(rxPacket)}{len:16}{timeUs:38971561}{timePos:4}{crc:Pass}{rssi:-44}{lqi:236}{phy:0}{isAck:False}{syncWordId:0}{antenna:0}{channelHopIdx:254}{payload: 0x0f 0x0e 0x11 0x22 0x33 0x44 0x55 0x66 0x77 0x88 0x99 0xaa 0xbb 0xcc 0xdd 0xee}}
+Delay 3000 MiliSecond
+20:47:53
+fmcu PIRINT7_read
+
+# 
+FMCU_CMD_PIR7_INT_GET_VALUE PIR int trigger: 0 PIR FAIL PIR:status: 0 
+PIR:FAIL;
+Count time: 3929
+20:47:54
+SDUT.Send:stopTx
+stopTx Stop continuous tx packet  {{(appMode)}{None:Enabled}{ContinuousTx:Disabled}{Time:40846582}}
+{{(txEnd)}{txStatus:Complete}{transmitted:14}{lastTxTime:40832161}{timePos:6}{lastTxStart:40826917}{ccaSuccess:0}{failed:0}{lastTxStatus:0x000000000}{isAck:False}}
+$ Delay 1000 MiliSecond
+5060 seconds 
+20:47:55
+fmcu PIRINT7_read
+
+# 
+FMCU_CMD_PIR7_INT_GET_VALUE PIR int trigger: 0 PIR FAIL PIR:status: 0 
+PIR:FAIL;
+Count time: 5397
+20:47:55
+SDUT.Send:startTx
+startTx Start continuous tx packet ...... You can input "printTxPacket" to see the packet payload  {{(appMode)}{ContinuousTx:Enabled}{None:Disabled}{Time:42325404}}
+$ {{(rxPacket)}{len:16}{timeUs:42866986}{timePos:4}{crc:Pass}{rssi:-80}{lqi:234}{phy:0}{isAck:False}{syncWordId:0}{antenna:0}{channelHopIdx:254}{payload: 0x0f 0x0e 0x11 0x22 0x33 0x44 0x55 0x66 0x77 0x88 0x99 0xaa 0xbb 0xcc 0xdd 0xee}}
+{{(rxPacket)}{len:16}{timeUs:43125106}{timePos:4}{crc:Pass}{rssi:-80}{lqi:234}{phy:0}{isAck:False}{syncWordId:0}{antenna:0}{channelHopIdx:254}{payload: 0x0f 0x0e 0x11 0x22 0x33 0x44 0x55 0x66 0x77 0x88 0x99 0xaa 0xbb 0xcc 0xdd 0xee}}
+{{(rxPacket)}{len:16}{timeUs:43380539}{timePos:4}{crc:Pass}{rssi:-80}{lqi:236}{phy:0}{isAck:False}{syncWordId:0}{antenna:0}{channelHopIdx:254}{payload: 0x0f 0x0e 0x11 0x22 0x33 0x44 0x55 0x66 0x77 0x88 0x99 0xaa 0xbb 0xcc 0xdd 0xee}}
+{{(rxPacket)}{len:16}{timeUs:43635978}{timePos:4}{crc:Pass}{rssi:-80}{lqi:238}{phy:0}{isAck:False}{syncWordId:0}{antenna:0}{channelHopIdx:254}{payload: 0x0f 0x0e 0x11 0x22 0x33 0x44 0x55 0x66 0x77 0x88 0x99 0xaa 0xbb 0xcc 0xdd 0xee}}
+{{(rxPacket)}{len:16}{timeUs:43891403}{timePos:4}{crc:Pass}{rssi:-80}{lqi:236}{phy:0}{isAck:False}{syncWordId:0}{antenna:0}{channelHopIdx:254}{payload: 0x0f 0x0e 0x11 0x22 0x33 0x44 0x55 0x66 0x77 0x88 0x99 0xaa 0xbb 0xcc 0xdd 0xee}}
+{{(rxPacket)}{len:16}{timeUs:44146853}{timePos:4}{crc:Pass}{rssi:-82}{lqi:238}{phy:0}{isAck:False}{syncWordId:0}{antenna:0}{channelHopIdx:254}{payload: 0x0f 0x0e 0x11 0x22 0x33 0x44 0x55 0x66 0x77 0x88 0x99 0xaa 0xbb 0xcc 0xdd 0xee}}
+{{(rxPacket)}{len:16}{timeUs:44402304}{timePos:4}{crc:Pass}{rssi:-84}{lqi:234}{phy:0}{isAck:False}{syncWordId:0}{antenna:0}{channelHopIdx:254}{payload: 0x0f 0x0e 0x11 0x22 0x33 0x44 0x55 0x66 0x77 0x88 0x99 0xaa 0xbb 0xcc 0xdd 0xee}}
+{{(rxPacket)}{len:16}{timeUs:44657756}{timePos:4}{crc:Pass}{rssi:-82}{lqi:238}{phy:0}{isAck:False}{syncWordId:0}{antenna:0}{channelHopIdx:254}{payload: 0x0f 0x0e 0x11 0x22 0x33 0x44 0x55 0x66 0x77 0x88 0x99 0xaa 0xbb 0xcc 0xdd 0xee}}
+{{(rxPacket)}{len:16}{timeUs:44913182}{timePos:4}{crc:Pass}{rssi:-81}{lqi:236}{phy:0}{isAck:False}{syncWordId:0}{antenna:0}{channelHopIdx:254}{payload: 0x0f 0x0e 0x11 0x22 0x33 0x44 0x55 0x66 0x77 0x88 0x99 0xaa 0xbb 0xcc 0xdd 0xee}}
+{{(rxPacket)}{len:16}{timeUs:45168634}{timePos:4}{crc:Pass}{rssi:-80}{lqi:236}{phy:0}{isAck:False}{syncWordId:0}{antenna:0}{channelHopIdx:254}{payload: 0x0f 0x0e 0x11 0x22 0x33 0x44 0x55 0x66 0x77 0x88 0x99 0xaa 0xbb 0xcc 0xdd 0xee}}
+{{(rxPacket)}{len:16}{timeUs:45424068}{timePos:4}{crc:Pass}{rssi:-81}{lqi:236}{phy:0}{isAck:False}{syncWordId:0}{antenna:0}{channelHopIdx:254}{payload: 0x0f 0x0e 0x11 0x22 0x33 0x44 0x55 0x66 0x77 0x88 0x99 0xaa 0xbb 0xcc 0xdd 0xee}}
+Delay 3000 MiliSecond
+20:47:58
+fmcu PIRINT7_read
+
+# 
+FMCU_CMD_PIR7_INT_GET_VALUE PIR int trigger: 0 PIR FAIL PIR:status: 0 
+PIR:FAIL;
+{{(rxPacket)}{len:16}{timeUs:45679502}{timePos:4}{crc:Pass}{rssi:-82}{lqi:236}{phy:0}{isAck:False}{syncWordId:0}{antenna:0}{channelHopIdx:254}{payload: 0x0f 0x0e 0x11 0x22 0x33 0x44 0x55 0x66 0x77 0x88 0x99 0xaa 0xbb 0xcc 0xdd 0xee}}
+Count time: 8916
+20:47:59
+SDUT.Send:stopTx
+stopT? Stop continuous tx packet  {{(appMode)}{None:Enabled}{ContinuousTx:Disabled}{Time:45834705}}
+{{(txEnd)}{txStatus:Complete}{transmitted:14}{lastTxTime:45804082}{timePos:6}{lastTxStart:45798838}{ccaSuccess:0}{failed:0}{lastTxStatus:0x000000000}{isAck:False}}
+$ {{(rxPacket)}{len:16}{timeUs:45934955}{timePos:4}{crc:Pass}{rssi:-84}{lqi:228}{phy:0}{isAck:False}{syncWordId:0}{antenna:0}{channelHopIdx:254}{payload: 0x0f 0x0e 0x11 0x22 0x33 0x44 0x55 0x66 0x77 0x88 0x99 0xaa 0xbb 0xcc 0xdd 0xee}}
+{{(rxPacket)}{len:16}{timeUs:46273574}{timePos:4}{crc:Pass}{rssi:-80}{lqi:232}{phy:0}{isAck:False}{syncWordId:0}{antenna:0}{channelHopIdx:254}{payload: 0x0f 0x0e 0x11 0x22 0x33 0x44 0x55 0x66 0x77 0x88 0x99 0xaa 0xbb 0xcc 0xdd 0xee}}
+
+Delay 1000 MiliSecond
+10086 seconds 
+20:48:00
+fmcu PIRINT7_read
+
+# 
+FMCU_CMD_PIR7_INT_GET_VALUE PIR int trigger: 0 PIR FAIL PIR:status: 0 
+PIR:FAIL;
+Count time: 10427
+========Check PIR false trigger Sub G level 1 pass!========
+
+mydas_detail5: ,SMO 2140022031,,SEMPID V0937914,,rssi:, -52,,AVGTX,1.665,,PassRate,100,,Channel,6,Ant1_Level_10,1,,Time1,12.7187423,,Channel,6,,SubG_Level_T7start 10,1,,Time0,10.4322806,
+20:48:00
+SDUT.Send:stopTx
+stopTx Stop continuous tx packet  {{(appMode)}{ContinuousTx:Enabled}{None:Disabled}{Time:47358189}}
+$ 20:48:01
+SDUT.Send:rx 0
+rx 0 {{(rx)}{error:Need to be in None mode, not ContinuousTx, for this command}{errorCode:22}}
+$ ===[ Test PIR false trigger sub G passed... ]===
+
+===[ Send Sfis ]===
+Sfis_length=118 ALSValueFlag=0 ALSCali5lux_10luxFlag=0  SendSFISFW=0   SendSFISHW=0
+SEND PASS TO SFIS: 
+UI->SFIS: @ZW120UM                 24c3f90a73f3A8531970AA9D3  L2-ORIONFT73
+Time UI->SFIS PASS/FAIL: 2021/10/04 20:48:01
+{{(rxPacket)}{len:16}{timeUs:47834371}{timePos:4}{crc:Pass}{rssi:-83}{lqi:236}{phy:0}{isAck:False}{syncWordId:0}{antenna:0}{channelHopIdx:254}{payload: 0x0f 0x0e 0x11 0x22 0x33 0x44 0x55 0x66 0x77 0x88 0x99 0xaa 0xbb 0xcc 0xdd 0xee}}
+SFIS->UI: @ZW120UM                 24c3f90a73f3A8531970AA9D3  L2-ORIONFT73PASS
+Time SFIS->UI: 2021/10/04 20:48:01
+Time UI->SFIS RR-YR: 2021/10/04 20:48:01
+Close CaliTool 
+SFIS->UI: RR-YRVSC1000-FXN              L2-ORIONFT73001.64004.17098.06PASS
+Time SFIS->UI: 2021/10/04 20:48:01
+{{(rxPacket)}{len:16}{timeUs:48089799}{timePos:4}{crc:Pass}{rssi:-82}{lqi:232}{phy:0}{isAck:False}{syncWordId:0}{antenna:0}{channelHopIdx:254}{payload: 0x0f 0x0e 0x11 0x22 0x33 0x44 0x55 0x66 0x77 0x88 0x99 0xaa 0xbb 0xcc 0xdd 0xee}}
+{{(rxPacket)}{len:16}{timeUs:48345225}{timePos:4}{crc:Pass}{rssi:-82}{lqi:238}{phy:0}{isAck:False}{syncWordId:0}{antenna:0}{channelHopIdx:254}{payload: 0x0f 0x0e 0x11 0x22 0x33 0x44 0x55 0x66 0x77 0x88 0x99 0xaa 0xbb 0xcc 0xdd 0xee}}
+close LTE COM ok 
+Delay 0 MiliSecond
+==============Start show pass================
+TEST PROGRAM VERSION:2.3.2.8  TEST CYCLE TIME:41
+
+----------------Summary all test item--------------
+Test item name                Result  Test time
+ 1.ConnectDUT                  PASS    0.86s 
+ 2.CheckEFRUART                PASS    1.99s 
+ 3.CheckFalseTrigger_Falcon_2G_AntPASS    24.92s
+ 4.CheckFalseTrigger_Orion_SubGPASS    12.99s
+ 5.SendSfis                   -Skip- 
+---------------------------------------------------
+Write summary log server: F:\lsy\ID\U12I438\VSC1000-FXN\FT7 -> OK
+Write summary log localD:\Arlo_Logs\U12I438\VSC1000-FXN\FT7\04-10-2021 -> OK
+Details log local folder: D:\Arlo_Logs\U12I438\VSC1000-FXN\FT7\04-10-2021\PASS
+Details log server folder: F:\lsy\ID\Detail\U12I438\VSC1000-FXN\FT7\04-10-2021\PASS
+  SendSfis , 0.17 , ,SMO 2140022031,,SEMPID V0937914,,rssi:, -52,,AVGTX,1.665,,PassRate,100,,Channel,6,Ant1_Level_10,1,,Time1,12.7187423,,Channel,6,,SubG_Level_T7start 10,1,,Time0,10.4322806,ConnectDUT , 0.86 , CheckEFRUART , 1.99 , CheckFalseTrigger_Falcon_2G_Ant , 24.92 , CheckFalseTrigger_Orion_SubG , 12.99 , 7/10/2021 12:00:00 AM,
+Start send data to mydas !
+
+Not enable mydas..

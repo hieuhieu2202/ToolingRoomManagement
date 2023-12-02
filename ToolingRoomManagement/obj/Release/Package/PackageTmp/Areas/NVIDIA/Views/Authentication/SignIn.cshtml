@@ -1,0 +1,183 @@
+﻿@{
+    Layout = null;
+}
+
+<!doctype html>
+<html lang="en" class="dark-theme">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--favicon-->
+    <link rel="icon" href="~/Areas/NVIDIA/Content/Image/favicon.ico" type="image/png" />
+    <!-- loader-->
+    <link href="~/Areas/NVIDIA/Content/Template/Sysadmin/assets/css/pace.min.css" rel="stylesheet" />
+    <script src="~/Areas/NVIDIA/Content/Template/Sysadmin/assets/js/pace.min.js"></script>
+
+    <!-- Bootstrap CSS -->
+    <link href="~/Areas/NVIDIA/Content/Template/Sysadmin/assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/Areas/NVIDIA/Content/Template/Sysadmin/assets/css/bootstrap-extended.css" rel="stylesheet">
+    <!-- Font -->
+    <link href="~/Areas/NVIDIA/Content/Vendor/Font/font-roboto/font-roboto.css" rel="stylesheet" />
+    <!-- Template -->
+    <link href="~/Areas/NVIDIA/Content/Template/Sysadmin/assets/css/app.css" rel="stylesheet">
+    <link href="~/Areas/NVIDIA/Content/Template/Sysadmin/assets/css/icons.css" rel="stylesheet">
+    <title>Sign In – Tooling Room Management</title>
+
+    <!-- Theme Style CSS -->
+    <link rel="stylesheet" href="~/Areas/NVIDIA/Content/Template/Sysadmin/assets/css/dark-theme.css" />
+
+    <!-- Vendor -->
+    <link href="~/Areas/NVIDIA/Content/Vendor/SweetAlert/swal.min.css" rel="stylesheet" />
+    <link href="~/Areas/NVIDIA/Content/Vendor/flag-icons/css/flag-icons.min.css" rel="stylesheet" />
+
+    <!-- Custom -->
+    <link href="~/Areas/NVIDIA/Content/Custom/Layout/CustomLayout.css" rel="stylesheet" />
+    <link href="~/Areas/NVIDIA/Content/Custom/Authentication/css/SignIn.css?v=@Guid.NewGuid()" rel="stylesheet" />
+
+</head>
+
+<body>
+    <div id="background"></div>
+    <canvas class="background"></canvas>
+    <!--wrapper-->
+    <div class="wrapper">
+        <header class="login-header shadow">
+            <nav class="navbar navbar-expand-lg navbar-light rounded fixed-top rounded-0 shadow-lg">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="javascript:;" style="display: contents">
+                        <img src="~/Areas/NVIDIA/Content/Image/fii-logo.jpg" width="60" alt="" />
+                        <h4 class="logo-text">Tooling Room Management</h4>
+                    </a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent1" aria-controls="navbarSupportedContent1" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent1">
+                        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                            <li class="nav-item">
+                                <div class="dropdown">
+                                    <a class="nav-link dropdown-toggle bg-transparent border-0" href="javascript:;" data-bs-toggle="dropdown" aria-expanded="false"><i class="fi fi-vn"></i></a>
+                                    <ul class="dropdown-menu" style="" id="select_language">
+                                        <li>
+                                            <a class="dropdown-item" href="javascript:;" data-lang="vi"><i class="fi fi-vn"></i> Tiếng Việt</a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" href="javascript:;" data-lang="en"><i class="fi fi-gb"></i> English</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li class="nav-item">
+                                <ul class="navbar-nav align-items-center">
+                                    <li class="nav-item dropdown dropdown-large">
+                                        <a class="nav-link dropdown-toggle dropdown-toggle-nocaret text-white" href="javascript:;" role="button" data-bs-toggle="dropdown" aria-expanded="false" data-i18n="global.features"><i class='bx bx-category'></i> Features</a>
+                                        @Html.Partial("~/Areas/NVIDIA/Views/Shared/_IotSystem.cshtml")
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" href="https://10.220.130.117/AboutUs/Index" data-i18n="global.about"><i class='bx bx-user me-1'></i> About</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" href="https://10.220.130.117:5555" data-i18n="global.home"><i class='bx bx-home-alt me-1'></i> Home</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <div class="section-authentication-signin d-flex align-items-center justify-content-center">
+            <div class="container-fluid d-flex justify-content-center">
+                <div class="card mt-5 mt-lg-0" id="card_SignIn">
+                    <div class="card-body">
+                        <div class="p-4 rounded">
+                            <div class="text-center">
+                                <h3 class="" data-i18n="signin.signin">SIGN IN</h3>
+                                <p data-i18n="signin.no_account">Don't have an account yet? <a href="/NVIDIA/Authentication/SignUp">Sign up here</a></p>
+                            </div>
+                            <div class="form-body">
+                                <div class="row g-3">
+                                    <div class="col-12">
+                                        <label for="inputCardId" class="form-label" data-i18n="signin.cardid">Card ID</label>
+                                        <input type="email" class="form-control" id="inputUsername" placeholder="Enter Card ID" maxlength="25" autocomplete="off" data-i18n="[plh]signin.cardid_placeholder">
+                                    </div>
+                                    <div class="col-12">
+                                        <label for="inputPassword" class="form-label" data-i18n="signin.password">Password</label>
+                                        <div class="input-group" id="show_hide_password">
+                                            <input type="password" class="form-control border-end-0" id="inputPassword" placeholder="Enter Password" maxlength="25" autocomplete="off" data-i18n="[plh]signin.password_placeholder">
+                                            <a href="javascript:;" class="input-group-text bg-transparent"><i class='bx bx-hide'></i></a>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-check form-switch">
+                                            <input class="form-check-input" type="checkbox" id="inputRemember" checked>
+                                            <label class="form-check-label" for="flexSwitchCheckChecked" data-i18n="signin.remember">Remember Me</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 text-end">
+                                        <a href="javascript:;" data-i18n="signin.forgotpass">Forgot Password ?</a>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="d-grid">
+                                            <button type="button" class="btn btn-primary" id="SignIn" data-i18n="signin.signin">Sign in</button>
+                                        </div>
+                                    </div>
+
+                                    <div class="text-center m-0 my-2">
+                                        <span style="background-color: transparent" data-i18n="signin.or">OR</span>
+                                    </div>
+
+                                    <div class="col-12 m-0">
+                                        <div class="d-grid">
+                                            <a href="https://mbd-cns.myfiinet.com/Login/LoginSmartOffice?return_url=https://mbd-cns.myfiinet.com:5555/NVIDIA/Authentication/Callback" class="btn btn-smartoffice" id="SignInSmartOffice" data-i18n="signin.signin_smartoffice">Sign in with Smart Office</a>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer class="shadow-sm border-top p-2 text-center fixed-bottom">
+            <p class="mb-0">Copyright © 2023. MBD Automation IOT.</p>
+        </footer>
+    </div>
+    <!--end wrapper-->
+    <!-- Bootstrap JS -->
+    <script src="~/Areas/NVIDIA/Content/Template/Sysadmin/assets/js/bootstrap.bundle.min.js"></script>
+    <!--plugins-->
+    <script src="~/Areas/NVIDIA/Content/Template/Sysadmin/assets/js/jquery.min.js"></script>
+    <script src="~/Areas/NVIDIA/Content/Vendor/Particles/Particles/particles.min.js"></script>
+
+    <script src="~/Areas/NVIDIA/Content/Vendor/i18next/i18next.min.js"></script>
+    <script src="~/Areas/NVIDIA/Content/Vendor/i18next/i18nextBrowserLanguageDetector.min.js"></script>
+    <!--Password show & hide js -->
+    <script>
+        $(document).ready(function () {
+            $("#show_hide_password a").on('click', function (event) {
+                event.preventDefault();
+                if ($('#show_hide_password input').attr("type") == "text") {
+                    $('#show_hide_password input').attr('type', 'password');
+                    $('#show_hide_password i').addClass("bx-hide");
+                    $('#show_hide_password i').removeClass("bx-show");
+                } else if ($('#show_hide_password input').attr("type") == "password") {
+                    $('#show_hide_password input').attr('type', 'text');
+                    $('#show_hide_password i').removeClass("bx-hide");
+                    $('#show_hide_password i').addClass("bx-show");
+                }
+            });
+        });
+    </script>
+    <!--app JS-->
+    @*<script src="~/Areas/NVIDIA/Content/Template/Sysadmin/assets/js/app.js"></script>*@
+    <script src="~/Areas/NVIDIA/Content/Vendor/SweetAlert/swal.min.js"></script>
+
+    <!-- Custom -->
+    <script src="~/Areas/NVIDIA/Content/Custom/Authentication/js/SignIn.js?v=@Guid.NewGuid()"></script>
+    <script src="~/Areas/NVIDIA/Content/Custom/Layout/CustomLayout.js?v=@Guid.NewGuid()"></script>
+</body>
+</html>
+

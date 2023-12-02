@@ -1,0 +1,377 @@
+﻿
+@{
+    ViewBag.Title = "EqipmentMaintainEdit";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout_AdminPage.cshtml";
+    var session = (ToolingRoomManagement.Common.UserLogin)Session[ToolingRoomManagement.Common.CommonConstants.USER_SESSION];
+    int dem = 0;
+}
+
+@using System.Globalization;
+<script src="~/Assets/admin/js/vendor/jquery-1.12.4.min.js"></script>
+<script src="~/Assets/client/vendor/jquery/table.min.js"></script>
+<style>
+    .animation {
+        background-color: red;
+        position: relative;
+        animation-name: example;
+        animation-duration: 4s;
+        animation-iteration-count: infinite;
+    }
+
+    .tblShow {
+        border: 1px solid;
+    }
+
+        .tblShow thead tr th {
+            vertical-align: middle;
+            background: #2d9aca;
+            padding: 0px 0px 0px 5px;
+            position: sticky;
+            top: -3px;
+        }
+
+        .tblShow tbody tr td {
+            vertical-align: middle;
+            padding: 6px 15px;
+        }
+
+    ::-webkit-scrollbar {
+        width: 8px;
+        height: 5px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        -webkit-box-shadow: inset 0 0 4px 9px rgba(0,0,0,0.3);
+        border-radius: 10px;
+    }
+
+    .load_section {
+        animation: animateLoad 10s linear infinite;
+    }
+
+        .load_section .loader {
+            position: relative;
+            width: 5vw;
+            height: 5vh;
+            margin-top: 30vh;
+            margin-left: 38vw;
+        }
+
+            .load_section .loader .span_loader {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                transform: rotate(calc(18deg * var(--i)));
+            }
+
+                .load_section .loader .span_loader::before {
+                    content: '';
+                    position: absolute;
+                    border-radius: 20px;
+                    top: 0;
+                    left: 0;
+                    width: 10px;
+                    height: 10px;
+                    background: #ffc107;
+                    box-shadow: 0 0 10px #ffc107, 0 0 20px #ffc107, 0 0 40px #ffc107, 0 0 60px #ffc107, 0 0 80px #007bff, 0 0 100px #007bff;
+                    animation: animateChild 1s linear infinite;
+                    animation-delay: calc(0.05s * var(--i));
+                }
+
+    @@keyframes animateLoad {
+        0% {
+            filter: hue-rotate(0deg);
+        }
+
+        100% {
+            filter: hue-rotate(360deg);
+        }
+    }
+
+    @@keyframes animateChild {
+        0% {
+            transform: scale(1);
+        }
+
+        80%,100% {
+            transform: scale(0);
+        }
+    }
+
+    #tbl_View {
+        color: white;
+    }
+
+        #tbl_View thead {
+            position: sticky;
+            top: -3px;
+            font-size: 1.3vh;
+            background: #1b2a47;
+        }
+
+            #tbl_View thead tr th {
+                text-align: center;
+            }
+
+        #tbl_View tbody tr td {
+            font-size: 1vh;
+            color: white;
+            text-align: center;
+        }
+
+            #tbl_View tbody tr td a {
+                font-size: 1.5vh;
+                color: #7ebaed;
+            }
+</style>
+<div>
+    <div class="header-advance-area">
+
+        <!-- Mobile Menu start -->
+        <div class="mobile-menu-area">
+            <div class="container">
+
+            </div>
+        </div>
+        <!-- Mobile Menu end -->
+        <div class="breadcome-area" style="margin-top: 40px;">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="breadcome-list" style="padding: 10px 20px 10px 20px;margin: 30px 0px 10px 0px;">
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                    <div class="breadcomb-wp">
+                                        <div class="breadcomb-icon zoom" data-toggle="tooltip" data-placement="bottom" title="Home">
+                                            @if (session.GroupID == 1)
+                                            {
+                                                <a href="/Admin/Admin/Index"><i class="icon nalika-home"></i></a>
+                                            }
+                                            else if (session.GroupID == 2)
+                                            {
+                                                <a href="/Admin/Admin/UserPage"><i class="icon nalika-home"></i></a>
+                                            }
+                                            else if (session.GroupID == 3)
+                                            {
+                                                <a href="/Admin/Admin/StaffPage"><i class="icon nalika-home"></i></a>
+                                            }
+                                            else if (session.GroupID == 4)
+                                            {
+                                                <a href="/Admin/Admin/Confirm_Page"><i class="icon nalika-home"></i></a>
+                                            }
+                                        </div>
+                                        <div class="breadcomb-ctn">
+                                            <h2>Fixture Management</h2>
+                                            <p>Welcome to Tooling <span class="bread-ntd">Room</span></p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                    <div class="breadcomb-report">
+                                        <button data-toggle="tooltip" data-placement="left" title="Export To Excel" class="btn" onclick="fnExcelReport()"><i class="icon nalika-download"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="product-sales-area mg-tb-30" style="margin: 10px 0px;">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="product-sales-chart" style="padding: 5px 10px 5px 20px;">
+                        <div class="portlet-title">
+                            <div class="row">
+                                <div class="content">
+                                    <div class="" style="">
+                                        <div class="project-list" style="height: 66vh;overflow:auto;width:100%;">
+                                            <div style="width:100%;">
+                                                <div class="ng-isolate-scope" style="float:left;width:11%; border-radius: 5px;">
+                                                    <button class="zoom" style="border: 1px solid green;background-color: green;color: white;width: 5vw;height: 4vh;border-radius: 5px;font-size: 1.5vh;" onclick="LogInModal()">
+                                                        Login
+                                                    </button>
+                                                    <select id="select_status" style="height: 28px;color: white;width: 100%;padding-left: 15px; border-radius: 5px;background: #152036;font-size:1.5vh;">
+                                                        <option value="100">Đơn đã duyệt</option>
+                                                        <option value="3">Đơn chưa duyệt</option>
+                                                    </select>
+
+                                                </div>
+                                                <div class="col-lg-2 col-md-7 col-sm-6 col-xs-12" style="float:right;width: 300px;margin-right:25px;">
+                                                    <div class="header-top-menu tabl-d-n hd-search-rp">
+                                                        <div class="breadcome-heading" style="margin: 0px 0px 10px 0px;">
+                                                            <form role="search" class="">
+                                                                <input id="input_search" type="text" placeholder="Search..." class="form-control" style="width: 283px;color: #fffaf0;height: 39px;" />
+                                                                <a href="" style="left: 257px;margin-top: -23px;"><i class="fa fa-search"></i></a>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div style="height:62vh;overflow:auto;width:100%;">
+                                                <table class="table table-bordered" id="tbl_View">
+                                                    <thead>
+                                                        <tr>
+                                                            <th rowspan="2" style="width:3%;">#</th>
+                                                            <th rowspan="2" style="width:5%;">Nhóm</th>
+                                                            <th rowspan="2" style="width:4%;">Thiết bị</th>
+                                                            <th rowspan="2" style="width:4%;">Ngày mượn</th>
+                                                            <th rowspan="2" style="width:4%;">Giá</th>
+                                                            <th rowspan="1" colspan="3">Số lần sử dụng</th>
+                                                            <th rowspan="1" colspan="3">Quản lý BP</th>
+                                                            <th rowspan="1" colspan="3">Kế toán PD</th>
+                                                            <th rowspan="1" colspan="3">Chủ quản PD 1</th>
+                                                            <th rowspan="1" colspan="3">Chủ quản PD 2</th>
+                                                            <th rowspan="1" colspan="3">Leader Kế toán</th>
+                                                            <th rowspan="1" colspan="3">Xác nhận trả</th>
+                                                            <th rowspan="2" style="width:4%;">HĐ</th>
+                                                        </tr>
+                                                        <tr>
+                                                            <th colspan="1" style="width:4%;">Tên</th>
+                                                            <th colspan="1" style="width:4%;">Ngày tạo</th>
+                                                            <th colspan="1" style="width:4%;">Ghi chú</th>
+                                                            <th colspan="1" style="width:4%;">Tên</th>
+                                                            <th colspan="1" style="width:4%;">Ngày kí</th>
+                                                            <th colspan="1" style="width:4%;">Ghi chú</th>
+                                                            <th colspan="1" style="width:4%;">Tên</th>
+                                                            <th colspan="1" style="width:4%;">Ngày kí</th>
+                                                            <th colspan="1" style="width:4%;">Ghi chú</th>
+                                                            <th colspan="1" style="width:4%;">Tên</th>
+                                                            <th colspan="1" style="width:4%;">Ngày kí</th>
+                                                            <th colspan="1" style="width:4%;">Ghi chú</th>
+                                                            <th colspan="1" style="width:4%;">Tên</th>
+                                                            <th colspan="1" style="width:4%;">Ngày kí</th>
+                                                            <th colspan="1" style="width:4%;">Ghi chú</th>
+                                                            <th colspan="1" style="width:4%;">Tên</th>
+                                                            <th colspan="1" style="width:4%;">Ngày kí</th>
+                                                            <th colspan="1" style="width:4%;">Ghi chú</th>
+                                                            <th colspan="1" style="width:4%;">Tên</th>
+                                                            <th colspan="1" style="width:4%;">Ngày kí</th>
+                                                            <th colspan="1" style="width:4%;">Ghi chú</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody id="tbd_View"></tbody>
+                                                </table>
+                                                <section class="load_section" style="height: 60vh;width: 100%;">
+                                                    <div class="loader">
+                                                        <span class="span_loader" style="--i:1;"></span>
+                                                        <span class="span_loader" style="--i:2;"></span>
+                                                        <span class="span_loader" style="--i:3;"></span>
+                                                        <span class="span_loader" style="--i:4;"></span>
+                                                        <span class="span_loader" style="--i:5;"></span>
+                                                        <span class="span_loader" style="--i:6;"></span>
+                                                        <span class="span_loader" style="--i:7;"></span>
+                                                        <span class="span_loader" style="--i:8;"></span>
+                                                        <span class="span_loader" style="--i:9;"></span>
+                                                        <span class="span_loader" style="--i:10;"></span>
+                                                        <span class="span_loader" style="--i:11;"></span>
+                                                        <span class="span_loader" style="--i:12;"></span>
+                                                        <span class="span_loader" style="--i:13;"></span>
+                                                        <span class="span_loader" style="--i:14;"></span>
+                                                        <span class="span_loader" style="--i:15;"></span>
+                                                        <span class="span_loader" style="--i:16;"></span>
+                                                        <span class="span_loader" style="--i:17;"></span>
+                                                        <span class="span_loader" style="--i:18;"></span>
+                                                        <span class="span_loader" style="--i:19;"></span>
+                                                        <span class="span_loader" style="--i:20;"></span>
+                                                    </div>
+                                                </section>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="myModalAddGroup">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content" style="width: 630px;margin-left: 128px;">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Thêm Nhóm Thiết Bị</h4>
+                <button type="button" class="btnClose" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body" style="height:150px;">
+                <input hidden id="id_group" />
+                <table class="tblCreate" style="width:80%;float: left;margin-left:100px;">
+
+                    <tr style="height:45px;">
+                        <td>Nhóm Thiết Bị : </td>
+                        <td>
+                            <input type="text" id="group_name" class="" style="border-radius: 5px;width: 300px;height: 35px;border: 1px solid;" />
+                        </td>
+                    </tr>
+
+
+                </table>
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                @*<button type="button" class="btn btn-secondary btnclose">Close</button>*@
+                <button type="button" class="btn btn-secondary btnClick" onclick="AddGroup()" style="background:green;color:white;">Thêm</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+<script>
+    function AddGroup() {
+        function AddStation() {
+            var id = 0;
+            if ($("#id_group").val()) {
+                id = document.getElementById("id_group").value;
+            } else {
+                id = 0;
+            }
+
+            var group_name = "";
+            if ($("#group_name").val() != "") {
+                group_name = document.getElementById("group_name").value;
+            }
+            else {
+                alert("Vui lòng nhập vào nhóm thiết bị!");
+                return;
+            }
+            debugger
+            $.ajax({
+                type: "Post",
+                url: "/EquipmentMaintain/InsertEquipmentGroup?id=" + id + "&group_name=" + group_name,
+                async: false,
+                contentType: false,
+                processData: false,
+                success: function (data) {
+                    debugger
+                    if (data == "OK") {
+                        alert("Thành Công!");
+                        modal_Station.style.display = "none";
+                        $("#station").empty();
+                        View_Station();
+                    } else {
+                        alert("Không thành công!");
+                    }
+                },
+                error: function (err) {
+                    //debugger
+                    alert("FAIL!");
+                }
+            });
+        }
+    }
+</script>
+

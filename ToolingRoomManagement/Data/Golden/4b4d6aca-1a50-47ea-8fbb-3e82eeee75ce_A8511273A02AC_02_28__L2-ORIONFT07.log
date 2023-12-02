@@ -1,0 +1,199 @@
+MAC : 0 0 0 0 0 0 
+SERIAL_NUM : ZVX77XH
+MODEL_NUM : VSC1000
+HW_REV : H6
+2G_SSID : 
+ALS_LLUX : 32.67%
+ALS_HLUX : 31.75%
+ALS_THLUX : 052267
+ALS_IR_LEAKAGE : 000000
+WIFI_COUNTRY_CODE : 
+HK_SETUP_ID : 
+SN send to sfis: ZVX77XH
+Time UI-SFIS: 2021/10/04 14:27:58
+SFIS->UI: @ZVX77XH                 VSC1000-FXN              PASS
+
+Time SFIS->UI: 2021/10/04 14:27:58
+
+ShowUI===[ Check AWB ]===
+Set IQcal_Erase=0,then delay 0.3 sec 
+Set IQcal_Erase=1,then delay 2 sec 
+Wait other testers for test 5000K...
+Wait other testers for test 5000K...
+Wait other testers for test 5000K...
+Wait other testers for test 5000K...
+&&& Server available for test 5000K 
+
+&&&===[ Start check 5000-LENC-AWB ]===
+Delay 4000 MiliSecond
+14:28:10 : waiting get awb value...
+14:28:11 : waiting get awb value...
+14:28:12 : waiting get awb value...
+14:28:13 : waiting get awb value...
+14:28:14 : waiting get awb value...
+14:28:15 : waiting get awb value...
+14:28:16 : waiting get awb value...
+Finish get awb value..
+SN000000
+Setup, CT, Result, Dust, DarkCorner, BG, RG
+Setup, NONE, 6500K, 0, 0, 0, 0
+Setup, 5000K, PASS, 0, 0, 0, 0
+Setup, NONE, 3100K, 0, 0, 0, 0
+Shading, CT, Result, LUM(CE), LUM(LT), LUM(RT), LUM(LB), LUM(RB)
+Pre-Shading, 6500K, NONE, 0, 0, 0, 0, 0
+Pre-Shading, 5000K, PASS, 185.01, 126.48, 128.52, 121.57, 124.91
+Pre-Shading, 3100K, NONE, 0, 0, 0, 0, 0
+Shading, 6500K, NONE, 0, 0, 0, 0, 0
+Shading, 5000K, PASS, 171.84, 170.46, 170.48, 169.77, 170.15
+Shading, 3100K, NONE, 0, 0, 0, 0, 0
+AWB, CT, Result, RG(CE), BG(CE), RG(LT), BG(LT), RG(RT), BG(RT), RG(LB), BG(LB), RG(RB), BG(RG)
+Pre-AWB, 6500K, NONE, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+Pre-AWB, 5000K, NONE, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+Pre-AWB, 3100K, NONE, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+AWB, 6500K, NONE, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+AWB, 5000K, PASS, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00
+AWB, 3100K, NONE, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+AE Target, CT, Result, Value
+AE, 6500K, NONE, 0
+AE, 5000K, PASS, 171
+AE, 3100K, NONE, 0
+PASS
+
+Value for 5000K: Setup, 5000K, PASS, 0, 0, 0, 0,Pre-Shading, 5000K, PASS, 185.01, 126.48, 128.52, 121.57, 124.91,Shading, 5000K, PASS, 171.84, 170.46, 170.48, 169.77, 170.15,AWB, 5000K, PASS, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00,AE, 5000K, PASS, 171,
+===[ Check 5000-LENC-AWB  PASS]===
+===[ Start check 6500-LENC-AWB ]===
+Wait other testers for test 6500K...
+Wait other testers for test 6500K...
+Wait other testers for test 6500K...
+Wait other testers for test 6500K...
+Wait other testers for test 6500K...
+&&& Server available for test 6500K 
+
+&&&===[ Start check 6500-LENC-AWB ]===
+Delay 4000 MiliSecond
+14:28:27 : waiting get awb value...
+14:28:28 : waiting get awb value...
+14:28:29 : waiting get awb value...
+14:28:30 : waiting get awb value...
+14:28:31 : waiting get awb value...
+14:28:32 : waiting get awb value...
+14:28:33 : waiting get awb value...
+Finish get awb value..
+SN000000
+Setup, CT, Result, Dust, DarkCorner, BG, RG
+Setup, 6500K, PASS, 0, 0, 0, 0
+Setup, 5000K, PASS, 0, 0, 0, 0
+Setup, NONE, 3100K, 0, 0, 0, 0
+Shading, CT, Result, LUM(CE), LUM(LT), LUM(RT), LUM(LB), LUM(RB)
+Pre-Shading, 6500K, PASS, 183.77, 125.69, 127.48, 120.88, 124.07
+Pre-Shading, 5000K, PASS, 185.01, 126.48, 128.52, 121.57, 124.91
+Pre-Shading, 3100K, NONE, 0, 0, 0, 0, 0
+Shading, 6500K, PASS, 174.14, 172.98, 172.72, 172.06, 172.36
+Shading, 5000K, PASS, 171.84, 170.46, 170.48, 169.77, 170.15
+Shading, 3100K, NONE, 0, 0, 0, 0, 0
+AWB, CT, Result, RG(CE), BG(CE), RG(LT), BG(LT), RG(RT), BG(RT), RG(LB), BG(LB), RG(RB), BG(RG)
+Pre-AWB, 6500K, NONE, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+Pre-AWB, 5000K, NONE, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+Pre-AWB, 3100K, NONE, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+AWB, 6500K, PASS, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00
+AWB, 5000K, PASS, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00
+AWB, 3100K, NONE, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+AE Target, CT, Result, Value
+AE, 6500K, PASS, 174
+AE, 5000K, PASS, 171
+AE, 3100K, NONE, 0
+PASS
+
+Value 6500K: Setup, 6500K, PASS, 0, 0, 0, 0,Pre-Shading, 6500K, PASS, 183.77, 125.69, 127.48, 120.88, 124.07,Shading, 6500K, PASS, 174.14, 172.98, 172.72, 172.06, 172.36,AWB, 6500K, PASS, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00,AE, 6500K, PASS, 174,
+===[ Check 6500-LENC-AWB  PASS]===
+===[ Start check 3100-LENC-AWB ]===
+Wait other testers for test 3100K...
+Wait other testers for test 3100K...
+Wait other testers for test 3100K...
+Wait other testers for test 3100K...
+Wait other testers for test 3100K...
+Wait other testers for test 3100K...
+Wait other testers for test 3100K...
+Wait other testers for test 3100K...
+Wait other testers for test 3100K...
+&&& Server available for test 3100K 
+
+&&&===[ Start check 3100-LENC-AWB ]===
+Delay 4000 MiliSecond
+14:28:44 : waiting get awb value...
+14:28:45 : waiting get awb value...
+14:28:46 : waiting get awb value...
+14:28:47 : waiting get awb value...
+14:28:48 : waiting get awb value...
+14:28:49 : waiting get awb value...
+14:28:50 : waiting get awb value...
+Finish get awb value..
+SN000000
+Setup, CT, Result, Dust, DarkCorner, BG, RG
+Setup, 6500K, PASS, 0, 0, 0, 0
+Setup, 5000K, PASS, 0, 0, 0, 0
+Setup, 3100K, PASS, 0, 0, 0, 0
+Shading, CT, Result, LUM(CE), LUM(LT), LUM(RT), LUM(LB), LUM(RB)
+Pre-Shading, 6500K, PASS, 183.77, 125.69, 127.48, 120.88, 124.07
+Pre-Shading, 5000K, PASS, 185.01, 126.48, 128.52, 121.57, 124.91
+Pre-Shading, 3100K, PASS, 185.92, 127.34, 129.11, 122.43, 125.75
+Shading, 6500K, PASS, 174.14, 172.98, 172.72, 172.06, 172.36
+Shading, 5000K, PASS, 171.84, 170.46, 170.48, 169.77, 170.15
+Shading, 3100K, PASS, 174.91, 173.53, 173.70, 172.66, 173.29
+AWB, CT, Result, RG(CE), BG(CE), RG(LT), BG(LT), RG(RT), BG(RT), RG(LB), BG(LB), RG(RB), BG(RG)
+Pre-AWB, 6500K, NONE, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+Pre-AWB, 5000K, NONE, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+Pre-AWB, 3100K, NONE, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+AWB, 6500K, PASS, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00
+AWB, 5000K, PASS, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00
+AWB, 3100K, PASS, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00
+AE Target, CT, Result, Value
+AE, 6500K, PASS, 174
+AE, 5000K, PASS, 171
+AE, 3100K, PASS, 174
+PASS
+
+Value 3100K: Setup, 3100K, PASS, 0, 0, 0, 0,Shading, 3100K, PASS, 174.91, 173.53, 173.70, 172.66, 173.29,Pre-Shading, 3100K, PASS, 185.92, 127.34, 129.11, 122.43, 125.75,AWB, 3100K, PASS, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00,AE, 3100K, PASS, 174,
+===[ Check 3100-LENC-AWB  PASS]===
+===[ Test AWB passed ... ]===
+
+===[ Check Dust by Foxccon Tool]===
+Found image file...
+Delete old folder...
+Delete old bmp file in dest folder...
+Delete file .\FoxconnDustChk\dustImage.bmp 
+Open Tool check dust!
+2021/10/04 14:28:54, dustImage.bmp
+Pass
+Dust: DUST_0
+===[ Test Dust by Foxconn Tool pass]===
+===[ Send Sfis ]===
+Sfis_length=54 ALSValueFlag=0 ALSCali5lux_10luxFlag=0  SendSFISFW=0   SendSFISHW=0
+SEND PASS TO SFIS: 
+UI->SFIS: @ZVX77XH                 L2-ORIONFT07
+Time UI->SFIS PASS/FAIL: 2021/10/04 14:28:54
+SFIS->UI: @ZVX77XH                 L2-ORIONFT07PASS
+Time SFIS->UI: 2021/10/04 14:28:54
+Time UI->SFIS RR-YR: 2021/10/04 14:28:54
+Close CaliTool 
+SFIS->UI: RR-YRVSC1000-FXN              L2-ORIONFT07004.27001.60098.55PASS
+Time SFIS->UI: 2021/10/04 14:28:54
+Delay 0 MiliSecond
+==============Start show pass================
+TEST PROGRAM VERSION:2.3.2.8  TEST CYCLE TIME:56
+
+----------------Summary all test item--------------
+Test item name                Result  Test time
+ 1.AWBCalibration              PASS    53.77s
+ 2.CheckDustFT3                PASS    2.03s 
+ 3.SendSfis                    -Skip- 
+---------------------------------------------------
+Write summary log server: F:\lsy\ID\U12I438\VSC1000-FXN\FT3 -> OK
+Write summary log localD:\Arlo_Logs\U12I438\VSC1000-FXN\FT3\04-10-2021 -> OK
+Details log local folder: D:\Arlo_Logs\U12I438\VSC1000-FXN\FT3\04-10-2021\PASS
+Details log server folder: F:\lsy\ID\Detail\U12I438\VSC1000-FXN\FT3\04-10-2021\PASS
+  SendSfis , 0.11 , ,SMO ,,SEMPID ,Setup, 5000K, PASS, 0, 0, 0, 0,Pre-Shading, 5000K, PASS, 185.01, 126.48, 128.52, 121.57, 124.91,Shading, 5000K, PASS, 171.84, 170.46, 170.48, 169.77, 170.15,AWB, 5000K, PASS, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00,AE, 5000K, PASS, 171,,Setup, 6500K, PASS, 0, 0, 0, 0,Pre-Shading, 6500K, PASS, 183.77, 125.69, 127.48, 120.88, 124.07,Shading, 6500K, PASS, 174.14, 172.98, 172.72, 172.06, 172.36,AWB, 6500K, PASS, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00,AE, 6500K, PASS, 174,,Setup, 3100K, PASS, 0, 0, 0, 0,Shading, 3100K, PASS, 174.91, 173.53, 173.70, 172.66, 173.29,Pre-Shading, 3100K, PASS, 185.92, 127.34, 129.11, 122.43, 125.75,AWB, 3100K, PASS, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00,AE, 3100K, PASS, 174,,DUST_0,,AWBCalibration , 53.77 , CheckDustFT3 , 2.03 , 7/10/2021 12:00:00 AM,
+Start send data to mydas !
+SENDTOMYDAS:     10.224.84.104SendSfis , 0.11 , ,SMO ,,SEMPID ,Setup, 5000K, PASS, 0, 0, 0, 0,Pre-Shading, 5000K, PASS, 185.01, 126.48, 128.52, 121.57, 124.91,Shading, 5000K, PASS, 171.84, 170.46, 170.48, 169.77, 170.15,AWB, 5000K, PASS, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00,AE, 5000K, PASS, 171,,Setup, 6500K, PASS, 0, 0, 0, 0,Pre-Shading, 6500K, PASS, 183.77, 125.69, 127.48, 120.88, 124.07,Shading, 6500K, PASS, 174.14, 172.98, 172.72, 172.06, 172.36,AWB, 6500K, PASS, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00,AE, 6500K, PASS, 174,,Setup, 3100K, PASS, 0, 0, 0, 0,Shading, 3100K, PASS, 174.91, 173.53, 173.70, 172.66, 173.29,Pre-Shading, 3100K, PASS, 185.92, 127.34, 129.11, 122.43, 125.75,AWB, 3100K, PASS, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00,AE, 3100K, PASS, 174,,DUST_0,,AWBCalibration , 53.77 , CheckDustFT3 , 2.03 , 7/10/2021 12:00:00 AM,,,,,|@ZVX77XH,1,D:\Arlo,2.3.2.8,L2-ORIONFT07,56,2021-10-04 02:28:55,   :SENDTOMYDASFINISH
+
+ Send mydas OK...

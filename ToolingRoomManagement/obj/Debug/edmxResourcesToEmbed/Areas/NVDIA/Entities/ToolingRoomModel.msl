@@ -1,0 +1,145 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ToolingRoomModelStoreContainer" CdmEntityContainer="ToolingRoomEntities">
+    <EntitySetMapping Name="Products">
+      <EntityTypeMapping TypeName="ToolingRoomModel.Product">
+        <MappingFragment StoreEntitySet="Product">
+          <ScalarProperty Name="MTS" ColumnName="MTS" />
+          <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Departments">
+      <EntityTypeMapping TypeName="ToolingRoomModel.Department">
+        <MappingFragment StoreEntitySet="Department">
+          <ScalarProperty Name="PropertyCode" ColumnName="PropertyCode" />
+          <ScalarProperty Name="DepartName" ColumnName="DepartName" />
+          <ScalarProperty Name="DepartCode" ColumnName="DepartCode" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Groups">
+      <EntityTypeMapping TypeName="ToolingRoomModel.Group">
+        <MappingFragment StoreEntitySet="Group">
+          <ScalarProperty Name="GroupName" ColumnName="GroupName" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="HistoryUpdateDevices">
+      <EntityTypeMapping TypeName="ToolingRoomModel.HistoryUpdateDevice">
+        <MappingFragment StoreEntitySet="HistoryUpdateDevice">
+          <ScalarProperty Name="FirstData" ColumnName="FirstData" />
+          <ScalarProperty Name="UpdateData" ColumnName="UpdateData" />
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+          <ScalarProperty Name="IdDevice" ColumnName="IdDevice" />
+          <ScalarProperty Name="IdUser" ColumnName="IdUser" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Models">
+      <EntityTypeMapping TypeName="ToolingRoomModel.Model">
+        <MappingFragment StoreEntitySet="Model">
+          <ScalarProperty Name="ModelName" ColumnName="ModelName" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Roles">
+      <EntityTypeMapping TypeName="ToolingRoomModel.Role">
+        <MappingFragment StoreEntitySet="Role">
+          <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Stations">
+      <EntityTypeMapping TypeName="ToolingRoomModel.Station">
+        <MappingFragment StoreEntitySet="Station">
+          <ScalarProperty Name="StationName" ColumnName="StationName" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="ToolingRoomModel.User">
+        <MappingFragment StoreEntitySet="User">
+          <ScalarProperty Name="LeaveDate" ColumnName="LeaveDate" />
+          <ScalarProperty Name="HireDate" ColumnName="HireDate" />
+          <ScalarProperty Name="EnName" ColumnName="EnName" />
+          <ScalarProperty Name="CnName" ColumnName="CnName" />
+          <ScalarProperty Name="VnName" ColumnName="VnName" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserDepartments">
+      <EntityTypeMapping TypeName="ToolingRoomModel.UserDepartment">
+        <MappingFragment StoreEntitySet="UserDepartment">
+          <ScalarProperty Name="IdDepartment" ColumnName="IdDepartment" />
+          <ScalarProperty Name="IdUser" ColumnName="IdUser" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserRoles">
+      <EntityTypeMapping TypeName="ToolingRoomModel.UserRole">
+        <MappingFragment StoreEntitySet="UserRole">
+          <ScalarProperty Name="IdRole" ColumnName="IdRole" />
+          <ScalarProperty Name="IdUser" ColumnName="IdUser" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Vendors">
+      <EntityTypeMapping TypeName="ToolingRoomModel.Vendor">
+        <MappingFragment StoreEntitySet="Vendor">
+          <ScalarProperty Name="VendorName" ColumnName="VendorName" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Warehouses">
+      <EntityTypeMapping TypeName="ToolingRoomModel.Warehouse">
+        <MappingFragment StoreEntitySet="Warehouse">
+          <ScalarProperty Name="IdUserManager" ColumnName="IdUserManager" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="WarehouseName" ColumnName="WarehouseName" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Devices">
+      <EntityTypeMapping TypeName="ToolingRoomModel.Device">
+        <MappingFragment StoreEntitySet="Device">
+          <ScalarProperty Name="QtyConfirm" ColumnName="QtyConfirm" />
+          <ScalarProperty Name="ACC_KIT" ColumnName="ACC_KIT" />
+          <ScalarProperty Name="Forcast" ColumnName="Forcast" />
+          <ScalarProperty Name="LifeCycle" ColumnName="LifeCycle" />
+          <ScalarProperty Name="Relation" ColumnName="Relation" />
+          <ScalarProperty Name="IdStation" ColumnName="IdStation" />
+          <ScalarProperty Name="IdModel" ColumnName="IdModel" />
+          <ScalarProperty Name="IdProduct" ColumnName="IdProduct" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="IdVendor" ColumnName="IdVendor" />
+          <ScalarProperty Name="IdGroup" ColumnName="IdGroup" />
+          <ScalarProperty Name="IdWareHouse" ColumnName="IdWareHouse" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="Buffer" ColumnName="Buffer" />
+          <ScalarProperty Name="DeviceDate" ColumnName="DeviceDate" />
+          <ScalarProperty Name="DeviceName" ColumnName="DeviceName" />
+          <ScalarProperty Name="DeviceCode" ColumnName="DeviceCode" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

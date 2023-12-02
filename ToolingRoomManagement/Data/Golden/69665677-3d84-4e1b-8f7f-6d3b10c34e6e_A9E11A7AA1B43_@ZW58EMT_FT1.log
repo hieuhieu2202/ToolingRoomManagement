@@ -1,0 +1,2182 @@
+SN send to sfis: A9E11A7AA1B43
+Time UI-SFIS: 2021/10/27 15:38:20
+SFIS->UI: @ZW58EMT                 VML2030-FXN-V            FC9C980B2D2CN/A         A9E11A7AA1B43  3c6bdf20a4624b3ea4a2dd535e4ffa12                                B07A                                                            2140022459     V0938829    FT1       PASS
+
+Time SFIS->UI: 2021/10/27 15:38:20
+
+ShowUIProgram still running !
+error sh_efs_init
+efs_exit_inWait to have OVTI Serial Port
+ternal() efs->mutex=208193f0
+.
+Start connect !
+COM DUT OPENED!
+
+Wait # !
+
+
+# 
+
+
+# 
+15:38:22
+export smode 0
+=================>sub_addr =f40000, para_addr=f20000 block_size=20000
+1 
+2 
+iv 
+iv 
+
+max 2, min 1, max2 -1, min2 -1
+oldest item 2, latest item 1
+phy blk_no: 0x7e
+phy blk_no: 0x7f
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=537  page_count=1
+col_adr=0x0 row_adr=0x1fc0 src_adr=0x203fdd00
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=4  page_count=1
+col_adr=0x0 row_adr=0x1f80 src_adr=0x203fdb28
+save address 0xfc0000, new version=3
+
+# 
+Connect DUT sussess.
+===[ Check wifi_country_code ]===
+15:38:22
+burn read_wifi_country_code
+
+wifi_country_code: US
+
+# 
+===[ Check wifi_country_code passed ... ]===
+===[ Check MAC ]===
+15:38:22
+burn read_mac
+
+
+MAC: FC:9C:98:0B:2D:2C
+
+# 
+===[ Check mac passed ... ]===
+===[ Check Serial Number ]===
+15:38:22
+burn read_sn
+
+SERIAL_NUM: A9E11A7AA1B43
+
+# 
+===[ Check serial number passed ... ]===
+===[ Check Model ]===
+15:38:22
+burn read_model_num
+
+MODEL_NUM: VML2030
+
+# 
+===[ Check model passed ... ]===
+===[ Check Hw rev ]===
+Config hw ver: H4
+15:38:23
+burn read_hw_rev
+
+HW_REV: H4
+
+# 
+===[ Check Hw rev passed ... ]===
+Read DSC3 key
+15:38:23
+burn read_dsc_cert_enc
+
+dsc_cert_enc: ?
+
+dsc_cert_cleartext: 
+{"softAPPwd": "DUEmpkCPC1FpS3ye", "certId": "3c6bdf20a4624b3ea4a2dd535e4ffa12", "privateKey": "MIGTAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBHkwdwIBAQQgF8brpzybRAW7O73Iu6jjpOuVqh6g4NX0V17GNITpNtqgCgYIKoZIzj0DAQehRANCAARjQZ8QkwO/LUvYLyh2p47UWYUakmCNctn+hoPAJCAKxyKdBacmBKUirX030lAU095MFVfe6WwPSDEIFmDLzlnX", "certData": ["MIIDLzCCAtSgAwIBAgIBAzAKBggqhkjOPQQDAjB+MQswCQYDVQQGEwJVUzELMAkGA1UECAwCQ0ExIDAeBgNVBAoMF0FybG8gVGVjaG5vbG9naWVzLCBJbmMuMSMwIQYDVQQLDBpBcmxvIENlcnRpZmljYXRlIEF1dGhvcml0eTEbMBkGA1UEAwwSQXJsby1CaXJ0aENlcnQtSUNBMB4XDTIxMTAwNTE4MDMxMloXDTQxMTAwNjE4MDMxMlowgYIxCzAJBgNVBAYTAlVTMSAwHgYDVQQKDBdBcmxvIFRlY2hub2xvZ2llcywgSW5jLjERMA8GA1UEBwwIU2FuIEpvc2UxEzARBgNVBAgMCkNhbGlmb3JuaWExKTAnBgNVBAMMIDNjNmJkZjIwYTQ2MjRiM2VhNGEyZGQ1MzVlNGZmYTEyMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEY0GfEJMDvy1L2C8odqeO1FmFGpJgjXLZ/oaDwCQgCscinQWnJgSlIq19N9JQFNPeTBVX3ulsD0gxCBZgy85Z16OCATwwggE4MAwGA1UdEwEB/wQCMAAwHQYDVR0OBBYEFHimA6BxHfsD3R1V2psfQvZCSb1WMIG5BgNVHSMEgbEwga6AFJGfJN9qdnqtdVcBCM7RLZpmBMZUoYGRpIGOMIGLMQswCQYDVQQGEwJVUzELMAkGA1UECAwCQ0ExETAPBgNVBAcMCFNhbiBKb3NlMSAwHgYDVQQKDBdBcmxvIFRlY2hub2xvZ2llcywgSW5jLjEjMCEGA1UECwwaQXJsbyBDZXJ0aWZpY2F0ZSBBdXRob3JpdHkxFTATBgNVBAMMDEFybG8tUm9vdC1DQYICEAAwIAYDVR0lAQH/BBYwFAYIKwYBBQUHAwIGCCsGAQUFBwMBMCsGA1UdEQQkMCKCIDNjNmJkZjIwYTQ2MjRiM2VhNGEyZGQ1MzVlNGZmYTEyMAoGCCqGSM49BAMCA0kAMEYCIQC6IA+u4GOSHsWFqrfG3eTQvE9fApi/KU/TXfqwrAlJcwIhAJFKSYAupZtOmZKtWA3dYcJvMutm7tx1MRFzp3zW7nnx", "MIICdjCCAhugAwIBAgICEAAwCgYIKoZIzj0EAwIwgYsxCzAJBgNVBAYTAlVTMQswCQYDVQQIDAJDQTERMA8GA1UEBwwIU2FuIEpvc2UxIDAeBgNVBAoMF0FybG8gVGVjaG5vbG9naWVzLCBJbmMuMSMwIQYDVQQLDBpBcmxvIENlcnRpZmljYXRlIEF1dGhvcml0eTEVMBMGA1UEAwwMQXJsby1Sb290LUNBMB4XDTIwMTEwOTE4NTg1OVoXDTQwMTEwNDE4NTg1OVowfjELMAkGA1UEBhMCVVMxCzAJBgNVBAgMAkNBMSAwHgYDVQQKDBdBcmxvIFRlY2hub2xvZ2llcywgSW5jLjEjMCEGA1UECwwaQXJsbyBDZXJ0aWZpY2F0ZSBBdXRob3JpdHkxGzAZBgNVBAMMEkFybG8tQmlydGhDZXJ0LUlDQTBZMBMGByqGSM49AgEGCCqGSM49AwEHA0IABANQxUfzOlFN4Hr7f2GGmhLIqhagkBaYskOCs23kCyeDPpybRB2gdBo2wiY0SeEEyvyoseKMvxk1xPCkkSDoMrmjezB5MB0GA1UdDgQWBBSRnyTfanZ6rXVXAQjO0S2aZgTGVDAfBgNVHSMEGDAWgBS/UiIPNpqr8zgH5EEGdi+y85LsyjASBgNVHRMBAf8ECDAGAQH/AgEAMA4GA1UdDwEB/wQEAwIBpjATBgNVHSUEDDAKBggrBgEFBQcDAjAKBggqhkjOPQQDAgNJADBGAiEA/vPiyUpNOn9IpglovQBT8V+gIxrirAMyRVButgNSUUkCIQDtE5kx0gg/SVPbX8oMS58eNQIT74Jn31iDvCMgzKPtLQ=="], "caCert": "MIICijCCAi+gAwIBAgIJAI88AcXTGs9iMAoGCCqGSM49BAMCMIGLMQswCQYDVQQGEwJVUzELMAkGA1UECAwCQ0ExETAPBgNVBAcMCFNhbiBKb3NlMSAwHgYDVQQKDBdBcmxvIFRlY2hub2xvZ2llcywgSW5jLjEjMCEGA1UECwwaQXJsbyBDZXJ0aWZpY2F0ZSBBdXRob3JpdHkxFTATBgNVBAMMDEFybG8tUm9vdC1DQTAgFw0yMDExMDkxODQyNDdaGA8yMDUwMTEwMjE4NDI0N1owgYsxCzAJBgNVBAYTAlVTMQswCQYDVQQIDAJDQTERMA8GA1UEBwwIU2FuIEpvc2UxIDAeBgNVBAoMF0FybG8gVGVjaG5vbG9naWVzLCBJbmMuMSMwIQYDVQQLDBpBcmxvIENlcnRpZmljYXRlIEF1dGhvcml0eTEVMBMGA1UEAwwMQXJsby1Sb290LUNBMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEsB7VgMBHCdVTxTJk5ilpgttBu4xpsvqRY6rBvGRZfkFzwrIbMJFAkCD+cOi5SfzwfPbft9JIrcLorTmSBq2crqN4MHYwHQYDVR0OBBYEFL9SIg82mqvzOAfkQQZ2L7LzkuzKMB8GA1UdIwQYMBaAFL9SIg82mqvzOAfkQQZ2L7LzkuzKMA8GA1UdEwEB/wQFMAMBAf8wDgYDVR0PAQH/BAQDAgGmMBMGA1UdJQQMMAoGCCsGAQUFBwMCMAoGCCqGSM49BAMCA0kAMEYCIQC/2xg6PVueum4SgrCmGYmcR5vxbVAFbTrLthHg1U6LGwIhAINrHcVNZ/d0c4jSlL4T8PFBpRg/kmZX92QolY3Ewv2X", "partner": "arlo", "softAPSSID": "Arlo_0315"}	 size = 3191.
+
+
+# 
+CertID Read = 3c6bdf20a4624b3ea4a2dd535e4ffa12
+SFIS CertID:3c6bdf20a4624b3ea4a2dd535e4ffa12
+Check CertID correct
+SFIS MD5Sum:B07A
+DUT MD5Sum:B07A
+===[ Check System Temperature ]===
+15:38:23
+fmcu SYSTEMPstart
+FXCN_mcu_write hci data cmd=16
+
+# 
+15:38:23
+fmcu SYSTEMPread
+fxcn_mcu_product_read:id=18 rxbuf[0]=0x12 rxbuf[1]=0x04
+Main board Temp:24.74,Resistant:10110
+
+# 
+Temp Result:24.74 spec: (16 - 40)
+Check System Temperature pass
+15:38:23
+fmcu SYSTEMPstop
+FXCN_mcu_write hci data cmd=17
+
+# 
+===[ Check System Temperature ]===
+===[ Check IR Temperature]===
+15:38:24
+fmcu LEDTEMPstart
+FXCN_mcu_write hci data cmd=78
+
+# 
+error sh_efs_init
+efs_exit_internal() efs->mutex=208193f0
+15:38:24
+fmcu LEDTEMPread
+fxcn_mcu_product_read:id=80 rxbuf[0]=0x50 rxbuf[1]=0x04
+LED board Temp:22.88,Resistant:10884
+
+# 
+Temp Result:22.88 spec: (16 - 40)
+Check LED Temperature pass...
+15:38:24
+fmcu LEDTEMPstop
+FXCN_mcu_write hci data cmd=79
+
+# 
+===[ Check LED Temperature pass]===
+===[ Check ALS LLUX ]===
+15:38:24
+unset burnin
+=================>sub_addr =f40000, para_addr=f20000 block_size=20000
+1 
+2 
+3 
+iv 
+
+max 3, min 1, max2 -1, min2 -1
+oldest item 3, latest item 2
+phy blk_no: 0x80
+phy blk_no: 0x81
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=537  page_count=1
+col_adr=0x0 row_adr=0x2040 src_adr=0x203fdd00
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=4  page_count=1
+col_adr=0x0 row_adr=0x2000 src_adr=0x203fdb28
+save address 0x1000000, new version=4
+
+# 
+[WARNING]: SD card is not detected.
+============CHECK ALS 2 LUX============= 
+
+AT+LST=1,001
+AT+LST=1,001
+OK
+AT+LST=2,025
+AT+LST=2,025
+OK
+
+
+=============Start check 2Lux_IROff=============
+======Check mode 2Lux_IROff time 1=====
+15:38:25
+gpio ir_en off
+
+# 
+15:38:25
+fmcu ALSstop
+FXCN_mcu_write hci data cmd=5
+
+# 
+15:38:25
+fmcu ALSstart
+FXCN_mcu_write hci data cmd=4
+
+# 
+Delay 2 seconds before read...
+15:38:28
+fmcu ALSread
+fxcn_mcu_product_read:id=6 rxbuf[0]=0x06 rxbuf[1]=0x00
+ALS Value(lux):0.886
+
+# 
+fmcu ALSread
+fxcn_mcu_product_read:id=6 rxbuf[0]=0x06 rxbuf[1]=0x00
+ALS Value(lux):0.886
+
+# 
+ 
+15:38:28
+fmcu ALSread
+fxcn_mcu_product_read:id=6 rxbuf[0]=0x06 rxbuf[1]=0x00
+ALS Value(lux):0.886
+
+# 
+fmcu ALSread
+fxcn_mcu_product_read:id=6 rxbuf[0]=0x06 rxbuf[1]=0x00
+ALS Value(lux):0.886
+
+# 
+ 
+15:38:29
+fmcu ALSread
+fxcn_mcu_product_read:id=6 rxbuf[0]=0x06 rxbuf[1]=0x00
+ALS Value(lux):0.887
+
+# 
+fmcu ALSread
+fxcn_mcu_product_read:id=6 rxbuf[0]=0x06 rxbuf[1]=0x00
+ALS Value(lux):0.887
+
+# 
+ 
+15:38:29
+fmcu ALSread
+fxcn_mcu_product_read:id=6 rxbuf[0]=0x06 rxbuf[1]=0x00
+ALS Value(lux):0.888
+
+# 
+fmcu ALSread
+fxcn_mcu_product_read:id=6 rxbuf[0]=0x06 rxbuf[1]=0x00
+ALS Value(lux):0.888
+
+# 
+ 
+15:38:29
+fmcu ALSread
+fxcn_mcu_product_read:id=6 rxbuf[0]=0x06 rxbuf[1]=0x00
+ALS Value(lux):0.889
+
+# 
+fmcu ALSread
+fxcn_mcu_product_read:id=6 rxbuf[0]=0x06 rxbuf[1]=0x00
+ALS Value(lux):0.889
+
+# 
+ 
+15:38:29
+fmcu ALSstop
+FXCN_mcu_write hci data cmd=5
+
+# 
+============CHECK ALS 5 LUX============= 
+
+AT+LST=1,001
+AT+LST=1,001
+OK
+AT+LST=2,052
+AT+LST=2,052
+OK
+Set light 5lux pass. 
+
+
+=============Start check 5Lux_IROff=============
+======Check mode 5Lux_IROff time 1=====
+15:38:29
+gpio ir_en off
+
+# 
+15:38:30
+fmcu ALSstop
+FXCN_mcu_write hci data cmd=5
+
+# 
+15:38:30
+fmcu ALSstart
+FXCN_mcu_write hci data cmd=4
+
+# 
+mcu notify ov to prepare for  LTE ready!!!
+Delay 2 seconds before read...
+15:38:33
+fmcu ALSread
+fxcn_mcu_product_read:id=6 rxbuf[0]=0x06 rxbuf[1]=0x00
+ALS Value(lux):2.335
+
+# 
+fmcu ALSread
+fxcn_mcu_product_read:id=6 rxbuf[0]=0x06 rxbuf[1]=0x00
+ALS Value(lux):2.335
+
+# 
+ 
+15:38:33
+fmcu ALSread
+fxcn_mcu_product_read:id=6 rxbuf[0]=0x06 rxbuf[1]=0x00
+ALS Value(lux):2.335
+
+# 
+fmcu ALSread
+fxcn_mcu_product_read:id=6 rxbuf[0]=0x06 rxbuf[1]=0x00
+ALS Value(lux):2.335
+
+# 
+ 
+15:38:33
+fmcu ALSread
+fxcn_mcu_product_read:id=6 rxbuf[0]=0x06 rxbuf[1]=0x00
+ALS Value(lux):2.335
+
+# 
+fmcu ALSread
+fxcn_mcu_product_read:id=6 rxbuf[0]=0x06 rxbuf[1]=0x00
+ALS Value(lux):2.335
+
+# 
+ 
+15:38:33
+fmcu ALSread
+fxcn_mcu_product_read:id=6 rxbuf[0]=0x06 rxbuf[1]=0x00
+ALS Value(lux):2.335
+
+# 
+fmcu ALSread
+fxcn_mcu_product_read:id=6 rxbuf[0]=0x06 rxbuf[1]=0x00
+ALS Value(lux):2.335
+
+# 
+ 
+15:38:33
+fmcu ALSread
+fxcn_mcu_product_read:id=6 rxbuf[0]=0x06 rxbuf[1]=0x00
+ALS Value(lux):2.335
+
+# 
+fmcu ALSread
+fxcn_mcu_product_read:id=6 rxbuf[0]=0x06 rxbuf[1]=0x00
+ALS Value(lux):2.335
+
+# 
+ 
+15:38:33
+fmcu ALSstop
+FXCN_mcu_write hci data cmd=5
+
+# 
+============CHECK ALS 10 LUX============= 
+
+AT+LST=1,001
+AT+LST=1,001
+OK
+AT+LST=2,096
+AT+LST=2,096
+OK
+set light 10lux pass 
+Read 10lux IR OFF 
+
+
+=============Start check 10Lux_IROff=============
+======Check mode 10Lux_IROff time 1=====
+15:38:34
+gpio ir_en off
+
+# 
+15:38:34
+fmcu ALSstop
+FXCN_mcu_write hci data cmd=5
+
+# 
+15:38:35
+fmcu ALSstart
+FXCN_mcu_write hci data cmd=4
+
+# 
+Delay 2 seconds before read...
+15:38:37
+fmcu ALSread
+fxcn_mcu_product_read:id=6 rxbuf[0]=0x06 rxbuf[1]=0x00
+ALS Value(lux):4.866
+
+# 
+fmcu ALSread
+fxcn_mcu_product_read:id=6 rxbuf[0]=0x06 rxbuf[1]=0x00
+ALS Value(lux):4.866
+
+# 
+ 
+15:38:38
+fmcu ALSread
+fxcn_mcu_product_read:id=6 rxbuf[0]=0x06 rxbuf[1]=0x00
+ALS Value(lux):4.868
+
+# 
+fmcu ALSread
+fxcn_mcu_product_read:id=6 rxbuf[0]=0x06 rxbuf[1]=0x00
+ALS Value(lux):4.868
+
+# 
+ 
+15:38:38
+fmcu ALSread
+fxcn_mcu_product_read:id=6 rxbuf[0]=0x06 rxbuf[1]=0x00
+ALS Value(lux):4.869
+
+# 
+fmcu ALSread
+fxcn_mcu_product_read:id=6 rxbuf[0]=0x06 rxbuf[1]=0x00
+ALS Value(lux):4.869
+
+# 
+ 
+15:38:38
+fmcu ALSread
+fxcn_mcu_product_read:id=6 rxbuf[0]=0x06 rxbuf[1]=0x00
+ALS Value(lux):4.871
+
+# 
+fmcu ALSread
+fxcn_mcu_product_read:id=6 rxbuf[0]=0x06 rxbuf[1]=0x00
+ALS Value(lux):4.871
+
+# 
+ 
+15:38:38
+fmcu ALSread
+fxcn_mcu_product_read:id=6 rxbuf[0]=0x06 rxbuf[1]=0x00
+ALS Value(lux):4.873
+
+# 
+fmcu ALSread
+fxcn_mcu_product_read:id=6 rxbuf[0]=0x06 rxbuf[1]=0x00
+ALS Value(lux):4.873
+
+# 
+ 
+15:38:38
+fmcu ALSstop
+FXCN_mcu_write hci data cmd=5
+
+# 
+Average ALS_2LUX:0.888
+Average ALS_5LUX:2.335
+Average ALS_10LUX:4.871
+LLUX:0.466033333333333
+ALS_LLUX:46.60%
+ALS2LuxOff compenstation: 1.90544310135183  - Spec: (1.8 - 2.2)
+============CHECK ALS 2 LUX OFF PASS============= 
+ALS5LuxOff compenstation: 5.01037121808168  - Spec: (4.5 - 5.5)
+============CHECK ALS 5 LUX OFF PASS============= 
+ALS10LuxOff compenstation: 10.4520420570775  - Spec: (9 - 11)
+============CHECK ALS 10 LUX OFF PASS============= 
+CHECK VALUE ALS_LLUX [35%,55%] : 46.603% ----> PASS
+15:38:38
+burn als_llux 46.60%
+
+fxcn_burn_data[line=375], buf=46.60%, len 6, id2 b
+phy blk_no: 0x105
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=1056  page_count=1
+col_adr=0x0 row_adr=0x4140 src_adr=0x2009b280
+buf 2008840a, len 6, id2 b
+phy blk_no: 0x106
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x4180 src_adr=0x208093e8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x4181 src_adr=0x20809be8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x4182 src_adr=0x2080a3e8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x4183 src_adr=0x2080abe8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x4184 src_adr=0x2080b3e8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x4185 src_adr=0x2080bbe8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x4186 src_adr=0x2080c3e8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x4187 src_adr=0x2080cbe8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x4188 src_adr=0x2080d3e8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x4189 src_adr=0x2080dbe8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x418a src_adr=0x2080e3e8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x418b src_adr=0x2080ebe8
+pagesize:0x800 oobsize:0x34
+naBurn ALS_LLUX data into DUT success!
+nd_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x418c src_adr=0x2080f3e8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x418d src_adr=0x2080fbe8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x418e src_adr=0x208103e8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_cou===[ Check ALS LLUX pass ]===
+nt=1
+col_adr=0x0 row_adr=0x418f src_adr=0x20810be8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x4190 src_adr=0x208113e8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x4191 src_adr=0x20811be8
+pagesize:0x800 oobsize:0x34
+nand_pro===[ Check ALS HLUX ]===
+gram_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x4192 src_adr=0x208123e8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x4193 src_adr=0x20812be8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x4194 src_adr=0x208133e8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x4195 src_adr=0x20813be8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x4196 src_adr=0x208143e8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x4197 src_adr=0x20814be8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x4198 src_adr=0x208153e8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x4199 src_adr=0x20815be8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x419a src_adr=0x208163e8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x419b src_adr=0x20816be8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x419c src_adr=0x208173e8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x419d src_adr=0x20817be8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x419e src_adr=0x208183e8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x419f src_adr=0x215:38:38
+0818be8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x41a0 src_adr=0x208193e8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x41a1 src_adr=0x20819be8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x41a2 src_adr=0x2081a3e8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x41a3 src_adr=0x2081abe8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x41a4 src_adr=0x2081b3e8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x41a5 src_adr=0x2081bbe8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x41a6 src_adr=0x2081c3e8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x41a7 src_adr=0x2081cbe8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x41a8 src_adr=0x2081d3e8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x41a9 src_adr=0x2081dbe8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x41aa src_adr=0x2081e3e8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x41ab src_adr=0x2081ebe8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x41ac src_adr=0x2081f3e8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x41ad src_adr=0x2081fbe8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x41ae src_adr=0x208203e8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x41af src_adr=0x20820be8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x41b0 src_adr=0x208213e8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x41b1 src_adr=0x20821be8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x41b2 src_adr=0x208223e8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x41b3 src_adr=0x20822be8
+
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x41b4 src_adr=0x208233e8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x41b5 src_adr=0x20823be8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x41b6 src_adr=0x208243e8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x41b7 src_adr=0x20824be8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x41b8 src_adr=0x208253e8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x41b9 src_adr=0x20825be8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x41ba src_adr=0x208263e8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x41bb src_adr=0x20826be8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x41bc src_adr=0x208273e8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x41bd src_adr=0x20827be8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x41be src_adr=0x208283e8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x41bf src_adr=0x20828be8
+phy blk_no: 0x105
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=1056  page_count=1
+col_adr=0x0 row_adr=0x4140 src_adr=0x2009b280
+
+# 
+unset burnin
+=================>sub_addr =f40000, para_addr=f20000 block_size=20000
+1 
+2 
+3 
+4 
+
+max 4, min 1, max2 -1, min2 -1
+oldest item 0, latest item 3
+phy blk_no: 0x7a
+phy blk_no: 0x7b
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=537  page_count=1
+col_adr=0x0 row_adr=0x1ec0 src_adr=0x203fdd00
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=4  page_count=1
+col_adr=0x0 row_adr=0x1e80 src_adr=0x203fdb28
+save address 0xf40000, new version=5
+
+# 
+============CHECK ALS 1000 LUX============= 
+
+AT+LST=1,348
+AT+LST=1,348
+OK
+AT+LST=2,096
+AT+LST=2,096
+OK
+
+
+=============Start check 1000Lux_IROff=============
+======Check mode 1000Lux_IROff time 1=====
+15:38:39
+gpio ir_en off
+
+# 
+15:38:39
+fmcu ALSstop
+FXCN_mcu_write hci data cmd=5
+
+# 
+15:38:40
+fmcu ALSstart
+FXCN_mcu_write hci data cmd=4
+
+# 
+Delay 2 seconds before read...
+15:38:42
+fmcu ALSread
+fxcn_mcu_product_read:id=6 rxbuf[0]=0x06 rxbuf[1]=0x00
+ALS Value(lux):444.800
+
+# 
+fmcu ALSread
+fxcn_mcu_product_read:id=6 rxbuf[0]=0x06 rxbuf[1]=0x00
+ALS Value(lux):444.800
+
+# 
+ 
+15:38:43
+fmcu ALSread
+fxcn_mcu_product_read:id=6 rxbuf[0]=0x06 rxbuf[1]=0x00
+ALS Value(lux):444.800
+
+# 
+fmcu ALSread
+fxcn_mcu_product_read:id=6 rxbuf[0]=0x06 rxbuf[1]=0x00
+ALS Value(lux):444.800
+
+# 
+ 
+15:38:43
+fmcu ALSread
+fxcn_mcu_product_read:id=6 rxbuf[0]=0x06 rxbuf[1]=0x00
+ALS Value(lux):444.800
+
+# 
+fmcu ALSread
+fxcn_mcu_product_read:id=6 rxbuf[0]=0x06 rxbuf[1]=0x00
+ALS Value(lux):444.800
+
+# 
+ 
+15:38:43
+fmcu ALSread
+fxcn_mcu_product_read:id=6 rxbuf[0]=0x06 rxbuf[1]=0x00
+ALS Value(lux):444.800
+
+# 
+fmcu ALSread
+fxcn_mcu_product_read:id=6 rxbuf[0]=0x06 rxbuf[1]=0x00
+ALS Value(lux):444.800
+
+# 
+ 
+15:38:43
+fmcu ALSread
+fxcn_mcu_product_read:id=6 rxbuf[0]=0x06 rxbuf[1]=0x00
+ALS Value(lux):444.800
+
+# 
+fmcu ALSread
+fxcn_mcu_product_read:id=6 rxbuf[0]=0x06 rxbuf[1]=0x00
+ALS Value(lux):444.800
+
+# 
+ 
+15:38:43
+fmcu ALSstop
+FXCN_mcu_write hci data cmd=5
+
+# 
+============CHECK ALS 2000 LUX============= 
+
+AT+LST=1,648
+AT+LST=1,648
+OK
+AT+LST=2,096
+AT+LST=2,096
+OK
+Set light 2000lux pass. 
+
+
+=============Start check 2000Lux_IROff=============
+======Check mode 2000Lux_IROff time 1=====
+15:38:44
+gpio ir_en off
+
+# 
+15:38:44
+fmcu ALSstop
+FXCN_mcu_write hci data cmd=5
+
+# 
+15:38:44
+fmcu ALSstart
+FXCN_mcu_write hci data cmd=4
+
+# 
+Delay 2 seconds before read...
+15:38:47
+fmcu ALSread
+fxcn_mcu_product_read:id=6 rxbuf[0]=0x06 rxbuf[1]=0x00
+ALS Value(lux):884.540
+
+# 
+fmcu ALSread
+fxcn_mcu_product_read:id=6 rxbuf[0]=0x06 rxbuf[1]=0x00
+ALS Value(lux):884.540
+
+# 
+ 
+15:38:47
+fmcu ALSread
+fxcn_mcu_product_read:id=6 rxbuf[0]=0x06 rxbuf[1]=0x00
+ALS Value(lux):884.500
+
+# 
+fmcu ALSread
+fxcn_mcu_product_read:id=6 rxbuf[0]=0x06 rxbuf[1]=0x00
+ALS Value(lux):884.500
+
+# 
+ 
+15:38:47
+fmcu ALSread
+fxcn_mcu_product_read:id=6 rxbuf[0]=0x06 rxbuf[1]=0x00
+ALS Value(lux):884.420
+
+# 
+fmcu ALSread
+fxcn_mcu_product_read:id=6 rxbuf[0]=0x06 rxbuf[1]=0x00
+ALS Value(lux):884.420
+
+# 
+ 
+15:38:47
+fmcu ALSread
+fxcn_mcu_product_read:id=6 rxbuf[0]=0x06 rxbuf[1]=0x00
+ALS Value(lux):884.380
+
+# 
+fmcu ALSread
+fxcn_mcu_product_read:id=6 rxbuf[0]=0x06 rxbuf[1]=0x00
+ALS Value(lux):884.380
+
+# 
+ 
+15:38:48
+fmcu ALSread
+fxcn_mcu_product_read:id=6 rxbuf[0]=0x06 rxbuf[1]=0x00
+ALS Value(lux):884.300
+
+# 
+fmcu ALSread
+fxcn_mcu_product_read:id=6 rxbuf[0]=0x06 rxbuf[1]=0x00
+ALS Value(lux):884.300
+
+# 
+ 
+15:38:48
+fmcu ALSstop
+FXCN_mcu_write hci data cmd=5
+
+# 
+Average ALS_1000LUX:444.8
+Average ALS_2000LUX:884.366666666667
+HLUX:0.443491666666667
+ALS_HLUX:44.35%
+ALS1000LuxOff compenstation: 1002.95007422161  - Spec: (900 - 1100)
+============CHECK ALS 1000 LUX OFF PASS============= 
+ALS2000LuxOff compenstation: 1994.09985155677  - Spec: (1900 - 2100)
+============CHECK ALS 2000 LUX OFF PASS============= 
+CHECK VALUE ALS_HLUX [35%,55%] : 44.349% ----> PASS
+ Check  -10%  < ((ALS_HLUX - ALS_LLUX)/ALS_HLUX) * 100 < 10%: -5.082% --> Pass 
+15:38:48
+burn als_hlux 44.35%
+
+fxcn_burn_data[line=375], buf=44.35%, len 6, id2 c
+phy blk_no: 0x105
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=1056  page_count=1
+col_adr=0x0 row_adr=0x4140 src_adr=0x2009b280
+buf 2008840a, len 6, id2 c
+phy blk_no: 0x106
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x4180 src_adr=0x208093e8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x4181 src_adr=0x20809be8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x4182 src_adr=0x2080a3e8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x4183 src_adr=0x2080abe8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x4184 src_adr=0x2080b3e8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x4185 src_adr=0x2080bbe8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x4186 src_adr=0x2080c3e8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x4187 src_adr=0x2080cbe8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x4188 src_adr=0x2080d3e8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x4189 src_adr=0x2080dbe8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x418a src_adr=0x2080e3e8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x418b src_adr=0x2080ebe8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x418c src_adr=0x2080f3e8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x418d src_adr=0x2080fbe8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x418e src_adr=0x208103e8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x418f src_adr=0x20810be8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x4190 src_adr=0x208113e8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x4191 src_adr=0x20811be8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x4192 src_adr=0x208123e8
+pagesiBurn ALS_HLUX data into DUT success!
+ze:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x4193 src_adr=0x20812be8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x4194 src_adr=0x208133e8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x4195 src_adr=0x20813be8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x4196 src_adr=0x208143e8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x4197 src_adr=0x20814be8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr===[ Check ALS HLUX pass ]===
+=0x0 row_adr=0x4198 src_adr=0x208153e8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x4199 src_adr=0x20815be8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x419a src_adr=0x208163e8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x419b src_adr=0x20816be8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x419c src_adr=0x208173e8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x419d src_adr=0x20817be8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x419e src_adr=0x208183e8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x419f src_adr=0x20818be8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x41a0 src_adr=0x208193e8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x41a1 src_adr=0x20819be8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x41a2 src_adr=0x2081a3e8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x41a3 src_adr=0x2081abe8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x41a4 src_adr=0x2081b3e8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x41a5 src_adr=0x2081bbe8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x41a6 src_adr=0x2081c3e8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x41a7 src_adr=0x2081cbe8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x41a8 src_adr=0x2081d3e8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x41a9 src_adr=0x2081dbe8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x41aa src_adr=0x2081e3e8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x41ab src_adr=0x2081ebe8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x41ac src_adr=0x2081f3e8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x41ad src_adr=0x2081fbe8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x41ae src_adr=0x208203e8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x41af src_adr=0x20820be8
+pagesize:0x===[ Burn ALS THRES LUX ]===
+800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x41b0 src_adr=0x208213e8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x41b1 src_adr=0x20821be8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x41b2 src_adALS_THRES_LUX = 160 * (ALS_LLUX/100) = 74.565
+r=0x208223e8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x41b3 src_adr=0x20822be8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x41b4 src_adr=0x208233e8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x41b5 src_adr=0x20823be8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x41b6 src_adr=0x208243e8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x41b7 src_adr=0x20824be8
+pagesize:0x800 oobsize:0x34
+nand_progrFormat burn: ALS_THRES_LUX = 074565
+am_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x41b8 src_adr=0x208253e8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x41b9 src_adr=0x20825be8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x41ba src_adr=0x208263e8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 ro15:38:48
+w_adr=0x41bb src_adr=0x20826be8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x41bc src_adr=0x208273e8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x41bd src_adr=0x20827be8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x41be src_adr=0x208283e8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x41bf src_adr=0x20828be8
+phy blk_no: 0x105
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=1056  page_count=1
+col_adr=0x0 row_adr=0x4140 src_adr=0x2009b280
+
+# 
+burn als_thlux 074565
+
+fxcn_burn_data[line=375], buf=074565, len 6, id2 d
+phy blk_no: 0x105
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=1056  page_count=1
+col_adr=0x0 row_adr=0x4140 src_adr=0x2009b280
+buf 2008840b, len 6, id2 d
+phy blk_no: 0x106
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x4180 src_adr=0x208093e8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x4181 src_adr=0x20809be8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x4182 src_adr=0x2080a3e8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x4183 src_adr=0x2080abe8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x4184 src_adr=0x2080b3e8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x4185 src_adr=0x2080bbe8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x4186 src_adr=0x2080c3e8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 rBurn ALS_THRES_LUX data into DUT success!
+ow_adr=0x4187 src_adr=0x2080cbe8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x4188 src_adr=0x2080d3e8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x4189 src_adr=0x2080dbe8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x418a src_adr=0x2080e3e8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x418b src_adr=0x2080ebe8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x418c src_adr=0x2080f3e8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x418d src_adr=0x2080fbe8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x418e src_adr=0x208103e8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x418f src_adr=0x20810be8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x4190 src_adr=0x208113e8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x4191 src_adr=0x20811be8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048===[  Burn ALS THRES LUX pass ]===
+  page_count=1
+col_adr=0x0 row_adr=0x4192 src_adr=0x208123e8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x4193 src_adr=0x20812be8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x4194 src_adr=0x208133e8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x4195 src_adr=0x20813be8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x4196 src_adr=0x208143e8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x4197 src_adr=0x20814be8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x4198 src_adr=0x208153e8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x4199 src_adr=0x20815be8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x419a src_adr=0x208163e8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x419b src_adr=0x20816be8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x419c src_adr=0x208173e8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x419d src_adr=0x20817be8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x419e src_adr=0x208183e8
+pagesize:0x800 oobsize:0x34
+nand_program_page pr===[ Check ALS Leakage]===
+ogram size=2048  page_count=1
+col_adr=0x0 row_adr=0x419f src_adr=0x20818be8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x41a0 src_adr=0x208193e8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x41a1 src_adr=0x20819be8
+pagesize:0x800 oobsize:0x34
+nand_program_page progr============SET ALS 0 LUX============= 
+am size=2048  page_count=1
+col_adr=0x0 row_adr=0x41a2 src_adr=0x2081a3e8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x41a3 src_adr=0x2081abe8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x41a4 src_adr=0x2081b3e8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x41a5 src_adr=0x2081bbe8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x41a6 src_adr=0x2081c3e8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x41a7 src_adr=0x2081cbe8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x41a8 src_adr=0x2081d3e8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_coun
+t=1
+col_adr=0x0 row_adr=0x41a9 src_adr=0x2081dbe8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x41aa src_adr=0x2081e3e8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x41ab src_adr=0x2081ebe8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x41ac src_adr=0x2081f3e8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x41ad src_adr=0x2081fbe8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x41ae src_adr=0x208203e8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x41af src_adr=0x20820be8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x41b0 src_adr=0x208213e8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x41b1 src_adr=0x20821be8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x41b2 src_adr=0x208223e8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x41b3 src_adr=0x20822be8
+pagesiAT+LST=1,000
+ze:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x41b4 src_adr=0x208233e8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x41b5 src_adr=0x20823be8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x41b6 src_adr=0x208243e8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x41b7 src_adr=0x20824be8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x41b8 src_adr=0x208253e8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x41b9 src_adr=0x20825be8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x41ba src_adr=0x208263e8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x41bb src_adr=0x20826be8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x41bc src_adr=0x208273e8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x41bd src_adr=0x20827be8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x41be src_adr=0x208283e8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x41bf src_adr=0x20828be8
+phy blk_no: 0x105
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=1056  page_count=1
+col_adr=0x0 row_adr=0x4140 src_adr=0x2009b280
+
+# 
+AT+LST=1,000
+OK
+AT+LST=2,000
+AT+LST=2,000
+OK
+15:38:49
+led ir off
+IR LED off.
+
+# 
+15:38:49
+led w off
+White LED off.
+
+# 
+========Collect data IRLED OFF and WLED OFF=============
+15:38:49
+fmcu ALSstop
+FXCN_mcu_write hci data cmd=5
+
+# 
+15:38:50
+fmcu ALSstart
+FXCN_mcu_write hci data cmd=4
+
+# 
+Delay 2 seconds before read...
+15:38:52
+fmcu ALSread
+fxcn_mcu_product_read:id=6 rxbuf[0]=0x06 rxbuf[1]=0x00
+ALS Value(lux):0.000
+
+# 
+fmcu ALSread
+fxcn_mcu_product_read:id=6 rxbuf[0]=0x06 rxbuf[1]=0x00
+ALS Value(lux):0.000
+
+# 
+ 
+15:38:52
+fmcu ALSread
+fxcn_mcu_product_read:id=6 rxbuf[0]=0x06 rxbuf[1]=0x00
+ALS Value(lux):0.000
+
+# 
+fmcu ALSread
+fxcn_mcu_product_read:id=6 rxbuf[0]=0x06 rxbuf[1]=0x00
+ALS Value(lux):0.000
+
+# 
+ 
+15:38:53
+fmcu ALSread
+fxcn_mcu_product_read:id=6 rxbuf[0]=0x06 rxbuf[1]=0x00
+ALS Value(lux):0.000
+
+# 
+fmcu ALSread
+fxcn_mcu_product_read:id=6 rxbuf[0]=0x06 rxbuf[1]=0x00
+ALS Value(lux):0.000
+
+# 
+ 
+15:38:53
+fmcu ALSread
+fxcn_mcu_product_read:id=6 rxbuf[0]=0x06 rxbuf[1]=0x00
+ALS Value(lux):0.000
+
+# 
+fmcu ALSread
+fxcn_mcu_product_read:id=6 rxbuf[0]=0x06 rxbuf[1]=0x00
+ALS Value(lux):0.000
+
+# 
+ 
+15:38:53
+fmcu ALSread
+fxcn_mcu_product_read:id=6 rxbuf[0]=0x06 rxbuf[1]=0x00
+ALS Value(lux):0.000
+
+# 
+fmcu ALSread
+fxcn_mcu_product_read:id=6 rxbuf[0]=0x06 rxbuf[1]=0x00
+ALS Value(lux):0.000
+
+# 
+ 
+15:38:53
+fmcu ALSstop
+FXCN_mcu_write hci data cmd=5
+
+# 
+========Collect data IRLED ON and WLED OFF=============
+Turn on IR LED
+15:38:53
+led ir set 78000
+Set IR LED PWM.
+LED set PWM value 78000
+=================>sub_addr =f40000, para_addr=f20000 block_size=20000
+5 
+2 
+3 
+4 
+
+max 5, min 2, max2 -1, min2 -1
+oldest item 1, latest item 0
+phy blk_no: 0x7c
+phy blk_no: 0x7d
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=564  page_count=1
+col_adr=0x0 row_adr=0x1f40 src_adr=0x203fdd00
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=4  page_count=1
+col_adr=0x0 row_adr=0x1f00 src_adr=0x203fdac8
+save address 0xf80000, new version=6
+=================>sub_addr =f40000, para_addr=f20000 block_size=20000
+5 
+6 
+3 
+4 
+
+max 6, min 3, max2 -1, min2 -1
+oldest item 2, latest item 1
+phy blk_no: 0x7e
+phy blk_no: 0x7f
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x1fc0 src_adr=0x203fdd00
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=959  page_count=1
+col_adr=0x0 row_adr=0x1fc1 src_adr=0x203fe500
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=4  page_count=1
+col_adr=0x0 row_adr=0x1f80 src_adr=0x203fdad8
+save address 0xfc0000, new version=7
+
+# 
+15:38:53
+led ir on
+IR LED on.
+LED set PWM value 78000
+
+# 
+15:38:53
+fmcu ALSstop
+FXCN_mcu_write hci data cmd=5
+
+# 
+15:38:54
+fmcu ALSstart
+FXCN_mcu_write hci data cmd=4
+
+# 
+Delay 2 seconds before read...
+15:38:56
+fmcu ALSread
+fxcn_mcu_product_read:id=6 rxbuf[0]=0x06 rxbuf[1]=0x00
+ALS Value(lux):0.010
+
+# 
+fmcu ALSread
+fxcn_mcu_product_read:id=6 rxbuf[0]=0x06 rxbuf[1]=0x00
+ALS Value(lux):0.010
+
+# 
+ 
+15:38:57
+fmcu ALSread
+fxcn_mcu_product_read:id=6 rxbuf[0]=0x06 rxbuf[1]=0x00
+ALS Value(lux):0.010
+
+# 
+fmcu ALSread
+fxcn_mcu_product_read:id=6 rxbuf[0]=0x06 rxbuf[1]=0x00
+ALS Value(lux):0.010
+
+# 
+ 
+15:38:57
+fmcu ALSread
+fxcn_mcu_product_read:id=6 rxbuf[0]=0x06 rxbuf[1]=0x00
+ALS Value(lux):0.010
+
+# 
+fmcu ALSread
+fxcn_mcu_product_read:id=6 rxbuf[0]=0x06 rxbuf[1]=0x00
+ALS Value(lux):0.010
+
+# 
+ 
+15:38:57
+fmcu ALSread
+fxcn_mcu_product_read:id=6 rxbuf[0]=0x06 rxbuf[1]=0x00
+ALS Value(lux):0.010
+
+# 
+fmcu ALSread
+fxcn_mcu_product_read:id=6 rxbuf[0]=0x06 rxbuf[1]=0x00
+ALS Value(lux):0.010
+
+# 
+ 
+15:38:57
+fmcu ALSread
+fxcn_mcu_product_read:id=6 rxbuf[0]=0x06 rxbuf[1]=0x00
+ALS Value(lux):0.010
+
+# 
+fmcu ALSread
+fxcn_mcu_product_read:id=6 rxbuf[0]=0x06 rxbuf[1]=0x00
+ALS Value(lux):0.010
+
+# 
+ 
+15:38:57
+fmcu ALSstop
+FXCN_mcu_write hci data cmd=5
+
+# 
+15:38:57
+led ir off
+IR LED off.
+
+# 
+AVG IRLED OFF: 0
+AVG IRLED ON : 0.01
+Offset (IRLED ON - IRLED OFF)  : 0.01
+Check IR Leakage  [0,0.5]: 0.01 --> Pass
+burn ALS_IR_LEAKAGE value: 000010
+15:38:57
+burn als_ir_leakage 000010
+
+fxcn_burn_data[line=375], buf=000010, len 6, id2 f
+phy blk_no: 0x105
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=1056  page_count=1
+col_adr=0x0 row_adr=0x4140 src_adr=0x2009b280
+buf 20088410, len 6, id2 f
+phy blk_no: 0x106
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x4180 src_adr=0x208093e8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x4181 src_adr=0x20809be8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x4182 src_adr=0x2080a3e8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x4183 src_adr=0x2080abe8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x4184 src_adr=0x2080b3e8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x4185 src_adr=0x2080bbe8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x4186 src_adr=0x2080c3e8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x4187 src_adr=0x2080cbe8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x4188 src_adr=0x2080d3e8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x4189 src_adr=0x2080dbe8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x418a src_adr=0x2080e3e8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x418b src_adr=0x2080ebe8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x418c src_adr=0x2080f3e8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x418d src_adr=0x2080fbe8
+pagesize:0xBurn als_ir_leakage data into DUT success!
+800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x418e src_adr=0x208103e8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x418f src_adr=0x20810be8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x4190 src_adr=0x208113e8
+pagesize:0x800===[ Check ALS Leakage pass ]===
+ oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x4191 src_adr=0x20811be8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x4192 src_adr=0x208123e8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x4193 src_adr=0x20812be8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x4194 src_adr=0x208133e8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x4195 src_adr=0x20813be8
+pagesize:0x800 oobsize:===[ Check ALS Spotlight Leakage]===
+0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x4196 src_adr=0x208143e8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x4197 src_adr=0x20814be8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x4198 src_adr=0x208153e8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x4199 src_adr=0x20815be8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x419a src_adr=0x208163e8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x419b src_adr=0x20816be8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x419c src_adr=0x208173e8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x419d src_adr=0x20817be8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x419e src_adr=0x208183e8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x419f src_adr=0x20818be8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x41a0 src_adr=0x208193e8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x41a1 src_adr=0x20819be8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x41a2 src_adr=0x2081a3e8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x41a3 src_adr=0x2081abe8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x41a4 src_adr=0x2081b3e8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x41a5 src_adr=0x2081bbe8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x41a6 src_adr=0x2081c3e8
+pagesize:0x800 oobsize:0x34
+nan============SET ALS 0 LUX============= 
+d_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x41a7 src_adr=0x2081cbe8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x41a8 src_adr=0x2081d3e8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x41a9 src_adr=0x2081dbe8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x41aa src_adr=0x2081e3e8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x41ab src_adr=0x2081ebe8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x41ac src_adr=0x2081f3e8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x41ad src_adr=0x2081fbe8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x41ae src_adr=0x208203e8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x41af src_adr=0x20820be8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x41b0 src_adr=0x208213e8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x41b1 src_adr=0x20821be8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x41b2 src_adr=0x208223e8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x41b3 src_adr=0x20822be8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x41b4 src_adr=0x208233e8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x41b5 src_adr=0x20823be8
+pagesize:0x800 oobsize:0x34
+na
+nd_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x41b6 src_adr=0x208243e8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x41b7 src_adr=0x20824be8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x41b8 src_adr=0x208253e8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x41b9 src_adr=0x20825be8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x41ba src_adr=0x208263e8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_AT+LST=1,000
+adr=0x41bb src_adr=0x20826be8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x41bc src_adr=0x208273e8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x41bd src_adr=0x20827be8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x41be src_adr=0x208283e8
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x41bf src_adr=0x20828be8
+phy blk_no: 0x105
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=1056  page_count=1
+col_adr=0x0 row_adr=0x4140 src_adr=0x2009b280
+
+# 
+AT+LST=1,000
+OK
+AT+LST=2,000
+AT+LST=2,000
+OK
+15:38:58
+led ir off
+IR LED off.
+
+# 
+15:38:58
+led w off
+White LED off.
+
+# 
+========Collect data IRLED OFF and WLED OFF=============
+15:38:58
+fmcu ALSstop
+FXCN_mcu_write hci data cmd=5
+
+# 
+15:38:59
+fmcu ALSstart
+FXCN_mcu_write hci data cmd=4
+
+# 
+Delay 2 seconds before read...
+15:39:01
+fmcu ALSread
+fxcn_mcu_product_read:id=6 rxbuf[0]=0x06 rxbuf[1]=0x00
+ALS Value(lux):0.000
+
+# 
+fmcu ALSread
+fxcn_mcu_product_read:id=6 rxbuf[0]=0x06 rxbuf[1]=0x00
+ALS Value(lux):0.000
+
+# 
+ 
+15:39:02
+fmcu ALSread
+fxcn_mcu_product_read:id=6 rxbuf[0]=0x06 rxbuf[1]=0x00
+ALS Value(lux):0.000
+
+# 
+fmcu ALSread
+fxcn_mcu_product_read:id=6 rxbuf[0]=0x06 rxbuf[1]=0x00
+ALS Value(lux):0.000
+
+# 
+ 
+15:39:02
+fmcu ALSread
+fxcn_mcu_product_read:id=6 rxbuf[0]=0x06 rxbuf[1]=0x00
+ALS Value(lux):0.000
+
+# 
+fmcu ALSread
+fxcn_mcu_product_read:id=6 rxbuf[0]=0x06 rxbuf[1]=0x00
+ALS Value(lux):0.000
+
+# 
+ 
+15:39:02
+fmcu ALSread
+fxcn_mcu_product_read:id=6 rxbuf[0]=0x06 rxbuf[1]=0x00
+ALS Value(lux):0.000
+
+# 
+fmcu ALSread
+fxcn_mcu_product_read:id=6 rxbuf[0]=0x06 rxbuf[1]=0x00
+ALS Value(lux):0.000
+
+# 
+ 
+15:39:02
+fmcu ALSread
+fxcn_mcu_product_read:id=6 rxbuf[0]=0x06 rxbuf[1]=0x00
+ALS Value(lux):0.000
+
+# 
+fmcu ALSread
+fxcn_mcu_product_read:id=6 rxbuf[0]=0x06 rxbuf[1]=0x00
+ALS Value(lux):0.000
+
+# 
+ 
+15:39:02
+fmcu ALSstop
+FXCN_mcu_write hci data cmd=5
+
+# 
+========Collect data IRLED OFF and WLED ON=============
+Turn on IR LED
+15:39:02
+led ir set 56000
+Set IR LED PWM.
+LED set PWM value 56000
+=================>sub_addr =f40000, para_addr=f20000 block_size=20000
+5 
+6 
+7 
+4 
+
+max 7, min 4, max2 -1, min2 -1
+oldest item 3, latest item 2
+phy blk_no: 0x80
+phy blk_no: 0x81
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x2040 src_adr=0x203fdd00
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=959  page_count=1
+col_adr=0x0 row_adr=0x2041 src_adr=0x203fe500
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=4  page_count=1
+col_adr=0x0 row_adr=0x2000 src_adr=0x203fdac8
+save address 0x1000000, new version=8
+=================>sub_addr =f40000, para_addr=f20000 block_size=20000
+5 
+6 
+7 
+8 
+
+max 8, min 5, max2 -1, min2 -1
+oldest item 0, latest item 3
+phy blk_no: 0x7a
+phy blk_no: 0x7b
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x1ec0 src_adr=0x203fdd00
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=959  page_count=1
+col_adr=0x0 row_adr=0x1ec1 src_adr=0x203fe500
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=4  page_count=1
+col_adr=0x0 row_adr=0x1e80 src_adr=0x203fdad8
+save address 0xf40000, new version=9
+
+# 
+15:39:02
+led w on
+White LED on.
+LED set PWM value 50000
+
+# 
+15:39:03
+fmcu ALSstop
+FXCN_mcu_write hci data cmd=5
+
+# 
+15:39:03
+fmcu ALSstart
+FXCN_mcu_write hci data cmd=4
+
+# 
+Delay 2 seconds before read...
+15:39:06
+fmcu ALSread
+fxcn_mcu_product_read:id=6 rxbuf[0]=0x06 rxbuf[1]=0x00
+ALS Value(lux):0.420
+
+# 
+fmcu ALSread
+fxcn_mcu_product_read:id=6 rxbuf[0]=0x06 rxbuf[1]=0x00
+ALS Value(lux):0.420
+
+# 
+ 
+15:39:06
+fmcu ALSread
+fxcn_mcu_product_read:id=6 rxbuf[0]=0x06 rxbuf[1]=0x00
+ALS Value(lux):0.420
+
+# 
+fmcu ALSread
+fxcn_mcu_product_read:id=6 rxbuf[0]=0x06 rxbuf[1]=0x00
+ALS Value(lux):0.420
+
+# 
+ 
+15:39:06
+fmcu ALSread
+fxcn_mcu_product_read:id=6 rxbuf[0]=0x06 rxbuf[1]=0x00
+ALS Value(lux):0.420
+
+# 
+fmcu ALSread
+fxcn_mcu_product_read:id=6 rxbuf[0]=0x06 rxbuf[1]=0x00
+ALS Value(lux):0.420
+
+# 
+ 
+15:39:06
+fmcu ALSread
+fxcn_mcu_product_read:id=6 rxbuf[0]=0x06 rxbuf[1]=0x00
+ALS Value(lux):0.420
+
+# 
+fmcu ALSread
+fxcn_mcu_product_read:id=6 rxbuf[0]=0x06 rxbuf[1]=0x00
+ALS Value(lux):0.420
+
+# 
+ 
+15:39:06
+fmcu ALSread
+fxcn_mcu_product_read:id=6 rxbuf[0]=0x06 rxbuf[1]=0x00
+ALS Value(lux):0.420
+
+# 
+fmcu ALSread
+fxcn_mcu_product_read:id=6 rxbuf[0]=0x06 rxbuf[1]=0x00
+ALS Value(lux):0.420
+
+# 
+ 
+15:39:06
+fmcu ALSstop
+FXCN_mcu_write hci data cmd=5
+
+# 
+15:39:06
+led w off
+White LED off.
+
+# 
+AVG IRLED OFF: 0
+AVG IRLED ON : 0.42
+Offset (IRLED ON - IRLED OFF)  : 0.42
+Check SP Leakage  [0,0.5]: 0.42 --> Pass
+===[ Check ALS Spotlight Leakage pass ]===
+===[ Check System Temperature 2]===
+15:39:07
+fmcu SYSTEMPstart
+FXCN_mcu_write hci data cmd=16
+
+# 
+15:39:07
+fmcu SYSTEMPread
+fxcn_mcu_product_read:id=18 rxbuf[0]=0x12 rxbuf[1]=0x04
+Main board Temp:26.17,Resistant:9607
+
+# 
+Temp Result:26.17
+Delta[0,10] : 26.17 - 24.74 = 1.43 --> Pass
+15:39:07
+fmcu SYSTEMPstop
+FXCN_mcu_write hci data cmd=17
+
+# 
+===[ Check System Temperature 2 ]===
+===[ Check LED 2 Temperature]===
+15:39:07
+fmcu LEDTEMPstart
+FXCN_mcu_write hci data cmd=78
+
+# 
+15:39:08
+fmcu LEDTEMPread
+fxcn_mcu_product_read:id=80 rxbuf[0]=0x50 rxbuf[1]=0x04
+LED board Temp:25.13,Resistant:9958
+
+# 
+Delta[0,10] : 25.13 - 22.88 = 2.25 --> Pass
+Check LED Temperature pass...
+15:39:08
+fmcu LEDTEMPstop
+FXCN_mcu_write hci data cmd=79
+
+# 
+===[ Check LED 2 Temperature pass]===
+===[ Send Sfis ]===
+Sfis_length=258 ALSValueFlag=1 ALSCali5lux_10luxFlag=1  SendSFISFW=1   SendSFISHW=1
+15:39:08
+smode 4
+
+=================>sub_addr =f40000, para_addr=f20000 block_size=20000
+9 
+6 
+7 
+8 
+
+max 9, min 6, max2 -1, min2 -1
+oldest item 1, latest item 0
+phy blk_no: 0x7c
+phy blk_no: 0x7d
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x1f40 src_adr=0x203fdd00
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=959  page_count=1
+col_adr=0x0 row_adr=0x1f41 src_adr=0x203fe500
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=4  page_count=1
+col_adr=0x0 row_adr=0x1f00 src_adr=0x203fdb28
+save address 0xf80000, new version=10
+_network_exit  sleep_mode = 0.
+
+R[0xa05c4ac4]=0x0
+R[0xa05c4ac8]=0x0
+R[0xa05c4acc]=0x0
+R[0xa05c4ad0]=0x2000100
+R[0xa05c4ad4]=0x4e40
+R[0xa05c4ad8]=0x0
+R[0xa05c4adc]=0x0
+R[0xa05c4ae0]=0x0
+R[0xa05c4ae4]=0x0
+R[0xa05c4ae8]=0x0
+R[0xa05c4aec]=0x0
+R[0xa05c4af0]=0x0
+R[0xa05c4af4]=0x0
+R[0xa05c4af8]=0x0
+R[0xa05c4afc]=0x0
+R[0xa05c4b00]=0x0
+R[0xa05c4b04]=0x0
+R[0xa05c4b08]=0x0
+R[0xa05c4b0c]=0x0
+R[0xa05c4b10]=0x0
+R[0xa05c4b14]=0x0
+R[0xa05c4b18]=0x0
+R[0xa05c4b1c]=0x0
+R[0xa05c4b20]=0x0
+R[0xa05c4b24]=0x0
+R[0xa05c4b28]=0x0
+R[0xa05c4b2c]=0x0
+R[0xa05c4b30]=0x0
+R[0xa05c4b34]=0x0
+R[0xa05c4b38]=0x0
+R[0xa05c4b3c]=0x50005000
+R[0xa05c4b40]=0x0
+R[0xa05c4b44]=0x1d103b5
+R[0xa05c4b48]=0x8000800
+R[0xa05c4b4c]=0x400
+R[0xa05c4b50]=0x0
+R[0xa05c4b54]=0x10000
+R[0xa05c4b58]=0x2000100
+R[0xa05c4b5c]=0x4000300
+R[0xa05c4b60]=0x6000500
+R[0xa05c4b64]=0x8000700
+R[0xa05c4b68]=0xa000900
+R[0xa05c4b6c]=0xc000b00
+R[0xa05c4b70]=0xe000d00
+R[0xa05c4b74]=0x10000f00
+R[0xa05c4b78]=0x5d0038
+R[0xa05c4b7c]=0x8b0076
+R[0xa05c4b80]=0xae009e
+R[0xa05c4b84]=0xc500bc
+R[0xa05c4b88]=0xd700cf
+R[0xa05c4b8c]=0xe500de
+R[0xa05c4b90]=0xf200ec
+R[0xa05c4b94]=0x10000fa
+R[0xa05c4b98]=0x0
+R[0xa05c4b9c]=0x2600000
+R[0xa05c4ba0]=0x100
+exp : 4e4
+gain : 200
+day exp=0x4e4, gain=0x200
+day awb 0x10b, 0x80, 0xd0
+Core2 stopped
+=================>sub_addr =f40000, para_addr=f20000 block_size=20000
+9 
+10 
+7 
+8 
+
+max 10, min 7, max2 -1, min2 -1
+oldest item 2, latest item 1
+phy blk_no: 0x7e
+phy blk_no: 0x7f
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=2048  page_count=1
+col_adr=0x0 row_adr=0x1fc0 src_adr=0x203fdd00
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=1261  page_count=1
+col_adr=0x0 row_adr=0x1fc1 src_adr=0x203fe500
+pagesize:0x800 oobsize:0x34
+nand_program_page program size=4  page_count=1
+col_adr=0x0 row_adr=0x1f80 src_adr=0x203fdaf8
+save address 0xfc0000, new version=11
+Calfw
+
+# 
+SEND PASS TO SFIS: 
+UI->SFIS: @ZW58EMT                 FC9C980B2D2CN/A         A9E11A7AA1B43     V4.0.2@svn1349-20210531_mfgH4        46.60%44.35%074565000010      B05-L4-FT1-1
+Time UI->SFIS PASS/FAIL: 2021/10/27 15:39:08
+SFIS->UI: @ZW58EMT                 FC9C980B2D2CN/A         A9E11A7AA1B43     V4.0.2@svn1349-20210531_mfgH4        46.60%44.35%074565000010      B05-L4-FT1-1PASS
+Time SFIS->UI: 2021/10/27 15:39:08
+Time UI->SFIS RR-YR: 2021/10/27 15:39:08
+Close CaliTool 
+SFIS->UI: RR-YRVML2030-FXN-V            B05-L4-FT1-1001.54002.45098.70PASS
+Time SFIS->UI: 2021/10/27 15:39:08
+Delay 0 MiliSecond
+==============Start show pass================
+TEST PROGRAM VERSION:2.3.2.8  TEST CYCLE TIME:48
+PASS Close COM ...
+
+----------------Summary all test item--------------
+Test item name                Result  Test time
+ 1.ConnectDUT                  PASS    1s    
+ 2.Check_wifi_country_code     PASS    0.11s 
+ 3.CheckMac                    PASS    0.14s 
+ 4.CheckSerialNumber           PASS    0.11s 
+ 5.CheckModel                  PASS    0.12s 
+ 6.CheckHwRev_Falcon           PASS    0.12s 
+ 7.CheckDSC3Key                PASS    0.29s 
+ 8.CheckTemperature_System     PASS    0.66s 
+ 9.CheckTemperature_LED        PASS    0.66s 
+10.CheckALSLLUX                PASS    14.12s
+11.CheckALSHLUX                PASS    9.72s 
+12.BurnALSTHLUX                PASS    0.18s 
+13.CheckALSLeakage             PASS    9.3s  
+14.CheckALSSpotLightLeakage    PASS    9.06s 
+15.CheckTemperature_System2    PASS    0.73s 
+16.CheckTemperature_LED2       PASS    0.69s 
+17.SendSfis                    PASS    0.38s 
+---------------------------------------------------
+Write summary log server: F:\lsy\ID\U12I419\VML2030-FXN-V\FT1 -> OK
+Write summary log localD:\Arlo_Logs\U12I419\VML2030-FXN-V\FT1\27-10-2021 -> OK
+Details log local folder: D:\Arlo_Logs\U12I419\VML2030-FXN-V\FT1\27-10-2021\PASS
+Details log server folder: F:\lsy\ID\Detail\U12I419\VML2030-FXN-V\FT1\27-10-2021\PASS
+  SendSfis , 0.38 , ,SMO 2140022459,,SEMPID V0938829,System_Temperature_Time1,24.74,IR_Temperature_Time1,22.88,iGetValue0,0.886,iGetValue1,0.886,iGetValue2,0.887,iGetValue3,0.888,iGetValue4,0.889,iGetValue0,2.335,iGetValue1,2.335,iGetValue2,2.335,iGetValue3,2.335,iGetValue4,2.335,iGetValue0,4.866,iGetValue1,4.868,iGetValue2,4.869,iGetValue3,4.871,iGetValue4,4.873,ALS_2Lux,0.888,ALS_5Lux,2.335,ALS_10Lux,4.871,LLUX,0.466033333333333,ALS_LLUX,46.60,ALS_2Lux_Compen,1.90544310135183,ALS_5Lux_Compen,5.01037121808168,ALS_10Lux_Compen,10.4520420570775,iGetValue0,444.8,iGetValue1,444.8,iGetValue2,444.8,iGetValue3,444.8,iGetValue4,444.8,iGetValue0,884.54,iGetValue1,884.5,iGetValue2,884.42,iGetValue3,884.38,iGetValue4,884.3,ALS_1000Lux,444.8,ALS_2000Lux,884.366666666667,HLUX,0.443491666666667,ALS_HLUX,44.35,ALS_1000Lux_Compen,1002.95007422161,ALS_2000Lux_Compen,1994.09985155677,Distortion_LLUX_HLUX,-5.082,ALSMode_NoSetting_iGetValue0,0,ALSMode_NoSetting_iGetValue1,0,ALSMode_NoSetting_iGetValue2,0,ALSMode_NoSetting_iGetValue3,0,ALSMode_NoSetting_iGetValue4,0, , ALSMode_NoSetting_iGetValue0,0.01,ALSMode_NoSetting_iGetValue1,0.01,ALSMode_NoSetting_iGetValue2,0.01,ALSMode_NoSetting_iGetValue3,0.01,ALSMode_NoSetting_iGetValue4,0.01, , ALSLeakage_avgIRLED_OFF,0,ALSLeakage_avgIRLED_ON,0.01,ALS_IR_Leakage,0.01,ALSMode_NoSetting_iGetValue0,0,ALSMode_NoSetting_iGetValue1,0,ALSMode_NoSetting_iGetValue2,0,ALSMode_NoSetting_iGetValue3,0,ALSMode_NoSetting_iGetValue4,0, , ALSMode_NoSetting_iGetValue0,0.42,ALSMode_NoSetting_iGetValue1,0.42,ALSMode_NoSetting_iGetValue2,0.42,ALSMode_NoSetting_iGetValue3,0.42,ALSMode_NoSetting_iGetValue4,0.42, , SpLightLeakage_avgSPLED_OFF,0,SpLightLeakage_avgSPLED_ON,0.42,ALS_SpotLight_Leakage,0.42,System_Temperature_Time2,26.17,Delta_System_Temp,1.43,IR_Temperature_Time2,25.13,Delta_IR_Temp,2.25,,ConnectDUT , 1 , Check_wifi_country_code , 0.11 , CheckMac , 0.14 , CheckSerialNumber , 0.11 , CheckModel , 0.12 , CheckHwRev_Falcon , 0.12 , CheckDSC3Key , 0.29 , CheckTemperature_System , 0.66 , CheckTemperature_LED , 0.66 , CheckALSLLUX , 14.12 , CheckALSHLUX , 9.72 , BurnALSTHLUX , 0.18 , CheckALSLeakage , 9.3 , CheckALSSpotLightLeakage , 9.06 , CheckTemperature_System2 , 0.73 , CheckTemperature_LED2 , 0.69 , 7/16/2021 12:00:00 AM,
+Start send data to mydas !
+SENDTOMYDAS:     10.224.84.104SendSfis , 0.38 , ,SMO 2140022459,,SEMPID V0938829,System_Temperature_Time1,24.74,IR_Temperature_Time1,22.88,iGetValue0,0.886,iGetValue1,0.886,iGetValue2,0.887,iGetValue3,0.888,iGetValue4,0.889,iGetValue0,2.335,iGetValue1,2.335,iGetValue2,2.335,iGetValue3,2.335,iGetValue4,2.335,iGetValue0,4.866,iGetValue1,4.868,iGetValue2,4.869,iGetValue3,4.871,iGetValue4,4.873,ALS_2Lux,0.888,ALS_5Lux,2.335,ALS_10Lux,4.871,LLUX,0.466033333333333,ALS_LLUX,46.60,ALS_2Lux_Compen,1.90544310135183,ALS_5Lux_Compen,5.01037121808168,ALS_10Lux_Compen,10.4520420570775,iGetValue0,444.8,iGetValue1,444.8,iGetValue2,444.8,iGetValue3,444.8,iGetValue4,444.8,iGetValue0,884.54,iGetValue1,884.5,iGetValue2,884.42,iGetValue3,884.38,iGetValue4,884.3,ALS_1000Lux,444.8,ALS_2000Lux,884.366666666667,HLUX,0.443491666666667,ALS_HLUX,44.35,ALS_1000Lux_Compen,1002.95007422161,ALS_2000Lux_Compen,1994.09985155677,Distortion_LLUX_HLUX,-5.082,ALSMode_NoSetting_iGetValue0,0,ALSMode_NoSetting_iGetValue1,0,ALSMode_NoSetting_iGetValue2,0,ALSMode_NoSetting_iGetValue3,0,ALSMode_NoSetting_iGetValue4,0, , ALSMode_NoSetting_iGetValue0,0.01,ALSMode_NoSetting_iGetValue1,0.01,ALSMode_NoSetting_iGetValue2,0.01,ALSMode_NoSetting_iGetValue3,0.01,ALSMode_NoSetting_iGetValue4,0.01, , ALSLeakage_avgIRLED_OFF,0,ALSLeakage_avgIRLED_ON,0.01,ALS_IR_Leakage,0.01,ALSMode_NoSetting_iGetValue0,0,ALSMode_NoSetting_iGetValue1,0,ALSMode_NoSetting_iGetValue2,0,ALSMode_NoSetting_iGetValue3,0,ALSMode_NoSetting_iGetValue4,0, , ALSMode_NoSetting_iGetValue0,0.42,ALSMode_NoSetting_iGetValue1,0.42,ALSMode_NoSetting_iGetValue2,0.42,ALSMode_NoSetting_iGetValue3,0.42,ALSMode_NoSetting_iGetValue4,0.42, , SpLightLeakage_avgSPLED_OFF,0,SpLightLeakage_avgSPLED_ON,0.42,ALS_SpotLight_Leakage,0.42,System_Temperature_Time2,26.17,Delta_System_Temp,1.43,IR_Temperature_Time2,25.13,Delta_IR_Temp,2.25,,ConnectDUT , 1 , Check_wifi_country_code , 0.11 , CheckMac , 0.14 , CheckSerialNumber , 0.11 , CheckModel , 0.12 , CheckHwRev_Falcon , 0.12 , CheckDSC3Key , 0.29 , CheckTemperature_System , 0.66 , CheckTemperature_LED , 0.66 , CheckALSLLUX , 14.12 , CheckALSHLUX , 9.72 , BurnALSTHLUX , 0.18 , CheckALSLeakage , 9.3 , CheckALSSpotLightLeakage , 9.06 , CheckTemperature_System2 , 0.73 , CheckTemperature_LED2 , 0.69 , 7/16/2021 12:00:00 AM,,,,,|@ZW58EMT,1,D:\Arlo,2.3.2.8,B05-L4-FT1-1,49,2021-10-27 03:39:10,FC9C980B2D2C,A9E11A7AA1B43,   :SENDTOMYDASFINISH
+
+ Send mydas Fail...

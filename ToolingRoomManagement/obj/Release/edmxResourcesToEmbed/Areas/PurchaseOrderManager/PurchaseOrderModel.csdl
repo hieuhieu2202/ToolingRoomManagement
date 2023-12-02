@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="PurchaseOrderModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="PurchaseOrderEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="PurchaseOrderRequests" EntityType="PurchaseOrderModel.PurchaseOrderRequest" />
+    <EntitySet Name="PurchaseOrderRequestImages" EntityType="PurchaseOrderModel.PurchaseOrderRequestImage" />
+    <EntitySet Name="PurchaseOrderRequestItems" EntityType="PurchaseOrderModel.PurchaseOrderRequestItem" />
+    <EntitySet Name="Users" EntityType="PurchaseOrderModel.User" />
+    <AssociationSet Name="FK_PurchaseOrderRequestItem_PurchaseOrderRequest" Association="PurchaseOrderModel.FK_PurchaseOrderRequestItem_PurchaseOrderRequest">
+      <End Role="PurchaseOrderRequest" EntitySet="PurchaseOrderRequests" />
+      <End Role="PurchaseOrderRequestItem" EntitySet="PurchaseOrderRequestItems" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PurchaseOrderRequestImage_PurchaseOrderRequestItem" Association="PurchaseOrderModel.FK_PurchaseOrderRequestImage_PurchaseOrderRequestItem">
+      <End Role="PurchaseOrderRequestItem" EntitySet="PurchaseOrderRequestItems" />
+      <End Role="PurchaseOrderRequestImage" EntitySet="PurchaseOrderRequestImages" />
+    </AssociationSet>
+    <EntitySet Name="PurchaseOrderRequestFiles" EntityType="PurchaseOrderModel.PurchaseOrderRequestFile" />
+    <AssociationSet Name="FK_PurchaseOrderRequestFiles_PurchaseOrderRequest" Association="PurchaseOrderModel.FK_PurchaseOrderRequestFiles_PurchaseOrderRequest">
+      <End Role="PurchaseOrderRequest" EntitySet="PurchaseOrderRequests" />
+      <End Role="PurchaseOrderRequestFile" EntitySet="PurchaseOrderRequestFiles" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="PurchaseOrderRequest">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Guid" Nullable="false" />
+    <Property Name="RequestDepartment" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="UseDepartment" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="CostCode" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="LegalEntity" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="DeliveryLocation" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="Requester" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="RequesterPhoneNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="Approver" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Reviewer" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Status" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="PlanDeliveryDate" Type="DateTime" Precision="3" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="RequesterEmail" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="PurchaseOrderRequestItems" Relationship="PurchaseOrderModel.FK_PurchaseOrderRequestItem_PurchaseOrderRequest" FromRole="PurchaseOrderRequest" ToRole="PurchaseOrderRequestItem" />
+    <NavigationProperty Name="PurchaseOrderRequestFiles" Relationship="PurchaseOrderModel.FK_PurchaseOrderRequestFiles_PurchaseOrderRequest" FromRole="PurchaseOrderRequest" ToRole="PurchaseOrderRequestFile" />
+  </EntityType>
+  <EntityType Name="PurchaseOrderRequestImage">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Guid" Nullable="false" />
+    <Property Name="IdRequestItem" Type="Guid" />
+    <Property Name="ImageName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Directory" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="PurchaseOrderRequestItem">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Guid" Nullable="false" />
+    <Property Name="IdRequest" Type="Guid" />
+    <Property Name="ProductName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Brand" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Information" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="Unit" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="Quantity" Type="Int32" />
+    <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="MaterialCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ReferencePriceLink" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Notes" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="Feedback" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="PurchaseOrderRequestImages" Relationship="PurchaseOrderModel.FK_PurchaseOrderRequestImage_PurchaseOrderRequestItem" FromRole="PurchaseOrderRequestItem" ToRole="PurchaseOrderRequestImage" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="fullname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="part_id" Type="Int32" />
+    <Property Name="phone" Type="String" MaxLength="15" FixedLength="true" Unicode="true" />
+    <Property Name="mail" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="role_id" Type="Int32" />
+    <Property Name="create_date" Type="DateTime" Precision="3" />
+    <Property Name="password" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="chinese_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <Association Name="FK_PurchaseOrderRequestItem_PurchaseOrderRequest">
+    <End Type="PurchaseOrderModel.PurchaseOrderRequest" Role="PurchaseOrderRequest" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="PurchaseOrderModel.PurchaseOrderRequestItem" Role="PurchaseOrderRequestItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PurchaseOrderRequest">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PurchaseOrderRequestItem">
+        <PropertyRef Name="IdRequest" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PurchaseOrderRequestImage_PurchaseOrderRequestItem">
+    <End Type="PurchaseOrderModel.PurchaseOrderRequestItem" Role="PurchaseOrderRequestItem" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="PurchaseOrderModel.PurchaseOrderRequestImage" Role="PurchaseOrderRequestImage" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PurchaseOrderRequestItem">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PurchaseOrderRequestImage">
+        <PropertyRef Name="IdRequestItem" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="PurchaseOrderRequestFile">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Guid" Nullable="false" />
+    <Property Name="IdRequest" Type="Guid" />
+    <Property Name="Type" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="Path" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <Association Name="FK_PurchaseOrderRequestFiles_PurchaseOrderRequest">
+    <End Type="PurchaseOrderModel.PurchaseOrderRequest" Role="PurchaseOrderRequest" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="PurchaseOrderModel.PurchaseOrderRequestFile" Role="PurchaseOrderRequestFile" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PurchaseOrderRequest">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PurchaseOrderRequestFile">
+        <PropertyRef Name="IdRequest" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

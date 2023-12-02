@@ -1,0 +1,289 @@
+ShowUIClient Send to server: T5:CALL
+ Time: 735
+Client Send to server: T5:PASS
+ Time: 736
+Wait to have OVTI Serial Port
+.Close CaliTool 
+Client Send to server: T5:PASS
+ Time: 737
+Client Send to server: T5:CALL
+ Time: 738
+Copy standard script.
+Error: The system cannot find the file specified
+Client Send to server: T5:PASS
+ Time: 740
+Client Send to server: T5:CALL
+ Time: 740
+.Client Send to server: T5:PASS
+ Time: 742
+Client Send to server: T5:CALL
+ Time: 742
+Client Send to server: T5:CALL
+ Time: 743
+Client Send to server: T5:PASS
+ Time: 744
+.Client Send to server: T5:CALL
+ Time: 746
+Client Send to server: T5:PASS
+ Time: 746
+.Client Send to server: T5:CALL
+ Time: 747
+Client Send to server: T5:PASS
+ Time: 748
+.Client Send to server: T5:CALL
+ Time: 750
+Client Send to server: T5:PASS
+ Time: 750
+.Client Send to server: T5:PASS
+ Time: 752
+Client Send to server: T5:CALL
+ Time: 752
+Client Send to server: T5:CALL
+ Time: 754
+Client Send to server: T5:PASS
+ Time: 754
+.Client Send to server: T5:CALL
+ Time: 755
+Client Send to server: T5:PASS
+ Time: 756
+.Client Send to server: T5:CALL
+ Time: 757
+Client Send to server: T5:PASS
+ Time: 758
+.Client Send to server: T5:CALL
+ Time: 759
+Client Send to server: T5:PASS
+ Time: 760
+.Client Send to server: T5:PASS
+ Time: 762
+Client Send to server: T5:CALL
+ Time: 762
+Client Send to server: T5:PASS
+ Time: 763
+Client Send to server: T5:CALL
+ Time: 764
+.Client Send to server: T5:PASS
+ Time: 765
+Client Send to server: T5:CALL
+ Time: 766
+.Client Send to server: T5:PASS
+ Time: 767
+Client Send to server: T5:CALL
+ Time: 768
+.Client Send to server: T5:PASS
+ Time: 769
+Client Send to server: T5:CALL
+ Time: 770
+Client Send to server: T5:PASS
+ Time: 771
+.Client Send to server: T5:CALL
+ Time: 772
+Client Send to server: T5:PASS
+ Time: 773
+Client Send to server: T5:CALL
+ Time: 774
+.Client Send to server: T5:PASS
+ Time: 775
+Client Send to server: T5:CALL
+ Time: 776
+.Close CaliTool 
+Client Send to server: T5:PASS
+ Time: 777
+Client Send to server: T5:CALL
+ Time: 778
+Client Send to server: T5:PASS
+ Time: 779
+Copy standard script.
+Error: The system cannot find the file specified
+Client Send to server: T5:CALL
+ Time: 780
+.Client Send to server: T5:PASS
+ Time: 781
+Client Send to server: T5:CALL
+ Time: 782
+Client Send to server: T5:PASS
+ Time: 783
+Client Send to server: T5:CALL
+ Time: 784
+.Client Send to server: T5:PASS
+ Time: 785
+Client Send to server: T5:CALL
+ Time: 786
+.Client Send to server: T5:PASS
+ Time: 787
+Client Send to server: T5:CALL
+ Time: 788
+.Client Send to server: T5:PASS
+ Time: 789
+Client Send to server: T5:CALL
+ Time: 790
+Client Send to server: T5:PASS
+ Time: 791
+Client Send to server: T5:CALL
+ Time: 792
+.Client Send to server: T5:PASS
+ Time: 793
+Client Send to server: T5:CALL
+ Time: 794
+.Client Send to server: T5:PASS
+ Time: 795
+Client Send to server: T5:CALL
+ Time: 796
+.Client Send to server: T5:PASS
+ Time: 797
+Client Send to server: T5:CALL
+ Time: 798
+.Client Send to server: T5:PASS
+ Time: 799
+Client Send to server: T5:CALL
+ Time: 800
+Client Send to server: T5:PASS
+ Time: 801
+.Client Send to server: T5:CALL
+ Time: 802
+Client Send to server: T5:PASS
+ Time: 803
+Client Send to server: T5:CALL
+ Time: 804
+.Client Send to server: T5:PASS
+ Time: 805
+Client Send to server: T5:CALL
+ Time: 806
+.Client Send to server: T5:PASS
+ Time: 807
+Client Send to server: T5:CALL
+ Time: 808
+.Client Send to server: T5:PASS
+ Time: 809
+Client Send to server: T5:CALL
+ Time: 810
+Client Send to server: T5:PASS
+ Time: 811
+.Client Send to server: T5:CALL
+ Time: 812
+Client Send to server: T5:PASS
+ Time: 813
+Client Send to server: T5:CALL
+ Time: 814
+.Client Send to server: T5:PASS
+ Time: 815
+Client Send to server: T5:CALL
+ Time: 816
+.Client Send to server: T5:PASS
+ Time: 817
+Close CaliTool 
+Client Send to server: T5:CALL
+ Time: 818
+Client Send to server: T5:PASS
+ Time: 819
+Client Send to server: T5:CALL
+ Time: 820
+Copy standard script.
+Error: The system cannot find the file specified
+Client Send to server: T5:PASS
+ Time: 821
+Client Send to server: T5:CALL
+ Time: 822
+.Client Send to server: T5:PASS
+ Time: 823
+Client Send to server: T5:CALL
+ Time: 824
+.Client Send to server: T5:PASS
+ Time: 825
+Client Send to server: T5:CALL
+ Time: 826
+.Client Send to server: T5:PASS
+ Time: 827
+Client Send to server: T5:CALL
+ Time: 828
+Client Send to server: T5:PASS
+ Time: 829
+Client Send to server: T5:CALL
+ Time: 830
+.Client Send to server: T5:PASS
+ Time: 831
+Client Send to server: T5:CALL
+ Time: 832
+.Client Send to server: T5:PASS
+ Time: 833
+Client Send to server: T5:CALL
+ Time: 834
+.Client Send to server: T5:PASS
+ Time: 835
+Client Send to server: T5:CALL
+ Time: 836
+Client Send to server: T5:PASS
+ Time: 837
+.Client Send to server: T5:CALL
+ Time: 838
+Client Send to server: T5:PASS
+ Time: 839
+Client Send to server: T5:CALL
+ Time: 840
+.Client Send to server: T5:PASS
+ Time: 841
+Client Send to server: T5:CALL
+ Time: 842
+.Client Send to server: T5:PASS
+ Time: 843
+Client Send to server: T5:CALL
+ Time: 844
+.Client Send to server: T5:PASS
+ Time: 845
+Client Send to server: T5:CALL
+ Time: 846
+Client Send to server: T5:PASS
+ Time: 847
+Client Send to server: T5:CALL
+ Time: 848
+.Client Send to server: T5:PASS
+ Time: 849
+Client Send to server: T5:CALL
+ Time: 850
+.Client Send to server: T5:PASS
+ Time: 851
+Client Send to server: T5:CALL
+ Time: 852
+.Client Send to server: T5:PASS
+ Time: 853
+Client Send to server: T5:CALL
+ Time: 854
+Client Send to server: T5:PASS
+ Time: 855
+Client Send to server: T5:CALL
+ Time: 856
+Client Send to server: T5:PASS
+ Time: 857
+Client Send to server: T5:CALL
+ Time: 858
+Client Send to server: T5:PASS
+ Time: 859
+Client Send to server: T5:CALL
+ Time: 860
+
+Can not detect OVTI...
+Delay 0 MiliSecond
+==============Start show fail=================
+Client Send to server: T5:PASS
+ Time: 861
+TEST PROGRAM VERSION:2.3.2.8  TEST CYCLE TIME:32
+===[ CN00 OV comport not found... ... ]===
+
+----------------Summary all test item--------------
+Test item name                Result  Test time
+ 1.ConnectDUT                  FAIL    32.28s
+ 2.CheckFWVersion_Gen5                       
+ 3.CheckFalseTrigger_Falcon_2G_Ant              
+ 4.SwitchToIdleMode_Gen5                     
+ 5.CheckCurrentIdle_Gen5                     
+ 6.SendSfis                                  
+---------------------------------------------------
+Client Send to server: T5:CALL
+ Time: 862
+Write summary log server: F:\lsy\ID\U12I393\VMC4040P-FXN\FT7 -> OK
+Write summary log localD:\Arlo_Logs\U12I393\VMC4040P-FXN\FT7\20-11-2020 -> OK
+Client Send to server: T5:PASS
+ Time: 863
+Client Send to server: T5:CALL
+ Time: 864
+Details log local folder: D:\Arlo_Logs\U12I393\VMC4040P-FXN\FT7\20-11-2020\FAIL

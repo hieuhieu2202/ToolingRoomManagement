@@ -1,0 +1,131 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="PurchaseOrderModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="PurchaseOrderRequest">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="RequestDepartment" Type="nvarchar" MaxLength="20" />
+    <Property Name="UseDepartment" Type="nvarchar" MaxLength="20" />
+    <Property Name="CostCode" Type="nvarchar" MaxLength="20" />
+    <Property Name="LegalEntity" Type="nvarchar" MaxLength="20" />
+    <Property Name="DeliveryLocation" Type="nvarchar" MaxLength="20" />
+    <Property Name="Requester" Type="nvarchar" MaxLength="20" />
+    <Property Name="RequesterPhoneNumber" Type="nvarchar" MaxLength="20" />
+    <Property Name="Approver" Type="nvarchar" MaxLength="100" />
+    <Property Name="Reviewer" Type="nvarchar" MaxLength="100" />
+    <Property Name="Status" Type="nvarchar" MaxLength="20" />
+    <Property Name="PlanDeliveryDate" Type="datetime" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="RequesterEmail" Type="nvarchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="PurchaseOrderRequestFiles">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="IdRequest" Type="uniqueidentifier" />
+    <Property Name="Type" Type="nvarchar" MaxLength="20" />
+    <Property Name="Path" Type="nvarchar" MaxLength="500" />
+  </EntityType>
+  <EntityType Name="PurchaseOrderRequestImage">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="IdRequestItem" Type="uniqueidentifier" />
+    <Property Name="ImageName" Type="nvarchar" MaxLength="100" />
+    <Property Name="Directory" Type="nvarchar" MaxLength="500" />
+  </EntityType>
+  <EntityType Name="PurchaseOrderRequestItem">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="IdRequest" Type="uniqueidentifier" />
+    <Property Name="ProductName" Type="nvarchar" MaxLength="100" />
+    <Property Name="Brand" Type="nvarchar" MaxLength="50" />
+    <Property Name="Information" Type="nvarchar" MaxLength="500" />
+    <Property Name="Unit" Type="nvarchar" MaxLength="20" />
+    <Property Name="Quantity" Type="int" />
+    <Property Name="Type" Type="nvarchar" MaxLength="50" />
+    <Property Name="MaterialCode" Type="nvarchar" MaxLength="50" />
+    <Property Name="ReferencePriceLink" Type="nvarchar" MaxLength="50" />
+    <Property Name="Notes" Type="nvarchar" MaxLength="500" />
+    <Property Name="Feedback" Type="nvarchar" MaxLength="500" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="username" Type="nvarchar" MaxLength="50" />
+    <Property Name="fullname" Type="nvarchar" MaxLength="50" />
+    <Property Name="part_id" Type="int" />
+    <Property Name="phone" Type="nchar" MaxLength="15" />
+    <Property Name="mail" Type="nvarchar" MaxLength="100" />
+    <Property Name="role_id" Type="int" />
+    <Property Name="create_date" Type="datetime" />
+    <Property Name="password" Type="nvarchar" MaxLength="100" />
+    <Property Name="chinese_name" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <Association Name="FK_PurchaseOrderRequestFiles_PurchaseOrderRequest">
+    <End Role="PurchaseOrderRequest" Type="Self.PurchaseOrderRequest" Multiplicity="0..1" />
+    <End Role="PurchaseOrderRequestFiles" Type="Self.PurchaseOrderRequestFiles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PurchaseOrderRequest">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PurchaseOrderRequestFiles">
+        <PropertyRef Name="IdRequest" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PurchaseOrderRequestImage_PurchaseOrderRequestItem">
+    <End Role="PurchaseOrderRequestItem" Type="Self.PurchaseOrderRequestItem" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="PurchaseOrderRequestImage" Type="Self.PurchaseOrderRequestImage" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PurchaseOrderRequestItem">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PurchaseOrderRequestImage">
+        <PropertyRef Name="IdRequestItem" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PurchaseOrderRequestItem_PurchaseOrderRequest">
+    <End Role="PurchaseOrderRequest" Type="Self.PurchaseOrderRequest" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="PurchaseOrderRequestItem" Type="Self.PurchaseOrderRequestItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PurchaseOrderRequest">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PurchaseOrderRequestItem">
+        <PropertyRef Name="IdRequest" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="PurchaseOrderModelStoreContainer">
+    <EntitySet Name="PurchaseOrderRequest" EntityType="Self.PurchaseOrderRequest" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PurchaseOrderRequestFiles" EntityType="Self.PurchaseOrderRequestFiles" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PurchaseOrderRequestImage" EntityType="Self.PurchaseOrderRequestImage" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PurchaseOrderRequestItem" EntityType="Self.PurchaseOrderRequestItem" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_PurchaseOrderRequestFiles_PurchaseOrderRequest" Association="Self.FK_PurchaseOrderRequestFiles_PurchaseOrderRequest">
+      <End Role="PurchaseOrderRequest" EntitySet="PurchaseOrderRequest" />
+      <End Role="PurchaseOrderRequestFiles" EntitySet="PurchaseOrderRequestFiles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PurchaseOrderRequestImage_PurchaseOrderRequestItem" Association="Self.FK_PurchaseOrderRequestImage_PurchaseOrderRequestItem">
+      <End Role="PurchaseOrderRequestItem" EntitySet="PurchaseOrderRequestItem" />
+      <End Role="PurchaseOrderRequestImage" EntitySet="PurchaseOrderRequestImage" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PurchaseOrderRequestItem_PurchaseOrderRequest" Association="Self.FK_PurchaseOrderRequestItem_PurchaseOrderRequest">
+      <End Role="PurchaseOrderRequest" EntitySet="PurchaseOrderRequest" />
+      <End Role="PurchaseOrderRequestItem" EntitySet="PurchaseOrderRequestItem" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

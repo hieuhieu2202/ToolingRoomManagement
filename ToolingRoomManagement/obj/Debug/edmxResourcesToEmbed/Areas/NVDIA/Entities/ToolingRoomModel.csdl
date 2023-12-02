@@ -1,0 +1,365 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ToolingRoomModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="ToolingRoomEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Products" EntityType="ToolingRoomModel.Product" />
+    <EntitySet Name="Departments" EntityType="ToolingRoomModel.Department" />
+    <EntitySet Name="Groups" EntityType="ToolingRoomModel.Group" />
+    <EntitySet Name="HistoryUpdateDevices" EntityType="ToolingRoomModel.HistoryUpdateDevice" />
+    <EntitySet Name="Models" EntityType="ToolingRoomModel.Model" />
+    <EntitySet Name="Roles" EntityType="ToolingRoomModel.Role" />
+    <EntitySet Name="Stations" EntityType="ToolingRoomModel.Station" />
+    <EntitySet Name="Users" EntityType="ToolingRoomModel.User" />
+    <EntitySet Name="UserDepartments" EntityType="ToolingRoomModel.UserDepartment" />
+    <EntitySet Name="UserRoles" EntityType="ToolingRoomModel.UserRole" />
+    <EntitySet Name="Vendors" EntityType="ToolingRoomModel.Vendor" />
+    <EntitySet Name="Warehouses" EntityType="ToolingRoomModel.Warehouse" />
+    <AssociationSet Name="FK_UserDepartment_Department" Association="ToolingRoomModel.FK_UserDepartment_Department">
+      <End Role="Department" EntitySet="Departments" />
+      <End Role="UserDepartment" EntitySet="UserDepartments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_HistoryUpdateDevice_User" Association="ToolingRoomModel.FK_HistoryUpdateDevice_User">
+      <End Role="User" EntitySet="Users" />
+      <End Role="HistoryUpdateDevice" EntitySet="HistoryUpdateDevices" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserRole_Role" Association="ToolingRoomModel.FK_UserRole_Role">
+      <End Role="Role" EntitySet="Roles" />
+      <End Role="UserRole" EntitySet="UserRoles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserDepartment_User" Association="ToolingRoomModel.FK_UserDepartment_User">
+      <End Role="User" EntitySet="Users" />
+      <End Role="UserDepartment" EntitySet="UserDepartments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserRole_User" Association="ToolingRoomModel.FK_UserRole_User">
+      <End Role="User" EntitySet="Users" />
+      <End Role="UserRole" EntitySet="UserRoles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Warehouse_User" Association="ToolingRoomModel.FK_Warehouse_User">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Warehouse" EntitySet="Warehouses" />
+    </AssociationSet>
+    <EntitySet Name="Devices" EntityType="ToolingRoomModel.Device" />
+    <AssociationSet Name="FK_Device_Group" Association="ToolingRoomModel.FK_Device_Group">
+      <End Role="Group" EntitySet="Groups" />
+      <End Role="Device" EntitySet="Devices" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Device_Model" Association="ToolingRoomModel.FK_Device_Model">
+      <End Role="Model" EntitySet="Models" />
+      <End Role="Device" EntitySet="Devices" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Device_Product" Association="ToolingRoomModel.FK_Device_Product">
+      <End Role="Product" EntitySet="Products" />
+      <End Role="Device" EntitySet="Devices" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Device_Station" Association="ToolingRoomModel.FK_Device_Station">
+      <End Role="Station" EntitySet="Stations" />
+      <End Role="Device" EntitySet="Devices" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Device_Vendor" Association="ToolingRoomModel.FK_Device_Vendor">
+      <End Role="Vendor" EntitySet="Vendors" />
+      <End Role="Device" EntitySet="Devices" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Device_Warehouse" Association="ToolingRoomModel.FK_Device_Warehouse">
+      <End Role="Warehouse" EntitySet="Warehouses" />
+      <End Role="Device" EntitySet="Devices" />
+    </AssociationSet>
+    <AssociationSet Name="FK_HistoryUpdateDevice_Device" Association="ToolingRoomModel.FK_HistoryUpdateDevice_Device">
+      <End Role="Device" EntitySet="Devices" />
+      <End Role="HistoryUpdateDevice" EntitySet="HistoryUpdateDevices" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Product">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ProductName" Type="String" MaxLength="120" FixedLength="false" Unicode="true" />
+    <Property Name="MTS" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Department">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DepartCode" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+    <Property Name="DepartName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="PropertyCode" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Group">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="GroupName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="HistoryUpdateDevice">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdUser" Type="Int32" />
+    <Property Name="IdDevice" Type="Int32" />
+    <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdateData" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="User" Relationship="ToolingRoomModel.FK_HistoryUpdateDevice_User" FromRole="HistoryUpdateDevice" ToRole="User" />
+    <Property Name="FirstData" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Device" Relationship="ToolingRoomModel.FK_HistoryUpdateDevice_Device" FromRole="HistoryUpdateDevice" ToRole="Device" />
+  </EntityType>
+  <EntityType Name="Model">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ModelName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Role">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RoleName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Station">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="StationName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Username" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+    <Property Name="Password" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="VnName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="CnName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="EnName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="HireDate" Type="DateTime" Precision="0" />
+    <Property Name="LeaveDate" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="UserDepartments" Relationship="ToolingRoomModel.FK_UserDepartment_User" FromRole="User" ToRole="UserDepartment" />
+    <NavigationProperty Name="UserRoles" Relationship="ToolingRoomModel.FK_UserRole_User" FromRole="User" ToRole="UserRole" />
+  </EntityType>
+  <EntityType Name="UserDepartment">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdUser" Type="Int32" />
+    <Property Name="IdDepartment" Type="Int32" />
+    <NavigationProperty Name="Department" Relationship="ToolingRoomModel.FK_UserDepartment_Department" FromRole="UserDepartment" ToRole="Department" />
+  </EntityType>
+  <EntityType Name="UserRole">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdUser" Type="Int32" />
+    <Property Name="IdRole" Type="Int32" />
+    <NavigationProperty Name="Role" Relationship="ToolingRoomModel.FK_UserRole_Role" FromRole="UserRole" ToRole="Role" />
+  </EntityType>
+  <EntityType Name="Vendor">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="VendorName" Type="String" MaxLength="120" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Warehouse">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="WarehouseName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" MaxLength="120" FixedLength="false" Unicode="true" />
+    <Property Name="IdUserManager" Type="Int32" />
+  </EntityType>
+  <Association Name="FK_UserDepartment_Department">
+    <End Type="ToolingRoomModel.Department" Role="Department" Multiplicity="0..1" />
+    <End Type="ToolingRoomModel.UserDepartment" Role="UserDepartment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Department">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UserDepartment">
+        <PropertyRef Name="IdDepartment" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_HistoryUpdateDevice_User">
+    <End Type="ToolingRoomModel.User" Role="User" Multiplicity="0..1" />
+    <End Type="ToolingRoomModel.HistoryUpdateDevice" Role="HistoryUpdateDevice" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="HistoryUpdateDevice">
+        <PropertyRef Name="IdUser" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserRole_Role">
+    <End Type="ToolingRoomModel.Role" Role="Role" Multiplicity="0..1" />
+    <End Type="ToolingRoomModel.UserRole" Role="UserRole" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Role">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UserRole">
+        <PropertyRef Name="IdRole" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserDepartment_User">
+    <End Type="ToolingRoomModel.User" Role="User" Multiplicity="0..1" />
+    <End Type="ToolingRoomModel.UserDepartment" Role="UserDepartment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UserDepartment">
+        <PropertyRef Name="IdUser" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserRole_User">
+    <End Type="ToolingRoomModel.User" Role="User" Multiplicity="0..1" />
+    <End Type="ToolingRoomModel.UserRole" Role="UserRole" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UserRole">
+        <PropertyRef Name="IdUser" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Warehouse_User">
+    <End Type="ToolingRoomModel.User" Role="User" Multiplicity="0..1" />
+    <End Type="ToolingRoomModel.Warehouse" Role="Warehouse" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Warehouse">
+        <PropertyRef Name="IdUserManager" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Device">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DeviceCode" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+    <Property Name="DeviceName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="DeviceDate" Type="DateTime" Precision="3" />
+    <Property Name="Buffer" Type="Double" />
+    <Property Name="Quantity" Type="Int32" />
+    <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="IdWareHouse" Type="Int32" />
+    <Property Name="IdGroup" Type="Int32" />
+    <Property Name="IdVendor" Type="Int32" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="IdProduct" Type="Int32" />
+    <Property Name="IdModel" Type="Int32" />
+    <Property Name="IdStation" Type="Int32" />
+    <Property Name="Relation" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="LifeCycle" Type="Int32" />
+    <Property Name="Forcast" Type="Double" />
+    <Property Name="ACC_KIT" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Group" Relationship="ToolingRoomModel.FK_Device_Group" FromRole="Device" ToRole="Group" />
+    <NavigationProperty Name="Model" Relationship="ToolingRoomModel.FK_Device_Model" FromRole="Device" ToRole="Model" />
+    <NavigationProperty Name="Product" Relationship="ToolingRoomModel.FK_Device_Product" FromRole="Device" ToRole="Product" />
+    <NavigationProperty Name="Station" Relationship="ToolingRoomModel.FK_Device_Station" FromRole="Device" ToRole="Station" />
+    <NavigationProperty Name="Vendor" Relationship="ToolingRoomModel.FK_Device_Vendor" FromRole="Device" ToRole="Vendor" />
+    <NavigationProperty Name="HistoryUpdateDevices" Relationship="ToolingRoomModel.FK_HistoryUpdateDevice_Device" FromRole="Device" ToRole="HistoryUpdateDevice" />
+    <Property Name="QtyConfirm" Type="Int32" />
+  </EntityType>
+  <Association Name="FK_Device_Group">
+    <End Type="ToolingRoomModel.Group" Role="Group" Multiplicity="0..1" />
+    <End Type="ToolingRoomModel.Device" Role="Device" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Group">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Device">
+        <PropertyRef Name="IdGroup" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Device_Model">
+    <End Type="ToolingRoomModel.Model" Role="Model" Multiplicity="0..1" />
+    <End Type="ToolingRoomModel.Device" Role="Device" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Model">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Device">
+        <PropertyRef Name="IdModel" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Device_Product">
+    <End Type="ToolingRoomModel.Product" Role="Product" Multiplicity="0..1" />
+    <End Type="ToolingRoomModel.Device" Role="Device" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Device">
+        <PropertyRef Name="IdProduct" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Device_Station">
+    <End Type="ToolingRoomModel.Station" Role="Station" Multiplicity="0..1" />
+    <End Type="ToolingRoomModel.Device" Role="Device" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Station">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Device">
+        <PropertyRef Name="IdStation" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Device_Vendor">
+    <End Type="ToolingRoomModel.Vendor" Role="Vendor" Multiplicity="0..1" />
+    <End Type="ToolingRoomModel.Device" Role="Device" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Vendor">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Device">
+        <PropertyRef Name="IdVendor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Device_Warehouse">
+    <End Type="ToolingRoomModel.Warehouse" Role="Warehouse" Multiplicity="0..1" />
+    <End Type="ToolingRoomModel.Device" Role="Device" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Warehouse">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Device">
+        <PropertyRef Name="IdWareHouse" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_HistoryUpdateDevice_Device">
+    <End Type="ToolingRoomModel.Device" Role="Device" Multiplicity="0..1" />
+    <End Type="ToolingRoomModel.HistoryUpdateDevice" Role="HistoryUpdateDevice" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Device">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="HistoryUpdateDevice">
+        <PropertyRef Name="IdDevice" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

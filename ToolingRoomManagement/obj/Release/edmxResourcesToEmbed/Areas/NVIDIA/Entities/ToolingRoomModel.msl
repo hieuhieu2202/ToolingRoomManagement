@@ -1,0 +1,317 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ToolingRoomModelStoreContainer" CdmEntityContainer="ToolingRoomEntities">
+    <EntitySetMapping Name="Products">
+      <EntityTypeMapping TypeName="ToolingRoomModel.Product">
+        <MappingFragment StoreEntitySet="Product">
+          <ScalarProperty Name="MTS" ColumnName="MTS" />
+          <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Groups">
+      <EntityTypeMapping TypeName="ToolingRoomModel.Group">
+        <MappingFragment StoreEntitySet="Group">
+          <ScalarProperty Name="GroupName" ColumnName="GroupName" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Models">
+      <EntityTypeMapping TypeName="ToolingRoomModel.Model">
+        <MappingFragment StoreEntitySet="Model">
+          <ScalarProperty Name="ModelName" ColumnName="ModelName" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Roles">
+      <EntityTypeMapping TypeName="ToolingRoomModel.Role">
+        <MappingFragment StoreEntitySet="Role">
+          <ScalarProperty Name="RoleAction" ColumnName="RoleAction" />
+          <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Stations">
+      <EntityTypeMapping TypeName="ToolingRoomModel.Station">
+        <MappingFragment StoreEntitySet="Station">
+          <ScalarProperty Name="StationName" ColumnName="StationName" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="ToolingRoomModel.User">
+        <MappingFragment StoreEntitySet="User">
+          <ScalarProperty Name="LastSignIn" ColumnName="LastSignIn" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="LeaveDate" ColumnName="LeaveDate" />
+          <ScalarProperty Name="HireDate" ColumnName="HireDate" />
+          <ScalarProperty Name="EnName" ColumnName="EnName" />
+          <ScalarProperty Name="CnName" ColumnName="CnName" />
+          <ScalarProperty Name="VnName" ColumnName="VnName" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserDepartments">
+      <EntityTypeMapping TypeName="ToolingRoomModel.UserDepartment">
+        <MappingFragment StoreEntitySet="UserDepartment">
+          <ScalarProperty Name="IdDepartment" ColumnName="IdDepartment" />
+          <ScalarProperty Name="IdUser" ColumnName="IdUser" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserRoles">
+      <EntityTypeMapping TypeName="ToolingRoomModel.UserRole">
+        <MappingFragment StoreEntitySet="UserRole">
+          <ScalarProperty Name="IdRole" ColumnName="IdRole" />
+          <ScalarProperty Name="IdUser" ColumnName="IdUser" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Vendors">
+      <EntityTypeMapping TypeName="ToolingRoomModel.Vendor">
+        <MappingFragment StoreEntitySet="Vendor">
+          <ScalarProperty Name="VendorName" ColumnName="VendorName" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Devices">
+      <EntityTypeMapping TypeName="ToolingRoomModel.Device">
+        <MappingFragment StoreEntitySet="Device">
+          <ScalarProperty Name="NG_Qty" ColumnName="NG_Qty" />
+          <ScalarProperty Name="isConsign" ColumnName="isConsign" />
+          <ScalarProperty Name="MOQ" ColumnName="MOQ" />
+          <ScalarProperty Name="Type_BOM" ColumnName="Type_BOM" />
+          <ScalarProperty Name="POQty" ColumnName="POQty" />
+          <ScalarProperty Name="MinQty" ColumnName="MinQty" />
+          <ScalarProperty Name="SysQuantity" ColumnName="SysQuantity" />
+          <ScalarProperty Name="DeliveryTime" ColumnName="DeliveryTime" />
+          <ScalarProperty Name="Unit" ColumnName="Unit" />
+          <ScalarProperty Name="Specification" ColumnName="Specification" />
+          <ScalarProperty Name="ImagePath" ColumnName="ImagePath" />
+          <ScalarProperty Name="RealQty" ColumnName="RealQty" />
+          <ScalarProperty Name="QtyConfirm" ColumnName="QtyConfirm" />
+          <ScalarProperty Name="ACC_KIT" ColumnName="ACC_KIT" />
+          <ScalarProperty Name="Forcast" ColumnName="Forcast" />
+          <ScalarProperty Name="LifeCycle" ColumnName="LifeCycle" />
+          <ScalarProperty Name="Relation" ColumnName="Relation" />
+          <ScalarProperty Name="IdStation" ColumnName="IdStation" />
+          <ScalarProperty Name="IdModel" ColumnName="IdModel" />
+          <ScalarProperty Name="IdProduct" ColumnName="IdProduct" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="IdVendor" ColumnName="IdVendor" />
+          <ScalarProperty Name="IdGroup" ColumnName="IdGroup" />
+          <ScalarProperty Name="IdWareHouse" ColumnName="IdWareHouse" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="Buffer" ColumnName="Buffer" />
+          <ScalarProperty Name="DeviceDate" ColumnName="DeviceDate" />
+          <ScalarProperty Name="DeviceName" ColumnName="DeviceName" />
+          <ScalarProperty Name="DeviceCode" ColumnName="DeviceCode" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BorrowDevices">
+      <EntityTypeMapping TypeName="ToolingRoomModel.BorrowDevice">
+        <MappingFragment StoreEntitySet="BorrowDevice">
+          <ScalarProperty Name="BorrowQuantity" ColumnName="BorrowQuantity" />
+          <ScalarProperty Name="IdDevice" ColumnName="IdDevice" />
+          <ScalarProperty Name="IdBorrow" ColumnName="IdBorrow" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DeviceWarehouseLayouts">
+      <EntityTypeMapping TypeName="ToolingRoomModel.DeviceWarehouseLayout">
+        <MappingFragment StoreEntitySet="DeviceWarehouseLayout">
+          <ScalarProperty Name="IdWarehouseLayout" ColumnName="IdWarehouseLayout" />
+          <ScalarProperty Name="IdDevice" ColumnName="IdDevice" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserBorrowSigns">
+      <EntityTypeMapping TypeName="ToolingRoomModel.UserBorrowSign">
+        <MappingFragment StoreEntitySet="UserBorrowSign">
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="SignOrder" ColumnName="SignOrder" />
+          <ScalarProperty Name="Note" ColumnName="Note" />
+          <ScalarProperty Name="DateSign" ColumnName="DateSign" />
+          <ScalarProperty Name="IdBorrow" ColumnName="IdBorrow" />
+          <ScalarProperty Name="IdUser" ColumnName="IdUser" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="WarehouseLayouts">
+      <EntityTypeMapping TypeName="ToolingRoomModel.WarehouseLayout">
+        <MappingFragment StoreEntitySet="WarehouseLayout">
+          <ScalarProperty Name="Cell" ColumnName="Cell" />
+          <ScalarProperty Name="Floor" ColumnName="Floor" />
+          <ScalarProperty Name="Line" ColumnName="Line" />
+          <ScalarProperty Name="IdWareHouse" ColumnName="IdWareHouse" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Borrows">
+      <EntityTypeMapping TypeName="ToolingRoomModel.Borrow">
+        <MappingFragment StoreEntitySet="Borrow">
+          <ScalarProperty Name="IdStation" ColumnName="IdStation" />
+          <ScalarProperty Name="IdModel" ColumnName="IdModel" />
+          <ScalarProperty Name="Note" ColumnName="Note" />
+          <ScalarProperty Name="IdUser" ColumnName="IdUser" />
+          <ScalarProperty Name="DateDue" ColumnName="DateDue" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="DateReturn" ColumnName="DateReturn" />
+          <ScalarProperty Name="DateBorrow" ColumnName="DateBorrow" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="HistoryUpdateDevices">
+      <EntityTypeMapping TypeName="ToolingRoomModel.HistoryUpdateDevice">
+        <MappingFragment StoreEntitySet="HistoryUpdateDevice">
+          <ScalarProperty Name="AfterData" ColumnName="AfterData" />
+          <ScalarProperty Name="BeforeData" ColumnName="BeforeData" />
+          <ScalarProperty Name="GuidCode" ColumnName="GuidCode" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+          <ScalarProperty Name="IdDevice" ColumnName="IdDevice" />
+          <ScalarProperty Name="IdUser" ColumnName="IdUser" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Warehouses">
+      <EntityTypeMapping TypeName="ToolingRoomModel.Warehouse">
+        <MappingFragment StoreEntitySet="Warehouse">
+          <ScalarProperty Name="Floors" ColumnName="Floors" />
+          <ScalarProperty Name="IdUserDeputy2" ColumnName="IdUserDeputy2" />
+          <ScalarProperty Name="IdUserDeputy1" ColumnName="IdUserDeputy1" />
+          <ScalarProperty Name="Factory" ColumnName="Factory" />
+          <ScalarProperty Name="IdUserManager" ColumnName="IdUserManager" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="WarehouseName" ColumnName="WarehouseName" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DeviceUnconfirms">
+      <EntityTypeMapping TypeName="ToolingRoomModel.DeviceUnconfirm">
+        <MappingFragment StoreEntitySet="DeviceUnconfirm">
+          <ScalarProperty Name="isConsign" ColumnName="isConsign" />
+          <ScalarProperty Name="MOQ" ColumnName="MOQ" />
+          <ScalarProperty Name="Type_BOM" ColumnName="Type_BOM" />
+          <ScalarProperty Name="POQty" ColumnName="POQty" />
+          <ScalarProperty Name="MinQty" ColumnName="MinQty" />
+          <ScalarProperty Name="SysQuantity" ColumnName="SysQuantity" />
+          <ScalarProperty Name="DeliveryTime" ColumnName="DeliveryTime" />
+          <ScalarProperty Name="Unit" ColumnName="Unit" />
+          <ScalarProperty Name="Specification" ColumnName="Specification" />
+          <ScalarProperty Name="ImagePath" ColumnName="ImagePath" />
+          <ScalarProperty Name="RealQty" ColumnName="RealQty" />
+          <ScalarProperty Name="ACC_KIT" ColumnName="ACC_KIT" />
+          <ScalarProperty Name="QtyConfirm" ColumnName="QtyConfirm" />
+          <ScalarProperty Name="Forcast" ColumnName="Forcast" />
+          <ScalarProperty Name="LifeCycle" ColumnName="LifeCycle" />
+          <ScalarProperty Name="Relation" ColumnName="Relation" />
+          <ScalarProperty Name="IdStation" ColumnName="IdStation" />
+          <ScalarProperty Name="IdModel" ColumnName="IdModel" />
+          <ScalarProperty Name="IdProduct" ColumnName="IdProduct" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="IdVendor" ColumnName="IdVendor" />
+          <ScalarProperty Name="IdGroup" ColumnName="IdGroup" />
+          <ScalarProperty Name="IdWareHouse" ColumnName="IdWareHouse" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="Buffer" ColumnName="Buffer" />
+          <ScalarProperty Name="DeviceDate" ColumnName="DeviceDate" />
+          <ScalarProperty Name="DeviceName" ColumnName="DeviceName" />
+          <ScalarProperty Name="DeviceCode" ColumnName="DeviceCode" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Departments">
+      <EntityTypeMapping TypeName="ToolingRoomModel.Department">
+        <MappingFragment StoreEntitySet="Department">
+          <ScalarProperty Name="PropertyCode" ColumnName="PropertyCode" />
+          <ScalarProperty Name="DepartName" ColumnName="DepartName" />
+          <ScalarProperty Name="DepartCode" ColumnName="DepartCode" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ReturnDevices">
+      <EntityTypeMapping TypeName="ToolingRoomModel.ReturnDevice">
+        <MappingFragment StoreEntitySet="ReturnDevice">
+          <ScalarProperty Name="IsSwap" ColumnName="IsSwap" />
+          <ScalarProperty Name="IsNG" ColumnName="IsNG" />
+          <ScalarProperty Name="ReturnQuantity" ColumnName="ReturnQuantity" />
+          <ScalarProperty Name="IdDevice" ColumnName="IdDevice" />
+          <ScalarProperty Name="IdReturn" ColumnName="IdReturn" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Returns">
+      <EntityTypeMapping TypeName="ToolingRoomModel.Return">
+        <MappingFragment StoreEntitySet="Return">
+          <ScalarProperty Name="IdBorrow" ColumnName="IdBorrow" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Note" ColumnName="Note" />
+          <ScalarProperty Name="IdUser" ColumnName="IdUser" />
+          <ScalarProperty Name="DateReturn" ColumnName="DateReturn" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserReturnSigns">
+      <EntityTypeMapping TypeName="ToolingRoomModel.UserReturnSign">
+        <MappingFragment StoreEntitySet="UserReturnSign">
+          <ScalarProperty Name="Note" ColumnName="Note" />
+          <ScalarProperty Name="IdUser" ColumnName="IdUser" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="SignOrder" ColumnName="SignOrder" />
+          <ScalarProperty Name="DateSign" ColumnName="DateSign" />
+          <ScalarProperty Name="IdReturn" ColumnName="IdReturn" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ComingDevices">
+      <EntityTypeMapping TypeName="ToolingRoomModel.ComingDevice">
+        <MappingFragment StoreEntitySet="ComingDevice">
+          <ScalarProperty Name="ExpectedDate" ColumnName="ExpectedDate" />
+          <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+          <ScalarProperty Name="IsConsign" ColumnName="IsConsign" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="ComingQty" ColumnName="ComingQty" />
+          <ScalarProperty Name="IdDeviceUnconfirm" ColumnName="IdDeviceUnconfirm" />
+          <ScalarProperty Name="IdDevice" ColumnName="IdDevice" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

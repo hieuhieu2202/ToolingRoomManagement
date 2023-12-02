@@ -1,0 +1,63 @@
+ShowUI***Begin open CaliTool****
+Copy standard script before open
+script.ini: modify IQcal_Display = 0 .
+open CaliTool.exe file !
+***open CaliTool successful****
+===[ Check Color full D65]===
+Delay 4000 MiliSecond
+Check D65 ...
+=================Capture image time 0==================
+Waiting create folder...
+Waiting create folder...
+Waiting create folder...
+Create folder sucess...
+Create file sucess...
+Check Saturation: 120.1 [115-135]  --> Pass
+Check MeanDeltaC: 4.46 [0-9]  --> Pass
+Check MaxDeltaC: 10.16 [0-20]  --> Pass
+get color value sucess..
+Result-Num : BG-RG-DeltaC-[SNR]
+OK-0 : 0.89-1.38-2.40
+OK-1 : 0.98-1.19-8.03
+OK-2 : 1.24-0.72-2.65
+OK-3 : 0.54-0.80-2.99
+OK-4 : 1.35-1.01-1.31
+OK-5 : 0.95-0.39-4.17
+OK-6 : 0.48-1.40-9.82
+OK-7 : 1.87-0.48-2.95
+OK-8 : 1.35-2.13-6.34
+OK-9 : 2.24-1.60-4.51
+OK-10 : 0.22-0.83-0.64
+OK-11 : 0.12-1.25-7.90
+OK-12 : 3.50-0.36-7.59
+OK-13 : 0.43-0.37-1.44
+OK-14 : 1.23-3.95-0.73
+OK-15 : 0.04-1.08-5.67
+OK-16 : 2.22-2.91-0.82
+OK-17 : 1.42-0.07-10.16
+OK-19 : 1.03-1.00-3.96
+OK-20 : 1.08-1.00-6.18
+OK-21 : 1.09-1.00-5.66
+OK-22 : 1.05-1.00-3.60
+Saturation: 120.10
+MeanDeltaC: 4.46
+MaxDeltaC: 10.16
+OK-Calibrated : 1, -1, -1, 1, 1, 1
+PASS
+===[ Test color D65 passed ... ]===
+
+Close CaliTool 
+Delay 0 MiliSecond
+==============Start show pass================
+TEST PROGRAM VERSION:2.3.2.8  TEST CYCLE TIME:12
+
+----------------Summary all test item--------------
+Test item name                Result  Test time
+ 1.CheckColorfullGen5_DL65     PASS    10.91s
+ 2.SendSfis                    -Skip-        
+---------------------------------------------------
+Write summary log server: F:\lsy\ID\U12I419\MODEL NAME \FT4 -> OK
+Write summary log localD:\Arlo_Logs\U12I419\MODEL NAME \FT4\27-11-2021 -> OK
+Details log local folder: D:\Arlo_Logs\U12I419\MODEL NAME \FT4\27-11-2021\PASS
+Details log server folder: F:\lsy\ID\Detail\U12I419\MODEL NAME \FT4\27-11-2021\PASS
+UserName Test Off: 

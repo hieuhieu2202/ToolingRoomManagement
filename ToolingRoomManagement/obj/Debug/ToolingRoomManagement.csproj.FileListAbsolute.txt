@@ -1,0 +1,366 @@
+D:\Ban_AutomationTeam\BanBan\Tooling Room Management\ToolingRoomManagement\ToolingRoomManagement\bin\roslyn\csc.exe
+D:\Ban_AutomationTeam\BanBan\Tooling Room Management\ToolingRoomManagement\ToolingRoomManagement\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+D:\Ban_AutomationTeam\BanBan\Tooling Room Management\ToolingRoomManagement\ToolingRoomManagement\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+D:\Ban_AutomationTeam\BanBan\Tooling Room Management\ToolingRoomManagement\ToolingRoomManagement\bin\roslyn\Microsoft.CodeAnalysis.dll
+D:\Ban_AutomationTeam\BanBan\Tooling Room Management\ToolingRoomManagement\ToolingRoomManagement\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+D:\Ban_AutomationTeam\BanBan\Tooling Room Management\ToolingRoomManagement\ToolingRoomManagement\bin\roslyn\Microsoft.CSharp.Core.targets
+D:\Ban_AutomationTeam\BanBan\Tooling Room Management\ToolingRoomManagement\ToolingRoomManagement\bin\roslyn\Microsoft.VisualBasic.Core.targets
+D:\Ban_AutomationTeam\BanBan\Tooling Room Management\ToolingRoomManagement\ToolingRoomManagement\bin\roslyn\System.Collections.Immutable.dll
+D:\Ban_AutomationTeam\BanBan\Tooling Room Management\ToolingRoomManagement\ToolingRoomManagement\bin\roslyn\System.Reflection.Metadata.dll
+D:\Ban_AutomationTeam\BanBan\Tooling Room Management\ToolingRoomManagement\ToolingRoomManagement\bin\roslyn\vbc.exe
+D:\Ban_AutomationTeam\BanBan\Tooling Room Management\ToolingRoomManagement\ToolingRoomManagement\bin\roslyn\VBCSCompiler.exe
+D:\Ban_AutomationTeam\BanBan\Tooling Room Management\ToolingRoomManagement\ToolingRoomManagement\bin\roslyn\VBCSCompiler.exe.config
+D:\Ban_AutomationTeam\BanBan\Tooling Room Management\ToolingRoomManagement\ToolingRoomManagement\bin\ToolingRoomManagement.dll.config
+D:\Ban_AutomationTeam\BanBan\Tooling Room Management\ToolingRoomManagement\ToolingRoomManagement\bin\ToolingRoomManagement.dll
+D:\Ban_AutomationTeam\BanBan\Tooling Room Management\ToolingRoomManagement\ToolingRoomManagement\bin\ToolingRoomManagement.pdb
+D:\Ban_AutomationTeam\BanBan\Tooling Room Management\ToolingRoomManagement\ToolingRoomManagement\bin\EntityFramework.dll
+D:\Ban_AutomationTeam\BanBan\Tooling Room Management\ToolingRoomManagement\ToolingRoomManagement\bin\EntityFramework.SqlServer.dll
+D:\Ban_AutomationTeam\BanBan\Tooling Room Management\ToolingRoomManagement\ToolingRoomManagement\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+D:\Ban_AutomationTeam\BanBan\Tooling Room Management\ToolingRoomManagement\ToolingRoomManagement\bin\Microsoft.Web.Infrastructure.dll
+D:\Ban_AutomationTeam\BanBan\Tooling Room Management\ToolingRoomManagement\ToolingRoomManagement\bin\System.Web.Helpers.dll
+D:\Ban_AutomationTeam\BanBan\Tooling Room Management\ToolingRoomManagement\ToolingRoomManagement\bin\System.Web.Mvc.dll
+D:\Ban_AutomationTeam\BanBan\Tooling Room Management\ToolingRoomManagement\ToolingRoomManagement\bin\System.Web.Razor.dll
+D:\Ban_AutomationTeam\BanBan\Tooling Room Management\ToolingRoomManagement\ToolingRoomManagement\bin\System.Web.Webpages.Deployment.dll
+D:\Ban_AutomationTeam\BanBan\Tooling Room Management\ToolingRoomManagement\ToolingRoomManagement\bin\System.Web.Webpages.dll
+D:\Ban_AutomationTeam\BanBan\Tooling Room Management\ToolingRoomManagement\ToolingRoomManagement\bin\System.Web.Webpages.Razor.dll
+D:\Ban_AutomationTeam\BanBan\Tooling Room Management\ToolingRoomManagement\ToolingRoomManagement\bin\EntityFramework.xml
+D:\Ban_AutomationTeam\BanBan\Tooling Room Management\ToolingRoomManagement\ToolingRoomManagement\bin\EntityFramework.SqlServer.xml
+D:\Ban_AutomationTeam\BanBan\Tooling Room Management\ToolingRoomManagement\ToolingRoomManagement\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+D:\Ban_AutomationTeam\BanBan\Tooling Room Management\ToolingRoomManagement\ToolingRoomManagement\bin\System.Web.Razor.xml
+D:\Ban_AutomationTeam\BanBan\Tooling Room Management\ToolingRoomManagement\ToolingRoomManagement\bin\System.Web.Webpages.xml
+D:\Ban_AutomationTeam\BanBan\Tooling Room Management\ToolingRoomManagement\ToolingRoomManagement\bin\System.Web.Webpages.Deployment.xml
+D:\Ban_AutomationTeam\BanBan\Tooling Room Management\ToolingRoomManagement\ToolingRoomManagement\bin\System.Web.Webpages.Razor.xml
+D:\Ban_AutomationTeam\BanBan\Tooling Room Management\ToolingRoomManagement\ToolingRoomManagement\bin\System.Web.Helpers.xml
+D:\Ban_AutomationTeam\BanBan\Tooling Room Management\ToolingRoomManagement\ToolingRoomManagement\bin\System.Web.Mvc.xml
+D:\Ban_AutomationTeam\BanBan\Tooling Room Management\ToolingRoomManagement\ToolingRoomManagement\obj\Debug\ToolingRoomManagement.csprojResolveAssemblyReference.cache
+D:\Ban_AutomationTeam\BanBan\Tooling Room Management\ToolingRoomManagement\ToolingRoomManagement\obj\Debug\ToolingRoomManagement.dll
+D:\Ban_AutomationTeam\BanBan\Tooling Room Management\ToolingRoomManagement\ToolingRoomManagement\obj\Debug\ToolingRoomManagement.pdb
+D:\Ban_AutomationTeam\BanBan\Tooling Room Management\ToolingRoomManagement\ToolingRoomManagement\bin\Model.dll
+D:\Ban_AutomationTeam\BanBan\Tooling Room Management\ToolingRoomManagement\ToolingRoomManagement\bin\Model.pdb
+G:\ToolingRoomManagement\ToolingRoomManagement\bin\roslyn\csc.exe
+G:\ToolingRoomManagement\ToolingRoomManagement\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+G:\ToolingRoomManagement\ToolingRoomManagement\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+G:\ToolingRoomManagement\ToolingRoomManagement\bin\roslyn\Microsoft.CodeAnalysis.dll
+G:\ToolingRoomManagement\ToolingRoomManagement\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+G:\ToolingRoomManagement\ToolingRoomManagement\bin\roslyn\Microsoft.CSharp.Core.targets
+G:\ToolingRoomManagement\ToolingRoomManagement\bin\roslyn\Microsoft.VisualBasic.Core.targets
+G:\ToolingRoomManagement\ToolingRoomManagement\bin\roslyn\System.Collections.Immutable.dll
+G:\ToolingRoomManagement\ToolingRoomManagement\bin\roslyn\System.Reflection.Metadata.dll
+G:\ToolingRoomManagement\ToolingRoomManagement\bin\roslyn\vbc.exe
+G:\ToolingRoomManagement\ToolingRoomManagement\bin\roslyn\VBCSCompiler.exe
+G:\ToolingRoomManagement\ToolingRoomManagement\bin\roslyn\VBCSCompiler.exe.config
+G:\ToolingRoomManagement\ToolingRoomManagement\bin\ToolingRoomManagement.dll.config
+G:\ToolingRoomManagement\ToolingRoomManagement\bin\ToolingRoomManagement.dll
+G:\ToolingRoomManagement\ToolingRoomManagement\bin\ToolingRoomManagement.pdb
+G:\ToolingRoomManagement\ToolingRoomManagement\bin\EntityFramework.dll
+G:\ToolingRoomManagement\ToolingRoomManagement\bin\EntityFramework.SqlServer.dll
+G:\ToolingRoomManagement\ToolingRoomManagement\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+G:\ToolingRoomManagement\ToolingRoomManagement\bin\Microsoft.Web.Infrastructure.dll
+G:\ToolingRoomManagement\ToolingRoomManagement\bin\Model.dll
+G:\ToolingRoomManagement\ToolingRoomManagement\bin\Newtonsoft.Json.dll
+G:\ToolingRoomManagement\ToolingRoomManagement\bin\System.Web.Helpers.dll
+G:\ToolingRoomManagement\ToolingRoomManagement\bin\System.Web.Mvc.dll
+G:\ToolingRoomManagement\ToolingRoomManagement\bin\System.Web.Razor.dll
+G:\ToolingRoomManagement\ToolingRoomManagement\bin\System.Web.Webpages.Deployment.dll
+G:\ToolingRoomManagement\ToolingRoomManagement\bin\System.Web.Webpages.dll
+G:\ToolingRoomManagement\ToolingRoomManagement\bin\System.Web.Webpages.Razor.dll
+G:\ToolingRoomManagement\ToolingRoomManagement\bin\Model.pdb
+G:\ToolingRoomManagement\ToolingRoomManagement\bin\Model.dll.config
+G:\ToolingRoomManagement\ToolingRoomManagement\bin\EntityFramework.xml
+G:\ToolingRoomManagement\ToolingRoomManagement\bin\EntityFramework.SqlServer.xml
+G:\ToolingRoomManagement\ToolingRoomManagement\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+G:\ToolingRoomManagement\ToolingRoomManagement\bin\System.Web.Razor.xml
+G:\ToolingRoomManagement\ToolingRoomManagement\bin\System.Web.Webpages.xml
+G:\ToolingRoomManagement\ToolingRoomManagement\bin\System.Web.Webpages.Deployment.xml
+G:\ToolingRoomManagement\ToolingRoomManagement\bin\System.Web.Webpages.Razor.xml
+G:\ToolingRoomManagement\ToolingRoomManagement\bin\System.Web.Helpers.xml
+G:\ToolingRoomManagement\ToolingRoomManagement\bin\System.Web.Mvc.xml
+G:\ToolingRoomManagement\ToolingRoomManagement\obj\Debug\ToolingRoomManagement.csprojAssemblyReference.cache
+G:\ToolingRoomManagement\ToolingRoomManagement\obj\Debug\ToolingRoomManagement.csproj.CoreCompileInputs.cache
+G:\ToolingRoomManagement\ToolingRoomManagement\obj\Debug\ToolingRoomManagement.csproj.CopyComplete
+G:\ToolingRoomManagement\ToolingRoomManagement\obj\Debug\ToolingRoomManagement.dll
+G:\ToolingRoomManagement\ToolingRoomManagement\obj\Debug\ToolingRoomManagement.pdb
+D:\Ban Nguyen\ToolingRoomManagement\ToolingRoomManagement\bin\roslyn\csc.exe
+D:\Ban Nguyen\ToolingRoomManagement\ToolingRoomManagement\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+D:\Ban Nguyen\ToolingRoomManagement\ToolingRoomManagement\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+D:\Ban Nguyen\ToolingRoomManagement\ToolingRoomManagement\bin\roslyn\Microsoft.CodeAnalysis.dll
+D:\Ban Nguyen\ToolingRoomManagement\ToolingRoomManagement\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+D:\Ban Nguyen\ToolingRoomManagement\ToolingRoomManagement\bin\roslyn\Microsoft.CSharp.Core.targets
+D:\Ban Nguyen\ToolingRoomManagement\ToolingRoomManagement\bin\roslyn\Microsoft.VisualBasic.Core.targets
+D:\Ban Nguyen\ToolingRoomManagement\ToolingRoomManagement\bin\roslyn\System.Collections.Immutable.dll
+D:\Ban Nguyen\ToolingRoomManagement\ToolingRoomManagement\bin\roslyn\System.Reflection.Metadata.dll
+D:\Ban Nguyen\ToolingRoomManagement\ToolingRoomManagement\bin\roslyn\vbc.exe
+D:\Ban Nguyen\ToolingRoomManagement\ToolingRoomManagement\bin\roslyn\VBCSCompiler.exe
+D:\Ban Nguyen\ToolingRoomManagement\ToolingRoomManagement\bin\roslyn\VBCSCompiler.exe.config
+D:\Ban Nguyen\ToolingRoomManagement\ToolingRoomManagement\bin\ToolingRoomManagement.dll.config
+D:\Ban Nguyen\ToolingRoomManagement\ToolingRoomManagement\bin\ToolingRoomManagement.dll
+D:\Ban Nguyen\ToolingRoomManagement\ToolingRoomManagement\bin\ToolingRoomManagement.pdb
+D:\Ban Nguyen\ToolingRoomManagement\ToolingRoomManagement\bin\EntityFramework.dll
+D:\Ban Nguyen\ToolingRoomManagement\ToolingRoomManagement\bin\EntityFramework.SqlServer.dll
+D:\Ban Nguyen\ToolingRoomManagement\ToolingRoomManagement\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+D:\Ban Nguyen\ToolingRoomManagement\ToolingRoomManagement\bin\Microsoft.Web.Infrastructure.dll
+D:\Ban Nguyen\ToolingRoomManagement\ToolingRoomManagement\bin\Model.dll
+D:\Ban Nguyen\ToolingRoomManagement\ToolingRoomManagement\bin\System.Web.Helpers.dll
+D:\Ban Nguyen\ToolingRoomManagement\ToolingRoomManagement\bin\System.Web.Mvc.dll
+D:\Ban Nguyen\ToolingRoomManagement\ToolingRoomManagement\bin\System.Web.Razor.dll
+D:\Ban Nguyen\ToolingRoomManagement\ToolingRoomManagement\bin\System.Web.Webpages.Deployment.dll
+D:\Ban Nguyen\ToolingRoomManagement\ToolingRoomManagement\bin\System.Web.Webpages.dll
+D:\Ban Nguyen\ToolingRoomManagement\ToolingRoomManagement\bin\System.Web.Webpages.Razor.dll
+D:\Ban Nguyen\ToolingRoomManagement\ToolingRoomManagement\bin\Model.pdb
+D:\Ban Nguyen\ToolingRoomManagement\ToolingRoomManagement\bin\Model.dll.config
+D:\Ban Nguyen\ToolingRoomManagement\ToolingRoomManagement\bin\EntityFramework.xml
+D:\Ban Nguyen\ToolingRoomManagement\ToolingRoomManagement\bin\EntityFramework.SqlServer.xml
+D:\Ban Nguyen\ToolingRoomManagement\ToolingRoomManagement\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+D:\Ban Nguyen\ToolingRoomManagement\ToolingRoomManagement\bin\System.Web.Razor.xml
+D:\Ban Nguyen\ToolingRoomManagement\ToolingRoomManagement\bin\System.Web.Webpages.xml
+D:\Ban Nguyen\ToolingRoomManagement\ToolingRoomManagement\bin\System.Web.Webpages.Deployment.xml
+D:\Ban Nguyen\ToolingRoomManagement\ToolingRoomManagement\bin\System.Web.Webpages.Razor.xml
+D:\Ban Nguyen\ToolingRoomManagement\ToolingRoomManagement\bin\System.Web.Helpers.xml
+D:\Ban Nguyen\ToolingRoomManagement\ToolingRoomManagement\bin\System.Web.Mvc.xml
+D:\Ban Nguyen\ToolingRoomManagement\ToolingRoomManagement\obj\Debug\ToolingRoomManagement.csprojAssemblyReference.cache
+D:\Ban Nguyen\ToolingRoomManagement\ToolingRoomManagement\obj\Debug\ToolingRoomManagement.csproj.CoreCompileInputs.cache
+D:\Ban Nguyen\ToolingRoomManagement\ToolingRoomManagement\obj\Debug\ToolingRoomManagement.csproj.CopyComplete
+D:\Ban Nguyen\ToolingRoomManagement\ToolingRoomManagement\obj\Debug\ToolingRoomManagement.dll
+D:\Ban Nguyen\ToolingRoomManagement\ToolingRoomManagement\obj\Debug\ToolingRoomManagement.pdb
+D:\Ban_AutomationTeam\ToolingRoom_Verson\ToolingRoomManagement\ToolingRoomManagement\bin\roslyn\csc.exe
+D:\Ban_AutomationTeam\ToolingRoom_Verson\ToolingRoomManagement\ToolingRoomManagement\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+D:\Ban_AutomationTeam\ToolingRoom_Verson\ToolingRoomManagement\ToolingRoomManagement\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+D:\Ban_AutomationTeam\ToolingRoom_Verson\ToolingRoomManagement\ToolingRoomManagement\bin\roslyn\Microsoft.CodeAnalysis.dll
+D:\Ban_AutomationTeam\ToolingRoom_Verson\ToolingRoomManagement\ToolingRoomManagement\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+D:\Ban_AutomationTeam\ToolingRoom_Verson\ToolingRoomManagement\ToolingRoomManagement\bin\roslyn\Microsoft.CSharp.Core.targets
+D:\Ban_AutomationTeam\ToolingRoom_Verson\ToolingRoomManagement\ToolingRoomManagement\bin\roslyn\Microsoft.VisualBasic.Core.targets
+D:\Ban_AutomationTeam\ToolingRoom_Verson\ToolingRoomManagement\ToolingRoomManagement\bin\roslyn\System.Collections.Immutable.dll
+D:\Ban_AutomationTeam\ToolingRoom_Verson\ToolingRoomManagement\ToolingRoomManagement\bin\roslyn\System.Reflection.Metadata.dll
+D:\Ban_AutomationTeam\ToolingRoom_Verson\ToolingRoomManagement\ToolingRoomManagement\bin\roslyn\vbc.exe
+D:\Ban_AutomationTeam\ToolingRoom_Verson\ToolingRoomManagement\ToolingRoomManagement\bin\roslyn\VBCSCompiler.exe
+D:\Ban_AutomationTeam\ToolingRoom_Verson\ToolingRoomManagement\ToolingRoomManagement\bin\roslyn\VBCSCompiler.exe.config
+D:\Ban_AutomationTeam\ToolingRoom_Verson\ToolingRoomManagement\ToolingRoomManagement\bin\ToolingRoomManagement.dll.config
+D:\Ban_AutomationTeam\ToolingRoom_Verson\ToolingRoomManagement\ToolingRoomManagement\bin\ToolingRoomManagement.dll
+D:\Ban_AutomationTeam\ToolingRoom_Verson\ToolingRoomManagement\ToolingRoomManagement\bin\ToolingRoomManagement.pdb
+D:\Ban_AutomationTeam\ToolingRoom_Verson\ToolingRoomManagement\ToolingRoomManagement\bin\EntityFramework.dll
+D:\Ban_AutomationTeam\ToolingRoom_Verson\ToolingRoomManagement\ToolingRoomManagement\bin\EntityFramework.SqlServer.dll
+D:\Ban_AutomationTeam\ToolingRoom_Verson\ToolingRoomManagement\ToolingRoomManagement\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+D:\Ban_AutomationTeam\ToolingRoom_Verson\ToolingRoomManagement\ToolingRoomManagement\bin\Microsoft.Web.Infrastructure.dll
+D:\Ban_AutomationTeam\ToolingRoom_Verson\ToolingRoomManagement\ToolingRoomManagement\bin\Model.dll
+D:\Ban_AutomationTeam\ToolingRoom_Verson\ToolingRoomManagement\ToolingRoomManagement\bin\System.Web.Helpers.dll
+D:\Ban_AutomationTeam\ToolingRoom_Verson\ToolingRoomManagement\ToolingRoomManagement\bin\System.Web.Mvc.dll
+D:\Ban_AutomationTeam\ToolingRoom_Verson\ToolingRoomManagement\ToolingRoomManagement\bin\System.Web.Razor.dll
+D:\Ban_AutomationTeam\ToolingRoom_Verson\ToolingRoomManagement\ToolingRoomManagement\bin\System.Web.Webpages.Deployment.dll
+D:\Ban_AutomationTeam\ToolingRoom_Verson\ToolingRoomManagement\ToolingRoomManagement\bin\System.Web.Webpages.dll
+D:\Ban_AutomationTeam\ToolingRoom_Verson\ToolingRoomManagement\ToolingRoomManagement\bin\System.Web.Webpages.Razor.dll
+D:\Ban_AutomationTeam\ToolingRoom_Verson\ToolingRoomManagement\ToolingRoomManagement\bin\Model.pdb
+D:\Ban_AutomationTeam\ToolingRoom_Verson\ToolingRoomManagement\ToolingRoomManagement\bin\EntityFramework.xml
+D:\Ban_AutomationTeam\ToolingRoom_Verson\ToolingRoomManagement\ToolingRoomManagement\bin\EntityFramework.SqlServer.xml
+D:\Ban_AutomationTeam\ToolingRoom_Verson\ToolingRoomManagement\ToolingRoomManagement\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+D:\Ban_AutomationTeam\ToolingRoom_Verson\ToolingRoomManagement\ToolingRoomManagement\bin\System.Web.Razor.xml
+D:\Ban_AutomationTeam\ToolingRoom_Verson\ToolingRoomManagement\ToolingRoomManagement\bin\System.Web.Webpages.xml
+D:\Ban_AutomationTeam\ToolingRoom_Verson\ToolingRoomManagement\ToolingRoomManagement\bin\System.Web.Webpages.Deployment.xml
+D:\Ban_AutomationTeam\ToolingRoom_Verson\ToolingRoomManagement\ToolingRoomManagement\bin\System.Web.Webpages.Razor.xml
+D:\Ban_AutomationTeam\ToolingRoom_Verson\ToolingRoomManagement\ToolingRoomManagement\bin\System.Web.Helpers.xml
+D:\Ban_AutomationTeam\ToolingRoom_Verson\ToolingRoomManagement\ToolingRoomManagement\bin\System.Web.Mvc.xml
+D:\Ban_AutomationTeam\ToolingRoom_Verson\ToolingRoomManagement\ToolingRoomManagement\obj\Debug\ToolingRoomManagement.csprojResolveAssemblyReference.cache
+D:\Ban_AutomationTeam\ToolingRoom_Verson\ToolingRoomManagement\ToolingRoomManagement\obj\Debug\ToolingRoomManagement.dll
+D:\Ban_AutomationTeam\ToolingRoom_Verson\ToolingRoomManagement\ToolingRoomManagement\obj\Debug\ToolingRoomManagement.pdb
+C:\IIS\Ban Nguyen\ToolingRoomManagement\ToolingRoomManagement\bin\roslyn\csc.exe
+C:\IIS\Ban Nguyen\ToolingRoomManagement\ToolingRoomManagement\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\IIS\Ban Nguyen\ToolingRoomManagement\ToolingRoomManagement\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\IIS\Ban Nguyen\ToolingRoomManagement\ToolingRoomManagement\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\IIS\Ban Nguyen\ToolingRoomManagement\ToolingRoomManagement\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\IIS\Ban Nguyen\ToolingRoomManagement\ToolingRoomManagement\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\IIS\Ban Nguyen\ToolingRoomManagement\ToolingRoomManagement\bin\roslyn\Microsoft.VisualBasic.Core.targets
+C:\IIS\Ban Nguyen\ToolingRoomManagement\ToolingRoomManagement\bin\roslyn\System.Collections.Immutable.dll
+C:\IIS\Ban Nguyen\ToolingRoomManagement\ToolingRoomManagement\bin\roslyn\System.Reflection.Metadata.dll
+C:\IIS\Ban Nguyen\ToolingRoomManagement\ToolingRoomManagement\bin\roslyn\vbc.exe
+C:\IIS\Ban Nguyen\ToolingRoomManagement\ToolingRoomManagement\bin\roslyn\VBCSCompiler.exe
+C:\IIS\Ban Nguyen\ToolingRoomManagement\ToolingRoomManagement\bin\roslyn\VBCSCompiler.exe.config
+C:\IIS\Ban Nguyen\ToolingRoomManagement\ToolingRoomManagement\bin\ToolingRoomManagement.dll.config
+C:\IIS\Ban Nguyen\ToolingRoomManagement\ToolingRoomManagement\bin\ToolingRoomManagement.dll
+C:\IIS\Ban Nguyen\ToolingRoomManagement\ToolingRoomManagement\bin\ToolingRoomManagement.pdb
+C:\IIS\Ban Nguyen\ToolingRoomManagement\ToolingRoomManagement\bin\EntityFramework.dll
+C:\IIS\Ban Nguyen\ToolingRoomManagement\ToolingRoomManagement\bin\EntityFramework.SqlServer.dll
+C:\IIS\Ban Nguyen\ToolingRoomManagement\ToolingRoomManagement\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\IIS\Ban Nguyen\ToolingRoomManagement\ToolingRoomManagement\bin\Microsoft.Web.Infrastructure.dll
+C:\IIS\Ban Nguyen\ToolingRoomManagement\ToolingRoomManagement\bin\Model.dll
+C:\IIS\Ban Nguyen\ToolingRoomManagement\ToolingRoomManagement\bin\System.Web.Helpers.dll
+C:\IIS\Ban Nguyen\ToolingRoomManagement\ToolingRoomManagement\bin\System.Web.Mvc.dll
+C:\IIS\Ban Nguyen\ToolingRoomManagement\ToolingRoomManagement\bin\System.Web.Razor.dll
+C:\IIS\Ban Nguyen\ToolingRoomManagement\ToolingRoomManagement\bin\System.Web.Webpages.Deployment.dll
+C:\IIS\Ban Nguyen\ToolingRoomManagement\ToolingRoomManagement\bin\System.Web.Webpages.dll
+C:\IIS\Ban Nguyen\ToolingRoomManagement\ToolingRoomManagement\bin\System.Web.Webpages.Razor.dll
+C:\IIS\Ban Nguyen\ToolingRoomManagement\ToolingRoomManagement\bin\Model.pdb
+C:\IIS\Ban Nguyen\ToolingRoomManagement\ToolingRoomManagement\bin\Model.dll.config
+C:\IIS\Ban Nguyen\ToolingRoomManagement\ToolingRoomManagement\bin\EntityFramework.xml
+C:\IIS\Ban Nguyen\ToolingRoomManagement\ToolingRoomManagement\bin\EntityFramework.SqlServer.xml
+C:\IIS\Ban Nguyen\ToolingRoomManagement\ToolingRoomManagement\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\IIS\Ban Nguyen\ToolingRoomManagement\ToolingRoomManagement\bin\System.Web.Razor.xml
+C:\IIS\Ban Nguyen\ToolingRoomManagement\ToolingRoomManagement\bin\System.Web.Webpages.xml
+C:\IIS\Ban Nguyen\ToolingRoomManagement\ToolingRoomManagement\bin\System.Web.Webpages.Deployment.xml
+C:\IIS\Ban Nguyen\ToolingRoomManagement\ToolingRoomManagement\bin\System.Web.Webpages.Razor.xml
+C:\IIS\Ban Nguyen\ToolingRoomManagement\ToolingRoomManagement\bin\System.Web.Helpers.xml
+C:\IIS\Ban Nguyen\ToolingRoomManagement\ToolingRoomManagement\bin\System.Web.Mvc.xml
+C:\IIS\Ban Nguyen\ToolingRoomManagement\ToolingRoomManagement\obj\Debug\ToolingRoomManagement.csprojAssemblyReference.cache
+C:\IIS\Ban Nguyen\ToolingRoomManagement\ToolingRoomManagement\obj\Debug\ToolingRoomManagement.csproj.CoreCompileInputs.cache
+C:\IIS\Ban Nguyen\ToolingRoomManagement\ToolingRoomManagement\obj\Debug\ToolingRoomManagement.csproj.CopyComplete
+C:\IIS\Ban Nguyen\ToolingRoomManagement\ToolingRoomManagement\obj\Debug\ToolingRoomManagement.dll
+C:\IIS\Ban Nguyen\ToolingRoomManagement\ToolingRoomManagement\obj\Debug\ToolingRoomManagement.pdb
+C:\IIS WEB\Ban Nguyen\ToolingRoomManagement\ToolingRoomManagement\bin\roslyn\csc.exe
+C:\IIS WEB\Ban Nguyen\ToolingRoomManagement\ToolingRoomManagement\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\IIS WEB\Ban Nguyen\ToolingRoomManagement\ToolingRoomManagement\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\IIS WEB\Ban Nguyen\ToolingRoomManagement\ToolingRoomManagement\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\IIS WEB\Ban Nguyen\ToolingRoomManagement\ToolingRoomManagement\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\IIS WEB\Ban Nguyen\ToolingRoomManagement\ToolingRoomManagement\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\IIS WEB\Ban Nguyen\ToolingRoomManagement\ToolingRoomManagement\bin\roslyn\Microsoft.VisualBasic.Core.targets
+C:\IIS WEB\Ban Nguyen\ToolingRoomManagement\ToolingRoomManagement\bin\roslyn\System.Collections.Immutable.dll
+C:\IIS WEB\Ban Nguyen\ToolingRoomManagement\ToolingRoomManagement\bin\roslyn\System.Reflection.Metadata.dll
+C:\IIS WEB\Ban Nguyen\ToolingRoomManagement\ToolingRoomManagement\bin\roslyn\vbc.exe
+C:\IIS WEB\Ban Nguyen\ToolingRoomManagement\ToolingRoomManagement\bin\roslyn\VBCSCompiler.exe
+C:\IIS WEB\Ban Nguyen\ToolingRoomManagement\ToolingRoomManagement\bin\roslyn\VBCSCompiler.exe.config
+C:\IIS WEB\Ban Nguyen\ToolingRoomManagement\ToolingRoomManagement\bin\ToolingRoomManagement.dll.config
+C:\IIS WEB\Ban Nguyen\ToolingRoomManagement\ToolingRoomManagement\bin\ToolingRoomManagement.dll
+C:\IIS WEB\Ban Nguyen\ToolingRoomManagement\ToolingRoomManagement\bin\ToolingRoomManagement.pdb
+C:\IIS WEB\Ban Nguyen\ToolingRoomManagement\ToolingRoomManagement\bin\EntityFramework.dll
+C:\IIS WEB\Ban Nguyen\ToolingRoomManagement\ToolingRoomManagement\bin\EntityFramework.SqlServer.dll
+C:\IIS WEB\Ban Nguyen\ToolingRoomManagement\ToolingRoomManagement\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\IIS WEB\Ban Nguyen\ToolingRoomManagement\ToolingRoomManagement\bin\Microsoft.Web.Infrastructure.dll
+C:\IIS WEB\Ban Nguyen\ToolingRoomManagement\ToolingRoomManagement\bin\Model.dll
+C:\IIS WEB\Ban Nguyen\ToolingRoomManagement\ToolingRoomManagement\bin\System.Web.Helpers.dll
+C:\IIS WEB\Ban Nguyen\ToolingRoomManagement\ToolingRoomManagement\bin\System.Web.Mvc.dll
+C:\IIS WEB\Ban Nguyen\ToolingRoomManagement\ToolingRoomManagement\bin\System.Web.Razor.dll
+C:\IIS WEB\Ban Nguyen\ToolingRoomManagement\ToolingRoomManagement\bin\System.Web.Webpages.Deployment.dll
+C:\IIS WEB\Ban Nguyen\ToolingRoomManagement\ToolingRoomManagement\bin\System.Web.Webpages.dll
+C:\IIS WEB\Ban Nguyen\ToolingRoomManagement\ToolingRoomManagement\bin\System.Web.Webpages.Razor.dll
+C:\IIS WEB\Ban Nguyen\ToolingRoomManagement\ToolingRoomManagement\bin\Model.pdb
+C:\IIS WEB\Ban Nguyen\ToolingRoomManagement\ToolingRoomManagement\bin\Model.dll.config
+C:\IIS WEB\Ban Nguyen\ToolingRoomManagement\ToolingRoomManagement\bin\EntityFramework.xml
+C:\IIS WEB\Ban Nguyen\ToolingRoomManagement\ToolingRoomManagement\bin\EntityFramework.SqlServer.xml
+C:\IIS WEB\Ban Nguyen\ToolingRoomManagement\ToolingRoomManagement\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\IIS WEB\Ban Nguyen\ToolingRoomManagement\ToolingRoomManagement\bin\System.Web.Razor.xml
+C:\IIS WEB\Ban Nguyen\ToolingRoomManagement\ToolingRoomManagement\bin\System.Web.Webpages.xml
+C:\IIS WEB\Ban Nguyen\ToolingRoomManagement\ToolingRoomManagement\bin\System.Web.Webpages.Deployment.xml
+C:\IIS WEB\Ban Nguyen\ToolingRoomManagement\ToolingRoomManagement\bin\System.Web.Webpages.Razor.xml
+C:\IIS WEB\Ban Nguyen\ToolingRoomManagement\ToolingRoomManagement\bin\System.Web.Helpers.xml
+C:\IIS WEB\Ban Nguyen\ToolingRoomManagement\ToolingRoomManagement\bin\System.Web.Mvc.xml
+C:\IIS WEB\Ban Nguyen\ToolingRoomManagement\ToolingRoomManagement\obj\Debug\ToolingRoomManagement.csprojAssemblyReference.cache
+C:\IIS WEB\Ban Nguyen\ToolingRoomManagement\ToolingRoomManagement\obj\Debug\ToolingRoomManagement.csproj.CoreCompileInputs.cache
+C:\IIS WEB\Ban Nguyen\ToolingRoomManagement\ToolingRoomManagement\obj\Debug\ToolingRoomManagement.csproj.CopyComplete
+C:\IIS WEB\Ban Nguyen\ToolingRoomManagement\ToolingRoomManagement\obj\Debug\ToolingRoomManagement.dll
+C:\IIS WEB\Ban Nguyen\ToolingRoomManagement\ToolingRoomManagement\obj\Debug\ToolingRoomManagement.pdb
+C:\IIS WEB\Ban Nguyen\ToolingRoomManagement - Copy\ToolingRoomManagement\bin\roslyn\csc.exe
+C:\IIS WEB\Ban Nguyen\ToolingRoomManagement - Copy\ToolingRoomManagement\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\IIS WEB\Ban Nguyen\ToolingRoomManagement - Copy\ToolingRoomManagement\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\IIS WEB\Ban Nguyen\ToolingRoomManagement - Copy\ToolingRoomManagement\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\IIS WEB\Ban Nguyen\ToolingRoomManagement - Copy\ToolingRoomManagement\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\IIS WEB\Ban Nguyen\ToolingRoomManagement - Copy\ToolingRoomManagement\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\IIS WEB\Ban Nguyen\ToolingRoomManagement - Copy\ToolingRoomManagement\bin\roslyn\Microsoft.VisualBasic.Core.targets
+C:\IIS WEB\Ban Nguyen\ToolingRoomManagement - Copy\ToolingRoomManagement\bin\roslyn\System.Collections.Immutable.dll
+C:\IIS WEB\Ban Nguyen\ToolingRoomManagement - Copy\ToolingRoomManagement\bin\roslyn\System.Reflection.Metadata.dll
+C:\IIS WEB\Ban Nguyen\ToolingRoomManagement - Copy\ToolingRoomManagement\bin\roslyn\vbc.exe
+C:\IIS WEB\Ban Nguyen\ToolingRoomManagement - Copy\ToolingRoomManagement\bin\roslyn\VBCSCompiler.exe
+C:\IIS WEB\Ban Nguyen\ToolingRoomManagement - Copy\ToolingRoomManagement\bin\roslyn\VBCSCompiler.exe.config
+C:\IIS WEB\Ban Nguyen\ToolingRoomManagement - Copy\ToolingRoomManagement\bin\ToolingRoomManagement.dll.config
+C:\IIS WEB\Ban Nguyen\ToolingRoomManagement - Copy\ToolingRoomManagement\bin\ToolingRoomManagement.dll
+C:\IIS WEB\Ban Nguyen\ToolingRoomManagement - Copy\ToolingRoomManagement\bin\ToolingRoomManagement.pdb
+C:\IIS WEB\Ban Nguyen\ToolingRoomManagement - Copy\ToolingRoomManagement\bin\EntityFramework.dll
+C:\IIS WEB\Ban Nguyen\ToolingRoomManagement - Copy\ToolingRoomManagement\bin\EntityFramework.SqlServer.dll
+C:\IIS WEB\Ban Nguyen\ToolingRoomManagement - Copy\ToolingRoomManagement\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\IIS WEB\Ban Nguyen\ToolingRoomManagement - Copy\ToolingRoomManagement\bin\Microsoft.Web.Infrastructure.dll
+C:\IIS WEB\Ban Nguyen\ToolingRoomManagement - Copy\ToolingRoomManagement\bin\Model.dll
+C:\IIS WEB\Ban Nguyen\ToolingRoomManagement - Copy\ToolingRoomManagement\bin\System.Web.Helpers.dll
+C:\IIS WEB\Ban Nguyen\ToolingRoomManagement - Copy\ToolingRoomManagement\bin\System.Web.Mvc.dll
+C:\IIS WEB\Ban Nguyen\ToolingRoomManagement - Copy\ToolingRoomManagement\bin\System.Web.Razor.dll
+C:\IIS WEB\Ban Nguyen\ToolingRoomManagement - Copy\ToolingRoomManagement\bin\System.Web.Webpages.Deployment.dll
+C:\IIS WEB\Ban Nguyen\ToolingRoomManagement - Copy\ToolingRoomManagement\bin\System.Web.Webpages.dll
+C:\IIS WEB\Ban Nguyen\ToolingRoomManagement - Copy\ToolingRoomManagement\bin\System.Web.Webpages.Razor.dll
+C:\IIS WEB\Ban Nguyen\ToolingRoomManagement - Copy\ToolingRoomManagement\bin\Model.pdb
+C:\IIS WEB\Ban Nguyen\ToolingRoomManagement - Copy\ToolingRoomManagement\bin\Model.dll.config
+C:\IIS WEB\Ban Nguyen\ToolingRoomManagement - Copy\ToolingRoomManagement\bin\EntityFramework.xml
+C:\IIS WEB\Ban Nguyen\ToolingRoomManagement - Copy\ToolingRoomManagement\bin\EntityFramework.SqlServer.xml
+C:\IIS WEB\Ban Nguyen\ToolingRoomManagement - Copy\ToolingRoomManagement\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\IIS WEB\Ban Nguyen\ToolingRoomManagement - Copy\ToolingRoomManagement\bin\System.Web.Razor.xml
+C:\IIS WEB\Ban Nguyen\ToolingRoomManagement - Copy\ToolingRoomManagement\bin\System.Web.Webpages.xml
+C:\IIS WEB\Ban Nguyen\ToolingRoomManagement - Copy\ToolingRoomManagement\bin\System.Web.Webpages.Deployment.xml
+C:\IIS WEB\Ban Nguyen\ToolingRoomManagement - Copy\ToolingRoomManagement\bin\System.Web.Webpages.Razor.xml
+C:\IIS WEB\Ban Nguyen\ToolingRoomManagement - Copy\ToolingRoomManagement\bin\System.Web.Helpers.xml
+C:\IIS WEB\Ban Nguyen\ToolingRoomManagement - Copy\ToolingRoomManagement\bin\System.Web.Mvc.xml
+C:\IIS WEB\Ban Nguyen\ToolingRoomManagement - Copy\ToolingRoomManagement\obj\Debug\ToolingRoomManagement.csprojAssemblyReference.cache
+C:\IIS WEB\Ban Nguyen\ToolingRoomManagement - Copy\ToolingRoomManagement\obj\Debug\ToolingRoomManagement.csproj.CoreCompileInputs.cache
+C:\IIS WEB\Ban Nguyen\ToolingRoomManagement - Copy\ToolingRoomManagement\obj\Debug\ToolingRoomManagement.csproj.CopyComplete
+C:\IIS WEB\Ban Nguyen\ToolingRoomManagement - Copy\ToolingRoomManagement\obj\Debug\ToolingRoomManagement.dll
+C:\IIS WEB\Ban Nguyen\ToolingRoomManagement - Copy\ToolingRoomManagement\obj\Debug\ToolingRoomManagement.pdb
+F:\Projects\WebApp\ToolingRoomManagement\ToolingRoomManagement\bin\roslyn\csc.exe
+F:\Projects\WebApp\ToolingRoomManagement\ToolingRoomManagement\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+F:\Projects\WebApp\ToolingRoomManagement\ToolingRoomManagement\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+F:\Projects\WebApp\ToolingRoomManagement\ToolingRoomManagement\bin\roslyn\Microsoft.CodeAnalysis.dll
+F:\Projects\WebApp\ToolingRoomManagement\ToolingRoomManagement\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+F:\Projects\WebApp\ToolingRoomManagement\ToolingRoomManagement\bin\roslyn\Microsoft.CSharp.Core.targets
+F:\Projects\WebApp\ToolingRoomManagement\ToolingRoomManagement\bin\roslyn\Microsoft.VisualBasic.Core.targets
+F:\Projects\WebApp\ToolingRoomManagement\ToolingRoomManagement\bin\roslyn\System.Collections.Immutable.dll
+F:\Projects\WebApp\ToolingRoomManagement\ToolingRoomManagement\bin\roslyn\System.Reflection.Metadata.dll
+F:\Projects\WebApp\ToolingRoomManagement\ToolingRoomManagement\bin\roslyn\vbc.exe
+F:\Projects\WebApp\ToolingRoomManagement\ToolingRoomManagement\bin\roslyn\VBCSCompiler.exe
+F:\Projects\WebApp\ToolingRoomManagement\ToolingRoomManagement\bin\roslyn\VBCSCompiler.exe.config
+F:\Projects\WebApp\ToolingRoomManagement\ToolingRoomManagement\bin\ToolingRoomManagement.dll.config
+F:\Projects\WebApp\ToolingRoomManagement\ToolingRoomManagement\bin\ToolingRoomManagement.dll
+F:\Projects\WebApp\ToolingRoomManagement\ToolingRoomManagement\bin\ToolingRoomManagement.pdb
+F:\Projects\WebApp\ToolingRoomManagement\ToolingRoomManagement\bin\EntityFramework.dll
+F:\Projects\WebApp\ToolingRoomManagement\ToolingRoomManagement\bin\EntityFramework.SqlServer.dll
+F:\Projects\WebApp\ToolingRoomManagement\ToolingRoomManagement\bin\EPPlus.dll
+F:\Projects\WebApp\ToolingRoomManagement\ToolingRoomManagement\bin\EPPlus.Interfaces.dll
+F:\Projects\WebApp\ToolingRoomManagement\ToolingRoomManagement\bin\EPPlus.System.Drawing.dll
+F:\Projects\WebApp\ToolingRoomManagement\ToolingRoomManagement\bin\Microsoft.Bcl.AsyncInterfaces.dll
+F:\Projects\WebApp\ToolingRoomManagement\ToolingRoomManagement\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+F:\Projects\WebApp\ToolingRoomManagement\ToolingRoomManagement\bin\Microsoft.IdentityModel.Abstractions.dll
+F:\Projects\WebApp\ToolingRoomManagement\ToolingRoomManagement\bin\Microsoft.IdentityModel.JsonWebTokens.dll
+F:\Projects\WebApp\ToolingRoomManagement\ToolingRoomManagement\bin\Microsoft.IdentityModel.Logging.dll
+F:\Projects\WebApp\ToolingRoomManagement\ToolingRoomManagement\bin\Microsoft.IdentityModel.Tokens.dll
+F:\Projects\WebApp\ToolingRoomManagement\ToolingRoomManagement\bin\Microsoft.IO.RecyclableMemoryStream.dll
+F:\Projects\WebApp\ToolingRoomManagement\ToolingRoomManagement\bin\Microsoft.Web.Infrastructure.dll
+F:\Projects\WebApp\ToolingRoomManagement\ToolingRoomManagement\bin\Model.dll
+F:\Projects\WebApp\ToolingRoomManagement\ToolingRoomManagement\bin\Newtonsoft.Json.dll
+F:\Projects\WebApp\ToolingRoomManagement\ToolingRoomManagement\bin\System.Buffers.dll
+F:\Projects\WebApp\ToolingRoomManagement\ToolingRoomManagement\bin\System.IdentityModel.Tokens.Jwt.dll
+F:\Projects\WebApp\ToolingRoomManagement\ToolingRoomManagement\bin\System.Memory.dll
+F:\Projects\WebApp\ToolingRoomManagement\ToolingRoomManagement\bin\System.Numerics.Vectors.dll
+F:\Projects\WebApp\ToolingRoomManagement\ToolingRoomManagement\bin\System.Runtime.CompilerServices.Unsafe.dll
+F:\Projects\WebApp\ToolingRoomManagement\ToolingRoomManagement\bin\System.Text.Encodings.Web.dll
+F:\Projects\WebApp\ToolingRoomManagement\ToolingRoomManagement\bin\System.Text.Json.dll
+F:\Projects\WebApp\ToolingRoomManagement\ToolingRoomManagement\bin\System.Threading.Tasks.Extensions.dll
+F:\Projects\WebApp\ToolingRoomManagement\ToolingRoomManagement\bin\System.ValueTuple.dll
+F:\Projects\WebApp\ToolingRoomManagement\ToolingRoomManagement\bin\System.Web.Helpers.dll
+F:\Projects\WebApp\ToolingRoomManagement\ToolingRoomManagement\bin\System.Web.Mvc.dll
+F:\Projects\WebApp\ToolingRoomManagement\ToolingRoomManagement\bin\System.Web.Razor.dll
+F:\Projects\WebApp\ToolingRoomManagement\ToolingRoomManagement\bin\System.Web.Webpages.Deployment.dll
+F:\Projects\WebApp\ToolingRoomManagement\ToolingRoomManagement\bin\System.Web.Webpages.dll
+F:\Projects\WebApp\ToolingRoomManagement\ToolingRoomManagement\bin\System.Web.Webpages.Razor.dll
+F:\Projects\WebApp\ToolingRoomManagement\ToolingRoomManagement\bin\Model.pdb
+F:\Projects\WebApp\ToolingRoomManagement\ToolingRoomManagement\bin\Model.dll.config
+F:\Projects\WebApp\ToolingRoomManagement\ToolingRoomManagement\bin\EntityFramework.xml
+F:\Projects\WebApp\ToolingRoomManagement\ToolingRoomManagement\bin\EntityFramework.SqlServer.xml
+F:\Projects\WebApp\ToolingRoomManagement\ToolingRoomManagement\bin\EPPlus.xml
+F:\Projects\WebApp\ToolingRoomManagement\ToolingRoomManagement\bin\Microsoft.Bcl.AsyncInterfaces.xml
+F:\Projects\WebApp\ToolingRoomManagement\ToolingRoomManagement\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+F:\Projects\WebApp\ToolingRoomManagement\ToolingRoomManagement\bin\Microsoft.IdentityModel.Abstractions.xml
+F:\Projects\WebApp\ToolingRoomManagement\ToolingRoomManagement\bin\Microsoft.IdentityModel.JsonWebTokens.xml
+F:\Projects\WebApp\ToolingRoomManagement\ToolingRoomManagement\bin\Microsoft.IdentityModel.Logging.xml
+F:\Projects\WebApp\ToolingRoomManagement\ToolingRoomManagement\bin\Microsoft.IdentityModel.Tokens.xml
+F:\Projects\WebApp\ToolingRoomManagement\ToolingRoomManagement\bin\Microsoft.IO.RecyclableMemoryStream.xml
+F:\Projects\WebApp\ToolingRoomManagement\ToolingRoomManagement\bin\System.Buffers.xml
+F:\Projects\WebApp\ToolingRoomManagement\ToolingRoomManagement\bin\System.IdentityModel.Tokens.Jwt.xml
+F:\Projects\WebApp\ToolingRoomManagement\ToolingRoomManagement\bin\System.Memory.xml
+F:\Projects\WebApp\ToolingRoomManagement\ToolingRoomManagement\bin\System.Numerics.Vectors.xml
+F:\Projects\WebApp\ToolingRoomManagement\ToolingRoomManagement\bin\System.Runtime.CompilerServices.Unsafe.xml
+F:\Projects\WebApp\ToolingRoomManagement\ToolingRoomManagement\bin\System.Text.Encodings.Web.xml
+F:\Projects\WebApp\ToolingRoomManagement\ToolingRoomManagement\bin\System.Text.Json.xml
+F:\Projects\WebApp\ToolingRoomManagement\ToolingRoomManagement\bin\System.Threading.Tasks.Extensions.xml
+F:\Projects\WebApp\ToolingRoomManagement\ToolingRoomManagement\bin\System.ValueTuple.xml
+F:\Projects\WebApp\ToolingRoomManagement\ToolingRoomManagement\bin\System.Web.Razor.xml
+F:\Projects\WebApp\ToolingRoomManagement\ToolingRoomManagement\bin\System.Web.Webpages.xml
+F:\Projects\WebApp\ToolingRoomManagement\ToolingRoomManagement\bin\System.Web.Webpages.Deployment.xml
+F:\Projects\WebApp\ToolingRoomManagement\ToolingRoomManagement\bin\System.Web.Webpages.Razor.xml
+F:\Projects\WebApp\ToolingRoomManagement\ToolingRoomManagement\bin\System.Web.Helpers.xml
+F:\Projects\WebApp\ToolingRoomManagement\ToolingRoomManagement\bin\System.Web.Mvc.xml
+F:\Projects\WebApp\ToolingRoomManagement\ToolingRoomManagement\obj\Debug\ToolingRoomManagement.csproj.AssemblyReference.cache
+F:\Projects\WebApp\ToolingRoomManagement\ToolingRoomManagement\obj\Debug\ToolingRoomManagement.csproj.CoreCompileInputs.cache
+F:\Projects\WebApp\ToolingRoomManagement\ToolingRoomManagement\obj\Debug\ToolingRoomManagement.csproj.CopyComplete
+F:\Projects\WebApp\ToolingRoomManagement\ToolingRoomManagement\obj\Debug\ToolingRoomManagement.dll
+F:\Projects\WebApp\ToolingRoomManagement\ToolingRoomManagement\obj\Debug\ToolingRoomManagement.pdb

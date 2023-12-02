@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="5c3a8314d1c746b884fac96c30e5a025" Name="Diagram1" ZoomLevel="103">
+        <EntityTypeShape EntityType="ToolingRoomModel.Product" Width="1.5" PointX="5.125" PointY="12.125" IsExpanded="false" />
+        <EntityTypeShape EntityType="ToolingRoomModel.Group" Width="1.5" PointX="5.125" PointY="11.625" IsExpanded="false" />
+        <EntityTypeShape EntityType="ToolingRoomModel.Model" Width="1.5" PointX="5.125" PointY="12.625" IsExpanded="false" />
+        <EntityTypeShape EntityType="ToolingRoomModel.Role" Width="1.5" PointX="9.5" PointY="1.375" IsExpanded="false" />
+        <EntityTypeShape EntityType="ToolingRoomModel.Station" Width="1.5" PointX="5.125" PointY="13.125" IsExpanded="false" />
+        <EntityTypeShape EntityType="ToolingRoomModel.User" Width="1.5" PointX="7.375" PointY="0.5" />
+        <EntityTypeShape EntityType="ToolingRoomModel.UserDepartment" Width="1.5" PointX="5.25" PointY="0.5" IsExpanded="false" />
+        <EntityTypeShape EntityType="ToolingRoomModel.UserRole" Width="1.5" PointX="9.5" PointY="0.5" IsExpanded="false" />
+        <EntityTypeShape EntityType="ToolingRoomModel.Vendor" Width="1.5" PointX="5.125" PointY="11.125" IsExpanded="false" />
+        <AssociationConnector Association="ToolingRoomModel.FK_UserRole_Role" />
+        <AssociationConnector Association="ToolingRoomModel.FK_UserDepartment_User" />
+        <AssociationConnector Association="ToolingRoomModel.FK_UserRole_User" />
+        <EntityTypeShape EntityType="ToolingRoomModel.Device" Width="1.625" PointX="7.25" PointY="8.875" />
+        <AssociationConnector Association="ToolingRoomModel.FK_Device_Group" />
+        <AssociationConnector Association="ToolingRoomModel.FK_Device_Model" />
+        <AssociationConnector Association="ToolingRoomModel.FK_Device_Product" />
+        <AssociationConnector Association="ToolingRoomModel.FK_Device_Station" />
+        <AssociationConnector Association="ToolingRoomModel.FK_Device_Vendor" />
+        <EntityTypeShape EntityType="ToolingRoomModel.BorrowDevice" Width="1.5" PointX="5.125" PointY="10.25" IsExpanded="false" />
+        <AssociationConnector Association="ToolingRoomModel.FK_BorrowDevice_Device" />
+        <EntityTypeShape EntityType="ToolingRoomModel.DeviceWarehouseLayout" Width="1.5" PointX="11" PointY="7.875" />
+        <AssociationConnector Association="ToolingRoomModel.FK_DeviceWarehouseLayout_Device" />
+        <EntityTypeShape EntityType="ToolingRoomModel.UserBorrowSign" Width="1.5" PointX="4.375" PointY="2.25" />
+        <AssociationConnector Association="ToolingRoomModel.FK_UserBorrowSign_User" />
+        <EntityTypeShape EntityType="ToolingRoomModel.WarehouseLayout" Width="1.5" PointX="11" PointY="4.75" />
+        <AssociationConnector Association="ToolingRoomModel.FK_DeviceWarehouseLayout_WarehouseLayout" />
+        <EntityTypeShape EntityType="ToolingRoomModel.Borrow" Width="1.5" PointX="4.125" PointY="5.625" />
+        <AssociationConnector Association="ToolingRoomModel.FK_Borrow_Model" />
+        <AssociationConnector Association="ToolingRoomModel.FK_Borrow_Station" />
+        <AssociationConnector Association="ToolingRoomModel.FK_Borrow_User" />
+        <AssociationConnector Association="ToolingRoomModel.FK_BorrowDevice_Borrow" />
+        <AssociationConnector Association="ToolingRoomModel.FK_UserBorrowSign_Borrow" />
+        <EntityTypeShape EntityType="ToolingRoomModel.HistoryUpdateDevice" Width="1.5" PointX="1.5" PointY="3.75" />
+        <EntityTypeShape EntityType="ToolingRoomModel.Warehouse" Width="1.5" PointX="7.375" PointY="4.875" />
+        <AssociationConnector Association="ToolingRoomModel.FK_Device_Warehouse" />
+        <AssociationConnector Association="ToolingRoomModel.FK_Warehouse_User" />
+        <AssociationConnector Association="ToolingRoomModel.FK_WarehouseLayout_Warehouse" />
+        <EntityTypeShape EntityType="ToolingRoomModel.DeviceUnconfirm" Width="1.75" PointX="1.75" PointY="9.375" />
+        <AssociationConnector Association="ToolingRoomModel.FK_DeviceUnconfirm_Group" />
+        <AssociationConnector Association="ToolingRoomModel.FK_DeviceUnconfirm_Model" />
+        <AssociationConnector Association="ToolingRoomModel.FK_DeviceUnconfirm_Product" />
+        <AssociationConnector Association="ToolingRoomModel.FK_DeviceUnconfirm_Station" />
+        <AssociationConnector Association="ToolingRoomModel.FK_DeviceUnconfirm_Vendor" />
+        <AssociationConnector Association="ToolingRoomModel.FK_DeviceUnconfirm_Warehouse" ManuallyRouted="false" >
+        </AssociationConnector>
+        <EntityTypeShape EntityType="ToolingRoomModel.Department" Width="1.5" PointX="5.25" PointY="1.25" IsExpanded="false" />
+        <AssociationConnector Association="ToolingRoomModel.FK_UserDepartment_Department" />
+        <EntityTypeShape EntityType="ToolingRoomModel.ReturnDevice" Width="1.5" PointX="10" PointY="10.75" />
+        <AssociationConnector Association="ToolingRoomModel.FK_ReturnDevice_Device" />
+        <EntityTypeShape EntityType="ToolingRoomModel.Return" Width="1.5" PointX="13.875" PointY="10" />
+        <AssociationConnector Association="ToolingRoomModel.FK_Return_Borrow" />
+        <AssociationConnector Association="ToolingRoomModel.FK_Return_User" />
+        <AssociationConnector Association="ToolingRoomModel.FK_ReturnDevice_Return" />
+        <EntityTypeShape EntityType="ToolingRoomModel.UserReturnSign" Width="1.5" PointX="14.125" PointY="5.5" />
+        <AssociationConnector Association="ToolingRoomModel.FK_UserReturnSign_Return" />
+        <AssociationConnector Association="ToolingRoomModel.FK_UserReturnSign_User" />
+        <EntityTypeShape EntityType="ToolingRoomModel.ComingDevice" Width="1.5" PointX="4.5" PointY="16" />
+        <AssociationConnector Association="ToolingRoomModel.FK_OnthewayDevice_Device" />
+        <AssociationConnector Association="ToolingRoomModel.FK_OnthewayDevice_DeviceUnconfirm" />
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

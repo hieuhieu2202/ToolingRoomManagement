@@ -1,0 +1,1254 @@
+2020-12-07T09:56:22.22--7:00 UpgradeUtils/StartAutoLog: ----------------------------------
+2020-12-07T09:56:22.22--7:00 UpgradeUtils/StartAutoLog: ----AutoLog started----
+2020-12-07T09:56:22.22--7:00 UpgradeUtils/StartAutoLog: 12/07/2020 9:56:22
+2020-12-07T09:56:22.22--7:00 UpgradeUtils/StartAutoLog: The autolog path is C:\Users\Admin\Documents\LotusInstall.log
+2020-12-07T09:56:22.22--7:00 UpgradeUtils/StartAutoLog: Install Status is Not Installed
+2020-12-07T09:56:22.22--7:00 UpgradeUtils/StartAutoLog: Exiting
+2020-12-07T09:56:22.22--7:00 UpgradeUtils/uiInitialize: Installed == False 
+2020-12-07T09:56:22.22--7:00 GetProperty Success: UpgradeUtils/IsUpgradeBuild (Line 2764) got 'AllClients,AllClients65,MUIAllClients,MUIAllClients65,MUIAllClientsCKT,MUI,zh-TW' for 'ISReleaseFlags' from MSI
+2020-12-07T09:56:22.22--7:00 Function IsUpgradeBuild: Release flags  FALSE   AllClients,AllClients65,MUIAllClients,MUIAllClients65,MUIAllClientsCKT,MUI,zh-TW
+2020-12-07T09:56:22.22--7:00 UpgradeUtils/SetInstallType: Entered
+2020-12-07T09:56:22.22--7:00 GetProperty Success: UpgradeUtils/SetInstallType (Line 3177) got 'AllClients,AllClients65,MUIAllClients,MUIAllClients65,MUIAllClientsCKT,MUI,zh-TW' for 'ISReleaseFlags' from MSI
+2020-12-07T09:56:22.22--7:00 SetProperty Success: UpgradeUtils/SetInstallType (Line 3189) set 'INSTALLTYPE' to 'AllClients' in MSI
+2020-12-07T09:56:22.22--7:00 SetProperty Success: UpgradeUtils/SetInstallType (Line 3190) set 'INSTALLTYPE' to 'AllClients' in registry
+2020-12-07T09:56:22.22--7:00 GetProperty Success: UpgradeUtils/SetInstallType (Line 3200) got 'AllClients' for 'INSTALLTYPE' from MSI
+2020-12-07T09:56:22.22--7:00 GetProperty Success: UpgradeUtils/SetInstallType (Line 3204) got 'AllClients' for 'INSTALLTYPE' from registry
+2020-12-07T09:56:22.22--7:00 UpgradeUtils/SetInstallType: Exiting
+2020-12-07T09:56:22.22--7:00 UpgradeUtils/SetPathsFromRegistry: No previously registered Notes install found.
+2020-12-07T09:56:22.22--7:00 UpgradeUtils/uiInitialize: No previous installation detected. 
+2020-12-07T09:56:22.22--7:00 GetProperty Success: UpgradeUtils/SetProgramFolderToProgramFolderVar (Line 6708) got 'C:\program files\lotus\notes' for 'PROGDIR' from MSI
+2020-12-07T09:56:22.22--7:00 UpgradeUtils/SetProgramFolderToProgramFolderVar: ProgramFiles EnvC:\Program Files (x86)
+2020-12-07T09:56:22.22--7:00 SetProperty Success: UpgradeUtils/SetProgramFolderToProgramFolderVar (Line 6724) set 'PROGDIR' to 'C:\Program Files (x86)\lotus\notes' in MSI
+2020-12-07T09:56:22.22--7:00 UpgradeUtils/SetProgramFolderToProgramFolderVar: ProgramFiles Env to property tableC:\Program Files (x86)\lotus\notes
+2020-12-07T09:56:22.22--7:00 GetProperty Success: UpgradeUtils/SetProgramFolderToProgramFolderVar (Line 6727) got 'C:\program files\lotus\notes\data' for 'DATADIR' from MSI
+2020-12-07T09:56:22.22--7:00 SetProperty Success: UpgradeUtils/SetProgramFolderToProgramFolderVar (Line 6733) set 'DATADIR' to 'C:\Program Files (x86)\lotus\notes\data' in MSI
+2020-12-07T09:56:22.22--7:00 UpgradeUtils/SetProgramFolderToProgramFolderVar: ProgramFiles Env to property tableC:\Program Files (x86)\lotus\notes\data
+2020-12-07T09:56:22.22--7:00 UpgradeUtils/IsInstallFromAdminImage: Entered
+2020-12-07T09:56:22.22--7:00 GetProperty Success: UpgradeUtils/IsInstallFromAdminImage (Line 2613) got '' for 'IsAdminPackage' from MSI
+2020-12-07T09:56:22.22--7:00 UpgradeUtils/IsInstallFromAdminImage: IsAdminPackage returned: 
+2020-12-07T09:56:22.22--7:00 UpgradeUtils/IsInstallFromAdminImage: This install is NOT from an Admin image
+2020-12-07T09:56:22.22--7:00 UpgradeUtils/IsInstallFromAdminImage: Exiting
+2020-12-07T09:56:22.22--7:00 GetProperty Success: UpgradeUtils/uiInitialize (Line 1328) got '' for 'SHAREDINSTALL' from MSI
+2020-12-07T09:56:22.22--7:00 GetProperty Success: UpgradeUtils/INTL_IsMuiIns (Line 4482) got 'AllClients,AllClients65,MUIAllClients,MUIAllClients65,MUIAllClientsCKT,MUI,zh-TW' for 'ISReleaseFlags' from MSI
+2020-12-07T09:56:22.22--7:00 Function INTL_IsMuiIns: Release flags TRUE  AllClients,AllClients65,MUIAllClients,MUIAllClients65,MUIAllClientsCKT,MUI,zh-TW
+2020-12-07T09:56:22.22--7:00 UpgradeUtils/IsUninstall: Entered
+2020-12-07T09:56:22.22--7:00 GetProperty Success: UpgradeUtils/IsUninstall (Line 2714) got '' for 'REMOVE' from MSI
+2020-12-07T09:56:22.22--7:00 UpgradeUtils/IsUninstall: This is NOT an uninstall
+2020-12-07T09:56:22.22--7:00 UpgradeUtils/IsUninstall: Exiting
+2020-12-07T09:56:22.22--7:00 SUCCESS:: UpgradeUtils/INTL_RecoverUSFeatureState (Line 7345): Call 'MsiDatabaseOpenView' for 'RecoverUSFeatureState' succeeded
+2020-12-07T09:56:22.22--7:00 SUCCESS:: UpgradeUtils/INTL_RecoverUSFeatureState (Line 7348): Call 'MsiViewExecute' for 'RecoverUSFeatureState' succeeded
+2020-12-07T09:56:22.22--7:00 SUCCESS:: UpgradeUtils/INTL_RecoverUSFeatureState (Line 7351): Call 'MsiViewFetch' for 'RecoverUSFeatureState' succeeded
+2020-12-07T09:56:34.34--7:00 UpgradeUtils/UI_SetProperties: Entered
+2020-12-07T09:56:34.34--7:00 GetProperty Success: UpgradeUtils/UI_SetProperties (Line 1935) got '' for 'PATCH' from MSI
+2020-12-07T09:56:34.34--7:00 GetProperty Success: UpgradeUtils/UI_SetProperties (Line 1943) got 'OnlyCurrentUser' for 'ApplicationUsers' from MSI
+2020-12-07T09:56:34.34--7:00 SetProperty Success: UpgradeUtils/UI_SetProperties (Line 1945) set 'ApplicationUsers' to 'OnlyCurrentUser' in registry
+2020-12-07T09:56:34.34--7:00 GetProperty Success: UpgradeUtils/UI_SetProperties (Line 1949) got '' for 'REMOVE' from MSI
+2020-12-07T09:56:34.34--7:00 SetProperty Success: UpgradeUtils/UI_SetProperties (Line 1957) set 'Uninstalling' to 'No' in registry
+2020-12-07T09:56:34.34--7:00 GetProperty Success: UpgradeUtils/UI_SetProperties (Line 1962) got 'C:\Program Files (x86)\lotus\notes\' for 'PROGDIR' from MSI
+2020-12-07T09:56:34.34--7:00 SetTargetPath Success: UpgradeUtils/UI_SetProperties (Line 1963) set target path 'INSTALLDIR' to 'C:\Program Files (x86)\lotus\notes\'
+2020-12-07T09:56:34.34--7:00 SetProperty Success: UpgradeUtils/UI_SetProperties (Line 1966) set 'PROGDIR' to 'C:\Program Files (x86)\lotus\notes\' in registry
+2020-12-07T09:56:34.34--7:00 GetProperty Success: UpgradeUtils/UI_SetProperties (Line 1970) got 'C:\Program Files (x86)\Lotus\Notes\' for 'INSTALLDIR' from MSI
+2020-12-07T09:56:34.34--7:00 GetProperty Success: UpgradeUtils/UI_SetProperties (Line 1974) got 'C:\Program Files (x86)\lotus\notes\data\' for 'DATADIR' from MSI
+2020-12-07T09:56:34.34--7:00 SetProperty Success: UpgradeUtils/UI_SetProperties (Line 1975) set 'DATADIR' to 'C:\Program Files (x86)\lotus\notes\data\' in registry
+2020-12-07T09:56:34.34--7:00 GetProperty Success: UpgradeUtils/UI_SetProperties (Line 1978) got '0' for 'NOTESWORKSWITH' from MSI
+2020-12-07T09:56:34.34--7:00 SetProperty Success: UpgradeUtils/UI_SetProperties (Line 1979) set 'NOTESWORKSWITH' to '0' in registry
+2020-12-07T09:56:34.34--7:00 GetProperty Success: UpgradeUtils/UI_SetProperties (Line 1983) got '\\10.224.69.84\vn-file\OA\Lotus\Lotus6.52Tw\' for 'SOURCEDIR' from MSI
+2020-12-07T09:56:34.34--7:00 SetProperty Success: UpgradeUtils/UI_SetProperties (Line 1984) set 'SourceDir' to '\\10.224.69.84\vn-file\OA\Lotus\Lotus6.52Tw\' in registry
+2020-12-07T09:56:34.34--7:00 GetProperty Success: UpgradeUtils/UI_SetProperties (Line 1988) got '1' for 'USENOTESFOREMAIL' from MSI
+2020-12-07T09:56:34.34--7:00 SetProperty Success: UpgradeUtils/UI_SetProperties (Line 1989) set 'USENOTESFOREMAIL' to '1' in registry
+2020-12-07T09:56:34.34--7:00 GetProperty Success: UpgradeUtils/UI_SetProperties (Line 1996) got '' for 'NOTESDATAPATH' from MSI
+2020-12-07T09:56:34.34--7:00 SetProperty Success: UpgradeUtils/UI_SetProperties (Line 1997) set 'NOTESDATAPATH' to '' in registry
+2020-12-07T09:56:34.34--7:00 GetProperty Success: UpgradeUtils/UI_SetProperties (Line 2000) got '' for 'NOTESDATAPATH50' from MSI
+2020-12-07T09:56:34.34--7:00 SetProperty Success: UpgradeUtils/UI_SetProperties (Line 2001) set 'NOTESDATAPATH50' to '' in registry
+2020-12-07T09:56:34.34--7:00 GetProperty Success: UpgradeUtils/UI_SetProperties (Line 2004) got '' for 'NOTESDATAPATH60' from MSI
+2020-12-07T09:56:34.34--7:00 SetProperty Success: UpgradeUtils/UI_SetProperties (Line 2005) set 'NOTESDATAPATH60' to '' in registry
+2020-12-07T09:56:34.34--7:00 GetProperty Success: UpgradeUtils/UI_SetProperties (Line 2008) got '' for 'NOTESMULTIUSER' from MSI
+2020-12-07T09:56:34.34--7:00 SetProperty Success: UpgradeUtils/UI_SetProperties (Line 2009) set 'NOTESMULTIUSER' to '' in registry
+2020-12-07T09:56:34.34--7:00 GetProperty Success: UpgradeUtils/UI_SetProperties (Line 2012) got '' for 'NOTESMULTIUSER50' from MSI
+2020-12-07T09:56:34.34--7:00 SetProperty Success: UpgradeUtils/UI_SetProperties (Line 2013) set 'NOTESMULTIUSER50' to '' in registry
+2020-12-07T09:56:34.34--7:00 GetProperty Success: UpgradeUtils/UI_SetProperties (Line 2016) got '' for 'NOTESMULTIUSER60' from MSI
+2020-12-07T09:56:34.34--7:00 SetProperty Success: UpgradeUtils/UI_SetProperties (Line 2017) set 'NOTESMULTIUSER60' to '' in registry
+2020-12-07T09:56:34.34--7:00 GetProperty Success: UpgradeUtils/UI_SetProperties (Line 2020) got '' for 'NOTESPATH' from MSI
+2020-12-07T09:56:34.34--7:00 SetProperty Success: UpgradeUtils/UI_SetProperties (Line 2021) set 'NOTESPATH' to '' in registry
+2020-12-07T09:56:34.34--7:00 GetProperty Success: UpgradeUtils/UI_SetProperties (Line 2024) got '' for 'NOTESPATH50' from MSI
+2020-12-07T09:56:34.34--7:00 SetProperty Success: UpgradeUtils/UI_SetProperties (Line 2025) set 'NOTESPATH50' to '' in registry
+2020-12-07T09:56:34.34--7:00 GetProperty Success: UpgradeUtils/UI_SetProperties (Line 2028) got '' for 'NOTESPATH60' from MSI
+2020-12-07T09:56:34.34--7:00 SetProperty Success: UpgradeUtils/UI_SetProperties (Line 2029) set 'NOTESPATH60' to '' in registry
+2020-12-07T09:56:34.34--7:00 GetProperty Success: UpgradeUtils/UI_SetProperties (Line 2032) got '' for 'MULTIUSERINIPATHNOTES60' from MSI
+2020-12-07T09:56:34.34--7:00 SetProperty Success: UpgradeUtils/UI_SetProperties (Line 2033) set 'MULTIUSERINIPATHNOTES60' to '' in registry
+2020-12-07T09:56:34.34--7:00 GetProperty Success: UpgradeUtils/UI_SetProperties (Line 2036) got '' for 'MULTIUSERINIPATHNOTES50' from MSI
+2020-12-07T09:56:34.34--7:00 SetProperty Success: UpgradeUtils/UI_SetProperties (Line 2037) set 'MULTIUSERINIPATHNOTES50' to '' in registry
+2020-12-07T09:56:34.34--7:00 GetProperty Success: UpgradeUtils/UI_SetProperties (Line 2040) got '' for 'MULTIUSERINIPATHNOTES' from MSI
+2020-12-07T09:56:34.34--7:00 SetProperty Success: UpgradeUtils/UI_SetProperties (Line 2041) set 'MULTIUSERINIPATHNOTES' to '' in registry
+2020-12-07T09:56:34.34--7:00 GetProperty Success: UpgradeUtils/UI_SetProperties (Line 2044) got '' for 'NOTESPATH40' from MSI
+2020-12-07T09:56:34.34--7:00 SetProperty Success: UpgradeUtils/UI_SetProperties (Line 2045) set 'NOTESPATH40' to '' in registry
+2020-12-07T09:56:34.34--7:00 GetProperty Success: UpgradeUtils/UI_SetProperties (Line 2048) got '' for 'NOTESDATAPATH40' from MSI
+2020-12-07T09:56:34.34--7:00 SetProperty Success: UpgradeUtils/UI_SetProperties (Line 2049) set 'NOTESDATAPATH40' to '' in registry
+2020-12-07T09:56:34.34--7:00 GetProperty Success: UpgradeUtils/UI_SetProperties (Line 2052) got '' for 'EMAILPROGRAM' from MSI
+2020-12-07T09:56:34.34--7:00 SetProperty Success: UpgradeUtils/UI_SetProperties (Line 2053) set 'EMAILPROGRAM' to '' in registry
+2020-12-07T09:56:34.34--7:00 GetProperty Success: UpgradeUtils/UI_SetProperties (Line 2056) got 'RDPNP,LanmanWorkstation,webclient' for 'NETWORKPROVORDER' from MSI
+2020-12-07T09:56:34.34--7:00 SetProperty Success: UpgradeUtils/UI_SetProperties (Line 2057) set 'NETWORKPROVORDER' to 'RDPNP,LanmanWorkstation,webclient' in registry
+2020-12-07T09:56:34.34--7:00 GetProperty Success: UpgradeUtils/INTL_IsMuiIns (Line 4482) got 'AllClients,AllClients65,MUIAllClients,MUIAllClients65,MUIAllClientsCKT,MUI,zh-TW' for 'ISReleaseFlags' from MSI
+2020-12-07T09:56:34.34--7:00 Function INTL_IsMuiIns: Release flags TRUE  AllClients,AllClients65,MUIAllClients,MUIAllClients65,MUIAllClientsCKT,MUI,zh-TW
+2020-12-07T09:56:34.34--7:00 PAUL->: Is Mui installIs Mui install
+2020-12-07T09:56:34.34--7:00 GetProperty Success: UpgradeUtils/UI_SetProperties (Line 2066) got 'AllClients,AllClients65,MUIAllClients,MUIAllClients65,MUIAllClientsCKT,MUI,zh-TW' for 'ISReleaseFlags' from MSI
+2020-12-07T09:56:34.34--7:00 GetProperty Success: UpgradeUtils/INTL_MuiInstallGetLang (Line 4534) got 'AllClients,AllClients65,MUIAllClients,MUIAllClients65,MUIAllClientsCKT,MUI,zh-TW' for 'ISReleaseFlags' from MSI
+2020-12-07T09:56:34.34--7:00 UpgradeUtils/UI_SetProperties:  MUI Install  is zh-TW
+2020-12-07T09:56:34.34--7:00 GetTargetPath Success: UpgradeUtils/UI_SetProperties (Line 2073) got 'C:\Program Files (x86)\Lotus\Notes\' for target path 'INSTALLDIR'
+2020-12-07T09:56:34.34--7:00 SetTargetPath Success: UpgradeUtils/UI_SetProperties (Line 2080) set target path 'MUIFOLDER' to 'C:\Program Files (x86)\Lotus\Notes\mui\zh-TW'
+2020-12-07T09:56:34.34--7:00 GetTargetPath Success: UpgradeUtils/UI_SetProperties (Line 2082) got 'C:\Program Files (x86)\lotus\notes\mui\zh-TW\' for target path 'MUIFOLDER'
+2020-12-07T09:56:34.34--7:00 SetProperty Success: UpgradeUtils/UI_SetProperties (Line 2083) set 'MUIFOLDER' to 'C:\Program Files (x86)\lotus\notes\mui\zh-TW\' in registry
+2020-12-07T09:56:34.34--7:00 SetProperty Success: UpgradeUtils/UI_SetProperties (Line 2086) set 'MUI_ISO' to 'zh-TW' in MSI
+2020-12-07T09:56:34.34--7:00 SetProperty Success: UpgradeUtils/UI_SetProperties (Line 2087) set 'MUI_ISO' to 'zh-TW' in registry
+2020-12-07T09:56:34.34--7:00 SetProperty Success: UpgradeUtils/UI_SetProperties (Line 2088) set 'ISMUI' to '1' in registry
+2020-12-07T09:56:34.34--7:00 UpgradeUtils/UI_SetProperties: Exiting
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/SetInstallType: Entered
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/SetInstallType (Line 3177) got 'AllClients,AllClients65,MUIAllClients,MUIAllClients65,MUIAllClientsCKT,MUI,zh-TW' for 'ISReleaseFlags' from MSI
+2020-12-07T09:56:35.35--7:00 SetProperty Success: UpgradeUtils/SetInstallType (Line 3189) set 'INSTALLTYPE' to 'AllClients' in MSI
+2020-12-07T09:56:35.35--7:00 SetProperty Success: UpgradeUtils/SetInstallType (Line 3190) set 'INSTALLTYPE' to 'AllClients' in registry
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/SetInstallType (Line 3200) got 'AllClients' for 'INSTALLTYPE' from MSI
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/SetInstallType (Line 3204) got 'AllClients' for 'INSTALLTYPE' from registry
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/SetInstallType: Exiting
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/GetInstallType: Entered
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/GetInstallType (Line 2379) got 'AllClients' for 'INSTALLTYPE' from registry
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/GetInstallType: InstallType is AllClients
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/GetInstallType: Exiting
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/GetInstallType: Entered
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/GetInstallType (Line 2379) got 'AllClients' for 'INSTALLTYPE' from registry
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/GetInstallType: InstallType is AllClients
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/GetInstallType: Exiting
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/INTL_IsMuiIns (Line 4482) got 'AllClients,AllClients65,MUIAllClients,MUIAllClients65,MUIAllClientsCKT,MUI,zh-TW' for 'ISReleaseFlags' from MSI
+2020-12-07T09:56:35.35--7:00 Function INTL_IsMuiIns: Release flags TRUE  AllClients,AllClients65,MUIAllClients,MUIAllClients65,MUIAllClientsCKT,MUI,zh-TW
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/INTL_IsMuiIns (Line 4482) got 'AllClients,AllClients65,MUIAllClients,MUIAllClients65,MUIAllClientsCKT,MUI,zh-TW' for 'ISReleaseFlags' from MSI
+2020-12-07T09:56:35.35--7:00 Function INTL_IsMuiIns: Release flags TRUE  AllClients,AllClients65,MUIAllClients,MUIAllClients65,MUIAllClientsCKT,MUI,zh-TW
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/INTL_MuiInstallGetLang (Line 4534) got 'AllClients,AllClients65,MUIAllClients,MUIAllClients65,MUIAllClientsCKT,MUI,zh-TW' for 'ISReleaseFlags' from MSI
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6823): Call 'MsiDatabaseOpenView' for 'IntlClientUpgradeCodes' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6833): Call 'MsiDatabaseOpenView' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6838): Call 'MsiViewExecute' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6841): Call 'MsiViewFetch' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 from IntlClientUpgradeCodes -> Upgrade code ->: {7F71AA5B-AB81-41E9-9541-B910C83CDAA3}
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6865): Call 'MsiRecordSetString' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6874): Call 'MsiRecordSetString' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6882): Call 'MsiRecordSetString' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6890): Call 'MsiRecordSetString' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6898): Call 'MsiRecordSetInteger' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6906): Call 'MsiRecordSetString' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 Writing to Action Col -> : OPDPRODUCTS_1UpgradeUtils/UpDateGradeTable
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6920): Call 'MsiRecordSetString ActionProperty' for 'OPDPRODUCTS_1' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6927): Call ' MSIMODIFY_INSERT_TEMPORARY' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 from IntlClientUpgradeCodes -> Upgrade code ->: {790887DC-1465-4DC2-B000-AA473DD986DA}
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6865): Call 'MsiRecordSetString' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6874): Call 'MsiRecordSetString' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6882): Call 'MsiRecordSetString' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6890): Call 'MsiRecordSetString' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6898): Call 'MsiRecordSetInteger' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6906): Call 'MsiRecordSetString' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 Writing to Action Col -> : OPDPRODUCTS_2UpgradeUtils/UpDateGradeTable
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6920): Call 'MsiRecordSetString ActionProperty' for 'OPDPRODUCTS_2' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6927): Call ' MSIMODIFY_INSERT_TEMPORARY' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 from IntlClientUpgradeCodes -> Upgrade code ->: {7ED2D232-22D1-4140-AC75-8F0023C3A768}
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6865): Call 'MsiRecordSetString' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6874): Call 'MsiRecordSetString' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6882): Call 'MsiRecordSetString' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6890): Call 'MsiRecordSetString' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6898): Call 'MsiRecordSetInteger' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6906): Call 'MsiRecordSetString' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 Writing to Action Col -> : OPDPRODUCTS_3UpgradeUtils/UpDateGradeTable
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6920): Call 'MsiRecordSetString ActionProperty' for 'OPDPRODUCTS_3' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6927): Call ' MSIMODIFY_INSERT_TEMPORARY' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 from IntlClientUpgradeCodes -> Upgrade code ->: {7D43005C-A1B1-450A-9B5A-8E08A5738BE5}
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6865): Call 'MsiRecordSetString' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6874): Call 'MsiRecordSetString' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6882): Call 'MsiRecordSetString' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6890): Call 'MsiRecordSetString' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6898): Call 'MsiRecordSetInteger' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6906): Call 'MsiRecordSetString' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 Writing to Action Col -> : OPDPRODUCTS_4UpgradeUtils/UpDateGradeTable
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6920): Call 'MsiRecordSetString ActionProperty' for 'OPDPRODUCTS_4' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6927): Call ' MSIMODIFY_INSERT_TEMPORARY' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 from IntlClientUpgradeCodes -> Upgrade code ->: {1840F4F0-33F0-4388-BFBD-1B8830AEFF78}
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6865): Call 'MsiRecordSetString' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6874): Call 'MsiRecordSetString' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6882): Call 'MsiRecordSetString' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6890): Call 'MsiRecordSetString' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6898): Call 'MsiRecordSetInteger' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6906): Call 'MsiRecordSetString' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 Writing to Action Col -> : OPDPRODUCTS_5UpgradeUtils/UpDateGradeTable
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6920): Call 'MsiRecordSetString ActionProperty' for 'OPDPRODUCTS_5' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6927): Call ' MSIMODIFY_INSERT_TEMPORARY' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 from IntlClientUpgradeCodes -> Upgrade code ->: {FDE7FA8C-D9F9-40FD-8C2A-2F80552C6B24}
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6865): Call 'MsiRecordSetString' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6874): Call 'MsiRecordSetString' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6882): Call 'MsiRecordSetString' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6890): Call 'MsiRecordSetString' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6898): Call 'MsiRecordSetInteger' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6906): Call 'MsiRecordSetString' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 Writing to Action Col -> : OPDPRODUCTS_6UpgradeUtils/UpDateGradeTable
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6920): Call 'MsiRecordSetString ActionProperty' for 'OPDPRODUCTS_6' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6927): Call ' MSIMODIFY_INSERT_TEMPORARY' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 from IntlClientUpgradeCodes -> Upgrade code ->: {CEBCD43D-9C44-4DE2-BA9F-117B0509ACA3}
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6865): Call 'MsiRecordSetString' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6874): Call 'MsiRecordSetString' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6882): Call 'MsiRecordSetString' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6890): Call 'MsiRecordSetString' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6898): Call 'MsiRecordSetInteger' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6906): Call 'MsiRecordSetString' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 Writing to Action Col -> : OPDPRODUCTS_7UpgradeUtils/UpDateGradeTable
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6920): Call 'MsiRecordSetString ActionProperty' for 'OPDPRODUCTS_7' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6927): Call ' MSIMODIFY_INSERT_TEMPORARY' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 from IntlClientUpgradeCodes -> Upgrade code ->: {CA300124-CA1A-481E-9F2A-9B806F83CBAE}
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6865): Call 'MsiRecordSetString' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6874): Call 'MsiRecordSetString' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6882): Call 'MsiRecordSetString' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6890): Call 'MsiRecordSetString' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6898): Call 'MsiRecordSetInteger' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6906): Call 'MsiRecordSetString' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 Writing to Action Col -> : OPDPRODUCTS_8UpgradeUtils/UpDateGradeTable
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6920): Call 'MsiRecordSetString ActionProperty' for 'OPDPRODUCTS_8' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6927): Call ' MSIMODIFY_INSERT_TEMPORARY' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 from IntlClientUpgradeCodes -> Upgrade code ->: {47C4C0CA-8D9F-4C0E-A12E-DBAD523DA6AA}
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6865): Call 'MsiRecordSetString' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6874): Call 'MsiRecordSetString' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6882): Call 'MsiRecordSetString' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6890): Call 'MsiRecordSetString' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6898): Call 'MsiRecordSetInteger' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6906): Call 'MsiRecordSetString' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 Writing to Action Col -> : OPDPRODUCTS_9UpgradeUtils/UpDateGradeTable
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6920): Call 'MsiRecordSetString ActionProperty' for 'OPDPRODUCTS_9' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6927): Call ' MSIMODIFY_INSERT_TEMPORARY' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 from IntlClientUpgradeCodes -> Upgrade code ->: {09175872-711E-42FA-8066-A6A2A399B356}
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6865): Call 'MsiRecordSetString' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6874): Call 'MsiRecordSetString' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6882): Call 'MsiRecordSetString' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6890): Call 'MsiRecordSetString' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6898): Call 'MsiRecordSetInteger' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6906): Call 'MsiRecordSetString' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 Writing to Action Col -> : OPDPRODUCTS_10UpgradeUtils/UpDateGradeTable
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6920): Call 'MsiRecordSetString ActionProperty' for 'OPDPRODUCTS_10' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6927): Call ' MSIMODIFY_INSERT_TEMPORARY' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 from IntlClientUpgradeCodes -> Upgrade code ->: {16347247-F1E8-4801-9715-06B0D7C8DA86}
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6865): Call 'MsiRecordSetString' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6874): Call 'MsiRecordSetString' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6882): Call 'MsiRecordSetString' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6890): Call 'MsiRecordSetString' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6898): Call 'MsiRecordSetInteger' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6906): Call 'MsiRecordSetString' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 Writing to Action Col -> : OPDPRODUCTS_11UpgradeUtils/UpDateGradeTable
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6920): Call 'MsiRecordSetString ActionProperty' for 'OPDPRODUCTS_11' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6927): Call ' MSIMODIFY_INSERT_TEMPORARY' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 from IntlClientUpgradeCodes -> Upgrade code ->: {4A29A115-4A56-44BD-A2EB-A2570422A067}
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6865): Call 'MsiRecordSetString' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6874): Call 'MsiRecordSetString' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6882): Call 'MsiRecordSetString' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6890): Call 'MsiRecordSetString' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6898): Call 'MsiRecordSetInteger' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6906): Call 'MsiRecordSetString' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 Writing to Action Col -> : OPDPRODUCTS_12UpgradeUtils/UpDateGradeTable
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6920): Call 'MsiRecordSetString ActionProperty' for 'OPDPRODUCTS_12' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6927): Call ' MSIMODIFY_INSERT_TEMPORARY' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 from IntlClientUpgradeCodes -> Upgrade code ->: {9FFC5AB2-531C-47D5-8AAF-DC5B431D96F1}
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6865): Call 'MsiRecordSetString' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6874): Call 'MsiRecordSetString' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6882): Call 'MsiRecordSetString' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6890): Call 'MsiRecordSetString' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6898): Call 'MsiRecordSetInteger' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6906): Call 'MsiRecordSetString' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 Writing to Action Col -> : OPDPRODUCTS_13UpgradeUtils/UpDateGradeTable
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6920): Call 'MsiRecordSetString ActionProperty' for 'OPDPRODUCTS_13' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6927): Call ' MSIMODIFY_INSERT_TEMPORARY' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 from IntlClientUpgradeCodes -> Upgrade code ->: {9DD58880-B13D-4122-9CA5-FCB43C861D01}
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6865): Call 'MsiRecordSetString' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6874): Call 'MsiRecordSetString' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6882): Call 'MsiRecordSetString' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6890): Call 'MsiRecordSetString' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6898): Call 'MsiRecordSetInteger' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6906): Call 'MsiRecordSetString' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 Writing to Action Col -> : OPDPRODUCTS_14UpgradeUtils/UpDateGradeTable
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6920): Call 'MsiRecordSetString ActionProperty' for 'OPDPRODUCTS_14' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6927): Call ' MSIMODIFY_INSERT_TEMPORARY' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 from IntlClientUpgradeCodes -> Upgrade code ->: {9CEE0205-F399-4A14-B21E-4E4C6537A263}
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6865): Call 'MsiRecordSetString' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6874): Call 'MsiRecordSetString' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6882): Call 'MsiRecordSetString' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6890): Call 'MsiRecordSetString' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6898): Call 'MsiRecordSetInteger' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6906): Call 'MsiRecordSetString' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 Writing to Action Col -> : OPDPRODUCTS_15UpgradeUtils/UpDateGradeTable
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6920): Call 'MsiRecordSetString ActionProperty' for 'OPDPRODUCTS_15' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6927): Call ' MSIMODIFY_INSERT_TEMPORARY' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 from IntlClientUpgradeCodes -> Upgrade code ->: {E78A21D1-6543-4750-9A76-B3C801E0A5DE}
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6865): Call 'MsiRecordSetString' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6874): Call 'MsiRecordSetString' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6882): Call 'MsiRecordSetString' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6890): Call 'MsiRecordSetString' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6898): Call 'MsiRecordSetInteger' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6906): Call 'MsiRecordSetString' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 Writing to Action Col -> : OPDPRODUCTS_16UpgradeUtils/UpDateGradeTable
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6920): Call 'MsiRecordSetString ActionProperty' for 'OPDPRODUCTS_16' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6927): Call ' MSIMODIFY_INSERT_TEMPORARY' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 from IntlClientUpgradeCodes -> Upgrade code ->: {0D6DBB98-97E5-4BD5-B727-640E94EB7614}
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6865): Call 'MsiRecordSetString' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6874): Call 'MsiRecordSetString' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6882): Call 'MsiRecordSetString' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6890): Call 'MsiRecordSetString' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6898): Call 'MsiRecordSetInteger' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6906): Call 'MsiRecordSetString' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 Writing to Action Col -> : OPDPRODUCTS_17UpgradeUtils/UpDateGradeTable
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6920): Call 'MsiRecordSetString ActionProperty' for 'OPDPRODUCTS_17' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6927): Call ' MSIMODIFY_INSERT_TEMPORARY' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 from IntlClientUpgradeCodes -> Upgrade code ->: {3468DDE9-53E5-4437-B3BA-A0D2D95ACE14}
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6865): Call 'MsiRecordSetString' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6874): Call 'MsiRecordSetString' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6882): Call 'MsiRecordSetString' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6890): Call 'MsiRecordSetString' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6898): Call 'MsiRecordSetInteger' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6906): Call 'MsiRecordSetString' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 Writing to Action Col -> : OPDPRODUCTS_18UpgradeUtils/UpDateGradeTable
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6920): Call 'MsiRecordSetString ActionProperty' for 'OPDPRODUCTS_18' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6927): Call ' MSIMODIFY_INSERT_TEMPORARY' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 from IntlClientUpgradeCodes -> Upgrade code ->: {C6813137-8B24-43F6-89C2-C5134C2DB883}
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6865): Call 'MsiRecordSetString' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6874): Call 'MsiRecordSetString' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6882): Call 'MsiRecordSetString' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6890): Call 'MsiRecordSetString' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6898): Call 'MsiRecordSetInteger' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6906): Call 'MsiRecordSetString' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 Writing to Action Col -> : OPDPRODUCTS_19UpgradeUtils/UpDateGradeTable
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6920): Call 'MsiRecordSetString ActionProperty' for 'OPDPRODUCTS_19' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6927): Call ' MSIMODIFY_INSERT_TEMPORARY' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 from IntlClientUpgradeCodes -> Upgrade code ->: {4B254269-0404-456C-97B3-5967270E0631}
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6865): Call 'MsiRecordSetString' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6874): Call 'MsiRecordSetString' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6882): Call 'MsiRecordSetString' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6890): Call 'MsiRecordSetString' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6898): Call 'MsiRecordSetInteger' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6906): Call 'MsiRecordSetString' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 Writing to Action Col -> : OPDPRODUCTS_20UpgradeUtils/UpDateGradeTable
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6920): Call 'MsiRecordSetString ActionProperty' for 'OPDPRODUCTS_20' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6927): Call ' MSIMODIFY_INSERT_TEMPORARY' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 from IntlClientUpgradeCodes -> Upgrade code ->: {B2974E48-F904-45C0-A5AC-452F2C64EF1D}
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6865): Call 'MsiRecordSetString' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6874): Call 'MsiRecordSetString' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6882): Call 'MsiRecordSetString' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6890): Call 'MsiRecordSetString' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6898): Call 'MsiRecordSetInteger' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6906): Call 'MsiRecordSetString' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 Writing to Action Col -> : OPDPRODUCTS_21UpgradeUtils/UpDateGradeTable
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6920): Call 'MsiRecordSetString ActionProperty' for 'OPDPRODUCTS_21' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6927): Call ' MSIMODIFY_INSERT_TEMPORARY' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 from IntlClientUpgradeCodes -> Upgrade code ->: {210373B1-1EED-4F74-8E9C-D43B9C5391BA}
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6865): Call 'MsiRecordSetString' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6874): Call 'MsiRecordSetString' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6882): Call 'MsiRecordSetString' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6890): Call 'MsiRecordSetString' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6898): Call 'MsiRecordSetInteger' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6906): Call 'MsiRecordSetString' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 Writing to Action Col -> : OPDPRODUCTS_22UpgradeUtils/UpDateGradeTable
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6920): Call 'MsiRecordSetString ActionProperty' for 'OPDPRODUCTS_22' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6927): Call ' MSIMODIFY_INSERT_TEMPORARY' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 from IntlClientUpgradeCodes -> Upgrade code ->: {6168414E-10A0-4B84-8016-0A4A5BA7BACE}
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6865): Call 'MsiRecordSetString' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6874): Call 'MsiRecordSetString' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6882): Call 'MsiRecordSetString' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6890): Call 'MsiRecordSetString' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6898): Call 'MsiRecordSetInteger' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6906): Call 'MsiRecordSetString' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 Writing to Action Col -> : OPDPRODUCTS_23UpgradeUtils/UpDateGradeTable
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6920): Call 'MsiRecordSetString ActionProperty' for 'OPDPRODUCTS_23' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6927): Call ' MSIMODIFY_INSERT_TEMPORARY' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 from IntlClientUpgradeCodes -> Upgrade code ->: {5D08A267-A103-42C4-BF84-A86AB03E3D2B}
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6865): Call 'MsiRecordSetString' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6874): Call 'MsiRecordSetString' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6882): Call 'MsiRecordSetString' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6890): Call 'MsiRecordSetString' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6898): Call 'MsiRecordSetInteger' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6906): Call 'MsiRecordSetString' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 Writing to Action Col -> : OPDPRODUCTS_24UpgradeUtils/UpDateGradeTable
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6920): Call 'MsiRecordSetString ActionProperty' for 'OPDPRODUCTS_24' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6927): Call ' MSIMODIFY_INSERT_TEMPORARY' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 from IntlClientUpgradeCodes -> Upgrade code ->: {CBE07EE5-201E-4AB9-B02C-7480FE91A883}
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6865): Call 'MsiRecordSetString' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6874): Call 'MsiRecordSetString' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6882): Call 'MsiRecordSetString' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6890): Call 'MsiRecordSetString' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6898): Call 'MsiRecordSetInteger' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6906): Call 'MsiRecordSetString' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 Writing to Action Col -> : OPDPRODUCTS_25UpgradeUtils/UpDateGradeTable
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6920): Call 'MsiRecordSetString ActionProperty' for 'OPDPRODUCTS_25' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/UpDateGradeTable (Line 6927): Call ' MSIMODIFY_INSERT_TEMPORARY' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 GetProperty Success: szMsgPrefix (Line 7066) got 'ACTIONPROPERTY;OLDPRODUCTS' for 'SecureCustomProperties' from MSI
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/DumpUpDateGradeTable (Line 7110): Call 'MsiDatabaseOpenView' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/DumpUpDateGradeTable (Line 7113): Call 'MsiViewExecute' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/DumpUpDateGradeTable (Line 7116): Call 'MsiViewFetch' for 'Upgrade' succeeded
+2020-12-07T09:56:35.35--7:00 ******: ACTIONPROPERTY
+2020-12-07T09:56:35.35--7:00 ******: OLDPRODUCTS
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpUpDateGradeTable: Adding to securecustomactions property
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpUpDateGradeTable: ACTIONPROPERTY;OLDPRODUCTS;OPDPRODUCTS_2
+2020-12-07T09:56:35.35--7:00 ******: OPDPRODUCTS_2
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpUpDateGradeTable: Adding to securecustomactions property
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpUpDateGradeTable: ACTIONPROPERTY;OLDPRODUCTS;OPDPRODUCTS_2;OPDPRODUCTS_3
+2020-12-07T09:56:35.35--7:00 ******: OPDPRODUCTS_3
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpUpDateGradeTable: Adding to securecustomactions property
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpUpDateGradeTable: ACTIONPROPERTY;OLDPRODUCTS;OPDPRODUCTS_2;OPDPRODUCTS_3;OPDPRODUCTS_4
+2020-12-07T09:56:35.35--7:00 ******: OPDPRODUCTS_4
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpUpDateGradeTable: Adding to securecustomactions property
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpUpDateGradeTable: ACTIONPROPERTY;OLDPRODUCTS;OPDPRODUCTS_2;OPDPRODUCTS_3;OPDPRODUCTS_4;OPDPRODUCTS_5
+2020-12-07T09:56:35.35--7:00 ******: OPDPRODUCTS_5
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpUpDateGradeTable: Adding to securecustomactions property
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpUpDateGradeTable: ACTIONPROPERTY;OLDPRODUCTS;OPDPRODUCTS_2;OPDPRODUCTS_3;OPDPRODUCTS_4;OPDPRODUCTS_5;OPDPRODUCTS_6
+2020-12-07T09:56:35.35--7:00 ******: OPDPRODUCTS_6
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpUpDateGradeTable: Adding to securecustomactions property
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpUpDateGradeTable: ACTIONPROPERTY;OLDPRODUCTS;OPDPRODUCTS_2;OPDPRODUCTS_3;OPDPRODUCTS_4;OPDPRODUCTS_5;OPDPRODUCTS_6;OPDPRODUCTS_7
+2020-12-07T09:56:35.35--7:00 ******: OPDPRODUCTS_7
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpUpDateGradeTable: Adding to securecustomactions property
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpUpDateGradeTable: ACTIONPROPERTY;OLDPRODUCTS;OPDPRODUCTS_2;OPDPRODUCTS_3;OPDPRODUCTS_4;OPDPRODUCTS_5;OPDPRODUCTS_6;OPDPRODUCTS_7;OPDPRODUCTS_8
+2020-12-07T09:56:35.35--7:00 ******: OPDPRODUCTS_8
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpUpDateGradeTable: Adding to securecustomactions property
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpUpDateGradeTable: ACTIONPROPERTY;OLDPRODUCTS;OPDPRODUCTS_2;OPDPRODUCTS_3;OPDPRODUCTS_4;OPDPRODUCTS_5;OPDPRODUCTS_6;OPDPRODUCTS_7;OPDPRODUCTS_8;OPDPRODUCTS_9
+2020-12-07T09:56:35.35--7:00 ******: OPDPRODUCTS_9
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpUpDateGradeTable: Adding to securecustomactions property
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpUpDateGradeTable: ACTIONPROPERTY;OLDPRODUCTS;OPDPRODUCTS_2;OPDPRODUCTS_3;OPDPRODUCTS_4;OPDPRODUCTS_5;OPDPRODUCTS_6;OPDPRODUCTS_7;OPDPRODUCTS_8;OPDPRODUCTS_9;OPDPRODUCTS_10
+2020-12-07T09:56:35.35--7:00 ******: OPDPRODUCTS_10
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpUpDateGradeTable: Adding to securecustomactions property
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpUpDateGradeTable: ACTIONPROPERTY;OLDPRODUCTS;OPDPRODUCTS_2;OPDPRODUCTS_3;OPDPRODUCTS_4;OPDPRODUCTS_5;OPDPRODUCTS_6;OPDPRODUCTS_7;OPDPRODUCTS_8;OPDPRODUCTS_9;OPDPRODUCTS_10;OPDPRODUCTS_11
+2020-12-07T09:56:35.35--7:00 ******: OPDPRODUCTS_11
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpUpDateGradeTable: Adding to securecustomactions property
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpUpDateGradeTable: ACTIONPROPERTY;OLDPRODUCTS;OPDPRODUCTS_2;OPDPRODUCTS_3;OPDPRODUCTS_4;OPDPRODUCTS_5;OPDPRODUCTS_6;OPDPRODUCTS_7;OPDPRODUCTS_8;OPDPRODUCTS_9;OPDPRODUCTS_10;OPDPRODUCTS_11;OPDPRODUCTS_12
+2020-12-07T09:56:35.35--7:00 ******: OPDPRODUCTS_12
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpUpDateGradeTable: Adding to securecustomactions property
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpUpDateGradeTable: ACTIONPROPERTY;OLDPRODUCTS;OPDPRODUCTS_2;OPDPRODUCTS_3;OPDPRODUCTS_4;OPDPRODUCTS_5;OPDPRODUCTS_6;OPDPRODUCTS_7;OPDPRODUCTS_8;OPDPRODUCTS_9;OPDPRODUCTS_10;OPDPRODUCTS_11;OPDPRODUCTS_12;OPDPRODUCTS_13
+2020-12-07T09:56:35.35--7:00 ******: OPDPRODUCTS_13
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpUpDateGradeTable: Adding to securecustomactions property
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpUpDateGradeTable: ACTIONPROPERTY;OLDPRODUCTS;OPDPRODUCTS_2;OPDPRODUCTS_3;OPDPRODUCTS_4;OPDPRODUCTS_5;OPDPRODUCTS_6;OPDPRODUCTS_7;OPDPRODUCTS_8;OPDPRODUCTS_9;OPDPRODUCTS_10;OPDPRODUCTS_11;OPDPRODUCTS_12;OPDPRODUCTS_13;OPDPRODUCTS_14
+2020-12-07T09:56:35.35--7:00 ******: OPDPRODUCTS_14
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpUpDateGradeTable: Adding to securecustomactions property
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpUpDateGradeTable: ACTIONPROPERTY;OLDPRODUCTS;OPDPRODUCTS_2;OPDPRODUCTS_3;OPDPRODUCTS_4;OPDPRODUCTS_5;OPDPRODUCTS_6;OPDPRODUCTS_7;OPDPRODUCTS_8;OPDPRODUCTS_9;OPDPRODUCTS_10;OPDPRODUCTS_11;OPDPRODUCTS_12;OPDPRODUCTS_13;OPDPRODUCTS_14;OPDPRODUCTS_15
+2020-12-07T09:56:35.35--7:00 ******: OPDPRODUCTS_15
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpUpDateGradeTable: Adding to securecustomactions property
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpUpDateGradeTable: ACTIONPROPERTY;OLDPRODUCTS;OPDPRODUCTS_2;OPDPRODUCTS_3;OPDPRODUCTS_4;OPDPRODUCTS_5;OPDPRODUCTS_6;OPDPRODUCTS_7;OPDPRODUCTS_8;OPDPRODUCTS_9;OPDPRODUCTS_10;OPDPRODUCTS_11;OPDPRODUCTS_12;OPDPRODUCTS_13;OPDPRODUCTS_14;OPDPRODUCTS_15;OPDPRODUCTS_16
+2020-12-07T09:56:35.35--7:00 ******: OPDPRODUCTS_16
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpUpDateGradeTable: Adding to securecustomactions property
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpUpDateGradeTable: ACTIONPROPERTY;OLDPRODUCTS;OPDPRODUCTS_2;OPDPRODUCTS_3;OPDPRODUCTS_4;OPDPRODUCTS_5;OPDPRODUCTS_6;OPDPRODUCTS_7;OPDPRODUCTS_8;OPDPRODUCTS_9;OPDPRODUCTS_10;OPDPRODUCTS_11;OPDPRODUCTS_12;OPDPRODUCTS_13;OPDPRODUCTS_14;OPDPRODUCTS_15;OPDPRODUCTS_16;OPDPRODUCTS_17
+2020-12-07T09:56:35.35--7:00 ******: OPDPRODUCTS_17
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpUpDateGradeTable: Adding to securecustomactions property
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpUpDateGradeTable: ACTIONPROPERTY;OLDPRODUCTS;OPDPRODUCTS_2;OPDPRODUCTS_3;OPDPRODUCTS_4;OPDPRODUCTS_5;OPDPRODUCTS_6;OPDPRODUCTS_7;OPDPRODUCTS_8;OPDPRODUCTS_9;OPDPRODUCTS_10;OPDPRODUCTS_11;OPDPRODUCTS_12;OPDPRODUCTS_13;OPDPRODUCTS_14;OPDPRODUCTS_15;OPDPRODUCTS_16;OPDPRODUCTS_17;OPDPRODUCTS_18
+2020-12-07T09:56:35.35--7:00 ******: OPDPRODUCTS_18
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpUpDateGradeTable: Adding to securecustomactions property
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpUpDateGradeTable: ACTIONPROPERTY;OLDPRODUCTS;OPDPRODUCTS_2;OPDPRODUCTS_3;OPDPRODUCTS_4;OPDPRODUCTS_5;OPDPRODUCTS_6;OPDPRODUCTS_7;OPDPRODUCTS_8;OPDPRODUCTS_9;OPDPRODUCTS_10;OPDPRODUCTS_11;OPDPRODUCTS_12;OPDPRODUCTS_13;OPDPRODUCTS_14;OPDPRODUCTS_15;OPDPRODUCTS_16;OPDPRODUCTS_17;OPDPRODUCTS_18;OPDPRODUCTS_19
+2020-12-07T09:56:35.35--7:00 ******: OPDPRODUCTS_19
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpUpDateGradeTable: Adding to securecustomactions property
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpUpDateGradeTable: ACTIONPROPERTY;OLDPRODUCTS;OPDPRODUCTS_2;OPDPRODUCTS_3;OPDPRODUCTS_4;OPDPRODUCTS_5;OPDPRODUCTS_6;OPDPRODUCTS_7;OPDPRODUCTS_8;OPDPRODUCTS_9;OPDPRODUCTS_10;OPDPRODUCTS_11;OPDPRODUCTS_12;OPDPRODUCTS_13;OPDPRODUCTS_14;OPDPRODUCTS_15;OPDPRODUCTS_16;OPDPRODUCTS_17;OPDPRODUCTS_18;OPDPRODUCTS_19;OPDPRODUCTS_20
+2020-12-07T09:56:35.35--7:00 ******: OPDPRODUCTS_20
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpUpDateGradeTable: Adding to securecustomactions property
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpUpDateGradeTable: ACTIONPROPERTY;OLDPRODUCTS;OPDPRODUCTS_2;OPDPRODUCTS_3;OPDPRODUCTS_4;OPDPRODUCTS_5;OPDPRODUCTS_6;OPDPRODUCTS_7;OPDPRODUCTS_8;OPDPRODUCTS_9;OPDPRODUCTS_10;OPDPRODUCTS_11;OPDPRODUCTS_12;OPDPRODUCTS_13;OPDPRODUCTS_14;OPDPRODUCTS_15;OPDPRODUCTS_16;OPDPRODUCTS_17;OPDPRODUCTS_18;OPDPRODUCTS_19;OPDPRODUCTS_20;OPDPRODUCTS_21
+2020-12-07T09:56:35.35--7:00 ******: OPDPRODUCTS_21
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpUpDateGradeTable: Adding to securecustomactions property
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpUpDateGradeTable: ACTIONPROPERTY;OLDPRODUCTS;OPDPRODUCTS_2;OPDPRODUCTS_3;OPDPRODUCTS_4;OPDPRODUCTS_5;OPDPRODUCTS_6;OPDPRODUCTS_7;OPDPRODUCTS_8;OPDPRODUCTS_9;OPDPRODUCTS_10;OPDPRODUCTS_11;OPDPRODUCTS_12;OPDPRODUCTS_13;OPDPRODUCTS_14;OPDPRODUCTS_15;OPDPRODUCTS_16;OPDPRODUCTS_17;OPDPRODUCTS_18;OPDPRODUCTS_19;OPDPRODUCTS_20;OPDPRODUCTS_21;OPDPRODUCTS_22
+2020-12-07T09:56:35.35--7:00 ******: OPDPRODUCTS_22
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpUpDateGradeTable: Adding to securecustomactions property
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpUpDateGradeTable: ACTIONPROPERTY;OLDPRODUCTS;OPDPRODUCTS_2;OPDPRODUCTS_3;OPDPRODUCTS_4;OPDPRODUCTS_5;OPDPRODUCTS_6;OPDPRODUCTS_7;OPDPRODUCTS_8;OPDPRODUCTS_9;OPDPRODUCTS_10;OPDPRODUCTS_11;OPDPRODUCTS_12;OPDPRODUCTS_13;OPDPRODUCTS_14;OPDPRODUCTS_15;OPDPRODUCTS_16;OPDPRODUCTS_17;OPDPRODUCTS_18;OPDPRODUCTS_19;OPDPRODUCTS_20;OPDPRODUCTS_21;OPDPRODUCTS_22;OPDPRODUCTS_23
+2020-12-07T09:56:35.35--7:00 ******: OPDPRODUCTS_23
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpUpDateGradeTable: Adding to securecustomactions property
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpUpDateGradeTable: ACTIONPROPERTY;OLDPRODUCTS;OPDPRODUCTS_2;OPDPRODUCTS_3;OPDPRODUCTS_4;OPDPRODUCTS_5;OPDPRODUCTS_6;OPDPRODUCTS_7;OPDPRODUCTS_8;OPDPRODUCTS_9;OPDPRODUCTS_10;OPDPRODUCTS_11;OPDPRODUCTS_12;OPDPRODUCTS_13;OPDPRODUCTS_14;OPDPRODUCTS_15;OPDPRODUCTS_16;OPDPRODUCTS_17;OPDPRODUCTS_18;OPDPRODUCTS_19;OPDPRODUCTS_20;OPDPRODUCTS_21;OPDPRODUCTS_22;OPDPRODUCTS_23;OPDPRODUCTS_24
+2020-12-07T09:56:35.35--7:00 ******: OPDPRODUCTS_24
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpUpDateGradeTable: Adding to securecustomactions property
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpUpDateGradeTable: ACTIONPROPERTY;OLDPRODUCTS;OPDPRODUCTS_2;OPDPRODUCTS_3;OPDPRODUCTS_4;OPDPRODUCTS_5;OPDPRODUCTS_6;OPDPRODUCTS_7;OPDPRODUCTS_8;OPDPRODUCTS_9;OPDPRODUCTS_10;OPDPRODUCTS_11;OPDPRODUCTS_12;OPDPRODUCTS_13;OPDPRODUCTS_14;OPDPRODUCTS_15;OPDPRODUCTS_16;OPDPRODUCTS_17;OPDPRODUCTS_18;OPDPRODUCTS_19;OPDPRODUCTS_20;OPDPRODUCTS_21;OPDPRODUCTS_22;OPDPRODUCTS_23;OPDPRODUCTS_24;OPDPRODUCTS_25
+2020-12-07T09:56:35.35--7:00 ******: OPDPRODUCTS_25
+2020-12-07T09:56:35.35--7:00 ******: OPDPRODUCTS_1
+2020-12-07T09:56:35.35--7:00 SetProperty Success: SetPropertiesForMuiAdmin (Line 7072) set 'SecureCustomProperties' to 'ACTIONPROPERTY;OLDPRODUCTS;OPDPRODUCTS_2;OPDPRODUCTS_3;OPDPRODUCTS_4;OPDPRODUCTS_5;OPDPRODUCTS_6;OPDPRODUCTS_7;OPDPRODUCTS_8;OPDPRODUCTS_9;OPDPRODUCTS_10;OPDPRODUCTS_11;OPDPRODUCTS_12;OP
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/exeInitialize (Line 1373) got '5' for 'UILevel' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Entered
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/DumpProperties (Line 6322): Call 'MsiDatabaseOpenView' for 'Properties' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/DumpProperties (Line 6328): Call 'MsiViewExecute' for 'Properties' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/DumpProperties (Line 6336): Call 'MsiViewFetch' for 'Properties' succeeded
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Property name DiskPrompt value is [1] 
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Property name Registration value is No 
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Property name UpgradeCode value is {D8641E4B-77AF-4EAC-9137-8D4DCB1478E2} 
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Property name ibm_exeInitialize value is Not Set 
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Property name DATADIR value is C:\program files\lotus\notes\data 
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Property name PROGDIR value is C:\program files\lotus\notes 
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Property name _IsMaintenance value is Change 
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Property name _IsSetupTypeMin value is Typical 
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Property name AgreeToLicense value is No 
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Property name ApplicationUsers value is OnlyCurrentUser 
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Property name ARPCONTACT value is Lotus ?? 
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Property name ARPHELPLINK value is http://www.ibm.com/software/lotus/support 
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Property name ARPHELPTELEPHONE value is 1-800-553-4270 
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Property name ARPREADME value is http://www.lotus.com/ldd/releasenotes 
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Property name ARPURLINFOABOUT value is http://www.lotus.com/ldd 
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Property name ARPURLUPDATEINFO value is http://www.lotus.com/ldd/downloads 
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Property name DefaultUIFont value is Tahoma8 
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Property name DialogCaption value is Install for Windows Installer 
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Property name DiskSerial value is 1234-5678 
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Property name Display_IsBitmapDlg value is 1 
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Property name DisplayNameCustom value is ?? 
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Property name DisplayNameMinimal value is ?? 
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Property name DisplayNameTypical value is ?? 
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Property name ErrorDialog value is SetupError 
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Property name FileInUseProcess value is 0 
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Property name InstallChoice value is AR 
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Property name INSTALLLEVEL value is 100 
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Property name INSTALLTYPE value is Unknown 
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Property name LAUNCHPROGRAM value is 0 
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Property name LAUNCHREADME value is 0 
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Property name Manufacturer value is IBM 
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Property name NODEINSTALL value is No 
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Property name PARTITIONED_DIRECTORY_LIST value is 0 
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Property name PARTITIONED_INSTALL value is 0 
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Property name PIDTemplate value is 12345<###-%%%%%%%>@@@@@ 
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Property name ProductCode value is {24A33D92-BCC5-4eb8-97F3-ECF217AC3EE2} 
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Property name ProductName value is Lotus Notes 6.5.2 zh-TW 
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Property name ProductVersion value is 6.52.4152 
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Property name ProgressType0 value is install 
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Property name ProgressType1 value is Installing 
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Property name ProgressType2 value is installed 
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Property name ProgressType3 value is installs 
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Property name RebootYesNo value is Yes 
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Property name ReinstallFileVersion value is o 
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Property name ReinstallModeText value is omus 
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Property name ReinstallRepair value is r 
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Property name SecureCustomProperties value is ACTIONPROPERTY;OLDPRODUCTS 
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Property name SetupType value is Typical 
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Property name MUIALLUSERS value is NO 
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Property name LAPStatus value is -1 
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Property name LAPGROUPSTATUSFILE value is null 
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Property name LAPEnAgree value is No 
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Property name LAPDialog value is LAP 
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Property name LAPAgree value is No 
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Property name RC_REMOVE_EXISTING_FILES value is 0 
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Property name ARPPRODUCTICON value is ARPPRODUCTICON.exe 
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Property name NOTESWORKSWITH value is 0 
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Property name UNINSTALL4XKEY value is NoKeyAssigned 
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Property name AdminProperties value is ADMIN_IMAGE 
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Property name ISVROOT_PORT_NO value is 0 
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Property name DWUSINTERVAL value is 30 
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Property name NTMULTIDIR value is C:\program files\lotus\notes\ 
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Property name USENOTESFOREMAIL value is 1 
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Property name ISReleaseFlags value is AllClients,AllClients65,MUIAllClients,MUIAllClients65,MUIAllClientsCKT,MUI,zh-TW 
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Property name ProductLanguage value is 1028 
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/DumpProperties (Line 6369): Call 'MsiDatabaseOpenView' for 'Properties' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/DumpProperties (Line 6375): Call 'MsiViewExecute' for 'Properties' succeeded
+2020-12-07T09:56:35.35--7:00 SUCCESS:: UpgradeUtils/DumpProperties (Line 6383): Call 'MsiViewFetch' for 'Properties' succeeded
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got 'G:\' for 'TARGETDIR' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path TARGETDIR value is G:\ 
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got 'C:\ProgramData' for 'ALLUSERSPROFILE' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path ALLUSERSPROFILE value is C:\ProgramData 
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got 'C:\Program Files (x86)\Lotus\notes\' for 'NOTES' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path NOTES value is C:\Program Files (x86)\Lotus\notes\ 
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got 'C:\Program Files (x86)\Lotus\notes\apps\' for 'APPS' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path APPS value is C:\Program Files (x86)\Lotus\notes\apps\ 
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got 'C:\Program Files (x86)\Lotus\Notes\jvm\lib\' for 'LIB' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path LIB value is C:\Program Files (x86)\Lotus\Notes\jvm\lib\ 
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got 'C:\Program Files (x86)\Lotus\Notes\jvm\lib\audio\' for 'AUDIO' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path AUDIO value is C:\Program Files (x86)\Lotus\Notes\jvm\lib\audio\ 
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got 'C:\ProgramData\Microsoft\Windows\Start Menu\Programs\' for 'ProgramMenuFolder' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path ProgramMenuFolder value is C:\ProgramData\Microsoft\Windows\Start Menu\Programs\ 
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got '' for 'AdminShortcutFolder' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path AdminShortcutFolder value is  
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got 'C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Administrative Tools\' for 'AdminToolsFolder' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path AdminToolsFolder value is C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Administrative Tools\ 
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got 'C:\Users\Admin\AppData\Roaming\' for 'AppDataFolder' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path AppDataFolder value is C:\Users\Admin\AppData\Roaming\ 
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got 'C:\Program Files (x86)\Lotus\Notes\jvm\' for 'JVM' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path JVM value is C:\Program Files (x86)\Lotus\Notes\jvm\ 
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got 'C:\Program Files (x86)\Lotus\Notes\jvm\bin\' for 'BIN' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path BIN value is C:\Program Files (x86)\Lotus\Notes\jvm\bin\ 
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got 'C:\Program Files (x86)\Lotus\Notes\jvm\bin\classic\' for 'CLASSIC' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path CLASSIC value is C:\Program Files (x86)\Lotus\Notes\jvm\bin\classic\ 
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got 'C:\Program Files (x86)\Lotus\Notes\jvm\lib\cmm\' for 'CMM' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path CMM value is C:\Program Files (x86)\Lotus\Notes\jvm\lib\cmm\ 
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got 'C:\Program Files (x86)\lotus\notes\data\domino\Html\' for 'HTML' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path HTML value is C:\Program Files (x86)\lotus\notes\data\domino\Html\ 
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got 'C:\Program Files (x86)\lotus\notes\data\domino\Html\Com\' for 'COM' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path COM value is C:\Program Files (x86)\lotus\notes\data\domino\Html\Com\ 
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got 'C:\Program Files (x86)\lotus\notes\data\domino\Html\' for 'HTML1' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path HTML1 value is C:\Program Files (x86)\lotus\notes\data\domino\Html\ 
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got 'C:\Program Files (x86)\lotus\notes\data\domino\Html\Com\' for 'COM1' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path COM1 value is C:\Program Files (x86)\lotus\notes\data\domino\Html\Com\ 
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got 'C:\Program Files (x86)\lotus\notes\data\domino\Html\Com\Ibm\CORBA\' for 'CORBA' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path CORBA value is C:\Program Files (x86)\lotus\notes\data\domino\Html\Com\Ibm\CORBA\ 
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got 'C:\Program Files (x86)\lotus\notes\data\domino\Html\Com\Ibm\' for 'IBM' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path IBM value is C:\Program Files (x86)\lotus\notes\data\domino\Html\Com\Ibm\ 
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got 'C:\Program Files (x86)\lotus\notes\data\domino\Html\Com\Ibm\' for 'IBM1' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path IBM1 value is C:\Program Files (x86)\lotus\notes\data\domino\Html\Com\Ibm\ 
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got 'C:\Program Files (x86)\lotus\notes\data\domino\Html\Com\Ibm\CORBA\' for 'CORBA1' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path CORBA1 value is C:\Program Files (x86)\lotus\notes\data\domino\Html\Com\Ibm\CORBA\ 
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got 'C:\Program Files (x86)\Lotus\Notes\jvm\lib\images\' for 'IMAGES' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path IMAGES value is C:\Program Files (x86)\Lotus\Notes\jvm\lib\images\ 
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got 'C:\Program Files (x86)\Lotus\Notes\jvm\lib\images\cursors\' for 'CURSORS' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path CURSORS value is C:\Program Files (x86)\Lotus\Notes\jvm\lib\images\cursors\ 
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got 'C:\ProgramData\' for 'CommonAppDataFolder' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path CommonAppDataFolder value is C:\ProgramData\ 
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got 'C:\Program Files (x86)\Common Files\' for 'CommonFilesFolder' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path CommonFilesFolder value is C:\Program Files (x86)\Common Files\ 
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got 'C:\Program Files (x86)\Lotus\Notes\jvm\bin\daemon\' for 'DAEMON' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path DAEMON value is C:\Program Files (x86)\Lotus\Notes\jvm\bin\daemon\ 
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got 'C:\Program Files (x86)\Lotus\Notes\' for 'INSTALLDIR' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path INSTALLDIR value is C:\Program Files (x86)\Lotus\Notes\ 
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got 'C:\Program Files (x86)\Lotus\Notes\Data\' for 'DATA' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path DATA value is C:\Program Files (x86)\Lotus\Notes\Data\ 
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got 'C:\Program Files (x86)\lotus\notes\data\' for 'DATADIR' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path DATADIR value is C:\Program Files (x86)\lotus\notes\data\ 
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got 'C:\Program Files (x86)\lotus\notes\data\' for 'VDIR_DATA' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path VDIR_DATA value is C:\Program Files (x86)\lotus\notes\data\ 
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got 'C:\Program Files (x86)\lotus\notes\data\domino\' for 'DOMINO' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path DOMINO value is C:\Program Files (x86)\lotus\notes\data\domino\ 
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got 'C:\Program Files (x86)\lotus\notes\data\' for 'VDIR_SHARED' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path VDIR_SHARED value is C:\Program Files (x86)\lotus\notes\data\ 
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got 'C:\Program Files (x86)\lotus\notes\data\domino\' for 'DOMINO1' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path DOMINO1 value is C:\Program Files (x86)\lotus\notes\data\domino\ 
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got 'C:\Program Files (x86)\Lotus\Notes\Data\domino\' for 'DOMINO2' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path DOMINO2 value is C:\Program Files (x86)\Lotus\Notes\Data\domino\ 
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got 'C:\Program Files (x86)\lotus\notes\data\domino\Html\download\' for 'DOWNLOAD' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path DOWNLOAD value is C:\Program Files (x86)\lotus\notes\data\domino\Html\download\ 
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got '' for 'DataDir_doc' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path DataDir_doc value is  
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got '' for 'DataDir_modems' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path DataDir_modems value is  
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got '' for 'DataDir_w32' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path DataDir_w32 value is  
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got '' for 'Debugdir' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path Debugdir value is  
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got '' for 'DesignerShortcutFolder' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path DesignerShortcutFolder value is  
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got 'C:\Users\Public\Desktop\' for 'DesktopFolder' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path DesktopFolder value is C:\Users\Public\Desktop\ 
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got 'C:\Program Files (x86)\lotus\notes\data\domino\java\' for 'JAVA' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path JAVA value is C:\Program Files (x86)\lotus\notes\data\domino\java\ 
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got 'C:\Program Files (x86)\lotus\notes\data\domino\java\editctrl\' for 'EDITCTRL' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path EDITCTRL value is C:\Program Files (x86)\lotus\notes\data\domino\java\editctrl\ 
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got 'C:\Program Files (x86)\lotus\notes\data\domino\java\' for 'JAVA1' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path JAVA1 value is C:\Program Files (x86)\lotus\notes\data\domino\java\ 
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got 'C:\Program Files (x86)\lotus\notes\data\domino\java\editctrl\' for 'EDITCTRL1' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path EDITCTRL1 value is C:\Program Files (x86)\lotus\notes\data\domino\java\editctrl\ 
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got 'C:\Program Files (x86)\Lotus\notes\apps\editorpanel\' for 'EDITORPANEL' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path EDITORPANEL value is C:\Program Files (x86)\Lotus\notes\apps\editorpanel\ 
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got 'C:\Program Files (x86)\Lotus\Notes\jvm\lib\ext\' for 'EXT' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path EXT value is C:\Program Files (x86)\Lotus\Notes\jvm\lib\ext\ 
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got 'C:\Program Files (x86)\lotus\notes\data\domino\Html\download\filesets\' for 'FILESETS' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path FILESETS value is C:\Program Files (x86)\lotus\notes\data\domino\Html\download\filesets\ 
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got 'C:\Program Files (x86)\Lotus\Notes\jvm\lib\fonts\' for 'FONTS' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path FONTS value is C:\Program Files (x86)\Lotus\Notes\jvm\lib\fonts\ 
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got 'C:\Users\Admin\Favorites\' for 'FavoritesFolder' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path FavoritesFolder value is C:\Users\Admin\Favorites\ 
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got 'C:\WINDOWS\Fonts\' for 'FontsFolder' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path FontsFolder value is C:\WINDOWS\Fonts\ 
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got '' for 'GlobalAssemblyCache' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path GlobalAssemblyCache value is  
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got 'C:\Program Files (x86)\lotus\notes\data\domino\Html\inotes5\' for 'INOTES5' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path INOTES5 value is C:\Program Files (x86)\lotus\notes\data\domino\Html\inotes5\ 
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got 'C:\Program Files (x86)\lotus\notes\data\domino\Html\inotes5\help\' for 'HELP' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path HELP value is C:\Program Files (x86)\lotus\notes\data\domino\Html\inotes5\help\ 
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got 'C:\Program Files (x86)\Lotus\Notes\Data\Help\' for 'HELP1' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path HELP1 value is C:\Program Files (x86)\Lotus\Notes\Data\Help\ 
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got 'C:\Program Files (x86)\Lotus\Notes\jvm\bin\hotspot\' for 'HOTSPOT' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path HOTSPOT value is C:\Program Files (x86)\Lotus\Notes\jvm\bin\hotspot\ 
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got 'C:\Program Files (x86)\Lotus\Notes\Data\domino\Html\' for 'HTML2' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path HTML2 value is C:\Program Files (x86)\Lotus\Notes\Data\domino\Html\ 
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got 'C:\Program Files (x86)\lotus\notes\data\domino\icons\' for 'ICONS' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path ICONS value is C:\Program Files (x86)\lotus\notes\data\domino\icons\ 
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got 'C:\Program Files (x86)\lotus\notes\data\domino\icons\' for 'ICONS1' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path ICONS1 value is C:\Program Files (x86)\lotus\notes\data\domino\icons\ 
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got 'C:\Program Files (x86)\lotus\notes\data\domino\Html\Com\Ibm\CORBA\iiop\' for 'IIOP' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path IIOP value is C:\Program Files (x86)\lotus\notes\data\domino\Html\Com\Ibm\CORBA\iiop\ 
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got 'C:\Program Files (x86)\lotus\notes\data\domino\Html\Com\Ibm\CORBA\iiop\' for 'IIOP1' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path IIOP1 value is C:\Program Files (x86)\lotus\notes\data\domino\Html\Com\Ibm\CORBA\iiop\ 
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got 'C:\Program Files (x86)\Lotus\notes\apps\editorpanel\images\' for 'IMAGES1' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path IMAGES1 value is C:\Program Files (x86)\Lotus\notes\apps\editorpanel\images\ 
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got 'C:\Program Files (x86)\lotus\notes\data\inotes\' for 'INOTES' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path INOTES value is C:\Program Files (x86)\lotus\notes\data\inotes\ 
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got 'C:\Program Files (x86)\Lotus\' for 'LOTUS' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path LOTUS value is C:\Program Files (x86)\Lotus\ 
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got '' for 'JVMbindir' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path JVMbindir value is  
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got '' for 'JVMbinclassicdir' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path JVMbinclassicdir value is  
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got '' for 'JVMdir' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path JVMdir value is  
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got '' for 'JVMbinhotspotdir' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path JVMbinhotspotdir value is  
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got '' for 'JVMbinserverdir' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path JVMbinserverdir value is  
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got 'C:\Program Files (x86)\Lotus\Notes\license\' for 'LICENSE' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path LICENSE value is C:\Program Files (x86)\Lotus\Notes\license\ 
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got 'C:\Program Files (x86)\' for 'ProgramFilesFolder' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path ProgramFilesFolder value is C:\Program Files (x86)\ 
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got 'C:\Users\Admin\AppData\Local\' for 'LocalAppDataFolder' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path LocalAppDataFolder value is C:\Users\Admin\AppData\Local\ 
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got '' for 'mui' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path mui value is  
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got 'C:\Program Files (x86)\lotus\notes\mui\zh-TW\' for 'MUIFOLDER' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path MUIFOLDER value is C:\Program Files (x86)\lotus\notes\mui\zh-TW\ 
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got 'C:\Program Files (x86)\lotus\notes\mui\zh-TW\' for 'MUIMULTIUSER_VDIR_SHARED' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path MUIMULTIUSER_VDIR_SHARED value is C:\Program Files (x86)\lotus\notes\mui\zh-TW\ 
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got 'C:\Program Files (x86)\lotus\notes\mui\zh-TW\Help\' for 'MUIMULTIUSER_VDIR_SHARED_HELP' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path MUIMULTIUSER_VDIR_SHARED_HELP value is C:\Program Files (x86)\lotus\notes\mui\zh-TW\Help\ 
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got 'C:\Program Files (x86)\lotus\notes\mui\zh-TW\Modems\' for 'MUIMULTIUSER_VDIR_SHARED_MODEMS' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path MUIMULTIUSER_VDIR_SHARED_MODEMS value is C:\Program Files (x86)\lotus\notes\mui\zh-TW\Modems\ 
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got 'C:\Users\Admin\Pictures\' for 'MyPicturesFolder' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path MyPicturesFolder value is C:\Users\Admin\Pictures\ 
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got 'C:\WINDOWS\SysWOW64\' for 'SystemFolder' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path SystemFolder value is C:\WINDOWS\SysWOW64\ 
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got 'C:\WINDOWS\SysWOW64\' for 'NEW_DIRECTORY' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path NEW_DIRECTORY value is C:\WINDOWS\SysWOW64\ 
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got 'C:\WINDOWS\SysWOW64\' for 'NEW_DIRECTORY1' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path NEW_DIRECTORY1 value is C:\WINDOWS\SysWOW64\ 
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got 'C:\WINDOWS\SysWOW64\' for 'NEW_DIRECTORY2' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path NEW_DIRECTORY2 value is C:\WINDOWS\SysWOW64\ 
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got 'C:\Users\Admin\AppData\Roaming\Microsoft\Windows\Network Shortcuts\' for 'NetHoodFolder' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path NetHoodFolder value is C:\Users\Admin\AppData\Roaming\Microsoft\Windows\Network Shortcuts\ 
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got '' for 'NotesAppFolder' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path NotesAppFolder value is  
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got '' for 'NotesMinderShortcutFolder' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path NotesMinderShortcutFolder value is  
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got '' for 'NotesShortcutFolder' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path NotesShortcutFolder value is  
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got 'C:\Program Files (x86)\lotus\notes\' for 'PROGDIR' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path PROGDIR value is C:\Program Files (x86)\lotus\notes\ 
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got 'C:\Users\Admin\Documents\' for 'PersonalFolder' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path PersonalFolder value is C:\Users\Admin\Documents\ 
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got '' for 'PrimaryVolumePath' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path PrimaryVolumePath value is  
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got 'C:\Users\Admin\AppData\Roaming\Microsoft\Windows\Printer Shortcuts\' for 'PrintHoodFolder' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path PrintHoodFolder value is C:\Users\Admin\AppData\Roaming\Microsoft\Windows\Printer Shortcuts\ 
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got 'C:\Program Files (x86)\lotus\notes\data\quickstart\' for 'QUICKSTART' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path QUICKSTART value is C:\Program Files (x86)\lotus\notes\data\quickstart\ 
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got 'C:\Program Files (x86)\lotus\notes\data\quickstart\' for 'QUICKSTART1' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path QUICKSTART1 value is C:\Program Files (x86)\lotus\notes\data\quickstart\ 
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got 'C:\Users\Admin\AppData\Roaming\Microsoft\Windows\Recent\' for 'RecentFolder' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path RecentFolder value is C:\Users\Admin\AppData\Roaming\Microsoft\Windows\Recent\ 
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got '' for 'RemSvrSetup' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path RemSvrSetup value is  
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got 'C:\Program Files (x86)\lotus\notes\data\domino\Html\sametime\' for 'SAMETIME' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path SAMETIME value is C:\Program Files (x86)\lotus\notes\data\domino\Html\sametime\ 
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got 'C:\Program Files (x86)\Lotus\Notes\Data\domino\Html\SametimeApplet\' for 'SAMETIMEAPPLET' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path SAMETIMEAPPLET value is C:\Program Files (x86)\Lotus\Notes\Data\domino\Html\SametimeApplet\ 
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got 'C:\Program Files (x86)\Lotus\Notes\jvm\lib\security\' for 'SECURITY' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path SECURITY value is C:\Program Files (x86)\Lotus\Notes\jvm\lib\security\ 
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got 'C:\Program Files (x86)\Lotus\Notes\jvm\bin\server\' for 'SERVER' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path SERVER value is C:\Program Files (x86)\Lotus\Notes\jvm\bin\server\ 
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got 'C:\Users\Admin\AppData\Roaming\Microsoft\Windows\SendTo\' for 'SendToFolder' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path SendToFolder value is C:\Users\Admin\AppData\Roaming\Microsoft\Windows\SendTo\ 
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got 'C:\ProgramData\Microsoft\Windows\Start Menu\' for 'StartMenuFolder' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path StartMenuFolder value is C:\ProgramData\Microsoft\Windows\Start Menu\ 
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got 'C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Startup\' for 'StartupFolder' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path StartupFolder value is C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Startup\ 
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got '' for 'SvrLoad' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path SvrLoad value is  
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got '' for 'System16Folder' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path System16Folder value is  
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got 'C:\Program Files (x86)\lotus\notes\data\domino\template\' for 'TEMPLATE' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path TEMPLATE value is C:\Program Files (x86)\lotus\notes\data\domino\template\ 
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got 'C:\Program Files (x86)\lotus\notes\data\domino\template\' for 'TEMPLATE1' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path TEMPLATE1 value is C:\Program Files (x86)\lotus\notes\data\domino\template\ 
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got 'C:\Program Files (x86)\Lotus\Notes\TTFonts\' for 'TTFONTS' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path TTFONTS value is C:\Program Files (x86)\Lotus\Notes\TTFonts\ 
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got 'C:\Users\Admin\AppData\Local\Temp\' for 'TempFolder' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path TempFolder value is C:\Users\Admin\AppData\Local\Temp\ 
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got 'C:\ProgramData\Microsoft\Windows\Templates\' for 'TemplateFolder' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path TemplateFolder value is C:\ProgramData\Microsoft\Windows\Templates\ 
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got 'C:\Users\Admin' for 'USERPROFILE' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path USERPROFILE value is C:\Users\Admin 
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got 'C:\Program Files (x86)\lotus\notes\data\' for 'VDIR_COMMON' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path VDIR_COMMON value is C:\Program Files (x86)\lotus\notes\data\ 
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got 'C:\Program Files (x86)\lotus\notes\data\W32\' for 'VDIR_COMMON_W32' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path VDIR_COMMON_W32 value is C:\Program Files (x86)\lotus\notes\data\W32\ 
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got 'C:\Program Files (x86)\lotus\notes\data\editctrl\' for 'VDIR_EDITCTRL' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path VDIR_EDITCTRL value is C:\Program Files (x86)\lotus\notes\data\editctrl\ 
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got 'C:\Program Files (x86)\lotus\notes\data\images\' for 'VDIR_EDPANEL_IMAGES' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path VDIR_EDPANEL_IMAGES value is C:\Program Files (x86)\lotus\notes\data\images\ 
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got 'C:\Program Files (x86)\lotus\notes\data\html\' for 'VDIR_HTML' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path VDIR_HTML value is C:\Program Files (x86)\lotus\notes\data\html\ 
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got 'C:\Program Files (x86)\lotus\notes\data\icons\' for 'VDIR_ICONS' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path VDIR_ICONS value is C:\Program Files (x86)\lotus\notes\data\icons\ 
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got 'C:\Program Files (x86)\lotus\notes\data\iiop\' for 'VDIR_IIOP' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path VDIR_IIOP value is C:\Program Files (x86)\lotus\notes\data\iiop\ 
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got 'C:\Program Files (x86)\lotus\notes\data\' for 'VDIR_INI' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path VDIR_INI value is C:\Program Files (x86)\lotus\notes\data\ 
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got 'C:\Program Files (x86)\lotus\notes\data\iNotes\' for 'VDIR_INOTES' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path VDIR_INOTES value is C:\Program Files (x86)\lotus\notes\data\iNotes\ 
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got 'C:\Program Files (x86)\lotus\notes\data\java\' for 'VDIR_JAVA' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path VDIR_JAVA value is C:\Program Files (x86)\lotus\notes\data\java\ 
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got 'C:\Program Files (x86)\lotus\notes\data\sametime\' for 'VDIR_SAMETIME' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path VDIR_SAMETIME value is C:\Program Files (x86)\lotus\notes\data\sametime\ 
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got 'C:\Program Files (x86)\lotus\notes\data\Help\' for 'VDIR_SHARED_HELP' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path VDIR_SHARED_HELP value is C:\Program Files (x86)\lotus\notes\data\Help\ 
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got 'C:\Program Files (x86)\lotus\notes\data\Modems\' for 'VDIR_SHARED_MODEMS' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path VDIR_SHARED_MODEMS value is C:\Program Files (x86)\lotus\notes\data\Modems\ 
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got 'C:\Program Files (x86)\lotus\notes\data\template\' for 'VDIR_TEMPLATE' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path VDIR_TEMPLATE value is C:\Program Files (x86)\lotus\notes\data\template\ 
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got 'C:\Program Files (x86)\lotus\notes\data\xsl\' for 'VDIR_XSL' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path VDIR_XSL value is C:\Program Files (x86)\lotus\notes\data\xsl\ 
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got 'C:\WINDOWS\' for 'WindowsFolder' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path WindowsFolder value is C:\WINDOWS\ 
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got 'C:\' for 'WindowsVolume' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path WindowsVolume value is C:\ 
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got 'C:\Program Files (x86)\lotus\notes\xmlschemas\' for 'XMLSCHEMAS' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path XMLSCHEMAS value is C:\Program Files (x86)\lotus\notes\xmlschemas\ 
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got 'C:\Program Files (x86)\lotus\notes\data\xsl\' for 'XSL' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path XSL value is C:\Program Files (x86)\lotus\notes\data\xsl\ 
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got 'C:\Program Files (x86)\lotus\notes\data\xsl\' for 'XSL1' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path XSL1 value is C:\Program Files (x86)\lotus\notes\data\xsl\ 
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got '' for 'dbcsdir' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path dbcsdir value is  
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got '' for 'libdir' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path libdir value is  
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got '' for 'libdir_security' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path libdir_security value is  
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got '' for 'vdkhomedir' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path vdkhomedir value is  
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got '' for 'vdkhome_englishdir' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path vdkhome_englishdir value is  
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got '' for 'vdkhome_legacydir' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path vdkhome_legacydir value is  
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6397) got '' for 'vdkhome_styledir' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Target path vdkhome_styledir value is  
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/DumpProperties (Line 6411) got '' for 'Installed' from MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Property INSTALLED is 
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/DumpProperties: Exiting
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/exeInitialize (Line 1465) got 'C:\Program Files (x86)\lotus\notes\' for 'PROGDIR' from registry
+2020-12-07T09:56:35.35--7:00 SetProperty Success: UpgradeUtils/exeInitialize (Line 1466) set 'PROGDIR' to 'C:\Program Files (x86)\lotus\notes\' in MSI
+2020-12-07T09:56:35.35--7:00 SetProperty Success: UpgradeUtils/exeInitialize (Line 1467) set 'INSTALLDIR' to 'C:\Program Files (x86)\lotus\notes\' in MSI
+2020-12-07T09:56:35.35--7:00 GetProperty Success: UpgradeUtils/exeInitialize (Line 1470) got 'C:\Program Files (x86)\lotus\notes\data\' for 'DATADIR' from registry
+2020-12-07T09:56:35.35--7:00 SetProperty Success: UpgradeUtils/exeInitialize (Line 1471) set 'DATADIR' to 'C:\Program Files (x86)\lotus\notes\data\' in MSI
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/SetInstalling: Entered
+2020-12-07T09:56:35.35--7:00 SetProperty Success: UpgradeUtils/SetInstalling (Line 3479) set 'Installing' to '1' in registry
+2020-12-07T09:56:35.35--7:00 UpgradeUtils/SetInstalling: Exiting
+2020-12-07T09:56:49.49--7:00 SUCCESS:: UpgradeUtils/DumpUpDateGradeTable (Line 6992): Call 'MsiDatabaseOpenView' for 'Upgrade' succeeded
+2020-12-07T09:56:49.49--7:00 SUCCESS:: UpgradeUtils/DumpUpDateGradeTable (Line 6997): Call 'MsiViewExecute' for 'Upgrade' succeeded
+2020-12-07T09:56:49.49--7:00 SUCCESS:: UpgradeUtils/DumpUpDateGradeTable (Line 7000): Call 'MsiViewFetch' for 'Upgrade' succeeded
+2020-12-07T09:56:49.49--7:00 ******: {D8641E4B-77AF-4EAC-9137-8D4DCB1478E2}
+2020-12-07T09:56:49.49--7:00 ******: 
+2020-12-07T09:56:49.49--7:00 ******: 8.00.0000
+2020-12-07T09:56:49.49--7:00 ******: 
+2020-12-07T09:56:49.49--7:00 ******: 513
+2020-12-07T09:56:49.49--7:00 ******: 
+2020-12-07T09:56:49.49--7:00 ******: ACTIONPROPERTY
+2020-12-07T09:56:49.49--7:00 ******: {5BA7CD07-4D6C-4D16-B1A6-2B50DD5F17AD}
+2020-12-07T09:56:49.49--7:00 ******: 
+2020-12-07T09:56:49.49--7:00 ******: 8.00.0000
+2020-12-07T09:56:49.49--7:00 ******: 
+2020-12-07T09:56:49.49--7:00 ******: 513
+2020-12-07T09:56:49.49--7:00 ******: 
+2020-12-07T09:56:49.49--7:00 ******: OLDPRODUCTS
+2020-12-07T09:56:49.49--7:00 ******: {790887DC-1465-4DC2-B000-AA473DD986DA}
+2020-12-07T09:56:49.49--7:00 ******: 
+2020-12-07T09:56:49.49--7:00 ******: 8.00.0000
+2020-12-07T09:56:49.49--7:00 ******: 
+2020-12-07T09:56:49.49--7:00 ******: 513
+2020-12-07T09:56:49.49--7:00 ******: 
+2020-12-07T09:56:49.49--7:00 ******: OPDPRODUCTS_2
+2020-12-07T09:56:49.49--7:00 ******: {7ED2D232-22D1-4140-AC75-8F0023C3A768}
+2020-12-07T09:56:49.49--7:00 ******: 
+2020-12-07T09:56:49.49--7:00 ******: 8.00.0000
+2020-12-07T09:56:49.49--7:00 ******: 
+2020-12-07T09:56:49.49--7:00 ******: 513
+2020-12-07T09:56:49.49--7:00 ******: 
+2020-12-07T09:56:49.49--7:00 ******: OPDPRODUCTS_3
+2020-12-07T09:56:49.49--7:00 ******: {7D43005C-A1B1-450A-9B5A-8E08A5738BE5}
+2020-12-07T09:56:49.49--7:00 ******: 
+2020-12-07T09:56:49.49--7:00 ******: 8.00.0000
+2020-12-07T09:56:49.49--7:00 ******: 
+2020-12-07T09:56:49.49--7:00 ******: 513
+2020-12-07T09:56:49.49--7:00 ******: 
+2020-12-07T09:56:49.49--7:00 ******: OPDPRODUCTS_4
+2020-12-07T09:56:49.49--7:00 ******: {1840F4F0-33F0-4388-BFBD-1B8830AEFF78}
+2020-12-07T09:56:49.49--7:00 ******: 
+2020-12-07T09:56:49.49--7:00 ******: 8.00.0000
+2020-12-07T09:56:49.49--7:00 ******: 
+2020-12-07T09:56:49.49--7:00 ******: 513
+2020-12-07T09:56:49.49--7:00 ******: 
+2020-12-07T09:56:49.49--7:00 ******: OPDPRODUCTS_5
+2020-12-07T09:56:49.49--7:00 ******: {FDE7FA8C-D9F9-40FD-8C2A-2F80552C6B24}
+2020-12-07T09:56:49.49--7:00 ******: 
+2020-12-07T09:56:49.49--7:00 ******: 8.00.0000
+2020-12-07T09:56:49.49--7:00 ******: 
+2020-12-07T09:56:49.49--7:00 ******: 513
+2020-12-07T09:56:49.49--7:00 ******: 
+2020-12-07T09:56:49.49--7:00 ******: OPDPRODUCTS_6
+2020-12-07T09:56:49.49--7:00 ******: {CEBCD43D-9C44-4DE2-BA9F-117B0509ACA3}
+2020-12-07T09:56:49.49--7:00 ******: 
+2020-12-07T09:56:49.49--7:00 ******: 8.00.0000
+2020-12-07T09:56:49.49--7:00 ******: 
+2020-12-07T09:56:49.49--7:00 ******: 513
+2020-12-07T09:56:49.49--7:00 ******: 
+2020-12-07T09:56:49.49--7:00 ******: OPDPRODUCTS_7
+2020-12-07T09:56:49.49--7:00 ******: {CA300124-CA1A-481E-9F2A-9B806F83CBAE}
+2020-12-07T09:56:49.49--7:00 ******: 
+2020-12-07T09:56:49.49--7:00 ******: 8.00.0000
+2020-12-07T09:56:49.49--7:00 ******: 
+2020-12-07T09:56:49.49--7:00 ******: 513
+2020-12-07T09:56:49.49--7:00 ******: 
+2020-12-07T09:56:49.49--7:00 ******: OPDPRODUCTS_8
+2020-12-07T09:56:49.49--7:00 ******: {47C4C0CA-8D9F-4C0E-A12E-DBAD523DA6AA}
+2020-12-07T09:56:49.49--7:00 ******: 
+2020-12-07T09:56:49.49--7:00 ******: 8.00.0000
+2020-12-07T09:56:49.49--7:00 ******: 
+2020-12-07T09:56:49.49--7:00 ******: 513
+2020-12-07T09:56:49.49--7:00 ******: 
+2020-12-07T09:56:49.49--7:00 ******: OPDPRODUCTS_9
+2020-12-07T09:56:49.49--7:00 ******: {09175872-711E-42FA-8066-A6A2A399B356}
+2020-12-07T09:56:49.49--7:00 ******: 
+2020-12-07T09:56:49.49--7:00 ******: 8.00.0000
+2020-12-07T09:56:49.49--7:00 ******: 
+2020-12-07T09:56:49.49--7:00 ******: 513
+2020-12-07T09:56:49.49--7:00 ******: 
+2020-12-07T09:56:49.49--7:00 ******: OPDPRODUCTS_10
+2020-12-07T09:56:49.49--7:00 ******: {16347247-F1E8-4801-9715-06B0D7C8DA86}
+2020-12-07T09:56:49.49--7:00 ******: 
+2020-12-07T09:56:49.49--7:00 ******: 8.00.0000
+2020-12-07T09:56:49.49--7:00 ******: 
+2020-12-07T09:56:49.49--7:00 ******: 513
+2020-12-07T09:56:49.49--7:00 ******: 
+2020-12-07T09:56:49.49--7:00 ******: OPDPRODUCTS_11
+2020-12-07T09:56:49.49--7:00 ******: {4A29A115-4A56-44BD-A2EB-A2570422A067}
+2020-12-07T09:56:49.49--7:00 ******: 
+2020-12-07T09:56:49.49--7:00 ******: 8.00.0000
+2020-12-07T09:56:49.49--7:00 ******: 
+2020-12-07T09:56:49.49--7:00 ******: 513
+2020-12-07T09:56:49.49--7:00 ******: 
+2020-12-07T09:56:49.49--7:00 ******: OPDPRODUCTS_12
+2020-12-07T09:56:49.49--7:00 ******: {9FFC5AB2-531C-47D5-8AAF-DC5B431D96F1}
+2020-12-07T09:56:49.49--7:00 ******: 
+2020-12-07T09:56:49.49--7:00 ******: 8.00.0000
+2020-12-07T09:56:49.49--7:00 ******: 
+2020-12-07T09:56:49.49--7:00 ******: 513
+2020-12-07T09:56:49.49--7:00 ******: 
+2020-12-07T09:56:49.49--7:00 ******: OPDPRODUCTS_13
+2020-12-07T09:56:49.49--7:00 ******: {9DD58880-B13D-4122-9CA5-FCB43C861D01}
+2020-12-07T09:56:49.49--7:00 ******: 
+2020-12-07T09:56:49.49--7:00 ******: 8.00.0000
+2020-12-07T09:56:49.49--7:00 ******: 
+2020-12-07T09:56:49.49--7:00 ******: 513
+2020-12-07T09:56:49.49--7:00 ******: 
+2020-12-07T09:56:49.49--7:00 ******: OPDPRODUCTS_14
+2020-12-07T09:56:49.49--7:00 ******: {9CEE0205-F399-4A14-B21E-4E4C6537A263}
+2020-12-07T09:56:49.49--7:00 ******: 
+2020-12-07T09:56:49.49--7:00 ******: 8.00.0000
+2020-12-07T09:56:49.49--7:00 ******: 
+2020-12-07T09:56:49.49--7:00 ******: 513
+2020-12-07T09:56:49.49--7:00 ******: 
+2020-12-07T09:56:49.49--7:00 ******: OPDPRODUCTS_15
+2020-12-07T09:56:49.49--7:00 ******: {E78A21D1-6543-4750-9A76-B3C801E0A5DE}
+2020-12-07T09:56:49.49--7:00 ******: 
+2020-12-07T09:56:49.49--7:00 ******: 8.00.0000
+2020-12-07T09:56:49.49--7:00 ******: 
+2020-12-07T09:56:49.49--7:00 ******: 513
+2020-12-07T09:56:49.49--7:00 ******: 
+2020-12-07T09:56:49.49--7:00 ******: OPDPRODUCTS_16
+2020-12-07T09:56:49.49--7:00 ******: {0D6DBB98-97E5-4BD5-B727-640E94EB7614}
+2020-12-07T09:56:49.49--7:00 ******: 
+2020-12-07T09:56:49.49--7:00 ******: 8.00.0000
+2020-12-07T09:56:49.49--7:00 ******: 
+2020-12-07T09:56:49.49--7:00 ******: 513
+2020-12-07T09:56:49.49--7:00 ******: 
+2020-12-07T09:56:49.49--7:00 ******: OPDPRODUCTS_17
+2020-12-07T09:56:49.49--7:00 ******: {3468DDE9-53E5-4437-B3BA-A0D2D95ACE14}
+2020-12-07T09:56:49.49--7:00 ******: 
+2020-12-07T09:56:49.49--7:00 ******: 8.00.0000
+2020-12-07T09:56:49.49--7:00 ******: 
+2020-12-07T09:56:49.49--7:00 ******: 513
+2020-12-07T09:56:49.49--7:00 ******: 
+2020-12-07T09:56:49.49--7:00 ******: OPDPRODUCTS_18
+2020-12-07T09:56:49.49--7:00 ******: {C6813137-8B24-43F6-89C2-C5134C2DB883}
+2020-12-07T09:56:49.49--7:00 ******: 
+2020-12-07T09:56:49.49--7:00 ******: 8.00.0000
+2020-12-07T09:56:49.49--7:00 ******: 
+2020-12-07T09:56:49.49--7:00 ******: 513
+2020-12-07T09:56:49.49--7:00 ******: 
+2020-12-07T09:56:49.49--7:00 ******: OPDPRODUCTS_19
+2020-12-07T09:56:49.49--7:00 ******: {4B254269-0404-456C-97B3-5967270E0631}
+2020-12-07T09:56:49.49--7:00 ******: 
+2020-12-07T09:56:49.49--7:00 ******: 8.00.0000
+2020-12-07T09:56:49.49--7:00 ******: 
+2020-12-07T09:56:49.49--7:00 ******: 513
+2020-12-07T09:56:49.49--7:00 ******: 
+2020-12-07T09:56:49.49--7:00 ******: OPDPRODUCTS_20
+2020-12-07T09:56:49.49--7:00 ******: {B2974E48-F904-45C0-A5AC-452F2C64EF1D}
+2020-12-07T09:56:49.49--7:00 ******: 
+2020-12-07T09:56:49.49--7:00 ******: 8.00.0000
+2020-12-07T09:56:49.49--7:00 ******: 
+2020-12-07T09:56:49.49--7:00 ******: 513
+2020-12-07T09:56:49.49--7:00 ******: 
+2020-12-07T09:56:49.49--7:00 ******: OPDPRODUCTS_21
+2020-12-07T09:56:49.49--7:00 ******: {210373B1-1EED-4F74-8E9C-D43B9C5391BA}
+2020-12-07T09:56:49.49--7:00 ******: 
+2020-12-07T09:56:49.49--7:00 ******: 8.00.0000
+2020-12-07T09:56:49.49--7:00 ******: 
+2020-12-07T09:56:49.49--7:00 ******: 513
+2020-12-07T09:56:49.49--7:00 ******: 
+2020-12-07T09:56:49.49--7:00 ******: OPDPRODUCTS_22
+2020-12-07T09:56:49.49--7:00 ******: {6168414E-10A0-4B84-8016-0A4A5BA7BACE}
+2020-12-07T09:56:49.49--7:00 ******: 
+2020-12-07T09:56:49.49--7:00 ******: 8.00.0000
+2020-12-07T09:56:49.49--7:00 ******: 
+2020-12-07T09:56:49.49--7:00 ******: 513
+2020-12-07T09:56:49.49--7:00 ******: 
+2020-12-07T09:56:49.49--7:00 ******: OPDPRODUCTS_23
+2020-12-07T09:56:49.49--7:00 ******: {5D08A267-A103-42C4-BF84-A86AB03E3D2B}
+2020-12-07T09:56:49.49--7:00 ******: 
+2020-12-07T09:56:49.49--7:00 ******: 8.00.0000
+2020-12-07T09:56:49.49--7:00 ******: 
+2020-12-07T09:56:49.49--7:00 ******: 513
+2020-12-07T09:56:49.49--7:00 ******: 
+2020-12-07T09:56:49.49--7:00 ******: OPDPRODUCTS_24
+2020-12-07T09:56:49.49--7:00 ******: {CBE07EE5-201E-4AB9-B02C-7480FE91A883}
+2020-12-07T09:56:49.49--7:00 ******: 
+2020-12-07T09:56:49.49--7:00 ******: 8.00.0000
+2020-12-07T09:56:49.49--7:00 ******: 
+2020-12-07T09:56:49.49--7:00 ******: 513
+2020-12-07T09:56:49.49--7:00 ******: 
+2020-12-07T09:56:49.49--7:00 ******: OPDPRODUCTS_25
+2020-12-07T09:56:49.49--7:00 ******: {7F71AA5B-AB81-41E9-9541-B910C83CDAA3}
+2020-12-07T09:56:49.49--7:00 ******: 
+2020-12-07T09:56:49.49--7:00 ******: 8.00.0000
+2020-12-07T09:56:49.49--7:00 ******: 
+2020-12-07T09:56:49.49--7:00 ******: 513
+2020-12-07T09:56:49.49--7:00 ******: 
+2020-12-07T09:56:49.49--7:00 ******: OPDPRODUCTS_1
+2020-12-07T09:56:50.50--7:00 UpgradeUtils/ES_SetProperties: Entered
+2020-12-07T09:56:50.50--7:00 UpgradeUtils/SetInstallType: Entered
+2020-12-07T09:56:50.50--7:00 GetProperty Success: UpgradeUtils/SetInstallType (Line 3177) got 'AllClients,AllClients65,MUIAllClients,MUIAllClients65,MUIAllClientsCKT,MUI,zh-TW' for 'ISReleaseFlags' from MSI
+2020-12-07T09:56:50.50--7:00 SetProperty Success: UpgradeUtils/SetInstallType (Line 3189) set 'INSTALLTYPE' to 'AllClients' in MSI
+2020-12-07T09:56:50.50--7:00 SetProperty Success: UpgradeUtils/SetInstallType (Line 3190) set 'INSTALLTYPE' to 'AllClients' in registry
+2020-12-07T09:56:50.50--7:00 GetProperty Success: UpgradeUtils/SetInstallType (Line 3200) got 'AllClients' for 'INSTALLTYPE' from MSI
+2020-12-07T09:56:50.50--7:00 GetProperty Success: UpgradeUtils/SetInstallType (Line 3204) got 'AllClients' for 'INSTALLTYPE' from registry
+2020-12-07T09:56:50.50--7:00 UpgradeUtils/SetInstallType: Exiting
+2020-12-07T09:56:50.50--7:00 GetProperty Success: UpgradeUtils/ES_SetProperties (Line 434) got '' for 'REMOVE' from MSI
+2020-12-07T09:56:50.50--7:00 SetProperty Success: UpgradeUtils/ES_SetProperties (Line 435) set 'REMOVE' to '' in registry
+2020-12-07T09:56:50.50--7:00 SetProperty Success: UpgradeUtils/ES_SetProperties (Line 442) set 'Uninstalling' to 'No' in registry
+2020-12-07T09:56:50.50--7:00 GetProperty Success: UpgradeUtils/ES_SetProperties (Line 447) got '5' for 'UILevel' from MSI
+2020-12-07T09:56:50.50--7:00 GetProperty Success: UpgradeUtils/ES_SetProperties (Line 565) got 'OnlyCurrentUser' for 'ApplicationUsers' from registry
+2020-12-07T09:56:50.50--7:00 GetProperty Success: UpgradeUtils/ES_SetProperties (Line 568) got '0' for 'NOTESWORKSWITH' from MSI
+2020-12-07T09:56:50.50--7:00 SetProperty Success: UpgradeUtils/ES_SetProperties (Line 569) set 'NOTESWORKSWITH' to '0' in registry
+2020-12-07T09:56:50.50--7:00 GetProperty Success: UpgradeUtils/INTL_IsMuiIns (Line 4482) got 'AllClients,AllClients65,MUIAllClients,MUIAllClients65,MUIAllClientsCKT,MUI,zh-TW' for 'ISReleaseFlags' from MSI
+2020-12-07T09:56:50.50--7:00 Function INTL_IsMuiIns: Release flags TRUE  AllClients,AllClients65,MUIAllClients,MUIAllClients65,MUIAllClientsCKT,MUI,zh-TW
+2020-12-07T09:56:50.50--7:00 GetProperty Success: UpgradeUtils/ES_SetProperties (Line 575) got 'AllClients,AllClients65,MUIAllClients,MUIAllClients65,MUIAllClientsCKT,MUI,zh-TW' for 'ISReleaseFlags' from MSI
+2020-12-07T09:56:50.50--7:00 GetProperty Success: UpgradeUtils/INTL_MuiInstallGetLang (Line 4534) got 'AllClients,AllClients65,MUIAllClients,MUIAllClients65,MUIAllClientsCKT,MUI,zh-TW' for 'ISReleaseFlags' from MSI
+2020-12-07T09:56:50.50--7:00 UpgradeUtils/ES_SetProperties:  MUI Install  is zh-TW
+2020-12-07T09:56:50.50--7:00 GetTargetPath Success: UpgradeUtils/ES_SetProperties (Line 583) got 'C:\Program Files (x86)\lotus\notes\' for target path 'INSTALLDIR'
+2020-12-07T09:56:50.50--7:00 SetTargetPath Success: UpgradeUtils/ES_SetProperties (Line 590) set target path 'MUIFOLDER' to 'C:\Program Files (x86)\lotus\notes\mui\zh-TW'
+2020-12-07T09:56:50.50--7:00 GetTargetPath Success: UpgradeUtils/ES_SetProperties (Line 592) got 'C:\Program Files (x86)\lotus\notes\mui\zh-TW\' for target path 'MUIFOLDER'
+2020-12-07T09:56:50.50--7:00 SetProperty Success: UpgradeUtils/ES_SetProperties (Line 594) set 'MUIFOLDER' to 'C:\Program Files (x86)\lotus\notes\mui\zh-TW\' in registry
+2020-12-07T09:56:50.50--7:00 SetProperty Success: UpgradeUtils/ES_SetProperties (Line 597) set 'MUI_ISO' to 'zh-TW' in MSI
+2020-12-07T09:56:50.50--7:00 SetProperty Success: UpgradeUtils/ES_SetProperties (Line 598) set 'MUI_ISO' to 'zh-TW' in registry
+2020-12-07T09:56:50.50--7:00 SetProperty Success: UpgradeUtils/ES_SetProperties (Line 599) set 'ISMUI' to '1' in registry
+2020-12-07T09:56:50.50--7:00 GetProperty Success: UpgradeUtils/ES_SetProperties (Line 617) got '' for 'REMOVE' from MSI
+2020-12-07T09:56:50.50--7:00 GetProperty Success: UpgradeUtils/ES_SetProperties (Line 622) got 'C:\Program Files (x86)\lotus\notes\' for 'PROGDIR' from registry
+2020-12-07T09:56:50.50--7:00 SetTargetPath Success: UpgradeUtils/ES_SetProperties (Line 623) set target path 'PROGDIR' to 'C:\Program Files (x86)\lotus\notes\'
+2020-12-07T09:56:50.50--7:00 SetTargetPath Success: UpgradeUtils/ES_SetProperties (Line 624) set target path 'INSTALLDIR' to 'C:\Program Files (x86)\lotus\notes\'
+2020-12-07T09:56:50.50--7:00 SetProperty Success: UpgradeUtils/ES_SetProperties (Line 633) set 'REGPATHPROPERTY' to 'C:\Program Files (x86)\lotus\notes' in MSI
+2020-12-07T09:56:50.50--7:00 UpgradeUtils/ES_SetProperties: Performing single user install. 
+2020-12-07T09:56:50.50--7:00 GetProperty Success: UpgradeUtils/ES_SetProperties (Line 658) got 'C:\Program Files (x86)\lotus\notes\data\' for 'DATADIR' from registry
+2020-12-07T09:56:50.50--7:00 SetTargetPath Success: UpgradeUtils/ES_SetProperties (Line 659) set target path 'DATADIR' to 'C:\Program Files (x86)\lotus\notes\data\'
+2020-12-07T09:56:50.50--7:00 SetProperty Success: UpgradeUtils/ES_SetProperties (Line 660) set 'DATADIR' to 'C:\Program Files (x86)\lotus\notes\data\' in registry
+2020-12-07T09:56:50.50--7:00 SetProperty Success: UpgradeUtils/ES_SetProperties (Line 669) set 'REGDATAPATHPROPERTY' to 'C:\Program Files (x86)\lotus\notes\data' in MSI
+2020-12-07T09:56:50.50--7:00 SetTargetPath Success: UpgradeUtils/ES_SetProperties (Line 672) set target path 'VDIR_DATA' to 'C:\Program Files (x86)\lotus\notes\data\'
+2020-12-07T09:56:50.50--7:00 GetTargetPath Success: UpgradeUtils/ES_SetProperties (Line 676) got 'C:\Program Files (x86)\lotus\notes\data\' for target path 'VDIR_DATA'
+2020-12-07T09:56:50.50--7:00 SetProperty Success: UpgradeUtils/ES_SetProperties (Line 677) set 'VDIR_DATA' to 'C:\Program Files (x86)\lotus\notes\data\' in registry
+2020-12-07T09:56:50.50--7:00 UpgradeUtils/IsInstallFromAdminImage: Entered
+2020-12-07T09:56:50.50--7:00 GetProperty Success: UpgradeUtils/IsInstallFromAdminImage (Line 2613) got '' for 'IsAdminPackage' from MSI
+2020-12-07T09:56:50.50--7:00 UpgradeUtils/IsInstallFromAdminImage: IsAdminPackage returned: 
+2020-12-07T09:56:50.50--7:00 UpgradeUtils/IsInstallFromAdminImage: This install is NOT from an Admin image
+2020-12-07T09:56:50.50--7:00 UpgradeUtils/IsInstallFromAdminImage: Exiting
+2020-12-07T09:56:50.50--7:00 SetTargetPath Success: UpgradeUtils/ES_SetProperties (Line 691) set target path 'VDIR_INI' to 'C:\Program Files (x86)\lotus\notes\'
+2020-12-07T09:56:50.50--7:00 SetProperty Success: UpgradeUtils/ES_SetProperties (Line 692) set 'VDIR_INI' to 'C:\Program Files (x86)\lotus\notes\' in registry
+2020-12-07T09:56:50.50--7:00 GetTargetPath Success: UpgradeUtils/ES_SetProperties (Line 697) got 'C:\Program Files (x86)\lotus\notes\' for target path 'VDIR_INI'
+2020-12-07T09:56:50.50--7:00 UpgradeUtils/ES_SetProperties: VDIR_INI now contains C:\Program Files (x86)\lotus\notes\
+2020-12-07T09:56:50.50--7:00 SetProperty Success: UpgradeUtils/ES_SetProperties (Line 702) set 'INIPARAM' to '=C:\Program Files (x86)\lotus\notes\notes.ini' in MSI
+2020-12-07T09:56:50.50--7:00 GetProperty Success: UpgradeUtils/ES_SetProperties (Line 704) got '=C:\Program Files (x86)\lotus\notes\notes.ini' for 'INIPARAM' from MSI
+2020-12-07T09:56:50.50--7:00 SetTargetPath Success: UpgradeUtils/ES_SetProperties (Line 706) set target path 'VDIR_SHARED' to 'C:\Program Files (x86)\lotus\notes\data\'
+2020-12-07T09:56:50.50--7:00 GetTargetPath Success: UpgradeUtils/ES_SetProperties (Line 708) got 'C:\Program Files (x86)\lotus\notes\data\' for target path 'VDIR_SHARED'
+2020-12-07T09:56:50.50--7:00 SetProperty Success: UpgradeUtils/ES_SetProperties (Line 709) set 'VDIR_SHARED' to 'C:\Program Files (x86)\lotus\notes\data\' in registry
+2020-12-07T09:56:50.50--7:00 SetTargetPath Success: UpgradeUtils/ES_SetProperties (Line 711) set target path 'VDIR_COMMON' to 'C:\Program Files (x86)\lotus\notes\data\'
+2020-12-07T09:56:50.50--7:00 GetTargetPath Success: UpgradeUtils/ES_SetProperties (Line 713) got 'C:\Program Files (x86)\lotus\notes\data\' for target path 'VDIR_COMMON'
+2020-12-07T09:56:50.50--7:00 SetProperty Success: UpgradeUtils/ES_SetProperties (Line 714) set 'VDIR_COMMON' to 'C:\Program Files (x86)\lotus\notes\data\' in registry
+2020-12-07T09:56:50.50--7:00 SetTargetPath Success: UpgradeUtils/ES_SetProperties (Line 717) set target path 'VDIR_COMMON_W32' to 'C:\Program Files (x86)\lotus\notes\data\W32'
+2020-12-07T09:56:50.50--7:00 GetTargetPath Success: UpgradeUtils/ES_SetProperties (Line 719) got 'C:\Program Files (x86)\lotus\notes\data\W32\' for target path 'VDIR_COMMON_W32'
+2020-12-07T09:56:50.50--7:00 SetProperty Success: UpgradeUtils/ES_SetProperties (Line 720) set 'VDIR_COMMON_W32' to 'C:\Program Files (x86)\lotus\notes\data\W32\' in registry
+2020-12-07T09:56:50.50--7:00 SetTargetPath Success: UpgradeUtils/ES_SetProperties (Line 723) set target path 'VDIR_SHARED_MODEMS' to 'C:\Program Files (x86)\lotus\notes\data\Modems'
+2020-12-07T09:56:50.50--7:00 GetTargetPath Success: UpgradeUtils/ES_SetProperties (Line 725) got 'C:\Program Files (x86)\lotus\notes\data\Modems\' for target path 'VDIR_SHARED_MODEMS'
+2020-12-07T09:56:50.50--7:00 SetProperty Success: UpgradeUtils/ES_SetProperties (Line 726) set 'VDIR_SHARED_MODEMS' to 'C:\Program Files (x86)\lotus\notes\data\Modems\' in registry
+2020-12-07T09:56:50.50--7:00 SetTargetPath Success: UpgradeUtils/ES_SetProperties (Line 729) set target path 'VDIR_SHARED_HELP' to 'C:\Program Files (x86)\lotus\notes\data\Help'
+2020-12-07T09:56:50.50--7:00 GetTargetPath Success: UpgradeUtils/ES_SetProperties (Line 731) got 'C:\Program Files (x86)\lotus\notes\data\Help\' for target path 'VDIR_SHARED_HELP'
+2020-12-07T09:56:50.50--7:00 SetProperty Success: UpgradeUtils/ES_SetProperties (Line 732) set 'VDIR_SHARED_HELP' to 'C:\Program Files (x86)\lotus\notes\data\Help\' in registry
+2020-12-07T09:56:50.50--7:00 SetProperty Success: UpgradeUtils/ES_SetProperties (Line 735) set 'GSHARED' to '' in registry
+2020-12-07T09:56:50.50--7:00 UpgradeUtils/GetInstallType: Entered
+2020-12-07T09:56:50.50--7:00 GetProperty Success: UpgradeUtils/GetInstallType (Line 2379) got 'AllClients' for 'INSTALLTYPE' from registry
+2020-12-07T09:56:50.50--7:00 UpgradeUtils/GetInstallType: InstallType is AllClients
+2020-12-07T09:56:50.50--7:00 UpgradeUtils/GetInstallType: Exiting
+2020-12-07T09:56:50.50--7:00 GetProperty Success: UpgradeUtils/ES_SetProperties (Line 915) got 'RDPNP,LanmanWorkstation,webclient' for 'NETWORKPROVORDER' from registry
+2020-12-07T09:56:50.50--7:00 SetProperty Success: UpgradeUtils/ES_SetProperties (Line 916) set 'NETWORKPROVORDER' to 'RDPNP,LanmanWorkstation,webclient' in MSI
+2020-12-07T09:56:50.50--7:00 UpgradeUtils/ES_SetProperties: Exiting
+2020-12-07T09:56:50.50--7:00 UpgradeUtils/HandleUpgradeInstall: Entered
+2020-12-07T09:56:50.50--7:00 UpgradeUtils/IsUninstall: Entered
+2020-12-07T09:56:50.50--7:00 GetProperty Success: UpgradeUtils/IsUninstall (Line 2714) got '' for 'REMOVE' from MSI
+2020-12-07T09:56:50.50--7:00 UpgradeUtils/IsUninstall: This is NOT an uninstall
+2020-12-07T09:56:50.50--7:00 UpgradeUtils/IsUninstall: Exiting
+2020-12-07T09:56:50.50--7:00 UpgradeUtils/IsInstallFromAdminImage: Entered
+2020-12-07T09:56:50.50--7:00 GetProperty Success: UpgradeUtils/IsInstallFromAdminImage (Line 2613) got '' for 'IsAdminPackage' from MSI
+2020-12-07T09:56:50.50--7:00 UpgradeUtils/IsInstallFromAdminImage: IsAdminPackage returned: 
+2020-12-07T09:56:50.50--7:00 UpgradeUtils/IsInstallFromAdminImage: This install is NOT from an Admin image
+2020-12-07T09:56:50.50--7:00 UpgradeUtils/IsInstallFromAdminImage: Exiting
+2020-12-07T09:56:50.50--7:00 UpgradeUtils/HandleUpgradeInstall: Not installing from Admin image.
+2020-12-07T09:56:50.50--7:00 GetProperty Success: UpgradeUtils/HandleUpgradeInstall (Line 987) got 'C:\Program Files (x86)\lotus\notes\' for 'PROGDIR' from registry
+2020-12-07T09:56:50.50--7:00 UpgradeUtils/FileExists: Entered
+2020-12-07T09:56:50.50--7:00 UpgradeUtils/FileExists: Did not find file C:\Program Files (x86)\lotus\notes\notes.ini
+2020-12-07T09:56:50.50--7:00 UpgradeUtils/FileExists: Exiting
+2020-12-07T09:56:50.50--7:00 GetProperty Success: UpgradeUtils/HandleUpgradeInstall (Line 995) got '' for 'NOTESPATH40' from registry
+2020-12-07T09:56:50.50--7:00 UpgradeUtils/HandleUpgradeInstall: This is NOT an upgrade install.
+2020-12-07T09:56:50.50--7:00 UpgradeUtils/RemoveObsoleteFiles: Entered
+2020-12-07T09:56:50.50--7:00 MSI ERROR: "UpgradeUtils/RemoveObsoleteFiles (Line 1710): Error - 'GetPropertyFromRegistry' for 'PATCHING' failed with return code '2' - The system cannot find the file specified.
+."
+2020-12-07T09:56:50.50--7:00 GetProperty Success: UpgradeUtils/RemoveObsoleteFiles (Line 1721) got 'C:\Program Files (x86)\lotus\notes\' for 'PROGDIR' from registry
+2020-12-07T09:56:50.50--7:00 GetProperty Success: UpgradeUtils/RemoveObsoleteFiles (Line 1724) got 'C:\Program Files (x86)\lotus\notes\data\' for 'DATADIR' from registry
+2020-12-07T09:56:50.50--7:00 SUCCESS:: UpgradeUtils/RemoveObsoleteFiles (Line 1731): Call 'MsiDatabaseOpenView' for 'ObsoleteFiles' succeeded
+2020-12-07T09:56:50.50--7:00 SUCCESS:: UpgradeUtils/RemoveObsoleteFiles (Line 1737): Call 'MsiViewExecute' for 'ObsoleteFiles' succeeded
+2020-12-07T09:56:50.50--7:00 SUCCESS:: UpgradeUtils/RemoveObsoleteFiles (Line 1745): Call 'MsiViewFetch' for 'ObsoleteFiles' succeeded
+2020-12-07T09:56:50.50--7:00 MSI ERROR: "UpgradeUtils/RemoveObsoleteFiles (Line 1797): Error - 'GetPropertyFromRegistry' for 'SHAREDINSTALL' failed with return code '2' - The system cannot find the file specified.
+."
+2020-12-07T09:56:50.50--7:00 MSI ERROR: "UpgradeUtils/RemoveObsoleteFiles (Line 1849): Error - 'FAILED to rename lotusnotes.sym to ' for 'C:\Program Files (x86)\lotus\notes\lotusnotes.sy2' failed with return code '3' - The system cannot find the path specified.
+."
+2020-12-07T09:56:50.50--7:00 MSI ERROR: "UpgradeUtils/RemoveObsoleteFiles (Line 1885): Error - 'FAILED to rename lotusnotes.sy2 to ' for 'C:\Program Files (x86)\lotus\notes\lotusnotes.sym' failed with return code '3' - The system cannot find the path specified.
+."
+2020-12-07T09:56:50.50--7:00 UpgradeUtils/RemoveObsoleteFiles: Exiting
+2020-12-07T09:56:50.50--7:00 MSI ERROR: "UpgradeUtils/RemoveExistingFiles (Line 1555): Error - 'GetPropertyFromRegistry' for 'PATCHING' failed with return code '2' - The system cannot find the file specified.
+."
+2020-12-07T09:56:50.50--7:00 UpgradeUtils/IsInstallFromAdminImage: Entered
+2020-12-07T09:56:50.50--7:00 GetProperty Success: UpgradeUtils/IsInstallFromAdminImage (Line 2613) got '' for 'IsAdminPackage' from MSI
+2020-12-07T09:56:50.50--7:00 UpgradeUtils/IsInstallFromAdminImage: IsAdminPackage returned: 
+2020-12-07T09:56:50.50--7:00 UpgradeUtils/IsInstallFromAdminImage: This install is NOT from an Admin image
+2020-12-07T09:56:50.50--7:00 UpgradeUtils/IsInstallFromAdminImage: Exiting
+2020-12-07T09:56:50.50--7:00 SUCCESS:: UpgradeUtils/RemoveExistingFiles (Line 1580): Call 'MsiDatabaseOpenView' for 'Component' succeeded
+2020-12-07T09:56:50.50--7:00 SUCCESS:: UpgradeUtils/RemoveExistingFiles (Line 1587): Call 'MsiViewExecute' for 'Component' succeeded
+2020-12-07T09:56:50.50--7:00 SUCCESS:: UpgradeUtils/RemoveExistingFiles (Line 1596): Call 'MsiViewFetch' for 'Component' succeeded
+2020-12-07T09:56:50.50--7:00 UpgradeUtils/RemoveExistingFiles: Info; File removed: '%s'.C:\WINDOWS\SysWOW64\PSAPI.DLL
+2020-12-07T09:56:50.50--7:00 UpgradeUtils/INTL_AdjustComponentsState: Entered
+2020-12-07T09:56:50.50--7:00 GetProperty Success: UpgradeUtils/INTL_IsMuiIns (Line 4482) got 'AllClients,AllClients65,MUIAllClients,MUIAllClients65,MUIAllClientsCKT,MUI,zh-TW' for 'ISReleaseFlags' from MSI
+2020-12-07T09:56:50.50--7:00 Function INTL_IsMuiIns: Release flags TRUE  AllClients,AllClients65,MUIAllClients,MUIAllClients65,MUIAllClientsCKT,MUI,zh-TW
+2020-12-07T09:56:50.50--7:00 UpgradeUtils/GetInstallType: Entered
+2020-12-07T09:56:50.50--7:00 GetProperty Success: UpgradeUtils/GetInstallType (Line 2379) got 'AllClients' for 'INSTALLTYPE' from registry
+2020-12-07T09:56:50.50--7:00 UpgradeUtils/GetInstallType: InstallType is AllClients
+2020-12-07T09:56:50.50--7:00 UpgradeUtils/GetInstallType: Exiting
+2020-12-07T09:56:50.50--7:00 UpgradeUtils/RegisterEmailProgram: Entered
+2020-12-07T09:56:50.50--7:00 GetProperty Success: UpgradeUtils/RegisterEmailProgram (Line 3866) got 'C:\Program Files (x86)\lotus\notes\' for 'PROGDIR' from registry
+2020-12-07T09:56:50.50--7:00 GetProperty Success: UpgradeUtils/RegisterEmailProgram (Line 3870) got '1' for 'USENOTESFOREMAIL' from registry
+2020-12-07T09:56:50.50--7:00 GetProperty Success: UpgradeUtils/RegisterEmailProgram (Line 3876) got 'No' for 'Uninstalling' from registry
+2020-12-07T09:56:50.50--7:00 UpgradeUtils/RegisterEmailProgram: Succesfully set value to HKLM\SOFTWARE\clients\mail to Lotus Notes
+2020-12-07T09:56:50.50--7:00 UpgradeUtils/RegisterEmailProgram: Succesfully set value to HKCR\mailto\shell\open\command to C:\Program Files (x86)\lotus\notes\notes.exe /defini %1
+2020-12-07T09:56:50.50--7:00 UpgradeUtils/RegisterEmailProgram: Succesfully set value to HKCR\mailto\DefaultIcon to C:\Program Files (x86)\lotus\notes\notes.exe,0
+2020-12-07T09:56:50.50--7:00 UpgradeUtils/RegisterEmailProgram: Succesfully set value to HKCU\SOFTWARE\clients\mailLotus Notes
+2020-12-07T09:56:50.50--7:00 UpgradeUtils/RegisterEmailProgram: Exiting
+2020-12-07T09:56:50.50--7:00 UpgradeUtils/FinalActions: Entered
+2020-12-07T09:56:50.50--7:00 GetProperty Success: UpgradeUtils/FinalActions (Line 3618) got 'C:\Program Files (x86)\lotus\notes\' for 'PROGDIR' from MSI
+2020-12-07T09:56:50.50--7:00 GetProperty Success: UpgradeUtils/FinalActions (Line 3622) got 'C:\Program Files (x86)\lotus\notes\data\' for 'DATADIR' from MSI
+2020-12-07T09:56:50.50--7:00 UpgradeUtils/GetInstallType: Entered
+2020-12-07T09:56:50.50--7:00 GetProperty Success: UpgradeUtils/GetInstallType (Line 2379) got 'AllClients' for 'INSTALLTYPE' from registry
+2020-12-07T09:56:50.50--7:00 UpgradeUtils/GetInstallType: InstallType is AllClients
+2020-12-07T09:56:50.50--7:00 UpgradeUtils/GetInstallType: Exiting
+2020-12-07T09:56:50.50--7:00 UpgradeUtils/FinalActions: Install type is ALLCLIENTS.
+2020-12-07T09:56:50.50--7:00 UpgradeUtils/FinalActions: Value stored in svKitType is 1
+2020-12-07T09:56:50.50--7:00 UpgradeUtils/FinalActions: Value stored in svInstallType is 2
+2020-12-07T09:56:50.50--7:00 GetProperty Success: UpgradeUtils/FinalActions (Line 3653) got 'OnlyCurrentUser' for 'ApplicationUsers' from registry
+2020-12-07T09:56:50.50--7:00 UpgradeUtils/IsInstallFromAdminImage: Entered
+2020-12-07T09:56:50.50--7:00 GetProperty Success: UpgradeUtils/IsInstallFromAdminImage (Line 2613) got '' for 'IsAdminPackage' from MSI
+2020-12-07T09:56:50.50--7:00 UpgradeUtils/IsInstallFromAdminImage: IsAdminPackage returned: 
+2020-12-07T09:56:50.50--7:00 UpgradeUtils/IsInstallFromAdminImage: This install is NOT from an Admin image
+2020-12-07T09:56:50.50--7:00 UpgradeUtils/IsInstallFromAdminImage: Exiting
+2020-12-07T09:56:50.50--7:00 UpgradeUtils/RegisterMAPI: Entered
+2020-12-07T09:56:50.50--7:00 UpgradeUtils/RegisterMAPI: Writing MAPI settings to C:\WINDOWS\system32\mapisvc.inf
+2020-12-07T09:56:50.50--7:00 WritePrivateProfileString Success: Set key Services:NOTES to 'Lotus Notes Mail' in C:\WINDOWS\system32\mapisvc.inf
+2020-12-07T09:56:50.50--7:00 WritePrivateProfileString Success: Set key NOTES:PR_SERVICE_DLL_NAME to 'nwnsp.dll' in C:\WINDOWS\system32\mapisvc.inf
+2020-12-07T09:56:50.50--7:00 WritePrivateProfileString Success: Set key NOTES:PR_SERVICE_SUPPORT_FILES to 'nwnsp.dll' in C:\WINDOWS\system32\mapisvc.inf
+2020-12-07T09:56:50.50--7:00 WritePrivateProfileString Success: Set key NOTES:PR_SERVICE_DELETE_FILES to 'nwnsp.dll' in C:\WINDOWS\system32\mapisvc.inf
+2020-12-07T09:56:50.50--7:00 WritePrivateProfileString Success: Set key NOTES:PR_SERVICE_ENTRY_NAME to 'ServiceEntry' in C:\WINDOWS\system32\mapisvc.inf
+2020-12-07T09:56:50.50--7:00 WritePrivateProfileString Success: Set key NOTES:Providers to 'NAB,NMS,NXP' in C:\WINDOWS\system32\mapisvc.inf
+2020-12-07T09:56:50.50--7:00 WritePrivateProfileString Success: Set key NOTES:WIZARD_ENTRY_NAME to 'ServiceWizard' in C:\WINDOWS\system32\mapisvc.inf
+2020-12-07T09:56:50.50--7:00 WritePrivateProfileString Success: Set key NOTES:PR_RESOURCE_FLAGS to 'SERVICE_SINGLE_COPY|SERVICE_PRIMARY_IDENTITY' in C:\WINDOWS\system32\mapisvc.inf
+2020-12-07T09:56:50.50--7:00 WritePrivateProfileString Success: Set key NAB:PR_PROVIDER_DLL_NAME to 'nwnsp.dll' in C:\WINDOWS\system32\mapisvc.inf
+2020-12-07T09:56:50.50--7:00 WritePrivateProfileString Success: Set key NAB:PR_RESOURCE_TYPE to 'MAPI_AB_PROVIDER' in C:\WINDOWS\system32\mapisvc.inf
+2020-12-07T09:56:50.50--7:00 WritePrivateProfileString Success: Set key NAB:PR_DISPLAY_NAME to 'Lotus Notes Address Book' in C:\WINDOWS\system32\mapisvc.inf
+2020-12-07T09:56:50.50--7:00 WritePrivateProfileString Success: Set key NAB:PR_PROVIDER_DISPLAY to 'Lotus Notes Address Book' in C:\WINDOWS\system32\mapisvc.inf
+2020-12-07T09:56:50.50--7:00 WritePrivateProfileString Success: Set key NAB:PR_RESOURCE_FLAGS to 'STATUS_PRIMARY_IDENTITY' in C:\WINDOWS\system32\mapisvc.inf
+2020-12-07T09:56:50.50--7:00 WritePrivateProfileString Success: Set key NMS:PR_PROVIDER_DLL_NAME to 'nwnsp.dll' in C:\WINDOWS\system32\mapisvc.inf
+2020-12-07T09:56:50.50--7:00 WritePrivateProfileString Success: Set key NMS:PR_RESOURCE_TYPE to 'MAPI_STORE_PROVIDER' in C:\WINDOWS\system32\mapisvc.inf
+2020-12-07T09:56:50.50--7:00 WritePrivateProfileString Success: Set key NMS:PR_RESOURCE_FLAGS to 'STATUS_PRIMARY_IDENTITY|STATUS_DEFAULT_STORE' in C:\WINDOWS\system32\mapisvc.inf
+2020-12-07T09:56:50.50--7:00 WritePrivateProfileString Success: Set key NMS:PR_PROVIDER_DISPLAY to 'Lotus Notes Message Store' in C:\WINDOWS\system32\mapisvc.inf
+2020-12-07T09:56:50.50--7:00 WritePrivateProfileString Success: Set key NMS:PR_DISPLAY_NAME to 'Lotus Notes Message Store' in C:\WINDOWS\system32\mapisvc.inf
+2020-12-07T09:56:50.50--7:00 WritePrivateProfileString Success: Set key NMS:PR_MDB_PROVIDER to '395d475fecf1cd1193dc5aab3C478538' in C:\WINDOWS\system32\mapisvc.inf
+2020-12-07T09:56:50.50--7:00 WritePrivateProfileString Success: Set key NXP:PR_PROVIDER_DLL_NAME to 'nwnsp.dll' in C:\WINDOWS\system32\mapisvc.inf
+2020-12-07T09:56:50.50--7:00 WritePrivateProfileString Success: Set key NXP:PR_RESOURCE_TYPE to 'MAPI_TRANSPORT_PROVIDER' in C:\WINDOWS\system32\mapisvc.inf
+2020-12-07T09:56:50.50--7:00 WritePrivateProfileString Success: Set key NXP:PR_RESOURCE_FLAGS to 'STATUS_PRIMARY_IDENTITY' in C:\WINDOWS\system32\mapisvc.inf
+2020-12-07T09:56:50.50--7:00 WritePrivateProfileString Success: Set key NXP:PR_PROVIDER_DISPLAY to 'Lotus Notes Transport' in C:\WINDOWS\system32\mapisvc.inf
+2020-12-07T09:56:50.50--7:00 WritePrivateProfileString Success: Set key NXP:PR_DISPLAY_NAME to 'Lotus Notes Transport' in C:\WINDOWS\system32\mapisvc.inf
+2020-12-07T09:56:50.50--7:00 UpgradeUtils/RegisterMAPI: Exiting
+2020-12-07T09:56:50.50--7:00 SetProperty Success: UpgradeUtils/FinalActions (Line 3742) set 'KitType' to '1' in registry
+2020-12-07T09:56:50.50--7:00 SetProperty Success: UpgradeUtils/FinalActions (Line 3743) set 'DirectoryKey' to 'Directory' in registry
+2020-12-07T09:56:50.50--7:00 SetProperty Success: UpgradeUtils/FinalActions (Line 3744) set 'DirectoryValue' to 'C:\Program Files (x86)\lotus\notes\data\' in registry
+2020-12-07T09:56:50.50--7:00 SetProperty Success: UpgradeUtils/FinalActions (Line 3745) set 'InstallType' to '2' in registry
+2020-12-07T09:56:50.50--7:00 SetProperty Success: UpgradeUtils/FinalActions (Line 3746) set 'Installing' to '0' in registry
+2020-12-07T09:56:50.50--7:00 GetProperty Success: UpgradeUtils/FinalActions (Line 3752) got '' for 'UPGRADING4X' from MSI
+2020-12-07T09:56:50.50--7:00 UpgradeUtils/FinalActions: Exiting
+2020-12-07T09:56:53.53--7:00 UpgradeUtils/UpdateRegForMultiUser: Entered
+2020-12-07T09:56:53.53--7:00 GetProperty Success: UpgradeUtils/UpdateRegForMultiUser (Line 5876) got 'OnlyCurrentUser' for 'ApplicationUsers' from registry
+2020-12-07T09:56:53.53--7:00 UpgradeUtils/UpdateRegForMultiUser: Exiting
+2020-12-07T09:56:53.53--7:00 UpgradeUtils/WriteIniFile: Entered
+2020-12-07T09:56:53.53--7:00 GetProperty Success: UpgradeUtils/WriteIniFile (Line 4180) got 'OnlyCurrentUser' for 'ApplicationUsers' from registry
+2020-12-07T09:56:53.53--7:00 GetProperty Success: UpgradeUtils/WriteIniFile (Line 4262) got 'C:\Program Files (x86)\lotus\notes\' for 'VDIR_INI' from registry
+2020-12-07T09:56:53.53--7:00 UpgradeUtils/WriteIniFile: Notes.ini PATH set to C:\Program Files (x86)\lotus\notes\notes.ini
+2020-12-07T09:56:53.53--7:00 GetProperty Success: UpgradeUtils/WriteIniFile (Line 4270) got '1' for 'KitType' from registry
+2020-12-07T09:56:53.53--7:00 WritePrivateProfileString Success: Set key Notes:KitType to '1' in C:\Program Files (x86)\lotus\notes\notes.ini
+2020-12-07T09:56:53.53--7:00 GetProperty Success: UpgradeUtils/WriteIniFile (Line 4274) got 'Directory' for 'DirectoryKey' from registry
+2020-12-07T09:56:53.53--7:00 GetProperty Success: UpgradeUtils/WriteIniFile (Line 4277) got 'C:\Program Files (x86)\lotus\notes\data\' for 'DirectoryValue' from registry
+2020-12-07T09:56:53.53--7:00 GetProperty Success: UpgradeUtils/WriteIniFile (Line 4280) got '1' for 'KitType' from registry
+2020-12-07T09:56:53.53--7:00 GetProperty Success: UpgradeUtils/WriteIniFile (Line 4292) got '1' for 'ISMUI' from registry
+2020-12-07T09:56:53.53--7:00 GetProperty Success: UpgradeUtils/WriteIniFile (Line 4295) got '' for 'GSHARED' from registry
+2020-12-07T09:56:53.53--7:00 WritePrivateProfileString Success: Set key Notes:Directory to 'C:\Program Files (x86)\lotus\notes\data' in C:\Program Files (x86)\lotus\notes\notes.ini
+2020-12-07T09:56:53.53--7:00 UpgradeUtils/WriteIniFile: NOT MUI INSTALL line 33041
+2020-12-07T09:56:53.53--7:00 UpgradeUtils/INTL_ClearOutIniForUpgrade: Clearing out ini C:\Program Files (x86)\lotus\notes\notes.ini
+2020-12-07T09:56:53.53--7:00 UpgradeUtils/INTL_ClearOutIniForUpgrade: Clearing out SPELL_LANG C:\Program Files (x86)\lotus\notes\notes.ini
+2020-12-07T09:56:53.53--7:00 WritePrivateProfileString Success: Set key Notes:ft_use_altfltr to '(null)' in C:\Program Files (x86)\lotus\notes\notes.ini
+2020-12-07T09:56:53.53--7:00 WritePrivateProfileString Success: Set key Notes:KoreanAutoConvert to '(null)' in C:\Program Files (x86)\lotus\notes\notes.ini
+2020-12-07T09:56:53.53--7:00 WritePrivateProfileString Success: Set key Notes:HHDataDictionary to '(null)' in C:\Program Files (x86)\lotus\notes\notes.ini
+2020-12-07T09:56:53.53--7:00 WritePrivateProfileString Success: Set key Notes:HHUserDictionary to '(null)' in C:\Program Files (x86)\lotus\notes\notes.ini
+2020-12-07T09:56:53.53--7:00 WritePrivateProfileString Success: Set key Notes:FT_ALTERNATE_FILTER to '(null)' in C:\Program Files (x86)\lotus\notes\notes.ini
+2020-12-07T09:56:53.53--7:00 WritePrivateProfileString Success: Set key Notes:WWWDSP_CODEPAGE to '(null)' in C:\Program Files (x86)\lotus\notes\notes.ini
+2020-12-07T09:56:53.53--7:00 WritePrivateProfileString Success: Set key Notes:DominoDefLmbcsGroup to '(null)' in C:\Program Files (x86)\lotus\notes\notes.ini
+2020-12-07T09:56:53.53--7:00 WritePrivateProfileString Success: Set key Notes:DominoResLang to '(null)' in C:\Program Files (x86)\lotus\notes\notes.ini
+2020-12-07T09:56:53.53--7:00 WritePrivateProfileString Success: Set key Notes:DominoDisableNbsp to '(null)' in C:\Program Files (x86)\lotus\notes\notes.ini
+2020-12-07T09:56:53.53--7:00 WritePrivateProfileString Success: Set key Notes:DominoNoFace to '(null)' in C:\Program Files (x86)\lotus\notes\notes.ini
+2020-12-07T09:56:53.53--7:00 WritePrivateProfileString Success: Set key Notes:CEC_LANG to '(null)' in C:\Program Files (x86)\lotus\notes\notes.ini
+2020-12-07T09:56:53.53--7:00 WritePrivateProfileString Success: Set key Notes:CEC_CHECK_CH to '(null)' in C:\Program Files (x86)\lotus\notes\notes.ini
+2020-12-07T09:56:53.53--7:00 WritePrivateProfileString Success: Set key Notes:CEC_CHECK_US to '(null)' in C:\Program Files (x86)\lotus\notes\notes.ini
+2020-12-07T09:56:53.53--7:00 WritePrivateProfileString Success: Set key Notes:Infoboxfont to '(null)' in C:\Program Files (x86)\lotus\notes\notes.ini
+2020-12-07T09:56:53.53--7:00 WritePrivateProfileString Success: Set key Notes:UIFont to '(null)' in C:\Program Files (x86)\lotus\notes\notes.ini
+2020-12-07T09:56:53.53--7:00 WritePrivateProfileString Success: Set key Notes:Statusbarfont to '(null)' in C:\Program Files (x86)\lotus\notes\notes.ini
+2020-12-07T09:56:53.53--7:00 WritePrivateProfileString Success: Set key Notes:WWWDSP_Codepage to '(null)' in C:\Program Files (x86)\lotus\notes\notes.ini
+2020-12-07T09:56:53.53--7:00 WritePrivateProfileString Success: Set key Notes:FT_Intl_Setting to '(null)' in C:\Program Files (x86)\lotus\notes\notes.ini
+2020-12-07T09:56:53.53--7:00 WritePrivateProfileString Success: Set key Notes:W32HHDll to '(null)' in C:\Program Files (x86)\lotus\notes\notes.ini
+2020-12-07T09:56:53.53--7:00 WritePrivateProfileString Success: Set key Notes:GlobalTextDir to '(null)' in C:\Program Files (x86)\lotus\notes\notes.ini
+2020-12-07T09:56:53.53--7:00 WritePrivateProfileString Success: Set key Notes:UILang to '(null)' in C:\Program Files (x86)\lotus\notes\notes.ini
+2020-12-07T09:56:53.53--7:00 GetProperty Success: UpgradeUtils/WriteIniFile (Line 4320) got 'zh-TW' for 'MUI_ISO' from registry
+2020-12-07T09:56:53.53--7:00 UpgradeUtils/WriteIniFile: Updating UserInterface to zh-TW
+2020-12-07T09:56:53.53--7:00 WritePrivateProfileString Success: Set key Notes:UserInterface to 'zh-TW' in C:\Program Files (x86)\lotus\notes\notes.ini
+2020-12-07T09:56:53.53--7:00 GetProperty Success: UpgradeUtils/WriteIniFile (Line 4399) got '2' for 'InstallType' from registry
+2020-12-07T09:56:53.53--7:00 WritePrivateProfileString Success: Set key Notes:InstallType to '2' in C:\Program Files (x86)\lotus\notes\notes.ini
+2020-12-07T09:56:53.53--7:00 UpgradeUtils/WriteIniFile: Exiting
+2020-12-07T09:56:53.53--7:00 GetProperty Success: UpgradeUtils/INTL_UpdateMUIDAT (Line 4683) got '\\10.224.69.84\vn-file\OA\Lotus\Lotus6.52Tw\' for 'SourceDir' from registry
+2020-12-07T09:56:53.53--7:00 UpgradeUtils/GetInstallType: Entered
+2020-12-07T09:56:53.53--7:00 GetProperty Success: UpgradeUtils/GetInstallType (Line 2379) got '2' for 'INSTALLTYPE' from registry
+2020-12-07T09:56:53.53--7:00 UpgradeUtils/GetInstallType: Failed to determine InstallType
+2020-12-07T09:56:53.53--7:00 UpgradeUtils/GetInstallType: Exiting
+2020-12-07T09:56:53.53--7:00 GetProperty Success: UpgradeUtils/INTL_UpdateMUIDAT (Line 4716) got '2' for 'INSTALLTYPE' from registry
+2020-12-07T09:56:53.53--7:00 GetProperty Success: UpgradeUtils/INTL_UpdateMUIDAT (Line 4751) got 'C:\Program Files (x86)\lotus\notes\' for 'PROGDIR' from registry
+2020-12-07T09:56:53.53--7:00 MSI ERROR: "UpgradeUtils/INTL_UpdateMUIDAT (Line 4769): Error - 'MUI CreateDirectory FAILED' for 'C:\Program Files (x86)\lotus\notes\MUI' failed with return code '183' - Cannot create a file when that file already exists.
+."
+2020-12-07T09:56:53.53--7:00 GetProperty Success: UpgradeUtils/INTL_UpdateMUIDAT (Line 4777) got 'zh-TW' for 'MUI_ISO' from registry
+2020-12-07T09:56:53.53--7:00 GetProperty Success: UpgradeUtils/INTL_UpdateMUIDAT (Line 4784) got '0' for 'NOTESWORKSWITH' from registry
+2020-12-07T09:56:53.53--7:00 PAUL->: INTL_GetReleaseBuild C:\Program Files (x86)\lotus\notes\nstrings.dll
+2020-12-07T09:56:53.53--7:00 INTL_GetReleaseBuild: Release is Release 6.5.2|June 01, 2004             
+2020-12-07T09:56:53.53--7:00 GetProperty Success: UpgradeUtils/INTL_UpdateMUIDAT (Line 4812) got '1' for 'ISMUI' from registry
+2020-12-07T09:56:53.53--7:00 WritePrivateProfileString Success: Set key Versions:CoreVersion to 'Release 6.5.2' in C:\Program Files (x86)\lotus\notes\MUI\MUI.DAT
+2020-12-07T09:56:53.53--7:00 WritePrivateProfileString Success: Set key Versions:NotesWorkswith to 'Release 6.5.2' in C:\Program Files (x86)\lotus\notes\MUI\MUI.DAT
+2020-12-07T09:56:53.53--7:00 WritePrivateProfileString Success: Set key MUI:Languages to '1' in C:\Program Files (x86)\lotus\notes\MUI\MUI.DAT
+2020-12-07T09:56:53.53--7:00 WritePrivateProfileString Success: Set key MUI:Language1 to 'zh-TW' in C:\Program Files (x86)\lotus\notes\MUI\MUI.DAT

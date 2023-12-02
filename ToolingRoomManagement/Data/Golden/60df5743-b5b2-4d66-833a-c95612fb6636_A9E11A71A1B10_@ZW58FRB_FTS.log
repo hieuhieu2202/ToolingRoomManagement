@@ -1,0 +1,385 @@
+SN send to sfis: ZW58FRB
+Time UI-SFIS: 2021/10/27 13:48:05
+SFIS->UI: @ZW58FRB                 VML2030-FXN-V            FC9C980B2CF9A9E11A71A1B10  353150660146164                 2140022459     V2222222    FTS       PASS
+
+Time SFIS->UI: 2021/10/27 13:48:05
+
+ShowUIProgram still running !
+
+===[ Start check LTE FW version ... ]===
+
+error sh_efs_init
+efs_exit_internal() efs->mutex=208193f0
+error sh_efs_init
+efs_exit_internal() efs->mutex=208193f0
+[WARNING]: SD card is not detected.
+AT+CGMR
+AT+CGMR
+
+EC25VFAR02A14M4G
+
+OK
+LTE FW config: EC25VFAR02A14M4G
+===[ Check LTE FW version OK ... ]===
+===[ Check Sim Card ]===
+AT+CPIN?
+AT+CPIN?
+
++CPIN: READY
+
+OK
+Check SimCard pass...
+Delay 10000 ms for wait LTE bootup
+mcu notify ov to prepare for  LTE ready!!!
+PULL OV2LTE_WAKEUP HIGH
+en0 Manual Ipconfig Done!!
+IpAddr: 192.168.225.100
+NetMask: 255.255.255.0
+GateWay: 192.168.225.1
+Delay 10000 MiliSecond
+
+===[ Start Burn IMEI ... ]===
+
+Burn IMEI: 353150660146164
+
+Check TAC: 35315066 <= OK
+
+AT+QPRTPARA=3
+AT+QPRTPARA=3
+
+ERROR
+AT+QPRTPARA=3
+
+OK
+AT+EGMR=1,7,"353150660146164"
+AT+EGMR=1,7,"353150660146164"
+
+OK
+AT+GSN
+AT+GSN
+
+353150660146164
+
+OK
+AT+QPRTPARA=1
+AT+QPRTPARA=1
+
+OK
+AT+GSN
+AT+GSN
+
+353150660146164
+
+OK
+===[ Burn IMEI OK ... ]===
+
+===[ Start get IMEI ... ]===
+
+AT+GSN
+AT+GSN
+
+353150660146164
+
+OK
+IMEI:353150660146164
+===[ Get IMEI OK ... ]===
+
+===[ Start Check Hostdevice Name ... ]===
+
+AT+QODM="hostdevice",0
+AT+QODM="hostdevice",0
+Manu: Arlo
+Model: VML2030
+SwV: Linux-3.18.20
+FwV: V01
+HwV: V01
+DateStamp: NULL
+DeviceID: IMEI:353150660146164
+OK
+Check hostDevice:VML2030 -> OK
+Check IMEI:353150660146164 -> OK
+Delay 4000 ms for wait LTE bootup
+Delay 4000 MiliSecond
+===[ Hostdevice Name OK... ]===
+Client - Server
+
+===[ Test Power start ... ]===
+
+List Band Test: BAND4-V,BAND13-V
+AT+QRFTESTMODE=1
+AT+QRFTESTMODE=1
+
+OK
+AT+QRFTESTMODE?
+AT+QRFTESTMODE?
+
++QRFTESTMODE: 1
+
+OK
+
+ wait server!
+##Startasdsa
+UI->MCU: ALLPIN_OFF
+ALLPIN_OFF_OK
+
+UI->MCU: PIN1_ON
+PIN1_ON_OK
+======================Band Testing: BAND4-V======================
+AT+QRFTEST="LTE BAND4",20175,"ON",63,1
+AT+QRFTEST="LTE BAND4",20175,"ON",63,1
+
+ALL IS UP
+
+OK
+Return: -1.01037488E+000
+Loop 1: -1.01
+
+BAND4-V Power is :23.49 SPEC_LOW: 20  SPEC_HIGH: 26
+Return: -1.01037488E+000
+Loop 2: -1.01
+
+BAND4-V Power is :23.49 SPEC_LOW: 20  SPEC_HIGH: 26
+
+Power BAND4-V PASSED ... ]===
+
+AT+QRFTEST="LTE BAND4",20175,"OFF",63,1
+AT+QRFTEST="LTE BAND4",20175,"OFF",63,1
+
+ALL is off
+
+OK
+======================Band Testing: BAND13-V======================
+AT+QRFTESTMODE?
+AT+QRFTESTMODE?
+
++QRFTESTMODE: 1
+
+OK
+AT+QRFTEST="LTE BAND13",23230,"ON",64,1
+AT+QRFTEST="LTE BAND13",23230,"ON",64,1
+
+ALL IS UP
+
+OK
+Return: -1.05209676E+000
+Loop 1: -1.05
+
+BAND13-V Power is :24.95 SPEC_LOW: 20  SPEC_HIGH: 26
+Return: -2.48956147E+000
+Loop 2: -2.49
+
+BAND13-V Power is :23.51 SPEC_LOW: 20  SPEC_HIGH: 26
+
+Power BAND13-V PASSED ... ]===
+
+AT+QRFTEST="LTE BAND13",23230,"OFF",64,1
+AT+QRFTEST="LTE BAND13",23230,"OFF",64,1
+
+ALL is off
+
+OK
+stop switch BOM
+UI->MCU: ALLPIN_OFF
+ALLPIN_OFF_OK
+===[ Test Power passed ... ]===
+
+Test by Client-Server
+
+===[ Test LTE RX start ... ]===
+
+List Band Test: BAND13-M,BAND13-D
+Spec: [-53,-47]
+Start switch BOM
+UI->MCU: ALLPIN_OFF
+ALLPIN_OFF_OK
+
+UI->MCU: PIN2_ON
+PIN2_ON_OK
+======================Band Testing: BAND13-M======================
+Change SG Frequency..
+Default AMPL:-50
+Pathloss AMPL:50
+cmdSG_B12::AMPL 0dBm;:FREQ 751.5MHz
+##CMD_OKAT+QRFTESTMODE?
+AT+QRFTESTMODE?
+
++QRFTESTMODE: 1
+
+OK
+AT+QRXFTM=1,12,5230,0,0,3
+AT+QRXFTM=1,12,5230,0,0,3
+
++QRXFTM: -477, -47
+
+OK
+RSSI Read: -47
+RSSI Value: -47
+======================Band Testing: BAND13-D======================
+Change SG Frequency..
+Default AMPL:-50
+Pathloss AMPL:38
+cmdSG_B12::AMPL -12dBm;:FREQ 751.5MHz
+##CMD_OKAT+QRFTESTMODE?
+AT+QRFTESTMODE?
+
++QRFTESTMODE: 1
+
+OK
+AT+QRXFTM=1,12,5230,1,0,3
+AT+QRXFTM=1,12,5230,1,0,3
+
++QRXFTM: -480, -48
+
+OK
+RSSI Read: -48
+RSSI Value: -48
+stop switch BOM
+UI->MCU: ALLPIN_OFF
+ALLPIN_OFF_OK
+===[ Test LTE RX passed ... ]===
+
+Test by Client-Server
+
+===[ Test GPS start ... ]===
+
+Change SG Frequency..
+Default AMPL:-103
+Pathloss AMPL:63.7
+Start switch BOM
+UI->MCU: ALLPIN_OFF
+ALLPIN_OFF_OK
+
+UI->MCU: PIN2_ON
+PIN2_ON_OK
+##CMD_OKLTE AT port disconnected!
+Clear previos log..
+D:\Quectel_Logs\EC25-E\RF_FT\RF_FT_TSCH1_2021_10_27_13_46_49.xls detelted!
+Clear previos log done!
+Check GPS log create..
+Check GPS log create..
+Check GPS log create..
+Check GPS log create..
+Check GPS log create..
+Check GPS log create..
+Check GPS log create..
+Check GPS log create..
+Check GPS log create..
+Check GPS log create..
+Check GPS log create..
+Check GPS log create..
+Check GPS log create..
+Check GPS log create..
+Check GPS log create..
+Check GPS log create..
+Check GPS log create..
+Check GPS log create..
+Check GPS log create..
+Check GPS log create..
+Check GPS log create..
+Check GPS log create..
+Check GPS log create..
+Check GPS log create..
+Check GPS log create..
+Check GPS log create..
+Check GPS log create..
+Check GPS log create..
+Check GPS log create..
+Check GPS log create..
+Check GPS log create..
+Check GPS log create..
+-----------------------log content-------------------
+A  B  C  D  E  
+Fixture Number:  1  
+Fixture Code:  2244  
+PC MAC:  B42E9973FF81  
+Serial Number:  
+IMEI:  
+Date:  2021_10_27 13:49:6  
+Tool Version:  RF_FT_For_Customer_V2.44.2_??GPS????  
+Station Name:  RF_FT  
+MO:  
+OC:  
+Instrument SN:  
+Power Supply SN:  
+Operator:  
+Test Line:  
+TEST ITEM  Sub Item  Test Value  Test Result  Note  
+< Initialization_Time >  0.000  PASS  0.000 ~ 0.000  
+< Detect_All_Test_COM_Port >  0.000  PASS  0.000 ~ 0.000  
+Detect_All_Test_Port  0.000  PASS  0.000 ~ 0.000  
+Test_AT_Port  0.000  PASS  0.000 ~ 0.000  
+Read_FW_VER  1.000  PASS  1.000 ~ 1.000  
+TOL_VER  0.000  PASS  0.000 ~ 0.000  
+< Open_FTM_Port >  0.000  PASS  0.000 ~ 0.000  
+Open_FTM_Port  0.000  PASS  0.000 ~ 0.000  
+< Connect_DUT >  0.000  PASS  0.000 ~ 0.000  
+Current_OP_Mode  1.000  PASS  0.000 ~ 6.000  
+IS_FTM_MODE  1.000  PASS  1.000 ~ 1.000  
+Enter_FTM_Mode  1.000  PASS  1.000 ~ 1.000  
+< Wait_RF_FT_1 >  0.000  PASS  0.000 ~ 0.000  
+< GPS_Test >  0.000  PASS  0.000 ~ 0.000  
+< GPS_Test_Measure_V1 >  0.000  PASS  0.000 ~ 0.000  
+Enter_GPS_Mode  0.000  PASS  0.000 ~ 0.000  
+Set_GPS_Config  0.000  PASS  0.000 ~ 1.000  
+< GPS_Test >  0.000  PASS  0.000 ~ 0.000  
+GPS_CNo_-110  66.200  PASS  61.000 ~ 75.000  
+GPS_Freq_Offset_-110  -765.000  PASS  -1000.000 ~ 1000.000  
+Exit_GPS_Mode  0.000  PASS  0.000 ~ 0.000  
+< Reset_DUT >  0.000  PASS  0.000 ~ 0.000  
+Enter_ONL_Mode  0.000  PASS  0.000 ~ 0.000  
+< Reset_DUT_In_AT >  0.000  PASS  0.000 ~ 0.000  
+Switch_Online_AT  0.000  PASS  0.000 ~ 1.000  
+Total Time: 30 S  0.000  PASS  0.000 ~ 0.000  
+Test Time:  30  
+Result:  PASS  
+stop switch BOM
+UI->MCU: ALLPIN_OFF
+ALLPIN_OFF_OK
+------------------------------------------
+
+GPS_Freq_Offset = -765.000
+GPS CNo Value = 66.2
+Spec: [58,77]
+===[ Test GPS passed ... ]===
+
+===[ Start enable ADB ... ]===
+
+!@#$%^
+===[ Enable ADB OK... ]===
+===[ Send Sfis ]===
+Sfis_length=150 ALSValueFlag=0 ALSCali5lux_10luxFlag=0  SendSFISFW=0   SendSFISHW=0
+SEND PASS TO SFIS: 
+UI->SFIS: @ZW58FRB                 FC9C980B2CF9A9E11A71A1B10  353150660146164                 B05-L4-FTS-2
+Time UI->SFIS PASS/FAIL: 2021/10/27 13:49:40
+SFIS->UI: @ZW58FRB                 FC9C980B2CF9A9E11A71A1B10  353150660146164                 B05-L4-FTS-2PASS
+Time SFIS->UI: 2021/10/27 13:49:40
+Time UI->SFIS RR-YR: 2021/10/27 13:49:40
+SFIS->UI: RR-YRVML2030-FXN-V            B05-L4-FTS-2001.07000.00099.34PASS
+close LTE COM ok 
+Time SFIS->UI: 2021/10/27 13:49:40
+Delay 0 MiliSecond
+==============Start show pass================
+TEST PROGRAM VERSION:2.3.2.8  TEST CYCLE TIME:94
+PASS Close COM ...
+
+----------------Summary all test item--------------
+Test item name                Result  Test time
+ 1.CheckLTEFirmware            PASS    8.15s 
+ 2.CheckSimCard_LTE            PASS    10.11s
+ 3.CheckIMEIGoV2               PASS    8.9s  
+ 4.CheckHostdeviceName         PASS    5.13s 
+ 5.CheckLTEPowerGoV2           PASS    9.49s 
+ 6.CheckLTERXGoV2              PASS    11.26s
+ 7.CheckGPSGoV2                PASS    40.28s
+ 8.EnableAdbGoV2               PASS    0.66s 
+ 9.SendSfis                    PASS    0.11s 
+---------------------------------------------------
+Write summary log server: F:\lsy\ID\U12I419T00\VML2030-FXN-V\FTS -> OK
+Write summary log localD:\Arlo_Logs\U12I419T00\VML2030-FXN-V\FTS\27-10-2021 -> OK
+Details log local folder: D:\Arlo_Logs\U12I419T00\VML2030-FXN-V\FTS\27-10-2021\PASS
+Details log server folder: F:\lsy\ID\Detail\U12I419T00\VML2030-FXN-V\FTS\27-10-2021\PASS
+  SendSfis , 0.11 , ,SMO 2140022459,,SEMPID V2222222,IMEI,353150660146164BAND4-V,23.49,BAND13-V,23.51,,BAND13-M_pl,50,BAND13-M,-47,,BAND13-D_pl,38,BAND13-D,-48,,PathLoss_GPS,63.7,,Is,66.2,GPS, 66.2, GPS_freq , -765.000 , CheckLTEFirmware , 8.15 , CheckSimCard_LTE , 10.11 , CheckIMEIGoV2 , 8.9 , CheckHostdeviceName , 5.13 , CheckLTEPowerGoV2 , 9.49 , CheckLTERXGoV2 , 11.26 , CheckGPSGoV2 , 40.28 , EnableAdbGoV2 , 0.66 , 10/14/2021 12:51:00 AM,
+Start send data to mydas !
+SENDTOMYDAS:     10.224.84.104SendSfis , 0.11 , ,SMO 2140022459,,SEMPID V2222222,IMEI,353150660146164BAND4-V,23.49,BAND13-V,23.51,,BAND13-M_pl,50,BAND13-M,-47,,BAND13-D_pl,38,BAND13-D,-48,,PathLoss_GPS,63.7,,Is,66.2,GPS, 66.2, GPS_freq , -765.000 , CheckLTEFirmware , 8.15 , CheckSimCard_LTE , 10.11 , CheckIMEIGoV2 , 8.9 , CheckHostdeviceName , 5.13 , CheckLTEPowerGoV2 , 9.49 , CheckLTERXGoV2 , 11.26 , CheckGPSGoV2 , 40.28 , EnableAdbGoV2 , 0.66 , 10/14/2021 12:51:00 AM,,,,,|@ZW58FRB,1,D:\Arlo,2.3.2.8,B05-L4-FTS-2,94,2021-10-27 01:49:41,FC9C980B2CF9,A9E11A71A1B10,   :SENDTOMYDASFINISH
+
+ Send mydas Fail...

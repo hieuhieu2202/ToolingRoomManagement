@@ -1,0 +1,415 @@
+﻿@model List<Model.EF.Golden>
+@{
+    ViewBag.Title = "Golden_View";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout_AdminPage.cshtml";
+    var session = (ToolingRoomManagement.Common.UserLogin)Session[ToolingRoomManagement.Common.CommonConstants.USER_SESSION];
+    var sessionPart = (ToolingRoomManagement.Common.SessionPart)Session[ToolingRoomManagement.Common.CommonConstants.SessionPart];
+    int dem = 0;
+}
+@using System.Globalization;
+<script src="/Assets/admin/js/vendor/jquery-1.12.4.min.js"></script>
+<script src="~/Assets/client/vendor/jquery/table.min.js"></script>
+
+<style>
+    .animation {
+        background-color: red;
+        position: relative;
+        animation-name: example;
+        animation-duration: 4s;
+        animation-iteration-count: infinite;
+    }
+
+    .tblShow {
+        border: 1px solid;
+    }
+
+        .tblShow thead tr th {
+            vertical-align: middle;
+            background: #2d9aca;
+            padding: 0px 0px 0px 5px;
+            position: sticky;
+            top: -3px;
+        }
+
+        .tblShow tbody tr td {
+            vertical-align: middle;
+            padding: 6px 15px;
+        }
+
+    ::-webkit-scrollbar {
+        width: 8px;
+        height: 5px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        -webkit-box-shadow: inset 0 0 4px 9px rgba(0,0,0,0.3);
+        border-radius: 10px;
+    }
+</style>
+<div>
+    <div class="header-advance-area">
+
+        <!-- Mobile Menu start -->
+        <div class="mobile-menu-area">
+            <div class="container">
+
+            </div>
+        </div>
+        <!-- Mobile Menu end -->
+        <div class="breadcome-area" style="margin-top: 40px;">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="breadcome-list" style="padding: 10px 20px 10px 20px;margin: 30px 0px 10px 0px;">
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                    <div class="breadcomb-wp">
+                                        <div class="breadcomb-icon zoom" data-toggle="tooltip" data-placement="bottom" title="Home">
+                                            @if (session.GroupID == 1)
+                                            {
+                                                <a href="/Admin/Admin/Index"><i class="icon nalika-home"></i></a>
+                                            }
+                                            else if (session.GroupID == 2)
+                                            {
+                                                <a href="/Admin/Admin/UserPage"><i class="icon nalika-home"></i></a>
+                                            }
+                                            else if (session.GroupID == 3)
+                                            {
+                                                <a href="/Admin/Admin/StaffPage"><i class="icon nalika-home"></i></a>
+                                            }
+                                            else if (session.GroupID == 4)
+                                            {
+                                                <a href="/Admin/Admin/Confirm_Page"><i class="icon nalika-home"></i></a>
+                                            }
+                                        </div>
+                                        <div class="breadcomb-ctn">
+                                            <h2>Golden Management</h2>
+                                            <p>Welcome to Tooling <span class="bread-ntd">Room</span></p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                    <div class="breadcomb-report">
+                                        <button data-toggle="tooltip" data-placement="left" title="Export To Excel" class="btn" onclick="fnExcelReport()"><i class="icon nalika-download"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="product-sales-area mg-tb-30" style="margin: 10px 0px;">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="product-sales-chart" style="padding: 5px 10px 5px 20px;">
+                        <div class="portlet-title">
+                            <div class="row">
+                                <div>
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="float:right;margin-right:25px;">
+                                        <div class="header-top-menu tabl-d-n hd-search-rp">
+                                            <div class="breadcome-heading" style="margin: 0px 0px 10px 0px;">
+
+                                                <button style="border-radius: 9px;background-color: brown;width: 100px;margin-top: 8px;margin-left: 20px;height: 35px;color: white;border: 1px solid;" onclick="OpenModal()">Login</button>
+                                                <form role="search" class="" style="float:right;">
+                                                    <input id="input_search" type="text" placeholder="Search..." class="form-control" style="width: 283px;color: #fffaf0;height: 39px;">
+                                                    <a href="" style="left: 96.5%;margin-top: -19px;"><i class="fa fa-search"></i></a>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style="width:100%;float:left;height: 735px;">
+                                    <div style="padding: 5px 26px 5px 10px;overflow:auto;">
+                                        @*<button onclick="OpenModal()">Login Admin</button>*@
+                                        <div style="overflow:auto;height: 700px;">
+                                            @*<h3 style="color:aliceblue;">Not Yet Complete! ~_~</h3>*@
+                                            <table id="tbl_Golden" class="tblShow table-bordered" style="width: 100%; color:white;">
+                                                <thead>
+                                                    <tr style="height:45px;">
+                                                        <th>#</th>
+                                                        <th langKey="create_by">Create By</th>
+                                                        <th langKey="golden_name">Golden Name</th>
+                                                        <th langKey="golden_mac">Golden Mac</th>
+                                                        <th langKey="model_name">Model Name</th>
+                                                        <th langKey="group_name">Group Name</th>
+                                                        <th langKey="create_date">Create Date</th>
+                                                        <th langKey="end_date">End Date</th>
+                                                        <th langKey="file_name">File Name</th>
+                                                        <th langKey="">
+                                                            <select id="part_golden" style="height: 40px;background: #2d9aca;border: 0px;">
+                                                                <option>Part</option>
+                                                                <option>Arlo</option>
+                                                                <option>Netgear</option>
+                                                                <option>QE</option>
+                                                            </select>
+                                                        </th>
+                                                        <th style="width:6%;" langKey="">
+                                                            <select id="status_golden" style="height: 40px;background: #2d9aca;border: 0px;">
+                                                                <option>Status</option>
+                                                                <option>Normal</option>
+                                                                <option>Warning</option>
+                                                                <option>Expired</option>
+                                                            </select>
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="tbdGolden">
+                                                    @if (Model.Count() != 0)
+                                                    {
+                                                        foreach (var item in Model)
+                                                        {
+                                                            { dem++; }
+                                                            <tr>
+                                                                <td>@dem</td>
+                                                                <td>@item.Create_People</td>
+                                                                <td>@item.Golden_Name</td>
+                                                                <td>@item.Mac</td>
+                                                                <td>@item.Model_Name</td>
+                                                                <td>@item.Group_Name</td>
+                                                                <td>@item.Create_Date</td>
+                                                                <td>@item.End_Date</td>
+                                                                <td style="word-break: break-all;"><a href="~/Data/Golden/@(item.File_Name != null ? item.File_Name : "")"> @(item.File_Name != null ? item.File_Name : "") </a></td>
+                                                                <td>@item.Part</td>
+                                                                @{
+                                                                    DateTime dt = DateTime.Now;
+                                                                    try {
+                                                                        DateTime.TryParseExact(item.End_Date, "dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out dt);
+                                                                    }
+                                                                    catch
+                                                                    {
+
+                                                                    }
+
+                                                                    DateTime now = DateTime.Now;
+                                                                    TimeSpan ts = dt.Subtract(now);
+
+                                                                    if (ts.Days >= 10)
+                                                                    {
+                                                                        <td style="background:green;">Normal</td>
+                                                                    }
+                                                                    else if (ts.Days > 0 && ts.Days < 10)
+                                                                    {
+                                                                        <td style="background:orange;">Warning</td>
+
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <td style="background:red;">Expired</td>
+                                                                    }
+                                                                }
+                                                            </tr>
+
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        <tr>
+                                                            <td colspan="11">Dont Have Golden Sample!</td>
+                                                        </tr>
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" id="myModal">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content" style="width: 750px; margin-left: 50px;">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Login</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body" style="height:200px;">
+                <input hidden id="id_golden" />
+                <table class="tblCreate" style="width:80%;float: left;margin-left:100px;">
+                    <tr style="height:50px;">
+                        <td langKey="">User Name (Arlo/Netgear): </td>
+                        <td><input class="form-control" id="user_name" style="border: 1px solid #a58147;border-radius: 20px;background: white;color: black; width: 80%;" /></td>
+                    </tr>
+                    <tr style="height:50px;">
+                        <td langKey="password">Pass : </td>
+                        <td><input type="password" class="form-control" id="password" style="border: 1px solid #a58147;border-radius: 20px;background: white;color: black; width: 80%;" /></td>
+                    </tr>
+                </table>
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                @*<button type="button" class="btn btn-secondary close">Close</button>*@
+                <button type="button" class="btn btn-secondsary btnClick" onclick="Login_Golden()" langKey="complete">Complete</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(window).on("load", function () {
+        $('#tbl_Golden').DataTable({
+            "lengthMenu": [[1000, 1000, 1000, 1000], [1000, 1000, 1000, 10000]]
+        });
+    });
+    
+    $("#part_golden").on("change", function () {   
+        var table = $('#tbl_Golden').DataTable({
+            orderCellsTop: true,
+            fixedHeader: true
+        });
+        var value = $("#part_golden :selected").text();
+        //alert(value);
+        if (value == "Part") {
+            if (table.column(9).search() !== '') {
+                table
+                    .column(9)
+                    .search('')
+                    .draw();
+            }
+            //table.column(1).search("").draw();
+        }
+        else {
+            if (table.column(9).search() !== value) {
+                table
+                    .column(9)
+                    .search(value)
+                    .draw();
+            }
+        }
+    });
+    $("#status_golden").on("change", function () {
+        var table = $('#tbl_Golden').DataTable({
+            orderCellsTop: true,
+            fixedHeader: true
+        });
+        var value = $("#status_golden :selected").text();
+        //alert(value);
+        if (value == "Status") {
+            if (table.column(10).search() !== '') {
+                table
+                    .column(10)
+                    .search('')
+                    .draw();
+            }
+            //table.column(1).search("").draw();
+        }
+        else {
+            if (table.column(10).search() !== value) {
+                table
+                    .column(10)
+                    .search(value)
+                    .draw();
+            }
+        }
+    });
+    var modal = document.getElementById("myModal");
+    $("#input_search").on("keyup", function () {
+        //get the input value, trimmed, and lowercased
+        var value = this.value.trim().toLowerCase();
+        //get the associated table
+        var $table;
+        $table = $("#tbdGolden");
+
+        //show all the rows to "undo" previous filtering
+        $table.find('tr').show();
+
+        //only filter if the value is not blank
+        if (value) {
+            $table.find('thead tr').show();
+            //find all the rows that do not match the filter, and hide them
+            $table.find('tr').filter(function () {
+
+                return this.innerText.toLowerCase().indexOf(value) < 0;
+            }).hide();
+        }
+    });
+    function OpenModal() {
+        modal.style.display = "block";
+    }
+    $(document).on("click", ".close", function () {
+        modal.style.display = "none";
+    })
+    function Login_Golden() {
+        if ($("#user_name").val() != "") {
+            var user_name = document.getElementById("user_name").value;
+        } else {
+            alert("Pls Enter User Name!");
+            return;
+        }
+        if ($("#password").val() != "") {
+            var password = document.getElementById("password").value;
+        } else {
+            alert("Pls Enter Password!");
+            return;
+        }
+
+        $.ajax({
+            type: "Post",
+            url: "/Login/LoginGolden?user_name=" + user_name + "&password=" + password,
+            async: false,
+            contentType: false,
+            processData: false,
+            success: function (data) {
+                if (data == "OK") {
+                    location.replace("/Admin/Admin/Golden_Edit");
+                } else if (data == "NG") {
+                    alert("Password Incorrect!");
+                } else {
+                    alert(data);
+                }
+            },
+            error: function (err) {
+                //debugger
+                alert("FAIL!");
+            }
+        });
+    }
+    function fnExcelReport() {
+        debugger
+        var tab_text = "<table border='2px'><tr bgcolor='#87AFC6'>";
+        var textRange; var j = 0;
+        tab = document.getElementById('tbl_Golden'); // id of table
+
+        for (j = 0; j < tab.rows.length; j++) {
+            tab_text = tab_text + tab.rows[j].innerHTML + "</tr>";
+            //tab_text=tab_text+"</tr>";
+        }
+
+        tab_text = tab_text + "</table>";
+        /*tab_text = tab_text.replace(/<A[^>]*>|<\/A>/g, "");*///remove if u want links in your table
+        /* tab_text = tab_text.replace(/<img[^>]*>/gi, "");*/ // remove if u want images in your table
+        tab_text = tab_text.replace(/<input[^>]*>|<\/input>/gi, ""); // reomves input params
+
+        var ua = window.navigator.userAgent;
+        var msie = ua.indexOf("MSIE ");
+
+        if (msie > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./))      // If Internet Explorer
+        {
+            txtArea1.document.open("txt/html", "replace");
+            txtArea1.document.write(tab_text);
+            txtArea1.document.close();
+            txtArea1.focus();
+            sa = txtArea1.document.execCommand("SaveAs", true, "Input Devices.xls");
+        }
+        else                 //other browser not tested on IE 11
+            //sa = window.open('data:application/vnd.ms-excel,' + encodeURIComponent(tab_text));
+            var a = document.createElement('a');
+        a.href = 'data:application/vnd.ms-excel,' + encodeURIComponent(tab_text);
+        a.download = "Goldens.xls";
+        a.click();
+    }
+</script>
+

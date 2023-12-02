@@ -1,0 +1,252 @@
+﻿<!-- Details modal -->
+<ul class="d-none" id="images"></ul>
+<div class="modal fade" id="device_details-modal" aria-hidden="true">
+    <div class="modal-dialog modal-fullscreen modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="device_details-title" data-i18n="device.management.device_details" style="text-transform:uppercase;">Device Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Details -->
+                <h5 class="font-weight-light text-center text-primary py-3" id="borrow_modal-name" data-i18n="device.management.device_details" style="text-transform:uppercase;">DEVICE DETAILS</h5>
+
+                <!-- Basic Info -->
+                <div class="row">
+                    <div class="col-8">
+                        <div class="card">
+                            <div class="card-body">
+                                <h6 class="mb-0 text-uppercase" data-i18n="device.management.basic_info">Basic Information</h6>
+                                <hr>
+
+                                <div class="row">
+                                    <div class="col-6">
+                                        <!-- Device Code-->
+                                        <div class="row">
+                                            <div class="input-group mb-3">
+                                                <span class="col-4 input-group-text" data-i18n="device.management.pn">PN</span>
+                                                <input class="form-control" type="text" id="device_details-DeviceCode" details disabled>
+                                            </div>
+                                        </div>
+                                        <!-- Device Name -->
+                                        <div class="input-group mb-3">
+                                            <span class="col-4 input-group-text" data-i18n="device.management.description">Description</span>
+                                            <input class="form-control" type="text" id="device_details-DeviceName" details disabled>
+                                        </div>
+                                        <!-- Specification -->
+                                        <div class="input-group mb-3">
+                                            <span class="col-4 input-group-text" data-i18n="device.management.specification">Specification</span>
+                                            <input class="form-control" type="text" id="device_details-Specification" details disabled>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <!-- Status + Type -->
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <div class="input-group mb-3">
+                                                    <span class="col-6 input-group-text" data-i18n="device.management.status">Status</span>
+                                                    <input class="form-control" type="text" id="device_details-Status" details disabled />
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="input-group mb-3">
+                                                    <span class="col-6 input-group-text" data-i18n="device.management.type">Type</span>
+                                                    <input class="form-control" type="text" id="device_details-Type" details disabled />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Device Date -->
+                                        <div class="input-group mb-3">
+                                            <span class="col-4 input-group-text" data-i18n="device.management.created_date">Created date</span>
+                                            <input class="form-control" type="datetime-local" id="device_details-DeviceDate" details disabled>
+                                        </div>
+
+                                        <!-- DeliveryTime -->
+                                        <div class="input-group mb-3">
+                                            <span class="col-4 input-group-text" data-i18n="device.management.lead_time">Lead Time</span>
+                                            <input class="form-control" type="text" id="device_details-DeliveryTime" details disabled>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h6 class="mb-0 text-uppercase" data-i18n="device.management.image">Images</h6>
+                                <hr>
+                                <div id="images-details-container">
+                                    <div class="carousel slide" data-ride="carousel">
+                                        <ol class="carousel-indicators"></ol>
+                                        <div class="carousel-inner"></div>
+                                        <a class="carousel-control-prev" href="javascript:;" role="button" data-slide="prev">
+                                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                            <span class="sr-only">Previous</span>
+                                        </a>
+                                        <a class="carousel-control-next" href="javascript:;" role="button" data-slide="next">
+                                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                            <span class="sr-only">Next</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Details Info-->
+                <div class="card">
+                    <div class="card-body">
+                        <h6 class="mb-0 text-uppercase" data-i18n="device.management.details_info">Details Information</h6>
+                        <hr>
+
+                        <div class="row">
+                            <div class="col-6">
+
+                                
+                                <div class="row">
+                                    
+                                    <div class="col-6">
+                                        <!-- WareHouse -->
+                                        <div class="input-group mb-3">
+                                            <span class="col-5 input-group-text" data-i18n="device.management.warehouse">Warehouse</span>
+                                            <input class="form-control" id="device_details-WareHouse" details disabled />
+                                        </div>
+                                        <!-- Buffer -->
+                                        <div class="input-group mb-3">
+                                            <span class="col-5 input-group-text" data-i18n="device.management.buffer">Buffer</span>
+                                            <input class="form-control" type="number" id="device_details-Buffer" details disabled>
+                                            <span class="input-group-text">%</span>
+                                        </div>
+                                        <!-- BOM Quantity -->
+                                        @*<div class="input-group mb-3">
+                                            <span class="col-5 input-group-text" data-i18n="device.management.bom_qty">BOM Quantity</span>
+                                            <input class="form-control" type="number" id="device_details-Quantity" details disabled>
+                                        </div>*@
+                                        <!-- PO Quantity -->
+                                        <div class="input-group mb-3">
+                                            <span class="col-5 input-group-text" data-i18n="device.management.po_qty">PO Quantity</span>
+                                            <input class="form-control" type="number" id="device_details-POQty" details disabled>
+                                        </div>
+                                        <!-- Unit -->
+                                        <div class="input-group mb-3">
+                                            <span class="col-5 input-group-text" data-i18n="device.management.unit">Unit</span>
+                                            <input class="form-control" type="text" id="device_details-Unit" details disabled>
+                                        </div>
+                                        <!-- MOQ -->
+                                        <div class="input-group mb-3">
+                                            <span class="col-5 input-group-text">MOQ</span>
+                                            <input class="form-control" type="number" id="device_details-MOQ" details disabled>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <!-- Relation -->
+                                        <div class="input-group mb-3">
+                                            <span class="col-5 input-group-text">Relation</span>
+                                            <input class="form-control" type="text" id="device_details-Relation" details disabled>
+                                        </div>
+                                        <!--  LifeCycle-->
+                                        <div class="input-group mb-3">
+                                            <span class="col-5 input-group-text" data-i18n="device.management.life_cycle">Life Cycle</span>
+                                            <input class="form-control" type="number" id="device_details-LifeCycle" details disabled>
+                                        </div>
+                                        <!-- Confirm Quantity -->
+                                        <div class="input-group mb-3">
+                                            <span class="col-5 input-group-text" data-i18n="device.management.confirm_qty">Confirm Quantity</span>
+                                            <input class="form-control" type="number" id="device_details-QtyConfirm" details disabled>
+                                        </div>
+                                        <!-- Real Quantity -->
+                                        <div class="input-group mb-3">
+                                            <span class="col-5 input-group-text fw-bold text-info" data-i18n="device.management.real_qty">Real Quantity</span>
+                                            <input class="form-control" type="number" id="device_details-RealQty" details disabled>
+                                        </div>
+                                        <!-- Min Quantity -->
+                                        <div class="input-group mb-3">
+                                            <span class="col-5 input-group-text" data-i18n="device.management.min_quantity">Min Quantity</span>
+                                            <input class="form-control" type="number" id="device_details-MinQty" details disabled>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-6">
+                                <!-- Product -->
+                                <div class="input-group mb-3">
+                                    <span class="col-3 input-group-text" data-i18n="device.management.product">Product</span>
+                                    <input class="col-9 form-control" id="device_details-Product" type="text" details disabled />
+                                </div>
+                                <!-- Model -->
+                                @*<div class="input-group mb-3">
+                                    <span class="col-3 input-group-text" data-i18n="device.management.model">Model</span>
+                                    <input class="col-9 form-control" id="device_details-Model" type="text" details disabled />
+                                </div>*@
+                                <!-- Station -->
+                                @*<div class="input-group mb-3">
+                                    <span class="col-3 input-group-text" data-i18n="device.management.station">Station</span>
+                                    <input class="col-9 form-control" id="device_details-Station" type="text" details disabled />
+                                </div>*@
+                                <!-- Group -->
+                                <div class="input-group mb-3">
+                                    <span class="col-3 input-group-text" data-i18n="device.management.group">Group</span>
+                                    <input class="form-control" id="device_details-Group" type="text" details disabled />
+                                </div>
+                                <!-- Vendor -->
+                                <div class="input-group mb-3">
+                                    <span class="col-3 input-group-text" data-i18n="device.management.vendor">Vendor</span>
+                                    <input class="form-control" id="device_details-Vendor" type="text" details disabled />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Layout -->
+                <h5 class="font-weight-light text-center text-primary py-3" id="details-location" data-i18n="device.management.device_location">DEVICE LOCATION</h5>
+                <div>
+                    <table class="table table-bordered" id="device_details-layout">
+                        <thead>
+                            <tr class="fw-bold" style="background-color: #3e464c">
+                                <td data-i18n="device.management.factory">Factory</td>
+                                <td data-i18n="device.management.factory_floor">Factory Floor</td>
+                                <td data-i18n="device.management.warehouse_manager">Warehouse Manager</td>
+                                <td data-i18n="device.management.warehouse">Warehouse</td>
+                                <td data-i18n="device.management.line">Line</td>
+                                <td data-i18n="device.management.cell">Cell</td>
+                                <td data-i18n="device.management.floor">Floor</td>
+                            </tr>
+                        </thead>
+                        <tbody id="device_details-layout-tbody">
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- History -->
+                <h5 class="font-weight-light text-center text-primary py-3" id="details-history" data-i18n="device.management.device_history">DEVICE HISTORY</h5>
+                <div>
+                    <table class="table table-bordered" id="device_details-history">
+                        <thead>
+                            <tr class="align-middle fw-bold text-center" style="background-color: #3e464c">
+                                <td style="min-width: 200px;">Code</td>
+                                <td style="min-width: 100px;" data-i18n="device.management.type_request">Type</td>
+                                <td style="min-width: 160px;">Date Borrow/Return</td>
+                                <td style="min-width: 220px;" data-i18n="device.management.user">User</td>
+                                <td style="min-width: 100px;" >Quantity</td>
+                                <td style="min-width: 100px;">Status</td>
+                                <td style="width: 100%;" data-i18n="device.management.note">Note</td>
+                                <td style="min-width: 50px;" class="text-danger">NG</td>
+                                <td style="min-width: 50px;" class="text-info">Swap</td>
+                            </tr>
+                        </thead>
+                        <tbody id="device_details-history-tbody"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="modal-footer" id="details_modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" data-i18n="global.close">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

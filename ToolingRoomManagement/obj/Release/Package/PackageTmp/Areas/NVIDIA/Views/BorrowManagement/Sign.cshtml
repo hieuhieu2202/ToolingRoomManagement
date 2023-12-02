@@ -1,0 +1,144 @@
+﻿@{
+    ViewBag.Title = "Borrow - Return Sign";
+    Layout = "~/Areas/NVIDIA/Views/Shared/_NvidiaLayoutShared.cshtml";
+}
+
+
+@section styles{
+    <!-- Vendor -->
+    <link href="~/Areas/NVIDIA/Content/Template/Sysadmin/assets/plugins/datatable/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
+    <link href="~/Areas/NVIDIA/Content/Vendor/Viewer JS/viewer.min.css" rel="stylesheet" />
+    <!-- Custom -->
+    <link href="~/Areas/NVIDIA/Content/Custom/BorrowManagement/css/BorrowSign.css?v=@Guid.NewGuid()" rel="stylesheet" />
+}
+
+<!-- Breadcrumb -->
+<div class="page-breadcrumb d-none d-sm-flex align-items-center py-3">
+    <div class="breadcrumb-title pe-3">Sign</div>
+    <div class="ps-3">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-0 p-0">
+                <li class="breadcrumb-item">
+                    <a href="/NVIDIA/Dashboard"><i class="bx bx-home-alt"></i></a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">Request Handling</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+
+<div class="row row-cols-1 row-cols-lg-4">
+    <!-- Total Requests -->
+    <div class="col">
+        <div class="card card-info radius-10">
+            <div class="card-body">
+                <div class="d-flex align-items-center">
+                    <div class="flex-grow-1">
+                        <p class="mb-0">Total Request</p>
+                        <h4 class="font-weight-bold" id="info-request"></h4>
+                    </div>
+                    <div class="widgets-icons bg-gradient-cosmic text-white">
+                        <i class="bx bx-transfer-alt"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Pending -->
+    <div class="col">
+        <div class="card card-info radius-10">
+            <div class="card-body">
+                <div class="d-flex align-items-center">
+                    <div class="flex-grow-1">
+                        <p class="mb-0">Pending</p>
+                        <h4 class="font-weight-bold" id="info-pending"></h4>
+                    </div>
+                    <div class="widgets-icons bg-gradient-kyoto text-white">
+                        <i class='bx bx-time'></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Approved -->
+    <div class="col">
+        <div class="card card-info radius-10">
+            <div class="card-body">
+                <div class="d-flex align-items-center">
+                    <div class="flex-grow-1">
+                        <p class="mb-0">Approved</p>
+                        <h4 class="font-weight-bold" id="info-approved"></h4>
+                    </div>
+                    <div class="widgets-icons bg-gradient-lush text-white">
+                        <i class='bx bx-check'></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Reject -->
+    <div class="col">
+        <div class="card card-info radius-10">
+            <div class="card-body">
+                <div class="d-flex align-items-center">
+                    <div class="flex-grow-1">
+                        <p class="mb-0">Rejected</p>
+                        <h4 class="font-weight-bold" id="info-rejected"></h4>
+                    </div>
+                    <div class="widgets-icons bg-gradient-burning text-white">
+                        <i class='bx bx-x'></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Card table -->
+<div class="card card-info" id="card-device-details">
+    <div class="card-body">
+        <div class="card-title d-flex justify-content-between align-items-center">
+            <h5 class="m-0">Details</h5>
+        </div>
+        <hr />
+        <div class="form-body mt-4">
+            <table id="table_Borrows" class="table table-striped table-hover table-bordered text-nowrap">
+                <thead>
+                    <tr>
+                        <th>Code</th>
+                        <th>Created By</th>
+                        <th>Created Date</th>
+                        <th>Note</th>
+                        <th>Type</th>
+                        <th>Status</th>
+                        <th>Sign</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="table_Borrows-tbody">
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Borrow Request modal -->
+@Html.Partial("~/Areas/NVIDIA/Views/BorrowManagement/_RequestDetails_Modal.cshtml")
+@Html.Partial("~/Areas/NVIDIA/Views/BorrowManagement/_ReturnDetails.cshtml")
+
+<!-- Details modal -->
+@Html.Partial("~/Areas/NVIDIA/Views/DeviceManagement/_DeviceDetails_Modal.cshtml")
+
+@section scripts{
+    <!-- Vendor -->
+    <script src="~/Areas/NVIDIA/Content/Template/Sysadmin/assets/plugins/datatable/js/jquery.dataTables.min.js"></script>
+    <script src="~/Areas/NVIDIA/Content/Vendor/MomentJs/moment.js"></script>
+    <script src="~/Areas/NVIDIA/Content/Vendor/Viewer JS/viewer.min.js"></script>
+    <!-- Custom -->
+    <script src="~/Areas/NVIDIA/Content/Custom/BorrowManagement/js/BorrowSign.js?v=@Guid.NewGuid()"></script>
+    <script src="~/Areas/NVIDIA/Content/Custom/BorrowManagement/js/RequestDetails.js?v=@Guid.NewGuid()"></script>
+    <script src="~/Areas/NVIDIA/Content/Custom/DeviceManagement/js/DeviceDetails.js?v=@Guid.NewGuid()"></script>
+    <script src="~/Areas/NVIDIA/Content/Custom/BorrowManagement/js/ReturnDetails.js?v=@Guid.NewGuid()"></script>
+}

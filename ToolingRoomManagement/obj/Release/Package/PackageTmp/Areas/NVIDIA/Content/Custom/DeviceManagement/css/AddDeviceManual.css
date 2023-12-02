@@ -1,0 +1,25 @@
+﻿
+#image-container {
+    border: 1px solid;
+    height: 6rem;
+    border-radius: 10px;
+    overflow: hidden;
+}
+.image-item{
+    height: 30px;
+    width: 30px;
+}
+
+.carousel {
+    height: 6rem;
+}
+    .carousel .carousel-item {
+        height: 6rem;
+    }
+        .carousel .carousel-item img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            max-height: 6rem;
+            object-fit: cover;
+        }

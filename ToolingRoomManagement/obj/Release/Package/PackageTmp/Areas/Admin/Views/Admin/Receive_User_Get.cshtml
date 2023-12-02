@@ -1,0 +1,1044 @@
+﻿@model List<Model.EF.Receive>
+@{
+    ViewBag.Title = "Receive_User_Get";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout_AdminPage.cshtml";
+    var listAllDevice = (List<Model.EF.Device>)ViewBag.listAllDevice;
+    int dem1 = 0;
+}
+
+<link href="~/Assets/admin/bootstrap-select.css" rel="stylesheet" />
+@*<script src="~/Assets/client/vendor/jquery/jquery.min.js"></script>*@
+<script src="/Assets/admin/js/vendor/jquery-1.12.4.min.js"></script>
+<script src="/Assets/admin/bootstrap-select.js"></script>
+<style>
+    @@media (min-width: 900px) {
+        .modal-sm {
+            width: 62vw;
+        }
+    }
+
+    @@media (min-width: 900px) {
+        .modal-content {
+            -webkit-box-shadow: 0 5px 15px rgba(0,0,0,.5);
+            box-shadow: 0 5px 15px rgba(0,0,0,.5);
+        }
+    }
+
+    .tblCreate thead tr th {
+        text-align: center;
+    }
+
+    .tblCreate tbody tr td {
+        text-align: center;
+    }
+
+    .zoom {
+        transition: transform .5s;
+    }
+
+        .zoom:hover {
+            transform: scale(1.1); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+        }
+
+    #tbl_View {
+        color: white;
+    }
+
+        #tbl_View thead {
+            position: sticky;
+            top: -3px;
+            font-size: 1.3vh;
+            background: #1b2a47;
+        }
+
+            #tbl_View thead tr th {
+                text-align: center;
+            }
+
+        #tbl_View tbody tr td {
+            font-size: 1vh;
+            color: white;
+            text-align: center;
+        }
+
+    ::-webkit-scrollbar {
+        width: 8px;
+        height: 5px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        -webkit-box-shadow: inset 0 0 4px 9px rgba(0,0,0,0.3);
+        border-radius: 10px;
+    }
+
+    .load_section {
+        animation: animateLoad 10s linear infinite;
+    }
+
+        .load_section .loader {
+            position: relative;
+            width: 5vw;
+            height: 5vh;
+            margin-top: 30vh;
+            margin-left: 38vw;
+        }
+
+            .load_section .loader .span_loader {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                transform: rotate(calc(18deg * var(--i)));
+            }
+
+                .load_section .loader .span_loader::before {
+                    content: '';
+                    position: absolute;
+                    border-radius: 20px;
+                    top: 0;
+                    left: 0;
+                    width: 10px;
+                    height: 10px;
+                    background: #ffc107;
+                    box-shadow: 0 0 10px #ffc107, 0 0 20px #ffc107, 0 0 40px #ffc107, 0 0 60px #ffc107, 0 0 80px #007bff, 0 0 100px #007bff;
+                    animation: animateChild 1s linear infinite;
+                    animation-delay: calc(0.05s * var(--i));
+                }
+
+    @@keyframes animateLoad {
+        0% {
+            filter: hue-rotate(0deg);
+        }
+
+        100% {
+            filter: hue-rotate(360deg);
+        }
+    }
+
+    @@keyframes animateChild {
+        0% {
+            transform: scale(1);
+        }
+
+        80%,100% {
+            transform: scale(0);
+        }
+    }
+    .dropdown .bootstrap-select .Da_select_model .form-control .bs3 {
+        width: 30vw !important;
+    }
+    
+</style>
+<div class="header-advance-area">
+    <div class="breadcome-area" style=" margin-top: 40px;">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="breadcome-list">
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                <div class="breadcomb-wp">
+                                    <div class="breadcomb-icon zoom" data-toggle="tooltip" data-placement="bottom" title="Home">
+                                        <a href="/Admin/Admin/UserPage">
+                                            <i class="icon nalika-home"></i>
+                                        </a>
+                                    </div>
+                                    <div class="breadcomb-ctn">
+                                        <h2>Đơn chờ lĩnh</h2>
+                                        <p>Welcome to Tooling <span class="bread-ntd">Room</span></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                <div class="breadcomb-report">
+                                    <button data-toggle="tooltip" data-placement="left" title="Download Report" class="btn"><i class="icon nalika-download"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="product-sales-area mg-tb-30" style="height:685px;">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="product-sales-chart">
+                    <div class="portlet-title">
+                        <div class="row">
+                            <div class="content">
+                                <div class="" style="">
+                                    <div class="project-list">
+                                        <div style="width:100%;">
+                                            <div class="ng-isolate-scope" style="float:left;width:11%; border-radius: 5px;">
+                                                <select id="select_status" style="height: 28px;color: white;width: 100%;padding-left: 15px; border-radius: 5px;background: #152036;">
+                                                    <option value="100">Đơn chờ</option>
+                                                    <option value="3">Đơn bị trả về</option>
+                                                    <option value="4">Đơn đã hoàn thành</option>
+                                                </select>
+
+                                            </div>
+                                            <div class="col-lg-2 col-md-7 col-sm-6 col-xs-12" style="float:right;width: 300px;margin-right:25px;">
+                                                <div class="header-top-menu tabl-d-n hd-search-rp">
+                                                    <div class="breadcome-heading" style="margin: 0px 0px 10px 0px;">
+                                                        <form role="search" class="">
+                                                            <input id="input_search" type="text" placeholder="Search..." class="form-control" style="width: 283px;color: #fffaf0;height: 39px;" />
+                                                            <a href="" style="left: 257px;margin-top: -23px;"><i class="fa fa-search"></i></a>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div style="height:68vh;overflow:auto;width:100%;">
+                                            <table class="table table-bordered" id="tbl_View">
+                                                <thead>
+                                                    <tr>
+                                                        <th rowspan="2" style="width:3%;">#</th>
+                                                        <th rowspan="2" style="width:5%;">Mã đơn</th>
+                                                        <th rowspan="2" style="width:6%;">Nội dung</th>
+                                                        <th rowspan="2" style="width:5%;">Trạng thái</th>
+                                                        <th rowspan="1" colspan="3">Người tạo</th>
+                                                        <th rowspan="1" colspan="3">Quản lý</th>
+                                                        <th rowspan="1" colspan="3">C Thản</th>
+                                                        <th rowspan="1" colspan="3">Quản lý 2</th>
+                                                        <th rowspan="1" colspan="3">Thủy</th>
+                                                        <th rowspan="2" style="width:5%;">Hành động</th>
+                                                    </tr>
+                                                    <tr>
+                                                        <th colspan="1" style="width:6%;">Tên</th>
+                                                        <th colspan="1" style="width:6%;">Ngày tạo</th>
+                                                        <th colspan="1" style="width:6%;">Ghi chú</th>
+                                                        <th colspan="1" style="width:6%;">Tên</th>
+                                                        <th colspan="1" style="width:6%;">Ngày kí</th>
+                                                        <th colspan="1" style="width:6%;">Ghi chú</th>
+                                                        <th colspan="1" style="width:5%;">Tên</th>
+                                                        <th colspan="1" style="width:5%;">Ngày kí</th>
+                                                        <th colspan="1" style="width:5%;">Ghi chú</th>
+                                                        <th colspan="1" style="width:5%;">Tên</th>
+                                                        <th colspan="1" style="width:5%;">Ngày kí</th>
+                                                        <th colspan="1" style="width:5%;">Ghi chú</th>
+                                                        <th colspan="1" style="width:5%;">Tên</th>
+                                                        <th colspan="1" style="width:5%;">Ghi chú</th>
+                                                        <th colspan="1" style="width:5%;">Ngày kí</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="tbd_View"></tbody>
+                                            </table>
+                                            <section class="load_section" style="height: 60vh;width: 100%;">
+                                                <div class="loader">
+                                                    <span class="span_loader" style="--i:1;"></span>
+                                                    <span class="span_loader" style="--i:2;"></span>
+                                                    <span class="span_loader" style="--i:3;"></span>
+                                                    <span class="span_loader" style="--i:4;"></span>
+                                                    <span class="span_loader" style="--i:5;"></span>
+                                                    <span class="span_loader" style="--i:6;"></span>
+                                                    <span class="span_loader" style="--i:7;"></span>
+                                                    <span class="span_loader" style="--i:8;"></span>
+                                                    <span class="span_loader" style="--i:9;"></span>
+                                                    <span class="span_loader" style="--i:10;"></span>
+                                                    <span class="span_loader" style="--i:11;"></span>
+                                                    <span class="span_loader" style="--i:12;"></span>
+                                                    <span class="span_loader" style="--i:13;"></span>
+                                                    <span class="span_loader" style="--i:14;"></span>
+                                                    <span class="span_loader" style="--i:15;"></span>
+                                                    <span class="span_loader" style="--i:16;"></span>
+                                                    <span class="span_loader" style="--i:17;"></span>
+                                                    <span class="span_loader" style="--i:18;"></span>
+                                                    <span class="span_loader" style="--i:19;"></span>
+                                                    <span class="span_loader" style="--i:20;"></span>
+                                                </div>
+                                            </section>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- The Modal -->
+<div class="modal" id="myModal">
+    <div class="modal-dialog modal-sm" style="width:85vw;">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Chi tiết</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <input hidden id="receive_id" />
+                <table style="border:0;width:100%;" id="tblAddDevice">
+                    <thead>
+                        <tr style="height:50px;">
+                            <th style="width: 20%;">Device Name</th>
+                            <th style="width:13%;">Quantity</th>
+                            <th style="width: 10%;">Receive</th>
+                            <th style="width: 10%;">Change</th>
+                            <th style="width: 10%;">Borrow</th>
+                            <th style="width:13%;">Note</th>
+                            <th style="width:12%;">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <select id="device_name_add" class="selectpicker Da_select_model form-control" data-hide-disabled="true" data-live-search="true" style="width:30vw;">
+                                    @foreach (var device in listAllDevice)
+                                    {
+                                    <option value="@device.id">@device.code_device-@device.device_name (@device.parameter) | Kho: @device.location Tồn kho: @device.quantity | @(device.status == 1 ? "OK" : "NG") | @device.produce_SN | @device.makiemke | @device.calibration | @device.create_date.Value.ToString("dd/MM/yyyy")</option>
+                                    }
+                                </select>
+                            </td>
+
+                            <td><input type="text" class="form-control QUANTITY quantity_add" style="background-color:white;color:black;width:80%;margin-left:10px;" id=""></td>
+                            <td><input type="radio" name="check" id="check_1_add" value="1" /></td>
+                            <td><input type="radio" name="check" id="check_2_add" value="2" /></td>
+                            <td><input type="radio" name="check" id="check_3_add" value="3" /></td>
+                            <td><textarea type="text" class="form-control NOTE note_add" style="background-color:white;color:black;" id=""></textarea></td>
+                            <td style="text-align:center;">
+                                <button onclick="Add_Device()" style="background: aquamarine;border: 1px solid;padding: 5px 15px 5px 15px;border-radius: 20px;">Add</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table class="table table-dark tblCreate">
+                    <thead>
+                        <tr>
+                            <th>STT</th>
+                            <th>Tên TB</th>
+                            <th>Kho</th>
+                            <th>Số lượng</th>
+                            <th>Type</th>
+                            <th>Ngày trả</th>
+                            <th>Ghi chú</th>
+                            <th>Hành động</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tblReceive" style="text-align:center;"></tbody>
+                </table>
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary btnclose">Kết thúc</button>
+                <button type="button" class="btn btn-secondary">Hoàn thành</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!--Modal Receive-->
+<div class="modal" id="myModal_Receive">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Chi tiết</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <input hidden id="id_receive" />
+                <table class="table table-dark tblReceive">
+                    <tr>
+                        <td>Đơn : </td>
+                        <td><input id="receiveName" class="form-control" style="background:#fff;color:black;" /></td>
+                    </tr>
+                    <tr>
+                        <td>Ghi chú : </td>
+                        <td><input id="note" class="form-control" style="background:#fff;color:black;" /></td>
+                    </tr>
+                </table>
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary btnclose">Kết thúc</button>
+                <button type="button" class="btn btn-secondary" onclick="UpdateReceive()">Cập nhật</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="modal" id="ModalDeviceBackRoom">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Chi tiết</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <input hidden id="receive_id" />
+
+                <table class="" style="border:0;margin-left: 60px;" id="tblBack">
+                    <tr>
+                        <td style="width: 150px;height: 50px;">Mã Kiểm kê: </td>
+                        <td class="makiemke"></td>
+                    </tr>
+                    <tr>
+                        <td style="width: 150px;height: 50px;">Mã SN: </td>
+                        <td class="maSN"></td>
+                    </tr>
+                    <tr>
+                        <td style="width: 150px;height: 50px;">Tên TB: </td>
+                        <td class="tenTB"></td>
+                    </tr>
+                    <tr>
+                        <td style="width: 150px;height: 50px;">Model: </td>
+                        <td class="model_TB"></td>
+                    </tr>
+                    <tr>
+                        <td style="width: 150px;height: 50px;">Mã Hiệu chuẩn: </td>
+                        <td class="mahieuchuan"></td>
+                    </tr>
+                    <tr>
+                        <td style="width: 150px;height: 50px;">Nhập vào kho : </td>
+                        <td class="kho_TB"></td>
+                    </tr>
+                    <tr>
+                        <td style="width: 150px;height: 50px;">Tình trạng TB: </td>
+                        <td class="statusTB"></td>
+                    </tr>
+                    <tr>
+                        <td style="width: 150px;height: 50px;">Ghi chú: </td>
+                        <td class="noteTB"></td>
+                    </tr>
+                    <tr class="image_TB">
+                        <td style="width: 150px;height: 50px;">Hình ảnh: </td>
+                        <td class="imageTB">
+                            @*<input type="file" class="form-control TYPEDEVICE" style="background-color:white;color:black;border: 1px solid #5c7096;border-radius: 21px;" id="imageTB" multiple>*@
+
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary btnclose">Đóng</button>
+                <button type="button" class="btn btn-secondary btnAdd" @*onclick="CreateReceive()"*@>Cập nhật</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+
+    var modal = document.getElementById("myModal");
+    var modal_EditReceive = document.getElementById("myModal_Receive");
+    var modalDeviceBackRoom = document.getElementById("ModalDeviceBackRoom");
+    $(document).on("click", ".close", function () {
+        modal.style.display = "none";
+        modal_EditReceive.style.display = "none";
+        modalDeviceBackRoom.style.display = "none";
+    })
+    $(document).on("click", ".btnclose", function () {
+        modal.style.display = "none";
+    })
+    $(document).on("click", ".btnclose", function () {
+        modal.style.display = "none";
+        modal_EditReceive.style.display = "none";
+        modalDeviceBackRoom.style.display = "none";
+
+    })
+    function EditReceive(id, receive_name, note) {
+        $("#id_receive").val(id);
+        $("#receiveName").val(receive_name);
+        $("#note").val(note);
+        modal_EditReceive.style.display = "block";
+    }
+    $(".load_section").show();
+    $("#select_status").change(function () {
+        $(".load_section").show();
+        $("#tbd_View").hide();
+        var st = $("#select_status").val();
+        //alert(st);
+        loadData(st, 1);
+    })
+    function loadData(st,number) {
+        $.ajax({
+            type: "POST",
+            url: "/Receive/getReceiveGet?status=" + st + "&numberPage=" + number,
+            //data:data,
+            contentType: "application/json",
+            datatype: "json/text",
+            success: function (result) {
+                var row = "";
+                var row1 = "";
+                var data = "";
+                var number_page = "";
+                if (st == 4) {
+                    data = result.split('___')[0];
+                    for (i = 0; i < parseInt(result.split('___')[1]); i++) {
+                        number_page += '<a style="margin-right:2vw;cursor:pointer;" onclick="loadData(' + "'" + st + "','" + (i + 1) + "'" + ')"><u>' + (i + 1) + '</u></a>';
+                    }
+                }
+
+                else {
+                    data = result;
+                }
+                if (JSON.parse(data).length > 0) {
+                    for (i = 0; i < JSON.parse(data).length; i++) {
+                        var status = "";
+                        if (JSON.parse(data)[i].receive.status == 1) {
+                            status = '<a style="color:orange;">Wait_Manager<a>';
+                        } else if (JSON.parse(data)[i].receive.status == 2) {
+                            status = '<a style="color:#00adff;">Wait_CThan<a>';
+                        } else if (JSON.parse(data)[i].receive.status == 7) {
+                            status = '<a style="color:orange;">Thuy_Check<a>';
+                        } else if (JSON.parse(data)[i].receive.status == 6) {
+                            status = '<a style="color:#00ffa1;">Wait_Transfer<a>';
+                        } else if (JSON.parse(data)[i].receive.status == 3) {
+                            status = '<a style="color:red;">Reject<a>';
+                        } else if (JSON.parse(data)[i].receive.status == 4) {
+                            status = '<a style="color:green;">OK<a>';
+                        } else if (JSON.parse(data)[i].receive.status == 5) {
+                            status = '<a style="color:yellow;">Wait_Back<a>';
+                        }
+                        var button = "";
+                        if (JSON.parse(data)[i].receive.status == 1 || JSON.parse(data)[i].receive.status==3) {
+                            button = '<a style="color:orange" onclick="EditReceive(' + "'" + JSON.parse(data)[i].receive.id + "','" + JSON.parse(data)[i].receive.receive_name + "','" + JSON.parse(data)[i].receive.note + "'" + ')"><i class="fa fa-edit"></i> </a><a style="color:red" onclick="DeleteReceive(' + "'" + JSON.parse(data)[i].receive.id + "'" + ')"><i class="fa fa-trash"></i></a>';
+                        } else {
+                            button = "";
+                        }
+                        row += '<tr style="">' +
+                            '<td>' + (i + 1) + '</td>' +
+                            '<td><a onclick="detail(' + "'" + JSON.parse(data)[i].receive.id + "','" + JSON.parse(data)[i].receive.status + "'" + ')">' + JSON.parse(data)[i].receive.code_receive + '</a></td>' +
+                            '<td>' + JSON.parse(data)[i].receive.receive_name + '</td>' +
+                            '<td>' + status + '</td>' +
+                            '<td>' + JSON.parse(data)[i].fullname + '</td>' +
+                            '<td>' + (JSON.parse(data)[i].receive.create_date != null ? convert_date(JSON.parse(data)[i].receive.create_date) : "") + '</td>' +
+                            '<td style="width: 5%;">' + (JSON.parse(data)[i].receive.note != null ? JSON.parse(data)[i].receive.note : "") + '</td>' +
+                            '<td style="width: 5%;">' + JSON.parse(data)[i].receive.manager_confirm + '</td>' +
+                            '<td>' + (JSON.parse(data)[i].receive.time_manager_cf != null ? convert_date(JSON.parse(data)[i].receive.time_manager_cf) : "") + '</td>' +
+                            '<td>' + (JSON.parse(data)[i].receive.note_manager != null ? JSON.parse(data)[i].receive.note_manager : "") + '</td>' +
+                            '<td style="width: 5%;">C.Thản</td>' +
+                            '<td>' + (JSON.parse(data)[i].receive.time_CThanConfirm != null ? convert_date(JSON.parse(data)[i].receive.time_CThanConfirm) : "") + '</td>' +
+                            '<td>' + (JSON.parse(data)[i].receive.note_cThan != null ? JSON.parse(data)[i].receive.note_cThan : "") + '</td>' +
+                            '<td style="width:5%;">' + (JSON.parse(data)[i].receive.add_manager_name != null ? JSON.parse(data)[i].receive.add_manager_name : "") + '</td>' +
+                            '<td>' + (JSON.parse(data)[i].receive.time_transfer_cf != null ? convert_date(JSON.parse(data)[i].receive.time_transfer_cf) : "") + '</td>' +
+                            '<td>' + (JSON.parse(data)[i].receive.note_manager != null ? JSON.parse(data)[i].receive.note_manager : "") + '</td>' +
+                            '<td style="width: 5%;">Thủy</td>' +
+                            '<td>' + (JSON.parse(data)[i].receive.note_Thuy != null ? JSON.parse(data)[i].receive.note_Thuy : "") + '</td>' +
+                            '<td>' + (JSON.parse(data)[i].receive.complete_date != null ? convert_date(JSON.parse(data)[i].receive.complete_date) : "") + '</td>' +
+                            '<td>'+button+'</td>' +
+                            +'</tr>';
+                    }
+                } else {
+                    row = '<tr>' +
+                        '<td colspan="18" style="text-align:center;color:white;">-----No Data-----</td>' +
+                        '</tr>';
+                }
+                $("#tbd_View").empty();
+                $("#tbd_View").append(row);
+                $("#tbd_View").show();
+                $(".load_section").hide();
+                tab = "tbl_Receive";
+
+                //show_table("tbdReceive");
+                //$("#tbdReceive1").append(row1);
+            },
+            error: function (returnval) {
+            }
+        });
+    }
+    loadData(100,1);
+    function detail(receive_id, status, code_receive) {
+        $(".imageTB").empty();
+        $("#receive_id").val(receive_id);
+        $("#tblReceive").empty();
+        if (status == 1 || status == 3) {
+            $("#tblAddDevice").show();
+        } else {
+            $("#tblAddDevice").hide();
+        }
+        if (status != 4) {
+            $.ajax({
+                type: "Post",
+                url: "/Receive/get_ClipOutput_Receive?receive_id=" + receive_id,
+                async: false,
+                contentType: false,
+                processData: false,
+                success: function (data) {
+                    //alert(data);
+                    //debugger
+                    var length = JSON.parse(data).length;
+                    var row = "";
+                    //if (length == 0) {
+                    //    alert("Dont have any device!");
+                    //    return;
+                    //}
+                    for (i = 0; i < length; i++) {
+                        var type = "";
+                        if (JSON.parse(data)[i].clipOutput.type == 1) {
+                            type = "Lĩnh";
+                        } else if (JSON.parse(data)[i].clipOutput.type == 2) {
+                            type = "Đổi";
+                        } else {
+                            type = "Mượn";
+                        }
+                        var note = "";
+                        if (JSON.parse(data)[i].clipOutput.note != null) {
+                            note = JSON.parse(data)[i].clipOutput.note;
+                        }
+                        else {
+                            note = "";
+                        }
+                        var ngaytra = "";
+                        if (JSON.parse(data)[i].clipOutput.ngaytra != null) {
+                            ngaytra = convert_date(JSON.parse(data)[i].output.ngaytra);
+
+                        } else {
+                            ngaytra = "";
+                        }
+
+                        var confirm = "'" + JSON.parse(data)[i].clipOutput.quantity + "','" + JSON.parse(data)[i].clipOutput.device_id + "','" + JSON.parse(data)[i].clipOutput.receive_id + "','" + JSON.parse(data)[i].clipOutput.id + "','" + JSON.parse(data)[i].clipOutput.type + "','" + note + "'";
+                        var delete_device = "'" + JSON.parse(data)[i].clipOutput.id + "','" + JSON.parse(data)[i].clipOutput.receive_id + "'";
+                        var button = "";
+                        if (status == 1 || status == 3) {
+                            button = '<button style="border: 0;background: #fff;" onclick="DeleteDevice(' + delete_device + ')"><i class="fa fa-trash" style="color:red;"></i></button>';
+                        } else {
+                            button = "";
+                        }
+                        row = row + '<tr>' +
+                            '<td>' + (i + 1) + '</td>' +
+                            '<td>' + JSON.parse(data)[i].device_name + '</td>' +
+                            '<td>' + JSON.parse(data)[i].location + '</td>' +
+                            '<td class="quantity">' + JSON.parse(data)[i].clipOutput.quantity + '</td>' +
+                            '<td>' + type + '</td>' +
+                            '<td>' + ngaytra + '</td>' +
+                            '<td>' + note + '</td>'+
+                        '<td>' + button + '</td>' +
+                        '</tr>';
+                    }
+                    $("#tblReceive").append(row);
+                    modal.style.display = "block";
+                },
+                error: function (err) {
+                    //debugger
+                    alert("FAIL!");
+                }
+            });
+        } else {
+            $.ajax({
+                type: "Post",
+                url: "/Receive/get_Output_Receive?receive_id=" + receive_id,
+                async: false,
+                contentType: false,
+                processData: false,
+                success: function (data) {
+                    //alert(data);
+                    //debugger
+                    var length = JSON.parse(data).length;
+                    var row = "";
+                    //if (length == 0) {
+                    //    alert("Dont have any device!");
+                    //    return;
+                    //}
+                    for (i = 0; i < length; i++) {
+                        var type = "";
+                        if (JSON.parse(data)[i].output.type == 1) {
+                            type = "Lĩnh";
+                        } else if (JSON.parse(data)[i].output.type == 2) {
+                            type = "Đổi";
+                        } else {
+                            type = "Mượn";
+                        }
+                        var note = "";
+                        if (JSON.parse(data)[i].output.note != null) {
+                            var a = JSON.parse(data)[i].output.note.replace("\n", " ");
+                            note = a.replace("\r", " ");
+                        }
+                        else {
+                            note = "";
+                        }
+                        debugger
+                        var ngaytra = "";
+                        if (JSON.parse(data)[i].output.ngaytra != null) {
+                            ngaytra = convert_date(JSON.parse(data)[i].output.ngaytra);
+
+                        } else {
+                            ngaytra = "";
+                        }
+
+                        row = row + '<tr>' +
+                            '<td>' + (i + 1) + '</td>' +
+                            '<td>' + JSON.parse(data)[i].device_name + '</td>' +
+                            '<td>' + JSON.parse(data)[i].location + '</td>' +
+                            '<td class="quantity">' + JSON.parse(data)[i].output.quantity_output + '</td>' +
+                            '<td>' + type + '</td>' +
+                            '<td>' + ngaytra + '</td>' +
+                            '<td>' + note + '</td>' +
+                            '</tr>';
+                    }
+                    $("#tblReceive").append(row);
+                    modal.style.display = "block";
+                },
+                error: function (err) {
+                    //debugger
+                    alert("FAIL!");
+                }
+            });
+        }
+
+        //if (code_receive == "I") {
+        //    $.ajax({
+        //        type: "Post",
+        //        url: "/Device/get_DeviceBackRoom?receive_id=" + receive_id,
+        //        async: false,
+        //        contentType: false,
+        //        processData: false,
+        //        success: function (data) {
+        //            //alert(data);
+        //            //debugger
+        //            var row = "";
+        //            $(".makiemke").append("<div>" + JSON.parse(data).makiemke + "</div>");
+        //            $(".maSN").append("<div>" + JSON.parse(data).produce_SN + "</div>");
+        //            $(".tenTB").append("<div>" + JSON.parse(data).device_name + "</div>");
+        //            $(".model_TB").append("<div>" + JSON.parse(data).parameter + "</div>");
+        //            var a = "";
+        //            if (JSON.parse(data).calibration != null) {
+        //                a = JSON.parse(data).calibration;
+        //            } else {
+        //                a = "N/A";
+        //            }
+        //            $(".mahieuchuan").append("<div>" + a + "</div>");
+        //            $(".kho_TB").append("<div>" + JSON.parse(data).location + "</div>");
+        //            if (JSON.parse(data).status == 1) {
+        //                $(".statusTB").append("<div>OK</div>");
+        //            } else {
+        //                $(".statusTB").append("<div>NG</div>");
+        //            }
+        //            $(".noteTB").val(JSON.parse(data).note_status);
+        //            if (JSON.parse(data).imageTB != null) {
+        //                $(".imageTB").append("<div>Không có hình ảnh nào!</div>");
+        //            } else {
+        //                debugger
+        //                var image_ = JSON.parse(JSON.parse(data).image_TB);
+        //                var list_image = "";
+        //                for (j = 0; j < image_.length; j++) {
+        //                    list_image += '<a href="/Data/Image/' + image_[j].file + '" data-toggle="lightbox" data-max-width="600" >' +
+        //                        '   <img style="width:150px;height:100px;border: 1px solid #2c303a" src="/Data/Image/' + image_[j].file + '" class="img-fluid">' +
+        //                        '</a>';
+        //                }
+        //                $(".imageTB").append(list_image);
+        //            }
+        //            modalDeviceBackRoom.style.display = "block";
+        //        },
+        //        error: function (err) {
+        //            //debugger
+        //            alert("FAIL!");
+        //        }
+        //    });
+        //}
+    }
+    function Reload_Table(receive_id) {
+        $.ajax({
+            type: "Post",
+            url: "/Receive/get_ClipOutput_Receive?receive_id=" + receive_id,
+            async: false,
+            contentType: false,
+            processData: false,
+            success: function (data) {
+                //alert(data);
+                //debugger
+                var length = JSON.parse(data).length;
+                var row = "";
+                //if (length == 0) {
+                //    alert("Dont have any device!");
+                //    return;
+                //}
+                for (i = 0; i < length; i++) {
+                    var type = "";
+                    if (JSON.parse(data)[i].clipOutput.type == 1) {
+                        type = "Lĩnh";
+                    } else if (JSON.parse(data)[i].clipOutput.type == 2) {
+                        type = "Đổi";
+                    } else {
+                        type = "Mượn";
+                    }
+                    var note = "";
+                    if (JSON.parse(data)[i].clipOutput.note != null) {
+                        note = JSON.parse(data)[i].clipOutput.note;
+                    }
+                    else {
+                        note = "";
+                    }
+                    var ngaytra = "";
+                    if (JSON.parse(data)[i].clipOutput.ngaytra != null) {
+                        ngaytra = convert_date(JSON.parse(data)[i].output.ngaytra);
+
+                    } else {
+                        ngaytra = "";
+                    }
+
+                    var confirm = "'" + JSON.parse(data)[i].clipOutput.quantity + "','" + JSON.parse(data)[i].clipOutput.device_id + "','" + JSON.parse(data)[i].clipOutput.receive_id + "','" + JSON.parse(data)[i].clipOutput.id + "','" + JSON.parse(data)[i].clipOutput.type + "','" + note + "'";
+                    var delete_device = "'" + JSON.parse(data)[i].clipOutput.id + "','" + JSON.parse(data)[i].clipOutput.receive_id + "'";
+                    row = row + '<tr>' +
+                        '<td>' + (i + 1) + '</td>' +
+                        '<td>' + JSON.parse(data)[i].device_name + '</td>' +
+                        '<td>' + JSON.parse(data)[i].location + '</td>' +
+                        '<td class="quantity">' + JSON.parse(data)[i].clipOutput.quantity + '</td>' +
+                        '<td>' + type + '</td>' +
+                        '<td>' + ngaytra + '</td>' +
+                        '<td>' + note + '</td>';
+                    //'<td>' +
+                    //'<button style="border: 0;background: #fff;" onclick="DeleteDevice(' + delete_device + ')"><i class="fa fa-trash" style="color:red;"></i></button>' +
+                    //'</td>' +
+                    '</tr>';
+                }
+                $("#tblReceive").empty();
+                $("#tblReceive").append(row);
+                modal.style.display = "block";
+            },
+            error: function (err) {
+                //debugger
+                alert("FAIL!");
+            }
+        });
+
+    }
+    function Add_Device() {
+        debugger
+
+
+        var receive_id = document.getElementById("receive_id").value;
+        var device_id;
+        if ($("#device_name_add").val() != 0) {
+            device_id = $("#device_name_add").val();
+            //alert(device_id);
+        } else {
+            alert("Pls Enter Device Name!");
+            return;
+        }
+        var quantity;
+        if ($(".quantity_add").val() != 0) {
+            debugger
+            quantity = $(".quantity_add").val();
+            //var a = check_Quantity(device_id, $(".quantity").val());
+            //alert(a + "      nam");
+            $.ajax({
+                type: "Post",
+                url: "/Device/check_Quantity?device_id=" + device_id + "&quantity=" + quantity,
+                async: false,
+                cache: false,
+                timeout: 30000,
+                contentType: false,
+                processData: false,
+                success: function (data) {
+                    debugger
+                    var a = data;
+                    // return data;
+
+                    if (a == "0") {
+                        alert("Quantity is too large!");
+                        return;
+                    } else {
+                        quantity = $(".quantity_add").val();
+
+                        var check = 0;
+                        if ($("input[name=check]:checked").val() != undefined) {
+                            debugger
+                            check = $("input[name=check]:checked").val();
+                            //alert(check);
+                        } else {
+                            alert("Bạn muốn Lĩnh/Đổi/Mượn?");
+                            return;
+                        }
+                        var note;
+                        if ($(".note_add").val() != 0) {
+                            note = $(".note_add").val();
+                        } else {
+                            note = "";
+                        }
+                        var data = new FormData;
+                        data.append("id", 0);
+                        data.append("receive_id", receive_id);
+                        data.append("device_id", device_id);
+                        data.append("quantity", quantity);
+                        data.append("type", check);
+                        data.append("status", 1);
+                        data.append("note", note);
+                        $.ajax({
+                            type: "Post",
+                            url: "/Receive/Add_Device",
+                            data: data,
+                            async: false,
+                            contentType: false,
+                            processData: false,
+                            success: function (data) {
+                                debugger
+                                if (data > 0) {
+                                    $(".type_device").empty();
+                                    $(".quantity").empty();
+                                    $(".note").empty();
+                                    Reload_Table(receive_id)
+                                }
+                            },
+                            error: function (err) {
+                                //debugger
+                                alert("FAIL!");
+                            }
+                        });
+                    }
+
+
+                },
+                error: function (err) {
+                    debugger
+                    alert("FAIL!");
+                }
+            });
+
+
+
+
+            //if (a == "Quantity is too large!") {
+            //    alert("Quantity is too large!");
+            //    return;
+            //} else {
+            //    quantity = $(".quantity").val();
+            //}
+        } else {
+            alert("Pls Enter Quantity Of Device!");
+            return;
+        }
+
+
+
+    }
+    function UpdateReceive() {
+        var id = document.getElementById("id_receive").value;
+        var receive_name = "";
+        if ($("#receiveName").val() != 0) {
+            receive_name = document.getElementById("receiveName").value;
+        } else {
+            alert("Vui lòng ghi tên đơn!");
+            return;
+        }
+        var note = "";
+        if ($("#note").val() != 0) {
+            note = document.getElementById("note").value;
+        } else {
+            note = "";
+        }
+        var data = new FormData;
+        data.append("id", id);
+        data.append("receive_name", receive_name);
+        data.append("note", note);
+
+        $.ajax({
+            type: "Post",
+            url: "/Receive/Create_Receive",
+            data: data,
+            async: false,
+            contentType: false,
+            processData: false,
+            success: function (data) {
+                debugger
+                //get_Device_Receive(int.parse(data));
+                alert("OK");
+
+                modal_EditReceive.style.display = "none";
+                location.reload();
+            },
+            error: function (err) {
+                //debugger
+                alert("FAIL!");
+            }
+        });
+    }
+    function DeleteReceive(id) {
+        if (confirm("Bạn có chắc chắn xóa?")) {
+            //alert(id_delete);
+            $.ajax({
+                type: "POST",
+                url: "/Receive/Delete",
+                data: '{id: ' + id + '}',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+
+                    alert("Thành công!");
+                    loadData(100);
+                }
+            });
+        }
+    }
+    function DeleteDevice(id_clip, receive_id) {
+        if (confirm("Bạn có chắc chắn xóa?")) {
+            //alert(id_delete);
+            $.ajax({
+                type: "POST",
+                url: "/ClipOutput/Delete",
+                data: '{id: ' + id_clip + '}',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    modal.style.display = "none";
+                    alert("Thành công!");
+                    deltail(receive_id);
+                }
+            });
+        }
+    }
+    //Check Quantity Of Device
+    function check_Quantity(device_id, quantity) {
+        $.ajax({
+            type: "Post",
+            url: "/Device/check_Quantity?device_id=" + device_id + "&quantity=" + quantity,
+            async: false,
+            contentType: false,
+            processData: false,
+            success: function (data) {
+                debugger
+                return data;
+            },
+            error: function (err) {
+                debugger
+                alert("FAIL!");
+            }
+        });
+    }
+    $("#input_search").on("keyup", function () {
+        //get the input value, trimmed, and lowercased
+        var value = this.value.trim().toLowerCase();
+        //get the associated table
+        var $table;
+        $table = $("#tbd_View");
+        //show all the rows to "undo" previous filtering
+        $table.find('tr').show();
+
+        //only filter if the value is not blank
+        if (value) {
+            $table.find('thead tr').show();
+            //find all the rows that do not match the filter, and hide them
+            $table.find('tr').filter(function () {
+                return this.innerText.toLowerCase().indexOf(value) < 0;
+            }).hide();
+        }
+    });
+    function convert_date(date) {
+        var completedDate = new Date(parseInt(date.replace("/Date(", "").replace(")/")));
+        var dd = completedDate.getDate();
+        var mm = completedDate.getMonth() + 1; //January is 0!
+        var yyyy = completedDate.getFullYear();
+        if (dd < 10) { dd = '0' + dd }
+        if (mm < 10) { mm = '0' + mm }
+        return dd + '-' + mm + '-' + yyyy;
+    }
+</script>
+

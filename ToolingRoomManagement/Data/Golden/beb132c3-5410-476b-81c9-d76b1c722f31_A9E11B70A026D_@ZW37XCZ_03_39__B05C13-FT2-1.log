@@ -1,0 +1,254 @@
+MAC : fc 9c 98 f f4 32 
+SERIAL_NUM : ZW37XCZ
+MODEL_NUM : VML2030
+HW_REV : H4
+2G_SSID : 
+ALS_LLUX : 47.68%
+ALS_HLUX : 45.80%
+ALS_THLUX : 076290
+ALS_IR_LEAKAGE : 000010
+WIFI_COUNTRY_CODE : US
+HK_SETUP_ID : 
+SN send to sfis: ZW37XCZ
+Time UI-SFIS: 2021/11/22 15:38:43
+SFIS->UI: @ZW37XCZ                 VML2030-FXN-V            FC9C981012C0A9E11B70A026D  @ZW8DHEA                 ZW502YB                  2140022355     V0961462    FT2-1     PASS
+
+Time SFIS->UI: 2021/11/22 15:38:43
+
+ShowUIProgram still running !
+===[ USB mode already ... ]===
+
+***************Start Check AEC****************
+Delete file: .\CaliTool\audio_stream 
+Copy standard script before open
+Modify .\CaliTool\script.ini: Func_Speaker_Dir: Echo test_16KHz-2.wav
+Read value .\CaliTool\script.ini: Func_Speaker_Dir: Echo test_16KHz-2.wav
+Modify .\CaliTool\script.ini: Func_Mic_CH: 2
+Read value .\CaliTool\script.ini: Func_Mic_CH: 2
+Modify .\CaliTool\script.ini: Func_MicSpk: 1
+Read value .\CaliTool\script.ini: Func_MicSpk: 1
+Record time: 5000
+Modify .\CaliTool\script.ini: Func_MicSpk: 0
+Read value .\CaliTool\script.ini: Func_MicSpk: 0
+Convert D:\FT2_1(U12I419)\\audio_stream to D:\FT2_1(U12I419)\Audio\aec.wav
+15:38:52$012#
+$012^0^OK#
+$012_over,Status:'OK'^0^OK#
+22/11/2021 03:38:52: Goto Checkchoac!!!
+22/11/2021 03:38:52: Path !!!C:\Users\Administrator\Desktop\AudioExpert_AES\Result
+SN			
+Time			2021_11_22_15_38_52
+Overall TestResult			PASS
+08_Calculator aec-dBFS		
+Test Result:	Pass	
+Value (dBFS):	-71.987	
+		
+08_AEC-18-Opration Result		
+Test Result:	Pass	
+Value (dBFS):	53.987	
+		
+AEC limit-Checked Single Value		
+Test Result:	Pass	
+Value (dBFS):	53.987	
+		
+
+ start to move
+Item: C:\Users\Administrator\Desktop\AudioExpert_AES\Result\_20211122153852_PASS.txt
+***************Start Check SpkSensitivity****************
+Delete file: .\CaliTool\audio_stream 
+Copy standard script before open
+Modify script: Func_Speaker_Dir: Noise_pink2.wav
+Read value script: Func_Speaker_Dir: Noise_pink2.wav
+$025#
+$025^0^OK#
+$025_over^0^OK#
+Modify script: Func_Speaker: 1
+Read value script: Func_Speaker: 1
+Record time: 5000
+$026#
+$026^0^OK#
+$026_over^0^OK#
+Goto Checkchoac!!!
+
+ start to move
+Item: C:\Users\Administrator\Desktop\AudioExpert_AES\Result\_PASS.txt
+***************Check AMIC FR THD****************
+Delete file: .\CaliTool\audio_stream 
+Copy standard script before open
+Modify .\CaliTool\script.ini: Func_Mic_CH: 2
+Read value .\CaliTool\script.ini: Func_Mic_CH: 2
+Modify .\CaliTool\script.ini: Func_Mic: 1
+Read value .\CaliTool\script.ini: Func_Mic: 1
+15:38:55$006#
+$006^0^OK#
+$006_over,Status:'OK'^0^OK#
+Modify .\CaliTool\script.ini: Func_Mic: 0
+Read value .\CaliTool\script.ini: Func_Mic: 0
+Convert D:\FT2_1(U12I419)\\audio_stream to D:\FT2_1(U12I419)\Audio\amic-fr-thd.wav
+15:39:04$007#
+$007^0^OK#
+$007_over,Status:'OK'^0^OK#
+22/11/2021 03:39:04: Goto Checkchoac!!!
+22/11/2021 03:39:04: Path !!!C:\Users\Administrator\Desktop\AudioExpert_AES\Result
+SN																			
+Time			2021_11_22_15_39_04																
+Overall TestResult			PASS																
+01_AMIC Analysis 100-8000 wav-Frequency reponse																		
+Test Result:	Not Evaluated																	
+Frequency (Hz):	160.000	200.000	250.000	315.000	400.000	500.000	630.000	800.000	1000.000	1250.000	1600.000	2000.000	2500.000	3150.000	4000.000	5000.000	6300.000	7500.000
+Data (dBFS):	-14.638	-10.629	-9.116	-8.778	-8.743	-8.739	-9.151	-9.189	-8.293	-7.602	-8.224	-9.920	-10.060	-10.672	-11.886	-11.861	-10.106	-23.037
+																		
+01_AMIC Analysis 100-8000 wav-THD																		
+Test Result:	Pass																	
+Frequency (Hz):	160.000	200.000	250.000	315.000	400.000	500.000	630.000	800.000	1000.000	1250.000	1600.000	2000.000	2500.000	3150.000	4000.000	5000.000	6300.000	7500.000
+Data (%):	1.913	1.076	0.761	0.687	0.191	0.210	0.270	0.223	0.232	0.399	0.335	0.193	0.110	0.083	0.000	0.000	0.000	0.000
+																		
+01_amic sweep mean limit-Checked Single Value																		
+Test Result:	Pass																	
+Value (dBFS):	-9.561																	
+																		
+01_amic sweep max limit-Checked Single Value																		
+Test Result:	Pass																	
+Value (dBFS):	1.959																	
+																		
+01_amic sweep min limit-Checked Single Value																		
+Test Result:	Pass																	
+Value (dBFS):	-2.325																	
+																		
+
+ start to move
+Item: C:\Users\Administrator\Desktop\AudioExpert_AES\Result\_20211122153904_PASS.txt
+***************Check AMIC SENSITIVITY****************
+Delete file: .\CaliTool\audio_stream 
+Copy standard script before open
+Modify script: Func_Mic_CH: 0
+Read value script: Func_Mic_CH: 0
+Modify script: Func_Mic: 1
+Read value script: Func_Mic: 1
+$001#
+$001^0^OK#
+$001_over^0^OK#
+Modify script: Func_Mic: 0
+Read value script: Func_Mic: 0
+Convert D:\FT2_1(U12I393)\\audio_stream to D:\FT2_1(U12I393)\Audio\amicsensitivity.wav
+$002#
+$002^0^OK#
+$002_over^0^OK#
+Goto Checkchoac!!!
+
+ start to move
+Item: C:\Users\Administrator\Desktop\AudioExpert_AES\Result\_PASS.txt
+***************Check AMIC NOISE FLOOR****************
+Delete file: .\CaliTool\audio_stream 
+Copy standard script before open
+Modify script: Func_Mic_CH: 0
+Read value script: Func_Mic_CH: 0
+Modify script: Func_Mic: 1
+Read value script: Func_Mic: 1
+Modify script: Func_Mic: 0
+Read value script: Func_Mic: 0
+Convert D:\FT2_1(U12I393)\\audio_stream to D:\FT2_1(U12I393)\Audio\amic-noisefloor.wav
+$004#
+$004^0^OK#
+$004_over^0^OK#
+Goto Checkchoac!!!
+
+ start to move
+Item: C:\Users\Administrator\Desktop\AudioExpert_AES\Result\_PASS.txt
+***************Start Check SpkFRTHD****************
+Delete file: .\CaliTool\audio_stream 
+Copy standard script before open
+Modify .\CaliTool\script.ini: Func_Speaker_Dir: SpeakerSweep_16KHz.wav
+Read value .\CaliTool\script.ini: Func_Speaker_Dir: SpeakerSweep_16KHz.wav
+Modify .\CaliTool\script.ini: Func_Speaker_Vol: 0
+Read value .\CaliTool\script.ini: Func_Speaker_Vol: 0
+15:39:05$013#
+$013^0^OK#
+$013_over,Status:'OK'^0^OK#
+Modify .\CaliTool\script.ini: Func_Speaker: 1
+Read value .\CaliTool\script.ini: Func_Speaker: 1
+Record time: 8000
+Modify .\CaliTool\script.ini: Func_Speaker: 0
+Read value .\CaliTool\script.ini: Func_Speaker: 0
+Modify .\CaliTool\script.ini: Func_Speaker_Vol: 0
+Read value .\CaliTool\script.ini: Func_Speaker_Vol: 0
+15:39:14$014#
+$014^0^OK#
+$014_over,Status:'OK'^0^OK#
+22/11/2021 03:39:14: Goto Checkchoac!!!
+22/11/2021 03:39:14: Path !!!C:\Users\Administrator\Desktop\AudioExpert_AES\Result
+SN														
+Time			2021_11_22_15_39_14											
+Overall TestResult			PASS											
+calculator spk_FR-Difference													
+Test Result:	Not Evaluated												
+Frequency (Hz):	500.000	630.000	800.000	1000.000	1250.000	1600.000	2000.000	2500.000	3150.000	4000.000	5000.000	6300.000	8000.000
+Data ():	75.258	80.933	91.890	97.646	96.710	95.589	95.717	98.046	98.437	100.757	88.603	80.636	23.398
+													
+05_spk FR THD-Frequency reponse													
+Test Result:	Not Evaluated												
+Frequency (Hz):	500.000	630.000	800.000	1000.000	1250.000	1600.000	2000.000	2500.000	3150.000	4000.000	5000.000	6300.000	8000.000
+Data (dBSPL):	75.258	80.933	91.890	97.646	96.710	95.589	95.717	98.046	98.437	100.757	86.603	80.636	23.398
+													
+05_spk FR THD-THD													
+Test Result:	Pass												
+Frequency (Hz):	500.000	630.000	800.000	1000.000	1250.000	1600.000	2000.000	2500.000	3150.000	4000.000	5000.000	6300.000	8000.000
+Data (%):	10.951	6.688	3.435	4.449	4.079	2.315	2.086	0.804	0.517	0.256	0.341	0.460	458.640
+													
+05_SPK sweep mean limit-Checked Single Value													
+Test Result:	Pass												
+Value ():	95.933												
+													
+05_SPK sweep max limit-Checked Single Value													
+Test Result:	Pass												
+Value ():	4.824												
+													
+05_SPK sweep min limit-Checked Single Value													
+Test Result:	Pass												
+Value ():	-7.330												
+													
+
+ start to move
+Item: C:\Users\Administrator\Desktop\AudioExpert_AES\Result\_20211122153914_PASS.txt
+===[ Send Sfis ]===
+===[ Open A2 box ]===
+Sfis_length=168 ALSValueFlag=0 ALSCali5lux_10luxFlag=0  SendSFISFW=0   SendSFISHW=0
+SEND PASS TO SFIS: 
+UI->SFIS: @ZW37XCZ                 FC9C981012C0A9E11B70A026D  B05C13-FT2-3
+Time UI->SFIS PASS/FAIL: 2021/11/22 15:39:15
+SFIS->UI: @ZW37XCZ                 FC9C981012C0A9E11B70A026D  B05C13-FT2-3PASS
+Time SFIS->UI: 2021/11/22 15:39:15
+Time UI->SFIS RR-YR: 2021/11/22 15:39:15
+***************Start Change Shipping Mode****************
+15:39:15$999#
+EnableShipMode=0
+***************Change Shipping Mode Complete****************
+Close CaliTool 
+SFIS->UI: RR-YRVML2030-FXN-V            B05C13-FT2-3002.33002.33100.00PASS
+Time SFIS->UI: 2021/11/22 15:39:15
+$999^0^OK#
+$999_over,Status:'OK'^0^OK#
+Delay 0 MiliSecond
+==============Start show pass================
+TEST PROGRAM VERSION:2.3.2.8  TEST CYCLE TIME:59
+
+----------------Summary all test item--------------
+Test item name                Result  Test time
+ 1.OpenCaliModeGen5            PASS    0.05s 
+ 2.AEC                         PASS    9.28s 
+ 3.SpkSensitivity              PASS    9.47s 
+ 4.AMicFRTHD                   PASS    12.4s 
+ 5.AMicSensitivity             PASS    11.61s
+ 6.AMicNoiseFloor              PASS    7.98s 
+ 7.SpkFRTHD                    PASS    9.96s 
+ 8.SendSfis                    PASS    0.13s 
+---------------------------------------------------
+Write summary log server: F:\lsy\ID\U12I419\VML2030-FXN-V\FT2-1 -> OK
+Write summary log localD:\Arlo_Logs\U12I419\VML2030-FXN-V\FT2-1\22-11-2021 -> OK
+Write  Megasig log to server folder: F:\lsy\ID\U12I419\VML2030-FXN-V\FT2-1\B05C13-FT2-3 -> OK
+Details log local folder: D:\Arlo_Logs\U12I419\VML2030-FXN-V\FT2-1\22-11-2021\PASS
+Details log server folder: F:\lsy\ID\Detail\U12I419\VML2030-FXN-V\FT2-1\22-11-2021\PASS
+  SendSfis , 0.13 , ,SMO 2140022355,,SEMPID V0961462,OpenCaliModeGen5 , 0.05 , AEC , 9.28 , SpkSensitivity , 9.47 , AMicFRTHD , 12.4 , AMicSensitivity , 11.61 , AMicNoiseFloor , 7.98 , SpkFRTHD , 9.96 , 5/29/2021 12:00:00 AM,
+Start send data to mydas !
+
+Not enable mydas..

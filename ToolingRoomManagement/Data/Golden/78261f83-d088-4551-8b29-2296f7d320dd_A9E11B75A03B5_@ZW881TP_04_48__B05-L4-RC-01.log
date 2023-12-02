@@ -1,0 +1,838 @@
+SFIS->UI: @ZW881TP                 VML2030-FXN-V            FC9C98101408A9E11B75A03B5  H4        47.16%45.17%075456000010      353150660162682                 176783237da146ebbf0dbe6c0bff0ce5                                23645     90949     204       3970      894       3931      2140022355     V0927868    RC        PASS
+
+ShowUIProgram still running !
+Scaned:353150660162682
+=================>sub_addr =f40000, para_addr=f20000 block_size=20000
+=================>sub_addr =f40000, para_addr=f20000 block_size=20000
+6: i:!=========  FACTORY MODE ENABLED  =========!
+6: e:ntgr_start_metadata: Error enabling H.264 Metadata
+=================>sub_addr =f40000, para_addr=f20000 block_size=20000
+1 
+2 
+3 
+iv 
+
+max 3, min 1, max2 -1, min2 -1
+oldest item 3, latest item 2
+save address 0x1000000, new version=4
+ERROR: aplayd udp socket() fail.
+===[  Checking GOv2 Connect AP... ]===
+
+Close: ThongBao
+lfs_nand_erase 612
+9: i:cimd_read_wifi_passphrase retrieved passphrase from KV store
+9: i:!=========  FACTORY MODE ENABLED  =========!
+9: e:ntgr_start_metadata: Error enabling H.264 Metadata
+network_init start
+dns_init: dns_setserver()
+dns_setserver(0,208.67.222.222)
+network_init done
+10: e:Permanent mode not set, read temporary mode from cim: 0
+10: e:camera_api_get_wifi_country_code failed to determine camera mode = 0
+10: e:Failed to read the country code
+select scio 2
+scio_init2: enter scio init, mode:4, dlldelay 0
+scio_init2: pre_init failed, got to reset init
+sdio_change_clk: set sdio clock 25000000
+sdio function num=3, wifi_run_flag=0, err = 0
+10: e:sm_process_disconnected_event: Unexpected event: SM_ALS_BLK_TIMER_EVENT
+WLAN MAC Address : FC:9C:98:10:14:08
+WLAN Firmware    : wl0: May 28 2021 16:08:17 version 13.18.39 (7e940bf) FWID 01-f6b0fd4c
+WLAN ARLO NV RAM : VML2030_H2-05.00.00.00 
+WLAN CLM         : API: 18.2 Data: Arlo.GoV2 Compiler: 1.36.1 ClmImport: 1.39.1 Customization: v2 21/08/12 Creation: 2021-08-12 01:46:13 
+not pause network!
+[INFO]: add_func_CB_list 205  group_id =1 , union_id = 20,cb_func = 0x200357c0.
+[INFO]: add_func_CB_list 231  LTE_list_AddToTail group_id =1 , union_id = 20,cb_func = 0x200357c0.
+[INFO]: add_func_CB_list 205  group_id =1 , union_id = 0,cb_func = 0x20033be4.
+[INFO]: add_func_CB_list 231  LTE_list_AddToTail group_id =1 , union_id = 0,cb_func = 0x20033be4.
+[INFO]: add_func_CB_list 205  group_id =1 , union_id = 1,cb_func = 0x20033be4.
+[INFO]: add_func_CB_list 231  LTE_list_AddToTail group_id =1 , union_id = 1,cb_func = 0x20033be4.
+[INFO]: add_func_CB_list 205  group_id =1 , union_id = 2,cb_func = 0x20033be4.
+[INFO]: add_func_CB_list 231  LTE_list_AddToTail group_id =1 , union_id = 2,cb_func = 0x20033be4.
+[INFO]: add_func_CB_list 205  group_id =1 , union_id = 3,cb_func = 0x20033be4.
+[INFO]: add_func_CB_list 231  LTE_list_AddToTail group_id =1 , union_id = 3,cb_func = 0x20033be4.
+[INFO]: add_func_CB_list 205  group_id =1 , union_id = 4,cb_func = 0x20033be4.
+[INFO]: add_func_CB_list 231  LTE_list_AddToTail group_id =1 , union_id = 4,cb_func = 0x20033be4.
+[INFO]: add_func_CB_list 205  group_id =1 , union_id = 5,cb_func = 0x20033be4.
+[INFO]: add_func_CB_list 231  LTE_list_AddToTail group_id =1 , union_id = 5,cb_func = 0x20033be4.
+[INFO]: add_func_CB_list 205  group_id =1 , union_id = 6,cb_func = 0x20033be4.
+[INFO]: add_func_CB_list 231  LTE_list_AddToTail group_id =1 , union_id = 6,cb_func = 0x20033be4.
+[INFO]: add_func_CB_list 205  group_id =1 , union_id = 8,cb_func = 0x20033be4.
+[INFO]: add_func_CB_list 231  LTE_list_AddToTail group_id =1 , union_id = 8,cb_func = 0x20033be4.
+[INFO]: add_func_CB_list 205  group_id =1 , union_id = 11,cb_func = 0x20033be4.
+[INFO]: add_func_CB_list 231  LTE_list_AddToTail group_id =1 , union_id = 11,cb_func = 0x20033be4.
+[INFO]: add_func_CB_list 205  group_id =1 , union_id = 12,cb_func = 0x20033be4.
+[INFO]: add_func_CB_list 231  LTE_list_AddToTail group_id =1 , union_id = 12,cb_func = 0x20033be4.
+[INFO]: add_func_CB_list 205  group_id =1 , union_id = 13,cb_func = 0x20033be4.
+[INFO]: add_func_CB_list 231  LTE_list_AddToTail group_id =1 , union_id = 13,cb_func = 0x20033be4.
+[INFO]: add_func_CB_list 205  group_id =1 , union_id = 14,cb_func = 0x20033be4.
+[INFO]: add_func_CB_list 231  LTE_list_AddToTail group_id =1 , union_id = 14,cb_func = 0x20033be4.
+[INFO]: add_func_CB_list 205  group_id =1 , union_id = 23,cb_func = 0x20033be4.
+[INFO]: add_func_CB_list 231  LTE_list_AddToTail group_id =1 , union_id = 23,cb_func = 0x20033be4.
+wlan_is_connected: not associated!
+wlan_is_connected: not associated!
+10:"set pretbtt to 1500"
+lfs_nand_erase 585
+lfs_nand_erase 587
+10: e:agw:persistent_storage_fs.c:fs_read() no such file: /config/arlo/offline_recording_metadata.json
+10:"WIFI_connect ppc=3 adtpc=40 pdtpc=110 hcdtbc=45"
+wws_set_escan[714] host_rtos_get_semaphore(escan_userdata.scan_semaphore)...
+wiced_scan_result_handler[592] host_rtos_set_semaphore(scan_semaphore)
+Security type 0x400004
+wlan_msg_hdl_cb(1)
+Successfully joined : testgov2
+===[  Check Connect AP passed  ]===
+
+=================>sub_addr =f40000, para_addr=f20000 block_size=20000
+----------------Firmware config:----------------
+NETGEAR_SystemFirmwareVersion:1.090.6.0_1009_ad0d5e2
+NETGEAR_appVersion:VML2030_EC25V_V3.00.28_1501
+NETGEAR_modemVersion:EC25V.R02.A14.F10
+SystemVersion:1.090.6.0_V3.00.28_R02.A14.F10
+----------------Firmware config:----------------
+-------------------------------------
+Check Camera SN: A9E11B75A03B5
+Delay 200 MiliSecond
+16:47:27
+register read SystemSerialNumber
+
+Password: 
+etharp_add_static_entry: 192.168.1.1 - 10:da:43:72:02:c7
+dhcp_handle_ack: dns_setserver()
+dns_setserver(0,192.168.1.1)
+dhcp_handle_ack: dns_setserver()
+dns_setserver(1,0.0.0.0)
+dhcp_handle_ack: dns_setserver()
+dns_setserver(2,0.0.0.0)
+dhcp_handle_ack: dns_setserver()
+dns_setserver(3,0.0.0.0)
+=================>sub_addr =f40000, para_addr=f20000 block_size=20000
+wl0 DHCP Done
+IpAddr: 192.168.1.16
+NetMask: 255.255.255.0
+GateWay: 192.168.1.1
+=================>sub_addr =f40000, para_addr=f20000 block_size=20000
+14:= =e==:=s=m==_=d=i=sc=o=n=n=e=c=t>eds_uhabn_dadldre_ e=fve4n0t0 0N0M,_ SpEaNra_addr=f20D_OFFL0I0N0E _bLOlGoSc_kT_Os_LOiGzSeEN=DE2R0_0C0M0D
+
+5 
+6 
+7 
+4 
+
+max 7, min 4, max2 -1, min2 -1
+oldest item 3, latest item 2
+save address 0x1000000, new version=8
+14: e:cannot read xagent state information.
+_wlan_tko_get_current_status:265: getting status.
+0: unavailable
+1: unavailable
+2: unavailable
+3: unavailable
+cannot get filter with id 10
+cannot get filter with id 11
+cannot get filter with id 100
+14: e:ntgr_log_flush_to_logsender: skipping flush on unclaimed device
+16:00:14.922 os_core_unix.c !pjlib 2.8 for POSIX initialized
+16:00:14.932  sock_common.c  .hostname IP is 192.168.1.16:0
+16:00:14.936  sock_common.c  .Checking candidate IP 192.168.1.16:0, weight=1
+16:00:14.940  sock_common.c  .Candidate 192.168.1.16:55454 selected
+16:00:14.943 sip_endpoint.c  .Creating endpoint instance...
+16:00:14.947 sip_transport.  .Transport manager created.
+16:00:14.947   pjsua_core.c  .PJSUA state changed: NULL --> CREATED
+14: e:agw:cim_api.c:cim_dup_string() platform_get_xagent_id: cim returned error 1 for item 524
+14: t:pjsip[0]: .Event pkg "presence" registered by mod-presence
+14: e:agw:cim_api.c:cim_dup_string() platform_get_xagent_id: cim returned error 1 for item 524
+14: t:pjsip[1]: .Event pkg "message-summary" registered by mod-mwi
+14: e:agw:cim_api.c:cim_dup_string() platform_get_xagent_id: cim returned error 1 for item 524
+15: t:pjsip[2]: .Event pkg "refer" registered by mod-refer
+15: e:agw:cim_api.c:cim_dup_string() platform_get_xagent_id: cim returned error 1 for item 524
+15: d:pjsip[3]: .1 SIP worker threads created
+15: e:agw:cim_api.c:cim_dup_string() platform_get_xagent_id: cim returned error 1 for item 524
+15: i:pjsip[4]: .pjsua version 2.8 for ertos initialized
+15: e:agw:cim_api.c:cim_dup_string() platform_get_xagent_id: cim returned error 1 for item 524
+15: d:pjsip[5]: .PJSUA state changed: CREATED --> INIT
+15: e:agw:cim_api.c:cim_dup_string() platform_get_xagent_id: cim returned error 1 for item 524
+15: d:pjsip[6]: SIP TLS is ready (client only)
+15: e:agw:cim_api.c:cim_dup_string() platform_get_xagent_id: cim returned error 1 for item 524
+15: d:pjsip[7]: PJSUA state changed: INIT --> STARTING
+15: e:agw:cim_api.c:cim_dup_string() platform_get_xagent_id: cim returned error 1 for item 524
+15: d:pjsip[8]: ..pjsua_aud_subsys_start
+15: e:agw:cim_api.c:cim_dup_string() platform_get_xagent_id: cim returned error 1 for item 524
+15: d:pjsip[9]: .PJSUA state changed: STARTING --> RUNNING
+15: e:agw:cim_api.c:cim_dup_string() platform_get_xagent_id: cim returned error 1 for item 524
+15: e:agw:cim_api.c:cim_dup_string() platform_get_xagent_id: cim returned error 1 for item 524
+16:47:30
+********************************
+
+VML2030-A03B5 login: 
+_Y&?"])4~2pxGk4cBtC-o
+_Y&?"])4~2pxGk4cBtC-o
+
+Password: 
+khuljasimsim
+************
+
+# 
+set netmode timeout: 5000 ms
+[Debug]: add_func_CB_list group_id=3 ,union_id.lte_event = 10 success.
+[Debug]:function lte_init line 395 s_lte_init_flag = 1.
+[Debug]: lte_init libgpio_read PIN_MCU2OV_LTE_READY value = 1.
+lte_init mcu notify ov to PIN_LVL_HIGH!!!
+[Debug]: function lte_init line 412 s_lte_init_flag = 2.
+[Debug]:function lte_init line 415 s_lte_init_flag = 2.
+[Debug]: function lte_init line 475 s_lte_init_flag = 3.
+[Debug]:function lte_init line 478 s_lte_init_flag = 3.
+[Debug]: network_manage_main libgpio_read PIN_MCU2OV_LTE_READY value = 1.
+[Debug]: network_manage_main network_start start.
+[Debug]: network_manage_main network_start running.
+start to bring up ETH
+network_eth_init start
+network_eth_init done
+network_eth_start start
+nsif init sif slave
+network_eth_start libeth_receive_early_packets()...
+network_eth_start network_ip_config()...
+en0 Manual Ipconfig Done!!
+IpAddr: 192.168.225.100
+NetMask: 255.255.255.0
+GateWay: 192.168.225.1
+network_eth_start done
+[Debug]: function lte_init line 508 s_lte_init_flag = 4.
+[Debug]:function lte_init line 511 s_lte_init_flag = 4.
+[Debug]: function lte_init line 545 LTE_EVT_INIT_STATUS is LTE_INIT_PROCESSING.
+[Debug]: function network_manage_main line 233 s_lte_init_flag = 0.
+log in success!!
+16:47:43
+register read SystemSerialNumber
+SystemSerialNumber: A9E11B75A03B5
+
+# 
+SetuCRC payload 08 00 00 00 00 10 
+CRC Resul:1f73
+send:magic: 53525150 | length: 000a| cluster_id: 0002| payload:  | CRC: 1f73
+p async monitor socket over 0.0.0.0 50009 done
+rcv:magic: 53525150 | length: 0008| cluster_id: 0002| status: 0000| payload:  | CRC: 89a9
+CRC payload 05 00 00 00 00 10 
+CRC Resul:5130
+send:magic: 53525150 | length: 000a| cluster_id: 0001| payload:  | CRC: 5130
+rcv:magic: 53525150 | length: 0008| cluster_id: 0001| status: 0000| payload:  | CRC: fff5
+CRC payload 03 00 00 00 00 10 
+CRC Resul:dcd1
+send:magic: 53525150 | length: 000a| cluster_id: 0003| payload:  | CRC: dcd1
+rcv:magic: 53525150 | length: 0008| cluster_id: 0003| status: 0000| payload:  | CRC: 5553
+CRC payload 08 00 ffffffff 79 ffffff80 10 
+CRC Resul:09d1
+send:magic: 5352515Camera SN OK!
+0 | length: 000a| cluster_id: 0002| payload:  | CRC: 09d1
+rcv:magic: 53525150 | length-------------------------------------
+: 0008| cluster_id: 0002| status: 0000| payload:  | CRC: 89a9
+Check Camera MAC: FC9C98101408
+Delay 200 MiliSecond
+CRC payload 08 00 ffffffff 79 ffffff80 10 
+CRC Resul:09d1
+send:magic: 53525150 | length: 000a| cluster_id: 0002| payload:  | CRC: 09d1
+rcv:magic: 53525150 | length: 0008| cluster_id: 0002| status: 0000| payload:  | CRC: 89a9
+CRC payload 05 00 40 00 00 30 
+CRC Resul:1bce
+send:magic: 53525150 | length: 000a| cluster_id: 0001| payload:  | CRC: 1bce
+rcv:magic: 53525150 | length: 0008| cluster_id: 0001| status: 0000| payload:  | CRC: fff5
+CRC payload 05 00 ffffffc0 00 00 30 
+CRC Resul:c6f6
+send:magic: 53525150 | length: 000a| cluster_id: 0001| payload:  | CRC: c6f6
+rcv:magic: 53525150 | length: 0008| cluster_id: 0001| status: 0000| payload:  | CRC: fff5
+CRC payload 05 00 ffffffc0 01 00 30 
+CRC Resul:f1c6
+send:magic: 53525150 | length: 000a| cluster_id: 0001| payload:  | CRC: f1c6
+rcv:magic: 53525150 | length: 0008| cluster_id: 0001| status: 0000| payload:  | CRC: fff5
+CRC payload 03 00 00 00 10 10 
+CRC Resul:dfa2
+send:magic: 53525150 | length: 000a| cluster_id: 0003| payload:  | CRC: dfa2
+rcv:magic: 53525150 | length: 0008| cluster_id: 0003| status: 0000| payload:  | CRC: 5553
+[Debug]: function network_manage_main line 238 LTE_EVT_INIT_STATUS is LTE_INIT_SUCCESS.
+[Debug]: network_manage_main network_start stop.
+CRC payload 0d 00 
+CRC Resul:765c
+send:magic: 53525150 | length: 0006| cluster_id: 0002| payload:  | CRC: 765c
+rcv:magic: 53525150 | length: 0018| cluster_id: 0002| status: 0000| payload: 0x33 0x35 0x33 0x31 0x35 0x30 0x36 0x36 0x30 0x31 0x36 0x32 0x36 0x38 0x32 0x00 0x64 0x53  | CRC: 5364
+imei:353150660162682
+CRC payload 0b 00 
+CRC Resul:dcfa
+send:magic: 53525150 | length: 0006| cluster_id: 0002| payload:  | CRC: dcfa
+rcv:magic: 53525150 | length: 0028| cluster_id: 0002| status: 0000| payload: 0x38 0x39 0x31 0x34 0x38 0x30 0x30 0x30 0x30 0x30 0x37 0x33 0x30 0x32 0x35 0x30 0x33 0x34  | CRC: 4bf3
+iccid:89148000007302503400
+30: e:validate_sim: cim returned error 1 for item 0x276
+==============16:47:43
+===>sub_addr =f40000, para_adCdRrC= fp2a0y0l00o abdl o0cfk _0size=02 0
+0C00R
+Cregister read MACAddress
+MACAddress: fc:9c:98:10:14:08
+
+# 
+ Resul:103e
+send:magic: 53525150 | length: 0006| cluster_id: 0002| payload:  | CRC: 103e
+rcv:magic: 53525150 | length: 0018| cluster_id: 0002| status: 0000| payload: 0x33 0x31 0x31 0x34 0x38 0x30 0x36 0x38 0x38 0x38 0x30 0x34 0x36 0x37 0x30 0x00 0xf7 0x27  | CRC: 27f7
+imsi:311480688804670
+CRC payload 03 00 
+CRC Resul:5553
+send:magic: 53525150 | length: 0006| cluster_id: 0004| payload:  | CRC: 5553
+rcv:magic: 53525150 | length: 0028| cluster_id: 0004| status: 0000| payload: 0x45 0x43 0x32 0x35 0x56 0x2e 0x52 0x30 0x32 0x2e 0x41 0x31 0x34 0x2e 0x46 0x31 0x30 0x2e  | CRC: 361f
+Camera MAC OK!
+lte_modem_version:EC25V.R02.A14.F10.VZ
+lteapi_version:V3.0.28
+-------------------------------------
+CRC payload 02 00 
+CRC Resul:6662
+send:magic: 53525150 | length: 0006| cluster_id: 0004| payload:  | CRC: 6662
+rcv:magic: 53525150 | length: 0028| cluster_id: 0004| status: 0000| payload: 0x56 0x4d 0x4c 0x32 0x30 Check Camera CertID: 176783237da146ebbf0dbe6c0bff0ce5
+0x33 0x30 0x5f 0x45 0x43 0x32 0x35 0x56 0x5f 0x56 0x33 0x2e 0x30  | CRC: 28cc
+lteapp_version:VML2030_EC25V_V3.00.28_1501
+CRC payload 10 00 
+CRC Resul:0373
+send:magic: 53525150 | length: 0006| cluster_Delay 200 MiliSecond
+id: 0002| payload:  | CRC: 0373
+rcv:magic: 53525150 | length: 0018| cluster_id: 0002| status: 0000| payload: 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0xff 0xf2  | CRC: f2ff
+msisdn:
+iccid:89148000007302503400
+CRC payload 0c 00 
+CRC Resul:456d
+send:magic: 53525150 | length: 0006| cluster_id: 0002| payload:  | CRC: 456d
+rcv:magic: 53525150 | length: 0010| cluster_id: 0002| status: 0000| payload: 0x30 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0xa2 0xa1 0x00 0x00 0x00 0x00 0x00 0x00 0xff 0xf2  | CRC: a1a2
+esn:0
+CRC payload 04 00 
+CRC Resul:ccc4
+send:magic: 53525150 | length: 0006| cluster_id: 0002| payload:  | CRC: ccc4
+rcv:magic: 53525150 | length: 007c| cluster_id: 0002| status: fffffffc| payload: 0x30 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0xa2 0xa1 0x00 0x00 0x00 0x00 0x00 0x00 0xff 0xf2  | CRC: 35dd
+Send cluster 2 with command :-24158 failed,err code:-4
+Getting LTE APN  Failed, err code -8
+[ERROR]: internal_get_lte_data lc_dc_get_apn CONFIG_DATA_APN failure.
+[ERROR]: update_lte_data failure data_id=512.
+[ERROR]: lte_get_apn return -1
+CRC payload 04 00 
+CRC Resul:ccc4
+send:magic: 53525150 | length: 0006| cluster_id: 0002| payload:  | CRC: ccc4
+rcv:magic: 53525150 | length: 007c| cluster_id: 0002| status: fffffffc| payload: 0x30 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0xa2 0xa1 0x00 0x00 0x00 0x00 0x00 0x00 0xff 0xf2  | CRC: 35dd
+Send cluster 2 with command :-24158 failed,err code:-4
+Getting LTE APN  Failed, err code -8
+[ERROR]: internal_get_lte_data lc_dc_get_apn CONFIG_DATA_APN_USERNAME failure.
+[ERROR]: update_lte_data failure data_id=513.
+[ERROR]: lte_get_apn return -1
+16:47:44
+arlogw verify_cert 176783237da146ebbf0dbe6c0bff0ce5
+OK
+
+# 
+Camera CertID OK!
+-------------------------------------
+Delay 20000 MiliSecond
+CRC payload 04 00 
+CRC Resul:ccc4
+send:magic: 53525150 | length: 0006| cluster_id: 0002| payload:  | CRC: ccc4
+rcv:magic: 53525150 | length: 007c| cluster_id: 0002| status: fffffffc| payload: 0x30 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0xa2 0xa1 0x00 0x00 0x00 0x00 0x00 0x00 0xff 0xf2  | CRC: 35dd
+Send cluster 2 with command :-24158 failed,err code:-4
+Getting LTE APN  Failed, err code -8
+[ERROR]: internal_get_lte_data lc_dc_get_apn CONFIG_DATA_APN failure.
+[ERROR]: update_lte_data failure data_id=512.
+[ERROR]: lte_get_apn return -1
+CRC payload 04 00 
+CRC Resul:ccc4
+send:magic: 53525150 | length: 0006| cluster_id: 0002| payload:  | CRC: ccc4
+rcv:magic: 53525150 | length: 007c| cluster_id: 0002| status: fffffffc| payload: 0x30 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0xa2 0xa1 0x00 0x00 0x00 0x00 0x00 0x00 0xff 0xf2  | CRC: 35dd
+Send cluster 2 with command :-24158 failed,err code:-4
+Getting LTE APN  Failed, err code -8
+[ERROR]: internal_get_lte_data lc_dc_get_apn CONFIG_DATA_APN_USERNAME failure.
+[ERROR]: update_lte_data failure data_id=513.
+[ERROR]: lte_get_apn return -1
+CRC payload 04 00 
+CRC Resul:ccc4
+send:magic: 53525150 | length: 0006| cluster_id: 0002| payload:  | CRC: ccc4
+rcv:magic: 53525150 | length: 007c| cluster_id: 0002| status: fffffffc| payload: 0x30 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0xa2 0xa1 0x00 0x00 0x00 0x00 0x00 0x00 0xff 0xf2  | CRC: 35dd
+Send cluster 2 with command :-24158 failed,err code:-4
+Getting LTE APN  Failed, err code -8
+[ERROR]: internal_get_lte_data lc_dc_get_apn CONFIG_DATA_APN failure.
+[ERROR]: update_lte_data failure data_id=512.
+[ERROR]: lte_get_apn return -1
+CRC payload 04 00 
+CRC Resul:ccc4
+send:magic: 53525150 | length: 0006| cluster_id: 0002| payload:  | CRC: ccc4
+rcv:magic: 53525150 | length: 007c| cluster_id: 0002| status: fffffffc| payload: 0x30 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0xa2 0xa1 0x00 0x00 0x00 0x00 0x00 0x00 0xff 0xf2  | CRC: 35dd
+Send cluster 2 with command :-24158 failed,err code:-4
+Getting LTE APN  Failed, err code -8
+[ERROR]: internal_get_lte_data lc_dc_get_apn CONFIG_DATA_APN_USERNAME failure.
+[ERROR]: update_lte_data failure data_id=513.
+[ERROR]: lte_get_apn return -1
+32: e:wpmgr_on_cold_boot Radio get function failed for db item 8
+32: e:wpmgr_on_cold_boot Radio get function failed for db item 9
+Delay 200 MiliSecond
+16:48:04
+arlogw msg '{"resource":"basestation","action":"get"}'
+
+# 
+51: e:agw:cim_api.c:cim_dup_string() platform_get_xagent_id: cim returned error 1 for item 524
+51: e:Permanent mode not set, read temporary mode from cim: 0
+51: e:camera_api_get_wifi_country_code failed to determine camera mode = 0
+CRC payload 15 00 04 00 00 00 
+CRC Resul:9374
+send:magic: 53525150 | length: 000a| cluster_id: 0002| payload:  | CRC: 9374
+rcv:magic: 53525150 | length: 00ac| cluster_id: 0002| status: 0000| payload: 0x04 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0xa2 0xa1 0x00 0x00 0x00 0x00 0x00 0x00 0xff 0xf2  | CRC: b04b
+roaming: 0
+CRC payload 11 00 
+CRC Resul:3042
+send:magic: 53525150 | length: 0006| cluster_id: 0002| payload:  | CRC: 3042
+rcv:magic: 53525150 | length: 000c| cluster_id: 0002| status: 0000| payload: 0xff 0x00 0x00 0x00 0x87 0x14 0x00 0x00 0xa2 0xa1 0x00 0x00 0x00 0x00 0x00 0x00 0xff 0xf2  | CRC: 1487
+roaming allowed: 1
+CRC payload 04 00 
+CRC Resul:ccc4
+send:magic: 53525150 | length: 0006| cluster_id: 0002| payload:  | CRC: ccc4
+rcv:magic: 53525150 | length: 007c| cluster_id: 0002| status: fffffffc| payload: 0xff 0x00 0x00 0x00 0x87 0x14 0x00 0x00 0xa2 0xa1 0x00 0x00 0x00 0x00 0x00 0x00 0xff 0xf2  | CRC: 9a6c
+Send cluster 2 with command :-24158 failed,err code:-4
+Getting LTE APN  Failed, err code -8
+[ERROR]: internal_get_lte_data lc_dc_get_apn CONFIG_DATA_APN failure.
+[ERROR]: update_lte_data failure data_id=512.
+[ERROR]: lte_get_apn return -1
+51: e:get_paramdb_string_value: cannot get value 1 from LTE
+51: e:wireless_param_get_paramdb_string cannot get value for 1
+51: e:agw:agw_wnet_api.c:agw_wnet_get_str() cannot get 1: -2
+51: e:agw:lte_control.c:lte_control_get_apn() cannot get value: -2
+CRC payload 04 00 
+CRC Resul:ccc4
+send:magic: 53525150 | length: 0006| cluster_id: 0002| payload:  | CRC: ccc4
+rcv:magic: 53525150 | length: 007c| cluster_id: 0002| status: fffffffc| payload: 0xff 0x00 0x00 0x00 0x87 0x14 0x00 0x00 0xa2 0xa1 0x00 0x00 0x00 0x00 0x00 0x00 0xff 0xf2  | CRC: 9a6c
+Send cluster 2 with command :-24158 failed,err code:-4
+Getting LTE APN  Failed, err code -8
+[ERROR]: internal_get_lte_data lc_dc_get_apn CONFIG_DATA_APN_USERNAME failure.
+[ERROR]: update_lte_data failure data_id=513.
+[ERROR]: lte_get_apn return -1
+51: e:get_paramdb_string_value: cannot get value 4 from LTE
+51: e:wireless_param_get_paramdb_string cannot get value for 4
+51: e:agw:agw_wnet_api.c:agw_wnet_get_str() cannot get 4: -2
+51: e:agw:lte_control.c:lte_control_get_apn_uname() cannot get value: -2
+CRC payload 15 00 05 00 00 00 
+CRC Resul:e5c0
+send:magic: 53525150 | length: 000a| cluster_id: 0002| payload:  | CRC: e5c0
+rcv:magic: 53525150 | length: 00ac| cluster_id: 0002| status: 0000| payload: 0x05 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00  | CRC: 2605
+[ERROR]: lte_get_active_network 4349 DC_INDICATION_REPORT DC_DYNAMIC_EVENT_ACTNWK error payload  str = .
+active network:none
+CRC payload 15 00 06 00 00 00 
+CRC Resul:7e1c
+send:magic: 53525150 | length: 000a| cluster_id: 0002| payload:  | CRC: 7e1c
+rcv:magic: 53525150 | length: 00ac| cluster_id: 0002| status: 0000| payload: 0x06 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00  | CRC: 3128
+[ERROR]: LTE_band_str_to_int 297 band name = [] is not recognized.
+rf band:,rfband = 2054.
+CRC payload 15 00 0b 00 00 00 
+CRC Resul:479a
+send:magic: 53525150 | length: 000a| cluster_id: 0002| payload:  | CRC: 479a
+rcv:magic: 53525150 | length: 00ac| cluster_id: 0002| status: 0000| payload: 0x0b 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00  | CRC: 217d
+wwan_IP:
+CRC payload 15 00 0c 00 00 00 
+CRC Resul:16b7
+send:magic: 53525150 | length: 000a| cluster_id: 0002| payload:  | CRC: 16b7
+rcv:magic: 53525150 | length: 00ac| cluster_id: 0002| status: 0000| payload: 0x0c 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00  | CRC: 6155
+network name:
+CRC payload 17 00 ffffff8c 
+CRC Resul:96f7
+send:magic: 53525150 | length: 0007| cluster_id: 0002| payload:  | CRC: 96f7
+rcv:magic: 53525150 | length: 0018| cluster_id: 0002| status: 0000| payload: 0x61 0x75 0x74 0x6f 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x23 0x97  | CRC: 9723
+network tech:auto
+51: e:agw-msg: {
+51: e:agw-msg:   "resource": "basestation",
+51: e:agw-msg:   "action": "is",
+51: e:agw-msg:   "properties": {
+51: e:agw-msg:     "interfaceVersion": 3,
+51: e:agw-msg:     "swVersion": "1.090.6.0_1009_ad0d5e2",
+51: e:agw-msg:     "appVersion": "VML2030_EC25V_V3.00.28_1501",
+51: e:agw-msg:     "modemVersion": "EC25V.R02.A14.F10.VZ",
+51: e:agw-msg:     "systemVersion": "1.090.6.0_V3.00.28_R02.A14.F10",
+51: e:agw-msg:     "restrictedMode": false,
+51: e:agw-msg:     "apiVersion": "1",
+51: e:agw-msg:     "state": "idle",
+51: e:agw-msg:     "hwVersion": "VML2030AerH4",
+51: e:agw-msg:     "modelId": "VML2030A",
+51: e:agw-msg:     "timeZone": "PST8PDT,M3.2.0,M11.1.0",
+51: e:agw-msg:     "olsonTimeZone": "America/Los_Angeles",
+51: e:agw-msg:     "timeSynchState": "synchronized",
+51: e:agw-msg:     "antiFlicker": {
+51: e:agw-msg:       "mode": 0,
+51: e:agw-msg:       "autoDefault": 1
+51: e:agw-msg:     },
+51: e:agw-msg:     "claimed": false,
+51: e:agw-msg:     "connectivity": [
+51: e:agw-msg:       {
+51: e:agw-msg:         "type": "wifi",
+51: e:agw-msg:         "connected": true,
+51: e:agw-msg:         "ssid": "testgov2",
+51: e:agw-msg:         "signalStrength": 3,
+51: e:agw-msg:         "ipAddr": "192.168.1.16",
+51: e:agw-msg:         "radioMode": "enable",
+51: e:agw-msg:         "connectionState": "Connected",
+51: e:agw-msg:         "error": "None",
+51: e:agw-msg:         "onboarded": true
+51: e:agw-msg:       },
+51: e:agw-msg:       {
+51: e:agw-msg:         "type": "lte",
+51: e:agw-msg:         "connected": false,
+51: e:agw-msg:         "roaming": false,
+51: e:agw-msg:         "roamingAllowed": true,
+51: e:agw-msg:         "msisdn": "",
+51: e:agw-msg:         "apn": "",
+51: e:agw-msg:         "apnUname": "",
+51: e:agw-msg:         "imei": "353150660162682",
+51: e:agw-msg:         "iccid": "89148000007302503400",
+51: e:agw-msg:         "signalStrength": 0,
+51: e:agw-msg:         "rfBand": 0,
+51: e:agw-msg:         "wwanIpAddr": "",
+51: e:agw-msg:         "activeNetwork": "none",
+51: e:agw-msg:         "networkName": "",
+51: e:agw-msg:         "networkMode": "auto",
+51: e:agw-msg:         "fwVersion": "EC25V.R02.A14.F10.VZ",
+51: e:agw-msg:         "carrierFw": "Verizon",
+51: e:agw-msg:         "featureRevision": 1,
+51: e:agw-msg:         "mepStatus": "notLocked",
+51: e:agw-msg:         "streamingAbility": "poor",
+51: e:agw-msg:         "radioMode": "disable",
+51: e:agw-msg:         "connectionState": "Disconnected",
+51: e:agw-msg:         "error": "",
+51: e:agw-msg:         "onboarded": false
+51: e:agw-msg:       }
+51: e:agw-msg:     ],
+51: e:agw-msg:     "updateCountryCode": "unknown",
+51: e:agw-msg:     "resources": [
+51: e:agw-msg:       {
+51: e:agw-msg:         "type": "lte",
+51: e:agw-msg:         "roamingAllowed": true,
+51: e:agw-msg:         "networkMode": "auto"
+51: e:agw-msg:       },
+51: e:agw-msg:       {
+51: e:agw-msg:         "type": "storage",
+51: e:agw-msg:         "mediaTypes": [
+51: e:agw-msg:           "SD"
+51: e:agw-msg:         ]
+51: e:agw-msg:       }
+51: e:agw-msg:     ]
+51: e:agw-msg:   }
+51: e:agw-msg: }
+Check Camera swVersion: 1.090.6.0_1009_ad0d5e2
+Camera swVersion OK!
+Check Camera appVersion: VML2030_EC25V_V3.00.28_1501
+Camera appVersion OK!
+Check Camera modemVersion: EC25V.R02.A14.F10
+Camera modemVersion OK!
+Check Camera modemVersion: 1.090.6.0_V3.00.28_R02.A14.F10
+Camera SystemVersion OK!
+Check Camera hwVersion: VML2030AerH4
+Camera hwVersion OK!
+Check Camera modelId: VML2030
+Camera modelId OK!
+Check Camera IMEI: 353150660162682
+Camera IMEI OK!
+-------------------------------------
+ShippingWithSIM:1
+Get ICCID
+ICCID read:89148000007302503400
+ICCIDPrefix:8914800000
+ICCIDPrefix:8914800000 -->OK
+Delay 10000 MiliSecond
+=================>sub_addr =f40000, para_addr=f20000 block_size=20000
+57: e:agw:http_timesync.c:http_timesync_worker() Curl Failed to reach http://updates.arlo.com/arlo/fw/fw_deployed/production/updaterules/VMC2030_UpdateRules.json, with Error Couldn't resolve host name
+wlan_is_connected: Authenticated!
+wifi is already connected
+wlan_msg_hdl_cb(1)
+wl0 Manual Ipconfig Done!!
+IpAddr: 192.168.1.16
+NetMask: 255.255.255.0
+GateWay: 192.168.1.1
+=================>sub_addr =f40000, para_addr=f20000 block_size=20000
+58: e:easycam_get_ip unable to read CIM_ARP_CACHE_I 1
+easycam_get_ip: dns_setserver()
+dns_setserver(0,192.168.1.1)
+easycam_get_ip: dns_setserver()
+dns_setserver(1,0.0.0.0)
+easycam_get_ip: dns_setserver()
+dns_setserver(2,0.0.0.0)
+easycam_get_ip: dns_setserver()
+dns_setserver(3,0.0.0.0)
+=================>sub_addr =f40000, para_addr=f20000 block_size=20000
+-->Check All infomation passed!
+Check Camera LED calidata: 23645     90949     204       3970      894       3931
+Delay 200 MiliSecond
+16:48:15
+register read WLedVlowClowPoint
+WLedVlowClowPoint: Low Point Calibration Current: 125mA, Low Point Current:204mA, Low Point Voltage:3970mV
+
+# 
+SFIS C125  : 204
+Camera C125: 204
+SFIS V125  : 3970
+Camera V125: 3970
+Camera WLedVlowClowPoint OK!
+Delay 200 MiliSecond
+16:48:16
+register read WLedVhighChighPoint
+WLedVhighChighPoint: High Point Calibration Current: 500mA, High Point Current:894mA, High Point Voltage:3931mV
+
+# 
+SFIS C500  : 894
+Camera C500: 894
+SFIS V500  : 3931
+Camera V500: 3931
+Camera WLedVhighChighPoint OK!
+===[ Check Info GoV2 passed ... ]===
+
+===[ Factory Reset GoV2 ]===
+ShippingWithSIM:1
+Delay 200 MiliSecond
+16:48:16
+
+
+# 
+Delay 200 MiliSecond
+16:48:17
+arlogw factory_reset 2
+ MFG Factory Reset Complete, please wait 60 seconds for device shutdown
+
+# 
+mcu notify ov to PIN_LSend Factory Reset GoV2 -->OK
+Delay after factory reset:30000 ms
+Delay 30000 MiliSecond
+67: e:cimi_read_enc_mfg decrypt cali 17 error!
+67: i:Init Snapshot in LiveView
+67: i:Init Aplayd in LiveView
+67: i:Audio is Full Duplex
+67: i:sm_task
+67: i:sm_task_init
+67: i:sm_ertos_timer_create: timeout = 1000
+67: i:sm_ertos_timer_create: timeout = 50
+67: i:sm_ertos_timer_create: timeout = 2500
+67: i:sm_ertos_timer_create: timeout = 1000
+67: i:sm_ertos_timer_create: timeout = 1000
+67: i:sm_ertos_timer_create: timeout = 10
+67: i:sm_ertos_timer_create: timeout = 30000
+67: i:sm_ertos_timer_create: timeout = 30
+67: i:sm_ertos_timer_create: timeout = 30000
+67: i:sm_ertos_timer_create: timeout = 30000
+67: i:sm_ertos_timer_create: timeout = 300
+67: i:sm_ertos_timer_create: timeout = 30000
+67: i:sm_ertos_timer_create: timeout = 200
+67: i:sm_ertos_timer_create: timeout = 20
+67: i:sm_ertos_timer_create: timeout = 1000
+67: i:sm_ertos_timer_create: timeout = 20
+67: i:sm_ertos_timer_create: timeout = 30000
+67: i:sm_ertos_timer_create: timeout = 30000
+67: i:sm_ertos_timer_create: timeout = 800
+67: i:sm_ertos_timer_create: timeout = 20
+67: i:LS task initialized
+67: i:starting ALS blackout timer for light state change with duration: 0 sec
+67: i:Event SM_BOOT_EVENT processed in SM_BOOT_STATE state
+67: i:PEND_IRQ=0x00000002 (PEND_BUTTON)
+67: i:SAVED_STATE=0005 (SM_COMMAND_PARSE_STATE)
+67: i:APP_STATE=01
+67: A:BTN_FACTORY_RESET. Factory reset!!!
+67: e:************* factory reset was pressed
+ERROR: aplayd udp socket() fail.
+set dacvol = 4dB
+set dacvol = 0dB
+=================>sub_addr =f40000, para_addr=f20000 block_size=20000
+9 
+
+10 
+11 
+12 
+
+max 12, min 9, max2 -1, min2 -1
+oldest item 0, latest item 3
+save address 0xf40000, new version=13
+=================>sub_addr =f40000, para_addr=f20000 block_size=20000
+13 
+10 
+11 
+12 
+
+max 13, min 10, max2 -1, min2 -1
+oldest item 1, latest item 0
+save address 0xf80000, new version=14
+67: e:cimi_wlan_reg_write_hdlr error setting bcn_timeout to 9, ret -1
+datapath id : 0x0
+67: e:cim_load_default write handler failed 218
+current dpconfig id : 0x0, status 1
+67: e:cimi_wifi_cc_hdlr set country code failed
+67: e:cim_load_default write handler failed 222
+67: e:[cimi_audio_reg_write_hdlr]: Encode audio stream 0 as AAC-LC
+67: e:[cimi_audio_reg_write_hdlr]: Encode audio stream 1 as OPUS
+=================>sub_addr =f40000, para_addr=f20000 block_size=20000
+13 
+14 
+11 
+12 
+
+max 14, min 11, max2 -1, min2 -1
+oldest item 2, latest item 1
+save address 0xfc0000, new version=15
+67: e:cim_defaults_partial_reset_cleanup finished.
+id 1 kvstore offset 0x20e0000, size 524288
+id 2 kvstore offset 0x2100000, size 524288
+kvstore offset 0x2100000, size 524288
+id 2 kvstore offset 0x2100000, size 524288
+id 1 kvstore offset 0x20e0000, size 524288
+id 2 kvstore offset 0x2100000, size 524288
+kvstore offset 0x2100000, size 524288
+id 2 kvstore offset 0x2100000, size 524288
+id 1 kvstore offset 0x20e0000, size 524288
+id 2 kvstore offset 0x2100000, size 524288
+kvstore offset 0x2100000, size 524288
+id 2 kvstore offset 0x2100000, size 524288
+id 1 kvstore offset 0x20e0000, size 524288
+id 2 kvstore offset 0x2100000, size 524288
+kvstore offset 0x2100000, size 524288
+id 2 kvstore offset 0x2100000, size 524288
+68: e:cimi_wifi_cc_hdlr set country code failed
+68: e:cim_load_default write handler failed 222
+68: e:cim_defaults_factory_reset_cleanup: cim returned error 1 for item 0x238
+68: e:saving value for rel env: prod
+set netmode timeout: 5000 ms
+[Debug]: add_func_CB_list group_id=3 ,union_id.lte_event = 10 success.
+dns_init: dns_setserver()
+dns_setserver(0,208.67.222.222)
+68: e:Permanent mode not set, read temporary mode from cim: 0
+68: e:camera_api_get_wifi_country_code failed to determine camera mode = 0
+68: e:Failed to read the country code
+[Debug]:function lte_init line 395 s_lte_init_flag = 1.
+[Debug]: lte_init libgpio_read PIN_MCU2OV_LTE_READY value = 1.
+lte_init mcu notify ov to PIN_LVL_HIGH!!!
+[Debug]: function lte_init line 412 s_lte_init_flag = 2.
+[Debug]:function lte_init line 415 s_lte_init_flag = 2.
+[Debug]: function lte_init line 475 s_lte_init_flag = 3.
+[Debug]:function lte_init line 478 s_lte_init_flag = 3.
+[Debug]: network_manage_main libgpio_read PIN_MCU2OV_LTE_READY value = 1.
+[Debug]: network_manage_main network_start start.
+[Debug]: network_manage_main network_start running.
+start to bring up ETH
+network_eth_init start
+network_eth_init done
+network_eth_start start
+nsif init sif slave
+network_eth_start libeth_receive_early_packets()...
+network_eth_start network_ip_config()...
+[Debug]: functen0 Manual Ipconfig Done!!
+IpAddr: 192.168.225.100
+NetMask: 255.255.255.0
+GateWay: 192.168.225.1
+network_eth_start done
+ion lte_init line 508 s_lte_init_flag = 4.
+[Debug]:function lte_init line 511 s_lte_init_flag = 4.
+[Debug]: function lte_init line 545 LTE_EVT_INIT_STATUS is LTE_INIT_PROCESSING.
+[Debug]: function network_manage_main line 233 s_lte_init_flag = 0.
+Setup async monitor socket over 0.0.0.0 50009 done
+CRC payload 08 00 00 00 00 10 
+CRC Resul:1f73
+send:magic: 53525150 | length: 000a| cluster_id: 0002| payload:  | CRC: 1f73
+rcv:magic: 53525150 | length: 0008| cluster_id: 0002| status: 0000| payload:  | CRC: 89a9
+CRC payload 05 00 00 00 00 10 
+CRC Resul:5130
+send:magic: 53525150 | length: 000a| cluster_id: 0001| payload:  | CRC: 5130
+rcv:magic: 53525150 | length: 0008| cluster_id: 0001| status: 0000| payload:  | CRC: fff5
+CRC payload 03 00 00 00 00 10 
+CRC Resul:dcd1
+send:magic: 53525150 | length: 000a| cluster_id: 0003| payload:  | CRC: dcd1
+rcv:magic: 53525150 | length: 0008| cluster_id: 0003| status: 0000| payload:  | CRC: 5553
+CRC payload 08 00 ffffff80 00 00 10 
+CRC Resul:c24b
+send:magic: 53525150 | length: 000a| cluster_id: 0002| payload:  | CRC: c24b
+rcv:magic: 53525150 | length: 0008| cluster_id: 0002| status: 0000| payload:  | CRC: 89a9
+CRC payload 08 00 ffffff80 01 00 10 
+CRC Resul:f57b
+send:magic: 53525150 | length: 000a| cluster_id: 0002| payload:  | CRC: f57b
+rcv:magic: 53525150 | length: 0008| cluster_id: 0002| status: 0000| payload:  | CRC: 89a9
+CRC payload 05 00 40 00 00 30 
+CRC Resul:1bce
+send:magic: 53525150 | length: 000a| cluster_id: 0001| payload:  | CRC: 1bce
+rcv:magic: 53525150 | length: 0008| cluster_id: 0001| status: 0000| payload:  | CRC: fff5
+CRC payload 05 00 ffffffc0 00 00 30 
+CRC Resul:c6f6
+send:magic: 53525150 | length: 000a| cluster_id: 0001| payload:  | CRC: c6f6
+rcv:magic: 53525150 | length: 0008| cluster_id: 0001| status: 0000| payload:  | CRC: fff5
+CRC payload 05 00 ffffffc0 01 00 30 
+CRC Resul:f1c6
+send:magic: 53525150 | length: 000a| cluster_id: 0001| payload:  | CRC: f1c6
+rcv:magic: 53525150 | length: 0008| cluster_id: 0001| status: 0000| payload:  | CRC: fff5
+[Debug]: function network_manage_main line 238 LTE_EVT_INIT_STATUS is LTE_INIT_SUCCESS.
+[Debug]: network_manage_main network_start stop.
+Enter airplane 
+CRC payload 01 00 
+CRC Resul:3331
+send:magic: 53525150 | length: 0006| cluster_id: 0000| payload:  | CRC: 3331
+rcv:magic: 53525150 | length: 0014| cluster_id: 0000| status: 0000| payload: 0x02 0x00 0x00 0x00 0x03 0x00 0x00 0x00 0x01 0x00 0x00 0x00 0x4a 0xc3 0x00 0x00 0x00 0x00  | CRC: c34a
+LTE PWR Info:[sleep normal;wakeup source :gpio;wakeup notiry:hight]
+CRC payload 00 00 02 00 00 00 01 00 00 00 01 00 00 00 
+CRC Resul:378d
+send:magic: 53525150 | length: 0012| cluster_id: 0000| payload:  | CRC: 378d
+rcv:magic: 53525150 | length: 0008| cluster_id: 0000| status: 0000| payload:  | CRC: 0000
+CRC payload 00 00 01 00 00 00 01 00 00 00 01 00 00 00 
+CRC Resul:3212
+send:magic: 53525150 | length: 0012| cluster_id: 0000| payload:  | CRC: 3212
+rcv:magic: 53525150 | length: 0008| cluster_id: 0000| status: 0000| payload:  | CRC: 0000
+CRC payload 02 00 
+CRC Resul:6662
+send:magic: 53525150 | length: 0006| cluster_id: 0000| payload:  | CRC: 6662
+rcv:magic: 53525150 | length: 0008| cluster_id: 0000| status: 0000| payload:  | CRC: 6662
+lte_set_power_mode successed!! 
+[INFO]: add_func_CB_list 205  group_id =3 , union_id = 11,cb_func = 0x20033b30.
+[INFO]: add_func_CB_list 231  LTE_list_AddToTail group_id =3 , union_id = 11,cb_func = 0x20033b30.
+[Debug]: add_func_CB_list group_id=3 ,union_id.lte_event = 11 success.
+68: e:lte_factory_reset_callback status = 1
+CRC payload 06 00 
+CRC Resul:aaa6
+send:magic: 53525150 | length: 0006| cluster_id: 0004| payload:  | CRC: aaa6
+rcv:magic: 53525150 | length: 0008| cluster_id: 0004| status: 0000| payload:  | CRC: aaa6
+[INFO]: del_func_CB_list 248  group_id =3 , union_id = 11,cb_func = 0x20033b30.
+[INFO]: find_func_CB_list 187 tmp_list->lte_cb = 0x20033b30, func = 0x20033b30.
+[INFO]: del_func_CB_list 270 room_idx = 1.
+[INFO]: del_func_CB_list 277  LTE_list_Del group_id =3 , union_id = 11,cb_func = 0x20033b30.
+=================>sub_addr =f40000, para_addr=f20000 block_size=20000
+13 
+14 
+15 
+12 
+
+max 15, min 12, max2 -1, min2 -1
+oldest item 3, latest item 2
+save address 0x1000000, new version=16
+=================>sub_addr =f40000, para_addr=f20000 block_size=20000
+13 
+14 
+15 
+16 
+
+max 16, min 13, max2 -1, min2 -1
+oldest item 0, latest item 3
+save address 0xf40000, new version=17
+73: e:cim_defaults_factory_reset_cleanup finished.
+LTE Factory reset event success.
+mcu notify oFOUND :cim_defaults_factory_reset_cleanup finished --> OK===[ Factory Reset GoV2 passed ... ]===
+
+===[ Send Sfis ]===
+Send command close_base
+Sfis_length=314 ALSValueFlag=0 ALSCali5lux_10luxFlag=0  SendSFISFW=0   SendSFISHW=0
+SEND PASS TO SFIS: 
+UI->SFIS: @ZW881TP                 FC9C98101408A9E11B75A03B5  1.090.6.0_1009_ad0d5e2        VML2030_EC25V_V3.00.28_1501             EC25V.R02.A14.F10                       891480000073025034001.090.6.0_V3.00.28_R02.A14.F10          B05-L4-RC-01
+Time UI->SFIS PASS/FAIL: 2021/11/22 16:48:47
+SFIS->UI: @ZW881TP                 FC9C98101408A9E11B75A03B5  1.090.6.0_1009_ad0d5e2        VML2030_EC25V_V3.00.28_1501             EC25V.R02.A14.F10                       891480000073025034001.090.6.0_V3.00.28_R02.A14.F10          B05-L4-RC-01PASS
+Time SFIS->UI: 2021/11/22 16:48:47
+Time UI->SFIS RR-YR: 2021/11/22 16:48:47
+Delay 2000 MiliSecond
+SFIS->UI: RR-YRVML2030-FXN-V            B05-L4-RC-01006.35003.03095.83PASS
+Time SFIS->UI: 2021/11/22 16:48:47
+==============Start show pass================
+TEST PROGRAM VERSION:2.3.2.8  TEST CYCLE TIME:111
+
+----------------Summary all test item--------------
+Test item name                Result  Test time
+ 1.WaitDUT                     PASS    23.33s
+ 2.CheckConnectAPGoV2          PASS    6.1s  
+ 3.CheckInfoGoV2               PASS    49.29s
+ 4.FactoryResetGoV2            PASS    30.76s
+ 5.SendSfis                    PASS    0.19s 
+---------------------------------------------------
+Write summary log server: F:\lsy\ID\U12I419\VML2030-FXN-V\RC -> OK
+Write summary log localD:\Arlo_Logs\U12I419\VML2030-FXN-V\RC\22-11-2021 -> OK
+Details log local folder: D:\Arlo_Logs\U12I419\VML2030-FXN-V\RC\22-11-2021\PASS
+Details log server folder: F:\lsy\ID\Detail\U12I419\VML2030-FXN-V\RC\22-11-2021\PASS
+  SendSfis , 0.19 , ,SMO 2140022355,,SEMPID V0927868,,swVersion,1.090.6.0_1009_ad0d5e2,1,,appVersion,VML2030_EC25V_V3.00.28_1501,1,,modemVersion,EC25V.R02.A14.F10,1,,SystemVersion,1.090.6.0_V3.00.28_R02.A14.F10,1,,hwVersion,H4,1,,modelId,VML2030,1,,IMEI,353150660162682,1,,ICCID,89148000007302503400,1,,WaitDUT , 23.33 , CheckConnectAPGoV2 , 6.1 , CheckInfoGoV2 , 49.29 , FactoryResetGoV2 , 30.76 , 11/19/2021 11:23:00 AM,

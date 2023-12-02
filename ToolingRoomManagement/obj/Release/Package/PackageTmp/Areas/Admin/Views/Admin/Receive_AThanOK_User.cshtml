@@ -1,0 +1,806 @@
+﻿@model List<Model.EF.Receive>
+@{
+    ViewBag.Title = "Receive_AThanOK_User";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout_AdminPage.cshtml";
+    var listAllDevice = (List<Model.EF.Device>)ViewBag.listAllDevice;
+    int dem1 = 0;
+}
+<link href="~/Assets/admin/bootstrap-select.css" rel="stylesheet" />
+@*<script src="~/Assets/client/vendor/jquery/jquery.min.js"></script>*@
+<script src="/Assets/admin/js/vendor/jquery-1.12.4.min.js"></script>
+<script src="/Assets/admin/bootstrap-select.js"></script>
+<style>
+    @@media (min-width: 900px) {
+        .modal-sm {
+            width: 900px;
+        }
+    }
+
+    @@media (min-width: 900px) {
+        .modal-content {
+            -webkit-box-shadow: 0 5px 15px rgba(0,0,0,.5);
+            box-shadow: 0 5px 15px rgba(0,0,0,.5);
+        }
+    }
+
+    .tblCreate thead tr th {
+        text-align: center;
+    }
+
+    .tblCreate tbody tr td {
+        text-align: center;
+    }
+
+    .zoom {
+        transition: transform .5s;
+    }
+
+        .zoom:hover {
+            transform: scale(1.1); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+        }
+</style>
+<div class="header-advance-area">
+
+    <!-- Mobile Menu start -->
+    <div class="mobile-menu-area">
+        <div class="container">
+            @*<div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="mobile-menu">
+                            <nav id="dropdown">
+                                <ul class="mobile-menu-nav">
+                                    <li>
+                                        <a data-toggle="collapse" data-target="#Charts" href="#">Home <span class="admin-project-icon nalika-icon nalika-down-arrow"></span></a>
+                                        <ul class="collapse dropdown-header-top">
+                                            <li><a href="index.html">Dashboard v.1</a></li>
+                                            <li><a href="index-1.html">Dashboard v.2</a></li>
+                                            <li><a href="index-3.html">Dashboard v.3</a></li>
+                                            <li><a href="product-list.html">Product List</a></li>
+                                            <li><a href="product-edit.html">Product Edit</a></li>
+                                            <li><a href="product-detail.html">Product Detail</a></li>
+                                            <li><a href="product-cart.html">Product Cart</a></li>
+                                            <li><a href="product-payment.html">Product Payment</a></li>
+                                            <li><a href="analytics.html">Analytics</a></li>
+                                            <li><a href="widgets.html">Widgets</a></li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a data-toggle="collapse" data-target="#demo" href="#">Mailbox <span class="admin-project-icon nalika-icon nalika-down-arrow"></span></a>
+                                        <ul id="demo" class="collapse dropdown-header-top">
+                                            <li>
+                                                <a href="mailbox.html">Inbox</a>
+                                            </li>
+                                            <li>
+                                                <a href="mailbox-view.html">View Mail</a>
+                                            </li>
+                                            <li>
+                                                <a href="mailbox-compose.html">Compose Mail</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a data-toggle="collapse" data-target="#others" href="#">Miscellaneous <span class="admin-project-icon nalika-icon nalika-down-arrow"></span></a>
+                                        <ul id="others" class="collapse dropdown-header-top">
+                                            <li><a href="file-manager.html">File Manager</a></li>
+                                            <li><a href="contacts.html">Contacts Client</a></li>
+                                            <li><a href="projects.html">Project</a></li>
+                                            <li><a href="project-details.html">Project Details</a></li>
+                                            <li><a href="blog.html">Blog</a></li>
+                                            <li><a href="blog-details.html">Blog Details</a></li>
+                                            <li><a href="404.html">404 Page</a></li>
+                                            <li><a href="500.html">500 Page</a></li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a data-toggle="collapse" data-target="#Miscellaneousmob" href="#">Interface <span class="admin-project-icon nalika-icon nalika-down-arrow"></span></a>
+                                        <ul id="Miscellaneousmob" class="collapse dropdown-header-top">
+                                            <li>
+                                                <a href="google-map.html">Google Map</a>
+                                            </li>
+                                            <li>
+                                                <a href="data-maps.html">Data Maps</a>
+                                            </li>
+                                            <li>
+                                                <a href="pdf-viewer.html">Pdf Viewer</a>
+                                            </li>
+                                            <li>
+                                                <a href="x-editable.html">X-Editable</a>
+                                            </li>
+                                            <li>
+                                                <a href="code-editor.html">Code Editor</a>
+                                            </li>
+                                            <li>
+                                                <a href="tree-view.html">Tree View</a>
+                                            </li>
+                                            <li>
+                                                <a href="preloader.html">Preloader</a>
+                                            </li>
+                                            <li>
+                                                <a href="images-cropper.html">Images Cropper</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a data-toggle="collapse" data-target="#Chartsmob" href="#">Charts <span class="admin-project-icon nalika-icon nalika-down-arrow"></span></a>
+                                        <ul id="Chartsmob" class="collapse dropdown-header-top">
+                                            <li>
+                                                <a href="bar-charts.html">Bar Charts</a>
+                                            </li>
+                                            <li>
+                                                <a href="line-charts.html">Line Charts</a>
+                                            </li>
+                                            <li>
+                                                <a href="area-charts.html">Area Charts</a>
+                                            </li>
+                                            <li>
+                                                <a href="rounded-chart.html">Rounded Charts</a>
+                                            </li>
+                                            <li>
+                                                <a href="c3.html">C3 Charts</a>
+                                            </li>
+                                            <li>
+                                                <a href="sparkline.html">Sparkline Charts</a>
+                                            </li>
+                                            <li>
+                                                <a href="peity.html">Peity Charts</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a data-toggle="collapse" data-target="#Tablesmob" href="#">Tables <span class="admin-project-icon nalika-icon nalika-down-arrow"></span></a>
+                                        <ul id="Tablesmob" class="collapse dropdown-header-top">
+                                            <li>
+                                                <a href="static-table.html">Static Table</a>
+                                            </li>
+                                            <li>
+                                                <a href="data-table.html">Data Table</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a data-toggle="collapse" data-target="#formsmob" href="#">Forms <span class="admin-project-icon nalika-icon nalika-down-arrow"></span></a>
+                                        <ul id="formsmob" class="collapse dropdown-header-top">
+                                            <li>
+                                                <a href="basic-form-element.html">Basic Form Elements</a>
+                                            </li>
+                                            <li>
+                                                <a href="advance-form-element.html">Advanced Form Elements</a>
+                                            </li>
+                                            <li>
+                                                <a href="password-meter.html">Password Meter</a>
+                                            </li>
+                                            <li>
+                                                <a href="multi-upload.html">Multi Upload</a>
+                                            </li>
+                                            <li>
+                                                <a href="tinymc.html">Text Editor</a>
+                                            </li>
+                                            <li>
+                                                <a href="dual-list-box.html">Dual List Box</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a data-toggle="collapse" data-target="#Appviewsmob" href="#">App views <span class="admin-project-icon nalika-icon nalika-down-arrow"></span></a>
+                                        <ul id="Appviewsmob" class="collapse dropdown-header-top">
+                                            <li>
+                                                <a href="basic-form-element.html">Basic Form Elements</a>
+                                            </li>
+                                            <li>
+                                                <a href="advance-form-element.html">Advanced Form Elements</a>
+                                            </li>
+                                            <li>
+                                                <a href="password-meter.html">Password Meter</a>
+                                            </li>
+                                            <li>
+                                                <a href="multi-upload.html">Multi Upload</a>
+                                            </li>
+                                            <li>
+                                                <a href="tinymc.html">Text Editor</a>
+                                            </li>
+                                            <li>
+                                                <a href="dual-list-box.html">Dual List Box</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a data-toggle="collapse" data-target="#Pagemob" href="#">Pages <span class="admin-project-icon nalika-icon nalika-down-arrow"></span></a>
+                                        <ul id="Pagemob" class="collapse dropdown-header-top">
+                                            <li>
+                                                <a href="login.html">Login</a>
+                                            </li>
+                                            <li>
+                                                <a href="register.html">Register</a>
+                                            </li>
+                                            <li>
+                                                <a href="lock.html">Lock</a>
+                                            </li>
+                                            <li>
+                                                <a href="password-recovery.html">Password Recovery</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>*@
+        </div>
+    </div>
+    <!-- Mobile Menu end -->
+    <div class="breadcome-area" style=" margin-top: 40px;">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="breadcome-list">
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                <div class="breadcomb-wp">
+                                    <div class="breadcomb-icon zoom" data-toggle="tooltip" data-placement="bottom" title="Home">
+                                        <a href="/Admin/Admin/UserPage">
+                                            <i class="icon nalika-home"></i>
+                                        </a>
+                                    </div>
+                                    <div class="breadcomb-ctn">
+                                        <h2 langKey="wait_cthan">Wait Mss.Than Confirm</h2>
+                                        <p>Welcome to Tooling <span class="bread-ntd">Room</span></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                <div class="breadcomb-report">
+                                    <button data-toggle="tooltip" data-placement="left" title="Download Report" class="btn"><i class="icon nalika-download"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="product-sales-area mg-tb-30" style="height:685px;">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="product-sales-chart">
+                    <div class="portlet-title">
+                        <div class="row">
+                            <div class="content">
+                                <div class="" style="margin-left:190px;">
+                                    @foreach (var receive in Model)
+                                    {
+                                        { dem1++; }
+                                        <div class="zoom" style="margin-bottom: 10px;font-size: 1.3rem;border-radius: 13px;border: 1px solid #f39800;background: #152036;width: 75%;padding: 40px 15px 75px 15px;color: #fff;cursor: pointer;font-weight: 600;">
+                                            <div onclick="deltail('@receive.id','@receive.code_receive.Substring(0,1)')" style="width:80%;float:left;"><i class="fa fa-hand-pointer-o" aria-hidden="true" style="color: aquamarine;"></i> <a style="font-size: 1.3rem;color:#41ead4"><b langKey="order">Đơn </b>@receive.code_receive: @receive.receive_name</a></div>
+                                            <div>@receive.create_date</div>
+                                            @*<button style="border: 0;background: #152036;float: right; margin-right: 20px;" onclick="DeleteReceive(@receive.id)"><i class="fa fa-trash" style="color:red;"></i></button>
+                                            <button style="border: 0;background: #152036;float: right;"><i class="fa fa-edit" style="color:green;" onclick="EditReceive('@receive.id','@receive.receive_name','@receive.note')"></i></button>*@
+                                        </div>
+
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- The Modal -->
+<div class="modal" id="myModal">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title" langKey="get_device">Đơn lĩnh TB</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <input hidden id="receive_id" />
+                @*<table style="border:0;" id="tblAddDevice">
+                    <thead>
+                        <tr style="height:50px;">
+                            <th style="width: 20%;">Device Name</th>
+                            <th style="width:13%;">Quantity</th>
+                            <th style="width: 10%;">Receive</th>
+                            <th style="width: 10%;">Change</th>
+                            <th style="width: 10%;">Borrow</th>
+                            <th style="width:13%;">Note</th>
+                            <th style="width:12%;">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <select id="device_name_add" class="selectpicker Da_select_model form-control" data-hide-disabled="true" data-live-search="true">
+                                    @foreach (var device in listAllDevice)
+                                    {
+                                        <option value="@device.id">@device.device_name</option>
+                                    }
+                                </select>
+                            </td>
+
+                            <td><input type="text" class="form-control QUANTITY quantity_add" style="background-color:white;color:black;width:80%;margin-left:10px;" id=""></td>
+                            <td><input type="radio" name="check" id="check_1_add" value="1" /></td>
+                            <td><input type="radio" name="check" id="check_2_add" value="2" /></td>
+                            <td><input type="radio" name="check" id="check_3_add" value="3" /></td>
+                            <td><textarea type="text" class="form-control NOTE note_add" style="background-color:white;color:black;" id=""></textarea></td>
+                            <td style="text-align:center;">
+                                <button onclick="Add_Device()" style="background: aquamarine;border: 1px solid;padding: 5px 15px 5px 15px;border-radius: 20px;">Add</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>*@
+                <table class="table table-dark tblCreate">
+                    <thead>
+                        <tr>
+                            <th>STT</th>
+                            <th langKey="name_device">Tên TB</th>
+                            <th langKey="quantity">Số lượng</th>
+                            <th langKey="type1">Type</th>
+                            <th langKey="note">Ghi chú</th>
+                            @*<th>Action</th>*@
+                        </tr>
+                    </thead>
+                    <tbody id="tblReceive" style="text-align:center;"></tbody>
+                </table>
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary btnclose" langKey="close">Kết thúc</button>
+                <button type="button" class="btn btn-secondary" langKey="complete">Hoàn thành</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!--Modal Receive-->
+<div class="modal" id="myModal_Receive">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title" langKey="detail">Chi tiết</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <input hidden id="id_receive" />
+                <table class="table table-dark tblReceive">
+                    <tr>
+                        <td langKey="order">Đơn: </td>
+                        <td><input id="receiveName" class="form-control" style="background:#fff;color:black;" /></td>
+                    </tr>
+                    <tr>
+                        <td langKey="note">Ghi chú : </td>
+                        <td><input id="note" class="form-control" style="background:#fff;color:black;" /></td>
+                    </tr>
+                </table>
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary btnclose" langKey="">Finish</button>
+                <button type="button" class="btn btn-secondary" onclick="UpdateReceive()" langKey="update">Update</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="modal" id="ModalDeviceBackRoom">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Chi tiết</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <input hidden id="receive_id" />
+
+                <table class="" style="border:0;margin-left: 60px;" id="tblBack">
+                    <tr>
+                        <td style="width: 150px;height: 50px;" langKey="code_inventory">Mã Kiểm kê: </td>
+                        <td class="makiemke"></td>
+                    </tr>
+                    <tr>
+                        <td style="width: 150px;height: 50px;" langKey="code_SN">Mã SN: </td>
+                        <td class="maSN"></td>
+                    </tr>
+                    <tr>
+                        <td style="width: 150px;height: 50px;" langKey="name_device">Tên TB: </td>
+                        <td class="tenTB"></td>
+                    </tr>
+                    <tr>
+                        <td style="width: 150px;height: 50px;" langKey="">Model: </td>
+                        <td class="model_TB"></td>
+                    </tr>
+                    <tr>
+                        <td style="width: 150px;height: 50px;" langKey="calibration">Mã Hiệu chuẩn: </td>
+                        <td class="mahieuchuan"></td>
+                    </tr>
+                    <tr>
+                        <td style="width: 150px;height: 50px;" langKey="location">Nhập vào kho : </td>
+                        <td class="kho_TB"></td>
+                    </tr>
+                    <tr>
+                        <td style="width: 150px;height: 50px;" langKey="status">Tình trạng TB: </td>
+                        <td class="statusTB"></td>
+                    </tr>
+                    <tr>
+                        <td style="width: 150px;height: 50px;" langKey="note">Ghi chú: </td>
+                        <td class="noteTB"></td>
+                    </tr>
+                    <tr class="image_TB">
+                        <td style="width: 150px;height: 50px;" langKey="image">Hình ảnh: </td>
+                        <td class="imageTB">
+                            @*<input type="file" class="form-control TYPEDEVICE" style="background-color:white;color:black;border: 1px solid #5c7096;border-radius: 21px;" id="imageTB" multiple>*@
+
+                        </td>
+                    </tr>
+
+
+                </table>
+
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary btnclose" langKey="close">Đóng</button>
+                <button type="button" class="btn btn-secondary btnAdd" @*onclick="CreateReceive()"*@ langKey="update">Cập nhật</button>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+<script>
+    var modal = document.getElementById("myModal");
+    var modal_EditReceive = document.getElementById("myModal_Receive");
+    var modalDeviceBackRoom = document.getElementById("ModalDeviceBackRoom");
+    $(document).on("click", ".close", function () {
+        modal.style.display = "none";
+        modal_EditReceive.style.display = "none";
+    })
+    $(document).on("click", ".btnclose", function () {
+        modal.style.display = "none";
+    })
+    $(document).on("click", ".btnclose", function () {
+        modal.style.display = "none";
+        modal_EditReceive.style.display = "none";
+        location.reload();
+    })
+    function EditReceive(id, receive_name, note) {
+        $("#id_receive").val(id);
+        $("#receiveName").val(receive_name);
+        $("#note").val(note);
+        modal_EditReceive.style.display = "block";
+    }
+    function deltail(receive_id,code_receive) {
+        $(".imageTB").empty();
+        if (code_receive == "R") {
+            $("#receive_id").val(receive_id);
+            $("#tblReceive").empty();
+            $.ajax({
+                type: "Post",
+                url: "/Receive/get_ClipOutput_Receive?receive_id=" + receive_id,
+                async: false,
+                contentType: false,
+                processData: false,
+                success: function (data) {
+                    //alert(data);
+                    //debugger
+                    var length = JSON.parse(data).length;
+                    var row = "";
+                    //if (length == 0) {
+                    //    alert("Dont have any device!");
+                    //    return;
+                    //}
+                    for (i = 0; i < length; i++) {
+                        var type = "";
+                        if (JSON.parse(data)[i].clipOutput.type == 1) {
+                            type = "Receive";
+                        } else if (JSON.parse(data)[i].clipOutput.type == 2) {
+                            type = "Change";
+                        } else {
+                            type = "Borrow";
+                        }
+                        var note = "";
+                        if (JSON.parse(data)[i].clipOutput.note != null) {
+                            note = JSON.parse(data)[i].clipOutput.note;
+                        }
+                        else {
+                            note = "";
+                        }
+
+                        var confirm = "'" + JSON.parse(data)[i].clipOutput.quantity + "','" + JSON.parse(data)[i].clipOutput.device_id + "','" + JSON.parse(data)[i].clipOutput.receive_id + "','" + JSON.parse(data)[i].clipOutput.id + "','" + JSON.parse(data)[i].clipOutput.type + "','" + note + "'";
+                        var delete_device = "'" + JSON.parse(data)[i].clipOutput.id + "','" + JSON.parse(data)[i].clipOutput.receive_id + "'";
+                        row = row + '<tr>' +
+                            '<td>' + (i + 1) + '</td>' +
+                            '<td>' + JSON.parse(data)[i].device_name + '</td>' +
+                            '<td class="quantity">' + JSON.parse(data)[i].clipOutput.quantity + '</td>' +
+                            '<td>' + type + '</td>' +
+                            '<td>' + note + '</td>';
+                        //'<td>' +
+                        //'<button style="border: 0;background: #fff;" onclick="DeleteDevice(' + delete_device + ')"><i class="fa fa-trash" style="color:red;"></i></button>' +
+                        //'</td>' +
+                        '</tr>';
+                    }
+                    $("#tblReceive").append(row);
+                    modal.style.display = "block";
+                },
+                error: function (err) {
+                    //debugger
+                    alert("FAIL!");
+                }
+            });
+        } else if (code_receive == "I") {
+            $.ajax({
+                type: "Post",
+                url: "/Device/get_DeviceBackRoom?receive_id=" + receive_id,
+                async: false,
+                contentType: false,
+                processData: false,
+                success: function (data) {
+                    //alert(data);
+                    //debugger
+                    var row = "";
+                    $(".makiemke").append("<div>" + JSON.parse(data).makiemke + "</div>");
+                    $(".maSN").append("<div>" + JSON.parse(data).produce_SN + "</div>");
+                    $(".tenTB").append("<div>" + JSON.parse(data).device_name + "</div>");
+                    $(".model_TB").append("<div>" + JSON.parse(data).parameter + "</div>");
+                    var a = "";
+                    if (JSON.parse(data).calibration != null) {
+                        a = JSON.parse(data).calibration;
+                    } else {
+                        a = "N/A";
+                    }
+                    $(".mahieuchuan").append("<div>" + a + "</div>");
+                    $(".kho_TB").append("<div>" + JSON.parse(data).location + "</div>");
+                    if (JSON.parse(data).status == 1) {
+                        $(".statusTB").append("<div>OK</div>");
+                    } else {
+                        $(".statusTB").append("<div>NG</div>");
+                    }
+                    $(".noteTB").append(JSON.parse(data).note_status);
+                    if (JSON.parse(data).imageTB != null) {
+                        $(".imageTB").append("<div>Không có hình ảnh nào!</div>");
+                    } else {
+                        debugger
+                        var image_ = JSON.parse(JSON.parse(data).image_TB);
+                        var list_image = "";
+                        for (j = 0; j < image_.length; j++) {
+                            list_image += '<a href="/Data/Image/' + image_[j].file + '" data-toggle="lightbox" data-max-width="600" >' +
+                                '   <img style="width:150px;height:100px;border: 1px solid #2c303a" src="/Data/Image/' + image_[j].file + '" class="img-fluid">' +
+                                '</a>';
+                        }
+                        $(".imageTB").append(list_image);
+                    }
+                    modalDeviceBackRoom.style.display = "block";
+                },
+                error: function (err) {
+                    //debugger
+                    alert("FAIL!");
+                }
+            });
+        }
+    }
+    function Add_Device() {
+        debugger
+
+
+        var receive_id = document.getElementById("receive_id").value;
+        var device_id;
+        if ($("#device_name_add").val() != 0) {
+            device_id = $("#device_name_add").val();
+            //alert(device_id);
+        } else {
+            alert("Vui lòng nhập tên TB!");
+            return;
+        }
+        var quantity;
+        if ($(".quantity_add").val() != 0) {
+            debugger
+            quantity = $(".quantity_add").val();
+            //var a = check_Quantity(device_id, $(".quantity").val());
+            //alert(a + "      nam");
+            $.ajax({
+                type: "Post",
+                url: "/Device/check_Quantity?device_id=" + device_id + "&quantity=" + quantity,
+                async: false,
+                cache: false,
+                timeout: 30000,
+                contentType: false,
+                processData: false,
+                success: function (data) {
+                    debugger
+                    var a = data;
+                    // return data;
+
+                    if (a == "0") {
+                        alert("Quantity is too large!");
+                        return;
+                    } else {
+                        quantity = $(".quantity_add").val();
+
+                        var check = 0;
+                        if ($("input[name=check]:checked").val() != undefined) {
+                            debugger
+                            check = $("input[name=check]:checked").val();
+                            //alert(check);
+                        } else {
+                            alert("Bạn muốn Lĩnh/Đổi/Mượn?");
+                            return;
+                        }
+                        var note;
+                        if ($(".note_add").val() != 0) {
+                            note = $(".note_add").val();
+                        } else {
+                            note = "";
+                        }
+                        var data = new FormData;
+                        data.append("id", 0);
+                        data.append("receive_id", receive_id);
+                        data.append("device_id", device_id);
+                        data.append("quantity", quantity);
+                        data.append("type", check);
+                        data.append("status", 1);
+                        data.append("note", note);
+                        $.ajax({
+                            type: "Post",
+                            url: "/Receive/Add_Device",
+                            data: data,
+                            async: false,
+                            contentType: false,
+                            processData: false,
+                            success: function (data) {
+                                debugger
+                                if (data > 0) {
+                                    $(".type_device").empty();
+                                    $(".quantity").empty();
+                                    $(".note").empty();
+                                    deltail(parseInt(data));
+                                }
+                            },
+                            error: function (err) {
+                                //debugger
+                                alert("FAIL!");
+                            }
+                        });
+                    }
+
+
+                },
+                error: function (err) {
+                    debugger
+                    alert("FAIL!");
+                }
+            });
+
+
+
+
+            //if (a == "Quantity is too large!") {
+            //    alert("Quantity is too large!");
+            //    return;
+            //} else {
+            //    quantity = $(".quantity").val();
+            //}
+        } else {
+            alert("Vui lòng nhập số lượng TB!");
+            return;
+        }
+
+
+
+    }
+    function UpdateReceive() {
+        var id = document.getElementById("id_receive").value;
+        var receive_name = "";
+        if ($("#receiveName").val() != 0) {
+            receive_name = document.getElementById("receiveName").value;
+        } else {
+            alert("Vui lòng ghi tên đơn!");
+            return;
+        }
+        var note = "";
+        if ($("#note").val() != 0) {
+            note = document.getElementById("note").value;
+        } else {
+            note = "";
+        }
+        var data = new FormData;
+        data.append("id", id);
+        data.append("receive_name", receive_name);
+        data.append("note", note);
+
+        $.ajax({
+            type: "Post",
+            url: "/Receive/Create_Receive",
+            data: data,
+            async: false,
+            contentType: false,
+            processData: false,
+            success: function (data) {
+                debugger
+                //get_Device_Receive(int.parse(data));
+                alert("OK");
+
+                modal_EditReceive.style.display = "none";
+                location.reload();
+            },
+            error: function (err) {
+                //debugger
+                alert("FAIL!");
+            }
+        });
+    }
+    function DeleteReceive(id) {
+        if (confirm("Bạn có chắc chắn xóa?")) {
+            //alert(id_delete);
+            $.ajax({
+                type: "POST",
+                url: "/Receive/Delete",
+                data: '{id: ' + id + '}',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+
+                    alert("Thành công!");
+                    location.reload();
+                }
+            });
+        }
+    }
+    function DeleteDevice(id_clip, receive_id) {
+        if (confirm("Bạn có chắc chắn xóa?")) {
+            //alert(id_delete);
+            $.ajax({
+                type: "POST",
+                url: "/ClipOutput/Delete",
+                data: '{id: ' + id_clip + '}',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    modal.style.display = "none";
+                    alert("Thành công!");
+                    deltail(receive_id);
+                }
+            });
+        }
+    }
+    //Check Quantity Of Device
+    function check_Quantity(device_id, quantity) {
+        $.ajax({
+            type: "Post",
+            url: "/Device/check_Quantity?device_id=" + device_id + "&quantity=" + quantity,
+            async: false,
+            contentType: false,
+            processData: false,
+            success: function (data) {
+                debugger
+                return data;
+            },
+            error: function (err) {
+                debugger
+                alert("FAIL!");
+            }
+        });
+    }
+</script>
+
+
+

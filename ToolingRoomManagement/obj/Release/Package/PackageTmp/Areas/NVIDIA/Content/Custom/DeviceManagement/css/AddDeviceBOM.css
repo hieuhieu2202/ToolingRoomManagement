@@ -1,0 +1,70 @@
+﻿#uploadArea {
+    padding: 0;
+    margin: 0;
+    background-color: transparent;
+}
+
+#dropZoon {
+    margin-top: 1.2rem;
+}
+
+.table-hover > tbody > tr:hover > * {
+    background-color: rgb(136 51 255 / 15%) !important;
+}
+
+.modal-content {
+    box-shadow: 0px 0px 20px 6px #888888;
+}
+
+.uploaded-file__icon {
+    font-size: 2.5rem;
+}
+
+.button_dot {
+    padding: 0;
+    border: 0;
+    margin: 0;
+}
+
+    .button_dot i {
+        margin: 0;
+    }
+
+.dropdown-menu {
+    min-width: unset;
+    box-shadow: 0px 0px 10px 0px #888888 !important;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.select2.select2-container {
+    overflow: hidden;
+}
+
+#table_addDevice td:nth-child(1) {
+    max-width: 150px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+#table_addDevice td:nth-child(5) {
+    max-width: 150px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+#table_addDevice td:nth-child(7) {
+    max-width: 100px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.table-message td:nth-child(1) {
+    min-width: 180px;
+    vertical-align: middle;
+    text-align: left;
+}
+
+.table-message td:nth-child(2) {
+    text-align: left;
+}
