@@ -1,4 +1,5 @@
-﻿using OfficeOpenXml;
+﻿using Microsoft.SqlServer.Server;
+using OfficeOpenXml;
 using OfficeOpenXml.Style;
 using System;
 using System.Collections.Generic;
@@ -8,6 +9,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Numerics;
 using System.Runtime.CompilerServices;
 using System.Text.Json;
@@ -15,22 +17,26 @@ using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Services.Description;
+using System.Windows.Media.Media3D;
 using ToolingRoomManagement.Areas.NVIDIA.Entities;
 using ToolingRoomManagement.Attributes;
+using Group = ToolingRoomManagement.Areas.NVIDIA.Entities.Group;
 
 namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
 {
     [Authentication]
     public class DeviceManagementController : Controller
     {
-        ToolingRoomEntities db = new ToolingRoomEntities();
+        private readonly ToolingRoomEntities db = new ToolingRoomEntities();
 
-        // GET: Add Device Manual
+        /* ADD DEVICE MANUAL */
+        #region Add device manual
         [HttpGet]
         public ActionResult AddDeviceManual()
         {
             return View();
         }
+
         [HttpPost]
         public JsonResult AddDeviceManual(FormCollection form)
         {
@@ -107,6 +113,13 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                     }
                 }
 
+                // Alternative PN
+                AlternativeDevice altdevice = new AlternativeDevice {
+                    IdDevice = device.Id,
+                    PNs = form["AlternativePN"]
+                };
+                db.AlternativeDevices.Add(altdevice);
+
                 db.SaveChanges();
                 return Json(new { status = true });
             }
@@ -126,7 +139,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 var folderPath = Server.MapPath($"~/Data/NewToolingRoom/{folderName}/{IdDevice}");
                 if (!Directory.Exists(folderPath)) Directory.CreateDirectory(folderPath);
 
-                var savePath = Path.Combine(folderPath, $"{fileName} - {DateTime.Now.ToString("yyyy-MM-dd HH.mm.ss.ff")}{fileExtention}");
+                var savePath = Path.Combine(folderPath, $"{fileName} - {DateTime.Now:yyyy-MM-dd HH.mm.ss.ff}{fileExtention}");
 
                 file.SaveAs(savePath);
 
@@ -137,7 +150,6 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 throw ex;
             }
         }
-
         private Entities.Device AddNavigation(FormCollection form, Entities.Device device)
         {
             string dProductName = form["Product"];
@@ -246,13 +258,44 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
             }
 
         }
+        #endregion
 
-        // GET: Device Management
+        /* DEVICE MANAGERMENT */
+        #region Device Management
         [HttpGet]
         public ActionResult DeviceManagement()
         {
             return View();
         }
+        public JsonResult DeleteImage(string src)
+        {
+            try
+            {
+                string filePath = Path.Combine(Server.MapPath(src));
+
+                if (System.IO.File.Exists(filePath))
+                {
+                    System.IO.File.Delete(filePath);
+
+                    string directoryName = Path.GetDirectoryName(filePath);
+
+                    List<string> images = new List<string>();
+
+                    images = Directory.GetFiles(directoryName).ToList();
+
+                    return Json(new { status = true, images }, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    return Json(new { status = false, message = "File not found." }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
         [HttpPost]
         public JsonResult ConfirmDevice(int Id, int QtyConfirm)
         {
@@ -299,7 +342,6 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 return Json(new { status = false, message = ex.Message });
             }
         }
-        [HttpPost]
         public JsonResult UpdateDevice(FormCollection form)
         {
             try
@@ -308,7 +350,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 var oldDevice = db.Devices.FirstOrDefault(d => d.Id == Id);             
                 if (oldDevice != null)
                 {
-                    Entities.Device device = new Device
+                    Entities.Device device = new Entities.Device
                     {
                         Id = oldDevice.Id,
                         DeviceCode = form["DeviceCode"],
@@ -338,6 +380,24 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                         ImagePath = oldDevice.ImagePath,
                         Type_BOM = oldDevice.Type_BOM,
                     };
+                    // Alternative PN
+                    var AltPN = device.AlternativeDevices.FirstOrDefault();
+                    if( AltPN != null)
+                    {
+                        AltPN.PNs = form["AltPNs"];
+                    }
+                    else
+                    {
+                        AltPN = new AlternativeDevice
+                        {
+                            IdDevice = device.Id,
+                            PNs = form["AltPNs"]
+                        };
+
+                        db.AlternativeDevices.Add(AltPN);
+                        device.AlternativeDevices.Add(AltPN);
+                    }                                                    
+
                     // *** Đừng xoá ngoặc :((
                     device.SysQuantity = device.RealQty - (oldDevice.RealQty - oldDevice.SysQuantity);
 
@@ -349,7 +409,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                     // Check Type
                     var types = form["Type"].Split('_');
                     device.Type = types[1];
-                    device.isConsign = types[0] == "normal" ? false : true;
+                    device.isConsign = types[0] != "normal";
 
                     string temp = JsonSerializer.Serialize(oldDevice);
 
@@ -368,7 +428,6 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 return Json(new { status = false, message = ex.Message });
             }
         }
-        [HttpPost]
         public JsonResult UpdateImage(FormCollection form)
         {
             try
@@ -410,27 +469,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 return Json(new { status = false, message = ex.Message });
             }
         }
-        [HttpPost]
-        public JsonResult GetWarehouseDevices(int IdWarehouse, int PageNum)
-        {
-            try
-            {
-                Entities.Warehouse warehouse = db.Warehouses.FirstOrDefault(w => w.Id == IdWarehouse);
-                //var skipAmount = 1000 * (PageNum - 1);
-
-                //var Devices = db.Devices.Where(d => d.IdWareHouse == warehouse.Id).OrderByDescending(d => d.Id).Skip(skipAmount).Take(1000).ToList();
-
-                var Devices = db.Devices.Where(d => d.IdWareHouse == warehouse.Id).OrderByDescending(d => d.Id).ToList();
-
-                warehouse.Devices = Devices;
-                return Json(new { status = true, warehouse });
-            }
-            catch (Exception ex)
-            {
-                return Json(new { status = false, message = ex.Message });
-            }
-        }
-        [HttpPost]
+        
         public JsonResult DeleteDevice(int Id)
         {
             try
@@ -463,43 +502,16 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 return Json(new { status = false, message = ex.Message });
             }
         }
-        [HttpGet]
-        public JsonResult DeleteImage(string src)
-        {
-            try
-            {
-                string filePath = Path.Combine(Server.MapPath(src));
+        #endregion
 
-                if (System.IO.File.Exists(filePath))
-                {
-                    System.IO.File.Delete(filePath);
-
-                    string directoryName = Path.GetDirectoryName(filePath);
-
-                    List<string> images = new List<string>();
-
-                    images = Directory.GetFiles(directoryName).ToList();
-
-                    return Json(new { status = true, images }, JsonRequestBehavior.AllowGet);
-                }
-                else
-                {
-                    return Json(new { status = false, message = "File not found." }, JsonRequestBehavior.AllowGet);
-                }
-            }
-            catch (Exception ex)
-            {
-                return Json(new { status = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
-            }
-        }
-
-
-        // GET: Add Device Auto
+        /* ADD DEVICE FORM BOM */
+        #region ADD DEVICE FORM BOM
         [HttpGet]
         public ActionResult AddDeviceBOM()
         {
             return View();
         }
+
         [HttpPost]
         public JsonResult AddDeviceUnconfirm(HttpPostedFileBase file, int IdWarehouse)
         {
@@ -689,8 +701,10 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
             
             else return null;
         }
+        #endregion
 
-        // GET: COMMON
+        /* COMMON */
+        #region Common
         [HttpGet]
         public JsonResult GetSelectData()
         {
@@ -712,6 +726,47 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 return Json(new { status = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
+        public JsonResult GetWarehouseLayouts(int IdWarehouse)
+        {
+            try
+            {
+                Warehouse warehouse = db.Warehouses.FirstOrDefault(w => w.Id == IdWarehouse);
+
+                if (warehouse != null)
+                {
+                    return Json(new { status = true, layouts = warehouse.WarehouseLayouts }, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    return Json(new { status = false, message = "Warehouse is empty." }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = false, message = ex.Message });
+            }
+        }
+        public JsonResult GetWarehouseDevices(int IdWarehouse, int PageNum)
+        {
+            try
+            {
+                PageNum = 1;
+                Entities.Warehouse warehouse = db.Warehouses.FirstOrDefault(w => w.Id == IdWarehouse);
+                //var skipAmount = 1000 * (PageNum - 1);
+
+                //var Devices = db.Devices.Where(d => d.IdWareHouse == warehouse.Id).OrderByDescending(d => d.Id).Skip(skipAmount).Take(1000).ToList();
+
+                var Devices = db.Devices.Where(d => d.IdWareHouse == warehouse.Id).OrderByDescending(d => d.Id).ToList();
+                warehouse.Devices = Devices;
+
+                return Json(new { status = true, warehouse });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = false, message = ex.Message });
+            }
+        }
+
         [HttpPost]
         public JsonResult GetDevice(int Id)
         {
@@ -766,36 +821,18 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
             {
                 return Json(new { status = false, message = ex.Message });
             }
-        }
-        public JsonResult GetWarehouseLayouts(int IdWarehouse)
-        {
-            try
-            {
-                Warehouse warehouse = db.Warehouses.FirstOrDefault(w => w.Id == IdWarehouse);
+        }        
+        #endregion
 
-                if (warehouse != null)
-                {
-                    return Json(new { status = true, layouts = warehouse.WarehouseLayouts }, JsonRequestBehavior.AllowGet);
-                }
-                else
-                {
-                    return Json(new { status = false, message = "Warehouse is empty." }, JsonRequestBehavior.AllowGet);
-                }
-            }
-            catch (Exception ex)
-            {
-                return Json(new { status = false, message = ex.Message });
-            }
-        }
-
-        // GET: Export Excel / Inventory
+        /* EXCEL - INVENTORY */
+        #region Excel - Inventory
         public ActionResult ExportExcel()
         {
             try
             {
                 ExcelPackage.LicenseContext = OfficeOpenXml.LicenseContext.NonCommercial;
 
-                string fileName = $"Devices - {DateTime.Now.ToString("yyyy.MM.dd HH.mm.ss.ff")}.xlsx";
+                string fileName = $"Devices - {DateTime.Now:yyyy.MM.dd HH.mm.ss.ff}.xlsx";
                 string folderPath = Server.MapPath("/Data/NewToolingroom");
                 string filePath = Path.Combine(folderPath, fileName);
 
@@ -864,7 +901,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
 
                 if (file != null && file.ContentLength > 0)
                 {
-                    string fileName = $"Devices - {DateTime.Now.ToString("yyyy.MM.dd HH.mm.ss.ff")}.xlsx";
+                    string fileName = $"Devices - {DateTime.Now:yyyy.MM.dd HH.mm.ss.ff}.xlsx";
                     string folderPath = Server.MapPath("/Data/NewToolingroom");
                     string filePath = Path.Combine(folderPath, fileName);
 
@@ -882,12 +919,6 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                     }
                     #endregion
 
-                    //var bg_light_danger = (System.Drawing.Color)System.Windows.Media.ColorConverter.ConvertFromString("#ffc7ce");
-                    //var text_danger = (System.Drawing.Color)System.Windows.Media.ColorConverter.ConvertFromString("#9c0006");
-
-                    //var bg_light_success = (System.Drawing.Color)System.Windows.Media.ColorConverter.ConvertFromString("#c6efce");
-                    //var text_success = (System.Drawing.Color)System.Windows.Media.ColorConverter.ConvertFromString("#006100");
-
                     using (var outputPackage = new ExcelPackage(filePath))
                     using (var package = new ExcelPackage(file.InputStream))
                     {
@@ -895,230 +926,138 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                         var worksheet = package.Workbook.Worksheets[0];
 
                         //header
-                        outWorksheet.Cells[1, 1].Value = "MTS"; //
-                        outWorksheet.Cells[1, 2].Value = "MTS Details"; //
-                        outWorksheet.Cells[1, 3].Value = "Product"; //
-                        outWorksheet.Cells[1, 4].Value = "Model"; //
-                        outWorksheet.Cells[1, 5].Value = "Station"; //
+                        outWorksheet.Cells[1, 1].Value = "MTS";
+                        outWorksheet.Cells[1, 2].Value = "Product";
+                        outWorksheet.Cells[1, 3].Value = "PN";
+                        outWorksheet.Cells[1, 4].Value = "Alternative PN";
+                        outWorksheet.Cells[1, 5].Value = "Description";
+                        outWorksheet.Cells[1, 6].Value = "Group";
+                        outWorksheet.Cells[1, 7].Value = "Vendor";
+                        outWorksheet.Cells[1, 8].Value = "Quantity";
+                        outWorksheet.Cells[1, 9].Value = "DefaultMinQuantity";
+                        outWorksheet.Cells[1, 10].Value = "Relation";
+                        outWorksheet.Cells[1, 11].Value = "LifeCycleLimit";
+                        outWorksheet.Cells[1, 12].Value = "Dynamic/Static";
+                        outWorksheet.Cells[1, 13].Value = "Buffer";
+                        outWorksheet.Cells[1, 14].Value = "LeadTime";
+                        outWorksheet.Cells[1, 15].Value = "MOQ";
+                        outWorksheet.Cells[1, 16].Value = "OnTheWayQuantity";
+                        outWorksheet.Cells[1, 17].Value = "RealQuantity";                        
+                        outWorksheet.Cells[1, 18].Value = "NG_Quantity";
+                        outWorksheet.Cells[1, 19].Value = "RequestQuantity";
+                        outWorksheet.Cells[1, 20].Value = "GAP";
+                        outWorksheet.Cells[1, 21].Value = "Risk";
+                        outWorksheet.Cells[1, 22].Value = "HavePicture (Y/N)";
 
-                        outWorksheet.Cells[1, 6].Value = "PN";
-                        outWorksheet.Cells[1, 7].Value = "Description";
-
-                        outWorksheet.Cells[1, 8].Value = "Group"; //
-                        outWorksheet.Cells[1, 9].Value = "Vendor"; //
-                        outWorksheet.Cells[1, 10].Value = "Buffer"; //
-                        outWorksheet.Cells[1, 11].Value = "Limit"; //
-
-                        outWorksheet.Cells[1, 12].Value = "Dynamic/Static"; //
-
-                        outWorksheet.Cells[1, 13].Value = "Quantity";
-
-                        outWorksheet.Cells[1, 14].Value = "Relation"; //
-
-                        outWorksheet.Cells[1, 15].Value = "Request";
-                        outWorksheet.Cells[1, 16].Value = "Default Min Quantity";
-                        outWorksheet.Cells[1, 17].Value = "GAP";
-
-                        outWorksheet.Cells[1, 18].Value = "MOQ"; //
-                        
-
-                        outWorksheet.Cells[1, 19].Value = "Risk";
-                        outWorksheet.Cells[1, 20].Value = "Have Picture (Y/N)";
-                        outWorksheet.Cells[1, 21].Value = "Return NG Quantity";
-                        outWorksheet.Cells[1, 22].Value = "Real Quantity";
-                        outWorksheet.Cells[1, 23].Value = "Lead Time";
-                        outWorksheet.Cells[1, 24].Value = "On The Way Quantity";
-
-                        outWorksheet.Cells["A1:X1"].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
-                        outWorksheet.Cells["A1:X1"].Style.Border.Top.Style = ExcelBorderStyle.Thin;
-                        outWorksheet.Cells["A1:X1"].Style.Border.Left.Style = ExcelBorderStyle.Thin;
-                        outWorksheet.Cells["A1:X1"].Style.Border.Right.Style = ExcelBorderStyle.Thin;
-                        outWorksheet.Cells["A1:X1"].Style.Font.Bold = true;
+                        outWorksheet.Cells["A1:V1"].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
+                        outWorksheet.Cells["A1:V1"].Style.Border.Top.Style = ExcelBorderStyle.Thin;
+                        outWorksheet.Cells["A1:V1"].Style.Border.Left.Style = ExcelBorderStyle.Thin;
+                        outWorksheet.Cells["A1:V1"].Style.Border.Right.Style = ExcelBorderStyle.Thin;
+                        outWorksheet.Cells["A1:V1"].Style.Font.Bold = true;
+                        outWorksheet.Cells["U1:U9999"].Style.Font.Bold = true;
 
                         System.Drawing.Color headerBackground = System.Drawing.ColorTranslator.FromHtml("#00B050");
-                        outWorksheet.Cells[$"A1:X1"].Style.Fill.PatternType = ExcelFillStyle.Solid;
-                        outWorksheet.Cells[$"A1:X1"].Style.Fill.BackgroundColor.SetColor(headerBackground);
+                        outWorksheet.Cells[$"A1:V1"].Style.Fill.PatternType = ExcelFillStyle.Solid;
+                        outWorksheet.Cells[$"A1:V1"].Style.Fill.BackgroundColor.SetColor(headerBackground);
+
+                        System.Drawing.Color successBackground = System.Drawing.ColorTranslator.FromHtml("#C6EFCE");
+                        System.Drawing.Color successText = System.Drawing.ColorTranslator.FromHtml("#006100");
+                        System.Drawing.Color dangerBackground = System.Drawing.ColorTranslator.FromHtml("#FFC7CE");
+                        System.Drawing.Color dangerText = System.Drawing.ColorTranslator.FromHtml("#9C0006");
+                        System.Drawing.Color warningBackground = System.Drawing.ColorTranslator.FromHtml("#FFEB9C");
+                        System.Drawing.Color warningText = System.Drawing.ColorTranslator.FromHtml("#9C5700");
 
                         foreach (int row in Enumerable.Range(2, worksheet.Dimension.End.Row - 1))
                         {
                             var _PN = worksheet.Cells[row, 1].Value?.ToString();
                             var _RequestQty = int.Parse(worksheet.Cells[row, 2].Value?.ToString());
-                            int comingQty = CountComingDevice(_PN);
+                            //int comingQty = CountComingDevice(_PN);
 
-                            var devices = db.Devices.Where(d => d.DeviceCode.ToUpper().Trim() == _PN.ToUpper().Trim()).ToList();
+                            List<Entities.Device> devices = db.Devices.Where(d => d.DeviceCode.ToUpper().Trim() == _PN.ToUpper().Trim()).ToList();
                             if (devices.Count > 0)
                             {
-                                string deviceName = "";
-                                int qtyConfirm = 0;
-                                int minQty = 0;
-                                int NGQty = 0;
-                                int realQty = 0;
-                                string LeadTime = "";
-                                
+                                Entities.Device device = devices.FirstOrDefault();
+                                device.Product = devices?.FirstOrDefault(d => d.Product != null)?.Product;
+                                device.Group = devices?.FirstOrDefault(d => d.Group != null)?.Group;
+                                device.Vendor = devices?.FirstOrDefault(d => d.Vendor != null)?.Vendor;
+                                device.AlternativeDevices = devices.FirstOrDefault(d => d.AlternativeDevices.Count > 0)?.AlternativeDevices;
+                                device.QtyConfirm = devices.Sum(d => d.QtyConfirm);
+                                device.RealQty = devices.Sum(d => d.RealQty);
+                                device.NG_Qty = devices.Sum(d => d.NG_Qty);
+                                device.DeliveryTime = devices.FirstOrDefault(d => Regex.IsMatch(d.DeliveryTime, @"\d"))?.DeliveryTime;
+                                device.MinQty = devices.FirstOrDefault(d => d.MinQty != null)?.MinQty;
+                                device.Buffer = devices.Max(d => d.Buffer);
+                                device.LifeCycle = devices.Max(d => d.LifeCycle);
+                                device.Type_BOM =  devices.FirstOrDefault(d => d.Type_BOM != null)?.Type_BOM;
+                                device.ImagePath = devices.FirstOrDefault(d => d.ImagePath != null)?.ImagePath;
+                                device.Relation = devices.FirstOrDefault(d => d.Relation != null)?.Relation;
+                                device.MOQ = devices.FirstOrDefault(d => d.MOQ != null)?.MOQ;
 
-                                foreach (var _device in devices)
+                                int ComingQty = CountComingDevice(_PN);
+                                int GAP = (int)((device.QtyConfirm + ComingQty) - (_RequestQty + device.NG_Qty));
+                                string Risk = (GAP > 0 && device.QtyConfirm > device.MinQty) ? "Low" : (GAP > 0 && device.QtyConfirm < device.MinQty) ? "Mid" : "High";
+
+                                // MTS, Product, PN, AlternativePN, Description
+                                outWorksheet.Cells[row, 1].Value = (device.Product != null) ? device.Product.MTS : string.Empty;
+                                outWorksheet.Cells[row, 2].Value = (device.Product != null) ? device.Product.ProductName : string.Empty;
+                                outWorksheet.Cells[row, 3].Value = (device.DeviceCode != null) ? device.DeviceCode : string.Empty;
+                                outWorksheet.Cells[row, 4].Value = (device.AlternativeDevices != null && device.AlternativeDevices.Count > 0) ? device.AlternativeDevices.First().PNs : string.Empty;
+                                outWorksheet.Cells[row, 5].Value = (device.DeviceName != null) ? device.DeviceName : string.Empty;
+                                // Group, Vendor, Quantity, DefaultMinQuantity
+                                outWorksheet.Cells[row, 6].Value = (device.Group != null) ? device.Group.GroupName : string.Empty;
+                                outWorksheet.Cells[row, 7].Value = (device.Vendor != null) ? device.Vendor.VendorName : string.Empty;
+                                outWorksheet.Cells[row, 8].Value = (device.QtyConfirm != null) ? device.QtyConfirm : 0;
+                                outWorksheet.Cells[row, 9].Value = (device.MinQty != null) ? device.MinQty : 0;
+                                // Relation, LifeCycleLimit, Dynamic/Static, Buffer                               
+                                outWorksheet.Cells[row, 10].Value = (device.Relation != null) ? device.Relation : string.Empty;
+                                outWorksheet.Cells[row, 11].Value = (device.LifeCycle != null) ? device.LifeCycle : 0;
+                                outWorksheet.Cells[row, 12].Value = (device.Type_BOM != null) ? device.Type_BOM : (device.Type == "NA") ? "NA" : (device.Type.Length > 0 ? device.Type[0].ToString() : "");
+                                outWorksheet.Cells[row, 13].Value = (device.Buffer != null) ? device.Buffer : 0;
+                                // LeadTime, MOQ, OnTheWayQuantity, RealQuantity
+                                outWorksheet.Cells[row, 14].Value = (device.DeliveryTime != null) ? device.DeliveryTime : string.Empty;
+                                outWorksheet.Cells[row, 15].Value = (device.MOQ != null) ? device.MOQ : 0;
+                                outWorksheet.Cells[row, 16].Value = ComingQty;                                
+                                outWorksheet.Cells[row, 17].Value = (device.RealQty != null) ? device.RealQty : 0;
+                                // NGQuantity, RequestQuantity, GAP, Risk, HavePicture (Y/N)
+                                outWorksheet.Cells[row, 18].Value = (device.NG_Qty != null) ? device.NG_Qty : 0;
+                                outWorksheet.Cells[row, 19].Value = _RequestQty;
+                                outWorksheet.Cells[row, 20].Value = GAP;
+                                outWorksheet.Cells[row, 21].Value = Risk;
+                                outWorksheet.Cells[row, 22].Value = (device.ImagePath != null) ? "Y" : "N";
+
+                                switch (Risk)
                                 {
-                                    deviceName = _device.DeviceName;
-                                    qtyConfirm += _device.QtyConfirm ?? 0;
-                                    minQty = _device.MinQty ?? 0;
-                                    NGQty += _device.NG_Qty ?? 0;
-                                    realQty += _device.RealQty ?? 0;
-
-                                    if(_device.DeliveryTime != null)
-                                    {
-                                        LeadTime = _device.DeliveryTime;
-                                    }
+                                    case "Low":
+                                        outWorksheet.Cells[$"A{row}:V{row}"].Style.Fill.PatternType = ExcelFillStyle.Solid;
+                                        outWorksheet.Cells[$"A{row}:V{row}"].Style.Fill.BackgroundColor.SetColor(successBackground);
+                                        outWorksheet.Cells[$"A{row}:V{row}"].Style.Font.Color.SetColor(successText);
+                                        break;
+                                    case "Mid":
+                                        outWorksheet.Cells[$"A{row}:V{row}"].Style.Fill.PatternType = ExcelFillStyle.Solid;
+                                        outWorksheet.Cells[$"A{row}:V{row}"].Style.Fill.BackgroundColor.SetColor(warningBackground);
+                                        outWorksheet.Cells[$"A{row}:V{row}"].Style.Font.Color.SetColor(warningText);
+                                        break;
+                                    case "High":
+                                        outWorksheet.Cells[$"A{row}:V{row}"].Style.Fill.PatternType = ExcelFillStyle.Solid;
+                                        outWorksheet.Cells[$"A{row}:V{row}"].Style.Fill.BackgroundColor.SetColor(dangerBackground);
+                                        outWorksheet.Cells[$"A{row}:V{row}"].Style.Font.Color.SetColor(dangerText);
+                                        break;
                                 }
-
-                                var device = devices.First();
-
-
-                                outWorksheet.Cells[row, 1].Value = device.Product == null ? "" : device.Product.MTS;
-                                outWorksheet.Cells[row, 2].Value = "";
-                                outWorksheet.Cells[row, 3].Value = device.Product == null ? "" : device.Product.ProductName;
-                                outWorksheet.Cells[row, 4].Value = device.Model == null ? "" : device.Model.ModelName;
-                                outWorksheet.Cells[row, 5].Value = device.Station == null ? "" : device.Station.StationName;
-
-                                outWorksheet.Cells[row, 6].Value = _PN;
-                                outWorksheet.Cells[row, 7].Value = device.DeviceName;
-
-                                outWorksheet.Cells[row, 8].Value = device.Group == null ? "" : device.Group.GroupName;
-                                outWorksheet.Cells[row, 9].Value = device.Vendor == null ? "" : device.Vendor.VendorName;
-                                outWorksheet.Cells[row, 10].Value = device.Buffer == null ? "" : device.Buffer.ToString();
-                                outWorksheet.Cells[row, 11].Value = device.LifeCycle == null ? "" : device.LifeCycle.ToString();
-
-                                string type = "";
-                                if(device.Type_BOM != null)
-                                {
-                                    type = device.Type_BOM;
-                                }
-                                else
-                                {
-                                    if (device.Type == "Fixture") type = "S";
-                                    else if (device.Type == "S" || device.Type == "Static") type = "S";
-                                    else if (device.Type == "D" || device.Type == "Dynamic") type = "D";
-                                    else type = "NA";
-                                }
-                                outWorksheet.Cells[row, 12].Value = type;
-
-                                outWorksheet.Cells[row, 13].Value = qtyConfirm;
-                                outWorksheet.Cells[row, 14].Value = device.Relation == null ? "" : device.Relation;
-
-                                outWorksheet.Cells[row, 15].Value = _RequestQty;
-                                outWorksheet.Cells[row, 16].Value = minQty;
-
-                                int gap = (qtyConfirm + comingQty) - (_RequestQty + NGQty);
-                                //outWorksheet.Cells[row, 17].Value = gap;
-                                outWorksheet.Cells[row, 17].Formula = $"(M{row}+ X{row})-(O{row}+U{row})";
-
-                                outWorksheet.Cells[row, 18].Value = device.MOQ ?? 0;
-                                
-
-                                if (gap > 0 && qtyConfirm > minQty)
-                                {
-                                    outWorksheet.Cells[row, 19].Value = "Low";
-
-                                    System.Drawing.Color successBackground = System.Drawing.ColorTranslator.FromHtml("#C6EFCE");
-                                    System.Drawing.Color successText = System.Drawing.ColorTranslator.FromHtml("#006100");
-
-                                    outWorksheet.Cells[$"A{row}:X{row}"].Style.Fill.PatternType = ExcelFillStyle.Solid;
-                                    outWorksheet.Cells[$"A{row}:X{row}"].Style.Fill.BackgroundColor.SetColor(successBackground);
-                                    outWorksheet.Cells[$"A{row}:X{row}"].Style.Font.Color.SetColor(successText);
-
-                                }
-                                else
-                                {
-                                    outWorksheet.Cells[row, 19].Value = "High";
-
-                                    System.Drawing.Color dangerBackground = System.Drawing.ColorTranslator.FromHtml("#FFC7CE");
-                                    System.Drawing.Color dangerText = System.Drawing.ColorTranslator.FromHtml("#9C0006");
-
-                                    outWorksheet.Cells[$"A{row}:X{row}"].Style.Fill.PatternType = ExcelFillStyle.Solid;
-                                    outWorksheet.Cells[$"A{row}:X{row}"].Style.Fill.BackgroundColor.SetColor(dangerBackground);
-                                    outWorksheet.Cells[$"A{row}:X{row}"].Style.Font.Color.SetColor(dangerText);
-                                }
-
-                                outWorksheet.Cells[row, 20].Value = device.ImagePath != null ? "Y" : "N";
-                                outWorksheet.Cells[row, 21].Value = NGQty;
-                                outWorksheet.Cells[row, 22].Value = realQty;
-
-                                bool hasNumber = Regex.IsMatch(LeadTime, @"\d");
-                                outWorksheet.Cells[row, 23].Value = hasNumber ? LeadTime : "";
-
-                                outWorksheet.Cells[row, 24].Value = comingQty;
-                            }
-                            else if(!db.ComingDevices.Any(d => d.DeviceUnconfirm.DeviceCode.ToUpper().Trim() == _PN.ToUpper().Trim()) && comingQty > 0){
-                                var device = db.DeviceUnconfirms.FirstOrDefault(d => d.DeviceCode.ToUpper().Trim() == _PN.ToUpper().Trim());
-
-                                outWorksheet.Cells[row, 1].Value = device.Product == null ? "" : device.Product.MTS;
-                                outWorksheet.Cells[row, 2].Value = "";
-                                outWorksheet.Cells[row, 3].Value = device.Product == null ? "" : device.Product.ProductName;
-                                outWorksheet.Cells[row, 4].Value = device.Model == null ? "" : device.Model.ModelName;
-                                outWorksheet.Cells[row, 5].Value = device.Station == null ? "" : device.Station.StationName;
-
-                                outWorksheet.Cells[row, 6].Value = _PN;
-                                outWorksheet.Cells[row, 7].Value = device.DeviceName;
-
-                                outWorksheet.Cells[row, 8].Value = device.Group == null ? "" : device.Group.GroupName;
-                                outWorksheet.Cells[row, 9].Value = device.Vendor == null ? "" : device.Vendor.VendorName;
-                                outWorksheet.Cells[row, 10].Value = device.Buffer == null ? "" : device.Buffer.ToString();
-                                outWorksheet.Cells[row, 11].Value = device.LifeCycle == null ? "" : device.LifeCycle.ToString();
-
-                                string type = "";
-                                if (device.Type_BOM != null)
-                                {
-                                    type = device.Type_BOM;
-                                }
-                                else
-                                {
-                                    if (device.Type == "Fixture") type = "S";
-                                    else if (device.Type == "S" || device.Type == "Static") type = "S";
-                                    else if (device.Type == "D" || device.Type == "Dynamic") type = "D";
-                                    else type = "NA";
-                                }
-                                outWorksheet.Cells[row, 12].Value = type;
-
-                                outWorksheet.Cells[row, 13].Value = 0;
-                                outWorksheet.Cells[row, 14].Value = device.Relation == null ? "" : device.Relation;
-
-                                outWorksheet.Cells[row, 15].Value = _RequestQty;
-                                outWorksheet.Cells[row, 16].Value = device.MinQty;
-
-                                int gap = comingQty - _RequestQty;
-                                outWorksheet.Cells[row, 17].Formula = $"(M{row}+ X{row})-(O{row}+U{row})";
-                                outWorksheet.Cells[row, 18].Value = device.MOQ ?? 0;
-
-                                outWorksheet.Cells[row, 19].Value = "Mid";
-
-                                System.Drawing.Color dangerBackground = System.Drawing.ColorTranslator.FromHtml("#FFEB9C");
-                                System.Drawing.Color dangerText = System.Drawing.ColorTranslator.FromHtml("#DF8C00");
-                                outWorksheet.Cells[$"A{row}:X{row}"].Style.Fill.PatternType = ExcelFillStyle.Solid;
-                                outWorksheet.Cells[$"A{row}:X{row}"].Style.Fill.BackgroundColor.SetColor(dangerBackground);
-                                outWorksheet.Cells[$"A{row}:X{row}"].Style.Font.Color.SetColor(dangerText);
-                                outWorksheet.Cells[row, 20].Value = device.ImagePath != null ? "Y" : "N";
-
-                                outWorksheet.Cells[row, 21].Value = 0;
-                                outWorksheet.Cells[row, 22].Value = 0;
-
-                                bool hasNumber = Regex.IsMatch(device.DeliveryTime, @"\d");
-                                outWorksheet.Cells[row, 23].Value = hasNumber ? device.DeliveryTime : "";
-
-                                outWorksheet.Cells[row, 24].Value = comingQty;
 
                             }
                             else
                             {
-                                outWorksheet.Cells[row, 6].Value = _PN;
-                                outWorksheet.Cells[row, 15].Value = _RequestQty;
+                                outWorksheet.Cells[row, 3].Value = _PN;
+                                outWorksheet.Cells[row, 19].Value = _RequestQty;
 
-                                outWorksheet.Cells[$"A{row}:X{row}"].Style.Fill.PatternType = ExcelFillStyle.Solid;
-                                outWorksheet.Cells[$"A{row}:X{row}"].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.LightGray);
+                                outWorksheet.Cells[$"A{row}:V{row}"].Style.Fill.PatternType = ExcelFillStyle.Solid;
+                                outWorksheet.Cells[$"A{row}:V{row}"].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.LightGray);
                             }
 
-                            outWorksheet.Cells[$"A{row}:X{row}"].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
-                            outWorksheet.Cells[$"A{row}:X{row}"].Style.Border.Top.Style = ExcelBorderStyle.Thin;
-                            outWorksheet.Cells[$"A{row}:X{row}"].Style.Border.Left.Style = ExcelBorderStyle.Thin;
-                            outWorksheet.Cells[$"A{row}:X{row}"].Style.Border.Right.Style = ExcelBorderStyle.Thin;
+                            outWorksheet.Cells[$"A{row}:V{row}"].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
+                            outWorksheet.Cells[$"A{row}:V{row}"].Style.Border.Top.Style = ExcelBorderStyle.Thin;
+                            outWorksheet.Cells[$"A{row}:V{row}"].Style.Border.Left.Style = ExcelBorderStyle.Thin;
+                            outWorksheet.Cells[$"A{row}:V{row}"].Style.Border.Right.Style = ExcelBorderStyle.Thin;
                         }
 
                         outWorksheet.Cells[outWorksheet.Dimension.Address].AutoFitColumns();
@@ -1137,16 +1076,15 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 return Json(new { status = false, message = ex.Message });
             }
         }
+        #endregion
 
-
-        // Confirm Device
+        /* CONFIRM  DEVICE */
         #region Device Confirm
-        [HttpGet]
+        // [HttpGet]
         public ActionResult ConfirmDevice()
         {
             return View();
         }
-        [HttpGet]
         public JsonResult GetDevicesUnconfirm(int IdWarehouse)
         {
             try
@@ -1160,7 +1098,6 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 return Json(new {status = false, message = ex.Message}, JsonRequestBehavior.AllowGet);
             }
         }
-        [HttpGet]
         public JsonResult GetDeviceUnconfirm(int Id)
         {
             try
@@ -1184,7 +1121,36 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 return Json(new { status = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
-        [HttpPost]
+        public JsonResult DeviceUnconfirm_DeleteImage(string src)
+        {
+            try
+            {
+                string filePath = Path.Combine(Server.MapPath(src));
+
+                if (System.IO.File.Exists(filePath))
+                {
+                    System.IO.File.Delete(filePath);
+
+                    string directoryName = Path.GetDirectoryName(filePath);
+
+                    List<string> images = new List<string>();
+
+                    images = Directory.GetFiles(directoryName).ToList();
+
+                    return Json(new { status = true, images }, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    return Json(new { status = false, message = "File not found." }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        // [HttpPost]
         public JsonResult DeviceUnconfirm_UpdateImage(FormCollection form)
         {
             try
@@ -1225,37 +1191,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
             {
                 return Json(new { status = false, message = ex.Message });
             }
-        }
-        [HttpGet]
-        public JsonResult DeviceUnconfirm_DeleteImage(string src)
-        {
-            try
-            {
-                string filePath = Path.Combine(Server.MapPath(src));
-
-                if (System.IO.File.Exists(filePath))
-                {
-                    System.IO.File.Delete(filePath);
-
-                    string directoryName = Path.GetDirectoryName(filePath);
-
-                    List<string> images = new List<string>();
-
-                    images = Directory.GetFiles(directoryName).ToList();
-
-                    return Json(new { status = true, images }, JsonRequestBehavior.AllowGet);
-                }
-                else
-                {
-                    return Json(new { status = false, message = "File not found." }, JsonRequestBehavior.AllowGet);
-                }
-            }
-            catch (Exception ex)
-            {
-                return Json(new { status = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
-            }
-        }
-        [HttpPost] 
+        }     
         public JsonResult AddConfirmDevice(FormCollection form)
         {
             try
@@ -1356,8 +1292,9 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
         }
         #endregion
 
+        /* COMING DEVICE */
         #region Coming
-        [HttpGet]
+        // [HttpGet]
         public ActionResult ComingDevice()
         {
             return View();
@@ -1476,7 +1413,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
             
         }
 
-        [HttpPost]
+        // [HttpPost]
         public JsonResult AddComingDevice(ComingDevice ComingDevice)
         {
             try
@@ -1664,8 +1601,8 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
         }
         #endregion
 
-
-        // SML
+        /* HIDDEN UPDATE */
+        #region Hidden Update
         public ActionResult UpdateBuffer(HttpPostedFileBase file)
         {
             try
@@ -1920,8 +1857,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 return Json(new { status = false, message = ex.Message });
             }
         }
-
-        public int CountComingDevice(string PN)
+        private int CountComingDevice(string PN)
         {
             var comingDevices = db.ComingDevices.Where(d => d.Device.DeviceCode.ToUpper().Trim() == PN.ToUpper().Trim()).ToList();
 
@@ -1935,5 +1871,19 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
 
             return count;
         }
+        private int CountAltPNQuantity(string sPN)
+        {
+            int Qty = 0;
+            string[] PNs = sPN.Split(',');
+            foreach(string PN in  PNs)
+            {
+                var devices = db.Devices.Where(d => d.DeviceCode == PN);
+                //foreach(var device in devices)
+                //{
+                //    Qty
+                //}
+            }
+        }
+        #endregion
     }
 }

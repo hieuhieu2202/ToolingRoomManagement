@@ -3132,6 +3132,9 @@
     <Compile Include="Areas\NVIDIA\Data\Common.cs" />
     <Compile Include="Areas\NVIDIA\Data\Mail.cs" />
     <Compile Include="Areas\NVIDIA\Data\Model_Service.cs" />
+    <Compile Include="Areas\NVIDIA\Entities\AlternativeDevice.cs">
+      <DependentUpon>ToolingRoomModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Areas\NVIDIA\Entities\Borrow.cs">
       <DependentUpon>ToolingRoomModel.tt</DependentUpon>
     </Compile>

@@ -1,5 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="ToolingRoomModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="AlternativeDevice">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IdDevice" Type="int" />
+    <Property Name="PNs" Type="nvarchar" MaxLength="300" />
+  </EntityType>
   <EntityType Name="Borrow">
     <Key>
       <PropertyRef Name="Id" />
@@ -289,6 +297,18 @@
     <Property Name="Floor" Type="nvarchar" MaxLength="50" />
     <Property Name="Cell" Type="nvarchar" MaxLength="50" />
   </EntityType>
+  <Association Name="FK_AlternativeDevice_Device">
+    <End Role="Device" Type="Self.Device" Multiplicity="0..1" />
+    <End Role="AlternativeDevice" Type="Self.AlternativeDevice" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Device">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AlternativeDevice">
+        <PropertyRef Name="IdDevice" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Borrow_Model">
     <End Role="Model" Type="Self.Model" Multiplicity="0..1" />
     <End Role="Borrow" Type="Self.Borrow" Multiplicity="*" />
@@ -710,6 +730,7 @@
     </ReferentialConstraint>
   </Association>
   <EntityContainer Name="ToolingRoomModelStoreContainer">
+    <EntitySet Name="AlternativeDevice" EntityType="Self.AlternativeDevice" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Borrow" EntityType="Self.Borrow" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="BorrowDevice" EntityType="Self.BorrowDevice" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ComingDevice" EntityType="Self.ComingDevice" Schema="dbo" store:Type="Tables" />
@@ -733,6 +754,10 @@
     <EntitySet Name="Vendor" EntityType="Self.Vendor" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Warehouse" EntityType="Self.Warehouse" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="WarehouseLayout" EntityType="Self.WarehouseLayout" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_AlternativeDevice_Device" Association="Self.FK_AlternativeDevice_Device">
+      <End Role="Device" EntitySet="Device" />
+      <End Role="AlternativeDevice" EntitySet="AlternativeDevice" />
+    </AssociationSet>
     <AssociationSet Name="FK_Borrow_Model" Association="Self.FK_Borrow_Model">
       <End Role="Model" EntitySet="Model" />
       <End Role="Borrow" EntitySet="Borrow" />

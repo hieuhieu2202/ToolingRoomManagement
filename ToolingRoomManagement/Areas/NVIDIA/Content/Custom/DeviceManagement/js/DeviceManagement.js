@@ -4,132 +4,165 @@
 
 // table
 var tableDeviceInfo;
-async function CreateTableAddDevice(devices) {
+function CreateTableAddDevice(devices) {
     if (tableDeviceInfo) tableDeviceInfo.destroy();
 
-    $('#table_Devices_tbody').html('');
-    await $.each(devices, async function (no, item) {
+    // Add list device to datalist
+    var tableBody = $('#table_Devices_tbody');
+    var devicedatalist = $('#device_edit-Devices-List');
+    tableBody.empty();
+    devicedatalist.html('');
+    $.each(devices, function (no, item) {
+        var deviceData = {
+            id: item.Id || "NA",
+            mts: (item.Product && item.Product.MTS) ? item.Product.MTS : "NA",
+            productname: (item.Product && item.Product.ProductName !== "") ? item.Product.ProductName : "NA",
+            model: (item.Model && item.Model.ModelName !== "") ? item.Model.ModelName : "NA",
+            station: (item.Station && item.Station.StationName !== "") ? item.Station.StationName : "NA",
+            pn: item.DeviceCode !== "null" ? item.DeviceCode : "NA",
+            des: item.DeviceName !== "" ? item.DeviceName : "NA",
+            group: (item.Group && item.Group.GroupName !== "") ? item.Group.GroupName : "NA",
+            vendor: (item.Vendor && item.Vendor.VendorName !== "") ? item.Vendor.VendorName : "NA",
+            special: (item.Specification !== "NA") ? item.Specification : "NA",
+            buffer: (item.Buffer * 100) + "%",
+            qty: item.Quantity || 0,
+            poqty: item.POQty || 0,
+            cfqty: item.QtyConfirm || 0,
+            realqty: item.RealQty || 0,
+            unit: item.Unit || '',
+            leadtime: /\d/.test(item.DeliveryTime) ? item.DeliveryTime : "NA",
+            isconsign: item.isConsign ? "consign" : "normal",
+            location: {
+                html: '',
+                title: ''
+            }
+        };
 
-        var row = $(`<tr class="align-middle" data-id="${item.Id}"></tr>`);
-
-        // 0 ID
-        row.append(`<td>${item.Id}</td>`);
-        // 1 ID
-        row.append(`<td>${(item.Product) ? item.Product.MTS ? item.Product.MTS : "NA" : "NA"}</td>`);
-        // 2 Product Name
-        row.append(`<td>${(item.Product) ? (item.Product.ProductName != "" ? item.Product.ProductName : "NA") : "NA"}</td>`);
-        // 3 Model
-        row.append(`<td>${(item.Model) ? (item.Model.ModelName != "" ? item.Model.ModelName : "NA") : "NA"}</td>`);
-        // 4 Station
-        row.append(`<td>${(item.Station) ? (item.Station.StationName != "" ? item.Station.StationName : "NA") : "NA"}</td>`);
-        // 5 DeviceCode - PN
-        row.append(`<td>${item.DeviceCode != "null" ? item.DeviceCode : "NA"}</td>`);
-        // 6 DeviceName
-        row.append(`<td title="${item.DeviceName}">${item.DeviceName != "" ? item.DeviceName : "NA"}</td>`);
-        // 7 Group
-        row.append(`<td>${(item.Group) ? (item.Group.GroupName != "" ? item.Group.GroupName : "NA") : "NA"}</td>`);
-        // 8 Vendor
-        row.append(`<td>${(item.Vendor) ? (item.Vendor.VendorName != "" ? item.Vendor.VendorName : "NA") : "NA"}</td>`);
-        // 9 Specification
-        row.append(`<td>${(item.Specification) ? (item.Specification != "NA" ? item.Specification : "NA") : "NA"}</td>`);
-        // 10 Location 
-        var html = ''
-        var title = ''
         $.each(item.DeviceWarehouseLayouts, function (k, sss) {
             var layout = sss.WarehouseLayout;
-            html += `<lable>${layout.Line}${layout.Cell ? ' - ' + layout.Cell : ''}${layout.Floor ? ' - ' + layout.Floor : ''}</lable>`;
-            title += `[${layout.Line}${layout.Cell ? ' - ' + layout.Cell : ''}${layout.Floor ? ' - ' + layout.Floor : ''}],`;
+            var locationLabel = `${layout.Line}${layout.Cell ? ' - ' + layout.Cell : ''}${layout.Floor ? ' - ' + layout.Floor : ''}`;
+            deviceData.location.html = `<lable>${locationLabel}</lable>`;
+            deviceData.location.title = `[${locationLabel}],`;
         });
-        row.append(`<td title="${title}">${html != "" ? html : "NA"}</td>`);
-        // 11 Buffer
-        row.append(`<td title="${item.Buffer}">${item.Buffer * 100}%</td>`);
-        // 12 BOM Quantity
-        row.append(`<td title="BOM Quantity">${item.Quantity ? item.Quantity : 0}</td>`);
-        // 13 PO Quantity
-        row.append(`<td title="PO Quantity">${item.POQty ? item.POQty : 0}</td>`);
-        // 14 Confirm Quantity
-        row.append(`<td title="Confirm Quantity">${item.QtyConfirm ? item.QtyConfirm : 0}</td>`);
-        // 15 Real Quantity
-        row.append(`<td title="Real Quantity">${item.RealQty ? item.RealQty : 0}</td>`);
-        // 16 Unit
-        row.append(`<td>${item.Unit ? item.Unit : ''}</td>`);
-        // 17 Lead Time
-        var hasNumber = /\d/.test(item.DeliveryTime);
-        row.append(`<td>${hasNumber ? item.DeliveryTime : "NA"}</td>`);
-        // 18 Type
-        switch (item.Type) {
-            case "S":
-            case "Static": {
-                row.append(`<td class="py-0">
+
+        // Datalist
+        devicedatalist.append(`<option value="${deviceData.pn}" data-id="${deviceData.id}">${deviceData.des} | ${deviceData.mts}</option>`);
+
+        // Row
+        var row = $(`<tr class="align-middle" data-id="${item.Id}"></tr>`);
+        {
+            // 0 ID
+            row.append(`<td>${deviceData.id}</td>`);
+            // 1 MTS
+            row.append(`<td>${deviceData.mts}</td>`);
+            // 2 Product Name
+            row.append(`<td>${deviceData.productname}</td>`);
+            // 3 Model
+            row.append(`<td>${deviceData.model}</td>`);
+            // 4 Station
+            row.append(`<td>${deviceData.station}</td>`);
+            // 5 DeviceCode - PN
+            row.append(`<td>${deviceData.pn}</td>`);
+            // 6 DeviceName
+            row.append(`<td title="${deviceData.des}">${deviceData.des}</td>`);
+            // 7 Group
+            row.append(`<td>${deviceData.group}</td>`);
+            // 8 Vendor
+            row.append(`<td>${deviceData.vendor}</td>`);
+            // 9 Specification
+            row.append(`<td>${deviceData.special}</td>`);
+            // 10 Location      
+            row.append(`<td title="${deviceData.location.title}">${deviceData.location.html}</td>`);
+            // 11 Buffer
+            row.append(`<td>${deviceData.buffer}</td>`);
+            // 12 BOM Quantity
+            row.append(`<td title="BOM Quantity">${deviceData.qty}</td>`);
+            // 13 PO Quantity
+            row.append(`<td title="PO Quantity">${deviceData.poqty}</td>`);
+            // 14 Confirm Quantity
+            row.append(`<td title="Confirm Quantity">${deviceData.cfqty}</td>`);
+            // 15 Real Quantity
+            row.append(`<td title="Real Quantity">${deviceData.realqty}</td>`);
+            // 16 Unit
+            row.append(`<td>${deviceData.unit}</td>`);
+            // 17 Lead Time
+            row.append(`<td>${deviceData.leadtime}</td>`);
+            // 18 Type
+            switch (item.Type) {
+                case "S":
+                case "Static": {
+                    row.append(`<td class="py-0">
                                 <span class="text-success fw-bold">Static</span>
                                 </br>
                                 <span class="text-${item.isConsign ? "warning" : "primary"} fw-bold" style="font-size: 10px;">${item.isConsign ? "Consign" : "Normal"}</span>
                             </td>`);
-                break;
-            }
-            case "D":
-            case "Dynamic": {
-                row.append(`<td class="py-0">
+                    break;
+                }
+                case "D":
+                case "Dynamic": {
+                    row.append(`<td class="py-0">
                                 <span class="text-info fw-bold">Dynamic</span>
                                 </br>
                                 <span class="text-${item.isConsign ? "warning" : "primary"} fw-bold" style="font-size: 10px;">${item.isConsign ? "Consign" : "Normal"}</span>
                             </td>`);
-                break;
-            }
-            case "Fixture": {
-                row.append(`<td class="py-0">
+                    break;
+                }
+                case "Fixture": {
+                    row.append(`<td class="py-0">
                                 <span class="text-primary fw-bold">Fixture</span>
                                 </br>
                                 <span class="text-${item.isConsign ? "warning" : "primary"} fw-bold" style="font-size: 10px;">${item.isConsign ? "Consign" : "Normal"}</span>
                             </td>`);
-                break;
-            }
-            default: {
-                row.append(`<td class="py-0">
+                    break;
+                }
+                default: {
+                    row.append(`<td class="py-0">
                                 <span class="text-secondary fw-bold">NA</span>
                                 </br>
                                 <span class="text-${item.isConsign ? "warning" : "primary"} fw-bold" style="font-size: 10px;">${item.isConsign ? "Consign" : "Normal"}</span>
                             </td>`);
-                break;
+                    break;
+                }
             }
-        }
-        // 19 Status
-        switch (item.Status) {
-            case "Unconfirmed": {
-                row.append(`<td><span class="badge bg-primary">Unconfirmed</span></td>`);
-                break;
+            // 19 Status
+            switch (item.Status) {
+                case "Unconfirmed": {
+                    row.append(`<td><span class="badge bg-primary">Unconfirmed</span></td>`);
+                    break;
+                }
+                case "Part Confirmed": {
+                    row.append(`<td><span class="badge bg-warning">Part Confirmed</span></td>`);
+                    break;
+                }
+                case "Confirmed": {
+                    row.append(`<td><span class="badge bg-success">Confirmed</span></td>`);
+                    break;
+                }
+                case "Locked": {
+                    row.append(`<td><span class="badge bg-secondary">Locked</span></td>`);
+                    break;
+                }
+                case "Out Range": {
+                    row.append(`<td><span class="badge bg-danger">Out Range</span></td>`);
+                    break;
+                }
+                default: {
+                    row.append(`<td>NA</td>`);
+                    break;
+                }
             }
-            case "Part Confirmed": {
-                row.append(`<td><span class="badge bg-warning">Part Confirmed</span></td>`);
-                break;
-            }
-            case "Confirmed": {
-                row.append(`<td><span class="badge bg-success">Confirmed</span></td>`);
-                break;
-            }
-            case "Locked": {
-                row.append(`<td><span class="badge bg-secondary">Locked</span></td>`);
-                break;
-            }
-            case "Out Range": {
-                row.append(`<td><span class="badge bg-danger">Out Range</span></td>`);
-                break;
-            }
-            default: {
-                row.append(`<td>NA</td>`);
-                break;
-            }
-        }
-        // 20 Action
-        row.append(`<td class="order-action d-flex text-center justify-content-center">
+            // 20 Action
+            row.append(`<td class="order-action d-flex text-center justify-content-center">
                         <a href="javascript:;" class="text-info bg-light-info border-0"       title="${i18next.t('device.management.details')}" data-id="${item.Id}" onclick="Details(this, event)"><i class="fa-regular fa-circle-info"></i></a>
-                        <a href="javascript:;" class="text-warning bg-light-warning border-0" title="${i18next.t('device.management.edit')   }   " data-id="${item.Id}" onclick="Edit(this, event)   "><i class="fa-duotone fa-pen"></i></a>
-                        <a href="javascript:;" class="text-danger  bg-light-danger  border-0" title="${i18next.t('device.management.delete') } " data-id="${item.Id}" onclick="Delete(this, event) "><i class="fa-duotone fa-trash"></i></a>
+                        <a href="javascript:;" class="text-warning bg-light-warning border-0" title="${i18next.t('device.management.edit')}   " data-id="${item.Id}" onclick="Edit(this, event)   "><i class="fa-duotone fa-pen"></i></a>
+                        <a href="javascript:;" class="text-danger  bg-light-danger  border-0" title="${i18next.t('device.management.delete')} " data-id="${item.Id}" onclick="Delete(this, event) "><i class="fa-duotone fa-trash"></i></a>
                     </td>`);
-        // 21 isConsign (Hidden)
-        row.append(`<td>${item.isConsign ? "consign" : "normal"} </td>`);
+            // 21 isConsign (Hidden)
+            row.append(`<td>${deviceData.isconsign} </td>`);
+        }
+        
 
-        $('#table_Devices_tbody').append(row);
+        tableBody.append(row);
     });
 
     const options = {
@@ -137,6 +170,7 @@ async function CreateTableAddDevice(devices) {
         scrollX: true,
         order: [],
         autoWidth: false,
+        deferRender: true,
         columnDefs: [
             { targets: "_all", orderable: false },
             { targets: [14], className: "text-primary fw-bold text-center" },
@@ -150,31 +184,31 @@ async function CreateTableAddDevice(devices) {
         dom: "<'row'<'w-auto'B><'col-sm-12 col-md'l><'col-sm-12 col-md'f>>" +
             "<'row'<'col-sm-12'tr>>" +
             "<'row'<'col-sm-12 col-md-7'i><'col-sm-12 col-md-5'p>>",
-        buttons: [{
-            text: i18next.t('device.management.export_excel'),
-            extend: 'excel',
-            exportOptions: {
-                columns: [1, 2, 5, 6, 11, 14, 15]
+        buttons: [
+            {
+                text: i18next.t('device.management.export_excel'),
+                extend: 'excel',
+                exportOptions: {
+                    columns: [1, 2, 5, 6, 11, 14, 15]
+                },
+                customize: function (xlsx) {
+                    $('sheets sheet', xlsx.xl['workbook.xml']).attr('name', 'Devices');
+                }
             },
-            customize: function (xlsx) {
-                $('sheets sheet', xlsx.xl['workbook.xml']).attr('name', 'Devices');
+            {
+                text: i18next.t('device.management.inventory'),
+                action: function (e, dt, button, config) {
+                    var input = $('<input type="file">');
+                    input.on('change', function () {
+                        var file = this.files[0];
+
+                        sendFile(file);
+
+                    });
+                    input.click();
+                }
             }
-        },
-        {
-            text: i18next.t('device.management.inventory'),
-            action: function (e, dt, button, config) {
-                var input = $('<input type="file">');
-                input.on('change', function () {
-                    var file = this.files[0];
-                    
-                    sendFile(file);
-
-                });
-                input.click();
-
-
-            }
-        }]
+        ]
 
     };
     tableDeviceInfo = $('#table_Devices').DataTable(options);
@@ -240,7 +274,7 @@ function ExportExcel() {
 
 // get data device
 var ListDevices;
-function GetWarehouseDevices(IdWarehouse = 0) {
+function GetWarehouseDevices(IdWarehouse = 0) { 
     Pace.track(function () {
         $.ajax({
             url: "/NVIDIA/DeviceManagement/GetWarehouseDevices",
@@ -250,18 +284,8 @@ function GetWarehouseDevices(IdWarehouse = 0) {
             contentType: "application/json;charset=utf-8",
             success: async function (response) {
                 if (response.status) {
+                    
                     var devices = response.warehouse.Devices;
-                    //if (devices.length == 1000) {
-                    //    var PageNum = 1;
-
-                    //    var devicesMore = {};
-                    //    while (devicesMore.length != 0) {
-                    //        PageNum++;
-                    //        devicesMore = await _GetWarehouseDevices(IdWarehouse, PageNum);
-                    //        devices.push(...devicesMore);
-                    //    }
-                    //}
-                    //ListDevices = devices;
                     CreateTableAddDevice(devices);
 
                 }

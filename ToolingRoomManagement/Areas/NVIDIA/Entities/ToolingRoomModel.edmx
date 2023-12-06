@@ -5,6 +5,14 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="ToolingRoomModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AlternativeDevice">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdDevice" Type="int" />
+          <Property Name="PNs" Type="nvarchar" MaxLength="300" />
+        </EntityType>
         <EntityType Name="Borrow">
           <Key>
             <PropertyRef Name="Id" />
@@ -294,6 +302,18 @@
           <Property Name="Floor" Type="nvarchar" MaxLength="50" />
           <Property Name="Cell" Type="nvarchar" MaxLength="50" />
         </EntityType>
+        <Association Name="FK_AlternativeDevice_Device">
+          <End Role="Device" Type="Self.Device" Multiplicity="0..1" />
+          <End Role="AlternativeDevice" Type="Self.AlternativeDevice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Device">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AlternativeDevice">
+              <PropertyRef Name="IdDevice" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Borrow_Model">
           <End Role="Model" Type="Self.Model" Multiplicity="0..1" />
           <End Role="Borrow" Type="Self.Borrow" Multiplicity="*" />
@@ -715,6 +735,7 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="ToolingRoomModelStoreContainer">
+          <EntitySet Name="AlternativeDevice" EntityType="Self.AlternativeDevice" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Borrow" EntityType="Self.Borrow" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BorrowDevice" EntityType="Self.BorrowDevice" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ComingDevice" EntityType="Self.ComingDevice" Schema="dbo" store:Type="Tables" />
@@ -738,6 +759,10 @@
           <EntitySet Name="Vendor" EntityType="Self.Vendor" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Warehouse" EntityType="Self.Warehouse" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="WarehouseLayout" EntityType="Self.WarehouseLayout" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_AlternativeDevice_Device" Association="Self.FK_AlternativeDevice_Device">
+            <End Role="Device" EntitySet="Device" />
+            <End Role="AlternativeDevice" EntitySet="AlternativeDevice" />
+          </AssociationSet>
           <AssociationSet Name="FK_Borrow_Model" Association="Self.FK_Borrow_Model">
             <End Role="Model" EntitySet="Model" />
             <End Role="Borrow" EntitySet="Borrow" />
@@ -1043,6 +1068,11 @@
             <End Role="DeviceUnconfirm" EntitySet="DeviceUnconfirms" />
             <End Role="ComingDevice" EntitySet="ComingDevices" />
           </AssociationSet>
+          <EntitySet Name="AlternativeDevices" EntityType="ToolingRoomModel.AlternativeDevice" />
+          <AssociationSet Name="FK_AlternativeDevice_Device" Association="ToolingRoomModel.FK_AlternativeDevice_Device">
+            <End Role="Device" EntitySet="Devices" />
+            <End Role="AlternativeDevice" EntitySet="AlternativeDevices" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="Product">
           <Key>
@@ -1203,6 +1233,7 @@
           <Property Name="MOQ" Type="Int32" />
           <Property Name="isConsign" Type="Boolean" />
           <Property Name="NG_Qty" Type="Int32" />
+          <NavigationProperty Name="AlternativeDevices" Relationship="ToolingRoomModel.FK_AlternativeDevice_Device" FromRole="Device" ToRole="AlternativeDevice" />
         </EntityType>
         <Association Name="FK_Device_Group">
           <End Type="ToolingRoomModel.Group" Role="Group" Multiplicity="0..1" />
@@ -1795,6 +1826,26 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="AlternativeDevice">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdDevice" Type="Int32" />
+          <Property Name="PNs" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <Association Name="FK_AlternativeDevice_Device">
+          <End Type="ToolingRoomModel.Device" Role="Device" Multiplicity="0..1" />
+          <End Type="ToolingRoomModel.AlternativeDevice" Role="AlternativeDevice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Device">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AlternativeDevice">
+              <PropertyRef Name="IdDevice" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2108,6 +2159,15 @@
                 <ScalarProperty Name="Type" ColumnName="Type" />
                 <ScalarProperty Name="ComingQty" ColumnName="ComingQty" />
                 <ScalarProperty Name="IdDeviceUnconfirm" ColumnName="IdDeviceUnconfirm" />
+                <ScalarProperty Name="IdDevice" ColumnName="IdDevice" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AlternativeDevices">
+            <EntityTypeMapping TypeName="ToolingRoomModel.AlternativeDevice">
+              <MappingFragment StoreEntitySet="AlternativeDevice">
+                <ScalarProperty Name="PNs" ColumnName="PNs" />
                 <ScalarProperty Name="IdDevice" ColumnName="IdDevice" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>

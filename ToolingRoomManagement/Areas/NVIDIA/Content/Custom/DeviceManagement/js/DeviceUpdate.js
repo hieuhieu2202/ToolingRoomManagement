@@ -12,7 +12,11 @@
         success: function (response) {
             if (response.status) {
                 FillEditDeviceData(response);
+
+                
+
                 $('#device_edit-modal').modal('show');
+                $('.selectpicker').selectpicker();
 
                 setTimeout(() => {
                     CreateImages_Update(response.images);
@@ -77,6 +81,8 @@ async function FillEditDeviceData(data) {
     $('#device_edit-Station').val(data.device.Station ? data.device.Station.StationName : '');
     $('#device_edit-Group').val(data.device.Group ? data.device.Group.GroupName : '');
     $('#device_edit-Vendor').val(data.device.Vendor ? data.device.Vendor.VendorName : '');
+
+    $('#device_edit-AltPNs').val(data.device.AlternativeDevices.length > 0 ? data.device.AlternativeDevices[0].PNs : '');
 
     $('#add-image').data('deviceid', data.device.Id);
 
@@ -166,6 +172,8 @@ function GetModalData() {
     formData.append('Station', $('#device_edit-Station').val());
     formData.append('Group', $('#device_edit-Group').val());
     formData.append('Vendor', $('#device_edit-Vendor').val());
+
+    formData.append('AltPNs', $('#device_edit-AltPNs').val());
 
     // layout
     $('#layout-container option:selected').map(function () {
