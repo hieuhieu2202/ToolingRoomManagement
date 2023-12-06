@@ -778,3 +778,48 @@ function updateComing(file) {
         });
     });
 }
+
+// SMl 3
+$('#add-type').click(function () {
+    var input = $('<input type="file">');
+    input.on('change', function () {
+        var file = this.files[0];
+
+        updateType(file);
+
+    });
+    input.click();
+});
+function updateType(file) {
+    const formData = new FormData();
+    formData.append('file', file);
+
+    Pace.on('progress', function (progress) {
+        var cal = progress.toFixed(2);
+        $('#process_count').text(`${cal}%`);
+        $('#process_bar').css('width', `${cal}%`);
+    });
+    Pace.track(function () {
+        $.ajax({
+            url: "/NVIDIA/DeviceManagement/UpdateType",
+            data: formData,
+            type: "POST",
+            processData: false,
+            contentType: false,
+            success: function (response) {
+                if (response.status) {
+                    toastr["success"]("Update Type success.", "SUCCESS");
+                }
+                else {
+                    Swal.fire(i18next.t('global.swal_title'), response.message, 'error');
+                }
+            },
+            error: function (error) {
+                Swal.fire(i18next.t('global.swal_title'), GetAjaxErrorMessage(error), 'error');
+            },
+            complete: function () {
+                Pace.stop();
+            }
+        });
+    });
+}

@@ -1865,6 +1865,62 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 return Json(new { status = false, message = ex.Message });
             }
         }
+        public ActionResult UpdateType(HttpPostedFileBase file)
+        {
+            try
+            {
+                ExcelPackage.LicenseContext = OfficeOpenXml.LicenseContext.NonCommercial;
+
+                if (file != null && file.ContentLength > 0)
+                {
+                    string fileName = $"UpdateType - {DateTime.Now.ToString("yyyy.MM.dd HH.mm.ss.ff")}.xlsx";
+                    string folderPath = Server.MapPath("/Data/NewToolingroom");
+                    string filePath = Path.Combine(folderPath, fileName);
+
+                    #region Check Folder
+                    if (!Directory.Exists(folderPath))
+                    {
+                        Directory.CreateDirectory(folderPath);
+                    }
+                    else
+                    {
+                        foreach (string fileii in Directory.GetFiles(folderPath))
+                        {
+                            System.IO.File.Delete(fileii);
+                        }
+                    }
+                    #endregion
+                    using (var package = new ExcelPackage(file.InputStream))
+                    {
+                        var worksheet = package.Workbook.Worksheets[0];
+                        foreach (int row in Enumerable.Range(2, worksheet.Dimension.End.Row - 1))
+                        {
+                            var _PN = worksheet.Cells[row, 1].Value?.ToString();
+                            var _Type = worksheet.Cells[row, 2].Value?.ToString();
+
+                            var devices = db.Devices.Where(d => d.DeviceCode.ToUpper().Trim() == _PN.ToUpper().Trim()).ToList();
+                            foreach (var device in devices)
+                            {
+                                device.Type_BOM = _Type;
+                                db.Devices.AddOrUpdate(device);
+                            }
+                        }
+                        db.SaveChanges();
+
+                        return Json(new { status = true });
+                    }
+                }
+                else
+                {
+                    return Json(new { status = false, message = "File is empty" });
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = false, message = ex.Message });
+            }
+        }
+
         public int CountComingDevice(string PN)
         {
             var comingDevices = db.ComingDevices.Where(d => d.Device.DeviceCode.ToUpper().Trim() == PN.ToUpper().Trim()).ToList();
