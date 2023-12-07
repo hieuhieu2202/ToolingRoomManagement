@@ -934,31 +934,32 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                         outWorksheet.Cells[1, 6].Value = "Group";
                         outWorksheet.Cells[1, 7].Value = "Vendor";
                         outWorksheet.Cells[1, 8].Value = "Quantity";
-                        outWorksheet.Cells[1, 9].Value = "DefaultMinQuantity";
-                        outWorksheet.Cells[1, 10].Value = "Relation";
-                        outWorksheet.Cells[1, 11].Value = "LifeCycleLimit";
-                        outWorksheet.Cells[1, 12].Value = "Dynamic/Static";
-                        outWorksheet.Cells[1, 13].Value = "Buffer";
-                        outWorksheet.Cells[1, 14].Value = "LeadTime";
-                        outWorksheet.Cells[1, 15].Value = "MOQ";
-                        outWorksheet.Cells[1, 16].Value = "OnTheWayQuantity";
-                        outWorksheet.Cells[1, 17].Value = "RealQuantity";                        
-                        outWorksheet.Cells[1, 18].Value = "NG_Quantity";
-                        outWorksheet.Cells[1, 19].Value = "RequestQuantity";
-                        outWorksheet.Cells[1, 20].Value = "GAP";
-                        outWorksheet.Cells[1, 21].Value = "Risk";
-                        outWorksheet.Cells[1, 22].Value = "HavePicture (Y/N)";
+                        outWorksheet.Cells[1, 9].Value = "AltPNQuantity";
+                        outWorksheet.Cells[1, 10].Value = "DefaultMinQuantity";
+                        outWorksheet.Cells[1, 11].Value = "Relation";
+                        outWorksheet.Cells[1, 12].Value = "LifeCycleLimit";
+                        outWorksheet.Cells[1, 13].Value = "Dynamic/Static";
+                        outWorksheet.Cells[1, 14].Value = "Buffer";
+                        outWorksheet.Cells[1, 15].Value = "LeadTime";
+                        outWorksheet.Cells[1, 16].Value = "MOQ";
+                        outWorksheet.Cells[1, 17].Value = "OnTheWayQuantity";
+                        outWorksheet.Cells[1, 18].Value = "RealQuantity";                        
+                        outWorksheet.Cells[1, 19].Value = "NG_Quantity";
+                        outWorksheet.Cells[1, 20].Value = "RequestQuantity";
+                        outWorksheet.Cells[1, 21].Value = "GAP";
+                        outWorksheet.Cells[1, 22].Value = "Risk";
+                        outWorksheet.Cells[1, 23].Value = "HavePicture (Y/N)";
 
-                        outWorksheet.Cells["A1:V1"].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
-                        outWorksheet.Cells["A1:V1"].Style.Border.Top.Style = ExcelBorderStyle.Thin;
-                        outWorksheet.Cells["A1:V1"].Style.Border.Left.Style = ExcelBorderStyle.Thin;
-                        outWorksheet.Cells["A1:V1"].Style.Border.Right.Style = ExcelBorderStyle.Thin;
-                        outWorksheet.Cells["A1:V1"].Style.Font.Bold = true;
-                        outWorksheet.Cells["U1:U9999"].Style.Font.Bold = true;
+                        outWorksheet.Cells["A1:W1"].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
+                        outWorksheet.Cells["A1:W1"].Style.Border.Top.Style = ExcelBorderStyle.Thin;
+                        outWorksheet.Cells["A1:W1"].Style.Border.Left.Style = ExcelBorderStyle.Thin;
+                        outWorksheet.Cells["A1:W1"].Style.Border.Right.Style = ExcelBorderStyle.Thin;
+                        outWorksheet.Cells["A1:W1"].Style.Font.Bold = true;
+                        outWorksheet.Cells[$"V1:V{worksheet.Dimension.End.Row}"].Style.Font.Bold = true;
 
                         System.Drawing.Color headerBackground = System.Drawing.ColorTranslator.FromHtml("#00B050");
-                        outWorksheet.Cells[$"A1:V1"].Style.Fill.PatternType = ExcelFillStyle.Solid;
-                        outWorksheet.Cells[$"A1:V1"].Style.Fill.BackgroundColor.SetColor(headerBackground);
+                        outWorksheet.Cells[$"A1:W1"].Style.Fill.PatternType = ExcelFillStyle.Solid;
+                        outWorksheet.Cells[$"A1:W1"].Style.Fill.BackgroundColor.SetColor(headerBackground);
 
                         System.Drawing.Color successBackground = System.Drawing.ColorTranslator.FromHtml("#C6EFCE");
                         System.Drawing.Color successText = System.Drawing.ColorTranslator.FromHtml("#006100");
@@ -994,7 +995,8 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                                 device.MOQ = devices.FirstOrDefault(d => d.MOQ != null)?.MOQ;
 
                                 int ComingQty = CountComingDevice(_PN);
-                                int GAP = (int)((device.QtyConfirm + ComingQty) - (_RequestQty + device.NG_Qty));
+                                int AltPnQty = (device.AlternativeDevices != null) ? CountAltPNQuantity(device.AlternativeDevices.ToList().First().PNs) : 0;
+                                int GAP = (int)((device.QtyConfirm + AltPnQty + ComingQty) - (_RequestQty + device.NG_Qty));
                                 string Risk = (GAP > 0 && device.QtyConfirm > device.MinQty) ? "Low" : (GAP > 0 && device.QtyConfirm < device.MinQty) ? "Mid" : "High";
 
                                 // MTS, Product, PN, AlternativePN, Description
@@ -1003,44 +1005,45 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                                 outWorksheet.Cells[row, 3].Value = (device.DeviceCode != null) ? device.DeviceCode : string.Empty;
                                 outWorksheet.Cells[row, 4].Value = (device.AlternativeDevices != null && device.AlternativeDevices.Count > 0) ? device.AlternativeDevices.First().PNs : string.Empty;
                                 outWorksheet.Cells[row, 5].Value = (device.DeviceName != null) ? device.DeviceName : string.Empty;
-                                // Group, Vendor, Quantity, DefaultMinQuantity
+                                // Group, Vendor, Quantity, AltPNQuantity, DefaultMinQuantity
                                 outWorksheet.Cells[row, 6].Value = (device.Group != null) ? device.Group.GroupName : string.Empty;
                                 outWorksheet.Cells[row, 7].Value = (device.Vendor != null) ? device.Vendor.VendorName : string.Empty;
                                 outWorksheet.Cells[row, 8].Value = (device.QtyConfirm != null) ? device.QtyConfirm : 0;
-                                outWorksheet.Cells[row, 9].Value = (device.MinQty != null) ? device.MinQty : 0;
+                                outWorksheet.Cells[row, 9].Value = AltPnQty;
+                                outWorksheet.Cells[row, 10].Value = (device.MinQty != null) ? device.MinQty : 0;
                                 // Relation, LifeCycleLimit, Dynamic/Static, Buffer                               
-                                outWorksheet.Cells[row, 10].Value = (device.Relation != null) ? device.Relation : string.Empty;
-                                outWorksheet.Cells[row, 11].Value = (device.LifeCycle != null) ? device.LifeCycle : 0;
-                                outWorksheet.Cells[row, 12].Value = (device.Type_BOM != null) ? device.Type_BOM : (device.Type == "NA") ? "NA" : (device.Type.Length > 0 ? device.Type[0].ToString() : "");
-                                outWorksheet.Cells[row, 13].Value = (device.Buffer != null) ? device.Buffer : 0;
+                                outWorksheet.Cells[row, 11].Value = (device.Relation != null) ? device.Relation : string.Empty;
+                                outWorksheet.Cells[row, 12].Value = (device.LifeCycle != null) ? device.LifeCycle : 0;
+                                outWorksheet.Cells[row, 13].Value = (device.Type_BOM != null) ? device.Type_BOM : (device.Type == "NA") ? "NA" : (device.Type.Length > 0 ? device.Type[0].ToString() : "");
+                                outWorksheet.Cells[row, 14].Value = (device.Buffer != null) ? device.Buffer : 0;
                                 // LeadTime, MOQ, OnTheWayQuantity, RealQuantity
-                                outWorksheet.Cells[row, 14].Value = (device.DeliveryTime != null) ? device.DeliveryTime : string.Empty;
-                                outWorksheet.Cells[row, 15].Value = (device.MOQ != null) ? device.MOQ : 0;
-                                outWorksheet.Cells[row, 16].Value = ComingQty;                                
-                                outWorksheet.Cells[row, 17].Value = (device.RealQty != null) ? device.RealQty : 0;
+                                outWorksheet.Cells[row, 15].Value = (device.DeliveryTime != null) ? device.DeliveryTime : string.Empty;
+                                outWorksheet.Cells[row, 16].Value = (device.MOQ != null) ? device.MOQ : 0;
+                                outWorksheet.Cells[row, 17].Value = ComingQty;                                
+                                outWorksheet.Cells[row, 18].Value = (device.RealQty != null) ? device.RealQty : 0;
                                 // NGQuantity, RequestQuantity, GAP, Risk, HavePicture (Y/N)
-                                outWorksheet.Cells[row, 18].Value = (device.NG_Qty != null) ? device.NG_Qty : 0;
-                                outWorksheet.Cells[row, 19].Value = _RequestQty;
-                                outWorksheet.Cells[row, 20].Value = GAP;
-                                outWorksheet.Cells[row, 21].Value = Risk;
-                                outWorksheet.Cells[row, 22].Value = (device.ImagePath != null) ? "Y" : "N";
+                                outWorksheet.Cells[row, 19].Value = (device.NG_Qty != null) ? device.NG_Qty : 0;
+                                outWorksheet.Cells[row, 20].Value = _RequestQty;
+                                outWorksheet.Cells[row, 21].Formula = $"(H{row}+I{row}+Q{row})-(T{row}+S{row})";
+                                outWorksheet.Cells[row, 22].Value = Risk;
+                                outWorksheet.Cells[row, 23].Value = (device.ImagePath != null) ? "Y" : "N";
 
                                 switch (Risk)
                                 {
                                     case "Low":
-                                        outWorksheet.Cells[$"A{row}:V{row}"].Style.Fill.PatternType = ExcelFillStyle.Solid;
-                                        outWorksheet.Cells[$"A{row}:V{row}"].Style.Fill.BackgroundColor.SetColor(successBackground);
-                                        outWorksheet.Cells[$"A{row}:V{row}"].Style.Font.Color.SetColor(successText);
+                                        outWorksheet.Cells[$"A{row}:W{row}"].Style.Fill.PatternType = ExcelFillStyle.Solid;
+                                        outWorksheet.Cells[$"A{row}:W{row}"].Style.Fill.BackgroundColor.SetColor(successBackground);
+                                        outWorksheet.Cells[$"A{row}:W{row}"].Style.Font.Color.SetColor(successText);
                                         break;
                                     case "Mid":
-                                        outWorksheet.Cells[$"A{row}:V{row}"].Style.Fill.PatternType = ExcelFillStyle.Solid;
-                                        outWorksheet.Cells[$"A{row}:V{row}"].Style.Fill.BackgroundColor.SetColor(warningBackground);
-                                        outWorksheet.Cells[$"A{row}:V{row}"].Style.Font.Color.SetColor(warningText);
+                                        outWorksheet.Cells[$"A{row}:W{row}"].Style.Fill.PatternType = ExcelFillStyle.Solid;
+                                        outWorksheet.Cells[$"A{row}:W{row}"].Style.Fill.BackgroundColor.SetColor(warningBackground);
+                                        outWorksheet.Cells[$"A{row}:W{row}"].Style.Font.Color.SetColor(warningText);
                                         break;
                                     case "High":
-                                        outWorksheet.Cells[$"A{row}:V{row}"].Style.Fill.PatternType = ExcelFillStyle.Solid;
-                                        outWorksheet.Cells[$"A{row}:V{row}"].Style.Fill.BackgroundColor.SetColor(dangerBackground);
-                                        outWorksheet.Cells[$"A{row}:V{row}"].Style.Font.Color.SetColor(dangerText);
+                                        outWorksheet.Cells[$"A{row}:W{row}"].Style.Fill.PatternType = ExcelFillStyle.Solid;
+                                        outWorksheet.Cells[$"A{row}:W{row}"].Style.Fill.BackgroundColor.SetColor(dangerBackground);
+                                        outWorksheet.Cells[$"A{row}:W{row}"].Style.Font.Color.SetColor(dangerText);
                                         break;
                                 }
 
@@ -1048,16 +1051,16 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                             else
                             {
                                 outWorksheet.Cells[row, 3].Value = _PN;
-                                outWorksheet.Cells[row, 19].Value = _RequestQty;
+                                outWorksheet.Cells[row, 20].Value = _RequestQty;
 
-                                outWorksheet.Cells[$"A{row}:V{row}"].Style.Fill.PatternType = ExcelFillStyle.Solid;
-                                outWorksheet.Cells[$"A{row}:V{row}"].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.LightGray);
+                                outWorksheet.Cells[$"A{row}:W{row}"].Style.Fill.PatternType = ExcelFillStyle.Solid;
+                                outWorksheet.Cells[$"A{row}:W{row}"].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.LightGray);
                             }
 
-                            outWorksheet.Cells[$"A{row}:V{row}"].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
-                            outWorksheet.Cells[$"A{row}:V{row}"].Style.Border.Top.Style = ExcelBorderStyle.Thin;
-                            outWorksheet.Cells[$"A{row}:V{row}"].Style.Border.Left.Style = ExcelBorderStyle.Thin;
-                            outWorksheet.Cells[$"A{row}:V{row}"].Style.Border.Right.Style = ExcelBorderStyle.Thin;
+                            outWorksheet.Cells[$"A{row}:W{row}"].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
+                            outWorksheet.Cells[$"A{row}:W{row}"].Style.Border.Top.Style = ExcelBorderStyle.Thin;
+                            outWorksheet.Cells[$"A{row}:W{row}"].Style.Border.Left.Style = ExcelBorderStyle.Thin;
+                            outWorksheet.Cells[$"A{row}:W{row}"].Style.Border.Right.Style = ExcelBorderStyle.Thin;
                         }
 
                         outWorksheet.Cells[outWorksheet.Dimension.Address].AutoFitColumns();
@@ -1878,11 +1881,12 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
             foreach(string PN in  PNs)
             {
                 var devices = db.Devices.Where(d => d.DeviceCode == PN);
-                //foreach(var device in devices)
-                //{
-                //    Qty
-                //}
+                foreach (var device in devices)
+                {
+                    Qty += device.QtyConfirm ?? 0;
+                }
             }
+            return Qty;
         }
         #endregion
     }
