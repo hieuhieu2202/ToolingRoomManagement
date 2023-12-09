@@ -381,7 +381,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                         Type_BOM = oldDevice.Type_BOM,
                     };
                     // Alternative PN
-                    var AltPN = device.AlternativeDevices.FirstOrDefault();
+                    var AltPN = oldDevice.AlternativeDevices.FirstOrDefault();
                     if( AltPN != null)
                     {
                         AltPN.PNs = form["AltPNs"];
@@ -1218,14 +1218,14 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                         Buffer = (double)Math.Round(double.Parse(form["Buffer"]), 2),
                         POQty = int.Parse(form["POQty"]),
                         MinQty = int.Parse(form["MinQty"]),
-
                         Relation = form["Relation"],
                         LifeCycle = int.Parse(form["LifeCycle"]),
+                        
                         QtyConfirm = int.Parse(form["QtyConfirm"]),
                         Unit = form["Unit"],
 
                         // Other data
-                        Quantity = deviceUnconfirm.Quantity,
+                        Quantity = int.Parse(form["QtyConfirm"]),
                         CreatedDate = deviceUnconfirm.CreatedDate,
                         Forcast = deviceUnconfirm.Forcast,
                         ACC_KIT = deviceUnconfirm.ACC_KIT,

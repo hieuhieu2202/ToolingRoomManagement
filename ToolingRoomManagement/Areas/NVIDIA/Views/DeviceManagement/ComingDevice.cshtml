@@ -10,7 +10,7 @@
     <link href="~/Areas/NVIDIA/Content/Template/Sysadmin/assets/plugins/select2/css/select2-bootstrap4.css" rel="stylesheet" />
     <link href="~/Areas/NVIDIA/Content/Vendor/Viewer JS/viewer.min.css" rel="stylesheet" />
     <!-- Custom -->
-    <link href="~/Areas/NVIDIA/Content/Custom/DeviceManagement/css/ComingDevices.css" rel="stylesheet" />
+    <link href="~/Areas/NVIDIA/Content/Custom/DeviceManagement/css/ComingDevices.css?v=@Guid.NewGuid()" rel="stylesheet" />
 }
 
 <!-- Breadcrumb -->
@@ -34,7 +34,14 @@
                 <h5 class="m-0 me-3">Coming Device Table</h5>
             </div>
 
-            
+            <div class="w-50 d-flex justify-content-end">
+                <div class="input-group input-group-sm w-50">
+                    <span class="col-5 input-group-text" data-i18n="device.management.warehouse">Warehouse</span>
+                    <select class="col-7 form-select form-select-sm" id="input_WareHouse"></select>
+                </div>
+
+                @Html.Partial("~/Areas/NVIDIA/Views/DeviceManagement/_DatatableFilter.cshtml")
+            </div>
         </div>
 
         <hr />
@@ -62,6 +69,10 @@
                         <th>Tppe</th>
                         <!-- 9 -->
                         <th>Action</th>
+                        <!-- 10 -->
+                        <th>Id</th>
+                        <!-- 11 -->
+                        <th>ProductName</th>
                     </tr>
                 </thead>
                 <tbody id="table_Devices_tbody">
@@ -264,5 +275,6 @@
     <script src="~/Areas/NVIDIA/Content/Vendor/Viewer JS/viewer.js"></script>
     <!-- Custom -->
     <script src="~/Areas/NVIDIA/Content/Custom/DeviceManagement/js/DeviceDetails.js?v=@Guid.NewGuid()"></script>
-    <script src="~/Areas/NVIDIA/Content/Custom/DeviceManagement/js/ComingDevices.js"></script>
+    <script src="~/Areas/NVIDIA/Content/Custom/DeviceManagement/js/DatatableFilter.js?v=@Guid.NewGuid()"></script>
+    <script src="~/Areas/NVIDIA/Content/Custom/DeviceManagement/js/ComingDevices.js?v=@Guid.NewGuid()"></script>
 }

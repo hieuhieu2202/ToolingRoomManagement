@@ -163,3 +163,6 @@ input[details]:disabled {
 .card-body{
     padding: 0.5rem;
 }
+html.dark-theme .select2-container--bootstrap4 .select2-selection{
+    background-color: transparent;
+}

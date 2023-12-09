@@ -63,6 +63,8 @@ async function FillDetailsDeviceData(data) {
     $('#device_details-Unit').val(data.Unit ? data.Unit : '');
     $('#device_details-DeliveryTime').val(data.DeliveryTime ? data.DeliveryTime : '');
 
+    $('#device_details-AltPN').val(data.AlternativeDevices.length > 0 ? data.AlternativeDevices[0].PNs : '');
+
     $('#device_details-MinQty').val(data.MinQty ? data.MinQty : '');
 
 }
@@ -99,6 +101,10 @@ function CreateTableHistory(IdDevice, borrows, returns) {
             }
             case "Take": {
                 tr.append(`<td><span class="badge bg-secondary"><i class="fa-regular fa-inbox-full"></i> Take</span></td>`);
+                break;
+            }
+            case "Return": {
+                tr.append(`<td><span class="badge bg-info"><i class="fa-regular fa-rotate-left"></i> Return</span></td>`);
                 break;
             }
         }

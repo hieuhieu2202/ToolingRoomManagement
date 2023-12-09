@@ -313,5 +313,14 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="AlternativeDevices">
+      <EntityTypeMapping TypeName="ToolingRoomModel.AlternativeDevice">
+        <MappingFragment StoreEntitySet="AlternativeDevice">
+          <ScalarProperty Name="PNs" ColumnName="PNs" />
+          <ScalarProperty Name="IdDevice" ColumnName="IdDevice" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

@@ -227,6 +227,7 @@
     <Content Include="Areas\NVIDIA\Content\Custom\DeviceManagement\js\DeviceManagement.js" />
     <Content Include="Areas\NVIDIA\Content\Custom\DeviceManagement\js\DeviceUpdate.js" />
     <Content Include="Areas\NVIDIA\Content\Custom\DeviceManagement\js\ComingDevices.js" />
+    <Content Include="Areas\NVIDIA\Content\Custom\DeviceManagement\js\DatatableFilter.js" />
     <Content Include="Areas\NVIDIA\Content\Custom\Info\css\GroupVendor.css" />
     <Content Include="Areas\NVIDIA\Content\Custom\Info\css\ModelStation.css" />
     <Content Include="Areas\NVIDIA\Content\Custom\Info\css\product.css" />
@@ -3602,6 +3603,7 @@
     <Content Include="Areas\NVIDIA\Views\DeviceManagement\_DeviceUpdate_Modal.cshtml" />
     <Content Include="Areas\NVIDIA\Views\BorrowManagement\_ReturnDetails.cshtml" />
     <Content Include="Areas\NVIDIA\Views\DeviceManagement\ComingDevice.cshtml" />
+    <Content Include="Areas\NVIDIA\Views\DeviceManagement\_DatatableFilter.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

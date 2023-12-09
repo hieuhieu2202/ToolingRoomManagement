@@ -52,6 +52,52 @@ function GetSelectData() {
     });
 }
 
+async function GetWarehouseDevice(IdWarehouse) {
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: "/NVIDIA/DeviceManagement/GetWarehouseDevices",
+            data: JSON.stringify({ IdWarehouse, PageNum: 1 }),
+            type: "POST",
+            dataType: "json",
+            contentType: "application/json;charset=utf-8",
+            success: function (response) {
+                if (response.status) {
+                    resolve(response.warehouse.Devices);
+                }
+                else {
+                    reject(response.message);
+                }
+            },
+            error: function (error) {
+                reject(GetAjaxErrorMessage(error));
+            }
+        });
+    });
+}
+$('#device_add-WareHouse').change(async function (e) {
+    e.preventDefault();
+    var IdWarehouse = $(this).val();
+
+    try {
+        const warehouseDevices = await GetWarehouseDevice(IdWarehouse);
+
+        var listDevices = $('#device_add-Device_List');
+        listDevices.empty();
+        warehouseDevices.forEach(function (device) {
+            var deviceData = {
+                mts: (device.Product && device.Product.MTS) ? device.Product.MTS : "NA",
+                pn: device.DeviceCode !== "null" ? device.DeviceCode : "NA",
+                des: device.DeviceName !== "" ? device.DeviceName : "NA",
+            };
+
+            listDevices.append(`<option value="${deviceData.pn}" data-id="${deviceData.id}">${deviceData.des} | ${deviceData.mts}</option>`);
+        });
+
+    } catch (error) {
+        Swal.fire(i18next.t('global.swal_title'), error, 'error');
+    }
+});
+
 // Add Device Manual
 $('#AddDeviceManual').on('click', function (e) {
     e.preventDefault();

@@ -164,6 +164,11 @@
       <End Role="DeviceUnconfirm" EntitySet="DeviceUnconfirms" />
       <End Role="ComingDevice" EntitySet="ComingDevices" />
     </AssociationSet>
+    <EntitySet Name="AlternativeDevices" EntityType="ToolingRoomModel.AlternativeDevice" />
+    <AssociationSet Name="FK_AlternativeDevice_Device" Association="ToolingRoomModel.FK_AlternativeDevice_Device">
+      <End Role="Device" EntitySet="Devices" />
+      <End Role="AlternativeDevice" EntitySet="AlternativeDevices" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="Product">
     <Key>
@@ -324,6 +329,7 @@
     <Property Name="MOQ" Type="Int32" />
     <Property Name="isConsign" Type="Boolean" />
     <Property Name="NG_Qty" Type="Int32" />
+    <NavigationProperty Name="AlternativeDevices" Relationship="ToolingRoomModel.FK_AlternativeDevice_Device" FromRole="Device" ToRole="AlternativeDevice" />
   </EntityType>
   <Association Name="FK_Device_Group">
     <End Type="ToolingRoomModel.Group" Role="Group" Multiplicity="0..1" />
@@ -913,6 +919,26 @@
       </Principal>
       <Dependent Role="ComingDevice">
         <PropertyRef Name="IdDeviceUnconfirm" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="AlternativeDevice">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdDevice" Type="Int32" />
+    <Property Name="PNs" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <Association Name="FK_AlternativeDevice_Device">
+    <End Type="ToolingRoomModel.Device" Role="Device" Multiplicity="0..1" />
+    <End Type="ToolingRoomModel.AlternativeDevice" Role="AlternativeDevice" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Device">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AlternativeDevice">
+        <PropertyRef Name="IdDevice" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
