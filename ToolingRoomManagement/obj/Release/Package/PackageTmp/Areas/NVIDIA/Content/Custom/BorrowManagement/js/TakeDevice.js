@@ -1,51 +1,30 @@
 ﻿$(function () {
-    GetSelectData();
     GetUserAndRole();
-
+    Filter();
     //GetWarehouseDevices();
 });
 
 // Get Select data
 var users, roles;
-function GetSelectData() {
-    $.ajax({
-        type: "GET",
-        url: "/NVIDIA/DeviceManagement/GetSelectData",
-        dataType: "json",
-        contentType: "application/json;charset=utf-8",
-        success: function (response) {
-            if (response.status) {
-                // WareHouse
-                $('#input_WareHouse').empty();
-                $('#device_edit-WareHouse').empty();
-                $.each(response.warehouses, function (k, item) {
-                    var opt1 = $(`<option value="${item.Id}">${item.WarehouseName}</option>`);
-                    var opt2 = $(`<option value="${item.Id}">${item.WarehouseName}</option>`);
-                    $('#device_edit-WareHouse').append(opt1);
-                    $('#input_WareHouse').append(opt2);
-                });
-                $('#input_WareHouse').change();
-
-                // Model
-                $('#form_borrow-ListModel').empty();
-                $.each(response.models, function (k, item) {
-                    let opt = $(`<option value="${item.ModelName}"></option>`);
-                    $('#form_borrow-ListModel').append(opt);
-                });
-                // Station
-                $('#form_borrow-ListStation').empty();
-                $.each(response.stations, function (k, item) {
-                    let opt = $(`<option value="${item.StationName}"></option>`);
-                    $('#form_borrow-ListStation').append(opt);
-                });
+function GetDatas() {
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            type: "GET",
+            url: "/NVIDIA/DeviceManagement/GetSelectData",
+            dataType: "json",
+            contentType: "application/json;charset=utf-8",
+            success: function (response) {
+                if (response.status) {
+                    resolve(response);
+                }
+                else {
+                    reject(response.message);
+                }
+            },
+            error: function (error) {
+                reject(GetAjaxErrorMessage(error));
             }
-            else {
-                toastr["error"](response.message, "ERROR");
-            }
-        },
-        error: function (error) {
-            Swal.fire("Something went wrong!", GetAjaxErrorMessage(error), "error");
-        }
+        });
     });
 }
 function GetUserAndRole() {
@@ -68,7 +47,10 @@ function GetUserAndRole() {
         }
     });
 }
-
+$('#input_WareHouse').change(function () {
+    var id = $(this).val();
+    GetWarehouseDevices(id);
+})
 // Device table
 var tableDeviceInfo;
 function GetWarehouseDevices(IdWarehouse = 0) {
@@ -119,12 +101,13 @@ async function CreateTableAddDevice(devices) {
     if (tableDeviceInfo) tableDeviceInfo.destroy();
 
     $('#table_Devices_tbody').html('');
+
     await $.each(devices, function (no, item) {
         if (item.Status != "Confirmed" && item.Status != "Part Confirmed") return true;
 
         var row = $(`<tr class="align-middle" data-id="${item.Id}"></tr>`);
 
-        // 0 MTS
+        // 0 ID
         row.append(`<td>${item.Id}</td>`);
         // 1 MTS
         row.append(`<td title="${(item.Product) ? item.Product.MTS ? item.Product.MTS : "NA" : "NA"}">${(item.Product) ? item.Product.MTS ? item.Product.MTS : "NA" : "NA"}</td>`);
@@ -147,7 +130,7 @@ async function CreateTableAddDevice(devices) {
         // 10 Quantity
         row.append(`<td title="Real Quantity">${(item.RealQty != null) ? item.RealQty : 0}</td>`);
         // 11 Unit
-        row.append(`<td>${item.Unit ? item.Unit : ''}</td>`);
+        row.append(`<td class="text-center">${item.Unit ? item.Unit : ''}</td>`);
         // 12 Type
         switch (item.Type) {
             case "S":
@@ -212,7 +195,7 @@ async function CreateTableAddDevice(devices) {
                 break;
             }
         }
-        // 15 Action
+        // 14 Action
         row.append(`<td class="order-action d-flex text-center justify-content-center">
                         <a href="javascript:;" class="text-primary bg-light-primary border-0" title="Select This Device"><i class="fa-regular fa-circle-check"></i></a> 
                     </td>`);
@@ -230,8 +213,12 @@ async function CreateTableAddDevice(devices) {
             title += `[${layout.Line}${layout.Floor ? ' - ' + layout.Floor : ''}${layout.Cell ? ' - ' + layout.Cell : ''}], `;
         });
         row.append(`<td title="${title}">${html}</td>`);
-        //16 Sysquantity
+        // 16 SysQuantity
         row.append(`<td>${item.SysQuantity}</td>`);
+        // 17 IsConsign
+        row.append(`<td>${item.isConsign ? "Consign" : "Normal"}</td>`);
+        // 18 ProductName
+        row.append(`<td>${(item.Product) ? item.Product.ProductName ? item.Product.ProductName : "NA" : "NA"}</td>`);
 
         $('#table_Devices_tbody').append(row);
     });
@@ -246,7 +233,7 @@ async function CreateTableAddDevice(devices) {
         columnDefs: [
             { targets: "_all", orderable: false },
             { targets: [9, 10, 11, 12, 13, 14], className: "text-center" },
-            { targets: [0, 2, 3, 6, 7,8, 9, 15, 16], visible: false },
+            { targets: [0, 2, 3, 6, 7, 8, 9, 15, 16, 17, 18], visible: false },
         ],
         "lengthMenu": [[10, 15, 25, 50, -1], [10, 15, 25, 50, "All"]],
         createdRow: function (row, data, dataIndex) {
@@ -307,23 +294,14 @@ $('#filter').on('click', function (e) {
     e.preventDefault();
 
     var filter_Product = $('#filter_Product').val();
-    var filter_Model = $('#filter_Model').val();
-    var filter_Station = $('#filter_Station').val();
     var filter_Group = $('#filter_Group').val();
     var filter_Vendor = $('#filter_Vendor').val();
     var filter_Type = $('#filter_Type').val();
-    var filter_Status = $('#filter_Status').val();
 
     tableDeviceInfo.columns().search('').draw();
 
     if (filter_Product !== "Product" && filter_Product !== null && filter_Product !== undefined) {
-        tableDeviceInfo.column(1).search("^" + filter_Product + "$", true, false);
-    }
-    if (filter_Model !== "Model" && filter_Model !== null && filter_Model !== undefined) {
-        tableDeviceInfo.column(2).search("^" + filter_Model + "$", true, false);
-    }
-    if (filter_Station !== "Station" && filter_Station !== null && filter_Station !== undefined) {
-        tableDeviceInfo.column(3).search("^" + filter_Station + "$", true, false);
+        tableDeviceInfo.column(18).search("^" + filter_Product + "$", true, false);
     }
     if (filter_Group !== "Group" && filter_Group !== null && filter_Group !== undefined) {
         tableDeviceInfo.column(6).search("^" + filter_Group + "$", true, false);
@@ -332,32 +310,33 @@ $('#filter').on('click', function (e) {
         tableDeviceInfo.column(7).search("^" + filter_Vendor + "$", true, false);
     }
     if (filter_Type !== "Type" && filter_Type !== null && filter_Type !== undefined) {
-        tableDeviceInfo.column(12).search("^" + filter_Type + "$", true, false);
+        var types = filter_Type.split('_');
+        tableDeviceInfo.column(12).search(types[1], true, false);
+        tableDeviceInfo.column(17).search("^" + types[0] + "$", true, false);
     }
-    if (filter_Status !== "Status" && filter_Status !== null && filter_Status !== undefined) {
-        tableDeviceInfo.column(13).search("^" + filter_Status + "$", true, false);
-    }
+    //if (filter_Status !== "Status" && filter_Status !== null && filter_Status !== undefined) {
+    //    tableDeviceInfo.column(13).search("^" + filter_Status + "$", true, false);
+    //}
 
     tableDeviceInfo.draw();
 });
-$('#filter-refresh').click(function (e) {
-    e.preventDefault();
+async function Filter() {
+    var response = await GetDatas();
 
-    $('#filter_Product').val("Product").trigger('change');
-    $('#filter_Model').val("Model").trigger('change');
-    $('#filter_Station').val("Station").trigger('change');
-    $('#filter_Group').val("Group").trigger('change');
-    $('#filter_Vendor').val("Vendor").trigger('change');
-    $('#filter_Type').val("Type").trigger('change');
-    $('#filter_Status').val("Status").trigger('change');
+    // WareHouse
+    $('#input_WareHouse').empty();
+    $('#device_edit-WareHouse').empty();
+    $.each(response.warehouses, function (k, item) {
+        var opt1 = $(`<option value="${item.Id}">${item.WarehouseName}</option>`);
+        var opt2 = $(`<option value="${item.Id}">${item.WarehouseName}</option>`);
+        $('#device_edit-WareHouse').append(opt1);
+        $('#input_WareHouse').append(opt2);
+    });
+    $('#input_WareHouse').change();
 
-    $('#filter').click();
-});
-$('#input_WareHouse').on('change', function (e) {
-    e.preventDefault();
 
-    GetWarehouseDevices($(this).val());
-});
+    SetFilterData(response);
+}
 
 // Create Borrow Form
 $('#CreateBorrowForm').on('click', function (e) {
@@ -395,8 +374,6 @@ $('#CreateBorrowForm').on('click', function (e) {
         tr.append(`<td>${deviceData[4]}</td>`);
         tr.append(`<td>${deviceData[5]}</td>`);
         tr.append(`<td>${deviceData[8]}</td>`);       
-        tr.append(`<td>${deviceData[2]}</td>`);
-        tr.append(`<td>${deviceData[3]}</td>`);
         tr.append(`<td class="text-center">${deviceData[11]}</td>`);
         tr.append(`<td style="max-width: 120px;"><input class="form-control" type="number" placeholder="max = ${deviceData[16]}" autocomplete="off"></td>`);
 

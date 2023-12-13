@@ -44,81 +44,7 @@
                             <span class="col-5 input-group-text">Warehouse</span>
                             <select class="col-7 form-select" id="input_WareHouse"></select>
                         </div>
-                        <div class="dropdown ms-3" id="dropdown_filter">
-                            <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" title="Filter"><i class="bx bx-filter"></i></button>
-                            <div class="dropdown-menu" style="width:600px;">
-                                <div class="row">
-                                    <div class="col-6">
-                                        <!--Filter product -->
-                                        <div class="input-group input-group-sm mb-3">
-                                            <span class="col-3 input-group-text">Product</span>
-                                            <select class="form-select form-select-sm" id="filter_Product">
-                                                <option value="" selected>Product (All)</option>
-                                            </select>
-                                        </div>
-                                        <!--Filter model -->
-                                        <div class="input-group input-group-sm mb-3">
-                                            <span class="col-3 input-group-text">Model</span>
-                                            <select class="form-select form-select-sm" id="filter_Model">
-                                                <option value="" selected>Model (All)</option>
-                                            </select>
-                                        </div>
-                                        <!--Filter station -->
-                                        <div class="input-group input-group-sm mb-3">
-                                            <span class="col-3 input-group-text">Station</span>
-                                            <select class="form-select form-select-sm" id="filter_Station">
-                                                <option value="" selected>Station (All)</option>
-                                            </select>
-                                        </div>
-                                        <!--Filter group -->
-                                        <div class="input-group input-group-sm mb-3">
-                                            <span class="col-3 input-group-text">Group</span>
-                                            <select class="form-select form-select-sm" id="filter_Group">
-                                                <option value="" selected>Group (All)</option>
-                                            </select>
-                                        </div>
-
-                                    </div>
-                                    <div class="col-6">
-                                        <!--Filter Vendor -->
-                                        <div class="input-group input-group-sm mb-3">
-                                            <span class="col-3 input-group-text">Vendor</span>
-                                            <select class="form-select form-select-sm" id="filter_Vendor">
-                                                <option value="" selected>Vendor (All)</option>
-                                            </select>
-                                        </div>
-                                        <!--Filter Type -->
-                                        <div class="input-group input-group-sm mb-3">
-                                            <span class="col-3 input-group-text">Type</span>
-                                            <select class="form-select form-select-sm" id="filter_Type">
-                                                <option value="Type" selected>Type (All)</option>
-                                                <option value="N/A">N/A </option>
-                                                <option value="Static">Static</option>
-                                                <option value="Dynamic">Dynamic</option>
-                                                <option value="Consign">Consign</option>
-                                                <option value="Fixture">Fixture</option>
-                                            </select>
-                                        </div>
-                                        <!--Filter Status -->
-                                        <div class="input-group input-group-sm mb-3">
-                                            <span class="col-3 input-group-text">Status</span>
-                                            <select class="form-select form-select-sm" id="filter_Status">
-                                                <option value="Status" selected>Status (All)</option>
-                                                <option value="Unconfirmed">Unconfirmed</option>
-                                                <option value="Part Confirmed">Part Confirmed</option>
-                                                <option value="Confirmed">Confirmed</option>
-                                                <option value="Locked">Locked</option>
-                                                <option value="Out Range">Out Range</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-12 d-flex justify-content-between">
-                                        <button class="btn btn-sm btn-primary" style="width: 80%" id="filter"><i class="fa-solid fa-arrow-down-small-big"></i> Filter</button>
-                                        <button class="btn btn-sm btn-outline-secondary ms-3" id="filter-refresh"><i class="fa-sharp fa-regular fa-arrows-rotate"></i> Refresh</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        @Html.Partial("~/Areas/NVIDIA/Views/DeviceManagement/_DatatableFilter.cshtml")
                     </div>
                 </div>
 
@@ -145,22 +71,27 @@
                                 <th>Vendor</th>
                                 <!-- 8 -->
                                 <th>Specification</th>
-                                <!-- 10 -->
+                                <!-- 9 -->
                                 <th>Buffer</th>
-                                <!-- 11 -->
+                                <!-- 10 -->
                                 <th>Quantity</th>
-                                <!-- 12 -->
+                                <!-- 11 -->
                                 <th>Unit</th>
-                                <!-- 13 -->
+                                <!-- 12 -->
                                 <th>Type</th>
-                                <!-- 14 -->
+                                <!-- 13 -->
                                 <th>Status</th>
-                                <!-- 15 -->
+                                <!-- 14 -->
                                 <th>Action</th>
-                                <!-- 16 -->
+                                <!-- 15 -->
                                 <th>Location</th>
-                                <!-- 17 -->
+                                <!-- 16 -->
                                 <th>SysQuantity</th>
+                                <!-- 17 -->
+                                <th>IsConsign</th>
+                                <!-- 18 -->
+                                <th>ProductName</th>
+
                             </tr>
                         </thead>
                         <tbody id="table_Devices_tbody">
@@ -241,8 +172,9 @@
                             <tr>
                                 <th>PN</th>
                                 <th>Description</th>
+                                <th>Specification</th>
                                 <th class="text-center">Unit</th>
-                                <th class="text-danger text-center" style="width: 200px;">Quantity Borrow</th>
+                                <th class="text-danger text-center" style="width: 200px;">Quantity</th>
                             </tr>
                         </thead>
                         <tbody id="table_borrow-tbody">
@@ -313,6 +245,7 @@
     <script src="~/Areas/NVIDIA/Content/Vendor/Viewer JS/viewer.min.js"></script>
     <!-- Custom -->
     <script src="~/Areas/NVIDIA/Content/Custom/DeviceManagement/js/DeviceDetails.js?v=@Guid.NewGuid()"></script>
+    <script src="~/Areas/NVIDIA/Content/Custom/DeviceManagement/js/DatatableFilter.js?v=@Guid.NewGuid()"></script>
     <script src="~/Areas/NVIDIA/Content/Custom/BorrowManagement/js/BorrowDevice.js?v=@Guid.NewGuid()"></script>
     <script type="text/javascript">
         // Filter

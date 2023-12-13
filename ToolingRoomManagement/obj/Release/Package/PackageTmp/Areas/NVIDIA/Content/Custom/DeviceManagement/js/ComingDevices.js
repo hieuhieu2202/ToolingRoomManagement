@@ -3,6 +3,7 @@
     var devices = await GetComingDevices();
     CreateTable(devices);
     GetSelectData();
+    SetDatas();
 });
 
 // GET
@@ -132,6 +133,27 @@ function GetSelectData() {
         }
     });
 }
+function GetDatas() {
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            type: "GET",
+            url: "/NVIDIA/DeviceManagement/GetSelectData",
+            dataType: "json",
+            contentType: "application/json;charset=utf-8",
+            success: function (response) {
+                if (response.status) {
+                    resolve(response);
+                }
+                else {
+                    reject(response.message);
+                }
+            },
+            error: function (error) {
+                reject(GetAjaxErrorMessage(error));
+            }
+        });
+    });
+}
 
 
 // Datatable coming device
@@ -152,9 +174,10 @@ async function CreateTable(devices) {
         order: [10, 'desc'],
         autoWidth: false,
         columnDefs: [           
-            { targets: [0, 10], visible: false },
+            
             { targets: "_all", orderable: false },
             { targets: [6, 7, 8, 9], className: "text-center" },
+            { targets: [0, 10, 11, 12], visible: false },
             //{ targets: [1, 3, 7, 8, 9, 10, 11, 12, 13, 14, 15], className: "text-center" },
         ],
         "lengthMenu": [[10, 15, 25, 50, -1], [10, 15, 25, 50, "All"]],
@@ -247,7 +270,10 @@ function CreateRowDatatable(otwDevice, update = false) {
                 </td>`);
         // 10 ID
         row.push(`<td>${otwDevice.Id}</td>`);
-                
+        // 11 ProductName
+        row.push(`<td>${(device.Product) ? device.Product.ProductName ? device.Product.ProductName : "NA" : "NA"}</td>`);
+        // 12 IsCongign
+        row.push(`<td>${otwDevice.IsConsign ? "Consign" : "Normal"}</td>`);          
     }
 
     if (update) {
@@ -712,3 +738,36 @@ function Selection(item) {
     og = opt.closest('optgroup').attr('label');
     return item.text + ' | ' + og;
 };
+
+// Filter
+async function SetDatas() {
+    var response = await GetDatas();
+    SetFilterData(response);
+}
+$('#filter').on('click', function (e) {
+    e.preventDefault();
+
+    var filter_Product = $('#filter_Product').val();
+    var filter_Group = $('#filter_Group').val();
+    var filter_Vendor = $('#filter_Vendor').val();
+    var filter_Type = $('#filter_Type').val();
+
+    tableDeviceInfo.columns().search('').draw();
+
+    if (filter_Product !== "Product" && filter_Product !== null && filter_Product !== undefined) {
+        tableDeviceInfo.column(11).search("^" + filter_Product + "$", true, false);
+    }
+    if (filter_Group !== "Group" && filter_Group !== null && filter_Group !== undefined) {
+        tableDeviceInfo.column(4).search("^" + filter_Group + "$", true, false);
+    }
+    if (filter_Vendor !== "Vendor" && filter_Vendor !== null && filter_Vendor !== undefined) {
+        tableDeviceInfo.column(5).search("^" + filter_Vendor + "$", true, false);
+    }
+    if (filter_Type !== "Type" && filter_Type !== null && filter_Type !== undefined) {
+        var types = filter_Type.split('_');
+        tableDeviceInfo.column(8).search(types[1], true, false);
+        tableDeviceInfo.column(12).search("^" + types[0] + "$", true, false);
+    }
+
+    tableDeviceInfo.draw();
+});
