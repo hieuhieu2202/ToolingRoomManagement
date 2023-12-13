@@ -334,6 +334,7 @@
                                                         <option value="1">Day shift</option>
                                                         <option value="2">Night shift</option>
                                                         <option value="3">OBA Night shift</option>
+                                                        <option value="4">NVIDIA</option>
                                                     </select>
                                                 </div>
                                                 <div style="width: 60%;float:right;">
@@ -673,7 +674,7 @@
                     if (JSON.parse(data).length > 0) {
                         for (i = 0; i < JSON.parse(data).length; i++) {
                             var status = "";
-                            if (JSON.parse(data)[i].type_order == 1) {
+                            if (JSON.parse(data)[i].type_order == 1 || JSON.parse(data)[i].type_order == 4) {
                                 if (JSON.parse(data)[i].status == 1) {
                                     status = '<a style="color:orange">Wait Manager</a>';
                                 } else if (JSON.parse(data)[i].status == 2) {
@@ -831,7 +832,7 @@
                     row = '<tr><td colspan="23" style="text-align:center">-------------No data-----------</td></tr>';
                 }
                 $(".load_section").hide();
-                if (shift == 1) {
+                if (shift == 1 || shift == 4) {
                     $("#tbd_View").empty();
                     $("#tbd_View").show();
                     $("#tbd_View").append(row);
@@ -862,7 +863,7 @@
     }
     function detailOrder(id, code_order, status, create_by, date_borrow, date_return, note_order, managerUs_id) {
         var shift = $("#select_shift").val();
-        if (shift == 1 || shift == 2) {
+        if (shift == 1 || shift == 2 || shift == 4) {
             if (status != 3) {
                 $(".btnReject").hide();
                 $(".btnConfirm").hide();

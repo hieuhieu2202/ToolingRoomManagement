@@ -220,7 +220,7 @@ function DrawRowEditDevice(item) {
             html: '',
             title: ''
         },
-        AltPN: (item.AlternativesDevices != null) ? item.AlternativesDevices[0].PNs : ""
+        AltPN: (item.AlternativeDevices != null && item.AlternativeDevices.length == 1) ? item.AlternativeDevices[0].PNs ? item.AlternativeDevices[0].PNs : "" : ""
     };
 
     var row = [];

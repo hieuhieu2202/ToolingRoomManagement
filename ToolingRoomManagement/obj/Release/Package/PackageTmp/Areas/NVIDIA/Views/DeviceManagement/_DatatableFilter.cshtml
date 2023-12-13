@@ -1,0 +1,83 @@
+﻿<div class="ms-3" id="dropdown_filter">
+    <button class="btn btn-sm btn-outline-secondary dropdown-toggle" id="filter_dropdown_btn"><i class="fa-solid fa-filter" style="font-size: 15px; margin-left: 2px;"></i></button>
+    <div class="dropdown-menu" style="width:600px;">
+        <div class="row">
+            <div class="col-6">
+                <!--Filter product -->
+                <div class="input-group input-group-sm mb-3">
+                    <span class="col-3 input-group-text" data-i18n="device.management.product">Product</span>
+                    <select class="form-select form-select-sm" id="filter_Product">
+                        <option value="" selected data-i18n="device.management.product_all">Product (All)</option>
+                    </select>
+                </div>
+                <!--Filter model -->
+                @*<div class="input-group input-group-sm mb-3">
+            <span class="col-3 input-group-text" data-i18n="device.management.model">Model</span>
+            <select class="form-select form-select-sm" id="filter_Model">
+                <option value="" selected data-i18n="device.management.model_all">Model (All)</option>
+            </select>
+        </div>*@
+                <!--Filter station -->
+                @*<div class="input-group input-group-sm mb-3">
+            <span class="col-3 input-group-text" data-i18n="device.management.station">Station</span>
+            <select class="form-select form-select-sm" id="filter_Station">
+                <option value="" selected data-i18n="device.management.station_all">Station (All)</option>
+            </select>
+        </div>*@
+                <!--Filter group -->
+                <div class="input-group input-group-sm mb-3">
+                    <span class="col-3 input-group-text" data-i18n="device.management.group">Group</span>
+                    <select class="form-select form-select-sm" id="filter_Group">
+                        <option value="" selected data-i18n="device.management.group_all">Group (All)</option>
+                    </select>
+                </div>
+                <!--Filter Vendor -->
+                <div class="input-group input-group-sm mb-3">
+                    <span class="col-3 input-group-text" data-i18n="device.management.vendor">Vendor</span>
+                    <select class="form-select form-select-sm" id="filter_Vendor">
+                        <option value="" selected data-i18n="device.management.vendor_all">Vendor (All)</option>
+                    </select>
+                </div>
+
+            </div>
+            <div class="col-6">
+                
+                <!--Filter Type -->
+                <div class="input-group input-group-sm mb-3">
+                    <span class="col-3 input-group-text" data-i18n="device.management.type">Type</span>
+                    <select class="form-select form-select-sm" id="filter_Type">
+                        <option value="Type" selected data-i18n="device.management.type_all">Type (All)</option>
+                        <optgroup label="Normal">
+                            <option value="normal_NA">NA</option>
+                            <option value="normal_Fixture">Fixture</option>
+                            <option value="normal_Static">Static</option>
+                            <option value="normal_Dynamic">Dynamic</option>
+                        </optgroup>
+                        <optgroup label="Consign">
+                            <option value="consign_NA">NA</option>
+                            <option value="consign_Fixture">Fixture</option>
+                            <option value="consign_Static">Static</option>
+                            <option value="consign_Dynamic">Dynamic</option>
+                        </optgroup>
+                    </select>
+                </div>
+                <!--Filter Status -->
+                <div class="input-group input-group-sm mb-3">
+                    <span class="col-3 input-group-text" data-i18n="device.management.status">Status</span>
+                    <select class="form-select form-select-sm" id="filter_Status">
+                        <option value="Status" selected data-i18n="device.management.status_all">Status (All)</option>
+                        <option value="Unconfirmed">Unconfirmed</option>
+                        <option value="Part Confirmed">Part Confirmed</option>
+                        <option value="Confirmed">Confirmed</option>
+                        <option value="Locked">Locked</option>
+                        <option value="Out Range">Out Range</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-12 d-flex justify-content-between">
+                <button class="btn btn-sm btn-primary w-75" id="filter" data-i18n="device.management.filter"><i class="fa-solid fa-arrow-down-small-big"></i> Filter</button>
+                <button class="btn btn-sm btn-outline-secondary ms-3" id="filter-refresh" data-i18n="device.management.refresh"><i class="fa-sharp fa-regular fa-arrows-rotate"></i> Refresh</button>
+            </div>
+        </div>
+    </div>
+</div>

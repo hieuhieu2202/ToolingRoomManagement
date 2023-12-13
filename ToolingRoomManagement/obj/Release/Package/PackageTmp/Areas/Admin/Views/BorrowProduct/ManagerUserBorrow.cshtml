@@ -135,7 +135,8 @@
             color: white;
             text-align: center;
         }
-         #tbl_View1 {
+
+    #tbl_View1 {
         color: white;
     }
 
@@ -155,7 +156,8 @@
             color: white;
             text-align: center;
         }
-         #tbl_View2 {
+
+    #tbl_View2 {
         color: white;
     }
 
@@ -175,6 +177,7 @@
             color: white;
             text-align: center;
         }
+
     #tbl_View tbody tr td a {
         font-size: 1.5vh;
         color: #7ebaed;
@@ -189,6 +192,7 @@
         font-size: 1.5vh;
         color: #7ebaed;
     }
+
     ::-webkit-scrollbar {
         width: 8px;
         height: 5px;
@@ -249,7 +253,7 @@
             transform: scale(1);
         }
 
-        80%,100% {
+        80%, 100% {
             transform: scale(0);
         }
     }
@@ -333,6 +337,7 @@
                                                         <option value="1">Day Shift</option>
                                                         <option value="2">Night Shift</option>
                                                         <option value="3">OBA Night Shift</option>
+                                                        <option value="4">NVIDIA</option>
                                                     </select>
                                                 </div>
                                                 <div style="width: 60%;float:right;">
@@ -665,7 +670,7 @@
     function loadData(number, shift) {
         $.ajax({
             type: "Post",
-            url: "/GetData/listOrderByManagerUs?number=" + number+"&shift="+shift,
+            url: "/GetData/listOrderByManagerUs?number=" + number + "&shift=" + shift,
             async: false,
             contentType: false,
             processData: false,
@@ -709,26 +714,27 @@
                                     '<td>' + JSON.parse(data)[i].create_by + '</td>' +
                                     '<td>' + convert_date2(JSON.parse(data)[i].create_date) + '</td>' +
                                     '<td>' + (JSON.parse(data)[i].note != null ? JSON.parse(data)[i].note : "") + '</td>' +
-                                     '<td>' + JSON.parse(data)[i].managerUs_username + '</td>' +
+                                    '<td>' + JSON.parse(data)[i].managerUs_username + '</td>' +
                                     '<td style="color: chartreuse;">' + (JSON.parse(data)[i].time_managerUs_cf != null ? convert_date2(JSON.parse(data)[i].time_managerUs_cf) : "") + '</td>' +
                                     '<td style="color: #ff0018;">' + (JSON.parse(data)[i].note_Manager != null ? JSON.parse(data)[i].note_Manager : "") + '</td>' +
                                     '<td>' + JSON.parse(data)[i].accountantPD_username + '</td>' +
                                     '<td style="color: chartreuse;">' + (JSON.parse(data)[i].time_accountantPD_cf != null ? convert_date2(JSON.parse(data)[i].time_accountantPD_cf) : "") + '</td>' +
                                     '<td style="color:#ff0018 ;">' + (JSON.parse(data)[i].note_accountantPD != null ? JSON.parse(data)[i].note_accountantPD : "") + '</td>' +
-                                     '<td>' + JSON.parse(data)[i].aKhanh_username + '</td>' +
+                                    '<td>' + JSON.parse(data)[i].aKhanh_username + '</td>' +
                                     '<td style="color: chartreuse;">' + (JSON.parse(data)[i].time_aKhanh_cf != null ? convert_date2(JSON.parse(data)[i].time_aKhanh_cf) : "") + '</td>' +
                                     '<td style="color: #ff0018;">' + (JSON.parse(data)[i].note_aKhanh != null ? JSON.parse(data)[i].note_aKhanh : "") + '</td>' +
                                     '<td>' + JSON.parse(data)[i].managerPD_username + '</td>' +
                                     '<td style="color: chartreuse;">' + (JSON.parse(data)[i].time_managerPD_cf != null ? convert_date2(JSON.parse(data)[i].time_managerPD_cf) : "") + '</td>' +
-                                     '<td style="color: #ff0018;">' + (JSON.parse(data)[i].note_managerPD != null ? JSON.parse(data)[i].note_managerPD : "") + '</td>' +
-                                     '<td>' + JSON.parse(data)[i].aTin_username + '</td>' +
+                                    '<td style="color: #ff0018;">' + (JSON.parse(data)[i].note_managerPD != null ? JSON.parse(data)[i].note_managerPD : "") + '</td>' +
+                                    '<td>' + JSON.parse(data)[i].aTin_username + '</td>' +
                                     '<td style="color: chartreuse;">' + (JSON.parse(data)[i].time_aTin_cf != null ? convert_date2(JSON.parse(data)[i].time_aTin_cf) : "") + '</td>' +
-                                     '<td style="color: #ff0018;">' + (JSON.parse(data)[i].note_aTin != null ? JSON.parse(data)[i].note_aTin : "") + '</td>' +
-                                     '<td>' + JSON.parse(data)[i].accountantPDBack_username + '</td>' +
+                                    '<td style="color: #ff0018;">' + (JSON.parse(data)[i].note_aTin != null ? JSON.parse(data)[i].note_aTin : "") + '</td>' +
+                                    '<td>' + JSON.parse(data)[i].accountantPDBack_username + '</td>' +
                                     '<td style="color: chartreuse;">' + (JSON.parse(data)[i].time_accountantPDBack_cf != null ? convert_date2(JSON.parse(data)[i].time_accountantPDBack_cf) : "") + '</td>' +
-                                     '<td style="color: #ff0018;">' + (JSON.parse(data)[i].note_back_accountantPD != null ? JSON.parse(data)[i].note_back_accountantPD : "") + '</td>' +
+                                    '<td style="color: #ff0018;">' + (JSON.parse(data)[i].note_back_accountantPD != null ? JSON.parse(data)[i].note_back_accountantPD : "") + '</td>' +
                                     '</tr>';
-                            } else if (JSON.parse(data)[i].type_order == 2) {
+                            }
+                            else if (JSON.parse(data)[i].type_order == 2) {
                                 if (JSON.parse(data)[i].status == 1) {
                                     status = '<a style="color:orange">Wait manager BP</a>';
                                 } else if (JSON.parse(data)[i].status == 2) {
@@ -777,15 +783,16 @@
                                     '<td style="color: #ff0018;">' + (JSON.parse(data)[i].note_aKhanh != null ? JSON.parse(data)[i].note_aKhanh : "") + '</td>' +
                                     '<td>' + JSON.parse(data)[i].managerPD_username + '</td>' +
                                     '<td style="color: chartreuse;">' + (JSON.parse(data)[i].time_managerPD_cf != null ? convert_date2(JSON.parse(data)[i].time_managerPD_cf) : "") + '</td>' +
-                                     '<td style="color: #ff0018;">' + (JSON.parse(data)[i].note_managerPD != null ? JSON.parse(data)[i].note_managerPD : "") + '</td>' +
-                                     '<td>' + JSON.parse(data)[i].aTin_username + '</td>' +
+                                    '<td style="color: #ff0018;">' + (JSON.parse(data)[i].note_managerPD != null ? JSON.parse(data)[i].note_managerPD : "") + '</td>' +
+                                    '<td>' + JSON.parse(data)[i].aTin_username + '</td>' +
                                     '<td style="color: chartreuse;">' + (JSON.parse(data)[i].time_aTin_cf != null ? convert_date2(JSON.parse(data)[i].time_aTin_cf) : "") + '</td>' +
-                                     '<td style="color: #ff0018;">' + (JSON.parse(data)[i].note_aTin != null ? JSON.parse(data)[i].note_aTin : "") + '</td>' +
-                                     '<td>' + JSON.parse(data)[i].accountantPDBack_username + '</td>' +
+                                    '<td style="color: #ff0018;">' + (JSON.parse(data)[i].note_aTin != null ? JSON.parse(data)[i].note_aTin : "") + '</td>' +
+                                    '<td>' + JSON.parse(data)[i].accountantPDBack_username + '</td>' +
                                     '<td style="color: chartreuse;">' + (JSON.parse(data)[i].time_accountantPDBack_cf != null ? convert_date2(JSON.parse(data)[i].time_accountantPDBack_cf) : "") + '</td>' +
-                                     '<td style="color: #ff0018;">' + (JSON.parse(data)[i].note_back_accountantPD != null ? JSON.parse(data)[i].note_back_accountantPD : "") + '</td>' +
+                                    '<td style="color: #ff0018;">' + (JSON.parse(data)[i].note_back_accountantPD != null ? JSON.parse(data)[i].note_back_accountantPD : "") + '</td>' +
                                     '</tr>';
-                            } else if (JSON.parse(data)[i].type_order == 3) {
+                            }
+                            else if (JSON.parse(data)[i].type_order == 3) {
                                 if (JSON.parse(data)[i].status == 1) {
                                     status = '<a style="color:orange">Wait manager BP</a>';
                                 } else if (JSON.parse(data)[i].status == 12) {
@@ -818,12 +825,65 @@
                                     '<td>' + JSON.parse(data)[i].leaderNightShift_username + '</td>' +
                                     '<td style="color: chartreuse;">' + (JSON.parse(data)[i].time_leaderNightShift_cf != null ? convert_date2(JSON.parse(data)[i].time_leaderNightShift_cf) : "") + '</td>' +
                                     '<td style="color: #ff0018;">' + (JSON.parse(data)[i].note_leaderNightShift != null ? JSON.parse(data)[i].note_leaderNightShift : "") + '</td>' +
-                                     '<td>' + JSON.parse(data)[i].leaderNightBack_username + '</td>' +
+                                    '<td>' + JSON.parse(data)[i].leaderNightBack_username + '</td>' +
                                     '<td style="color: chartreuse;">' + (JSON.parse(data)[i].time_leaderNightBack_cf != null ? convert_date2(JSON.parse(data)[i].time_leaderNightBack_cf) : "") + '</td>' +
-                                     '<td style="color: #ff0018;">' + (JSON.parse(data)[i].note_leaderNightBack != null ? JSON.parse(data)[i].note_leaderNightBack : "") + '</td>' +
-                                     '<td>' + JSON.parse(data)[i].accountantPD_username + '</td>' +
+                                    '<td style="color: #ff0018;">' + (JSON.parse(data)[i].note_leaderNightBack != null ? JSON.parse(data)[i].note_leaderNightBack : "") + '</td>' +
+                                    '<td>' + JSON.parse(data)[i].accountantPD_username + '</td>' +
                                     '<td style="color: chartreuse;">' + (JSON.parse(data)[i].time_accountantPD_cf != null ? convert_date2(JSON.parse(data)[i].time_accountantPD_cf) : "") + '</td>' +
                                     '<td style="color:#ff0018 ;">' + (JSON.parse(data)[i].note_accountantPD != null ? JSON.parse(data)[i].note_accountantPD : "") + '</td>' +
+                                    '</tr>';
+                            }
+                            else if (JSON.parse(data)[i].type_order == 4) {
+                                if (JSON.parse(data)[i].status == 1) {
+                                    status = '<a style="color:orange">Wait Manager</a>';
+                                } else if (JSON.parse(data)[i].status == 2) {
+                                    status = '<a style="color:yellow">Wait Accountant PD</a>';
+                                } else if (JSON.parse(data)[i].status == 3) {
+                                    status = '<a style="color:#d4b6ef">Wait Manager PD</a>';
+                                } else if (JSON.parse(data)[i].status == 4) {
+                                    status = '<a style="color:#8500ff">Wait Leader</a>';
+                                } else if (JSON.parse(data)[i].status == 5) {
+                                    status = '<a style="color:red">Rejected</a>';
+                                } else if (JSON.parse(data)[i].status == 6) {
+                                    status = '<a style="color:#7df1f1">Borrowed</a>';
+                                } else if (JSON.parse(data)[i].status == 7) {
+                                    status = '<a style="color:#e98e73">Wait check return</a>';
+                                } else if (JSON.parse(data)[i].status == 8) {
+                                    status = '<a style="color:green">Returned</a>';
+                                } else if (JSON.parse(data)[i].status == 9) {
+                                    status = '<a style="color:red">Reject return</a>';
+                                } else if (JSON.parse(data)[i].status == 10) {
+                                    status = '<a style="color:red">Unpaid</a>';
+                                } else if (JSON.parse(data)[i].status == 11) {
+                                    status = '<a style="color:red">Wait Manager PD 1</a>';
+                                }
+                                row += '<tr>' +
+                                    '<td>' + (i + 1) + '</td>' +
+                                    '<td><a onclick="detailOrder(' + "'" + JSON.parse(data)[i].id + "','" + JSON.parse(data)[i].codeOrder + "','" + JSON.parse(data)[i].status + "','" + JSON.parse(data)[i].create_by + "','" + convert_date2(JSON.parse(data)[i].date_borrow) + "','" + convert_date2(JSON.parse(data)[i].date_return) + "','" + (JSON.parse(data)[i].note != null ? StringToHex(JSON.parse(data)[i].note.replace("\n", " ").replace("\r", " ")) : "") + "','" + JSON.parse(data)[i].managerUs_id + "','" + JSON.parse(data)[i].type_order + "'" + ')">' + JSON.parse(data)[i].codeOrder + '</td>' +
+                                    '<td>' + status + '</td>' +
+                                    '<td>' + convert_date2(JSON.parse(data)[i].date_borrow) + '</td>' +
+                                    '<td>' + convert_date2(JSON.parse(data)[i].date_return) + '</td>' +
+                                    '<td>' + JSON.parse(data)[i].create_by + '</td>' +
+                                    '<td>' + convert_date2(JSON.parse(data)[i].create_date) + '</td>' +
+                                    '<td>' + (JSON.parse(data)[i].note != null ? JSON.parse(data)[i].note : "") + '</td>' +
+                                    '<td>' + JSON.parse(data)[i].managerUs_username + '</td>' +
+                                    '<td style="color: chartreuse;">' + (JSON.parse(data)[i].time_managerUs_cf != null ? convert_date2(JSON.parse(data)[i].time_managerUs_cf) : "") + '</td>' +
+                                    '<td style="color: #ff0018;">' + (JSON.parse(data)[i].note_Manager != null ? JSON.parse(data)[i].note_Manager : "") + '</td>' +
+                                    '<td>' + JSON.parse(data)[i].accountantPD_username + '</td>' +
+                                    '<td style="color: chartreuse;">' + (JSON.parse(data)[i].time_accountantPD_cf != null ? convert_date2(JSON.parse(data)[i].time_accountantPD_cf) : "") + '</td>' +
+                                    '<td style="color:#ff0018 ;">' + (JSON.parse(data)[i].note_accountantPD != null ? JSON.parse(data)[i].note_accountantPD : "") + '</td>' +
+                                    '<td>' + JSON.parse(data)[i].aKhanh_username + '</td>' +
+                                    '<td style="color: chartreuse;">' + (JSON.parse(data)[i].time_aKhanh_cf != null ? convert_date2(JSON.parse(data)[i].time_aKhanh_cf) : "") + '</td>' +
+                                    '<td style="color: #ff0018;">' + (JSON.parse(data)[i].note_aKhanh != null ? JSON.parse(data)[i].note_aKhanh : "") + '</td>' +
+                                    '<td>' + JSON.parse(data)[i].managerPD_username + '</td>' +
+                                    '<td style="color: chartreuse;">' + (JSON.parse(data)[i].time_managerPD_cf != null ? convert_date2(JSON.parse(data)[i].time_managerPD_cf) : "") + '</td>' +
+                                    '<td style="color: #ff0018;">' + (JSON.parse(data)[i].note_managerPD != null ? JSON.parse(data)[i].note_managerPD : "") + '</td>' +
+                                    '<td>' + JSON.parse(data)[i].aTin_username + '</td>' +
+                                    '<td style="color: chartreuse;">' + (JSON.parse(data)[i].time_aTin_cf != null ? convert_date2(JSON.parse(data)[i].time_aTin_cf) : "") + '</td>' +
+                                    '<td style="color: #ff0018;">' + (JSON.parse(data)[i].note_aTin != null ? JSON.parse(data)[i].note_aTin : "") + '</td>' +
+                                    '<td>' + JSON.parse(data)[i].accountantPDBack_username + '</td>' +
+                                    '<td style="color: chartreuse;">' + (JSON.parse(data)[i].time_accountantPDBack_cf != null ? convert_date2(JSON.parse(data)[i].time_accountantPDBack_cf) : "") + '</td>' +
+                                    '<td style="color: #ff0018;">' + (JSON.parse(data)[i].note_back_accountantPD != null ? JSON.parse(data)[i].note_back_accountantPD : "") + '</td>' +
                                     '</tr>';
                             }
                         }
@@ -842,20 +902,30 @@
                     $("#tbl_View").show();
                     $("#tbl_View1").hide();
                     $("#tbl_View2").hide();
-                } else if (shift == 2) {
+                }
+                else if (shift == 2) {
                     $("#tbd_View1").show();
                     $("#tbd_View1").empty();
                     $("#tbd_View1").append(row);
                     $("#tbl_View").hide();
                     $("#tbl_View1").show();
                     $("#tbl_View2").hide();
-                } else if (shift == 3) {
+                }
+                else if (shift == 3) {
                     $("#tbd_View2").show();
                     $("#tbd_View2").empty();
                     $("#tbd_View2").append(row);
                     $("#tbl_View").hide();
                     $("#tbl_View1").hide();
                     $("#tbl_View2").show();
+                }
+                else if (shift == 4) {
+                    $("#tbd_View").empty();
+                    $("#tbd_View").show();
+                    $("#tbd_View").append(row);
+                    $("#tbl_View").show();
+                    $("#tbl_View1").hide();
+                    $("#tbl_View2").hide();
                 }
 
             },
@@ -867,42 +937,18 @@
     }
     function detailOrder(id, code_order, status, create_by, date_borrow, date_return, note_order, managerUs_id, type_order) {
         var shift = $("#select_shift").val();
-        if (shift == 1) {
-            if (status == 1) {
+        if (shift == 1)
+        {
+            if (status == 1)
+            {
                 $(".btnReject1").show();
                 $(".btnreject").show();
                 $(".btnrejectOBANight").hide();
                 $(".btnConfirm").show();
-                $(".btnConfirmNight").hide();
-            } else {
-                $(".btnReject1").hide();
-                $(".btnreject").hide();
-                $(".btnrejectOBANight").hide();
-                $(".btnConfirm").hide();
-                $(".btnConfirmNight").hide();
+                $(".btnConfirmNight").hide();   
             }
-        } else if (shift == 2) {
-            if (status == 1) {
-                $(".btnReject1").show();
-                $(".btnreject").show();
-                $(".btnrejectOBANight").hide();
-                $(".btnConfirm").hide();
-                $(".btnConfirmNight").show();
-            } else {
-                $(".btnReject1").hide();
-                $(".btnreject").hide();
-                $(".btnrejectOBANight").hide();
-                $(".btnConfirm").hide();
-                $(".btnConfirmNight").hide();
-            }
-        } else if (shift == 3) {
-            if (status == 1) {
-                $(".btnReject1").show();
-                $(".btnreject").hide();
-                $(".btnrejectOBANight").show();
-                $(".btnConfirm").hide();
-                $(".btnConfirmNight").show();
-            } else {
+            else
+            {
                 $(".btnReject1").hide();
                 $(".btnreject").hide();
                 $(".btnrejectOBANight").hide();
@@ -910,7 +956,61 @@
                 $(".btnConfirmNight").hide();
             }
         }
-        
+        else if (shift == 2)
+        {
+            if (status == 1)
+            {
+                $(".btnReject1").show();
+                $(".btnreject").show();
+                $(".btnrejectOBANight").hide();
+                $(".btnConfirm").hide();
+                $(".btnConfirmNight").show();
+            }
+            else
+            {
+                $(".btnReject1").hide();
+                $(".btnreject").hide();
+                $(".btnrejectOBANight").hide();
+                $(".btnConfirm").hide();
+                $(".btnConfirmNight").hide();
+            }
+        }
+        else if (shift == 3)
+        {
+            if (status == 1)
+            {
+                $(".btnReject1").show();
+                $(".btnreject").hide();
+                $(".btnrejectOBANight").show();
+                $(".btnConfirm").hide();
+                $(".btnConfirmNight").show();
+            }
+            else
+            {
+                $(".btnReject1").hide();
+                $(".btnreject").hide();
+                $(".btnrejectOBANight").hide();
+                $(".btnConfirm").hide();
+                $(".btnConfirmNight").hide();
+            }
+        }
+        else if (shift == 4) {
+            if (status == 1) {
+                $(".btnReject1").show();
+                $(".btnreject").show();
+                $(".btnrejectOBANight").hide();
+                $(".btnConfirm").show();
+                $(".btnConfirmNight").hide();
+            }
+            else {
+                $(".btnReject1").hide();
+                $(".btnreject").hide();
+                $(".btnrejectOBANight").hide();
+                $(".btnConfirm").hide();
+                $(".btnConfirmNight").hide();
+            }
+        }
+
         $("#code_order").empty();
         $("#order_id").val("");
         $("#employeeID").empty();
@@ -1002,7 +1102,7 @@
         }
         $.ajax({
             type: "Post",
-            url: "/ActionBorrow/ManagerUsRejectOrder?id=" + idOder + "&noteReject=" + noteReject,
+            url: "/ActionBorrow/ManagerUsRejectOrderOBANight?id=" + idOder + "&noteReject=" + noteReject,
             async: false,
             contentType: false,
             processData: false,
