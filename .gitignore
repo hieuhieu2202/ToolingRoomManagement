@@ -17,4 +17,8 @@ bld/
 [Oo]bj/
 [Ll]og/
 [Ll]ogs/
+
+
 /ToolingRoomManagement/obj/
+/Model/
+/ToolingRoomManagement/obj/Debug/ToolingRoomManagement.pdb
