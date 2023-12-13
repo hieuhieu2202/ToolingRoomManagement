@@ -385,6 +385,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                     if( AltPN != null)
                     {
                         AltPN.PNs = form["AltPNs"];
+                        device.AlternativeDevices.Add(AltPN);
                     }
                     else
                     {

@@ -303,6 +303,103 @@ namespace ToolingRoomManagement.Areas.Admin.Controllers
                 }
             }
         }
+        public string InsertOrderProductNVIDIA(OrderBorrowModel model)
+        {
+            if (model.order_id == 0)
+            {
+                var session = (ToolingRoomManagement.Common.UserLogin)Session[ToolingRoomManagement.Common.CommonConstants.USER_SESSION];
+                string create_by = session.UserName + "-" + session.Fullname;
+
+                var date_now = DateTime.Now.ToString("yyyyMMdd");
+                var result = "";
+                var codeOrder = "";
+                var code_date = "";
+                try
+                {
+                    result = (from t in context.Summaries
+                              where t.codeOrder != null && t.codeOrder.Contains("OD" + date_now)
+                              orderby t.codeOrder descending
+                              select t.codeOrder).First();
+                    if (result != null)
+                    {
+                        code_date = result.Substring(2, 8);
+                    }
+                }
+                catch
+                {
+
+                }
+                if (code_date == date_now && code_date != "")
+                {
+                    var code_extension = int.Parse(result.ToString().Substring(10, 4));
+                    if (code_extension >= 1 && code_extension < 9)
+                    {
+                        codeOrder = "OD" + code_date + "000" + (code_extension + 1);
+                    }
+                    else if (code_extension >= 9 && code_extension < 99)
+                    {
+                        codeOrder = "OD" + code_date + "00" + (code_extension + 1);
+                    }
+                    else if (code_extension >= 99 && code_extension < 999)
+                    {
+                        codeOrder = "OD" + code_date + "0" + (code_extension + 1);
+                    }
+                    else
+                    {
+                        codeOrder = "OD" + code_date + (code_extension + 1);
+                    }
+                }
+                else
+                {
+                    codeOrder = "OD" + date_now + "0001";
+                }
+                var acc = "Kế toán PD";
+                //var accountant = context.Users.Where(x => x.role_id == 6).ToList();
+                //if (accountant.Count != 0)
+                //{
+                //    foreach (var item in accountant)
+                //    {
+                //        acc += "/" + item.username + "-" + item.fullname;
+                //    }
+                //}
+                var managerPD = context.Users.Where(x => x.role_id == 7).FirstOrDefault();
+                var managerPD1 = context.Users.Where(x => x.id == 3213).FirstOrDefault();
+                var aTin = context.Users.Where(x => x.role_id == 8).FirstOrDefault();
+                int order_id = new BorrowProduct_Dao().InsertOrderNVIDIA(codeOrder, int.Parse(session.UserID.ToString()), create_by, model.managerUs_id, model.managerUsFull, model.noteOrder, model.dateBorrow, model.dateReturn, 0, acc, managerPD.id, managerPD.username + "-" + managerPD.fullname, aTin.id, aTin.username + "-" + aTin.fullname, managerPD1.id, managerPD1.username + "-" + managerPD1.fullname);
+                if (order_id > 0)
+                {
+                    var update = context.Summaries.Where(x => x.id == order_id).SingleOrDefault();
+                    update.status = 1;
+                    context.SaveChanges();
+                    int product_id = new BorrowProduct_Dao().InsertProduct(order_id, model.productName, model.productSN, model.productQuantity, model.productLine, model.leaderLineCode, model.leaderLineName);
+                    if (product_id > 0)
+                    {
+                        return order_id + "_" + codeOrder;
+                    }
+                    else
+                    {
+                        return "ProductNG";
+                    }
+                }
+                else
+                {
+                    return "OrderNG";
+                }
+            }
+            else
+            {
+                int product_id = new BorrowProduct_Dao().InsertProduct(model.order_id, model.productName, model.productSN, model.productQuantity, model.productLine, model.leaderLineCode, model.leaderLineName);
+                if (product_id > 0)
+                {
+                    return "ProductOK";
+                }
+                else
+                {
+                    return "ProductNG";
+                }
+            }
+        }
+
         public string InsertOrderDebt(OrderBorrowModel model)
         {
             if (model.orderDebt_id == 0)
@@ -490,6 +587,7 @@ namespace ToolingRoomManagement.Areas.Admin.Controllers
                 }
             }
         }
+
         public string UpdateOrder(OrderBorrowModel model)
         {
             try
@@ -538,6 +636,7 @@ namespace ToolingRoomManagement.Areas.Admin.Controllers
                 return "NG";
             }
         }
+
         public string ReturnProduct(int id)
         {
             try
@@ -552,6 +651,7 @@ namespace ToolingRoomManagement.Areas.Admin.Controllers
                 return "NG";
             }
         }
+
         public string ManagerUsConfirmOrder(int id)
         {
             try
@@ -582,6 +682,8 @@ namespace ToolingRoomManagement.Areas.Admin.Controllers
                 return "NG";
             }
         }
+
+
         public string ManagerUsRejectOrderOBANight(int id, string noteReject)
         {
             try
@@ -598,6 +700,7 @@ namespace ToolingRoomManagement.Areas.Admin.Controllers
                 return "NG";
             }
         }
+
         public string AccountantPDConfirmOrder(int id)
         {
             var session = (ToolingRoomManagement.Common.UserLogin)Session[ToolingRoomManagement.Common.CommonConstants.USER_SESSION];
@@ -633,6 +736,7 @@ namespace ToolingRoomManagement.Areas.Admin.Controllers
                 return "NG";
             }
         }
+
         public string AKhanhConfirmOrder(int id)
         {
             var session = (ToolingRoomManagement.Common.UserLogin)Session[ToolingRoomManagement.Common.CommonConstants.USER_SESSION];
@@ -666,6 +770,7 @@ namespace ToolingRoomManagement.Areas.Admin.Controllers
                 return "NG";
             }
         }
+
         public string ManagerPDConfirmOrder(int id)
         {
             try
@@ -714,6 +819,7 @@ namespace ToolingRoomManagement.Areas.Admin.Controllers
                 return "NG";
             }
         }
+
         public string LeaderPDConfirmOrder(int id)
         {
             try
@@ -729,6 +835,7 @@ namespace ToolingRoomManagement.Areas.Admin.Controllers
                 return "NG";
             }
         }
+
         public string ReturnOrder(int id)
         {
             var accountant = context.Users.Where(x => x.role_id == 6).ToList();
@@ -748,6 +855,7 @@ namespace ToolingRoomManagement.Areas.Admin.Controllers
                 return "NG";
             }
         }
+
         public string AccountantPDConfirmReturn(int id)
         {
             var session = (ToolingRoomManagement.Common.UserLogin)Session[ToolingRoomManagement.Common.CommonConstants.USER_SESSION];
@@ -786,6 +894,7 @@ namespace ToolingRoomManagement.Areas.Admin.Controllers
                 return "NG";
             }
         }
+
         public string AccountantPDConfirmReturnOBA(int id)
         {
             var session = (ToolingRoomManagement.Common.UserLogin)Session[ToolingRoomManagement.Common.CommonConstants.USER_SESSION];
@@ -811,6 +920,7 @@ namespace ToolingRoomManagement.Areas.Admin.Controllers
                 return "NG";
             }
         }
+
         public string AccountantPDRejectOrderReturn(int id, string noteReject)
         {
             var session = (ToolingRoomManagement.Common.UserLogin)Session[ToolingRoomManagement.Common.CommonConstants.USER_SESSION];
@@ -834,6 +944,7 @@ namespace ToolingRoomManagement.Areas.Admin.Controllers
                 return "NG";
             }
         }
+
         public string AccountantPDRejectOrderReturnOBA(int id, string noteReject)
         {
             var session = (ToolingRoomManagement.Common.UserLogin)Session[ToolingRoomManagement.Common.CommonConstants.USER_SESSION];
@@ -857,6 +968,7 @@ namespace ToolingRoomManagement.Areas.Admin.Controllers
                 return "NG";
             }
         }
+
         public ActionResult DeleteProduct(int id)
         {
             var model = context.DetailBorrows.Where(x => x.id == id).FirstOrDefault();

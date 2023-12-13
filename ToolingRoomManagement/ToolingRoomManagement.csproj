@@ -1776,6 +1776,7 @@
     <Content Include="Areas\NVIDIA\Content\Vendor\jquery-datatables-checkboxes\README.md" />
     <Content Include="Areas\NVIDIA\Content\Custom\language\en.json" />
     <Content Include="Areas\NVIDIA\Content\Custom\language\vi.json" />
+    <Content Include="Areas\Admin\Views\BorrowProduct\NVIDIA_Borrow.cshtml" />
     <None Include="Areas\NVIDIA\Content\Vendor\Jquery\jquery-3.4.1.intellisense.js" />
     <Content Include="Areas\NVIDIA\Content\Vendor\jquery-datatables-checkboxes\.gitignore" />
     <Content Include="Areas\NVIDIA\Content\Vendor\jquery-datatables-checkboxes\css\dataTables.checkboxes.css" />

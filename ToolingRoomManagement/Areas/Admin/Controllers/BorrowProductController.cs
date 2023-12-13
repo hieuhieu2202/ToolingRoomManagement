@@ -58,7 +58,10 @@ namespace ToolingRoomManagement.Areas.Admin.Controllers
             return View();
         }
        
-
+        public ActionResult NVIDIA_Borrow()
+        {
+            return View();
+        }
 
 
         

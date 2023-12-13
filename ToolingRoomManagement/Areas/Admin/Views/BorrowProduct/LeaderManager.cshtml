@@ -334,6 +334,7 @@
                                                         <option value="1">Ca ngày</option>
                                                         <option value="2">Ca đêm</option>
                                                         <option value="3">Ca đêm OBA</option>
+                                                        <option value="4">NVIDIA</option>
                                                     </select>
                                                 </div>
                                                 <div style="width: 60%;float:right;">
@@ -674,7 +675,7 @@
                     if (JSON.parse(data).length > 0) {
                         for (i = 0; i < JSON.parse(data).length; i++) {
                             var status = "";
-                            if (JSON.parse(data)[i].type_order == 1) {
+                            if (JSON.parse(data)[i].type_order == 1 || JSON.parse(data)[i].type_order == 4) {
                                 if (JSON.parse(data)[i].status == 1) {
                                     status = '<a style="color:orange">Đợi QLy BP</a>';
                                 } else if (JSON.parse(data)[i].status == 2) {
@@ -835,7 +836,7 @@
                 }
                 $(".load_section").hide();
                 var shift = $("#select_shift").val();
-                if (shift == 1) {
+                if (shift == 1 || shift == 4) {
                     $("#tbd_View").empty();
                     $("#tbd_View").show();
                     $("#tbd_View").append(row);
@@ -866,7 +867,7 @@
     }
     function detailOrder(id, code_order, status, create_by, date_borrow, date_return, note_order, managerUs_id) {
         var shift = $("#select_shift").val();
-        if (shift == 1 || shift == 2) {
+        if (shift == 1 || shift == 2 || shift == 4) {
             if (status != 4) {
                 $(".btnReject").hide();
                 $(".btnConfirm").hide();

@@ -337,6 +337,7 @@
                                                         <option value="1">Ca ngày</option>
                                                         <option value="2">Ca đêm</option>
                                                         <option value="3">Ca đêm OBA</option>
+                                                        <option value="4">NVIDIA</option>
                                                     </select>
                                                 </div>
                                                 <div style="width: 60%;float:right;">
@@ -899,7 +900,7 @@
 
     function detailOrder(id, code_order, status, create_by, date_borrow, date_return, note_order, managerUs_id) {
         var shift = $("#select_shift").val();
-        if (shift == 1 || shift == 2) {
+        if (shift == 1 || shift == 2 || shift == 4) {
             if (status != 2 && status != 7) {
                 $(".btnReject").hide();
                 $(".btnConfirm").hide();
@@ -948,7 +949,7 @@
                 $(".btnConfirmReturnOBA").show();
                 $(".btnrejectReturnOBA").show();
             }
-        }
+        } 
 
         $("#code_order").empty();
         $("#order_id").val("");
@@ -990,7 +991,7 @@
                 if (JSON.parse(data).length > 0) {
                     for (i = 0; i < JSON.parse(data).length; i++) {
                         var status_product = "";
-                        if (shift == 1 || shift == 2) {
+                        if (shift == 1 || shift == 2 || shift == 4) {
                             if (status == 6 || status == 7 || status == 10 || status == 8 || status == 9) {
                                 if (JSON.parse(data)[i].status_product == 1) {
                                     status_product = '<td><a style="color:blue">Chưa Trả</a></td>';
@@ -1448,6 +1449,60 @@
                                     '<td style="color: chartreuse;">' + (userdata[i].time_accountantPD_cf != null ? convert_date2(userdata[i].time_accountantPD_cf) : "") + '</td>' +
                                     '<td style="color:#ff0018 ;">' + (userdata[i].note_accountantPD != null ? userdata[i].note_accountantPD : "") + '</td>' +
                                     '</tr>';
+                            } else if (userdata[i].type_order == 4) {
+                                if (userdata[i].status == 1) {
+                                    status = '<a style="color:orange">Đợi QLy BP</a>';
+                                } else if (userdata[i].status == 2) {
+                                    status = '<a style="color:yellow">Đợi kế toán PD</a>';
+                                } else if (userdata[i].status == 3) {
+                                    status = '<a style="color:#d4b6ef">Đợi QLy PD2</a>';
+                                } else if (userdata[i].status == 4) {
+                                    status = '<a style="color:#8500ff">Đợi Tổ trưởng PD</a>';
+                                } else if (userdata[i].status == 5) {
+                                    status = '<a style="color:red">Từ chối đơn mượn</a>';
+                                } else if (userdata[i].status == 6) {
+                                    status = '<a style="color:#7df1f1">Đã mượn</a>';
+                                } else if (userdata[i].status == 7) {
+                                    status = '<a style="color:#e98e73">Đợi xác nhận đơn trả</a>';
+                                } else if (userdata[i].status == 8) {
+                                    status = '<a style="color:green">Đã trả</a>';
+                                } else if (userdata[i].status == 9) {
+                                    status = '<a style="color:red">Từ chối dơn trả</a>';
+                                } else if (userdata[i].status == 10) {
+                                    status = '<a style="color:red">Chưa trả hết</a>';
+                                } else if (userdata[i].status == 11) {
+                                    status = '<a style="color:red">Đợi QLy PD 1</a>';
+                                } else if (userdata[i].status == 12) {
+                                    status = '<a style="color:orange">Đợi tổ trưởng</a>';
+                                }
+                                row += '<tr>' +
+                                    '<td>' + (i + 1) + '</td>' +
+                                    '<td><a onclick="detailOrder(' + "'" + userdata[i].id + "','" + userdata[i].codeOrder + "','" + userdata[i].status + "','" + userdata[i].create_by + "','" + convert_date2(userdata[i].date_borrow) + "','" + convert_date2(userdata[i].date_return) + "','" + (userdata[i].note != null ? StringToHex(userdata[i].note.replace("\n", " ").replace("\r", " ")) : "") + "','" + userdata[i].managerUs_id + "','" + userdata[i].type_order + "'" + ')">' + userdata[i].codeOrder + '</td>' +
+                                    '<td>' + status + '</td>' +
+                                    '<td>' + (userdata[i].date_borrow != null ? convert_date2(userdata[i].date_borrow) : "") + '</td>' +
+                                    '<td>' + (userdata[i].date_return != null ? convert_date2(userdata[i].date_return) : "") + '</td>' +
+                                    '<td>' + userdata[i].create_by + '</td>' +
+                                    '<td>' + (userdata[i].date_borrow != null ? convert_date2(userdata[i].create_date) : "") + '</td>' +
+                                    '<td>' + (userdata[i].note != null ? userdata[i].note : "") + '</td>' +
+                                    '<td>' + userdata[i].managerUs_username + '</td>' +
+                                    '<td style="color: chartreuse;">' + (userdata[i].time_managerUs_cf != null ? convert_date2(userdata[i].time_managerUs_cf) : "") + '</td>' +
+                                    '<td style="color: #ff0018;">' + (userdata[i].note_Manager != null ? userdata[i].note_Manager : "") + '</td>' +
+                                    '<td>' + userdata[i].accountantPD_username + '</td>' +
+                                    '<td style="color: chartreuse;">' + (userdata[i].time_accountantPD_cf != null ? convert_date2(userdata[i].time_accountantPD_cf) : "") + '</td>' +
+                                    '<td style="color:#ff0018 ;">' + (userdata[i].note_accountantPD != null ? userdata[i].note_accountantPD : "") + '</td>' +
+                                    '<td>' + userdata[i].aKhanh_username + '</td>' +
+                                    '<td style="color: chartreuse;">' + (userdata[i].time_aKhanh_cf != null ? convert_date2(userdata[i].time_aKhanh_cf) : "") + '</td>' +
+                                    '<td style="color: #ff0018;">' + (userdata[i].note_aKhanh != null ? userdata[i].note_aKhanh : "") + '</td>' +
+                                    '<td>' + userdata[i].managerPD_username + '</td>' +
+                                    '<td style="color: chartreuse;">' + (userdata[i].time_managerPD_cf != null ? convert_date2(userdata[i].time_managerPD_cf) : "") + '</td>' +
+                                    '<td style="color: #ff0018;">' + (userdata[i].note_managerPD != null ? userdata[i].note_managerPD : "") + '</td>' +
+                                    '<td>' + userdata[i].aTin_username + '</td>' +
+                                    '<td style="color: chartreuse;">' + (userdata[i].time_aTin_cf != null ? convert_date2(userdata[i].time_aTin_cf) : "") + '</td>' +
+                                    '<td style="color: #ff0018;">' + (userdata[i].note_aTin != null ? userdata[i].note_aTin : "") + '</td>' +
+                                    '<td>' + userdata[i].accountantPDBack_username + '</td>' +
+                                    '<td style="color: chartreuse;">' + (userdata[i].time_accountantPDBack_cf != null ? convert_date2(userdata[i].time_accountantPDBack_cf) : "") + '</td>' +
+                                    '<td style="color: #ff0018;">' + (userdata[i].note_back_accountantPD != null ? userdata[i].note_back_accountantPD : "") + '</td>' +
+                                    '</tr>';
                             }
                         }
                     } else {
@@ -1480,6 +1535,13 @@
                     $("#tbl_View").hide();
                     $("#tbl_View1").hide();
                     $("#tbl_View2").show();
+                } else if (shift == 4) {
+                    $("#tbd_View").empty();
+                    $("#tbd_View").show();
+                    $("#tbd_View").append(row);
+                    $("#tbl_View").show();
+                    $("#tbl_View1").hide();
+                    $("#tbl_View2").hide();
                 }
             },
             error: function (err) {
