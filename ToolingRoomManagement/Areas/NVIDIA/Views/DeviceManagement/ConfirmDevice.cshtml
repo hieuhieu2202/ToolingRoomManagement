@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewBag.Title = "ConfirmDevice";
+    ViewBag.Title = "Confirm Device";
     Layout = "~/Areas/NVIDIA/Views/Shared/_NvidiaLayoutShared.cshtml";
 }
 
@@ -28,7 +28,7 @@
                 <li class="breadcrumb-item">
                     <a href="javascript:;">Device</a>
                 </li>
-                <li class="breadcrumb-item active" aria-current="page">New Device</li>
+                <li class="breadcrumb-item active" aria-current="page">Confirm Device</li>
             </ol>
         </nav>
     </div>
@@ -121,33 +121,37 @@
                         <!-- 1 -->
                         <th>MTS</th>
                         <!-- 2 -->
-                        <th>Product Name</th>
+                        <th data-i18n="device.management.product_name">Product Name</th>
                         <!-- 3 -->
-                        <th>PN</th>
+                        <th data-i18n="device.management.model">Model</th>
                         <!-- 4 -->
-                        <th>Description</th>
+                        <th data-i18n="device.management.station">Station</th>
                         <!-- 5 -->
-                        <th>Group</th>
+                        <th data-i18n="device.management.pn">PN</th>
                         <!-- 6 -->
-                        <th>Vendor</th>
+                        <th data-i18n="device.management.description">Description</th>
                         <!-- 7 -->
-                        <th>Model</th>
+                        <th data-i18n="device.management.group">Group</th>
                         <!-- 8 -->
-                        <th>Station</th>
+                        <th data-i18n="device.management.vendor">Vendor</th>
                         <!-- 9 -->
-                        <th>Life Cycle</th>
+                        <th data-i18n="device.management.specification">Specification</th>
                         <!-- 10 -->
-                        <th>Buffer</th>
+                        <th data-i18n="device.management.location">Life Cycle</th>
                         <!-- 11 -->
-                        <th>Quantity</th>
+                        <th data-i18n="device.management.buffer">Buffer</th>
                         <!-- 12 -->
-                        <th>Min Quantity</th>
-                        <!-- 13 -->
                         <th>MOQ</th>
+                        <!-- 13 -->
+                        <th data-i18n="device.management.unit">Unit</th>
                         <!-- 14 -->
-                        <th>Type</th>
+                        <th data-i18n="device.management.lead_time">Lead Time</th>
                         <!-- 15 -->
-                        <th>Action</th>
+                        <th data-i18n="device.management.type"> Type</th>
+                        <!-- 16 -->
+                        <th data-i18n="device.management.status">Status</th>
+                        <!-- 27 -->
+                        <th data-i18n="device.management.action">Action</th>
                     </tr>
                 </thead>
                 <tbody id="table_Devices_tbody">
@@ -397,7 +401,7 @@
     </div>
 </div>
 
-<div class="d-flex">
+<div class="d-flex" id="hidden_function">
     <button id="add-buffer">Add Buffer</button>
     <button id="add-limit">Add Limit</button>
     <button id="add-otw">Add On The Way</button>

@@ -531,6 +531,8 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                         foreach (int row in Enumerable.Range(2, worksheet.Dimension.End.Row - 1))
                         {
                             string deviceCode = worksheet.Cells[row, 7].Value?.ToString();
+                            string alternativePN = worksheet.Cells[row, 4].Value?.ToString();
+
                             if (string.IsNullOrEmpty(deviceCode))
                             {
                                 continue;
@@ -547,14 +549,33 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                             {
                                 devices.Add(device);
                                 db.DeviceUnconfirms.Add(device);
+                               
+                                if(alternativePN != string.Empty)
+                                {
+                                    AlternativeDevice alternative = new AlternativeDevice
+                                    {
+                                        IdDevice = device.Id,
+                                        PNs = alternativePN
+                                    };
+                                    db.AlternativeDevices.Add(alternative);
+                                }
 
                                 db.SaveChanges();
                             }
                             // 2. Đã có
                             else
                             {
+                                device.Id = dbDevice.Id;
+                                db.DeviceUnconfirms.AddOrUpdate(device);
+
+                                if (alternativePN != string.Empty)
+                                {
+                                    AlternativeDevice alternative = db.AlternativeDevices.FirstOrDefault(d => d.IdDevice == device.Id);
+                                    alternative.PNs = alternativePN;
+                                    db.AlternativeDevices.AddOrUpdate(alternative);
+                                }
+                                
                                 db.SaveChanges();
-                                continue;
                             }                      
                         }                      
 
@@ -577,7 +598,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
 
             // Lấy các giá trị từ worksheet
             var productName = worksheet.Cells[row, 1].Value?.ToString();
-            var productMTS = worksheet.Cells[row, 2].Value?.ToString();
+            var productMTS = worksheet.Cells[row, 2].Value?.ToString();            
 
             var deviceCode = worksheet.Cells[row, 7].Value?.ToString();
             var deviceName = worksheet.Cells[row, 8].Value?.ToString();
@@ -587,16 +608,17 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
             int minQty = int.TryParse(worksheet.Cells[row, 12].Value?.ToString(), out minQty) ? minQty : 0;
             var ACC_KIT = worksheet.Cells[row, 15].Value?.ToString();
             var relation = worksheet.Cells[row, 16].Value?.ToString();
+            
             //var modelName = worksheet.Cells[row, 15].Value?.ToString();
             //var stationName = worksheet.Cells[row, 16].Value?.ToString();
 
-            //double forcast = double.TryParse(worksheet.Cells[row, 18].Value?.ToString(), out forcast) ? forcast : 0;
-            //int lifeCycle = int.TryParse(worksheet.Cells[row, 19].Value?.ToString(), out lifeCycle) ? lifeCycle : 0;
-            //var Dynamic_Static = worksheet.Cells[row, 20].Value?.ToString();
-            //double deviceBuffer = double.TryParse(worksheet.Cells[row, 21].Value?.ToString(), out deviceBuffer) ? deviceBuffer : 0;
+            double forcast = double.TryParse(worksheet.Cells[row, 18].Value?.ToString(), out forcast) ? forcast : 0;
+            int lifeCycle = int.TryParse(worksheet.Cells[row, 19].Value?.ToString(), out lifeCycle) ? lifeCycle : 0;
+            var Dynamic_Static = worksheet.Cells[row, 20].Value?.ToString();
+            double deviceBuffer = double.TryParse(worksheet.Cells[row, 21].Value?.ToString(), out deviceBuffer) ? deviceBuffer : 0;
             int quantity = int.TryParse(worksheet.Cells[row, 11].Value?.ToString(), out quantity) ? quantity : 0;
 
-            //int moq = int.TryParse(worksheet.Cells[row, 24].Value?.ToString(), out moq) ? moq : 0;
+            int moq = int.TryParse(worksheet.Cells[row, 24].Value?.ToString(), out moq) ? moq : 0;
 
 
 
@@ -663,21 +685,23 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
             #region Device
             device.DeviceCode = deviceCode;
             device.DeviceName = deviceName;
-
+            
             device.MinQty = minQty;
             device.ACC_KIT = ACC_KIT;
             device.Relation = relation;
 
-            //device.Forcast = forcast;
-            //device.LifeCycle = lifeCycle;
-            //device.Type_BOM = Dynamic_Static;
-            //device.Buffer = deviceBuffer;
+            device.Forcast = forcast;
+            device.LifeCycle = lifeCycle;
+            device.Type_BOM = Dynamic_Static;
+            device.Buffer = deviceBuffer;
             device.Quantity = quantity;
 
             //device.MOQ = moq;
 
             device.Status = "Unconfirmed";
             device.CreatedDate = DateTime.Now;
+
+
 
             #endregion
 

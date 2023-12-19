@@ -1,5 +1,6 @@
 ﻿$(function () {
     GetSelectData();
+    $('#hidden_function').addClass('d-none');
 });
 
 // Get Device in Warehouse
@@ -123,50 +124,156 @@ async function CreateTableAddDevice(devices) {
         autoWidth: false,
         columnDefs: [
             { targets: "_all", orderable: false },
-            { targets: [0, 5, 6], visible: false },
-            { targets: [1, 3, 7, 8, 9, 10 ,11, 12, 13, 14, 15], className: "text-center" },
+            { targets: [11,12,13,14,15,16], className: "text-center" },
+            //{ targets: [15], className: "text-info fw-bold text-center" },
+            //{ targets: [11, 12, 13, 14, 15, 16, 17, 18, 19, 20], className: "text-center" },
+            //{ targets: [20], className: "text-center", width: '120px' },
+
+            { targets: [0,2,3,4,9,13,14], visible: false },
+        ],
+        dom: "<'row'<'w-auto'B><'col-sm-12 col-md'l><'col-sm-12 col-md'f>>" +
+            "<'row'<'col-sm-12'tr>>" +
+            "<'row'<'col-sm-12 col-md-7'i><'col-sm-12 col-md-5'p>>",
+        buttons: [
+            {
+                text: 'Upload Station BOM',
+                action: function (e, dt, button, config) {
+                    var input = $('<input type="file">');
+                    input.on('change', function () {
+                        var file = this.files[0];
+                        SendStationBOMFile(file);
+                    });
+                    input.click();
+                }
+            }
         ],
         "lengthMenu": [[10, 15, 25, 50, -1], [10, 15, 25, 50, "All"]],
     };
     tableDeviceInfo = $('#table_Devices').DataTable(options);
     tableDeviceInfo.columns.adjust();
 };
-function CreateRowDatatable(device) {
-    var row = $(`<tr class="align-middle cursor-pointer" data-id="${device.Id}"></tr>`);
+function CreateRowDatatable(item) {
+    var deviceData = {
+        id: item.Id || "NA",
+        mts: (item.Product && item.Product.MTS) ? item.Product.MTS : "NA",
+        productname: (item.Product && item.Product.ProductName !== "") ? item.Product.ProductName : "NA",
+        model: (item.Model && item.Model.ModelName !== "") ? item.Model.ModelName : "NA",
+        station: (item.Station && item.Station.StationName !== "") ? item.Station.StationName : "NA",
+        pn: item.DeviceCode !== "null" ? item.DeviceCode : "NA",
+        des: item.DeviceName !== "" ? item.DeviceName : "NA",
+        group: (item.Group && item.Group.GroupName !== "") ? item.Group.GroupName : "NA",
+        vendor: (item.Vendor && item.Vendor.VendorName !== "") ? item.Vendor.VendorName : "NA",
+        special: (item.Specification !== "NA") ? item.Specification : "NA",
+        buffer: (item.Buffer * 100) + "%",
+        moq: item.MOQ ? item.MOQ : '0',
+        unit: item.Unit || '',
+        leadtime: /\d/.test(item.DeliveryTime) ? item.DeliveryTime : "NA",
+        isconsign: item.isConsign ? "consign" : "normal",
+        lifeCycle: item.LifeCycle ? item.LifeCycle : 'NA',
+        type: item.Type_BOM == 'S' ? 'Static' : item.Type_BOM == 'D' ? 'Dynamic' : 'NA',
+        AltPN: (item.AlternativeDevices != null && item.AlternativeDevices.length == 1) ? item.AlternativeDevices[0].PNs ? item.AlternativeDevices[0].PNs : "" : ""
+    };
+    
+
+    var row = $(`<tr class="align-middle cursor-pointer" data-id="${deviceData.id}"></tr>`);
 
     // 0 ID
-    row.append(`<td>${device.Id}</td>`);
+    row.append(`<td>${deviceData.id}</td>`);
     // 1 MTS
-    row.append(`<td>${(device.Product) ? device.Product.MTS ? device.Product.MTS : "NA" : "NA"}</td>`);
+    row.append(`<td>${deviceData.mts}</td>`);
     // 2 Product Name
-    row.append(`<td>${(device.Product) ? (device.Product.ProductName != "" ? device.Product.ProductName : "NA") : "NA"}</td>`);
-    // 3 DeviceCode - PN
-    row.append(`<td>${device.DeviceCode ? device.DeviceCode : "NA"}</td>`);
-    // 4 DeviceName
-    row.append(`<td title="${device.DeviceName}">${device.DeviceName != "" ? device.DeviceName : "NA"}</td>`);
-    // 5 Group
-    row.append(`<td>${(device.Group) ? (device.Group.GroupName != "" ? device.Group.GroupName : "NA") : "NA"}</td>`);
-    // 6 Vendor
-    row.append(`<td>${(device.Vendor) ? (device.Vendor.VendorName != "" ? device.Vendor.VendorName : "NA") : "NA"}</td>`);
-    // 7 Model
-    row.append(`<td>${(device.Model) ? (device.Model.ModelName != "" ? device.Model.ModelName : "NA") : "NA"}</td>`);
-    // 8 Station
-    row.append(`<td>${(device.Station) ? (device.Station.StationName != "" ? device.Station.StationName : "NA") : "NA"}</td>`);
-    // 9 Life Cycle
-    row.append(`<td>${device.LifeCycle ? device.LifeCycle : "NA"}</td>`);
-    // 10 Buffer
-    row.append(`<td>${device.Buffer * 100}%</td>`);
-    // 11 Quantity
-    row.append(`<td>${device.Quantity ? device.Quantity : 0}</td>`);
-    // 12 Min Quantity
-    row.append(`<td>${device.MinQty ? device.MinQty : 0}</td>`);
-    // 13 MOQ
-    row.append(`<td>${device.MOQ ? device.MOQ : 0}</td>`);
-    // 14 Type
-    row.append(`<td >${device.Type_BOM ? (device.Type_BOM == "S" ? '<span class="badge bg-success">Static</span>' : '<span class="badge bg-info">Dynamic</span>') : "NA"}</td>`);
-    // 15 Action
+    row.append(`<td>${deviceData.productname}</td>`);
+    // 3 Model
+    row.append(`<td>${deviceData.model}</td>`);
+    // 4 Station
+    row.append(`<td>${deviceData.station}</td>`);
+    // 5 DeviceCode - PN
+    row.append(`<td>${deviceData.pn}</td>`);
+    // 6 DeviceName
+    row.append(`<td title="${deviceData.des}">${deviceData.des}</td>`);
+    // 7 Group
+    row.append(`<td>${deviceData.group}</td>`);
+    // 8 Vendor
+    row.append(`<td>${deviceData.vendor}</td>`);
+    // 9 Specification
+    row.append(`<td>${deviceData.special}</td>`);
+    // 10 LifeCycle      
+    row.append(`<td>${deviceData.lifeCycle}</td>`);
+    // 11 Buffer
+    row.append(`<td>${deviceData.buffer}</td>`);
+    // 12 MOQ
+    row.append(`<td title="BOM Quantity">${deviceData.moq}</td>`);
+    // 13 Unit
+    row.append(`<td>${deviceData.unit}</td>`);
+    // 14 Lead Time
+    row.append(`<td>${deviceData.leadtime}</td>`);
+    // 15 Type
+    switch (deviceData.type) {
+        case "S":
+        case "Static": {
+            row.append(`<td class="py-0">
+                                <span class="text-success fw-bold">Static</span>
+                                </br>
+                                <span class="text-${item.isConsign ? "warning" : "primary"} fw-bold" style="font-size: 10px;">${item.isConsign ? "Consign" : "Normal"}</span>
+                            </td>`);
+            break;
+        }
+        case "D":
+        case "Dynamic": {
+            row.append(`<td class="py-0">
+                                <span class="text-info fw-bold">Dynamic</span>
+                                </br>
+                                <span class="text-${item.isConsign ? "warning" : "primary"} fw-bold" style="font-size: 10px;">${item.isConsign ? "Consign" : "Normal"}</span>
+                            </td>`);
+            break;
+        }
+        case "Fixture": {
+            row.append(`<td class="py-0">
+                                <span class="text-primary fw-bold">Fixture</span>
+                                </br>
+                                <span class="text-${item.isConsign ? "warning" : "primary"} fw-bold" style="font-size: 10px;">${item.isConsign ? "Consign" : "Normal"}</span>
+                            </td>`);
+            break;
+        }
+        default: {
+            row.append(`<td class="py-0">
+                                <span class="text-secondary fw-bold">NA</span>
+                                </br>
+                                <span class="text-${item.isConsign ? "warning" : "primary"} fw-bold" style="font-size: 10px;">${item.isConsign ? "Consign" : "Normal"}</span>
+                            </td>`);
+            break;
+        }
+    }
+    // 16 Status
+    switch (item.Status) {
+        case "Unconfirmed": {
+            row.append(`<td><span class="badge bg-primary">Unconfirmed</span></td>`);
+            break;
+        }
+        case "Part Confirmed": {
+            row.append(`<td><span class="badge bg-warning">Part Confirmed</span></td>`);
+            break;
+        }
+        case "Confirmed": {
+            row.append(`<td><span class="badge bg-success">Confirmed</span></td>`);
+            break;
+        }
+        case "Locked": {
+            row.append(`<td><span class="badge bg-secondary">Locked</span></td>`);
+            break;
+        }
+        case "Out Range": {
+            row.append(`<td><span class="badge bg-danger">Out Range</span></td>`);
+            break;
+        }
+        default: {
+            row.append(`<td>NA</td>`);
+            break;
+        }
+    }
+    // 17 Action
     row.append(`<td class="order-action d-flex text-center justify-content-center">
-                        <a href="javascript:;" class="text-warning bg-light-warning border-0" data-id="${device.Id}" onclick="Confirm(this, event)"><i class="fa-duotone fa-check"></i></a>
+                        <a href="javascript:;" class="text-warning bg-light-warning border-0" data-id="${deviceData.id}" onclick="Confirm(this, event)"><i class="fa-duotone fa-check"></i></a>
                     </td>`);
 
     return row;
@@ -176,6 +283,43 @@ $(".toggle-icon").click(function () {
         tableDeviceInfo.columns.adjust();
     }, 310);
 });
+
+// SendStationBOMFile
+function SendStationBOMFile(file) {
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('IdWarehouse', $('#input_WareHouse').val());
+
+    Pace.on('progress', function (progress) {
+        var cal = progress.toFixed(2);
+        $('#process_count').text(`${cal}%`);
+        $('#process_bar').css('width', `${cal}%`);
+    });
+    Pace.track(function () {
+        $.ajax({
+            url: "/NVIDIA/DeviceManagement/AddDeviceUnconfirm",
+            data: formData,
+            type: "POST",
+            processData: false,
+            contentType: false,
+            success: function (response) {
+                if (response.status) {
+                    GetDevices($('#input_WareHouse').val());
+                }
+                else {
+                    Swal.fire(i18next.t('global.swal_title'), response.message, 'error');
+                }
+            },
+            error: function (error) {
+                Swal.fire(i18next.t('global.swal_title'), GetAjaxErrorMessage(error), 'error');
+            },
+            complete: function () {
+                // Dừng Pace.js sau khi AJAX request hoàn thành
+                Pace.stop();
+            }
+        });
+    });
+}
 
 //Filter
 $('#filter').on('click', function (e) {

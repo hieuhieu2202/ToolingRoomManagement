@@ -162,6 +162,22 @@ async function CreateTableAddDevice(devices) {
             { targets: [ 8, 9, 10, 11], className: "text-center" },
             { targets: [12], className: "text-end" },
         ],
+        dom: "<'row'<'w-auto'B><'col-sm-12 col-md'l><'col-sm-12 col-md'f>>" +
+            "<'row'<'col-sm-12'tr>>" +
+            "<'row'<'col-sm-12 col-md-7'i><'col-sm-12 col-md-5'p>>",
+        buttons: [
+            {
+                text: 'Upload Station BOM',
+                action: function (e, dt, button, config) {
+                    var input = $('<input type="file">');
+                    input.on('change', function () {
+                        var file = this.files[0];
+                        SendStationBOMFile(file);
+                    });
+                    input.click();
+                }
+            }
+        ]
     };
     tableDeviceInfo = $('#table_addDevice').DataTable(options);
     tableDeviceInfo.columns.adjust();
@@ -472,6 +488,8 @@ function Confirm(elm, e) {
         }
     });
 }
+
+
 
 // Get Select data
 function GetSelectData() {
