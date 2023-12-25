@@ -1777,6 +1777,7 @@
     <Content Include="Areas\NVIDIA\Content\Custom\language\en.json" />
     <Content Include="Areas\NVIDIA\Content\Custom\language\vi.json" />
     <Content Include="Areas\Admin\Views\BorrowProduct\NVIDIA_Borrow.cshtml" />
+    <Content Include="Areas\API\Views\web.config" />
     <None Include="Areas\NVIDIA\Content\Vendor\Jquery\jquery-3.4.1.intellisense.js" />
     <Content Include="Areas\NVIDIA\Content\Vendor\jquery-datatables-checkboxes\.gitignore" />
     <Content Include="Areas\NVIDIA\Content\Vendor\jquery-datatables-checkboxes\css\dataTables.checkboxes.css" />
@@ -3124,6 +3125,8 @@
     <Compile Include="Areas\Admin\Controllers\SheildingBoxController.cs" />
     <Compile Include="Areas\Admin\Controllers\StationController.cs" />
     <Compile Include="Areas\Admin\Controllers\StationRobotController.cs" />
+    <Compile Include="Areas\API\APIAreaRegistration.cs" />
+    <Compile Include="Areas\API\Controllers\ToolroomController.cs" />
     <Compile Include="Areas\NVIDIA\Controllers\AuthenticationController.cs" />
     <Compile Include="Areas\NVIDIA\Controllers\BorrowManagementController.cs" />
     <Compile Include="Areas\NVIDIA\Controllers\DashboardController.cs" />
@@ -3631,6 +3634,9 @@
     <Folder Include="Areas\Admin\Views\SheildingBox\" />
     <Folder Include="Areas\Admin\Views\StationRobot\" />
     <Folder Include="Areas\Admin\Views\Station\" />
+    <Folder Include="Areas\API\Data\" />
+    <Folder Include="Areas\API\Views\Shared\" />
+    <Folder Include="Areas\API\Views\Toolroom\" />
     <Folder Include="Areas\NVIDIA\Data\DeviceHistoryLog\" />
     <Folder Include="Data\Image\" />
     <Folder Include="Views\Register\" />

@@ -166,3 +166,6 @@ input[details]:disabled {
 html.dark-theme .select2-container--bootstrap4 .select2-selection{
     background-color: transparent;
 }
+.dt-buttons.btn-group button {
+    line-height: 1;
+}

@@ -16,7 +16,7 @@ namespace ToolingRoomManagement.Attributes
         public bool AllowAnonymous { get; set; } = false;
         protected override bool AuthorizeCore(HttpContextBase httpContext)
         {
-            string currentUrl = httpContext.Request.Url.ToString();
+            string currentUrl = httpContext.Request.CurrentExecutionFilePath.ToString();
             if (!AllowAnonymous)
             {
                 Entities.User user = (Entities.User)HttpContext.Current.Session["SignSession"];

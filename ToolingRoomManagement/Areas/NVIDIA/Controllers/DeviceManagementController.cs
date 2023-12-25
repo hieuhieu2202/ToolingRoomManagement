@@ -85,9 +85,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
 
                 device = AddNavigation(form, device);
 
-                DateTime dDeviceDate = DateTime.TryParse(form["Createddate"], out dDeviceDate) ? dDeviceDate : DateTime.Now;
-                device.DeviceDate = dDeviceDate;
-
+                device.DeviceDate = DateTime.Now;
                 device.CreatedDate = DateTime.Now;
                 device.RealQty = dQtyConfirm;
                 device.SysQuantity = dQtyConfirm;
@@ -357,7 +355,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                         DeviceName = form["DeviceName"],
                         Specification = form["Specification"],
 
-                        DeviceDate = DateTime.Parse(form["DeviceDate"]),
+                        CreatedDate = DateTime.Now,
                         DeliveryTime = form["DeliveryTime"],
 
                         IdWareHouse = int.Parse(form["IdWareHouse"]),
@@ -376,7 +374,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                         // Other data                       
                         Forcast = oldDevice.Forcast,
                         ACC_KIT = oldDevice.ACC_KIT,                       
-                        CreatedDate = oldDevice.CreatedDate,
+                        DeviceDate = oldDevice.DeviceDate,
                         ImagePath = oldDevice.ImagePath,
                         Type_BOM = oldDevice.Type_BOM,
                     };
@@ -481,14 +479,9 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
 
                     if (device != null)
                     {
-                        if (!string.IsNullOrEmpty(device.ImagePath)){
-                            if (Directory.Exists(device.ImagePath))
-                            {
-                                Directory.Delete(device.ImagePath, true);
-                            }
-                        }
+                        device.Status = "Deleted";
 
-                        db.Devices.Remove(device);
+                        db.Devices.AddOrUpdate(device);
                         db.SaveChanges();
                         return Json(new { status = true });
                     }
@@ -781,8 +774,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
 
                 //var Devices = db.Devices.Where(d => d.IdWareHouse == warehouse.Id).OrderByDescending(d => d.Id).Skip(skipAmount).Take(1000).ToList();
 
-                var Devices = db.Devices.Where(d => d.IdWareHouse == warehouse.Id).OrderByDescending(d => d.Id).ToList();
-                warehouse.Devices = Devices;
+                warehouse.Devices = warehouse.Devices.Where(d => d.IdWareHouse == warehouse.Id && d.Status != "Deleted").OrderByDescending(d => d.Id).ToList();
 
                 return Json(new { status = true, warehouse });
             }
@@ -1236,7 +1228,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                         Specification = form["Specification"],
 
                         //Type = form["Type"],
-                        DeviceDate = DateTime.Parse(form["DeviceDate"]),
+                        DeviceDate = DateTime.Now,
                         DeliveryTime = form["DeliveryTime"],
 
                         IdWareHouse = int.Parse(form["IdWareHouse"]),
@@ -1251,7 +1243,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
 
                         // Other data
                         Quantity = int.Parse(form["QtyConfirm"]),
-                        CreatedDate = deviceUnconfirm.CreatedDate,
+                        CreatedDate = DateTime.Now,
                         Forcast = deviceUnconfirm.Forcast,
                         ACC_KIT = deviceUnconfirm.ACC_KIT,
                         RealQty = int.Parse(form["QtyConfirm"]),
@@ -1282,10 +1274,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 else
                 {
                     return Json(new { status = false, message = "Device not found." });
-                }
-
-
-                
+                } 
             }
             catch (Exception ex)
             {
@@ -1591,7 +1580,6 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
             else if (uDevice != null) // Data lấy từ bảng Device
             {
                 device.DeviceCode = uDevice.DeviceCode;
-                device.DeviceDate = uDevice.DeviceDate;
                 device.DeviceDate = uDevice.DeviceDate;
                 device.Buffer = uDevice.Buffer;
                 device.Type = ComingDevice.Type;

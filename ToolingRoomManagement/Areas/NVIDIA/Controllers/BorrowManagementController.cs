@@ -34,9 +34,17 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
 
                 List<Borrow> borrows = new List<Borrow>();
                 borrows = db.Borrows.OrderByDescending(b => b.DateBorrow).ToList();
+                foreach(Borrow b in borrows)
+                {
+                    b.BorrowDevices.Clear();
+                }
 
                 List<Return> returns = new List<Return>();
                 returns = db.Returns.OrderByDescending(r => r.DateReturn).ToList();
+                foreach (Return r in returns)
+                {
+                    r.ReturnDevices.Clear();
+                }
 
                 return Json(new { status = true, borrows = borrows, returns }, JsonRequestBehavior.AllowGet);
             }
@@ -79,6 +87,16 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
 
             List<Borrow> borrows = db.Borrows.Where(b => b.UserBorrowSigns.FirstOrDefault(s => s.IdUser == user.Id).IdUser == user.Id ).OrderByDescending(b => b.Id).ToList();
             List<Return> returns = db.Returns.Where(b => b.UserReturnSigns.FirstOrDefault(s => s.IdUser == user.Id).IdUser == user.Id).OrderByDescending(b => b.Id).ToList();
+
+            foreach (Borrow b in borrows)
+            {
+                b.BorrowDevices.Clear();
+            }
+            foreach (Return r in returns)
+            {
+                r.ReturnDevices.Clear();
+            }
+
 
 
             //// if admin
