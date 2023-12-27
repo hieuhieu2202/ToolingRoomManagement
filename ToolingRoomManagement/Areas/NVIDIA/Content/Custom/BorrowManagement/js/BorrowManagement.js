@@ -111,6 +111,9 @@ async function CreateTableBorrow(borrows, returns) {
                          <a href="javascript:;" class="text-info bg-light-info border-0" title="Details" data-id="${item.Id}" onclick="RequestDetails(${item.Id})"><i class="fa-regular fa-circle-info"></i></a>
                     </td>`);
 
+
+        row.append(`<td>${item.DevicesName}</td>`);
+
         $('#table_Borrows-tbody').append(row);
     });
 
@@ -175,6 +178,8 @@ async function CreateTableBorrow(borrows, returns) {
                          <a href="javascript:;" class="text-info bg-light-info border-0" title="Details" data-id="${item.Id}" onclick="ReturnDetails(${item.Id})"><i class="fa-regular fa-circle-info"></i></a>
                     </td>`);
 
+        row.append(`<td>${item.DevicesName}</td>`);
+
         $('#table_Borrows-tbody').append(row);
     });
 
@@ -187,6 +192,7 @@ async function CreateTableBorrow(borrows, returns) {
             { targets: [6, 7], className: "text-center" },
             { targets: [8], className: "text-center", orderable: false, width: '20px;' },
             { targets: "_all", orderable: false },
+            { targets: [9], visible: false },
         ],
         "lengthMenu": [[10, 15, 25, 50, -1], [10, 15, 25, 50, "All"]],
         dom: "<'row'<'w-auto'B><'col-sm-12 col-md'l><'col-sm-12 col-md'f>>" +

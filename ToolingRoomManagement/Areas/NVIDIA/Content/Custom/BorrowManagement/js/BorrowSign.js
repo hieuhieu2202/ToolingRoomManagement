@@ -73,6 +73,7 @@ async function CreateTableBorrow(borrows, returns) {
             { targets: [7], className: "text-center", width: "50px" },
             { targets: [4, 5, 6], className: "text-center", width: "100px" },
             { targets: "_all", orderable: false },
+            { targets: [8], visible: false },
             
         ],
         "lengthMenu": [[10, 15, 25, 50, -1], [10, 15, 25, 50, "All"]]
@@ -589,6 +590,7 @@ function DrawDatatableRow_Borrow(no, item) {
         row.append(`<td class="order-action d-flex text-center justify-content-center">
                         <a href="javascript:;" class="text-info    bg-light-info    border-0" title="Details" onclick="Details(${item.Id}, ${idSign}, 'B')"><i class="fa-regular fa-circle-info"></i></a> 
                     </td>`);
+    row.append(`<td>${item.DevicesName}</td>`);
     return row;
 }
 function DrawDatatableRow_Return(no, item) {
@@ -693,6 +695,7 @@ function DrawDatatableRow_Return(no, item) {
         row.append(`<td class="order-action d-flex text-center justify-content-center">
                         <a href="javascript:;" class="text-info    bg-light-info    border-0" title="Details" onclick="Details(${item.Id}, ${idSign}, 'R')"><i class="fa-regular fa-circle-info"></i></a> 
                     </td>`);
+    row.append(`<td>${item.DevicesName}</td>`);
     return row;
 }
 function DrawDatatableArray(item, type) {

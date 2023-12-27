@@ -11,9 +11,7 @@ function GetListBorrowRequests() {
         contentType: "application/json;charset=utf-8",
         success: function (response) {
             if (response.status) {
-                var borrows = JSON.parse(response.borrows);              
-
-                CreateTableBorrow(borrows);
+                CreateTableBorrow(response.borrows);
             }
             else {
                 toastr["error"](response.message, "ERROR");
@@ -111,6 +109,8 @@ async function CreateTableBorrow(borrows) {
         row.append(`<td class="order-action d-flex text-center justify-content-center">
                          <a href="javascript:;" class="text-info bg-light-info border-0" title="Return" data-id="${item.Id}" onclick="Return(${item.Id})"><i class="fa-regular fa-arrow-turn-down-left"></i></a>
                     </td>`);
+        row.append(`<td>${item.DevicesName}</td>`);
+
 
         $('#table_Borrows-tbody').append(row);
     });
@@ -121,7 +121,7 @@ async function CreateTableBorrow(borrows) {
         order: [0],
         autoWidth: false,
         columnDefs: [         
-            { targets: [4], visible: false },
+            { targets: [4, 9], visible: false },
             { targets: [6], className: "text-end", width: '70px' },        
             { targets: "_all", orderable: false },
         ],

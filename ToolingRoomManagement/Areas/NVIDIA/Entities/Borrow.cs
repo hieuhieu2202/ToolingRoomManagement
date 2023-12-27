@@ -31,7 +31,9 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Entities
         public string Note { get; set; }
         public Nullable<int> IdModel { get; set; }
         public Nullable<int> IdStation { get; set; }
-    
+
+        public string DevicesName { get; set; }
+
         public virtual Model Model { get; set; }
         public virtual Station Station { get; set; }
         public virtual User User { get; set; }

@@ -4,10 +4,12 @@ using OfficeOpenXml.FormulaParsing.Excel.Functions.Math;
 using OfficeOpenXml.Style;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Migrations;
 using System.IO;
 using System.Linq;
 using System.Text.Json;
 using System.Web.Mvc;
+using System.Web.Script.Serialization;
 using ToolingRoomManagement.Areas.NVIDIA.Data;
 using ToolingRoomManagement.Areas.NVIDIA.Entities;
 using ToolingRoomManagement.Attributes;
@@ -34,8 +36,9 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
 
                 List<Borrow> borrows = new List<Borrow>();
                 borrows = db.Borrows.OrderByDescending(b => b.DateBorrow).ToList();
-                foreach(Borrow b in borrows)
+                foreach (Borrow b in borrows)
                 {
+                    b.DevicesName = string.Join(",", b.BorrowDevices.Where(bd => bd.Device != null).Select(bd => bd.Device.DeviceCode));
                     b.BorrowDevices.Clear();
                 }
 
@@ -43,10 +46,10 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 returns = db.Returns.OrderByDescending(r => r.DateReturn).ToList();
                 foreach (Return r in returns)
                 {
+                    r.DevicesName = string.Join(",", r.ReturnDevices.Where(rd => rd.Device != null).Select(rd => rd.Device.DeviceCode));
                     r.ReturnDevices.Clear();
                 }
-
-                return Json(new { status = true, borrows = borrows, returns }, JsonRequestBehavior.AllowGet);
+                return Json(new { status = true, borrows, returns }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
@@ -90,28 +93,14 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
 
             foreach (Borrow b in borrows)
             {
+                b.DevicesName = string.Join(",", b.BorrowDevices.Where(bd => bd.Device != null).Select(bd => bd.Device.DeviceCode));
                 b.BorrowDevices.Clear();
             }
             foreach (Return r in returns)
             {
+                r.DevicesName = string.Join(",", r.ReturnDevices.Where(rd => rd.Device != null).Select(rd => rd.Device.DeviceCode));
                 r.ReturnDevices.Clear();
             }
-
-
-
-            //// if admin
-            //if(UserRoles.Count > 0)
-            //{
-            //    foreach (var userRole in UserRoles)
-            //    {
-            //        var role = db.Roles.FirstOrDefault(r => r.Id == userRole.IdRole);
-            //        if (role.RoleName == "admin")
-            //        {
-            //            borrows = db.Borrows.OrderByDescending(b => b.Id).ToList();
-            //            break;
-            //        }
-            //    }
-            //} 
 
             return Json(new {status = true, borrows, returns });
         }
@@ -259,7 +248,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                     warehouse.UserDeputy1 = db.Users.FirstOrDefault(u => u.Id == warehouse.IdUserDeputy1);
                     warehouse.UserDeputy2 = db.Users.FirstOrDefault(u => u.Id == warehouse.IdUserDeputy2);
 
-                    return Json(new { status = true, warehouse = JsonSerializer.Serialize(warehouse) });
+                    return Json(new { status = true, warehouse });
                 }
                 else
                 {
@@ -313,7 +302,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                         borrowDevice.Device.Status = Data.Common.CheckStatus(borrowDevice.Device);
                     }
                     // Send Mail
-                    //Data.Common.SendApproveMail(borrow);
+                    Data.Common.SendApproveMail(borrow);
                 }
                 else
                 {
@@ -321,7 +310,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                     UserBorrowSign nextSign = borrow.UserBorrowSigns.FirstOrDefault(u => u.SignOrder == nextSignOrder);
                     nextSign.Status = "Pending";
                     // Send Mail
-                    //Data.Common.SendSignMail(borrow);
+                    Data.Common.SendSignMail(borrow);
                 }
 
                 db.SaveChanges();
@@ -350,8 +339,11 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                         // return quantity
                         foreach (var borrowDevice in borrow.BorrowDevices)
                         {
-                            borrowDevice.Device.SysQuantity += borrowDevice.BorrowQuantity;
-                            borrowDevice.Device.Status = Data.Common.CheckStatus(borrowDevice.Device);
+                            var device = db.Devices.FirstOrDefault(d => d.Id == borrowDevice.Device.Id);
+                            device.SysQuantity += borrowDevice.BorrowQuantity;
+                            device.Status = Data.Common.CheckStatus(borrowDevice.Device);
+
+                            db.Devices.AddOrUpdate(device);
                         }
 
                         // close sign
@@ -364,7 +356,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                         }
 
                         // Send Mail
-                        //Data.Common.SendRejectMail(borrow);
+                        Data.Common.SendRejectMail(borrow);
 
                         db.SaveChanges();
                         return Json(new { status = true, borrow });
@@ -532,10 +524,11 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 List<Borrow> borrows = db.Borrows.Where(b => b.IdUser == user.Id && b.Status == "Approved" && (b.Type == "Borrow" || b.Type == "Take")).ToList();
                 for (int i = 0; i < borrows.Count; i++)
                 {
+                    borrows[i].DevicesName = string.Join(",", borrows[i].BorrowDevices.Where(bd => bd.Device != null).Select(bd => bd.Device.DeviceCode));
                     borrows[i] = CalculateBorrowQuantity(borrows[i]);
                 }
 
-                return Json(new { status = true, borrows = JsonSerializer.Serialize(borrows) }, JsonRequestBehavior.AllowGet);
+                return Json(new { status = true, borrows }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
@@ -688,7 +681,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                         returnDevice.Device.Status = Data.Common.CheckStatus(returnDevice.Device);
                     }
                     // Send Mail
-                    //Data.Common.SendApproveMail(borrow);
+                    Data.Common.SendApproveMail(_return);
                 }
                 else
                 {
@@ -696,7 +689,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                     UserReturnSign nextSign = _return.UserReturnSigns.FirstOrDefault(u => u.SignOrder == nextSignOrder);
                     nextSign.Status = "Pending";
                     // Send Mail
-                    //Data.Common.SendSignMail(borrow);
+                    Data.Common.SendSignMail(_return);
                 }
 
                 db.SaveChanges();
@@ -732,7 +725,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                         }
 
                         // Send Mail
-                        //Data.Common.SendRejectMail(borrow);
+                        Data.Common.SendRejectMail(_return);
 
                         db.SaveChanges();
                         return Json(new { status = true, _return });

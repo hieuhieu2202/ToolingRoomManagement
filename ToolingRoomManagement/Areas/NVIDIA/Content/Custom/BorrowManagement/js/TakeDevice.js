@@ -63,7 +63,7 @@ function GetWarehouseDevices(IdWarehouse = 0) {
             contentType: "application/json;charset=utf-8",
             success: function (response) {
                 if (response.status) {
-                    var warehouse = JSON.parse(response.warehouse);
+                    var warehouse = response.warehouse;
                     var devices = warehouse.Devices;
 
                     CreateTableAddDevice(devices);

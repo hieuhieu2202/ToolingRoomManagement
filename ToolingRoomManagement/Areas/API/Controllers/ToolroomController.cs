@@ -12,7 +12,7 @@ namespace ToolingRoomManagement.Areas.API.Controllers
     {
         // GET: API/Toolroom
 
-        public JsonResult GetStaticDevice()
+        public JsonResult GetListDataFixedAsset()
         {
             try
             {
@@ -36,15 +36,18 @@ namespace ToolingRoomManagement.Areas.API.Controllers
                             floor = 2,
                             location = GetDeviceLocation(device),
                             typeEquipmentName = device.DeviceName,
-                            status = (device.Status != "Lock") ? "OK" : "NG",
                             parameter = device.Unit,
+                            inOutStore = null,
+                            status = (device.Status != "Lock") ? "OK" : "NG",                          
                             equipmentCode = device.DeviceCode,
-                            safeNumber = GetDeviceMinQty(device),
-                            brand = device.Vendor != null ? device.Vendor.VendorName : "",
+                            probationCode = null,
+                            brand = device.Vendor != null ? device.Vendor.VendorName : null,
+                            safeNumber = GetDeviceMinQty(device),                            
                             typeAsset = device.isConsign == true ? "客" : "自",
+                            price = null,
+                            currencyName = null,
                             createDate = device.DeviceDate?.ToString("yyyy-MM-dd"),
                             typeEquipment = GetDeviceType(device),
-
                         };
                         list.Add(staticDevice);
                     }
@@ -56,13 +59,13 @@ namespace ToolingRoomManagement.Areas.API.Controllers
                 return Json($"Exception: {ex.Message}", JsonRequestBehavior.AllowGet);
             }
         }
-        public JsonResult GetDynamicDevice()
+        public JsonResult GetListDataConsume()
         {
             try
             {
                 using (ToolingRoomEntities db = new ToolingRoomEntities())
                 {
-                    List<StaticDevice> list = new List<StaticDevice>();
+                    List<DynamicDevice> list = new List<DynamicDevice>();
 
                     var devices = db.Devices
                                     .Where(d => d.Type == "Dynamic" || d.Type_BOM == "D" && d.Status != "Deleted" && d.DeviceCode != string.Empty)
@@ -72,24 +75,24 @@ namespace ToolingRoomManagement.Areas.API.Controllers
 
                     foreach (var device in devices)
                     {
-                        StaticDevice staticDevice = new StaticDevice
+                        DynamicDevice dynamicDevice = new DynamicDevice
                         {
                             bu = "MBDI",
                             cft = "NVIDIA",
                             factory = "F06",
                             floor = 2,
-                            location = GetDeviceLocation(device),
+                            material = null,
                             typeEquipmentName = device.DeviceName,
-                            status = (device.Status != "Lock") ? "OK" : "NG",
                             parameter = device.Unit,
-                            equipmentCode = device.DeviceCode,
                             safeNumber = GetDeviceMinQty(device),
                             brand = device.Vendor != null ? device.Vendor.VendorName : "",
-                            typeAsset = device.isConsign == true ? "客" : "自",
-                            createDate = device.DeviceDate?.ToString("yyyy-MM-dd"),
+                            price = null,
+                            currencyName = null,
+                            location = GetDeviceLocation(device),
                             typeEquipment = GetDeviceType(device),
+                            quantity = device.QtyConfirm ?? 0
                         };
-                        list.Add(staticDevice);
+                        list.Add(dynamicDevice);
                     }
                     return Json(list, JsonRequestBehavior.AllowGet);
                 }
@@ -99,7 +102,7 @@ namespace ToolingRoomManagement.Areas.API.Controllers
                 return Json($"Exception: {ex.Message}", JsonRequestBehavior.AllowGet);
             }
         }
-        public JsonResult GetTypeQuantity()
+        public JsonResult GetQtyTypeEquipment()
         {
             try
             {
@@ -140,7 +143,7 @@ namespace ToolingRoomManagement.Areas.API.Controllers
                 return Json($"Exception: {ex.Message}", JsonRequestBehavior.AllowGet);
             }
         }
-        public JsonResult GetDeviceQuantity()
+        public JsonResult GetQuantityTypeEquipmentName()
         {
             try
             {
@@ -181,7 +184,112 @@ namespace ToolingRoomManagement.Areas.API.Controllers
                 return Json($"Exception: {ex.Message}", JsonRequestBehavior.AllowGet);
             }
         }
+        public JsonResult GetQtyTypeConsumeByMonth()
+        {
+            try
+            {
+                using (ToolingRoomEntities db = new ToolingRoomEntities())
+                {
+                    List<ExportedQuantity> list = new List<ExportedQuantity>();
 
+                    DateTime startDayOfMonth = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
+                    var borrowOfMonth = db.Borrows.Where(b => b.DateBorrow >= startDayOfMonth).ToList();
+
+                    foreach (var borrow in borrowOfMonth)
+                    {
+                        var borrowdevices = borrow.BorrowDevices.ToList();                       
+
+                        foreach(var borrowdevice in borrowdevices)
+                        {
+                            var device = borrowdevice.Device;
+
+                            if (device == null || device.Status == "Deleted") continue;
+
+                            if (!list.Any(l => l.typeEquipmentName == device.DeviceName))
+                            {
+                                ExportedQuantity exportedQuantity = new ExportedQuantity
+                                {
+                                    bu = "MBD",
+                                    cft = "NVIDIA",
+                                    factory = "F06",
+                                    floor = 2,
+                                    qtyType = borrowdevice.BorrowQuantity ?? 0,
+                                    typeEquipmentName = device.DeviceName,
+                                };
+                                list.Add(exportedQuantity);
+                            }
+                            else
+                            {
+                                list.FirstOrDefault(l => l.typeEquipmentName == device.DeviceName).qtyType += borrowdevice.BorrowQuantity ?? 0;
+                            }
+                        }                        
+                    }
+
+                    return Json(list, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json($"Exception: {ex.Message}", JsonRequestBehavior.AllowGet);
+            }
+        }
+        public JsonResult GetListDataHistoryConsumeByMonth()
+        {
+            try
+            {
+                using (ToolingRoomEntities db = new ToolingRoomEntities())
+                {
+                    List<ExportedDetails> list = new List<ExportedDetails>();
+
+                    DateTime startDayOfMonth = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
+                    var borrowOfMonth = db.Borrows.Where(b => b.DateBorrow >= startDayOfMonth).ToList();
+
+                    foreach (var borrow in borrowOfMonth)
+                    {
+                        var borrowdevices = borrow.BorrowDevices.ToList();
+
+                        foreach (var borrowdevice in borrowdevices)
+                        {
+                            var device = borrowdevice.Device;
+
+                            if (device == null) continue;
+
+                            if (!list.Any(l => l.typeEquipmentName == device.DeviceName))
+                            {
+                                ExportedDetails exportedDetails = new ExportedDetails
+                                {
+                                    bu = "MBD",
+                                    cft = "NVIDIA",
+                                    factory = "F06",
+                                    floor = 2,
+                                    material = null,
+                                    typeEquipmentName = device.DeviceName,
+                                    parameter = device.Unit,
+                                    brand = device.Vendor != null ? device.Vendor.VendorName : null,
+                                    price = null,
+                                    currencyName = null,
+                                    location = GetDeviceLocation(device),
+                                    typeEquipment = GetDeviceType(device),
+                                    safeQty = GetDeviceMinQty(device),
+                                    quantity = borrowdevice.BorrowQuantity ?? 0,
+                                };
+                                list.Add(exportedDetails);
+                            }
+                            else
+                            {
+                                list.FirstOrDefault(l => l.typeEquipmentName == device.DeviceName).quantity += borrowdevice.BorrowQuantity ?? 0;
+                            }
+                        }
+                    }
+
+                    return Json(list, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json($"Exception: {ex.Message}", JsonRequestBehavior.AllowGet);
+            }
+        }
 
         /* OTHER */
         private string GetDeviceLocation(Device device)
@@ -272,8 +380,7 @@ namespace ToolingRoomManagement.Areas.API.Controllers
 
                 return totalRealQty;
             }
-        }
-        
+        }       
     }
 
     /* API CLASS*/
@@ -304,17 +411,17 @@ namespace ToolingRoomManagement.Areas.API.Controllers
         public string bu { get; set; }
         public string cft { get; set; }
         public string factory { get; set; }
-        public string floor { get; set; }
+        public int floor { get; set; }
         public string material { get; set; }
         public string typeEquipmentName { get; set; }
         public string parameter { get; set; }
-        public string safeNumber { get; set; }
+        public int safeNumber { get; set; }
         public string brand { get; set; }
         public string price { get; set; }
         public string currencyName { get; set; }
         public string location { get; set; }
         public string typeEquipment { get; set; } //(consume, sparePart)
-        public string quantity { get; set; }
+        public int quantity { get; set; }
     }
     public class TypeQuantity
     {
@@ -337,7 +444,7 @@ namespace ToolingRoomManagement.Areas.API.Controllers
         public int quantityOff { get; set; }
         public int quantityOn { get; set; }
     }
-    public class ExportedDeviceStatistics
+    public class ExportedQuantity
     {
         public string bu { get; set; }
         public string cft { get; set; }
@@ -346,7 +453,7 @@ namespace ToolingRoomManagement.Areas.API.Controllers
         public int qtyType { get; set; }
         public string typeEquipmentName { get; set; }
     }
-    public class DeviceUsageDetail
+    public class ExportedDetails
     {
         public string bu { get; set; }
         public string cft { get; set; }
