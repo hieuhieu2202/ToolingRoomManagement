@@ -161,7 +161,7 @@ function CreateReturnModal(borrow) {
     $('#CreateReturnRequest').data('iduser', borrow.User.Id);
 
     $('#return_modal-CardId').val(borrow.User.Username);
-    $('#return_modal-Username').val(CreateUserName(borrow.User));
+    $('#return_modal-Username').val(borrow.User.CnName);
 
     $('#return_modal-BorrowDate').val(moment(borrow.DateBorrow).format('YYYY-MM-DDTHH:mm:ss'));
     $('#return_modal-DuaDate').val(moment(borrow.DateDue).format('YYYY-MM-DDTHH:mm:ss'));
@@ -201,14 +201,14 @@ function CreateReturnModal(borrow) {
     $('#sign-LeaderRole').empty();
     $('#sign-LeaderUser').empty();
     $.each(roles, function (k, role) {
-        if (role.Id == 4) {
+        if (role.Id == 4 || role.Id == 5) {
             var otp = $(`<option value="${role.Id}">${role.RoleName}</option>`);
             $('#sign-LeaderRole').append(otp);
         }
     });
     $.each(users, function (k, user) {
         $.each(user.UserRoles, function (k, UserRole) {
-            if (UserRole.Role.Id == 4) {
+            if (UserRole.Role.Id == 4 || UserRole.Role.Id == 5) {
                 var opt = CreateUserOption(user);
                 $('#sign-LeaderUser').append(opt);
             }
@@ -296,20 +296,146 @@ function GetDataReturn(idborrow, iduser) {
     });
 
     // Sign
-    data.UserReturnSigns.push({
-        SignOrder: 1,
-        Status: "Pending",
-        Type: "Return",
-        IdUser: $('#sign-LeaderUser').val()
+    $.each($('#sign-container-return [sign-row]'), function (k, row) {
+        data.UserReturnSigns.push({
+            SignOrder: k + 1,
+            Status: k == 0 ? "Pending" : "Waitting",
+            Type: "Return",
+            IdUser: $(row).find('[select-user]').val()
+        });
     });
-    data.UserReturnSigns.push({
-        SignOrder: 2,
-        Status: "Waitting",
-        Type: "Return",
-        IdUser: $('#sign-WarehouseManagerUser').val()
-    });
+
+    //data.UserReturnSigns.push({
+    //    SignOrder: 1,
+    //    Status: "Pending",
+    //    Type: "Return",
+    //    IdUser: $('#sign-LeaderUser').val()
+    //});
+    //data.UserReturnSigns.push({
+    //    SignOrder: 2,
+    //    Status: "Waitting",
+    //    Type: "Return",
+    //    IdUser: $('#sign-WarehouseManagerUser').val()
+    //});
+
+    console.log(data);
+
     return data;
 }
+
+// Add User Sign to Process Event
+$('#btn_addSign').on('click', function (e) {
+    e.preventDefault();
+
+    var container = $('#sign-container-return');
+
+    var html = $(`<div class="row" sign-row>
+                        <div class="col-auto text-center flex-column d-none d-sm-flex">
+                            <div class="row h-50">
+                                <div class="col border-end">&nbsp;</div>
+                                <div class="col">&nbsp;</div>
+                            </div>
+                            <h5 class="m-2">
+                                <span class="badge rounded-pill bg-primary">&nbsp;</span>
+                            </h5>
+                            <div class="row h-50">
+                                <div class="col border-end">&nbsp;</div>
+                                <div class="col">&nbsp;</div>
+                            </div>
+                        </div>
+                        <div class="col py-2">
+                            <div class="card radius-15 card-sign">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <label class="form-label">Role</label>
+                                            <select class="form-select form-select" select-role>
+                                                <option value="" selected>Role</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-7">
+                                            <label class="form-label">User</label>
+                                            <select type="text" class="form-select form-select" select-user></select>
+                                        </div>
+                                        <div class="col-1 btn-trash-sign">
+                                            <button class="btn btn-sm btn-outline-danger" type="button"><i class="bx bx-trash m-0"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>`);
+
+    // get select
+    var select_role = html.find('[select-role]');
+    var select_user = html.find('[select-user]');
+
+    // create select 2
+    //select_role.select2({
+    //    theme: 'bootstrap4',
+    //    dropdownParent: $("#borrow_form-modal"),
+    //    minimumResultsForSearch: -1,
+    //});
+    //select_user.select2({
+    //    theme: 'bootstrap4',
+    //    dropdownParent: $("#borrow_form-modal"),
+    //    minimumResultsForSearch: -1,
+    //});
+
+    // fill data
+    $.each(roles, function (k, item) {
+        var otp = $(`<option value="${item.Id}">${item.RoleName}</option>`);
+        select_role.append(otp);
+    });
+    $.each(users, function (k, item) {
+        var opt = CreateUserOption(item);
+        select_user.append(opt);
+    });
+
+    // select change event
+    select_role.on('change', function () {
+        select_user.empty();
+        var roleId = $(this).val();
+
+        if (roleId != '') {
+            $.each(users, function (k, userItem) {
+                $.each(userItem.UserRoles, function (k, userRoleItem) {
+                    if (userRoleItem.Role.Id == roleId) {
+                        var opt = CreateUserOption(userItem);
+                        select_user.append(opt);
+                    }
+                });
+            });
+        }
+        else {
+            $.each(users, function (k, userItem) {
+                var opt = CreateUserOption(userItem);
+                select_user.append(opt);
+            });
+        }
+    });
+
+    // change dot color
+    var dotArr = container.find('.badge.rounded-pill');
+    $.each(dotArr, function (k, item) {
+        $(item).removeClass('bg-primary');
+        $(item).addClass('bg-light');
+    });
+
+    // add delete event
+    html.find('.btn-trash-sign button').on('click', function (e) {
+        e.preventDefault();
+        html.fadeOut(300);
+        setTimeout(() => {
+            $(this).closest('[sign-row]').remove();
+        }, 300);
+    });
+
+    // show card
+    html.hide();
+    container.prepend(html);
+    html.fadeIn(300);
+});
 
 // Details
 $('#table_Borrows tbody').on('dblclick', 'tr', function (event) {

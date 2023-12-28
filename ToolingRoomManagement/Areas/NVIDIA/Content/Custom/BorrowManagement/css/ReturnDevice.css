@@ -9,7 +9,11 @@
     border-radius: 10px;
     padding: 5px;
 }
-
+.btn-trash-sign {
+    align-self: self-end;
+    text-align: end;
+    place-self: end;
+}
 .card-sign {
     box-shadow: 0px 0px 5px 0px #888888 !important;
 }

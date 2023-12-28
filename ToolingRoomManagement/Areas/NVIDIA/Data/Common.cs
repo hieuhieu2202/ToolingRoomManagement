@@ -128,6 +128,8 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Data
                                         <th style=""border:1px solid #414141;background-color:#e8eae9;padding:5px 5px 5px 10px"">Device Code</th>
                                         <th style=""border:1px solid #414141;background-color:#e8eae9;padding:5px 5px 5px 10px"">Device Name</th>
                                         <th style=""border:1px solid #414141;background-color:#e8eae9;padding:5px 5px 5px 10px"">Borrow Quantity</th>
+                                        <th style=""border:1px solid #414141;background-color:#e8eae9;padding:5px 5px 5px 10px"">Return NG</th>
+                                        <th style=""border:1px solid #414141;background-color:#e8eae9;padding:5px 5px 5px 10px"">Swap new</th>
                                     </tr>
                                 </thead>
                                 <tbody>";

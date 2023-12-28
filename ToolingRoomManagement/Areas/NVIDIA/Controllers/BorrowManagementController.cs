@@ -33,7 +33,6 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
         {
             try
             {
-
                 List<Borrow> borrows = new List<Borrow>();
                 borrows = db.Borrows.OrderByDescending(b => b.DateBorrow).ToList();
                 foreach (Borrow b in borrows)
@@ -64,7 +63,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
             try
             {
                 Borrow borrow = db.Borrows.FirstOrDefault(b => b.Id == Id);
-                borrow = CalculateBorrowQuantity(borrow);
+                //borrow = CalculateBorrowQuantity(borrow);
 
 
                 return Json(new { status = true, borrow }, JsonRequestBehavior.AllowGet);
@@ -551,6 +550,8 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                     {
                         if (borrow.BorrowDevices.Any(br => br.IdDevice == returnDevice.IdDevice))
                         {
+                            returnDevice.Device = db.Devices.FirstOrDefault(d => d.Id == returnDevice.IdDevice);
+
                             int totalReturnQty = db.Returns
                                             .Where(r => r.IdBorrow == data.IdBorrow && r.ReturnDevices.Any(rd => rd.IdDevice == returnDevice.IdDevice))
                                             .Sum(r => r.ReturnDevices.FirstOrDefault().ReturnQuantity) ?? 0;
@@ -565,9 +566,20 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                         }
                     }
 
+                    data.User = db.Users.FirstOrDefault(u => u.Id == data.IdUser);
+                    foreach (var userReturnSign in data.UserReturnSigns)
+                    {
+                        userReturnSign.User = db.Users.FirstOrDefault(u => u.Id == userReturnSign.IdUser);
+                    }
+
+
+                    Data.Common.SendSignMail(data);
+
                     // Check Return All
                     db.Returns.Add(data);
                     db.SaveChanges();
+
+                    
 
                     var borrowAfter = CalculateBorrowQuantity(borrow);
 
@@ -691,7 +703,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                     // Send Mail
                     Data.Common.SendSignMail(_return);
                 }
-
+                db.Returns.AddOrUpdate(_return);
                 db.SaveChanges();
                 return Json(new { status = true, _return });
             }
@@ -813,8 +825,8 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
 
                         #region Sign
                         var signs = _return.UserReturnSigns.ToList();
-                        worksheet.Cells[$"K{index}"].Value = $"{signs[0].User.Username}-{signs[0].User.CnName}";
-                        worksheet.Cells[$"L{index}"].Value = $"{signs[1].User.Username}-{signs[0].User.CnName}";
+                        worksheet.Cells[$"K{index}"].Value = $"{signs[signs.Count - 2].User.Username}-{signs[signs.Count - 2].User.CnName}";
+                        worksheet.Cells[$"L{index}"].Value = $"{signs[signs.Count - 1].User.Username}-{signs[signs.Count - 1].User.CnName}";
                         #endregion
 
                         foreach (var returndevice in _return.ReturnDevices)

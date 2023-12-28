@@ -124,6 +124,8 @@ function CreateNavUserName(user) {
 }
 function CreateUserName(user) {
     var username = '';
+    if (user == null) return username;
+
     if (user.VnName && user.VnName != '') {
         username = `${user.Username} - ${user.VnName}`;
     }

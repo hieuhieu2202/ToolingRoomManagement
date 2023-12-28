@@ -166,7 +166,7 @@ function CreateReturnDetailsModal(_return, showDevice) {
                                     <label class="mb-3"><span class="badge bg-${title.color}"><i class="fa-solid fa-${title.icon}"></i> ${title.text}</span></label>
                                     <!--<label class="mb-3">${span}</label>-->
                                     <p class="card-text mb-1">${username}</p>
-                                    <p class="card-text mb-1">${bs.User.Email || ''}</p>
+                                    <p class="card-text mb-1">${bs.User.Email ? bs.User.Email : ''}</p>
                                     <button class="btn btn-sm btn-outline-secondary collapsed ${title.text == null ? 'd-none' : title.text != 'Rejected' ? 'd-none' : ''}" type="button" data-bs-target="#details_${k}" data-bs-toggle="collapse" aria-expanded="false">Show Details ▼</button>
                                     <div class="border collapse" id="details_${k}" style="">
                                         <div class="p-2 text-monospace">
