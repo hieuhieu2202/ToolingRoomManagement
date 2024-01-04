@@ -573,7 +573,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                     }
 
 
-                    Data.Common.SendSignMail(data);
+                    //Data.Common.SendSignMail(data);
 
                     // Check Return All
                     db.Returns.Add(data);
@@ -668,7 +668,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                         }
                         else if (returnDevice.IsNG == true && returnDevice.IsSwap == false) // Trả NG
                         {
-                            returnDevice.Device.NG_Qty +=returnDevice.ReturnQuantity;
+                            returnDevice.Device.NG_Qty += returnDevice.ReturnQuantity;
                         }
                         else if (returnDevice.IsNG == false && returnDevice.IsSwap == true) // Đổi mới
                         {
@@ -692,16 +692,16 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
 
                         returnDevice.Device.Status = Data.Common.CheckStatus(returnDevice.Device);
                     }
-                    // Send Mail
-                    Data.Common.SendApproveMail(_return);
+
+                    //Data.Common.SendApproveMail(_return);
                 }
                 else
                 {
                     int nextSignOrder = (int)userReturnSign.SignOrder + 1;
                     UserReturnSign nextSign = _return.UserReturnSigns.FirstOrDefault(u => u.SignOrder == nextSignOrder);
                     nextSign.Status = "Pending";
-                    // Send Mail
-                    Data.Common.SendSignMail(_return);
+
+                    //Data.Common.SendSignMail(_return);
                 }
                 db.Returns.AddOrUpdate(_return);
                 db.SaveChanges();
@@ -736,8 +736,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                             }
                         }
 
-                        // Send Mail
-                        Data.Common.SendRejectMail(_return);
+                        //Data.Common.SendRejectMail(_return);
 
                         db.SaveChanges();
                         return Json(new { status = true, _return });

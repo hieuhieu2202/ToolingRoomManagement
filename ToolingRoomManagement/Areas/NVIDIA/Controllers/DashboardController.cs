@@ -39,14 +39,14 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 var lastWeek = thisWeek.AddDays(-7);
 
                 totalDevice = db.Devices.Count();
-                thisWeekDevice = db.Devices.Where(d => d.DeviceDate >= thisWeek).Count();
-                lastWeekDevice = db.Devices.Where(d => d.DeviceDate >= lastWeek && d.DeviceDate < thisWeek).Count();
+                thisWeekDevice = db.Devices.Where(d => d.CreatedDate >= thisWeek).Count();
+                lastWeekDevice = db.Devices.Where(d => d.CreatedDate >= lastWeek && d.CreatedDate < thisWeek).Count();
 
                 for (int i = 0; i < 7; i++)
                 {
                     var date = thisWeek.AddDays(i);
                     var nextDate = date.AddDays(1);
-                    int dateDevice = db.Devices.Where(d => d.DeviceDate >= date && d.DeviceDate < nextDate).Count();
+                    int dateDevice = db.Devices.Where(d => d.CreatedDate >= date && d.CreatedDate < nextDate).Count();
 
                     thisWeekDevices[i] = dateDevice;
                     thisWeekDate[i] = date.ToString("MM-dd");

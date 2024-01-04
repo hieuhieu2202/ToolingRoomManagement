@@ -39,7 +39,7 @@ async function FillDetailsDeviceData(data) {
     $('#device_details-DeviceName').val(data.DeviceName);
     $('#device_details-Specification').val(data.Specification);
 
-    $('#device_details-DeviceDate').val(moment(data.DeviceDate).format('YYYY-MM-DD HH:mm'));
+    $('#device_details-CreatedDate').val(moment(data.CreatedDate).format('YYYY-MM-DD HH:mm'));
     $('#device_details-Relation').val(data.Relation);
     $('#device_details-Buffer').val((data.Buffer * 100));
     $('#device_details-LifeCycle').val(data.LifeCycle);

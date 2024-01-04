@@ -36,7 +36,7 @@ namespace ToolingRoomManagement.Attributes
         }
         protected override void HandleUnauthorizedRequest(AuthorizationContext filterContext)
         {
-            filterContext.Result = new RedirectResult("~/Home/Index");
+            filterContext.Result = new RedirectResult("~/NVIDIA/Authentication/SignIn");
         }
         public override void OnAuthorization(AuthorizationContext filterContext)
         {

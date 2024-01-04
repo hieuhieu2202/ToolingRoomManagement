@@ -36,7 +36,7 @@ function GetModalData() {
     formData.append('Specification', $('#device_edit-Specification').val());
 
     formData.append('Type', $('#device_edit-Type').val());
-    formData.append('DeviceDate', $('#device_edit-DeviceDate').val());
+    formData.append('CreatedDate', $('#device_edit-CreatedDate').val());
     formData.append('DeliveryTime', $('#device_edit-DeliveryTime1').val() + ' ' + $('#device_edit-DeliveryTime2').val());
 
     formData.append('IdWareHouse', $('#device_edit-WareHouse').val());
@@ -105,7 +105,7 @@ async function FillEditDeviceData(device) {
         type = "normal_" + device.Type;
     }
     $('#device_edit-Type').val(type).trigger('change');
-    $('#device_edit-DeviceDate').val(moment(device.DeviceDate).format('YYYY-MM-DD HH:mm'));
+    $('#device_edit-CreatedDate').val(moment(device.CreatedDate).format('YYYY-MM-DD HH:mm'));
     if (device.DeliveryTime) {
         var temp = device.DeliveryTime.split(' ');
         $('#device_edit-DeliveryTime1').val(temp[0]);

@@ -345,38 +345,54 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
             try
             {
                 int Id = int.Parse(form["Id"]);
-                var oldDevice = db.Devices.FirstOrDefault(d => d.Id == Id);             
+                var oldDevice = db.Devices.FirstOrDefault(d => d.Id == Id);
+
+                string vendorname = form["Vendor"];
+                string groupname = form["Group"];
+                string[] products = form["Product"].Split('|');
+                string productname = products[0].Trim();
+                string mts = products.Length == 2 ? products[1].Trim() : "";
+
+                var product = db.Products.FirstOrDefault(p => p.ProductName == productname && (mts != string.Empty ? p.MTS == mts : true ));
+                var group = db.Groups.FirstOrDefault(g => g.GroupName == groupname);
+                var vendor = db.Vendors.FirstOrDefault(v => v.VendorName == vendorname);
+
+
                 if (oldDevice != null)
                 {
                     Entities.Device device = new Entities.Device
                     {
                         Id = oldDevice.Id,
                         DeviceCode = form["DeviceCode"],
-                        DeviceName = form["DeviceName"],
-                        Specification = form["Specification"],
-
-                        CreatedDate = DateTime.Now,
-                        DeliveryTime = form["DeliveryTime"],
-
-                        IdWareHouse = int.Parse(form["IdWareHouse"]),
+                        DeviceName = form["DeviceName"],                     
+                        DeviceDate = DateTime.Now,
                         Buffer = (double)Math.Round(double.Parse(form["Buffer"]), 2),
                         Quantity = int.Parse(form["Quantity"]),
-                        POQty = int.Parse(form["POQty"]),
-                        Unit = form["Unit"],
-
+                        //Type = 
+                        IdWareHouse = int.Parse(form["IdWareHouse"]),
+                        IdGroup = group.Id,
+                        IdVendor = vendor.Id,
+                        CreatedDate = oldDevice.CreatedDate,
+                        IdProduct = product.Id,
+                        //IdModel = int.Parse(form["IdModel"]),
+                        //IdStation = int.Parse(form["IdStation"]),
                         Relation = form["Relation"],
                         LifeCycle = int.Parse(form["LifeCycle"]),
-                        QtyConfirm = int.Parse(form["QtyConfirm"]),
-                        RealQty = int.Parse(form["RealQty"]),
-                        MinQty = int.Parse(form["MinQty"]),
-                        MOQ = int.Parse(form["MOQ"]) != oldDevice.MOQ ? int.Parse(form["MOQ"]) : oldDevice.MOQ,
-
-                        // Other data                       
                         Forcast = oldDevice.Forcast,
-                        ACC_KIT = oldDevice.ACC_KIT,                       
-                        DeviceDate = oldDevice.DeviceDate,
+                        QtyConfirm = int.Parse(form["QtyConfirm"]),
+                        ACC_KIT = oldDevice.ACC_KIT,
+                        RealQty = int.Parse(form["RealQty"]),
                         ImagePath = oldDevice.ImagePath,
+                        Specification = form["Specification"],
+                        Unit = form["Unit"],
+                        DeliveryTime = form["DeliveryTime"],
+                        //SysQuantity = 
+                        MinQty = int.Parse(form["MinQty"]),
+                        POQty = int.Parse(form["POQty"]),
                         Type_BOM = oldDevice.Type_BOM,
+                        MOQ = int.Parse(form["MOQ"]) != oldDevice.MOQ ? int.Parse(form["MOQ"]) : oldDevice.MOQ,
+                        //isConsign =
+                        NG_Qty = oldDevice.NG_Qty,
                     };
                     // Alternative PN
                     var AltPN = oldDevice.AlternativeDevices.FirstOrDefault();
@@ -409,8 +425,6 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                     var types = form["Type"].Split('_');
                     device.Type = types[1];
                     device.isConsign = types[0] != "normal";
-
-                    string temp = JsonSerializer.Serialize(oldDevice);
 
                     db.Devices.AddOrUpdate(device);
                     db.SaveChanges();
@@ -1243,7 +1257,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
 
                         // Other data
                         Quantity = int.Parse(form["QtyConfirm"]),
-                        CreatedDate = DateTime.Now,
+                        CreatedDate = DateTime.Parse(form["CreatedDate"]),
                         Forcast = deviceUnconfirm.Forcast,
                         ACC_KIT = deviceUnconfirm.ACC_KIT,
                         RealQty = int.Parse(form["QtyConfirm"]),

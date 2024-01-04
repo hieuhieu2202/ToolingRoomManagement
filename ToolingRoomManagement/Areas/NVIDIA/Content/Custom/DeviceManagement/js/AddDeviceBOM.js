@@ -323,7 +323,7 @@ async function FillEditDeviceData(data) {
     $('#device_edit-DeviceId').val(data.device.Id);
     $('#device_edit-DeviceCode').val(data.device.DeviceCode);
     $('#device_edit-DeviceName').val(data.device.DeviceName);
-    $('#device_edit-DeviceDate').val(moment(data.device.DeviceDate).format('YYYY-MM-DD HH:mm'));
+    $('#device_edit-CreatedDate').val(moment(data.device.CreatedDate).format('YYYY-MM-DD HH:mm'));
     $('#device_edit-Relation').val(data.device.Relation);
     $('#device_edit-Buffer').val(data.device.Buffer);
     $('#device_edit-LifeCycle').val(data.device.LifeCycle);
@@ -378,7 +378,7 @@ function GetModalData() {
         Id: $('#device_edit-DeviceId').val(),
         DeviceCode: $('#device_edit-DeviceCode').val(),
         DeviceName: $('#device_edit-DeviceName').val(),
-        DeviceDate: $('#device_edit-DeviceDate').val(),
+        CreatedDate: $('#device_edit-CreatedDate').val(),
         Relation: $('#device_edit-Relation').val(),
         Buffer: $('#device_edit-Buffer').val(),
         LifeCycle: $('#device_edit-LifeCycle').val(),

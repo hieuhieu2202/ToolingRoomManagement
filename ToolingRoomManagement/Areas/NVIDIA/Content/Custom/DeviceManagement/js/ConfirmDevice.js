@@ -404,7 +404,7 @@ function CreateConfirmModal(device) {
     $('#device_confirm-Specification').val('');
 
     $('#device_confirm-Type').val('normal_NA').trigger('change');
-    $('#device_confirm-DeviceDate').val(moment().format('YYYY-MM-DD HH:mm'));
+    $('#device_confirm-CreatedDate').val(moment().format('YYYY-MM-DD HH:mm'));
     $('#device_confirm-DeliveryTime1').val('');
 
     $('#device_confirm-WareHouse').val(device.IdWareHouse).trigger('change');
@@ -679,7 +679,7 @@ function GetModalData() {
     formData.append('Specification', $('#device_confirm-Specification').val());
 
     formData.append('Type',          $('#device_confirm-Type').val());
-    formData.append('DeviceDate',    $('#device_confirm-DeviceDate').val());
+    formData.append('CreatedDate',    $('#device_confirm-CreatedDate').val());
     formData.append('DeliveryTime',  $('#device_confirm-DeliveryTime1').val() + ' ' + $('#device_confirm-DeliveryTime2').val());
 
     formData.append('IdWareHouse',   $('#device_confirm-WareHouse').val());

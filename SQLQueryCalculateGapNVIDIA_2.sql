@@ -5,6 +5,7 @@ WITH Calculations AS (
         D.DeviceName,
         D.QtyConfirm,
         D.RealQty,
+		D.NG_Qty,
         D.SysQuantity,
         ISNULL(BQ.BorrowQty, 0) AS BorrowQty,
         ISNULL(RQ.ReturnQty, 0) AS ReturnQty,

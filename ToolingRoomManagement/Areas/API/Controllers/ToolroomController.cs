@@ -14,19 +14,46 @@ namespace ToolingRoomManagement.Areas.API.Controllers
     {
         // GET: API/Toolroom
 
-        public JsonResult GetListDataFixedAsset()
+        public JsonResult GetListDataFixedAsset(string type = "")
         {
             try
-            {
+            {              
                 using (ToolingRoomEntities db = new ToolingRoomEntities())
                 {
                     List<StaticDevice> list = new List<StaticDevice>();
 
-                    var devices = db.Devices
+                    var devices = new List<Device>();
+
+                    type = type.ToLower();
+                    if(type == null || string.IsNullOrEmpty(type))
+                    {
+                        devices = db.Devices
                                     .Where(d => (d.Type == "Fixture" || d.Type == "Static" || d.Type_BOM == "S") && d.Status != "Deleted" && d.DeviceCode != string.Empty && d.QtyConfirm > 0)
                                     .GroupBy(d => d.DeviceCode)
                                     .Select(group => group.FirstOrDefault())
                                     .ToList();
+                    }
+                    else if (type == "fixture")
+                    {
+                        devices = db.Devices
+                                    .Where(d => (d.Type == "Fixture") && d.Status != "Deleted" && d.DeviceCode != string.Empty && d.QtyConfirm > 0)
+                                    .GroupBy(d => d.DeviceCode)
+                                    .Select(group => group.FirstOrDefault())
+                                    .ToList();
+                    }
+                    else if(type == "fixedasset")
+                    {
+                        devices = db.Devices
+                                    .Where(d => d.Type != "Fixture" && (d.Type == "Static" || d.Type_BOM == "S") && d.Status != "Deleted" && d.DeviceCode != string.Empty && d.QtyConfirm > 0)
+                                    .GroupBy(d => d.DeviceCode)
+                                    .Select(group => group.FirstOrDefault())
+                                    .ToList();
+                    }
+                    else
+                    {
+                        return Json("", JsonRequestBehavior.AllowGet);
+                    }
+
 
                     foreach (var device in devices)
                     {
@@ -53,7 +80,7 @@ namespace ToolingRoomManagement.Areas.API.Controllers
                                 typeAsset = device.isConsign == true ? "客 Khách hàng" : "自 Công ty",
                                 price = "0",
                                 currencyName = "VND",
-                                createDate = device.DeviceDate?.ToString("yyyy/MM/dd"),
+                                createDate = device.CreatedDate?.ToString("yyyy/MM/dd"),
                                 typeEquipment = GetDeviceType(device),
                             };
                             list.Add(staticDevice);
@@ -81,7 +108,7 @@ namespace ToolingRoomManagement.Areas.API.Controllers
                                 typeAsset = device.isConsign == true ? "客 Khách hàng" : "自 Công ty",
                                 price = "0",
                                 currencyName = "VND",
-                                createDate = device.DeviceDate?.ToString("yyyy/MM/dd"),
+                                createDate = device.CreatedDate?.ToString("yyyy/MM/dd"),
                                 typeEquipment = GetDeviceType(device),
                             };
                             // Ngoài kho
@@ -105,7 +132,7 @@ namespace ToolingRoomManagement.Areas.API.Controllers
                                 typeAsset = device.isConsign == true ? "客 Khách hàng" : "自 Công ty",
                                 price = "0",
                                 currencyName = "VND",
-                                createDate = device.DeviceDate?.ToString("yyyy/MM/dd"),
+                                createDate = device.CreatedDate?.ToString("yyyy/MM/dd"),
                                 typeEquipment = GetDeviceType(device),
                             };
                             list.Add(InstaticDevice); list.Add(OutstaticDevice);
@@ -352,15 +379,47 @@ namespace ToolingRoomManagement.Areas.API.Controllers
             }
         }
 
-        public JsonResult GetOfflineEquipment()
+        public JsonResult GetOfflineEquipment(string type = "")
         {
             try
             {
                 using (ToolingRoomEntities db = new ToolingRoomEntities())
                 {
                     List<OfflineDevice> list = new List<OfflineDevice>();
+                    var devices = new List<Device>();
 
-                    foreach (var device in db.Devices.Where(d => d.RealQty > 0))
+                    type = type.ToLower();
+                    if (type == null || string.IsNullOrEmpty(type))
+                    {
+                        devices = db.Devices
+                                    .Where(d => d.Status != "Deleted" && d.RealQty > 0)
+                                    .ToList();
+                    }
+                    else if (type == "fixture")
+                    {
+                        devices = db.Devices
+                                    .Where(d => d.Type == "Fixture" && d.Status != "Deleted" && d.RealQty > 0)
+                                    .ToList();
+                    }
+                    else if (type == "fixedasset")
+                    {
+                        devices = db.Devices
+                                    .Where(d => d.Type != "Fixture" && (d.Type == "Static" || d.Type_BOM == "S") && d.Status != "Deleted" && d.RealQty > 0)
+                                    .ToList();
+                    }
+                    else if(type == "consume")
+                    {
+                        devices = db.Devices
+                                   .Where(d => (d.Type == "Dynamic" || d.Type_BOM == "D") && d.Status != "Deleted" && d.RealQty > 0)
+                                   .ToList();
+                    }
+                    else
+                    {
+                        return Json("", JsonRequestBehavior.AllowGet);
+                    }
+
+
+                    foreach (var device in devices)
                     {
                         var deviceCode = GetDeviceCode(device);
 
@@ -373,6 +432,7 @@ namespace ToolingRoomManagement.Areas.API.Controllers
                                 cft = "NVIDIA",
                                 factory = "F06",
                                 floor = 2,
+                                typeEquipment = GetDeviceType(device),
                                 typeEquipmentCode = GetDeviceCode(device),
                                 typeEquipmentName = device.DeviceName,
                                 location = GetDeviceLocation(device) ?? "NA",
@@ -397,18 +457,24 @@ namespace ToolingRoomManagement.Areas.API.Controllers
                 return Json($"Exception: {ex.Message}", JsonRequestBehavior.AllowGet);
             }
         }
-        public JsonResult GetOnlineEquipment()
+        public JsonResult GetOnlineEquipment(string type = "")
         {
             try
             {
                 using (ToolingRoomEntities db = new ToolingRoomEntities())
                 {
                     List<OnlineDevice> list = new List<OnlineDevice>();
+                    type = type.ToLower();
 
-                    foreach(var borrow in db.Borrows.Where(b => b.Model != null && b.Station != null))
+                    foreach (var borrow in db.Borrows.Where(b => b.Model != null && b.Station != null))
                     {
                         foreach(var borrowDevice in  borrow.BorrowDevices.Where(bd => bd.Device != null)) 
                         {
+                            var deviveType = GetDeviceType(borrowDevice.Device);
+                            if (type != string.Empty && GetDeviceType(borrowDevice.Device).ToLower() != type) continue;
+
+                            
+
                             var place = GetBorrowLocation(borrow);
                             var devicename = borrowDevice.Device.DeviceName;
 
@@ -422,6 +488,7 @@ namespace ToolingRoomManagement.Areas.API.Controllers
                                     cft = "NVIDIA",
                                     factory = "F06",
                                     floor = 2,
+                                    typeEquipment = deviveType,
                                     typeEquipmentCode = GetDeviceCode(borrowDevice.Device),
                                     typeEquipmentName = devicename,
                                     place = place,
@@ -444,7 +511,7 @@ namespace ToolingRoomManagement.Areas.API.Controllers
                 return Json($"Exception: {ex.Message}", JsonRequestBehavior.AllowGet);
             }
         }
-        public JsonResult GetWarningEquipment()
+        public JsonResult GetWarningEquipment(string type = "")
         {
             try
             {
@@ -452,9 +519,33 @@ namespace ToolingRoomManagement.Areas.API.Controllers
                 {
                     List<WarningDevice> list = new List<WarningDevice>();
 
-                    var DeviceCodes = db.Devices.Where(d => !string.IsNullOrEmpty(d.DeviceCode) && 
-                                                       d.MinQty > 0 && (d.Type == "Fixture" || d.Type == "Static" || d.Type_BOM == "S") && 
+                    var DeviceCodes = new List<string>();
+
+                    type = type.ToLower();
+                    if (type == null || string.IsNullOrEmpty(type))
+                    {
+                        DeviceCodes = db.Devices.Where(d => !string.IsNullOrEmpty(d.DeviceCode) &&
+                                                       d.MinQty > 0 && (d.Type == "Fixture" || d.Type == "Static" || d.Type_BOM == "S") &&
                                                        d.Status != "Deleted").Select(d => d.DeviceCode).Distinct().ToList();
+                    }
+                    else if (type == "fixture")
+                    {
+                        DeviceCodes = db.Devices.Where(d => !string.IsNullOrEmpty(d.DeviceCode) &&
+                                                       d.MinQty > 0 && d.Type == "Fixture" &&
+                                                       d.Status != "Deleted").Select(d => d.DeviceCode).Distinct().ToList();
+                    }
+                    else if (type == "fixedasset")
+                    {
+                        DeviceCodes = db.Devices.Where(d => !string.IsNullOrEmpty(d.DeviceCode) &&
+                                                       d.MinQty > 0 && d.Type != "Fixture" && (d.Type == "Static" || d.Type_BOM == "S") &&
+                                                       d.Status != "Deleted").Select(d => d.DeviceCode).Distinct().ToList();
+                    }
+                    else
+                    {
+                        return Json("", JsonRequestBehavior.AllowGet);
+                    }
+
+                    
 
                     foreach(var DeviceCode in DeviceCodes)
                     {
@@ -463,7 +554,7 @@ namespace ToolingRoomManagement.Areas.API.Controllers
                         var safePrecent = Math.Round(((double) realQty / minQty) * 100, 2);
 
                         var device = db.Devices.FirstOrDefault(d => d.DeviceCode == DeviceCode);
-                        if (realQty > 0 && minQty > 0 && (safePrecent < 50 || safePrecent > 100))
+                        if (minQty > 0 && (safePrecent < 50 || safePrecent > 100))
                         {
                             WarningDevice warningDevice = new WarningDevice
                             {
@@ -499,78 +590,69 @@ namespace ToolingRoomManagement.Areas.API.Controllers
                 return Json($"Exception: {ex.Message}", JsonRequestBehavior.AllowGet);
             }
         }
-        public JsonResult GetWarningEquipmentName()
+        public JsonResult GetWarningEquipmentName(string type = "")
         {
             try
             {
                 using (ToolingRoomEntities db = new ToolingRoomEntities())
                 {
-                    List<WarningDevice> listWarningDevice = new List<WarningDevice>();
+                    List<WarningDeviceName> list = new List<WarningDeviceName>();
 
-                    var DeviceCodes = db.Devices.Where(d => !string.IsNullOrEmpty(d.DeviceCode) &&
+                    var DeviceCodes = new List<string>();
+
+                    type = type.ToLower();
+                    if (type == null || string.IsNullOrEmpty(type))
+                    {
+                        DeviceCodes = db.Devices.Where(d => !string.IsNullOrEmpty(d.DeviceCode) &&
                                                        d.MinQty > 0 && (d.Type == "Fixture" || d.Type == "Static" || d.Type_BOM == "S") &&
                                                        d.Status != "Deleted").Select(d => d.DeviceCode).Distinct().ToList();
+                    }
+                    else if (type == "fixture")
+                    {
+                        DeviceCodes = db.Devices.Where(d => !string.IsNullOrEmpty(d.DeviceCode) &&
+                                                       d.MinQty > 0 && d.Type == "Fixture" &&
+                                                       d.Status != "Deleted").Select(d => d.DeviceCode).Distinct().ToList();
+                    }
+                    else if (type == "fixedasset")
+                    {
+                        DeviceCodes = db.Devices.Where(d => !string.IsNullOrEmpty(d.DeviceCode) &&
+                                                       d.MinQty > 0 && d.Type != "Fixture" && (d.Type == "Static" || d.Type_BOM == "S") &&
+                                                       d.Status != "Deleted").Select(d => d.DeviceCode).Distinct().ToList();
+                    }
+                    else
+                    {
+                        return Json("", JsonRequestBehavior.AllowGet);
+                    }
 
                     foreach (var DeviceCode in DeviceCodes)
                     {
-                        var realQty = db.Devices.Where(d => d.DeviceCode == DeviceCode).Sum(d => d.RealQty) ?? 0;
-                        var minQty = db.Devices.Where(d => d.DeviceCode == DeviceCode).Max(d => d.MinQty) ?? 0;
+                        var devices = db.Devices.Where(d => d.DeviceCode == DeviceCode).ToList();
+
+                        var realQty = devices.Sum(d => d.RealQty) ?? 0;
+                        var minQty = devices.Max(d => d.MinQty) ?? 0;
+
                         var safePrecent = Math.Round(((double)realQty / minQty) * 100, 2);
 
                         var device = db.Devices.FirstOrDefault(d => d.DeviceCode == DeviceCode);
-                        if (realQty > 0 && minQty > 0 && (safePrecent < 50 || safePrecent > 100))
+
+                        if (minQty > 0 && (safePrecent < 50 || safePrecent > 100))
                         {
-                            WarningDevice warningDevice = new WarningDevice
+                            WarningDeviceName warningDeviceName = new WarningDeviceName
                             {
                                 bu = "MBD",
                                 cft = "NVIDIA",
                                 factory = "F06",
                                 floor = 2,
-                                typeEquipmentName = device.DeviceName,
-                                parameter = "NA",
-                                inOutStore = 1,
-                                quantity = realQty,
-                                unit = GetDeviceUnit(device),
-                                status = "OK",
-                                equipmentCode = GetDeviceCode(device),
-                                probationCode = "NA",
-                                brand = GetDeviceVendor(device),
-                                safeNumber = minQty,
-                                safePrecent = safePrecent,
-                                typeAsset = device.isConsign == true ? "客 Khách hàng" : "自 Công ty",
-                                price = "0",
-                                currencyName = "VND",
                                 typeEquipment = GetDeviceType(device),
+                                typeEquipmentName = device.DeviceName,
+                                quantity = realQty,
+                                model = GetDeviceProductName(device),
                             };
-                            listWarningDevice.Add(warningDevice);
+
+                            list.Add(warningDeviceName);
                         }
                     }
-
-
-                    List<WarningDeviceName> listWarningDeviceName = new List<WarningDeviceName>();
-                    foreach (var DeviceName in listWarningDevice.Select(d => d.typeEquipmentName).Distinct())
-                    {
-                        var devices = listWarningDevice.Where(d => d.typeEquipmentName == DeviceName).ToList();
-                        var lDevice = devices.First();
-
-                        var device = db.Devices.FirstOrDefault(d => d.DeviceCode == lDevice.equipmentCode);
-                        var qty = devices.Count;
-
-                        WarningDeviceName warningDeviceName = new WarningDeviceName
-                        {
-                            bu = "MBD",
-                            cft = "NVIDIA",
-                            factory = "F06",
-                            floor = 2,
-                            typeEquipment = GetDeviceType(device),
-                            typeEquipmentName = lDevice.typeEquipmentName,
-                            model = device.Model != null ? !string.IsNullOrEmpty(device.Model.ModelName) ? device.Model.ModelName : "NA" : "NA",
-                            quantity = qty,
-                        };
-                        listWarningDeviceName.Add(warningDeviceName);
-                    }
-
-                    return Json(listWarningDeviceName, JsonRequestBehavior.AllowGet);
+                    return Json(list, JsonRequestBehavior.AllowGet);
                 }
             }
             catch (Exception ex)
@@ -632,7 +714,7 @@ namespace ToolingRoomManagement.Areas.API.Controllers
             {
                 return "fixture";
             }
-            else if (device.Type == "Static" || device.Type_BOM == "S")
+            else if (device.Type != "Fixture" && (device.Type == "Static" || device.Type_BOM == "S"))
             {
                 return "fixedAsset";
             }
@@ -710,6 +792,13 @@ namespace ToolingRoomManagement.Areas.API.Controllers
                 location = "NA";
             }
             return location;
+        }
+        private string GetDeviceProductName(Device device)
+        {
+            if (device.Product == null) return "NA";
+            else if (device.Product.ProductName == "null") return "NA";
+            else if (device.Product.ProductName.Trim() == string.Empty) return "NA";
+            else return device.Product.ProductName ?? "NA";
         }
     }
 
@@ -813,6 +902,7 @@ namespace ToolingRoomManagement.Areas.API.Controllers
         public string cft { get; set; }
         public string factory { get; set; }
         public int floor { get; set; }
+        public string typeEquipment { get; set; }
         public string typeEquipmentCode { get; set; }
         public string typeEquipmentName { get; set; }
         public string location { get; set; }
@@ -825,6 +915,7 @@ namespace ToolingRoomManagement.Areas.API.Controllers
         public string cft { get; set; }
         public string factory { get; set; }
         public int floor { get; set; }
+        public string typeEquipment { get; set; }
         public string typeEquipmentCode { get; set; }
         public string typeEquipmentName { get; set; }
         public string place { get; set; }

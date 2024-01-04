@@ -1038,7 +1038,7 @@ function Details(elm, e) {
                 $('#device-DeviceCode').val(device.DeviceCode);
                 $('#device-DeviceName').val(device.DeviceName);
                 $('#device-Specification').val(device.Specification);
-                $('#device-DeviceDate').val(moment(device.DeviceDate).format('YYYY-MM-DD HH:mm:ss'));
+                $('#device-CreatedDate').val(moment(device.CreatedDate).format('YYYY-MM-DD HH:mm:ss'));
                 $('#device-DeviceProduct').val(device.Product ? device.Product.ProductName : '');
                 $('#device-DeviceModel').val(device.Model ? device.Model.ModelName : '');
                 $('#device-DeviceGroup').val(device.Group ? device.Group.GroupName : '');
