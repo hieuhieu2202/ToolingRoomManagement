@@ -63,6 +63,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
             try
             {
                 Borrow borrow = db.Borrows.FirstOrDefault(b => b.Id == Id);
+                borrow.UserBorrowSigns = borrow.UserBorrowSigns.OrderBy(o => o.SignOrder).ToList();
                 //borrow = CalculateBorrowQuantity(borrow);
 
 
@@ -630,6 +631,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
             try
             {
                 Return _return = db.Returns.FirstOrDefault(b => b.Id == Id);
+                _return.UserReturnSigns = _return.UserReturnSigns.OrderBy(o => o.SignOrder).ToList();
 
                 return Json(new { status = true, _return }, JsonRequestBehavior.AllowGet);
             }

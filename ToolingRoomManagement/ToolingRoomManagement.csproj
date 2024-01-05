@@ -236,6 +236,8 @@
     <Content Include="Areas\NVIDIA\Content\Custom\Info\js\product.js" />
     <Content Include="Areas\NVIDIA\Content\Custom\Layout\CustomLayout.css" />
     <Content Include="Areas\NVIDIA\Content\Custom\Layout\CustomLayout.js" />
+    <Content Include="Areas\NVIDIA\Content\Custom\ReturnDevice\ReturnNG.js" />
+    <Content Include="Areas\NVIDIA\Content\Custom\ReturnDevice\Shipping.js" />
     <Content Include="Areas\NVIDIA\Content\Custom\Warehouse\css\Layout.css" />
     <Content Include="Areas\NVIDIA\Content\Custom\Warehouse\css\Management.css" />
     <Content Include="Areas\NVIDIA\Content\Custom\Warehouse\js\Layout.js" />
@@ -3132,6 +3134,7 @@
     <Compile Include="Areas\NVIDIA\Controllers\DashboardController.cs" />
     <Compile Include="Areas\NVIDIA\Controllers\DeviceManagementController.cs" />
     <Compile Include="Areas\NVIDIA\Controllers\InfoController.cs" />
+    <Compile Include="Areas\NVIDIA\Controllers\ReturnDeviceController.cs" />
     <Compile Include="Areas\NVIDIA\Controllers\UserManagementController.cs" />
     <Compile Include="Areas\NVIDIA\Controllers\WarehouseController.cs" />
     <Compile Include="Areas\NVIDIA\Data\Common.cs" />
@@ -3608,6 +3611,8 @@
     <Content Include="Areas\NVIDIA\Views\BorrowManagement\_ReturnDetails.cshtml" />
     <Content Include="Areas\NVIDIA\Views\DeviceManagement\ComingDevice.cshtml" />
     <Content Include="Areas\NVIDIA\Views\DeviceManagement\_DatatableFilter.cshtml" />
+    <Content Include="Areas\NVIDIA\Views\ReturnDevice\ReturnNG.cshtml" />
+    <Content Include="Areas\NVIDIA\Views\ReturnDevice\Shipping.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

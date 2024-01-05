@@ -16,7 +16,9 @@ namespace ToolingRoomManagement.Attributes
         public bool AllowAnonymous { get; set; } = false;
         protected override bool AuthorizeCore(HttpContextBase httpContext)
         {
-            string currentUrl = httpContext.Request.CurrentExecutionFilePath.ToString();
+            if(IsAjaxRequest(httpContext.Request)) return true;
+
+            string NextUrl = httpContext.Request.RawUrl.ToString();
             if (!AllowAnonymous)
             {
                 Entities.User user = (Entities.User)HttpContext.Current.Session["SignSession"];
@@ -41,6 +43,21 @@ namespace ToolingRoomManagement.Attributes
         public override void OnAuthorization(AuthorizationContext filterContext)
         {
             base.OnAuthorization(filterContext);
+        }
+
+        public static bool IsAjaxRequest(HttpRequestBase request)
+        {
+            if (request == null)
+            {
+                throw new ArgumentNullException("request");
+            }
+
+            if (request.Headers != null)
+            {
+                return request.Headers["X-Requested-With"] == "XMLHttpRequest";
+            }
+
+            return false;
         }
     }
 }

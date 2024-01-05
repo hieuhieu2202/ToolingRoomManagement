@@ -554,7 +554,7 @@ namespace ToolingRoomManagement.Areas.API.Controllers
                         var safePrecent = Math.Round(((double) realQty / minQty) * 100, 2);
 
                         var device = db.Devices.FirstOrDefault(d => d.DeviceCode == DeviceCode);
-                        if (minQty > 0 && (safePrecent < 50 || safePrecent > 100))
+                        if (minQty > 0 && (safePrecent < 50 || safePrecent > 150))
                         {
                             WarningDevice warningDevice = new WarningDevice
                             {
@@ -565,7 +565,7 @@ namespace ToolingRoomManagement.Areas.API.Controllers
                                 typeEquipmentName = device.DeviceName,
                                 parameter = "NA",
                                 inOutStore = 1,
-                                quantity = realQty,
+                                qtyInstore = realQty,
                                 unit = GetDeviceUnit(device),
                                 status = "OK",
                                 equipmentCode = GetDeviceCode(device),
@@ -582,7 +582,7 @@ namespace ToolingRoomManagement.Areas.API.Controllers
                             list.Add(warningDevice);
                         }
                     }
-                    return Json(list, JsonRequestBehavior.AllowGet);
+                    return Json(list.OrderByDescending(d => d.safePrecent), JsonRequestBehavior.AllowGet);
                 }
             }
             catch (Exception ex)
@@ -635,7 +635,7 @@ namespace ToolingRoomManagement.Areas.API.Controllers
 
                         var device = db.Devices.FirstOrDefault(d => d.DeviceCode == DeviceCode);
 
-                        if (minQty > 0 && (safePrecent < 50 || safePrecent > 100))
+                        if (minQty > 0 && (safePrecent < 50 || safePrecent > 150))
                         {
                             WarningDeviceName warningDeviceName = new WarningDeviceName
                             {
@@ -647,12 +647,13 @@ namespace ToolingRoomManagement.Areas.API.Controllers
                                 typeEquipmentName = device.DeviceName,
                                 quantity = realQty,
                                 model = GetDeviceProductName(device),
+                                safePrecent = safePrecent,
                             };
 
                             list.Add(warningDeviceName);
                         }
                     }
-                    return Json(list, JsonRequestBehavior.AllowGet);
+                    return Json(list.OrderByDescending(d => d.safePrecent), JsonRequestBehavior.AllowGet);
                 }
             }
             catch (Exception ex)
@@ -930,7 +931,7 @@ namespace ToolingRoomManagement.Areas.API.Controllers
         public string typeEquipmentName { get; set; }
         public string parameter { get; set; }
         public int inOutStore { get; set; } = 1;
-        public int quantity { get; set; }
+        public int qtyInstore { get; set; }
         public string unit { get; set; }
         public string status { get; set; }
         public string equipmentCode { get; set; }
@@ -953,6 +954,7 @@ namespace ToolingRoomManagement.Areas.API.Controllers
         public string typeEquipmentName { get; set; }
         public string model { get; set; }
         public int quantity { get; set; }
+        public double safePrecent { get; set; }
 
     }
 }
