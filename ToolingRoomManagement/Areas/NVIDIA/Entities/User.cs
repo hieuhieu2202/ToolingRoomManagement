@@ -11,7 +11,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Entities
 {
     using System;
     using System.Collections.Generic;
-    using System.Text.Json.Serialization;
+    using System.Web.Script.Serialization;
 
     public partial class User
     {
@@ -24,7 +24,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Entities
     
         public int Id { get; set; }
         public string Username { get; set; }
-        [JsonIgnore]
+        [ScriptIgnore]
         public string Password { get; set; }
         public string Email { get; set; }
         public string VnName { get; set; }

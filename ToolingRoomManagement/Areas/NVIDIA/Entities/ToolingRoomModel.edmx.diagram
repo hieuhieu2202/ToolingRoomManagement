@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="5c3a8314d1c746b884fac96c30e5a025" Name="Diagram1" ZoomLevel="77">
+      <Diagram DiagramId="5c3a8314d1c746b884fac96c30e5a025" Name="Diagram1" ZoomLevel="74">
         <EntityTypeShape EntityType="ToolingRoomModel.Product" Width="1.5" PointX="5.125" PointY="12.125" IsExpanded="false" />
         <EntityTypeShape EntityType="ToolingRoomModel.Group" Width="1.5" PointX="5.125" PointY="11.625" IsExpanded="false" />
         <EntityTypeShape EntityType="ToolingRoomModel.Model" Width="1.5" PointX="5.125" PointY="12.625" IsExpanded="false" />
@@ -66,10 +66,14 @@
         <AssociationConnector Association="ToolingRoomModel.FK_OnthewayDevice_DeviceUnconfirm" />
         <EntityTypeShape EntityType="ToolingRoomModel.AlternativeDevice" Width="1.5" PointX="9.625" PointY="14.25" />
         <AssociationConnector Association="ToolingRoomModel.FK_AlternativeDevice_Device" />
-        <EntityTypeShape EntityType="ToolingRoomModel.ReturnNG" Width="1.5" PointX="10.5" PointY="17.125" />
-        <EntityTypeShape EntityType="ToolingRoomModel.Shipping" Width="1.5" PointX="10.375" PointY="19.75" />
-        <AssociationConnector Association="ToolingRoomModel.FK_ReturnNG_Device" />
-        <AssociationConnector Association="ToolingRoomModel.FK_Shipping_Device" />
+        <EntityTypeShape EntityType="ToolingRoomModel.Export" Width="1.5" PointX="16.625" PointY="12.375" />
+        <EntityTypeShape EntityType="ToolingRoomModel.ExportDevice" Width="1.5" PointX="12.625" PointY="14" />
+        <EntityTypeShape EntityType="ToolingRoomModel.UserExportSign" Width="1.5" PointX="18.5" PointY="7.625" />
+        <AssociationConnector Association="ToolingRoomModel.FK_ExportDevice_Device" />
+        <AssociationConnector Association="ToolingRoomModel.FK_ExportDevice_Export" />
+        <AssociationConnector Association="ToolingRoomModel.FK_ReturnNG_User" />
+        <AssociationConnector Association="ToolingRoomModel.FK_UserExportSign_Export" />
+        <AssociationConnector Association="ToolingRoomModel.FK_UserExportSign_User" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

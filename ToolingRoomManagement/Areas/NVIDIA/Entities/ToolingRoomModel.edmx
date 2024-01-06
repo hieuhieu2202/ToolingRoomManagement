@@ -140,6 +140,26 @@
           <Property Name="IdDevice" Type="int" />
           <Property Name="IdWarehouseLayout" Type="int" />
         </EntityType>
+        <EntityType Name="Export">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="IdUser" Type="int" />
+          <Property Name="Note" Type="nvarchar" MaxLength="300" />
+          <Property Name="Status" Type="nvarchar" MaxLength="50" />
+          <Property Name="Type" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="ExportDevice">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdExport" Type="int" />
+          <Property Name="IdDevice" Type="int" />
+          <Property Name="ExportQuantity" Type="int" />
+        </EntityType>
         <EntityType Name="Group">
           <Key>
             <PropertyRef Name="Id" />
@@ -198,15 +218,6 @@
           <Property Name="IsNG" Type="bit" />
           <Property Name="IsSwap" Type="bit" />
         </EntityType>
-        <EntityType Name="ReturnNG">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="IdDevice" Type="int" />
-          <Property Name="Quantity" Type="int" />
-          <Property Name="CreatedDate" Type="datetime" />
-        </EntityType>
         <EntityType Name="Role">
           <Key>
             <PropertyRef Name="Id" />
@@ -214,15 +225,6 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="RoleName" Type="nvarchar" MaxLength="50" />
           <Property Name="RoleAction" Type="nvarchar(max)" />
-        </EntityType>
-        <EntityType Name="Shipping">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="IdDevice" Type="int" />
-          <Property Name="Quantity" Type="int" />
-          <Property Name="CreatedDate" Type="datetime" />
         </EntityType>
         <EntityType Name="Station">
           <Key>
@@ -268,6 +270,18 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="IdUser" Type="int" />
           <Property Name="IdDepartment" Type="int" />
+        </EntityType>
+        <EntityType Name="UserExportSign">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdExport" Type="int" />
+          <Property Name="IdUser" Type="int" />
+          <Property Name="SignDate" Type="datetime" />
+          <Property Name="SignOrder" Type="int" />
+          <Property Name="Status" Type="nvarchar" MaxLength="50" />
+          <Property Name="Note" Type="nvarchar" MaxLength="300" />
         </EntityType>
         <EntityType Name="UserReturnSign">
           <Key>
@@ -552,6 +566,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_ExportDevice_Device">
+          <End Role="Device" Type="Self.Device" Multiplicity="0..1" />
+          <End Role="ExportDevice" Type="Self.ExportDevice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Device">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ExportDevice">
+              <PropertyRef Name="IdDevice" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ExportDevice_Export">
+          <End Role="Export" Type="Self.Export" Multiplicity="0..1" />
+          <End Role="ExportDevice" Type="Self.ExportDevice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Export">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ExportDevice">
+              <PropertyRef Name="IdExport" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_OnthewayDevice_Device">
           <End Role="Device" Type="Self.Device" Multiplicity="0..1" />
           <End Role="ComingDevice" Type="Self.ComingDevice" Multiplicity="*" />
@@ -626,27 +664,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ReturnNG_Device">
-          <End Role="Device" Type="Self.Device" Multiplicity="0..1" />
-          <End Role="ReturnNG" Type="Self.ReturnNG" Multiplicity="*" />
+        <Association Name="FK_ReturnNG_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Export" Type="Self.Export" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Device">
+            <Principal Role="User">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="ReturnNG">
-              <PropertyRef Name="IdDevice" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Shipping_Device">
-          <End Role="Device" Type="Self.Device" Multiplicity="0..1" />
-          <End Role="Shipping" Type="Self.Shipping" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Device">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Shipping">
-              <PropertyRef Name="IdDevice" />
+            <Dependent Role="Export">
+              <PropertyRef Name="IdUser" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -696,6 +722,30 @@
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="UserDepartment">
+              <PropertyRef Name="IdUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserExportSign_Export">
+          <End Role="Export" Type="Self.Export" Multiplicity="0..1" />
+          <End Role="UserExportSign" Type="Self.UserExportSign" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Export">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserExportSign">
+              <PropertyRef Name="IdExport" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserExportSign_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="UserExportSign" Type="Self.UserExportSign" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserExportSign">
               <PropertyRef Name="IdUser" />
             </Dependent>
           </ReferentialConstraint>
@@ -785,19 +835,20 @@
           <EntitySet Name="Device" EntityType="Self.Device" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DeviceUnconfirm" EntityType="Self.DeviceUnconfirm" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DeviceWarehouseLayout" EntityType="Self.DeviceWarehouseLayout" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Export" EntityType="Self.Export" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ExportDevice" EntityType="Self.ExportDevice" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Group" EntityType="Self.Group" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="HistoryUpdateDevice" EntityType="Self.HistoryUpdateDevice" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Model" EntityType="Self.Model" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Return" EntityType="Self.Return" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ReturnDevice" EntityType="Self.ReturnDevice" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="ReturnNG" EntityType="Self.ReturnNG" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Shipping" EntityType="Self.Shipping" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Station" EntityType="Self.Station" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserBorrowSign" EntityType="Self.UserBorrowSign" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserDepartment" EntityType="Self.UserDepartment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserExportSign" EntityType="Self.UserExportSign" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserReturnSign" EntityType="Self.UserReturnSign" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserRole" EntityType="Self.UserRole" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Vendor" EntityType="Self.Vendor" Schema="dbo" store:Type="Tables" />
@@ -879,6 +930,14 @@
             <End Role="WarehouseLayout" EntitySet="WarehouseLayout" />
             <End Role="DeviceWarehouseLayout" EntitySet="DeviceWarehouseLayout" />
           </AssociationSet>
+          <AssociationSet Name="FK_ExportDevice_Device" Association="Self.FK_ExportDevice_Device">
+            <End Role="Device" EntitySet="Device" />
+            <End Role="ExportDevice" EntitySet="ExportDevice" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ExportDevice_Export" Association="Self.FK_ExportDevice_Export">
+            <End Role="Export" EntitySet="Export" />
+            <End Role="ExportDevice" EntitySet="ExportDevice" />
+          </AssociationSet>
           <AssociationSet Name="FK_OnthewayDevice_Device" Association="Self.FK_OnthewayDevice_Device">
             <End Role="Device" EntitySet="Device" />
             <End Role="ComingDevice" EntitySet="ComingDevice" />
@@ -903,13 +962,9 @@
             <End Role="Return" EntitySet="Return" />
             <End Role="ReturnDevice" EntitySet="ReturnDevice" />
           </AssociationSet>
-          <AssociationSet Name="FK_ReturnNG_Device" Association="Self.FK_ReturnNG_Device">
-            <End Role="Device" EntitySet="Device" />
-            <End Role="ReturnNG" EntitySet="ReturnNG" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Shipping_Device" Association="Self.FK_Shipping_Device">
-            <End Role="Device" EntitySet="Device" />
-            <End Role="Shipping" EntitySet="Shipping" />
+          <AssociationSet Name="FK_ReturnNG_User" Association="Self.FK_ReturnNG_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Export" EntitySet="Export" />
           </AssociationSet>
           <AssociationSet Name="FK_UserBorrowSign_Borrow" Association="Self.FK_UserBorrowSign_Borrow">
             <End Role="Borrow" EntitySet="Borrow" />
@@ -926,6 +981,14 @@
           <AssociationSet Name="FK_UserDepartment_User" Association="Self.FK_UserDepartment_User">
             <End Role="User" EntitySet="User" />
             <End Role="UserDepartment" EntitySet="UserDepartment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserExportSign_Export" Association="Self.FK_UserExportSign_Export">
+            <End Role="Export" EntitySet="Export" />
+            <End Role="UserExportSign" EntitySet="UserExportSign" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserExportSign_User" Association="Self.FK_UserExportSign_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="UserExportSign" EntitySet="UserExportSign" />
           </AssociationSet>
           <AssociationSet Name="FK_UserReturnSign_Return" Association="Self.FK_UserReturnSign_Return">
             <End Role="Return" EntitySet="Return" />
@@ -1125,15 +1188,28 @@
             <End Role="Device" EntitySet="Devices" />
             <End Role="AlternativeDevice" EntitySet="AlternativeDevices" />
           </AssociationSet>
-          <EntitySet Name="ReturnNGs" EntityType="ToolingRoomModel.ReturnNG" />
-          <EntitySet Name="Shippings" EntityType="ToolingRoomModel.Shipping" />
-          <AssociationSet Name="FK_ReturnNG_Device" Association="ToolingRoomModel.FK_ReturnNG_Device">
+          <EntitySet Name="Exports" EntityType="ToolingRoomModel.Export" />
+          <EntitySet Name="ExportDevices" EntityType="ToolingRoomModel.ExportDevice" />
+          <EntitySet Name="UserExportSigns" EntityType="ToolingRoomModel.UserExportSign" />
+          <AssociationSet Name="FK_ExportDevice_Device" Association="ToolingRoomModel.FK_ExportDevice_Device">
             <End Role="Device" EntitySet="Devices" />
-            <End Role="ReturnNG" EntitySet="ReturnNGs" />
+            <End Role="ExportDevice" EntitySet="ExportDevices" />
           </AssociationSet>
-          <AssociationSet Name="FK_Shipping_Device" Association="ToolingRoomModel.FK_Shipping_Device">
-            <End Role="Device" EntitySet="Devices" />
-            <End Role="Shipping" EntitySet="Shippings" />
+          <AssociationSet Name="FK_ExportDevice_Export" Association="ToolingRoomModel.FK_ExportDevice_Export">
+            <End Role="Export" EntitySet="Exports" />
+            <End Role="ExportDevice" EntitySet="ExportDevices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ReturnNG_User" Association="ToolingRoomModel.FK_ReturnNG_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Export" EntitySet="Exports" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserExportSign_Export" Association="ToolingRoomModel.FK_UserExportSign_Export">
+            <End Role="Export" EntitySet="Exports" />
+            <End Role="UserExportSign" EntitySet="UserExportSigns" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserExportSign_User" Association="ToolingRoomModel.FK_UserExportSign_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="UserExportSign" EntitySet="UserExportSigns" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="Product">
@@ -1908,47 +1984,100 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="ReturnNG">
+        <EntityType Name="Export">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="IdDevice" Type="Int32" />
-          <Property Name="Quantity" Type="Int32" />
           <Property Name="CreatedDate" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Device" Relationship="ToolingRoomModel.FK_ReturnNG_Device" FromRole="ReturnNG" ToRole="Device" />
+          <Property Name="IdUser" Type="Int32" />
+          <Property Name="Note" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ExportDevices" Relationship="ToolingRoomModel.FK_ExportDevice_Export" FromRole="Export" ToRole="ExportDevice" />
+          <NavigationProperty Name="User" Relationship="ToolingRoomModel.FK_ReturnNG_User" FromRole="Export" ToRole="User" />
+          <NavigationProperty Name="UserExportSigns" Relationship="ToolingRoomModel.FK_UserExportSign_Export" FromRole="Export" ToRole="UserExportSign" />
         </EntityType>
-        <EntityType Name="Shipping">
+        <EntityType Name="ExportDevice">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdExport" Type="Int32" />
           <Property Name="IdDevice" Type="Int32" />
-          <Property Name="Quantity" Type="Int32" />
-          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Device" Relationship="ToolingRoomModel.FK_Shipping_Device" FromRole="Shipping" ToRole="Device" />
+          <Property Name="ExportQuantity" Type="Int32" />
+          <NavigationProperty Name="Device" Relationship="ToolingRoomModel.FK_ExportDevice_Device" FromRole="ExportDevice" ToRole="Device" />
         </EntityType>
-        <Association Name="FK_ReturnNG_Device">
+        <EntityType Name="UserExportSign">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdExport" Type="Int32" />
+          <Property Name="IdUser" Type="Int32" />
+          <Property Name="SignDate" Type="DateTime" Precision="3" />
+          <Property Name="SignOrder" Type="Int32" />
+          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Note" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="User" Relationship="ToolingRoomModel.FK_UserExportSign_User" FromRole="UserExportSign" ToRole="User" />
+        </EntityType>
+        <Association Name="FK_ExportDevice_Device">
           <End Type="ToolingRoomModel.Device" Role="Device" Multiplicity="0..1" />
-          <End Type="ToolingRoomModel.ReturnNG" Role="ReturnNG" Multiplicity="*" />
+          <End Type="ToolingRoomModel.ExportDevice" Role="ExportDevice" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Device">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="ReturnNG">
+            <Dependent Role="ExportDevice">
               <PropertyRef Name="IdDevice" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Shipping_Device">
-          <End Type="ToolingRoomModel.Device" Role="Device" Multiplicity="0..1" />
-          <End Type="ToolingRoomModel.Shipping" Role="Shipping" Multiplicity="*" />
+        <Association Name="FK_ExportDevice_Export">
+          <End Type="ToolingRoomModel.Export" Role="Export" Multiplicity="0..1" />
+          <End Type="ToolingRoomModel.ExportDevice" Role="ExportDevice" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Device">
+            <Principal Role="Export">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="Shipping">
-              <PropertyRef Name="IdDevice" />
+            <Dependent Role="ExportDevice">
+              <PropertyRef Name="IdExport" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ReturnNG_User">
+          <End Type="ToolingRoomModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="ToolingRoomModel.Export" Role="Export" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Export">
+              <PropertyRef Name="IdUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserExportSign_Export">
+          <End Type="ToolingRoomModel.Export" Role="Export" Multiplicity="0..1" />
+          <End Type="ToolingRoomModel.UserExportSign" Role="UserExportSign" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Export">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserExportSign">
+              <PropertyRef Name="IdExport" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserExportSign_User">
+          <End Type="ToolingRoomModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="ToolingRoomModel.UserExportSign" Role="UserExportSign" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserExportSign">
+              <PropertyRef Name="IdUser" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2279,22 +2408,37 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="ReturnNGs">
-            <EntityTypeMapping TypeName="ToolingRoomModel.ReturnNG">
-              <MappingFragment StoreEntitySet="ReturnNG">
+          <EntitySetMapping Name="Exports">
+            <EntityTypeMapping TypeName="ToolingRoomModel.Export">
+              <MappingFragment StoreEntitySet="Export">
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="IdUser" ColumnName="IdUser" />
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
-                <ScalarProperty Name="IdDevice" ColumnName="IdDevice" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Shippings">
-            <EntityTypeMapping TypeName="ToolingRoomModel.Shipping">
-              <MappingFragment StoreEntitySet="Shipping">
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <EntitySetMapping Name="ExportDevices">
+            <EntityTypeMapping TypeName="ToolingRoomModel.ExportDevice">
+              <MappingFragment StoreEntitySet="ExportDevice">
+                <ScalarProperty Name="ExportQuantity" ColumnName="ExportQuantity" />
                 <ScalarProperty Name="IdDevice" ColumnName="IdDevice" />
+                <ScalarProperty Name="IdExport" ColumnName="IdExport" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserExportSigns">
+            <EntityTypeMapping TypeName="ToolingRoomModel.UserExportSign">
+              <MappingFragment StoreEntitySet="UserExportSign">
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="SignOrder" ColumnName="SignOrder" />
+                <ScalarProperty Name="SignDate" ColumnName="SignDate" />
+                <ScalarProperty Name="IdUser" ColumnName="IdUser" />
+                <ScalarProperty Name="IdExport" ColumnName="IdExport" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
