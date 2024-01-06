@@ -108,7 +108,7 @@ body::-webkit-scrollbar {
     border-radius: 10px;
 }
 .cursor-pointer {
-    cursor: pointer;
+    cursor: pointer !important;
 }
 input[details]:disabled {
     background-color: rgb(255 255 255 / 0%) !important;

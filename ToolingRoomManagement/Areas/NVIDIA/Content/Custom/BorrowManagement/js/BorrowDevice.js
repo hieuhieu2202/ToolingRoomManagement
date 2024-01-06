@@ -1,7 +1,6 @@
 ﻿$(function () {
     GetUserAndRole();
     Filter();
-    //GetWarehouseDevices();
 });
 
 // Get Select data

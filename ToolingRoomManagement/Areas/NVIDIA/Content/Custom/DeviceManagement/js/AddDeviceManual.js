@@ -56,7 +56,7 @@ async function GetWarehouseDevice(IdWarehouse) {
     return new Promise((resolve, reject) => {
         $.ajax({
             url: "/NVIDIA/DeviceManagement/GetWarehouseDevices",
-            data: JSON.stringify({ IdWarehouse, PageNum: 1 }),
+            data: JSON.stringify({ IdWarehouse }),
             type: "POST",
             dataType: "json",
             contentType: "application/json;charset=utf-8",

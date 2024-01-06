@@ -198,6 +198,15 @@
           <Property Name="IsNG" Type="bit" />
           <Property Name="IsSwap" Type="bit" />
         </EntityType>
+        <EntityType Name="ReturnNG">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdDevice" Type="int" />
+          <Property Name="Quantity" Type="int" />
+          <Property Name="CreatedDate" Type="datetime" />
+        </EntityType>
         <EntityType Name="Role">
           <Key>
             <PropertyRef Name="Id" />
@@ -205,6 +214,15 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="RoleName" Type="nvarchar" MaxLength="50" />
           <Property Name="RoleAction" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Shipping">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdDevice" Type="int" />
+          <Property Name="Quantity" Type="int" />
+          <Property Name="CreatedDate" Type="datetime" />
         </EntityType>
         <EntityType Name="Station">
           <Key>
@@ -303,7 +321,9 @@
           <Property Name="Cell" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <Association Name="FK_AlternativeDevice_Device">
-          <End Role="Device" Type="Self.Device" Multiplicity="0..1" />
+          <End Role="Device" Type="Self.Device" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="AlternativeDevice" Type="Self.AlternativeDevice" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Device">
@@ -351,9 +371,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_BorrowDevice_Borrow">
-          <End Role="Borrow" Type="Self.Borrow" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
+          <End Role="Borrow" Type="Self.Borrow" Multiplicity="0..1" />
           <End Role="BorrowDevice" Type="Self.BorrowDevice" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Borrow">
@@ -608,6 +626,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_ReturnNG_Device">
+          <End Role="Device" Type="Self.Device" Multiplicity="0..1" />
+          <End Role="ReturnNG" Type="Self.ReturnNG" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Device">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ReturnNG">
+              <PropertyRef Name="IdDevice" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Shipping_Device">
+          <End Role="Device" Type="Self.Device" Multiplicity="0..1" />
+          <End Role="Shipping" Type="Self.Shipping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Device">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Shipping">
+              <PropertyRef Name="IdDevice" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_UserBorrowSign_Borrow">
           <End Role="Borrow" Type="Self.Borrow" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
@@ -749,7 +791,9 @@
           <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Return" EntityType="Self.Return" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ReturnDevice" EntityType="Self.ReturnDevice" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ReturnNG" EntityType="Self.ReturnNG" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Shipping" EntityType="Self.Shipping" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Station" EntityType="Self.Station" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserBorrowSign" EntityType="Self.UserBorrowSign" Schema="dbo" store:Type="Tables" />
@@ -858,6 +902,14 @@
           <AssociationSet Name="FK_ReturnDevice_Return" Association="Self.FK_ReturnDevice_Return">
             <End Role="Return" EntitySet="Return" />
             <End Role="ReturnDevice" EntitySet="ReturnDevice" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ReturnNG_Device" Association="Self.FK_ReturnNG_Device">
+            <End Role="Device" EntitySet="Device" />
+            <End Role="ReturnNG" EntitySet="ReturnNG" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Shipping_Device" Association="Self.FK_Shipping_Device">
+            <End Role="Device" EntitySet="Device" />
+            <End Role="Shipping" EntitySet="Shipping" />
           </AssociationSet>
           <AssociationSet Name="FK_UserBorrowSign_Borrow" Association="Self.FK_UserBorrowSign_Borrow">
             <End Role="Borrow" EntitySet="Borrow" />
@@ -1072,6 +1124,16 @@
           <AssociationSet Name="FK_AlternativeDevice_Device" Association="ToolingRoomModel.FK_AlternativeDevice_Device">
             <End Role="Device" EntitySet="Devices" />
             <End Role="AlternativeDevice" EntitySet="AlternativeDevices" />
+          </AssociationSet>
+          <EntitySet Name="ReturnNGs" EntityType="ToolingRoomModel.ReturnNG" />
+          <EntitySet Name="Shippings" EntityType="ToolingRoomModel.Shipping" />
+          <AssociationSet Name="FK_ReturnNG_Device" Association="ToolingRoomModel.FK_ReturnNG_Device">
+            <End Role="Device" EntitySet="Devices" />
+            <End Role="ReturnNG" EntitySet="ReturnNGs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Shipping_Device" Association="ToolingRoomModel.FK_Shipping_Device">
+            <End Role="Device" EntitySet="Devices" />
+            <End Role="Shipping" EntitySet="Shippings" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="Product">
@@ -1846,6 +1908,50 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="ReturnNG">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdDevice" Type="Int32" />
+          <Property Name="Quantity" Type="Int32" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Device" Relationship="ToolingRoomModel.FK_ReturnNG_Device" FromRole="ReturnNG" ToRole="Device" />
+        </EntityType>
+        <EntityType Name="Shipping">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdDevice" Type="Int32" />
+          <Property Name="Quantity" Type="Int32" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Device" Relationship="ToolingRoomModel.FK_Shipping_Device" FromRole="Shipping" ToRole="Device" />
+        </EntityType>
+        <Association Name="FK_ReturnNG_Device">
+          <End Type="ToolingRoomModel.Device" Role="Device" Multiplicity="0..1" />
+          <End Type="ToolingRoomModel.ReturnNG" Role="ReturnNG" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Device">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ReturnNG">
+              <PropertyRef Name="IdDevice" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Shipping_Device">
+          <End Type="ToolingRoomModel.Device" Role="Device" Multiplicity="0..1" />
+          <End Type="ToolingRoomModel.Shipping" Role="Shipping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Device">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Shipping">
+              <PropertyRef Name="IdDevice" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2168,6 +2274,26 @@
             <EntityTypeMapping TypeName="ToolingRoomModel.AlternativeDevice">
               <MappingFragment StoreEntitySet="AlternativeDevice">
                 <ScalarProperty Name="PNs" ColumnName="PNs" />
+                <ScalarProperty Name="IdDevice" ColumnName="IdDevice" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ReturnNGs">
+            <EntityTypeMapping TypeName="ToolingRoomModel.ReturnNG">
+              <MappingFragment StoreEntitySet="ReturnNG">
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="IdDevice" ColumnName="IdDevice" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Shippings">
+            <EntityTypeMapping TypeName="ToolingRoomModel.Shipping">
+              <MappingFragment StoreEntitySet="Shipping">
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
                 <ScalarProperty Name="IdDevice" ColumnName="IdDevice" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>

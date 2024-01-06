@@ -66,6 +66,10 @@
         <AssociationConnector Association="ToolingRoomModel.FK_OnthewayDevice_DeviceUnconfirm" />
         <EntityTypeShape EntityType="ToolingRoomModel.AlternativeDevice" Width="1.5" PointX="9.625" PointY="14.25" />
         <AssociationConnector Association="ToolingRoomModel.FK_AlternativeDevice_Device" />
+        <EntityTypeShape EntityType="ToolingRoomModel.ReturnNG" Width="1.5" PointX="10.5" PointY="17.125" />
+        <EntityTypeShape EntityType="ToolingRoomModel.Shipping" Width="1.5" PointX="10.375" PointY="19.75" />
+        <AssociationConnector Association="ToolingRoomModel.FK_ReturnNG_Device" />
+        <AssociationConnector Association="ToolingRoomModel.FK_Shipping_Device" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

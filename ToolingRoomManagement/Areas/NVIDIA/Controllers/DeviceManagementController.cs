@@ -778,11 +778,11 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 return Json(new { status = false, message = ex.Message });
             }
         }
-        public JsonResult GetWarehouseDevices(int IdWarehouse, int PageNum)
+        public JsonResult GetWarehouseDevices(int IdWarehouse)
         {
             try
             {
-                PageNum = 1;
+                //PageNum = 1;
                 Entities.Warehouse warehouse = db.Warehouses.FirstOrDefault(w => w.Id == IdWarehouse);
                 //var skipAmount = 1000 * (PageNum - 1);
 

@@ -43,8 +43,8 @@ function CreateTableAddDevice(devices) {
         $.each(item.DeviceWarehouseLayouts, function (k, sss) {
             var layout = sss.WarehouseLayout;
             var locationLabel = `${layout.Line}${layout.Cell ? ' - ' + layout.Cell : ''}${layout.Floor ? ' - ' + layout.Floor : ''}`;
-            deviceData.location.html = `<lable>${locationLabel}</lable>`;
-            deviceData.location.title = `[${locationLabel}],`;
+            deviceData.location.html += `<lable>${locationLabel}</lable>`;
+            deviceData.location.title += `[${locationLabel}],`;
         });
 
         // Datalist
@@ -297,7 +297,7 @@ function GetWarehouseDevices(IdWarehouse = 0) {
     Pace.track(function () {
         $.ajax({
             url: "/NVIDIA/DeviceManagement/GetWarehouseDevices",
-            data: JSON.stringify({ IdWarehouse, PageNum: 1 }),
+            data: JSON.stringify({ IdWarehouse }),
             type: "POST",
             dataType: "json",
             contentType: "application/json;charset=utf-8",
@@ -321,11 +321,11 @@ function GetWarehouseDevices(IdWarehouse = 0) {
         });
     });
 }
-function _GetWarehouseDevices(IdWarehouse, PageNum) {
+function _GetWarehouseDevices(IdWarehouse) {
     return new Promise((resolve, reject) => {
         $.ajax({
             url: "/NVIDIA/DeviceManagement/GetWarehouseDevices",
-            data: JSON.stringify({ IdWarehouse, PageNum }),
+            data: JSON.stringify({ IdWarehouse }),
             type: "POST",
             dataType: "json",
             contentType: "application/json;charset=utf-8",

@@ -236,8 +236,10 @@
     <Content Include="Areas\NVIDIA\Content\Custom\Info\js\product.js" />
     <Content Include="Areas\NVIDIA\Content\Custom\Layout\CustomLayout.css" />
     <Content Include="Areas\NVIDIA\Content\Custom\Layout\CustomLayout.js" />
+    <Content Include="Areas\NVIDIA\Content\Custom\ReturnDevice\ReturnNG.css" />
     <Content Include="Areas\NVIDIA\Content\Custom\ReturnDevice\ReturnNG.js" />
     <Content Include="Areas\NVIDIA\Content\Custom\ReturnDevice\Shipping.js" />
+    <Content Include="Areas\NVIDIA\Content\Custom\ReturnDevice\Shipping.css" />
     <Content Include="Areas\NVIDIA\Content\Custom\Warehouse\css\Layout.css" />
     <Content Include="Areas\NVIDIA\Content\Custom\Warehouse\css\Management.css" />
     <Content Include="Areas\NVIDIA\Content\Custom\Warehouse\js\Layout.js" />
@@ -1143,6 +1145,7 @@
     <Content Include="Areas\NVIDIA\Content\Vendor\DataTables\DataTables-1.13.4\css\dataTables.semanticui.min.css" />
     <Content Include="Areas\NVIDIA\Content\Vendor\DataTables\DataTables-1.13.4\css\jquery.dataTables.css" />
     <Content Include="Areas\NVIDIA\Content\Vendor\DataTables\DataTables-1.13.4\css\jquery.dataTables.min.css" />
+    <Content Include="Areas\NVIDIA\Content\Vendor\DataTables\DataTables-1.13.4\css\select.dataTables.min.css" />
     <Content Include="Areas\NVIDIA\Content\Vendor\DataTables\DataTables-1.13.4\images\sort_asc.png" />
     <Content Include="Areas\NVIDIA\Content\Vendor\DataTables\DataTables-1.13.4\images\sort_asc_disabled.png" />
     <Content Include="Areas\NVIDIA\Content\Vendor\DataTables\DataTables-1.13.4\images\sort_both.png" />
@@ -1162,6 +1165,7 @@
     <Content Include="Areas\NVIDIA\Content\Vendor\DataTables\DataTables-1.13.4\js\dataTables.foundation.min.js" />
     <Content Include="Areas\NVIDIA\Content\Vendor\DataTables\DataTables-1.13.4\js\dataTables.jqueryui.js" />
     <Content Include="Areas\NVIDIA\Content\Vendor\DataTables\DataTables-1.13.4\js\dataTables.jqueryui.min.js" />
+    <Content Include="Areas\NVIDIA\Content\Vendor\DataTables\DataTables-1.13.4\js\dataTables.select.min.js" />
     <Content Include="Areas\NVIDIA\Content\Vendor\DataTables\DataTables-1.13.4\js\dataTables.semanticui.js" />
     <Content Include="Areas\NVIDIA\Content\Vendor\DataTables\DataTables-1.13.4\js\dataTables.semanticui.min.js" />
     <Content Include="Areas\NVIDIA\Content\Vendor\DataTables\DataTables-1.13.4\js\jquery.dataTables.js" />
@@ -3182,7 +3186,13 @@
     <Compile Include="Areas\NVIDIA\Entities\ReturnDevice.cs">
       <DependentUpon>ToolingRoomModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Areas\NVIDIA\Entities\ReturnNG.cs">
+      <DependentUpon>ToolingRoomModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Areas\NVIDIA\Entities\Role.cs">
+      <DependentUpon>ToolingRoomModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\NVIDIA\Entities\Shipping.cs">
       <DependentUpon>ToolingRoomModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Areas\NVIDIA\Entities\Station.cs">
