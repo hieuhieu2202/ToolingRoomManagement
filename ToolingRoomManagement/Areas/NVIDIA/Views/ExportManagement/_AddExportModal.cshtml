@@ -1,0 +1,68 @@
+﻿<!-- Add Export Modal -->
+<div class="modal fade" id="modal-ExportDevice" aria-hidden="true" data-bs-backdrop="static">
+    <div class="modal-dialog modal-xl modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" style="text-transform: uppercase">MODAL TITLE</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <h2 class="font-weight-light text-center text-primary py-3" id="modalbody-title" style="text-transform: uppercase">BODY TITLE</h2>
+
+                <div class="row">
+                    <!-- row 1-->
+                    <div class="col-md-4">
+                        <label class="form-label">Card id</label>
+                        <input type="text" class="form-control" id="ExportDevice-cardid" disabled>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Name</label>
+                        <input type="text" class="form-control" id="ExportDevice-username" disabled>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Create date</label>
+                        <input type="datetime-local" class="form-control" id="ExportDevice-createddate">
+                    </div>
+                    <!-- row 2-->
+                    <div class="col-md-12 mt-3">
+                        <label class="form-label">Note</label>
+                        <textarea class="form-control" rows="3" style="resize: none" id="ExportDevice-note"></textarea>
+                    </div>
+                </div>
+
+                <div class="mt-3">
+                    <h4 class="font-weight-light text-center text-white py-3">DEVICES LIST</h4>
+                    <table class="table table-bordered" id="table_export">
+                        <thead>
+                            <tr>
+                                <th style="width: 50px;" class="text-center">No.</th>
+                                <th>MTS</th>
+                                <th>PN</th>
+                                <th>Description</th>
+                                <th class="text-center">Unit</th>
+                                <th class="text-danger text-center" style="width: 200px;">Quantity</th>
+                            </tr>
+                        </thead>
+                        <tbody id="table_export-tbody">
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="container py-2">
+                    <h4 class="font-weight-light text-center text-white py-3">SIGN PROCESS</h4>
+                    <div id="modal-ExportDevice-signcontainer">
+
+                    </div>
+
+                    <div class="text-center" btn-add-sign>
+                        <button type="button" class="btn btn-outline-success px-5 border-0" id="modal-ExportDevice-btnAddSign"><i class="bx bx-plus"></i>New Sign</button>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="modal-ExportDevice-btncreate">Create Request</button>
+            </div>
+        </div>
+    </div>
+</div>

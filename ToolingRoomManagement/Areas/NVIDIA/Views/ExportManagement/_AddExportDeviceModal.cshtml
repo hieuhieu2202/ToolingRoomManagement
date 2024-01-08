@@ -1,0 +1,60 @@
+﻿<!-- Add Export Device Modal-->
+<div class="modal fade" id="modal-AddExportDevice" aria-hidden="true" data-bs-focus="false">
+    <div class="modal-dialog modal-fullscreen modal-dialog-scrollable">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title" style="text-transform:uppercase;">Return NG Device</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <table id="datatable_add" class="table table-striped table-hover table-bordered text-nowrap w-100">
+                    <thead>
+                        <tr>
+                            <!-- 0 -->
+                            <th></th>
+                            <!-- 1 -->
+                            <th>ID</th>
+                            <!-- 2 -->
+                            <th>MTS</th>
+                            <!-- 3 -->
+                            <th>PN</th>
+                            <!-- 4 -->
+                            <th>Description</th>
+                            <!-- 5 -->
+                            <th>Location</th>
+                            <!-- 6 -->
+                            <th>Buffer</th>
+                            <!-- 7 -->
+                            <th>Quantity</th>
+                            <!-- 8 -->
+                            <th>Real Quantity</th>
+                            <!-- 9 -->
+                            <th>Unit</th>
+                            <!-- 10 -->
+                            <th>Lead Time</th>
+                            <!-- 11 -->
+                            <th> Type</th>
+                            <!-- 12 -->
+                            <th>Status</th>
+                            <!-- 13 -->
+                            <th>Action</th>
+                            <!-- 14 -->
+                            <th>IsConsign</th>
+                            <!-- 15 -->
+                            <th>Alternative PN</th>
+                        </tr>
+                    </thead>
+                    <tbody id="datatable_add-tbody">
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="modal-footer p-1">
+                <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-sm btn-primary" id="btn-AddExportDevice">Add</button>
+            </div>
+        </div>
+    </div>
+</div>

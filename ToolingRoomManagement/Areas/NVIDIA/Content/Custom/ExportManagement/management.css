@@ -25,6 +25,26 @@ td.row-type {
     padding-bottom: 0;
 }
 
+/* datatable */
+#datatable td:nth-child(1), #datatable td:nth-child(2) {
+    max-width: 100px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+#datatable td:nth-child(3) {
+    max-width: 350px;
+    min-width: 250px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+#datatable td:nth-child(4) {
+    max-width: 150px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+/* datatable_add */
 #datatable_add td:nth-child(2) {
     max-width: 100px;
     overflow: hidden;
@@ -52,6 +72,8 @@ td.row-type {
     text-overflow: ellipsis;
 }
 
+/* ------ */
+
 #modal-AddReturnDevice{
     z-index: 1040;
 }
@@ -75,4 +97,7 @@ table tr.selected {
     align-self: self-end;
     text-align: end;
     place-self: end;
+}
+#modal-AddExportDevice{
+    z-index: 1040;
 }

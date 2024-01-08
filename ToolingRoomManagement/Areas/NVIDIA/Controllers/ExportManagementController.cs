@@ -12,11 +12,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
     {
         ToolingRoomEntities db = new ToolingRoomEntities();
         // GET: NVIDIA/ReturnDevice
-        public ActionResult ReturnNG()
-        {
-            return View();
-        }
-        public ActionResult Shipping()
+        public ActionResult Management()
         {
             return View();
         }
@@ -26,7 +22,8 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
         {
             try
             {
-                var warehouses = db.Warehouses.Select(w => new {
+                var warehouses = db.Warehouses.Select(w => new
+                {
                     w.Id,
                     w.WarehouseName,
                 }).ToList();
@@ -72,11 +69,11 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
             }
         }
 
-        public JsonResult GetExports(string type)
+        public JsonResult GetExports()
         {
             try
             {
-                var exports = db.Exports.Where(e => e.Type.ToUpper() == type.ToUpper()).ToList();
+                var exports = db.Exports.ToList();
 
                 return Json(new { status = true, exports }, JsonRequestBehavior.AllowGet);
             }
@@ -111,7 +108,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
             try
             {
                 var user = db.Users.FirstOrDefault(u => u.Username == exportdata.User.Username);
-                if(user != null)
+                if (user != null)
                 {
                     var export = new Export
                     {
@@ -120,14 +117,11 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                         Note = exportdata.Note,
                         Status = "Pending",
                         Type = exportdata.Type,
-                    };
-                    db.Exports.Add(export);
+                    };                   
 
-                    export.User = user;
-
-                    foreach(var exportdevice in exportdata.ExportDevices)
+                    foreach (var exportdevice in exportdata.ExportDevices)
                     {
-                        var device = db.Devices.FirstOrDefault(d => d.Id != exportdevice.IdDevice);
+                        var device = db.Devices.FirstOrDefault(d => d.Id == exportdevice.IdDevice);
                         if (device != null)
                         {
                             var exportDevice = new ExportDevice
@@ -136,18 +130,16 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                                 IdDevice = device.Id,
                                 ExportQuantity = exportdevice.ExportQuantity,
                             };
-                            db.ExportDevices.Add(exportDevice);
-
+                            //db.ExportDevices.Add(exportDevice);
                             exportDevice.Device = device;
-
-                            export.ExportDevices.Add(exportdevice);
+                            export.ExportDevices.Add(exportDevice);
                         }
                     }
 
-                    foreach(var userexportsign in exportdata.UserExportSigns)
+                    foreach (var userexportsign in exportdata.UserExportSigns)
                     {
                         var usersign = db.Users.FirstOrDefault(u => u.Id == userexportsign.IdUser);
-                        if(usersign != null)
+                        if (usersign != null)
                         {
                             var userExportSign = new UserExportSign
                             {
@@ -156,16 +148,16 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                                 SignOrder = userexportsign.SignOrder,
                                 Status = (userexportsign.SignOrder == 1) ? "Pending" : "Waitting"
                             };
-                            db.UserExportSigns.Add(userExportSign);
-
-                            userExportSign.User = user;
-
+                            //db.UserExportSigns.Add(userExportSign);
+                            userExportSign.User = usersign;
                             export.UserExportSigns.Add(userExportSign);
                         }
                     }
 
-                    db.SaveChanges();
+                    export.User = user;
 
+                    db.Exports.Add(export);
+                    db.SaveChanges();
                     return Json(new { status = true, export });
                 }
                 else

@@ -122,7 +122,7 @@ namespace ToolingRoomManagement.Areas.API.Controllers
                                 typeEquipmentName = device.DeviceName,
                                 parameter = "NA",
                                 inOutStore = 0,
-                                quantity = device.QtyConfirm ?? 0 - device.RealQty ?? 0,
+                                quantity = (int) (device.QtyConfirm - device.RealQty),
                                 unit = device.Unit,
                                 status = (device.Status != "Lock") ? "OK" : "NG",
                                 equipmentCode = GetDeviceCode(device),
