@@ -4,6 +4,7 @@ using OfficeOpenXml.FormulaParsing.Excel.Functions.Math;
 using OfficeOpenXml.Style;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Data.Entity.Migrations;
 using System.IO;
 using System.Linq;
@@ -17,38 +18,58 @@ using ToolingRoomManagement.Attributes;
 namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
 {
     [Authentication]
-    public class BorrowManagementController : Controller
+    public class RequestManagementController : Controller
     {
         private ToolingRoomEntities db = new ToolingRoomEntities();
 
         // BorrowManagement
         [HttpGet]
-        public ActionResult BorrowManagement()
+        public ActionResult RequestManagement()
         {
             return View();
         }
 
         [HttpGet]
-        public JsonResult GetUserBorrows()
+        public JsonResult GetRequests()
         {
             try
             {
-                List<Borrow> borrows = new List<Borrow>();
-                borrows = db.Borrows.OrderByDescending(b => b.DateBorrow).ToList();
-                foreach (Borrow b in borrows)
-                {
-                    b.DevicesName = string.Join(",", b.BorrowDevices.Where(bd => bd.Device != null).Select(bd => bd.Device.DeviceCode));
-                    b.BorrowDevices.Clear();
-                }
+                var borrows = db.Borrows.Select(b => new {
+                    Id = b.Id,
+                    CreatedDate = b.DateBorrow,
+                    Status = b.Status,
+                    Type = b.Type,
+                    DuaDate = b.DateDue,
+                    Note = b.Note,
+                    IdModel = b.IdModel,
+                    IdStation = b.IdStation,
+                    DeviceName = b.BorrowDevices.Select(d => d.Device.DeviceCode).ToList(),
+                    User = b.User
+                }).ToList();
 
-                List<Return> returns = new List<Return>();
-                returns = db.Returns.OrderByDescending(r => r.DateReturn).ToList();
-                foreach (Return r in returns)
-                {
-                    r.DevicesName = string.Join(",", r.ReturnDevices.Where(rd => rd.Device != null).Select(rd => rd.Device.DeviceCode));
-                    r.ReturnDevices.Clear();
-                }
-                return Json(new { status = true, borrows, returns }, JsonRequestBehavior.AllowGet);
+                var returns = db.Returns.Select(r => new {
+                    Id = r.Id,
+                    CreatedDate = r.DateReturn,
+                    ReturnDate = r.DateReturn,
+                    Note = r.Note,
+                    Status = r.Status,
+                    Type = r.Type,
+                    IdBorrow = r.IdBorrow,
+                    DeviceName = r.ReturnDevices.Select(d => d.Device.DeviceCode).ToList(),
+                    User = r.User
+                }).ToList();
+
+                var exports = db.Exports.Select(e => new {
+                    Id = e.Id,
+                    CreatedDate = e.CreatedDate,
+                    Note = e.Note,
+                    Status = e.Status,
+                    Type = e.Type,
+                    DeviceName = e.ExportDevices.Select(d => d.Device.DeviceCode).ToList(),
+                    User = e.User
+                }).ToList();
+
+                return Json(new { status = true, borrows, returns, exports }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
@@ -58,7 +79,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
 
         [HttpGet]
 
-        public JsonResult GetBorrow(int Id)
+        public JsonResult GetRequest(int Id)
         {
             try
             {
