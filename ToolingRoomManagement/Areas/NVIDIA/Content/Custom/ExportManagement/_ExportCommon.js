@@ -319,7 +319,7 @@ function GetExportStatus(_export) {
             break;
         }
         case "Rejected": {
-            returnd(`<td><span class="badge bg-danger"><i class="fa-solid fa-xmark"></i> Rejected</span></td>`);
+            return (`<td><span class="badge bg-danger"><i class="fa-solid fa-xmark"></i> Rejected</span></td>`);
             break;
         }
         default: {

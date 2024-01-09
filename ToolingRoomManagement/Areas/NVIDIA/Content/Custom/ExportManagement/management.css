@@ -32,13 +32,13 @@ td.row-type {
     text-overflow: ellipsis;
 }
 #datatable td:nth-child(3) {
-    max-width: 350px;
+    max-width: 300px;
     min-width: 250px;
     overflow: hidden;
     text-overflow: ellipsis;
 }
 #datatable td:nth-child(4) {
-    max-width: 150px;
+    max-width: 120px;
     overflow: hidden;
     text-overflow: ellipsis;
 }

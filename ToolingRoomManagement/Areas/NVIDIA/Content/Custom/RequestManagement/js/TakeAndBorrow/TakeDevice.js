@@ -1,11 +1,33 @@
 ﻿$(function () {
     GetUserAndRole();
     Filter();
+    CreateDataListModelAndStation();
     //GetWarehouseDevices();
 });
 
 // Get Select data
 var users, roles;
+
+
+async function CreateDataListModelAndStation() {
+    try {
+        var result = await GetModelAndStations();
+
+        var modelDatalist = $('#form_borrow-ListModel');
+        $.each(result.models, function (k, model) {
+            var otp = $(`<option value="${model.ModelName}"></option>`);
+            modelDatalist.append(otp);
+        });
+        var stationDatalist = $('#form_borrow-ListStation');
+        $.each(result.stations, function (k, station) {
+            var otp = $(`<option value="${station.StationName}"></option>`);
+            stationDatalist.append(otp);
+        })
+
+    } catch (error) {
+        Swal.fire('Sorry, something went wrong!', `${error}`, 'error');
+    }
+}
 function GetDatas() {
     return new Promise((resolve, reject) => {
         $.ajax({
@@ -30,7 +52,7 @@ function GetDatas() {
 function GetUserAndRole() {
     $.ajax({
         type: "GET",
-        url: "/NVIDIA/BorrowManagement/GetUserAndRole",
+        url: "/NVIDIA/RequestManagement/GetUserAndRole",
         dataType: "json",
         contentType: "application/json;charset=utf-8",
         success: function (response) {
@@ -56,7 +78,7 @@ var tableDeviceInfo;
 function GetWarehouseDevices(IdWarehouse = 0) {
     Pace.track(function () {
         $.ajax({
-            url: "/NVIDIA/BorrowManagement/GetWarehouseDevices",
+            url: "/NVIDIA/RequestManagement/GetWarehouseDevices",
             data: JSON.stringify({ IdWarehouse: IdWarehouse }),
             type: "POST",
             dataType: "json",
@@ -528,7 +550,7 @@ $('#button_send').on('click', function (e) {
     // Tạo đơn lĩnh
     $.ajax({
         type: "POST",
-        url: "/NVIDIA/BorrowManagement/TakeDevice",
+        url: "/NVIDIA/RequestManagement/TakeDevice",
         data: JSON.stringify(BorrowData),
         dataType: "json",
         contentType: "application/json;charset=utf-8",

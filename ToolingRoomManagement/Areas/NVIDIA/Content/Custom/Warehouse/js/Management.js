@@ -27,7 +27,7 @@ function GetWarehouses() {
 function GetUserAndRole() {
     $.ajax({
         type: "GET",
-        url: "/NVIDIA/BorrowManagement/GetUserAndRole",
+        url: "/NVIDIA/RequestManagement/GetUserAndRole",
         dataType: "json",
         contentType: "application/json;charset=utf-8",
         success: function (response) {

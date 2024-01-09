@@ -99,6 +99,27 @@ function GetRequest(IdRequest, Type) {
         });
     });
 }
+function GetModelAndStations() {
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            type: "GET",
+            url: "/NVIDIA/RequestManagement/GetModelsAndStations",
+            dataType: "json",
+            contentType: "application/json;charset=utf-8",
+            success: function (response) {
+                if (response.status) {
+                    resolve(response);
+                }
+                else {
+                    reject(response.message);
+                }
+            },
+            error: function (error) {
+                reject(GetAjaxErrorMessage(error));
+            }
+        });
+    });
+}
 
 
 /* POST */
@@ -111,7 +132,7 @@ function Approved(IdRequest, IdSign, Type) {
                 break;
             }
             case "Return": {
-                approvedUrl = '/NVIDIA/RequestManagement/Return_Approve';
+                approvedUrl = '/NVIDIA/RequestManagement/Return_Approved';
                 break;
             }
             case "Export": {
@@ -132,7 +153,7 @@ function Approved(IdRequest, IdSign, Type) {
                     resolve(request);
                 }
                 else {
-                    reject(response.message);
+                    reject(res.message);
                 }
             },
             error: function (error) {
@@ -171,7 +192,7 @@ function Rejected(IdRequest, IdSign, Type, Note) {
                     resolve(request);
                 }
                 else {
-                    reject(response.message);
+                    reject(res.message);
                 }
             },
             error: function (error) {

@@ -27,7 +27,7 @@ async function ExportDetails(IdExport) {
             tr.append(`<td>${exportDevice.Device.Unit != null ? exportDevice.Device.Unit : 'NA'}</td>`);
             tr.append(`<td class="text-center">${exportDevice.ExportQuantity}</td>`);
 
-            tr.click(function () {
+            tr.dblclick(function () {
                 var Id = exportDevice.Device.Id;
                 GetDeviceDetails(Id)
             });

@@ -24,6 +24,11 @@ function InitDatatable(){
             $(row).data('code', data[0]);
             var cells = $(row).children('td');
             $(cells[3]).attr('title', data[3]);
+
+            if (data[6].includes("Pending"))
+                $(row).addClass('hl-pending');
+            else
+                $(row).removeClass('hl-pending');
         },
     };
     datatable = $('#datatable').DataTable(options);
@@ -63,7 +68,7 @@ function CreateRequestTableRow(request, type) {
     return row = [
         `${type[0]}-${moment(request.CreatedDate).format('YYYYMMDDHHmm')}-${request.Id}`,
         CreateUserName(request.User),
-        moment(request.CreatedDate).format('YYYY-MM-DD HH:mm'),
+        moment(request.CreatedDate).format('YYYY-MM-DD HH:mm:ss'),
         request.Note,
         GetRequestType(request),
         GetRequestStatus(request),
@@ -97,33 +102,33 @@ $('#datatable tbody').on('dblclick', 'tr', function (event) {
 
 /* SIGN */
 function CreateApprovedAlert(IdRequest, IdSign, Type, elm) {
-    try {
-        indexRow = datatable.row($(elm).closest('tr')).index();
+    indexRow = datatable.row($(elm).closest('tr')).index();
 
-        var rowData = datatable.row(indexRow).data();
+    var rowData = datatable.row(indexRow).data();
 
-        var content = `
+    var content = `
         <p class="text-white">Created User: <b>${rowData[1]}</b></p>
         <p class="text-white">Created Date: <b>${rowData[2]}</b></p>
         <p class="text-white">Request Type: <b>${rowData[4]}</b></p>
         `;
 
-        Swal.fire({
-            title: `<strong style="font-size: 25px;">Do you want Approve this request?</strong>`,
-            html: content,
-            icon: 'question',
-            reverseButtons: false,
-            confirmButtonText: 'Approve',
-            showCancelButton: true,
-            cancelButtonText: 'Cancel',
-            buttonsStyling: false,
-            reverseButtons: true,
-            customClass: {
-                cancelButton: 'btn btn-outline-secondary fw-bold me-3',
-                confirmButton: 'btn btn-success fw-bold'
-            },
-        }).then(async (result) => {
-            if (result.isConfirmed) {
+    Swal.fire({
+        title: `<strong style="font-size: 25px;">Do you want Approve this request?</strong>`,
+        html: content,
+        icon: 'question',
+        reverseButtons: false,
+        confirmButtonText: 'Approve',
+        showCancelButton: true,
+        cancelButtonText: 'Cancel',
+        buttonsStyling: false,
+        reverseButtons: true,
+        customClass: {
+            cancelButton: 'btn btn-outline-secondary fw-bold me-3',
+            confirmButton: 'btn btn-success fw-bold'
+        },
+    }).then(async (result) => {
+        if (result.isConfirmed) {
+            try {
                 var request = await Approved(IdRequest, IdSign, Type);
 
                 var rowData = CreateRequestTableRow(request, Type);
@@ -132,18 +137,17 @@ function CreateApprovedAlert(IdRequest, IdSign, Type, elm) {
                 $('#borrow_modal').modal('hide');
                 $('#return_modal').modal('hide');
                 $('#modal-ExportDetails').modal('hide');
+            } catch (error) {
+                Swal.fire('Sorry, something went wrong!', `${error}`, 'error');
             }
-        });
 
-    } catch (error) {
-        Swal.fire('Sorry, something went wrong!', `${error}`, 'error');
-    }
+        }
+    });
 }
 function CreateRejectedAlert(IdRequest, IdSign, Type, elm) {
-    try {
-        indexRow = datatable.row($(elm).closest('tr')).index();
-        var rowData = datatable.row(indexRow).data();
-        var content = `
+    indexRow = datatable.row($(elm).closest('tr')).index();
+    var rowData = datatable.row(indexRow).data();
+    var content = `
         <p class="text-white">Created User: <b>${rowData[1]}</b></p>
         <p class="text-white">Created Date: <b>${rowData[2]}</b></p>
         <p class="text-white">Request Type: <b>${rowData[4]}</b></p>
@@ -154,22 +158,23 @@ function CreateRejectedAlert(IdRequest, IdSign, Type, elm) {
         `;
 
 
-        Swal.fire({
-            title: `<strong style="font-size: 25px;">Do you want Reject this request?</strong>`,
-            html: content,
-            icon: 'question',
-            reverseButtons: false,
-            confirmButtonText: 'Reject',
-            showCancelButton: true,
-            cancelButtonText: 'Cancel',
-            buttonsStyling: false,
-            reverseButtons: true,
-            customClass: {
-                cancelButton: 'btn btn-outline-secondary fw-bold me-3',
-                confirmButton: 'btn btn-danger fw-bold'
-            },
-        }).then(async (result) => {
-            if (result.isConfirmed) {
+    Swal.fire({
+        title: `<strong style="font-size: 25px;">Do you want Reject this request?</strong>`,
+        html: content,
+        icon: 'question',
+        reverseButtons: false,
+        confirmButtonText: 'Reject',
+        showCancelButton: true,
+        cancelButtonText: 'Cancel',
+        buttonsStyling: false,
+        reverseButtons: true,
+        customClass: {
+            cancelButton: 'btn btn-outline-secondary fw-bold me-3',
+            confirmButton: 'btn btn-danger fw-bold'
+        },
+    }).then(async (result) => {
+        if (result.isConfirmed) {
+            try {
                 var Note = $('#reject-Note').val();
 
                 var request = await Rejected(IdRequest, IdSign, Type, Note);
@@ -181,10 +186,11 @@ function CreateRejectedAlert(IdRequest, IdSign, Type, elm) {
                 $('#borrow_modal').modal('hide');
                 $('#return_modal').modal('hide');
                 $('#modal-ExportDetails').modal('hide');
+            } catch (error) {
+                Swal.fire('Sorry, something went wrong!', `${error}`, 'error');
             }
-        });
-    } catch (error) {
-        Swal.fire('Sorry, something went wrong!', `${error}`, 'error');
-    }
+
+        }
+    });
 }
 

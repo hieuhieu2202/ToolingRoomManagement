@@ -135,12 +135,13 @@ async function CreateTableBorrow(borrows) {
 function Return(Id) {
     $.ajax({
         type: "GET",
-        url: "/NVIDIA/RequestManagement/GetRequest?Id=" + Id,
+        url: "/NVIDIA/RequestManagement/GetRequest",
+        data: {IdRequest: Id, Type: "Borrow"},
         dataType: "json",
         contentType: "application/json;charset=utf-8",
         success: function (response) {
             if (response.status) {
-                var borrow = response.borrow;
+                var borrow = response.request;
                 CreateReturnModal(borrow);
 
                 $('#CreateReturnRequest').attr('id', Id);
