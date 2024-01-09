@@ -34,10 +34,6 @@ td, p, label .badge {
 .red-dot {
     font-size: 1rem;
 }
-
-.table-hover > tbody > tr:hover > * {
-    background-color: rgb(136 51 255 / 15%) !important;
-}
 .order-action a {
     font-size: 15px;
     width: 30px;

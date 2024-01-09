@@ -1,7 +1,7 @@
 ﻿function ReturnDetails(Id, showDevice = true) {
     $.ajax({
         type: "GET",
-        url: "/NVIDIA/BorrowManagement/GetReturn?Id=" + Id,
+        url: "/NVIDIA/RequestManagement/GetReturn?Id=" + Id,
         dataType: "json",
         contentType: "application/json;charset=utf-8",
         success: function (response) {

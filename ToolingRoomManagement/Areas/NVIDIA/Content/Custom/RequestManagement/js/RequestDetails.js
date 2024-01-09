@@ -1,12 +1,13 @@
-﻿function RequestDetails(Id, showDevice = true) {
+﻿function RequestDetails(Id, Type, showDevice = true) {
     $.ajax({
         type: "GET",
-        url: "/NVIDIA/BorrowManagement/GetBorrow?Id=" + Id,
+        url: "/NVIDIA/RequestManagement/GetRequest",
+        data: { IdRequest: Id, Type: "Borrow" },
         dataType: "json",
         contentType: "application/json;charset=utf-8",
         success: function (response) {
             if (response.status) {
-                var borrow = response.borrow;
+                var borrow = response.request;
 
                 CreateModal(borrow, showDevice);
 

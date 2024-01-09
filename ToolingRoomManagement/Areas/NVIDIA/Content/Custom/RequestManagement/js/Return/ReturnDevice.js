@@ -6,7 +6,7 @@ $(function () {
 function GetListBorrowRequests() {
     $.ajax({
         type: "GET",
-        url: "/NVIDIA/BorrowManagement/GetListBorrowRequests",
+        url: "/NVIDIA/RequestManagement/GetListBorrowRequests",
         dataType: "json",
         contentType: "application/json;charset=utf-8",
         success: function (response) {
@@ -25,7 +25,7 @@ function GetListBorrowRequests() {
 function GetUserAndRole() {
     $.ajax({
         type: "GET",
-        url: "/NVIDIA/BorrowManagement/GetUserAndRole",
+        url: "/NVIDIA/RequestManagement/GetUserAndRole",
         dataType: "json",
         contentType: "application/json;charset=utf-8",
         success: function (response) {
@@ -135,7 +135,7 @@ async function CreateTableBorrow(borrows) {
 function Return(Id) {
     $.ajax({
         type: "GET",
-        url: "/NVIDIA/BorrowManagement/GetBorrow?Id=" + Id,
+        url: "/NVIDIA/RequestManagement/GetRequest?Id=" + Id,
         dataType: "json",
         contentType: "application/json;charset=utf-8",
         success: function (response) {
@@ -246,7 +246,7 @@ $('#CreateReturnRequest').click(function (e) {
 
     $.ajax({
         type: "POST",
-        url: "/NVIDIA/BorrowManagement/ReturnDevices",
+        url: "/NVIDIA/RequestManagement/ReturnDevices",
         data: JSON.stringify(data),
         dataType: "json",
         contentType: "application/json;charset=utf-8",

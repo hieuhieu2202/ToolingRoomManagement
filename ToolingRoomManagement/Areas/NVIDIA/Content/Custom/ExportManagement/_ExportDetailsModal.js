@@ -19,13 +19,18 @@ async function ExportDetails(IdExport) {
         var tablebody = modal.find('#table-ExportDetails-tbody');
         tablebody.empty();
         $.each(_export.ExportDevices, function (k, exportDevice) {
-            var tr = $(`<tr class="align-middle" data-id="${exportDevice.Device.Id}" data-index="${k}"></tr>`);
+            var tr = $(`<tr class="cursor-pointer align-middle" data-id="${exportDevice.Device.Id}" data-index="${k}"></tr>`);
             tr.append(`<td class="text-center">${k + 1}</td>`);
             tr.append(`<td class="text-center">${exportDevice.Device.Product != null ? exportDevice.Device.Product.MTS : ''}</td>`);
             tr.append(`<td>${exportDevice.Device.DeviceCode != null ? exportDevice.Device.DeviceCode : ''}</td>`);
             tr.append(`<td>${exportDevice.Device.DeviceName != null ? exportDevice.Device.DeviceName : ''}</td>`);
             tr.append(`<td>${exportDevice.Device.Unit != null ? exportDevice.Device.Unit : 'NA'}</td>`);
             tr.append(`<td class="text-center">${exportDevice.ExportQuantity}</td>`);
+
+            tr.click(function () {
+                var Id = exportDevice.Device.Id;
+                GetDeviceDetails(Id)
+            });
 
             tablebody.append(tr);
 

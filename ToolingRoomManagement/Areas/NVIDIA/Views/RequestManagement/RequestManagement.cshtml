@@ -104,16 +104,16 @@
             <table id="datatable" class="table table-striped table-hover table-bordered text-nowrap">
                 <thead>
                     <tr>
-                        <th>Code</th>
-                        <th>Created By</th>
-                        <th>Created Date</th>
-                        <th>Due Date</th>
-                        <th>Return Date</th>
-                        <th>Note</th>
-                        <th>Type</th>
-                        <th>Status</th>
-                        <th>Action</th>
-                        <th>DevicesName</th>
+                        <!-- 0 --><th>Code</th>
+                        <!-- 1 --><th>Created By</th>
+                        <!-- 2 --><th>Created Date</th>
+                        <!-- 3 --><th>Due Date</th>
+                        <!-- 4 --><th>Return Date</th>
+                        <!-- 5 --><th>Note</th>
+                        <!-- 6 --><th>Type</th>
+                        <!-- 7 --><th>Status</th>
+                        <!-- 8 --><th>Action</th>
+                        <!-- 9 --><th>DevicesName</th>
                     </tr>
                 </thead>
                 <tbody id="datatable-tbody">
@@ -126,6 +126,12 @@
 <!-- Request Details modal -->
 @Html.Partial("~/Areas/NVIDIA/Views/RequestManagement/_RequestDetailsModal.cshtml")
 
+<!-- Return Details modal -->
+@Html.Partial("~/Areas/NVIDIA/Views/RequestManagement/Return/_ReturnDetails.cshtml")
+
+<!-- Export & Return NG Details modal -->
+@Html.Partial("~/Areas/NVIDIA/Views/ExportManagement/_ExportDetailsModal.cshtml")
+
 <!-- Device Details modal -->
 @Html.Partial("~/Areas/NVIDIA/Views/DeviceManagement/_DeviceDetails_Modal.cshtml")
 
@@ -136,9 +142,13 @@
     <script src="~/Areas/NVIDIA/Content/Vendor/Viewer JS/viewer.min.js"></script>
     <!-- Custom -->
     <script src="~/Areas/NVIDIA/Content/Custom/RequestManagement/js/RequestCommon.js"></script>
+    <script src="~/Areas/NVIDIA/Content/Custom/ExportManagement/_ExportCommon.js"></script>
+
     <script src="~/Areas/NVIDIA/Content/Custom/DeviceManagement/js/DeviceDetails.js?v=@Guid.NewGuid()"></script>
 
     <script src="~/Areas/NVIDIA/Content/Custom/RequestManagement/js/RequestManagement.js?v=@Guid.NewGuid()"></script>
+
     <script src="~/Areas/NVIDIA/Content/Custom/RequestManagement/js/RequestDetails.js?v=@Guid.NewGuid()"></script>
     <script src="~/Areas/NVIDIA/Content/Custom/RequestManagement/js/Return/ReturnDetails.js?v=@Guid.NewGuid()"></script>
+    <script src="~/Areas/NVIDIA/Content/Custom/ExportManagement/_ExportDetailsModal.js?v=@Guid.NewGuid()"></script>
 }

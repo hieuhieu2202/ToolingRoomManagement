@@ -204,7 +204,7 @@
     <Content Include="Areas\NVIDIA\Content\Custom\RequestManagement\css\TakeDevice.css" />
     <Content Include="Areas\NVIDIA\Content\Custom\RequestManagement\css\BorrowDevice.css" />
     <Content Include="Areas\NVIDIA\Content\Custom\RequestManagement\css\RequestManagement.css" />
-    <Content Include="Areas\NVIDIA\Content\Custom\RequestManagement\css\BorrowSign.css" />
+    <Content Include="Areas\NVIDIA\Content\Custom\RequestManagement\css\SignManagement.css" />
     <Content Include="Areas\NVIDIA\Content\Custom\RequestManagement\css\ReturnDevice.css" />
     <Content Include="Areas\NVIDIA\Content\Custom\RequestManagement\js\RequestCommon.js" />
     <Content Include="Areas\NVIDIA\Content\Custom\RequestManagement\js\RequestDetails.js" />
@@ -3610,21 +3610,21 @@
     <Content Include="Areas\NVIDIA\Views\DeviceManagement\DeviceManagement.cshtml" />
     <Content Include="Areas\NVIDIA\Views\DeviceManagement\AddDeviceManual.cshtml" />
     <Content Include="Areas\NVIDIA\Views\RequestManagement\RequestManagement.cshtml" />
-    <Content Include="Areas\NVIDIA\Views\RequestManagement\TakeAndBorrow\BorrowDevice.cshtml" />
-    <Content Include="Areas\NVIDIA\Views\RequestManagement\Return\ReturnDevice.cshtml" />
+    <Content Include="Areas\NVIDIA\Views\RequestManagement\BorrowDevice.cshtml" />
+    <Content Include="Areas\NVIDIA\Views\RequestManagement\ReturnDevice.cshtml" />
     <Content Include="Areas\NVIDIA\Views\RequestManagement\SignManagement.cshtml" />
     <Content Include="Properties\DataSources\System.Data.DataTable.datasource" />
     <Content Include="Areas\NVIDIA\Views\Warehouse\Management.cshtml" />
     <Content Include="Areas\NVIDIA\Views\Warehouse\Layout.cshtml" />
-    <Content Include="Areas\NVIDIA\Views\RequestManagement\TakeAndBorrow\TakeDevice.cshtml" />
+    <Content Include="Areas\NVIDIA\Views\RequestManagement\TakeDevice.cshtml" />
     <Content Include="Areas\NVIDIA\Views\Info\Product.cshtml" />
     <Content Include="Areas\NVIDIA\Views\Info\ModelStation.cshtml" />
     <Content Include="Areas\NVIDIA\Views\Info\GroupVendor.cshtml" />
     <Content Include="Areas\NVIDIA\Views\DeviceManagement\_DeviceDetails_Modal.cshtml" />
-    <Content Include="Areas\NVIDIA\Views\RequestManagement\_RequestDetailsModal.cshtml" />
+    <Content Include="Areas\NVIDIA\Views\RequestManagement\Modal\_RequestDetailsModal.cshtml" />
     <Content Include="Areas\NVIDIA\Views\DeviceManagement\ConfirmDevice.cshtml" />
     <Content Include="Areas\NVIDIA\Views\DeviceManagement\_DeviceUpdate_Modal.cshtml" />
-    <Content Include="Areas\NVIDIA\Views\RequestManagement\Return\_ReturnDetails.cshtml" />
+    <Content Include="Areas\NVIDIA\Views\RequestManagement\Modal\_ReturnDetails.cshtml" />
     <Content Include="Areas\NVIDIA\Views\DeviceManagement\ComingDevice.cshtml" />
     <Content Include="Areas\NVIDIA\Views\DeviceManagement\_DatatableFilter.cshtml" />
     <Content Include="Areas\NVIDIA\Views\ExportManagement\Management.cshtml" />
@@ -3662,7 +3662,6 @@
     <Folder Include="Areas\API\Views\Toolroom\" />
     <Folder Include="Areas\NVIDIA\Content\Custom\RequestManagement\js\Export\" />
     <Folder Include="Areas\NVIDIA\Data\DeviceHistoryLog\" />
-    <Folder Include="Areas\NVIDIA\Views\RequestManagement\Export\" />
     <Folder Include="Data\Image\" />
     <Folder Include="Views\Register\" />
   </ItemGroup>
