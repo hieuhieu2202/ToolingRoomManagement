@@ -441,15 +441,15 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                     var userSign = request.UserExportSigns.FirstOrDefault(s => s.Status == "Pending");
                     if(userSign != null && userSign.Id == IdSign)
                     {
-                        request.Status = "Approved";
-
                         userSign.Status = "Approved";
                         userSign.SignDate = DateTime.Now;
 
                         // REQUEST DONE
                         if(userSign.SignOrder == request.UserExportSigns.Count)
                         {
-                            foreach(var requestDevice in request.ExportDevices)
+                            request.Status = "Approved";
+
+                            foreach (var requestDevice in request.ExportDevices)
                             {
                                 if(request.Type == "Return NG")
                                 {

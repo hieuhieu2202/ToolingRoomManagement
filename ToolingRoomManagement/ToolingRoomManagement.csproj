@@ -197,6 +197,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Areas\NVIDIA\Content\admin\AdminCommon.js" />
+    <Content Include="Areas\NVIDIA\Content\admin\users\UserManagement.js" />
+    <Content Include="Areas\NVIDIA\Content\admin\users\UserManagement.css" />
     <Content Include="Areas\NVIDIA\Content\Custom\Authentication\css\SignIn.css" />
     <Content Include="Areas\NVIDIA\Content\Custom\Authentication\css\SignUp.css" />
     <Content Include="Areas\NVIDIA\Content\Custom\Authentication\js\SignIn.js" />
@@ -3136,7 +3139,9 @@
     <Compile Include="Areas\Admin\Controllers\StationRobotController.cs" />
     <Compile Include="Areas\API\APIAreaRegistration.cs" />
     <Compile Include="Areas\API\Controllers\ToolroomController.cs" />
+    <Compile Include="Areas\NVIDIA\Controllers\AdminManagementController.cs" />
     <Compile Include="Areas\NVIDIA\Controllers\AuthenticationController.cs" />
+    <Compile Include="Areas\NVIDIA\Controllers\Common.cs" />
     <Compile Include="Areas\NVIDIA\Controllers\RequestManagementController.cs" />
     <Compile Include="Areas\NVIDIA\Controllers\DashboardController.cs" />
     <Compile Include="Areas\NVIDIA\Controllers\DeviceManagementController.cs" />
@@ -3631,6 +3636,7 @@
     <Content Include="Areas\NVIDIA\Views\ExportManagement\_ExportDetailsModal.cshtml" />
     <Content Include="Areas\NVIDIA\Views\ExportManagement\_AddExportModal.cshtml" />
     <Content Include="Areas\NVIDIA\Views\ExportManagement\_AddExportDeviceModal.cshtml" />
+    <Content Include="Areas\NVIDIA\Views\AdminManagement\UserManagement.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -3660,6 +3666,7 @@
     <Folder Include="Areas\API\Data\" />
     <Folder Include="Areas\API\Views\Shared\" />
     <Folder Include="Areas\API\Views\Toolroom\" />
+    <Folder Include="Areas\NVIDIA\Content\admin\roles\" />
     <Folder Include="Areas\NVIDIA\Content\Custom\RequestManagement\js\Export\" />
     <Folder Include="Areas\NVIDIA\Data\DeviceHistoryLog\" />
     <Folder Include="Data\Image\" />
