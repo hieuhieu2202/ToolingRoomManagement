@@ -13,7 +13,7 @@ function InitDatatable(){
         autoWidth: false,
         columnDefs: [
             { targets: "_all", orderable: false },
-            { targets: [5, 6], className: "text-center" },
+            { targets: [4, 5, 6], className: "text-center" },
             { targets: [7], className: "row-action order-action d-flex text-center justify-content-center" },
             { targets: [8], visible: false },
 

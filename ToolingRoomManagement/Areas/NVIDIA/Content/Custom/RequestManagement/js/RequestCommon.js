@@ -254,19 +254,19 @@ function CustomRequest(request, type) {
 function GetRequestType(request) {
     switch (request.Type) {
         case "Borrow": {
-            return (`<span class="fw-bold text-primary">Borrow</span>`);
+            return (`<span class="badge bg-primary"><i class="fa-solid fa-arrow-up-from-square"></i> Borrow</span>`);
         }
         case "Take": {
-            return (`<span class="fw-bold text-secondary">Take</span>`);
+            return (`<span class="badge bg-secondary"><i class="fa-solid fa-arrow-up-from-square"></i> Take</span>`);
         }
         case "Return": {
-            return (`<span class="fw-bold text-info">Return</span>`);
+            return (`<span class="badge bg-info"><i class="fa-solid fa-arrow-down-to-square"></i> Return</span>`);
         }
         case "Return NG": {
-            return (`<span class="fw-bold text-danger">NG</span>`);
+            return (`<span class="badge bg-danger"><i class="fa-solid fa-arrows-turn-to-dots"></i> Return NG</span>`);
         }
         case "Export": {
-            return (`<span class="fw-bold text-success">Export</span>`);
+            return (`<span class="badge bg-success"><i class="fa-solid fa-arrow-up-right-dots"></i> Export</span>`);
         }
         default: {
             return (`<span class="fw-bold">NA</span></td>`);
