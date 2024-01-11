@@ -1,4 +1,4 @@
-﻿function ReturnDetails(Id, showDevice = true) {
+﻿function ReturnDetails(Id, IdSign, Type, Elm) {
     $.ajax({
         type: "GET",
         url: "/NVIDIA/RequestManagement/GetReturn?Id=" + Id,
@@ -8,7 +8,24 @@
             if (response.status) {
                 var _return = response._return;
 
-                CreateReturnDetailsModal(_return, showDevice);
+                CreateReturnDetailsModal(_return);
+
+                if (IdSign != null) {
+                    $('#return_action_footer').show();
+                    $('#return_normal_footer').hide();
+
+                    $('#return-Approved').click(function () {
+                        CreateApprovedAlert(Id, IdSign, Type, Elm);
+                    });
+                    $('#return-Rejected').click(function () {
+                        CreateRejectedAlert(Id, IdSign, Type, Elm);
+                    });
+                }
+                else {
+                    $('#return_action_footer').hide();
+                    $('#return_normal_footer').show();
+                }
+
 
                 $('#return_modal').modal('show');
             }
@@ -21,7 +38,7 @@
         }
     });
 }
-function CreateReturnDetailsModal(_return, showDevice) {
+function CreateReturnDetailsModal(_return) {
     $('#return_modal-CardId').val(_return.User.Username);
     $('#return_modal-Username').val(CreateUserName(_return.User));
 
@@ -62,12 +79,10 @@ function CreateReturnDetailsModal(_return, showDevice) {
             row.append(`<td class="text-center">${deviceUnit}</td>`);
             row.append(`<td class="text-center">${borrowQty}</td>`);
 
-            if (showDevice) {
-                row.dblclick(function () {
-                    var Id = $(this).data('id');
-                    GetDeviceDetails(Id)
-                });
-            }
+            row.dblclick(function () {
+                var Id = $(this).data('id');
+                GetDeviceDetails(Id)
+            });
 
             $('#return_modal-table-tbody-borrow').append(row);
         }
@@ -94,12 +109,10 @@ function CreateReturnDetailsModal(_return, showDevice) {
             row.append(`<td class="text-center">${isNG ? '<i class="fa-duotone fa-check text-success"></i>' : '<i class="fa-solid fa-xmark text-danger"></i>'}</td>`);
             row.append(`<td class="text-center">${isSwap ? '<i class="fa-duotone fa-check text-success"></i>' : '<i class="fa-solid fa-xmark text-danger"></i>'}</td>`);
 
-            if (showDevice) {
-                row.dblclick(function () {
-                    var Id = $(this).data('id');
-                    GetDeviceDetails(Id)
-                });
-            }
+            row.dblclick(function () {
+                var Id = $(this).data('id');
+                GetDeviceDetails(Id)
+            });
 
             $('#return_modal-table-tbody').append(row);
         }

@@ -198,10 +198,10 @@ function CreateTableHistory(IdDevice, borrows, returns) {
     $.each(rows, function (index, row) {
         $(row).dblclick(function (e) {
             if ($(row).is('[IsBorrow]')) {
-                RequestDetails($(this).data('id'), false);
+                RequestDetails($(this).data('id'));
             }
             else {
-                ReturnDetails($(this).data('id'), false);
+                ReturnDetails($(this).data('id'));
             }
         });
         $('#device_details-history-tbody').append($(row));

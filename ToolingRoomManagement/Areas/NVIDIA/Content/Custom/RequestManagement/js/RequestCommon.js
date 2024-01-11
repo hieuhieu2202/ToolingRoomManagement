@@ -327,29 +327,44 @@ function GetSignStatus(request) {
 function GetSignAction(request, type) {
     const userSign = request.UserSigns.find(s => s.User.Username === $('#CardID').text());
 
-    var btnDetails;
-    switch (type) {
-        case "Borrow": {
-            btnDetails = `<a href="javascript:;" class="text-info bg-light-info border-0" title="Details" data-id="${request.Id}" onclick="RequestDetails(${request.Id})"><i class="fa-regular fa-circle-info"></i></a>`;
-            break;
-        }
-        case "Return": {
-            btnDetails = `<a href="javascript:;" class="text-info bg-light-info border-0" title="Details" data-id="${request.Id}" onclick="ReturnDetails(${request.Id})"><i class="fa-regular fa-circle-info"></i></a>`;
-            break;
-        }
-        case "Export": {
-            btnDetails = `<a href="javascript:;" class="text-info bg-light-info border-0" title="Details" data-id="${request.Id}" onclick="ExportDetails(${request.Id})"><i class="fa-regular fa-circle-info"></i></a>`;
-            break;
-        }
-    }
-
+    var btnDetails, btnApproved, btnRejected;
+   
     if (userSign.Status == "Pending") {
-        var btnApproved = `<a href="javascript:;" class="text-success bg-light-success border-0" onclick="CreateApprovedAlert(${request.Id}, ${userSign.Id}, '${type}', this)"><i class="fa-duotone fa-check"></i></a>`;
-        var btnRejected = `<a href="javascript:;" class="text-danger  bg-light-danger  border-0" onclick="CreateRejectedAlert(${request.Id}, ${userSign.Id}, '${type}', this)"><i class="fa-solid fa-x"></i></a>`;
+        switch (type) {
+            case "Borrow": {
+                btnDetails = `<a href="javascript:;" class="text-info bg-light-info border-0" title="Details" data-id="${request.Id}" onclick="RequestDetails(${request.Id}, ${userSign.Id}, 'Borrow', this)"><i class="fa-regular fa-circle-info"></i></a>`;
+                break;
+            }
+            case "Return": {
+                btnDetails = `<a href="javascript:;" class="text-info bg-light-info border-0" title="Details" data-id="${request.Id}" onclick="ReturnDetails(${request.Id}, ${userSign.Id}, 'Return', this)"><i class="fa-regular fa-circle-info"></i></a>`;
+                break;
+            }
+            case "Export": {
+                btnDetails = `<a href="javascript:;" class="text-info bg-light-info border-0" title="Details" data-id="${request.Id}" onclick="ExportDetails(${request.Id}, ${userSign.Id}, 'Export', this)"><i class="fa-regular fa-circle-info"></i></a>`;
+                break;
+            }
+        }
+        btnApproved = `<a href="javascript:;" class="text-success bg-light-success border-0" data-id="${request.Id}" data-idsign="${userSign.Id}" onclick="CreateApprovedAlert(${request.Id}, ${userSign.Id}, '${type}', this)"><i class="fa-duotone fa-check"></i></a>`;
+        btnRejected = `<a href="javascript:;" class="text-danger  bg-light-danger  border-0" data-id="${request.Id}" data-idsign="${userSign.Id}" onclick="CreateRejectedAlert(${request.Id}, ${userSign.Id}, '${type}', this)"><i class="fa-solid fa-x"></i></a>`;
 
         return btnDetails + btnApproved + btnRejected;
     }
     else {
+        switch (type) {
+            case "Borrow": {
+                btnDetails = `<a href="javascript:;" class="text-info bg-light-info border-0" title="Details" data-id="${request.Id}" onclick="RequestDetails(${request.Id})"><i class="fa-regular fa-circle-info"></i></a>`;
+                break;
+            }
+            case "Return": {
+                btnDetails = `<a href="javascript:;" class="text-info bg-light-info border-0" title="Details" data-id="${request.Id}" onclick="ReturnDetails(${request.Id})"><i class="fa-regular fa-circle-info"></i></a>`;
+                break;
+            }
+            case "Export": {
+                btnDetails = `<a href="javascript:;" class="text-info bg-light-info border-0" title="Details" data-id="${request.Id}" onclick="ExportDetails(${request.Id})"><i class="fa-regular fa-circle-info"></i></a>`;
+                break;
+            }
+        }
+
         return btnDetails;
     }
 }

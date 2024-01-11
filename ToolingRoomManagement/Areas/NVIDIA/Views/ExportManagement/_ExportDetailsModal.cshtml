@@ -56,7 +56,13 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <div class="w-100 text-center" id="export_action_footer" style="display: none;">
+                    <button type="button" class="btn btn-outline-danger" id="export-Rejected"><i class="bx bx-x"></i>Reject</button>
+                    <button type="button" class="btn btn-success ms-3"   id="export-Approved"><i class="bx bx-check"></i>Approve</button>
+                </div>
+                <div id="export_normal_footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
             </div>
         </div>
     </div>

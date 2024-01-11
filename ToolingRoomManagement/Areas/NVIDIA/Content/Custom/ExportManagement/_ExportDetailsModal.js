@@ -1,9 +1,30 @@
 ﻿/* EXPORT DETAILS */
-async function ExportDetails(IdExport) {
+function ExportDetails(IdExport, IdSign, Type, Elm) {
     try {
+        CreateEXportDetailsModal(IdExport);
 
+        if (IdSign != null) {
+            $('#export_action_footer').show();
+            $('#export_normal_footer').hide();
+
+            $('#export-Approved').click(function () {
+                CreateApprovedAlert(IdExport, IdSign, Type, Elm);
+            });
+            $('#export-Rejected').click(function () {
+                CreateRejectedAlert(IdExport, IdSign, Type, Elm);
+            });
+        }
+        else {
+            $('#export_action_footer').hide();
+            $('#export_normal_footer').show();
+        }
+
+    } catch (error) {
+        Swal.fire('Sorry, something went wrong!', `${error}`, 'error');
+    }      
+}
+async function CreateEXportDetailsModal(IdExport) {
         var _export = await GetExport(IdExport);
-
 
         var modal = $('#modal-ExportDetails');
 
@@ -111,8 +132,4 @@ async function ExportDetails(IdExport) {
         });
 
         modal.modal('show');
-
-    } catch (error) {
-        Swal.fire('Sorry, something went wrong!', `${error}`, 'error');
-    }
 }

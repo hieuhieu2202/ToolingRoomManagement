@@ -1,4 +1,4 @@
-﻿function RequestDetails(Id, Type, showDevice = true) {
+﻿function RequestDetails(Id, IdSign = null, Type = null, Elm = null) {
     $.ajax({
         type: "GET",
         url: "/NVIDIA/RequestManagement/GetRequest",
@@ -9,7 +9,23 @@
             if (response.status) {
                 var borrow = response.request;
 
-                CreateModal(borrow, showDevice);
+                CreateModal(borrow);
+
+                if (IdSign != null) {
+                    $('#borrow_action_footer').show();
+                    $('#borrow_normal_footer').hide();
+
+                    $('#request-Approved').click(function () {
+                        CreateApprovedAlert(Id, IdSign, Type, Elm);
+                    });
+                    $('#request-Rejected').click(function () {
+                        CreateRejectedAlert(Id, IdSign, Type, Elm);
+                    });
+                }
+                else {
+                    $('#borrow_action_footer').hide();
+                    $('#borrow_normal_footer').show();
+                }
 
                 $('#borrow_modal').modal('show');
             }
@@ -22,7 +38,7 @@
         }
     });
 }
-function CreateModal(borrow, showDevice) {
+function CreateModal(borrow) {
     $('#borrow_modal-CardId').val(borrow.User.Username);
     $('#borrow_modal-Username').val(CreateUserName(borrow.User));
 
@@ -66,12 +82,10 @@ function CreateModal(borrow, showDevice) {
             row.append(`<td class="text-center">${deviceUnit}</td>`);
             row.append(`<td class="text-center">${borrowQty}</td>`);
 
-            if (showDevice) {
-                row.dblclick(function () {
-                    var Id = $(this).data('id');
-                    GetDeviceDetails(Id)
-                });
-            }
+            row.dblclick(function () {
+                var Id = $(this).data('id');
+                GetDeviceDetails(Id)
+            });
 
             $('#borrow_modal-table-tbody').append(row);
         }

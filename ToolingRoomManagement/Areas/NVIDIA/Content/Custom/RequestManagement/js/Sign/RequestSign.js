@@ -82,18 +82,34 @@ $('#datatable tbody').on('dblclick', 'tr', function (event) {
 
     var IdRequest = IdData[2];
     var Type = IdData[0];
+    var btns = $(this).find(`a[data-id="${IdRequest}"]`);
 
     switch (Type) {
         case 'B': {
-            RequestDetails(IdRequest);
+
+            if (btns.length == 3) {
+                RequestDetails(IdRequest, $(btns[1]).data('idsign'), 'Borrow', btns[1]);
+            } else {
+                RequestDetails(IdRequest);
+            }
             break;
         }
         case 'R': {
-            ReturnDetails(IdRequest);
+            if (btns.length == 3) {
+                ReturnDetails(IdRequest, $(btns[1]).data('idsign'), 'Return', btns[1]);
+            }
+            else {
+                ReturnDetails(IdRequest);
+            }
             break;
         }
         case 'E': {
-            ExportDetails(IdRequest);
+            if (btns.length == 3) {
+                ExportDetails(IdRequest, $(btns[1]).data('idsign'), 'Export', btns[1]);
+            }
+            else {
+                ExportDetails(IdRequest);
+            }
             break;
         }
     }
@@ -101,6 +117,7 @@ $('#datatable tbody').on('dblclick', 'tr', function (event) {
 
 
 /* SIGN */
+
 function CreateApprovedAlert(IdRequest, IdSign, Type, elm) {
     indexRow = datatable.row($(elm).closest('tr')).index();
 
