@@ -9,7 +9,7 @@
     CreateChart8910();
     CreateChart11();
     CreateChart12();
-    GetModels();
+    //GetModels();
     offcanvasDetails = new bootstrap.Offcanvas($('#offcanvasModel'));
 });
 
@@ -42,20 +42,22 @@
 
         return `<span class="text-${type.text}" title="this week: ${Num_1}, last week: ${Num_2}"><i class="lni lni-${type.arrow}"></i> ${displayPercentageChange}%</span> vs last week`;
     }
-    //<!-- Tổng số thiết bị -->
+
+    //<!--Tổng số người dùng-->
     function CreateChart1() {
         $.ajax({
             type: "GET",
             url: "/NVIDIA/Dashboard/GetDataChart1",
             dataType: "json",
             contentType: "application/json;charset=utf-8",
+            async: false,
             success: function (response) {
                 if (response.status) {
-                    $('#chart1-totalDevice').text(response.totalDevice);
+                    $('#chart1-totalUser').text(response.thisWeekUser);
 
-                    $('#chart1-rateDevices').html(CreateSpanRate(response.thisWeekDevice, response.lastWeekDevice));
+                    $('#chart1-rateUser').html(CreateSpanRate(response.thisWeekUser, response.lastWeekUser));
 
-                    Chart1(response.thisWeekDevices, response.thisWeekDate);
+                    Chart1(response.arrWeekUser, response.arrWeekDate);
                 }
                 else {
                     toastr["error"](response.message, "ERROR");
@@ -67,222 +69,9 @@
         });
     }
     function Chart1(data, categories) {
-        // chart 1
         var options = {
             series: [{
-                name: 'Total Devices',
-                data: data
-            }],
-            chart: {
-                type: 'area',
-                height: 60,
-                toolbar: {
-                    show: false
-                },
-                zoom: {
-                    enabled: false
-                },
-                dropShadow: {
-                    enabled: false,
-                    top: 3,
-                    left: 14,
-                    blur: 4,
-                    opacity: 0.12,
-                    color: '#8833ff',
-                },
-                sparkline: {
-                    enabled: true
-                }
-            },
-            markers: {
-                size: 0,
-                colors: ["#8833ff"],
-                strokeColors: "#fff",
-                strokeWidth: 2,
-                hover: {
-                    size: 7,
-                }
-            },
-            plotOptions: {
-                bar: {
-                    horizontal: false,
-                    columnWidth: '45%',
-                    endingShape: 'rounded'
-                },
-            },
-            dataLabels: {
-                enabled: false
-            },
-            stroke: {
-                show: true,
-                width: 2.5,
-                curve: 'smooth'
-            },
-            colors: ["#8833ff"],
-            xaxis: {
-                categories: categories,
-            },
-            fill: {
-                opacity: 1
-            },
-            tooltip: {
-                theme: 'dark',
-                fixed: {
-                    enabled: false
-                },
-                x: {
-                    show: true
-                },
-                y: {
-                    title: {
-                        formatter: function (seriesName) {
-                            return ''
-                        }
-                    }
-                },
-                marker: {
-                    show: false
-                }
-            }
-        };
-        var chart = new ApexCharts(document.querySelector("#chart1"), options);
-        chart.render();
-    }
-
-    //<!-- Tổng số lượng -->
-    function CreateChart2() {
-        $.ajax({
-            type: "GET",
-            url: "/NVIDIA/Dashboard/GetDataChart2",
-            dataType: "json",
-            contentType: "application/json;charset=utf-8",
-            success: function (response) {
-                if (response.status) {
-                    $('#chart2-totalQty').text(response.totalQuantity);
-
-                    $('#chart2-rateQty').html(CreateSpanRate(response.thisWeekQuantity, response.lastWeekQuantity));
-
-                    Chart2(response.arrWeekQuantity, response.arrWeekDate);
-                }
-                else {
-                    toastr["error"](response.message, "ERROR");
-                }
-            },
-            error: function (error) {
-                Swal.fire("Something went wrong!", GetAjaxErrorMessage(error), "error");
-            }
-        });
-    }
-    function Chart2(data, categories) {
-        var options = {
-            series: [{
-                name: 'Total Quantity',
-                data: data
-            }],
-            chart: {
-                type: 'area',
-                height: 60,
-                toolbar: {
-                    show: false
-                },
-                zoom: {
-                    enabled: false
-                },
-                dropShadow: {
-                    enabled: false,
-                    top: 3,
-                    left: 14,
-                    blur: 4,
-                    opacity: 0.12,
-                    color: '#f41127',
-                },
-                sparkline: {
-                    enabled: true
-                }
-            },
-            markers: {
-                size: 0,
-                colors: ["#f41127"],
-                strokeColors: "#fff",
-                strokeWidth: 2,
-                hover: {
-                    size: 7,
-                }
-            },
-            plotOptions: {
-                bar: {
-                    horizontal: false,
-                    columnWidth: '40%',
-                    endingShape: 'rounded'
-                },
-            },
-            dataLabels: {
-                enabled: false
-            },
-            stroke: {
-                show: true,
-                width: 2.5,
-                curve: 'smooth'
-            },
-            colors: ["#f41127"],
-            xaxis: {
-                categories: categories,
-            },
-            fill: {
-                opacity: 1
-            },
-            tooltip: {
-                theme: 'dark',
-                fixed: {
-                    enabled: false
-                },
-                x: {
-                    show: true
-                },
-                y: {
-                    title: {
-                        formatter: function (seriesName) {
-                            return ''
-                        }
-                    }
-                },
-                marker: {
-                    show: false
-                }
-            }
-        };
-        var chart = new ApexCharts(document.querySelector("#chart2"), options);
-        chart.render();
-    }
-
-    //<!--Tổng số người dùng-->
-    function CreateChart3() {
-        $.ajax({
-            type: "GET",
-            url: "/NVIDIA/Dashboard/GetDataChart3",
-            dataType: "json",
-            contentType: "application/json;charset=utf-8",
-            success: function (response) {
-                if (response.status) {
-                    $('#chart3-totalUser').text(response.totalUser);
-
-                    $('#chart3-rateUser').html(CreateSpanRate(response.thisWeekUser, response.lastWeekUser));
-
-                    Chart3(response.arrWeekUser, response.arrWeekDate);
-                }
-                else {
-                    toastr["error"](response.message, "ERROR");
-                }
-            },
-            error: function (error) {
-                Swal.fire("Something went wrong!", GetAjaxErrorMessage(error), "error");
-            }
-        });
-    }
-    function Chart3(data, categories) {
-        var options = {
-            series: [{
-                name: 'Total User',
+                name: 'Weekly User',
                 data: data
             }],
             chart: {
@@ -357,24 +146,240 @@
                 }
             }
         };
+        var chart = new ApexCharts(document.querySelector("#chart1"), options);
+        chart.render();
+    }
+
+    //<!-- Tổng số thiết bị -->
+    function CreateChart2() {
+        $.ajax({
+            type: "GET",
+            url: "/NVIDIA/Dashboard/GetDataChart2",
+            dataType: "json",
+            contentType: "application/json;charset=utf-8",
+            async: false,
+            success: function (response) {
+                if (response.status) {
+                    $('#chart2-totalDevice').text(response.thisWeekDevice);
+
+                    $('#chart2-rateDevices').html(CreateSpanRate(response.thisWeekDevice, response.lastWeekDevice));
+
+                    Chart2(response.thisWeekDevices, response.thisWeekDate);
+                }
+                else {
+                    toastr["error"](response.message, "ERROR");
+                }
+            },
+            error: function (error) {
+                Swal.fire("Something went wrong!", GetAjaxErrorMessage(error), "error");
+            }
+        });
+    }
+    function Chart2(data, categories) {
+        // chart 1
+        var options = {
+            series: [{
+                name: 'Weekly Device',
+                data: data
+            }],
+            chart: {
+                type: 'area',
+                height: 60,
+                toolbar: {
+                    show: false
+                },
+                zoom: {
+                    enabled: false
+                },
+                dropShadow: {
+                    enabled: false,
+                    top: 3,
+                    left: 14,
+                    blur: 4,
+                    opacity: 0.12,
+                    color: '#8833ff',
+                },
+                sparkline: {
+                    enabled: true
+                }
+            },
+            markers: {
+                size: 0,
+                colors: ["#8833ff"],
+                strokeColors: "#fff",
+                strokeWidth: 2,
+                hover: {
+                    size: 7,
+                }
+            },
+            plotOptions: {
+                bar: {
+                    horizontal: false,
+                    columnWidth: '45%',
+                    endingShape: 'rounded'
+                },
+            },
+            dataLabels: {
+                enabled: false
+            },
+            stroke: {
+                show: true,
+                width: 2.5,
+                curve: 'smooth'
+            },
+            colors: ["#8833ff"],
+            xaxis: {
+                categories: categories,
+            },
+            fill: {
+                opacity: 1
+            },
+            tooltip: {
+                theme: 'dark',
+                fixed: {
+                    enabled: false
+                },
+                x: {
+                    show: true
+                },
+                y: {
+                    title: {
+                        formatter: function (seriesName) {
+                            return ''
+                        }
+                    }
+                },
+                marker: {
+                    show: false
+                }
+            }
+        };
+        var chart = new ApexCharts(document.querySelector("#chart2"), options);
+        chart.render();
+    }
+
+    //<!-- Tổng số lượng -->
+    function CreateChart3() {
+        $.ajax({
+            type: "GET",
+            url: "/NVIDIA/Dashboard/GetDataChart3",
+            dataType: "json",
+            contentType: "application/json;charset=utf-8",
+            async: false,
+            success: function (response) {
+                if (response.status) {
+                    $('#chart3-totalRequest').text(response.thisWeekRequest);
+
+                    $('#chart3-rateRequest').html(CreateSpanRate(response.thisWeekRequest, response.lastWeekRequest));
+
+                    Chart3(response.arrWeekRequest, response.arrWeekDate);
+                }
+                else {
+                    toastr["error"](response.message, "ERROR");
+                }
+            },
+            error: function (error) {
+                Swal.fire("Something went wrong!", GetAjaxErrorMessage(error), "error");
+            }
+        });
+    }
+    function Chart3(data, categories) {
+        var options = {
+            series: [{
+                name: 'Weekly Request',
+                data: data
+            }],
+            chart: {
+                type: 'area',
+                height: 60,
+                toolbar: {
+                    show: false
+                },
+                zoom: {
+                    enabled: false
+                },
+                dropShadow: {
+                    enabled: false,
+                    top: 3,
+                    left: 14,
+                    blur: 4,
+                    opacity: 0.12,
+                    color: '#f41127',
+                },
+                sparkline: {
+                    enabled: true
+                }
+            },
+            markers: {
+                size: 0,
+                colors: ["#f41127"],
+                strokeColors: "#fff",
+                strokeWidth: 2,
+                hover: {
+                    size: 7,
+                }
+            },
+            plotOptions: {
+                bar: {
+                    horizontal: false,
+                    columnWidth: '40%',
+                    endingShape: 'rounded'
+                },
+            },
+            dataLabels: {
+                enabled: false
+            },
+            stroke: {
+                show: true,
+                width: 2.5,
+                curve: 'smooth'
+            },
+            colors: ["#f41127"],
+            xaxis: {
+                categories: categories,
+            },
+            fill: {
+                opacity: 1
+            },
+            tooltip: {
+                theme: 'dark',
+                fixed: {
+                    enabled: false
+                },
+                x: {
+                    show: true
+                },
+                y: {
+                    title: {
+                        formatter: function (seriesName) {
+                            return ''
+                        }
+                    }
+                },
+                marker: {
+                    show: false
+                }
+            }
+        };
         var chart = new ApexCharts(document.querySelector("#chart3"), options);
         chart.render();
     }
 
-    //<!-- Tổng số yêu cầu mượn -->
+    //<!-- Tổng số yêu cầu được chấp nhận -->
     function CreateChart4() {
         $.ajax({
             type: "GET",
             url: "/NVIDIA/Dashboard/GetDataChart4",
             dataType: "json",
             contentType: "application/json;charset=utf-8",
+            async: false,
             success: function (response) {
                 if (response.status) {
-                    $('#chart4-totalBorrow').text(response.totalBorrow);
+                    $('#chart4-totalApproved').text(response.thisWeekAprovedRequest);
 
-                    $('#chart4-rateBorrow').html(CreateSpanRate(response.thisWeekBorrow, response.lastWeekBorrow));
+                    $('#chart4-rateApproved').html(CreateSpanRate(response.thisWeekAprovedRequest, response.lastWeekAprovedRequest));
 
-                    Chart4(response.arrWeekBorrow, response.arrWeekDate);
+                    Chart4(response.arrWeekApprovedRequest, response.arrWeekDate);
                 }
                 else {
                     toastr["error"](response.message, "ERROR");
@@ -388,7 +393,7 @@
     function Chart4(data, categories) {
         var options = {
             series: [{
-                name: 'Total Borrow',
+                name: 'Weekly Approved Request',
                 data: data
             }],
             chart: {
@@ -467,20 +472,21 @@
         chart.render();
     }
 
-    //<!-- Tổng số yêu cầu được chấp nhận -->
+    //<!-- Tổng số yêu cầu 0 được chấp nhận -->
     function CreateChart5() {
         $.ajax({
             type: "GET",
             url: "/NVIDIA/Dashboard/GetDataChart5",
             dataType: "json",
             contentType: "application/json;charset=utf-8",
+            async: false,
             success: function (response) {
                 if (response.status) {
-                    $('#chart5-totalApprove').text(response.totalApprove);
+                    $('#chart5-totalRejected').text(response.thisWeekRejectedRequest);
 
-                    $('#chart5-rateApprove').html(CreateSpanRate(response.thisWeekApprove, response.lastWeekApprove));
+                    $('#chart5-rateRejected').html(CreateSpanRate(response.thisWeekRejectedRequest, response.lastWeekRejectedRequest));
 
-                    Chart5(response.arrWeekApprove, response.arrWeekDate);
+                    Chart5(response.arrWeekRejectedRequest, response.arrWeekDate);
                 }
                 else {
                     toastr["error"](response.message, "ERROR");
@@ -494,7 +500,7 @@
     function Chart5(data, categories) {
         var options = {
             series: [{
-                name: 'Bounce Rate',
+                name: 'Weekly Rejected Request',
                 data: data
             }],
             chart: {
@@ -573,6 +579,7 @@
         chart.render();
     }
 
+
     //<!-- Tổng số yêu cầu mượn theo tháng/tuần -->
     var chart6;
     $('#chart6-selectType').on('change', function (e) {
@@ -587,6 +594,7 @@
             type: "GET",
             url: "/NVIDIA/Dashboard/GetDataChart6?type=" + type,
             dataType: "json",
+            async: false,
             contentType: "application/json;charset=utf-8",
             success: function (response) {
                 if (response.status) {
@@ -727,10 +735,11 @@
             type: "GET",
             url: "/NVIDIA/Dashboard/GetDataChart7?type=" + type,
             dataType: "json",
+            async: false,
             contentType: "application/json;charset=utf-8",
             success: function (response) {
                 if (response.status) {
-                    Chart7(response.listTakeQty, response.listBorrowQty, response.listReturnQty, response.listDate);
+                    Chart7(response.listTakeQty, response.listBorrowQty, response.listReturnQty, response.listReturnNgQty, response.listExportQty, response.listDate);
                 }
                 else {
                     toastr["error"](response.message, "ERROR");
@@ -741,7 +750,7 @@
             }
         });
     }
-    function Chart7(data1, data2, data3, categories) {
+    function Chart7(data1, data2, data3, data4, data5, categories) {
         var options = {
             series: [
                 {
@@ -754,7 +763,14 @@
                 }, {
                     name: 'Return Quantity',
                     data: data3
-                }],
+                }, {
+                    name: 'NG Quantity',
+                    data: data4
+                }, {
+                    name: 'Export Quantity',
+                    data: data5
+                }
+            ],
             chart: {
                 foreColor: '#9ba7b2',
                 type: 'bar',
@@ -785,7 +801,7 @@
                 width: 3,
                 colors: ['transparent']
             },
-            colors: ["#a8adb0", "#8833ff", '#0dcaf0'],
+            colors: ["#a8adb0", "#8833ff", '#0dcaf0', '#fd3550', '#15ca20'],
             xaxis: {
                 categories: categories,
             },
@@ -811,12 +827,14 @@
                 },
                 series: [{
                     data: data1
-
                 }, {
                     data: data2
-
                 }, {
                     data: data3
+                }, {
+                    data: data4
+                }, {
+                    data: data5
                 }],
             })
         }
@@ -836,6 +854,7 @@
             type: "GET",
             url: "/NVIDIA/Dashboard/GetDataChart8910",
             dataType: "json",
+            async: false,
             contentType: "application/json;charset=utf-8",
             success: function (response) {
                 if (response.status) {
@@ -1118,6 +1137,7 @@
             type: "GET",
             url: "/NVIDIA/Dashboard/GetDataChart11",
             dataType: "json",
+            async: false,
             contentType: "application/json;charset=utf-8",
             success: function (response) {
                 if (response.status) {
@@ -1251,6 +1271,7 @@
             type: "GET",
             url: "/NVIDIA/Dashboard/GetDataChart12",
             dataType: "json",
+            async: false,
             contentType: "application/json;charset=utf-8",
             success: function (response) {
                 if (response.status) {
@@ -1259,11 +1280,10 @@
                         TotalRealQuantity: response.TotalRealQuantity,
                         TotalStatic: response.TotalStatic,
                         TotalDynamic: response.TotalDynamic,
-                        TotalConsign: response.TotalConsign,
                         TotalFixture: response.TotalFixture,
-                        TotalOrther: response.TotalOrther
+                        TotalNA: response.TotalNA,
                     }
-                    data.TotalStatus = data.TotalStatic + data.TotalDynamic + data.TotalConsign + data.TotalFixture + data.TotalOrther;
+                    data.TotalStatus = data.TotalStatic + data.TotalDynamic + data.TotalFixture + data.TotalNA;
 
                     var WarehouseDeviceCount = response.WarehouseDeviceCount;
                     var WarehouseDeviceName = response.WarehouseDeviceName;
@@ -1271,10 +1291,9 @@
                     Chart12(WarehouseDeviceCount, WarehouseDeviceName);
 
                     data.RateStatic = parseFloat((data.TotalStatic / data.TotalStatus * 100).toFixed(2));
-                    data.RateDynamic = parseFloat((data.TotalDynamic / data.TotalStatus * 100).toFixed(2));
-                    data.RateConsign = parseFloat((data.TotalConsign / data.TotalStatus * 100).toFixed(2));
+                    data.RateDynamic = parseFloat((data.TotalDynamic / data.TotalStatus * 100).toFixed(2));                    
                     data.RateFixture = parseFloat((data.TotalFixture / data.TotalStatus * 100).toFixed(2));
-                    data.RateOrther = (100 - (data.RateStatic + data.RateDynamic + data.RateConsign + data.RateFixture)).toFixed(2);
+                    data.RateNA = parseFloat((100 - (data.RateStatic + data.RateDynamic + data.RateFixture)).toFixed(2));
 
                     $('#chart12-RateStatic').text(`${data.RateStatic}%`);
                     $('#chart12-RateStaticBar').css('width', `${data.RateStatic}%`);
@@ -1282,14 +1301,11 @@
                     $('#chart12-RateDynamic').text(`${data.RateDynamic}%`);
                     $('#chart12-RateDynamicBar').css('width', `${data.RateDynamic}%`);
 
-                    $('#chart12-RateConsign').text(`${data.RateConsign}%`);
-                    $('#chart12-RateConsignBar').css('width', `${data.RateConsign}%`);
-
                     $('#chart12-RateFixture').text(`${data.RateFixture}%`);
                     $('#chart12-RateFixtureBar').css('width', `${data.RateFixture}%`);
 
-                    $('#chart12-RateOrther').text(`${data.RateOrther}%`);
-                    $('#chart12-RateOrtherBar').css('width', `${data.RateOrther}%`);
+                    $('#chart12-RateNA').text(`${data.RateNA}%`);
+                    $('#chart12-RateNABar').css('width', `${data.RateNA}%`);
 
                     ;
                 }

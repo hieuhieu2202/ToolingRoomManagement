@@ -16,10 +16,10 @@
         <div class="col border-end border-light-2">
             <div class="card bg-transparent shadow-none mb-0">
                 <div class="card-body text-center">
-                    <p class="mb-1 text-white" data-i18n="dashboard.user">User</p>
-                    <h3 class="mb-3 text-white" id="chart3-totalUser">0</h3>
-                    <p class="font-13 text-white" id="chart3-rateUser"></p>
-                    <div id="chart3"></div>
+                    <p class="mb-1 text-white fw-bold">Weekly User</p>
+                    <h3 class="mb-3 text-white" id="chart1-totalUser">0</h3>
+                    <p class="font-13 text-white" id="chart1-rateUser"></p>
+                    <div id="chart1"></div>
                 </div>
             </div>
         </div>
@@ -27,20 +27,9 @@
         <div class="col-8 border-end border-light-2">
             <div class="card bg-transparent shadow-none mb-0">
                 <div class="card-body text-center">
-                    <p class="mb-1 text-white" data-i18n="dashboard.devices">Devices</p>
-                    <h3 class="mb-3 text-white" id="chart1-totalDevice">0</h3>
-                    <p class="font-13 text-white" id="chart1-rateDevices"></p>
-                    <div id="chart1"></div>
-                </div>
-            </div>
-        </div>
-        <!-- Tổng số lượng -->
-        <div class="col border-end border-light-2">
-            <div class="card bg-transparent shadow-none mb-0">
-                <div class="card-body text-center">
-                    <p class="mb-1 text-white" data-i18n="dashboard.bt_qty">Borrow/Take Quantity</p>
-                    <h3 class="mb-3 text-white" id="chart2-totalQty">0</h3>
-                    <p class="font-13 text-white" id="chart2-rateQty"></p>
+                    <p class="mb-1 text-white">Weekly Device</p>
+                    <h3 class="mb-3 text-white" id="chart2-totalDevice">0</h3>
+                    <p class="font-13 text-white" id="chart2-rateDevices"></p>
                     <div id="chart2"></div>
                 </div>
             </div>
@@ -49,10 +38,10 @@
         <div class="col border-end border-light-2">
             <div class="card bg-transparent shadow-none mb-0">
                 <div class="card-body text-center">
-                    <p class="mb-1 text-white" data-i18n="dashboard.request">Borrow Requests</p>
-                    <h3 class="mb-3 text-white" id="chart4-totalBorrow">0</h3>
-                    <p class="font-13 text-white" id="chart4-rateBorrow"></p>
-                    <div id="chart4"></div>
+                    <p class="mb-1 text-white">Weekly Request</p>
+                    <h3 class="mb-3 text-white" id="chart3-totalRequest">0</h3>
+                    <p class="font-13 text-white" id="chart3-rateRequest"></p>
+                    <div id="chart3"></div>
                 </div>
             </div>
         </div>
@@ -60,9 +49,20 @@
         <div class="col">
             <div class="card bg-transparent shadow-none mb-0">
                 <div class="card-body text-center">
-                    <p class="mb-1 text-white" data-i18n="dashboard.approve_request">Approve Requests</p>
-                    <h3 class="mb-3 text-white" id="chart5-totalApprove">0</h3>
-                    <p class="font-13 text-white" id="chart5-rateApprove"></p>
+                    <p class="mb-1 text-white">Weekly Approved Request</p>
+                    <h3 class="mb-3 text-white" id="chart4-totalApproved">0</h3>
+                    <p class="font-13 text-white" id="chart4-rateApproved"></p>
+                    <div id="chart4"></div>
+                </div>
+            </div>
+        </div>
+        <!-- Tổng số yêu không được chấp nhận -->
+        <div class="col border-end border-light-2">
+            <div class="card bg-transparent shadow-none mb-0">
+                <div class="card-body text-center">
+                    <p class="mb-1 text-white">Weekly Rejected Request</p>
+                    <h3 class="mb-3 text-white" id="chart5-totalRejected">0</h3>
+                    <p class="font-13 text-white" id="chart5-rateRejected"></p>
                     <div id="chart5"></div>
                 </div>
             </div>
@@ -97,9 +97,11 @@
                         <h6 class="mb-0">Quantity Overview</h6>
                     </div>
                     <div class="d-flex align-items-center ms-auto font-13 gap-2">
-                        <span class="border px-1 rounded cursor-pointer"><i class='bx bxs-circle text-secondary me-1'></i>Take Qty</span>
-                        <span class="border px-1 rounded cursor-pointer"><i class='bx bxs-circle text-primary me-1'></i>Borrow Qty</span>
-                        <span class="border px-1 rounded cursor-pointer"><i class='bx bxs-circle text-info me-1'></i>Return Qty</span>
+                        <span class="border px-1 rounded cursor-pointer"><i class='bx bxs-circle text-secondary me-1'></i>Take</span>
+                        <span class="border px-1 rounded cursor-pointer"><i class='bx bxs-circle text-primary me-1'></i>Borrow</span>
+                        <span class="border px-1 rounded cursor-pointer"><i class='bx bxs-circle text-info me-1'></i>Return</span>
+                        <span class="border px-1 rounded cursor-pointer"><i class='bx bxs-circle text-danger me-1'></i>NG</span>
+                        <span class="border px-1 rounded cursor-pointer"><i class='bx bxs-circle text-success me-1'></i>Export</span>
                     </div>
                     <select class="form-select ms-3" id="chart7-selectType" style="width: unset;">
                         <option value="week">Week</option>
@@ -292,21 +294,15 @@
                         </div>
                         <div class="col">
                             <div class="d-flex gap-2">
-                                <h4 class="mb-1 d-flex" id="chart12-RateConsign">0%</h4>
-                            </div>
-                            <p class="mb-0 d-flex align-items-center"><i class='bx bxs-circle text-warning fs-6'></i><span class="mx-2">Consign</span></p>
-                        </div>
-                        <div class="col">
-                            <div class="d-flex gap-2">
                                 <h4 class="mb-1 d-flex" id="chart12-RateFixture">0%</h4>
                             </div>
                             <p class="mb-0 d-flex align-items-center"><i class='bx bxs-circle text-primary fs-6'></i><span class="mx-2">Fixture</span></p>
                         </div>
                         <div class="col">
                             <div class="d-flex gap-2">
-                                <h4 class="mb-1 d-flex" id="chart12-RateOrther">0%</h4>
+                                <h4 class="mb-1 d-flex" id="chart12-RateNA">0%</h4>
                             </div>
-                            <p class="mb-0 d-flex align-items-center"><i class='bx bxs-circle text-secondary fs-6'></i><span class="mx-2">Other</span></p>
+                            <p class="mb-0 d-flex align-items-center"><i class='bx bxs-circle text-secondary fs-6'></i><span class="mx-2">NA</span></p>
                         </div>
                     </div>
 
@@ -314,8 +310,7 @@
                         <div class="progress-bar bg-success" role="progressbar" id="chart12-RateStaticBar" style="width: 0%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
                         <div class="progress-bar bg-info" role="progressbar" id="chart12-RateDynamicBar" style="width: 0%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
                         <div class="progress-bar bg-primary" role="progressbar" id="chart12-RateFixtureBar" style="width: 0%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
-                        <div class="progress-bar bg-warning" role="progressbar" id="chart12-RateConsignBar" style="width: 0%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
-                        <div class="progress-bar bg-secondary" role="progressbar" id="chart12-RateOrtherBar" style="width: 0%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+                        <div class="progress-bar bg-secondary" role="progressbar" id="chart12-RateNABar" style="width: 0%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
 
                 </div>

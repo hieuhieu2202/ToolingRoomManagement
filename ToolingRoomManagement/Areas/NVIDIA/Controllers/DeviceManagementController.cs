@@ -1077,7 +1077,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                                 int ComingQty = CountComingDevice(_PN);
                                 int AltPnQty = (device.AlternativeDevices != null) ? CountAltPNQuantity(device.AlternativeDevices.ToList().First().PNs) : 0;
                                 int GAP = (int)((device.QtyConfirm + AltPnQty + ComingQty) - (_RequestQty + device.NG_Qty));
-                                string Risk = (GAP > 0 && device.QtyConfirm > device.MinQty) ? "Low" : (GAP > 0 && device.QtyConfirm < device.MinQty) ? "Mid" : "High";
+                                string Risk = (GAP > 0 && device.QtyConfirm > device.MinQty) ? "Low" : (GAP >= 0 && device.QtyConfirm <= device.MinQty) ? "Mid" : "High";
 
                                 // MTS, Product, PN, AlternativePN, Description
                                 outWorksheet.Cells[row, 1].Value = (device.Product != null) ? device.Product.MTS : string.Empty;
@@ -1844,8 +1844,53 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                                 comingdevice.DeviceUnconfirm = db.DeviceUnconfirms.FirstOrDefault(d => d.DeviceCode.ToUpper().Trim() == _PN.ToUpper().Trim());
                                 if (comingdevice.Device == null && comingdevice.DeviceUnconfirm == null)
                                 {
-                                    Debug.WriteLine($"PN: {_PN}, Row: {row}");
-                                    continue;
+                                    var __Des = worksheet.Cells[row, 3].Value?.ToString();
+                                    if (!string.IsNullOrEmpty(__Des))
+                                    {
+                                        Device device = new Device
+                                        {
+                                            DeviceCode = _PN,
+                                            DeviceName = __Des,
+                                            DeviceDate = DateTime.Now,
+                                            Buffer = 0,
+                                            Quantity = 0,
+                                            Type = "NA",
+                                            Status = "Out Range",
+                                            IdWareHouse = 1,
+                                            IdGroup = 341,
+                                            IdVendor = 350,
+                                            CreatedDate = DateTime.Now,
+                                            IdProduct = 368,
+                                            IdModel = 339,
+                                            IdStation = 323,
+                                            Relation = "",
+                                            LifeCycle = 0,
+                                            Forcast = 0,
+                                            QtyConfirm = 0,
+                                            ACC_KIT = null,
+                                            RealQty = 0,
+                                            ImagePath = null,
+                                            Specification = "",
+                                            Unit = "",
+                                            DeliveryTime = " Week",
+                                            SysQuantity = 0,
+                                            MinQty = 0,
+                                            POQty = 0,
+                                            Type_BOM = null,
+                                            MOQ = 0,
+                                            isConsign = false,
+                                            NG_Qty = 0,
+                                        };
+
+                                        db.Devices.Add(device);
+                                        comingdevice.Device = device;
+                                    }
+                                    else
+                                    {
+                                        Debug.WriteLine($"PN: {_PN}, Row: {row}");
+                                        continue;
+                                    }
+                                    
                                 }
                             }
 
@@ -1952,17 +1997,24 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
         }
         private int CountAltPNQuantity(string sPN)
         {
-            int Qty = 0;
-            string[] PNs = sPN.Split(',');
-            foreach(string PN in  PNs)
+            if (!string.IsNullOrEmpty(sPN.Trim()))
             {
-                var devices = db.Devices.Where(d => d.DeviceCode == PN);
-                foreach (var device in devices)
+                int Qty = 0;
+                string[] PNs = sPN.Split(',');
+                foreach (string PN in PNs)
                 {
-                    Qty += device.QtyConfirm ?? 0;
+                    var devices = db.Devices.Where(d => d.DeviceCode == PN);
+                    foreach (var device in devices)
+                    {
+                        Qty += device.QtyConfirm ?? 0;
+                    }
                 }
+                return Qty;
             }
-            return Qty;
+            else
+            {
+                return 0;
+            }         
         }
         #endregion
     }

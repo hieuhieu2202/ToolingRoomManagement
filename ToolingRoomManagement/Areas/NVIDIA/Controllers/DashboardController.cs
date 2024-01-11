@@ -1,10 +1,12 @@
-﻿using OfficeOpenXml.FormulaParsing.Excel.Functions.DateTime;
+﻿using Model.EF;
+using OfficeOpenXml.FormulaParsing.Excel.Functions.DateTime;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Services.Description;
 using ToolingRoomManagement.Areas.NVIDIA.Entities;
 using ToolingRoomManagement.Attributes;
 
@@ -26,7 +28,40 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
         {
             try
             {
-                int totalDevice = 0;
+                int thisWeekUser = 0;
+                int lastWeekUser = 0;
+
+                int[] arrWeekUser = new int[7];
+                string[] arrWeekDate = new string[7];
+
+                DateTime today = DateTime.Now.Date;
+                var thisWeek = today.AddDays(((int)DayOfWeek.Monday - (int)today.DayOfWeek - 7) % 7);
+                var lastWeek = thisWeek.AddDays(-7);
+
+                thisWeekUser = db.Users.Where(d => d.LastSignIn >= thisWeek).Count();
+                lastWeekUser = db.Users.Where(d => d.LastSignIn >= lastWeek && d.LastSignIn < thisWeek).Count();
+
+                for (int i = 0; i < 7; i++)
+                {
+                    var date = thisWeek.AddDays(i);
+                    var nextDate = date.AddDays(1);
+                    int dateQuantity = db.Users.Where(d => d.LastSignIn >= date && d.LastSignIn < nextDate).Count();
+
+                    arrWeekUser[i] = dateQuantity;
+                    arrWeekDate[i] = date.ToString("MM-dd");
+                }
+
+                return Json(new { status = true, thisWeekUser, lastWeekUser, arrWeekUser, arrWeekDate }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        public JsonResult GetDataChart2()
+        {
+            try
+            {
                 int thisWeekDevice = 0;
                 int lastWeekDevice = 0;
 
@@ -38,7 +73,6 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 var thisWeek = today.AddDays(((int)DayOfWeek.Monday - (int)today.DayOfWeek - 7) % 7);
                 var lastWeek = thisWeek.AddDays(-7);
 
-                totalDevice = db.Devices.Count();
                 thisWeekDevice = db.Devices.Where(d => d.CreatedDate >= thisWeek).Count();
                 lastWeekDevice = db.Devices.Where(d => d.CreatedDate >= lastWeek && d.CreatedDate < thisWeek).Count();
 
@@ -52,81 +86,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                     thisWeekDate[i] = date.ToString("MM-dd");
                 }
 
-                return Json(new { status = true, totalDevice, thisWeekDevice, lastWeekDevice, thisWeekDevices, thisWeekDate }, JsonRequestBehavior.AllowGet);
-            }
-            catch (Exception ex)
-            {
-                return Json(new { status = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
-            }
-        }
-        public JsonResult GetDataChart2()
-        {
-            try
-            {
-                int totalQuantity = 0;
-                int thisWeekQuantity = 0;
-                int lastWeekQuantity = 0;
-
-                int[] arrWeekQuantity = new int[7];
-                string[] arrWeekDate = new string[7];
-
-                DateTime today = DateTime.Now.Date;
-                var thisWeek = today.AddDays(((int)DayOfWeek.Monday - (int)today.DayOfWeek - 7) % 7);
-                var lastWeek = thisWeek.AddDays(-7);
-
-                // total borrow qty
-                var totalBorrowAprroved = db.Borrows.Where(b => b.Type == "Borrow" || b.Type == "Take" && b.Status == "Approved").ToList();
-                foreach (var borrow in totalBorrowAprroved)
-                {
-                    foreach (var borrowDevice in borrow.BorrowDevices)
-                    {
-                        totalQuantity += borrowDevice.BorrowQuantity ?? 0;
-                    }
-
-                }
-                // this week borrow qty
-                var thisWeekBorrowAprroved = totalBorrowAprroved.Where(b => b.DateBorrow >= thisWeek).ToList();
-                foreach (var borrow in thisWeekBorrowAprroved)
-                {
-                    foreach (var borrowDevice in borrow.BorrowDevices)
-                    {
-                        thisWeekQuantity += borrowDevice.BorrowQuantity ?? 0;
-                    }
-
-                }
-                // last week borrow qty
-                var lastWeekBorrowAprroved = totalBorrowAprroved.Where(b => b.DateBorrow >= lastWeek && b.DateBorrow < thisWeek);
-                foreach (var borrow in lastWeekBorrowAprroved)
-                {
-                    foreach (var borrowDevice in borrow.BorrowDevices)
-                    {
-                        lastWeekQuantity += borrowDevice.BorrowQuantity ?? 0;
-                    }
-
-                }
-
-                // get borrow qty by day (this week)
-                for (int i = 0; i < 7; i++)
-                {
-                    var date = thisWeek.AddDays(i);
-                    var nextDate = date.AddDays(1);
-
-                    int dateQuantity = 0;
-                    var dateBorrows = totalBorrowAprroved.Where(b => b.DateBorrow >= date && b.DateBorrow < nextDate);
-                    foreach (var borrow in dateBorrows)
-                    {
-                        foreach (var borrowDevice in borrow.BorrowDevices)
-                        {
-                            dateQuantity += borrowDevice.BorrowQuantity ?? 0;
-                        }
-
-                    }
-
-                    arrWeekQuantity[i] = dateQuantity;
-                    arrWeekDate[i] = date.ToString("MM-dd");
-                }
-
-                return Json(new { status = true, totalQuantity, thisWeekQuantity, lastWeekQuantity, arrWeekQuantity, arrWeekDate }, JsonRequestBehavior.AllowGet);
+                return Json(new { status = true, thisWeekDevice, lastWeekDevice, thisWeekDevices, thisWeekDate }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
@@ -137,32 +97,38 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
         {
             try
             {
-                int totalUser = 0;
-                int thisWeekUser = 0;
-                int lastWeekUser = 0;
+                int thisWeekRequest = 0;
+                int lastWeekRequest = 0;
 
-                int[] arrWeekUser = new int[7];
+                int[] arrWeekRequest = new int[7];
                 string[] arrWeekDate = new string[7];
 
                 DateTime today = DateTime.Now.Date;
                 var thisWeek = today.AddDays(((int)DayOfWeek.Monday - (int)today.DayOfWeek - 7) % 7);
                 var lastWeek = thisWeek.AddDays(-7);
 
-                totalUser = db.Users.Count();
-                thisWeekUser = db.Users.Where(d => d.LastSignIn >= thisWeek).Count();
-                lastWeekUser = db.Users.Where(d => d.LastSignIn >= lastWeek && d.LastSignIn < thisWeek).Count();
+                thisWeekRequest = db.Borrows.Where(d => d.DateBorrow >= thisWeek).Count() +
+                                  db.Returns.Where(d => d.DateReturn >= thisWeek).Count() +
+                                  db.Exports.Where(d => d.CreatedDate >= thisWeek).Count();
+
+                lastWeekRequest = db.Borrows.Where(d => d.DateBorrow >= lastWeek && d.DateBorrow < thisWeek).Count() +
+                                  db.Returns.Where(d => d.DateReturn >= lastWeek && d.DateReturn < thisWeek).Count() +
+                                  db.Exports.Where(d => d.CreatedDate >= lastWeek && d.CreatedDate < thisWeek).Count();
 
                 for (int i = 0; i < 7; i++)
                 {
                     var date = thisWeek.AddDays(i);
                     var nextDate = date.AddDays(1);
-                    int dateQuantity = db.Users.Where(d => d.LastSignIn >= date && d.LastSignIn < nextDate).Count();
 
-                    arrWeekUser[i ] = dateQuantity;
+                    int dateRequest = db.Borrows.Where(d => d.DateBorrow >= date && d.DateBorrow < nextDate).Count() +
+                                      db.Returns.Where(d => d.DateReturn >= date && d.DateReturn < nextDate).Count() +
+                                      db.Exports.Where(d => d.CreatedDate >= date && d.CreatedDate < nextDate).Count();
+
+                    arrWeekRequest[i] = dateRequest;
                     arrWeekDate[i] = date.ToString("MM-dd");
                 }
 
-                return Json(new { status = true, totalUser, thisWeekUser, lastWeekUser, arrWeekUser, arrWeekDate }, JsonRequestBehavior.AllowGet);
+                return Json(new { status = true, thisWeekRequest, lastWeekRequest, arrWeekRequest, arrWeekDate }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
@@ -173,32 +139,38 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
         {
             try
             {
-                int totalBorrow = 0;
-                int thisWeekBorrow = 0;
-                int lastWeekBorrow = 0;
+                int thisWeekAprovedRequest = 0;
+                int lastWeekAprovedRequest = 0;
 
-                int[] arrWeekBorrow = new int[7];
+                int[] arrWeekApprovedRequest = new int[7];
                 string[] arrWeekDate = new string[7];
 
                 DateTime today = DateTime.Now.Date;
                 var thisWeek = today.AddDays(((int)DayOfWeek.Monday - (int)today.DayOfWeek - 7) % 7);
                 var lastWeek = thisWeek.AddDays(-7);
 
-                totalBorrow = db.Borrows.Count();
-                thisWeekBorrow = db.Borrows.Where(d => d.DateBorrow >= thisWeek).Count();
-                lastWeekBorrow = db.Borrows.Where(d => d.DateBorrow >= lastWeek && d.DateBorrow < thisWeek).Count();
+                thisWeekAprovedRequest = db.Borrows.Where(d => d.DateBorrow >= thisWeek  && d.Status == "Approved").Count() +
+                                         db.Returns.Where(d => d.DateReturn >= thisWeek  && d.Status == "Approved").Count() +
+                                         db.Exports.Where(d => d.CreatedDate >= thisWeek && d.Status == "Approved").Count();
+
+                lastWeekAprovedRequest = db.Borrows.Where(d => d.DateBorrow >= lastWeek && d.DateBorrow < thisWeek   && d.Status == "Approved").Count() +
+                                         db.Returns.Where(d => d.DateReturn >= lastWeek && d.DateReturn < thisWeek   && d.Status == "Approved").Count() +
+                                         db.Exports.Where(d => d.CreatedDate >= lastWeek && d.CreatedDate < thisWeek && d.Status == "Approved").Count();
 
                 for (int i = 0; i < 7; i++)
                 {
                     var date = thisWeek.AddDays(i);
                     var nextDate = date.AddDays(1);
-                    int dateQuantity = db.Borrows.Where(d => d.DateBorrow >= date && d.DateBorrow < nextDate).Count();
 
-                    arrWeekBorrow[i] = dateQuantity;
+                    int dateRequest = db.Borrows.Where(d => d.DateBorrow >= date && d.DateBorrow < nextDate   && d.Status == "Approved").Count() +
+                                      db.Returns.Where(d => d.DateReturn >= date && d.DateReturn < nextDate   && d.Status == "Approved").Count() +
+                                      db.Exports.Where(d => d.CreatedDate >= date && d.CreatedDate < nextDate && d.Status == "Approved").Count();
+
+                    arrWeekApprovedRequest[i] = dateRequest;
                     arrWeekDate[i] = date.ToString("MM-dd");
                 }
 
-                return Json(new { status = true, totalBorrow, thisWeekBorrow, lastWeekBorrow, arrWeekBorrow, arrWeekDate }, JsonRequestBehavior.AllowGet);
+                return Json(new { status = true, thisWeekAprovedRequest, lastWeekAprovedRequest, arrWeekApprovedRequest, arrWeekDate }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
@@ -209,32 +181,38 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
         {
             try
             {
-                int totalApprove = 0;
-                int thisWeekApprove = 0;
-                int lastWeekApprove = 0;
+                int thisWeekRejectedRequest = 0;
+                int lastWeekRejectedRequest = 0;
 
-                int[] arrWeekApprove = new int[7];
+                int[] arrWeekRejectedRequest = new int[7];
                 string[] arrWeekDate = new string[7];
 
                 DateTime today = DateTime.Now.Date;
                 var thisWeek = today.AddDays(((int)DayOfWeek.Monday - (int)today.DayOfWeek - 7) % 7);
                 var lastWeek = thisWeek.AddDays(-7);
 
-                totalApprove = db.Borrows.Where(d => d.Status == "Approved").Count();
-                thisWeekApprove = db.Borrows.Where(d => d.DateBorrow >= thisWeek && d.Status == "Approved").Count();
-                lastWeekApprove = db.Borrows.Where(d => d.DateBorrow >= lastWeek && d.DateBorrow < thisWeek && d.Status == "Approved").Count();
+                thisWeekRejectedRequest = db.Borrows.Where(d => d.DateBorrow >= thisWeek && d.Status == "Rejected").Count() +
+                                         db.Returns.Where(d => d.DateReturn >= thisWeek && d.Status == "Rejected").Count() +
+                                         db.Exports.Where(d => d.CreatedDate >= thisWeek && d.Status == "Rejected").Count();
+
+                lastWeekRejectedRequest = db.Borrows.Where(d => d.DateBorrow >= lastWeek && d.DateBorrow < thisWeek && d.Status == "Rejected").Count() +
+                                         db.Returns.Where(d => d.DateReturn >= lastWeek && d.DateReturn < thisWeek && d.Status == "Rejected").Count() +
+                                         db.Exports.Where(d => d.CreatedDate >= lastWeek && d.CreatedDate < thisWeek && d.Status == "Rejected").Count();
 
                 for (int i = 0; i < 7; i++)
                 {
                     var date = thisWeek.AddDays(i);
                     var nextDate = date.AddDays(1);
-                    int dateQuantity = db.Borrows.Where(d => d.DateBorrow >= date && d.DateBorrow < nextDate && d.Status == "Approved").Count();
 
-                    arrWeekApprove[i] = dateQuantity;
+                    int dateRequest = db.Borrows.Where(d => d.DateBorrow >= date && d.DateBorrow < nextDate && d.Status == "Rejected").Count() +
+                                      db.Returns.Where(d => d.DateReturn >= date && d.DateReturn < nextDate && d.Status == "Rejected").Count() +
+                                      db.Exports.Where(d => d.CreatedDate >= date && d.CreatedDate < nextDate && d.Status == "Rejected").Count();
+
+                    arrWeekRejectedRequest[i] = dateRequest;
                     arrWeekDate[i] = date.ToString("MM-dd");
                 }
 
-                return Json(new { status = true, totalApprove, thisWeekApprove, lastWeekApprove, arrWeekApprove, arrWeekDate }, JsonRequestBehavior.AllowGet);
+                return Json(new { status = true, thisWeekRejectedRequest, lastWeekRejectedRequest, arrWeekRejectedRequest, arrWeekDate }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
@@ -301,6 +279,8 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 List<int> listReturnQty = new List<int>();
                 List<int> listBorrowQty = new List<int>();
                 List<int> listTakeQty = new List<int>();
+                List<int> listReturnNgQty = new List<int>();
+                List<int> listExportQty = new List<int>();
 
                 List<string> listDate = new List<string>();
 
@@ -317,33 +297,52 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                                 var nextDate = thisDate.AddDays(1);
 
                                 var Borrows = db.Borrows.Where(b => b.DateBorrow >= thisDate && b.DateBorrow < nextDate && b.Status == "Approved").ToList();
+                                var Returns = db.Returns.Where(b => b.DateReturn >= thisDate && b.DateReturn < nextDate && b.Status == "Approved").ToList();
+                                var Exports = db.Exports.Where(b => b.CreatedDate >= thisDate && b.CreatedDate < nextDate && b.Status == "Approved").ToList();
+
                                 var borrowQty = 0;
                                 var returnQty = 0;
                                 var takeQty = 0;
+                                var ngQty = 0;
+                                var exportQty = 0;
+
                                 foreach (var borrow in Borrows)
                                 {
-                                    var DeviceBorrows = borrow.BorrowDevices;
-                                    foreach (var device in DeviceBorrows)
+                                    var qty = borrow.BorrowDevices.Sum(b => b.BorrowQuantity) ?? 0;
+                                    if (borrow.Type == "Borrow")
                                     {
-                                        if (borrow.Type == "Borrow")
-                                        {
-                                            borrowQty += device.BorrowQuantity ?? 0;
-                                        }
-                                        else if (borrow.Type == "Return")
-                                        {
-                                            returnQty += device.BorrowQuantity ?? 0;
-                                        }
-                                        else if (borrow.Type == "Take")
-                                        {
-                                            takeQty += device.BorrowQuantity ?? 0;
-                                        }
+                                        borrowQty += qty;
                                     }
-
+                                    else if (borrow.Type == "Return")
+                                    {
+                                        returnQty += qty;
+                                    }
+                                    else if (borrow.Type == "Take")
+                                    {
+                                        takeQty += qty;
+                                    }
+                                }
+                                foreach (var _return in Returns)
+                                {
+                                    returnQty += _return.ReturnDevices.Sum(r => r.ReturnQuantity) ?? 0;
+                                }
+                                foreach (var export in Exports)
+                                {
+                                    if (export.Type == "Return NG")
+                                    {
+                                        ngQty += export.ExportDevices.Sum(e => e.ExportQuantity) ?? 0;
+                                    }
+                                    else if (export.Type == "Export")
+                                    {
+                                        exportQty += export.ExportDevices.Sum(e => e.ExportQuantity) ?? 0;
+                                    }
                                 }
 
                                 listBorrowQty.Add(borrowQty);
                                 listReturnQty.Add(returnQty);
                                 listTakeQty.Add(takeQty);
+                                listReturnNgQty.Add(ngQty);
+                                listExportQty.Add(exportQty);
                                 listDate.Add(thisDate.ToString("MM-dd"));
                             }
                             break;
@@ -359,33 +358,56 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                                 var iFirstThisMonth = new DateTime(iLastThisMonth.Year, iLastThisMonth.Month, 1);
 
                                 var Borrows = db.Borrows.Where(b => b.DateBorrow >= iFirstThisMonth && b.DateBorrow <= iLastThisMonth && b.Status == "Approved");
+                                var Returns = db.Returns.Where(b => b.DateReturn >= iFirstThisMonth && b.DateReturn <= iLastThisMonth && b.Status == "Approved");
+                                var Exports = db.Exports.Where(b => b.CreatedDate >= iFirstThisMonth && b.CreatedDate <= iLastThisMonth && b.Status == "Approved");
+
                                 var borrowQty = 0;
                                 var returnQty = 0;
                                 var takeQty = 0;
+                                var ngQty = 0;
+                                var exportQty = 0;
+
                                 foreach (var borrow in Borrows)
                                 {
-                                    var DeviceBorrows = borrow.BorrowDevices;
-                                    foreach (var device in DeviceBorrows)
+                                    var qty = borrow.BorrowDevices.Sum(b => b.BorrowQuantity) ?? 0;
+                                    if (borrow.Type == "Borrow")
                                     {
-                                        if (borrow.Type == "Borrow")
-                                        {
-                                            borrowQty += device.BorrowQuantity ?? 0;
-                                        }
-                                        else if (borrow.Type == "Return")
-                                        {
-                                            returnQty += device.BorrowQuantity ?? 0;
-                                        }
-                                        else if (borrow.Type == "Take")
-                                        {
-                                            takeQty += device.BorrowQuantity ?? 0;
-                                        }
+                                        borrowQty += qty;
+                                    }
+                                    else if (borrow.Type == "Return")
+                                    {
+                                        returnQty += qty;
+                                    }
+                                    else if (borrow.Type == "Take")
+                                    {
+                                        takeQty += qty;
                                     }
                                 }
-                                if(returnQty > 0 || returnQty > 0 || takeQty > 0)
+                                foreach (var _return in Returns)
+                                {
+                                    returnQty += _return.ReturnDevices.Sum(b => b.ReturnQuantity) ?? 0;                                  
+                                }
+                                foreach (var export in Exports)
+                                {
+                                    var qty = export.ExportDevices.Sum(b => b.ExportQuantity) ?? 0;
+                                    if (export.Type == "Return NG")
+                                    {
+                                        ngQty += qty;
+                                    }
+                                    else if (export.Type == "Export")
+                                    {
+                                        exportQty += qty;
+                                    }
+                                }
+
+                                if (returnQty > 0 || returnQty > 0 || takeQty > 0 || ngQty > 0 || exportQty > 0)
                                 {
                                     listReturnQty.Add(returnQty);
                                     listBorrowQty.Add(borrowQty);
                                     listTakeQty.Add(takeQty);
+                                    listReturnNgQty.Add(ngQty);
+                                    listExportQty.Add(exportQty);
+
                                     listDate.Add(iFirstThisMonth.ToString("yyyy-MM"));
                                 }
                                 
@@ -472,7 +494,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
 
 
                 int[] WarehouseDeviceCount = new int[warehouses.Count];
-                string [] WarehouseDeviceName = new string[warehouses.Count];
+                string[] WarehouseDeviceName = new string[warehouses.Count];
 
                 for (int i = 0; i < warehouses.Count; i++)
                 {
@@ -481,13 +503,12 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                     WarehouseDeviceName[i] = wh.WarehouseName;
                 }
 
-                int TotalStatic = db.Devices.Where(d => d.Type == "S").Count();
-                int TotalDynamic = db.Devices.Where(d => d.Type == "D").Count();
-                int TotalConsign = db.Devices.Where(d => d.Type == "Consign").Count();
+                int TotalStatic = db.Devices.Where(d => d.Type == "Static" || d.Type_BOM == "S").Count();
+                int TotalDynamic = db.Devices.Where(d => d.Type == "Dynamic" || d.Type_BOM == "D").Count();            
                 int TotalFixture = db.Devices.Where(d => d.Type == "Fixture").Count();
-                int TotalOrther = db.Devices.Count() - (TotalStatic + TotalDynamic + TotalConsign + TotalFixture);
+                int TotalNA = db.Devices.Where(d => d.Type == "NA").Count();
 
-                return Json(new { status = true, WarehouseDeviceCount, WarehouseDeviceName, TotalStatic, TotalDynamic, TotalConsign, TotalFixture, TotalOrther }, JsonRequestBehavior.AllowGet);
+                return Json(new { status = true, WarehouseDeviceCount, WarehouseDeviceName, TotalStatic, TotalDynamic, TotalFixture, TotalNA }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
