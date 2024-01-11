@@ -1,223 +1,13 @@
-﻿// INIT
-$(document).ready(function () {
-    InitSelect2();
-    SetDatas();
+﻿$(document).ready(function () {
+    InitDatatable();
+    setTimeout(() => {
+        InitSelect2();
+        SetDatas();
+    }, 100);
+    
 });
 
-var tableDeviceInfo;
-function CreateTableAddDevice(devices) {
-    if (tableDeviceInfo) tableDeviceInfo.destroy();
-
-    // Add list device to datalist
-    var tableBody = $('#table_Devices_tbody');
-    var devicedatalist = $('#device_edit-Devices-List');
-    tableBody.empty();
-    devicedatalist.html('');
-    $.each(devices, function (no, item) {
-        var deviceData = {
-            id: item.Id || "NA",
-            mts: (item.Product && item.Product.MTS) ? item.Product.MTS : "NA",
-            productname: (item.Product && item.Product.ProductName !== "") ? item.Product.ProductName : "NA",
-            model: (item.Model && item.Model.ModelName !== "") ? item.Model.ModelName : "NA",
-            station: (item.Station && item.Station.StationName !== "") ? item.Station.StationName : "NA",
-            pn: item.DeviceCode !== "null" ? item.DeviceCode : "NA",
-            des: item.DeviceName !== "" ? item.DeviceName : "NA",
-            group: (item.Group && item.Group.GroupName !== "") ? item.Group.GroupName : "NA",
-            vendor: (item.Vendor && item.Vendor.VendorName !== "") ? item.Vendor.VendorName : "NA",
-            special: (item.Specification !== "NA") ? item.Specification : "NA",
-            buffer: (item.Buffer * 100) + "%",
-            qty: item.Quantity || 0,
-            poqty: item.POQty || 0,
-            cfqty: item.QtyConfirm || 0,
-            realqty: item.RealQty || 0,
-            unit: item.Unit || '',
-            leadtime: /\d/.test(item.DeliveryTime) ? item.DeliveryTime : "NA",
-            isconsign: item.isConsign ? "consign" : "normal",
-            location: {
-                html: '',
-                title: ''
-            },
-            AltPN: (item.AlternativeDevices != null && item.AlternativeDevices.length  == 1) ? item.AlternativeDevices[0].PNs ? item.AlternativeDevices[0].PNs : "" : ""
-        };
-
-        $.each(item.DeviceWarehouseLayouts, function (k, sss) {
-            var layout = sss.WarehouseLayout;
-            var locationLabel = `${layout.Line}${layout.Cell ? ' - ' + layout.Cell : ''}${layout.Floor ? ' - ' + layout.Floor : ''}`;
-            deviceData.location.html += `<lable>${locationLabel}</lable>`;
-            deviceData.location.title += `[${locationLabel}],`;
-        });
-
-        // Datalist
-        devicedatalist.append(`<option value="${deviceData.pn}" data-id="${deviceData.id}">${deviceData.des} | ${deviceData.mts}</option>`);
-
-        // Row
-        var row = $(`<tr class="align-middle" data-id="${item.Id}"></tr>`);
-        {
-            // 0 ID
-            row.append(`<td>${deviceData.id}</td>`);
-            // 1 MTS
-            row.append(`<td>${deviceData.mts}</td>`);
-            // 2 Product Name
-            row.append(`<td>${deviceData.productname}</td>`);
-            // 3 Model
-            row.append(`<td>${deviceData.model}</td>`);
-            // 4 Station
-            row.append(`<td>${deviceData.station}</td>`);
-            // 5 DeviceCode - PN
-            row.append(`<td>${deviceData.pn}</td>`);
-            // 6 DeviceName
-            row.append(`<td title="${deviceData.des}">${deviceData.des}</td>`);
-            // 7 Group
-            row.append(`<td>${deviceData.group}</td>`);
-            // 8 Vendor
-            row.append(`<td>${deviceData.vendor}</td>`);
-            // 9 Specification
-            row.append(`<td>${deviceData.special}</td>`);
-            // 10 Location      
-            row.append(`<td title="${deviceData.location.title}">${deviceData.location.html}</td>`);
-            // 11 Buffer
-            row.append(`<td>${deviceData.buffer}</td>`);
-            // 12 BOM Quantity
-            row.append(`<td title="BOM Quantity">${deviceData.qty}</td>`);
-            // 13 PO Quantity
-            row.append(`<td title="PO Quantity">${deviceData.poqty}</td>`);
-            // 14 Confirm Quantity
-            row.append(`<td title="Confirm Quantity">${deviceData.cfqty}</td>`);
-            // 15 Real Quantity
-            row.append(`<td title="Real Quantity">${deviceData.realqty}</td>`);
-            // 16 Unit
-            row.append(`<td>${deviceData.unit}</td>`);
-            // 17 Lead Time
-            row.append(`<td>${deviceData.leadtime}</td>`);
-            // 18 Type
-            switch (item.Type) {
-                case "S":
-                case "Static": {
-                    row.append(`<td class="py-0">
-                                <span class="text-success fw-bold">Static</span>
-                                </br>
-                                <span class="text-${item.isConsign ? "warning" : "primary"} fw-bold" style="font-size: 10px;">${item.isConsign ? "Consign" : "Normal"}</span>
-                            </td>`);
-                    break;
-                }
-                case "D":
-                case "Dynamic": {
-                    row.append(`<td class="py-0">
-                                <span class="text-info fw-bold">Dynamic</span>
-                                </br>
-                                <span class="text-${item.isConsign ? "warning" : "primary"} fw-bold" style="font-size: 10px;">${item.isConsign ? "Consign" : "Normal"}</span>
-                            </td>`);
-                    break;
-                }
-                case "Fixture": {
-                    row.append(`<td class="py-0">
-                                <span class="text-primary fw-bold">Fixture</span>
-                                </br>
-                                <span class="text-${item.isConsign ? "warning" : "primary"} fw-bold" style="font-size: 10px;">${item.isConsign ? "Consign" : "Normal"}</span>
-                            </td>`);
-                    break;
-                }
-                default: {
-                    row.append(`<td class="py-0">
-                                <span class="text-secondary fw-bold">NA</span>
-                                </br>
-                                <span class="text-${item.isConsign ? "warning" : "primary"} fw-bold" style="font-size: 10px;">${item.isConsign ? "Consign" : "Normal"}</span>
-                            </td>`);
-                    break;
-                }
-            }
-            // 19 Status
-            switch (item.Status) {
-                case "Unconfirmed": {
-                    row.append(`<td><span class="badge bg-primary">Unconfirmed</span></td>`);
-                    break;
-                }
-                case "Part Confirmed": {
-                    row.append(`<td><span class="badge bg-warning">Part Confirmed</span></td>`);
-                    break;
-                }
-                case "Confirmed": {
-                    row.append(`<td><span class="badge bg-success">Confirmed</span></td>`);
-                    break;
-                }
-                case "Locked": {
-                    row.append(`<td><span class="badge bg-secondary">Locked</span></td>`);
-                    break;
-                }
-                case "Out Range": {
-                    row.append(`<td><span class="badge bg-danger">Out Range</span></td>`);
-                    break;
-                }
-                default: {
-                    row.append(`<td>NA</td>`);
-                    break;
-                }
-            }
-            // 20 Action
-            row.append(`<td class="order-action d-flex text-center justify-content-center">
-                        <a href="javascript:;" class="text-info bg-light-info border-0"       title="${i18next.t('device.management.details')}" data-id="${item.Id}" onclick="Details(this, event)"><i class="fa-regular fa-circle-info"></i></a>
-                        <a href="javascript:;" class="text-warning bg-light-warning border-0" title="${i18next.t('device.management.edit')}   " data-id="${item.Id}" onclick="Edit(this, event)   "><i class="fa-duotone fa-pen"></i></a>
-                        <a href="javascript:;" class="text-danger  bg-light-danger  border-0" title="${i18next.t('device.management.delete')} " data-id="${item.Id}" onclick="Delete(this, event) "><i class="fa-duotone fa-trash"></i></a>
-                    </td>`);
-            // 21 isConsign (Hidden)
-            row.append(`<td>${deviceData.isconsign}</td>`);
-            // 22 AltPN
-            row.append(`<td>${deviceData.AltPN}</td>`);
-        }
-
-
-        tableBody.append(row);
-    });
-
-    const options = {
-        scrollY: 500,
-        scrollX: true,
-        order: [],
-        autoWidth: false,
-        deferRender: true,
-        columnDefs: [
-            { targets: "_all", orderable: false },
-            { targets: [14], className: "text-primary fw-bold text-center" },
-            { targets: [15], className: "text-info fw-bold text-center" },
-            { targets: [11, 12, 13, 14, 15, 16, 17, 18, 19, 20], className: "text-center" },
-            { targets: [20], className: "text-center", width: '120px' },
-
-            { targets: [0, 2, 3, 4, 7, 8, 9, 12, 13, 21, 22], visible: false },
-        ],
-        "lengthMenu": [[10, 15, 25, 50, -1], [10, 15, 25, 50, "All"]],
-        dom: "<'row'<'w-auto'B><'col-sm-12 col-md'l><'col-sm-12 col-md'f>>" +
-            "<'row'<'col-sm-12'tr>>" +
-            "<'row'<'col-sm-12 col-md-7'i><'col-sm-12 col-md-5'p>>",
-        buttons: [
-            {
-                text: i18next.t('device.management.export_excel'),
-                extend: 'excel',
-                exportOptions: {
-                    columns: [1, 2, 5, 6, 11, 14, 15]
-                },
-                customize: function (xlsx) {
-                    $('sheets sheet', xlsx.xl['workbook.xml']).attr('name', 'Devices');
-                }
-            },
-            {
-                text: i18next.t('device.management.inventory'),
-                action: function (e, dt, button, config) {
-                    var input = $('<input type="file">');
-                    input.on('change', function () {
-                        var file = this.files[0];
-
-                        sendFile(file);
-
-                    });
-                    input.click();
-                }
-            }
-        ]
-
-    };
-    tableDeviceInfo = $('#table_Devices').DataTable(options);
-    tableDeviceInfo.columns.adjust();
-};
+/* Init Page */
 function InitSelect2() {
     // Warehouse
     $('#input_WareHouse', document).select2({
@@ -290,9 +80,111 @@ function InitSelect2() {
         });
     }
 }
+async function SetDatas() {
+    var response = await GetDatas();
 
-// GET
-var ListDevices;
+    // WareHouse
+    $('#input_WareHouse').empty();
+    $('#device_edit-WareHouse').empty();
+    $.each(response.warehouses, function (k, item) {
+        var opt1 = $(`<option value="${item.Id}">${item.WarehouseName}</option>`);
+        var opt2 = $(`<option value="${item.Id}">${item.WarehouseName}</option>`);
+        $('#device_edit-WareHouse').append(opt1);
+        $('#input_WareHouse').append(opt2);
+    });
+    $('#input_WareHouse').change();
+
+    SetEditData(response);
+    SetFilterData(response);
+}
+$('#input_WareHouse').on('change', function (e) {
+    e.preventDefault();
+    GetWarehouseDevices($(this).val());
+});
+
+
+/* Datatable */
+var device_history, ListDevices;
+function InitDatatable() {
+    var windowHeight = $(window).height();
+    var lengthMenu = [[], []];
+    var tableHeight = 0;
+    if (windowHeight < 900) {
+        tableHeight = 46 * 9;
+        lengthMenu = [[8, 15, 25, 50, -1], [10, 15, 25, 50, "All"]];
+    }
+    else if (windowHeight == 900) {
+        tableHeight = 46 * 11;
+        lengthMenu = [[10, 15, 25, 50, -1], [10, 15, 25, 50, "All"]]
+    }
+    else if (windowHeight > 900 && windowHeight < 1080) {
+        tableHeight = 46 * 13;
+        lengthMenu = [[12, 15, 25, 50, -1], [12, 15, 25, 50, "All"]]
+    }
+    else {
+        tableHeight = 46 * 16;
+        lengthMenu = [[15, 25, 50, -1], [15, 25, 50, "All"]]
+    }
+
+    const options = {
+        scrollY: tableHeight,
+        scrollX: true,
+        order: [],
+        autoWidth: false,
+        deferRender: true,
+        columnDefs: [
+            { targets: "_all", orderable: false },
+            { targets: [14], className: "text-center text-primary fw-bold" },   
+            { targets: [15], className: "text-center text-info fw-bold" },
+            { targets: [16], className: "text-center text-danger fw-bold" },
+            { targets: [11, 12, 13, 17, 18, 20], className: "text-center" },
+            { targets: [19], className: "text-center td-py-0" },
+            { targets: [21], className: "row-action order-action d-flex text-center justify-content-center"},
+            { targets: [0, 2, 3, 4, 7, 8, 9, 12, 13, 22, 23], visible: false },
+        ],
+        lengthMenu: lengthMenu,
+        dom: "<'row'<'w-auto'B><'col-sm-12 col-md'l><'col-sm-12 col-md'f>>" +
+            "<'row'<'col-sm-12'tr>>" +
+            "<'row'<'col-sm-12 col-md-7'i><'col-sm-12 col-md-5'p>>",
+        buttons: [
+            {
+                text: i18next.t('device.management.export_excel'),
+                extend: 'excel',
+                exportOptions: {
+                    columns: [1, 2, 5, 6, 11, 14, 15]
+                },
+                customize: function (xlsx) {
+                    $('sheets sheet', xlsx.xl['workbook.xml']).attr('name', 'Devices');
+                }
+            },
+            {
+                text: 'Inventory',
+                action: function (e, dt, button, config) {
+                    var input = $('<input type="file">');
+                    input.on('change', function () {
+                        var file = this.files[0];
+
+                        sendFile(file);
+
+                    });
+                    input.click();
+                }
+            }
+        ],
+        createdRow: function (row, data, dataIndex) {
+            $(row).addClass('cursor-pointer');
+            $(row).data('id', data[0]);
+
+            var cells = $(row).children('td');
+            $(cells[0]).attr('title', data[1]);
+            $(cells[1]).attr('title', data[5]);
+            $(cells[2]).attr('title', data[6]);
+            $(cells[3]).attr('title', data[10]);
+        },
+
+    };
+    tableDeviceInfo = $('#table_Devices').DataTable(options);
+}
 function GetWarehouseDevices(IdWarehouse = 0) {
     Pace.track(function () {
         $.ajax({
@@ -305,7 +197,16 @@ function GetWarehouseDevices(IdWarehouse = 0) {
                 if (response.status) {
 
                     var devices = response.warehouse.Devices;
-                    CreateTableAddDevice(devices);
+                    //CreateTableAddDevice(devices);
+
+                    var rowsToAdd = [];
+                    $.each(devices, function (k, device) {
+                        var tablerow = CreateDatatableRow(device);
+                        rowsToAdd.push(tablerow);
+                    });
+
+                    tableDeviceInfo.rows.add(rowsToAdd);
+                    tableDeviceInfo.columns.adjust().draw();
 
                 }
                 else {
@@ -321,6 +222,112 @@ function GetWarehouseDevices(IdWarehouse = 0) {
         });
     });
 }
+
+function CreateDatatableRow(device) {
+    var row = [
+        device.Id,
+        (device.Product && device.Product.MTS) ? device.Product.MTS : "NA",
+        (device.Product && device.Product.ProductName !== "") ? device.Product.ProductName : "NA",
+        (device.Model && device.Model.ModelName !== "") ? device.Model.ModelName : "NA",
+        (device.Station && device.Station.StationName !== "") ? device.Station.StationName : "NA",
+        device.DeviceCode !== "null" ? device.DeviceCode : "NA",
+        device.DeviceName !== "" ? device.DeviceName : "NA",
+        (device.Group && device.Group.GroupName !== "") ? device.Group.GroupName : "NA",
+        (device.Vendor && device.Vendor.VendorName !== "") ? device.Vendor.VendorName : "NA",
+        (device.Specification !== "NA") ? device.Specification : "NA",
+        GetDeviceLocation(device),
+        (device.Buffer * 100) + "%",
+        device.Quantity || 0,
+        device.POQty || 0,
+        device.QtyConfirm || 0,
+        device.RealQty || 0,
+        device.NG_Qty || 0,
+        device.Unit || '',
+        /\d/.test(device.DeliveryTime) ? device.DeliveryTime : "NA",
+        GetDeviceType(device),
+        GetDeviceStatus(device),
+        GetDeviceAction(device.Id),
+        device.isConsign ? "consign" : "normal",
+        (device.AlternativeDevices != null && device.AlternativeDevices.length == 1) ? device.AlternativeDevices[0].PNs ? device.AlternativeDevices[0].PNs : "" : ""
+    ]
+    return row;
+}
+function GetDeviceLocation(device) {
+    var location = [];
+    $.each(device.DeviceWarehouseLayouts, function (k, deviceLocation) {
+        var layout = deviceLocation.WarehouseLayout;
+        location.push(`${layout.Line}${layout.Cell ? ' - ' + layout.Cell : ''}${layout.Floor ? ' - ' + layout.Floor : ''}`);
+    });
+    return location.join(', ');
+}
+function GetDeviceType(device) {
+    switch (device.Type) {
+        case "S":
+        case "Static": {
+            return (`<span class="text-success fw-bold">Static</span>
+                     </br>
+                     <span class="text-${device.isConsign ? "warning" : "primary"} fw-bold" style="font-size: 10px;">${device.isConsign ? "Consign" : "Normal"}</span>`);
+            break;
+        }
+        case "D":
+        case "Dynamic": {
+            return (`<span class="text-info fw-bold">Dynamic</span>
+                        </br>
+                        <span class="text-${device.isConsign ? "warning" : "primary"} fw-bold" style="font-size: 10px;">${device.isConsign ? "Consign" : "Normal"}</span>`);
+            break;
+        }
+        case "Fixture": {
+            return (`<td class="py-0">
+                                <span class="text-primary fw-bold">Fixture</span>
+                                </br>
+                                <span class="text-${device.isConsign ? "warning" : "primary"} fw-bold" style="font-size: 10px;">${device.isConsign ? "Consign" : "Normal"}</span>
+                            </td>`);
+            break;
+        }
+        default: {
+            return (`<span class="text-secondary fw-bold">NA</span>
+                     </br>
+                     <span class="text-${device.isConsign ? "warning" : "primary"} fw-bold" style="font-size: 10px;">${device.isConsign ? "Consign" : "Normal"}</span>`);
+            break;
+        }
+    }
+}
+function GetDeviceStatus(device) {
+    switch (device.Status) {
+        case "Unconfirmed": {
+            return (`<span class="badge bg-primary">Unconfirmed</span>`);
+            break;
+        }
+        case "Part Confirmed": {
+            return (`<span class="badge bg-warning">Part Confirmed</span>`);
+            break;
+        }
+        case "Confirmed": {
+            return (`<span class="badge bg-success">Confirmed</span>`);
+            break;
+        }
+        case "Locked": {
+            return (`<span class="badge bg-secondary">Locked</span>`);
+            break;
+        }
+        case "Out Range": {
+            return (`<span class="badge bg-danger">Out Range</span>`);
+            break;
+        }
+        default: {
+            return (`NA`);
+            break;
+        }
+    }
+}
+function GetDeviceAction(Id) {
+    return (`<a href="javascript:;" class="text-info bg-light-info border-0"       title="${i18next.t('device.management.details')}" data-id="${Id}" onclick="Details(this, event)"><i class="fa-regular fa-circle-info"></i></a>
+             <a href="javascript:;" class="text-warning bg-light-warning border-0" title="${i18next.t('device.management.edit')}   " data-id="${Id}" onclick="Edit(this, event)   "><i class="fa-duotone fa-pen"></i></a>
+             <a href="javascript:;" class="text-danger  bg-light-danger  border-0" title="${i18next.t('device.management.delete')} " data-id="${Id}" onclick="Delete(this, event) "><i class="fa-duotone fa-trash"></i></a>`);
+}
+
+
+// GET
 function _GetWarehouseDevices(IdWarehouse) {
     return new Promise((resolve, reject) => {
         $.ajax({
@@ -442,23 +449,7 @@ function Details(elm, e) {
 function BorrowDetails(Id) {
     RequestDetails(Id, false);
 }
-async function SetDatas() {
-    var response = await GetDatas();
 
-    // WareHouse
-    $('#input_WareHouse').empty();
-    $('#device_edit-WareHouse').empty();
-    $.each(response.warehouses, function (k, item) {
-        var opt1 = $(`<option value="${item.Id}">${item.WarehouseName}</option>`);
-        var opt2 = $(`<option value="${item.Id}">${item.WarehouseName}</option>`);
-        $('#device_edit-WareHouse').append(opt1);
-        $('#input_WareHouse').append(opt2);
-    });
-    $('#input_WareHouse').change();
-
-    SetEditData(response);
-    SetFilterData(response);
-}
 function Edit(elm, e) {
     e.preventDefault();
 
@@ -573,16 +564,12 @@ async function Confirm(elm, e) {
 }
 
 // EVENT
-$('#input_WareHouse').on('change', function (e) {
-    e.preventDefault();
-    GetWarehouseDevices($(this).val());
-}); // Get Warehouse devices
 $(".toggle-icon").click(function () {
     setTimeout(() => {
         tableDeviceInfo.columns.adjust();
     }, 310);
 
-}); // Fit Table header
+});
 $('#table_Devices tbody').on('dblclick', 'tr', function (event) {
 
     var dataId = $(this).data('id');
@@ -593,7 +580,8 @@ async function Delete(elm, e) {
     e.preventDefault();
 
     var Id = $(elm).data('id');
-    var Index = tableDeviceInfo.row(`[data-id="${Id}"]`).index();
+    var tableRow = $(elm).closest('tr')
+    var IndexRow = tableDeviceInfo.row(tableRow).index();
 
     var device = await GetDevice(Id);
 
@@ -638,7 +626,7 @@ async function Delete(elm, e) {
                 contentType: "application/json;charset=utf-8",
                 success: function (response) {
                     if (response.status) {
-                        tableDeviceInfo.row(Index).remove().draw(false);
+                        tableDeviceInfo.row(IndexRow).remove().draw();
 
                         toastr["success"]("Delete device success.", "SUCCRESS");
                     }
@@ -675,11 +663,11 @@ $('#filter').on('click', function (e) {
     }
     if (filter_Type !== "Type" && filter_Type !== null && filter_Type !== undefined) {
         var types = filter_Type.split('_');
-        tableDeviceInfo.column(18).search(types[1], true, false);
-        tableDeviceInfo.column(21).search("^" + types[0] + "$", true, false);
+        tableDeviceInfo.column(19).search(types[1], true, false);
+        tableDeviceInfo.column(22).search("^" + types[0] + "$", true, false);
     }
     if (filter_Status !== "Status" && filter_Status !== null && filter_Status !== undefined) {
-        tableDeviceInfo.column(19).search("^" + filter_Status + "$", true, false);
+        tableDeviceInfo.column(20).search("^" + filter_Status + "$", true, false);
     }
 
     tableDeviceInfo.draw();

@@ -82,3 +82,7 @@ html.dark-theme .select2-container--bootstrap4 .select2-selection {
     height: 10rem;
     border-radius: 10px;
 }
+td.td-py-0 {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+}

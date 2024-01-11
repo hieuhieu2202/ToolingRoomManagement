@@ -392,7 +392,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                         Type_BOM = oldDevice.Type_BOM,
                         MOQ = int.Parse(form["MOQ"]) != oldDevice.MOQ ? int.Parse(form["MOQ"]) : oldDevice.MOQ,
                         //isConsign =
-                        NG_Qty = oldDevice.NG_Qty,
+                        NG_Qty = int.Parse(form["NG_Qty"]),
                     };
                     // Alternative PN
                     var AltPN = oldDevice.AlternativeDevices.FirstOrDefault();
@@ -803,45 +803,25 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
         {
             try
             {
-                Entities.Device device = db.Devices.FirstOrDefault(d => d.Id == Id);
-
-                // Get All Borrow Of Device
-                List<Entities.Borrow> borrows = db.Borrows.Where(b => b.BorrowDevices.Any(bd => bd.IdDevice == device.Id)).ToList(); ;
-              
-                // Get All Borrow Of Device               
-                List<Entities.Return> returns = db.Returns.Where(r => r.ReturnDevices.Any(rd => rd.IdDevice == device.Id)).ToList();
-
-                // Get Warehouse by layout
-                List<Entities.Warehouse> warehouses = new List<Warehouse>();
-                foreach (var dwl in device.DeviceWarehouseLayouts)
-                {
-
-                    Entities.WarehouseLayout layout = dwl.WarehouseLayout;
-                    Entities.Warehouse warehouse = db.Warehouses.FirstOrDefault(w => w.Id == layout.IdWareHouse);
-                    warehouses.Add(warehouse);
-                }
-                foreach (var warehouse in warehouses)
-                {
-                    warehouse.Devices.Clear();
-                    warehouse.WarehouseLayouts.Clear();
-                }
-                device.Warehouse = db.Warehouses.FirstOrDefault(w => w.Id == device.IdWareHouse);
-                device.Warehouse.Devices.Clear();
-                device.Warehouse.WarehouseLayouts.Clear();
-
-
-
+                Device device = db.Devices.FirstOrDefault(d => d.Id == Id);
                 if (device != null)
                 {
-                    List<string> images = new List<string>();
-                    try
-                    {
-                        if (!string.IsNullOrEmpty(device.ImagePath)) images = Directory.GetFiles(device.ImagePath).ToList();
-                    }
-                    catch {}
-                    
+                    // Get All Borrow Of Device
+                    List<Borrow> borrows = GetBorrows(device);
 
-                    return Json(new { status = true, device, borrows, returns, warehouses, images });
+                    // Get All Borrow Of Device               
+                    List<Return> returns = GetReturns(device);
+
+                    // Get All Export Of Device               
+                    List<Export> exports = GetExports(device);
+
+                    // Get Warehouse by layout
+                    List<Warehouse> warehouses = GetWarehouseLayouts(device);
+
+                    // GetImagePaths
+                    List<string> images = GetImagePaths(device);
+
+                    return Json(new { status = true, device, borrows, returns, exports, warehouses, images });
                 }
                 else
                 {
@@ -853,6 +833,75 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 return Json(new { status = false, message = ex.Message });
             }
         }        
+        public List<Borrow> GetBorrows(Device device)
+        {
+            List<Borrow> borrows = db.Borrows.Where(b => b.BorrowDevices.Any(bd => bd.IdDevice == device.Id)).ToList();
+            foreach (var borrow in borrows)
+            {
+                foreach (var borrowDevice in borrow.BorrowDevices)
+                {
+                    borrowDevice.Device = null;
+                }
+            }
+            return borrows;
+        }
+        public List<Return> GetReturns(Device device)
+        {
+            List<Return> returns = db.Returns.Where(r => r.ReturnDevices.Any(rd => rd.IdDevice == device.Id)).ToList();
+            foreach (var _return in returns)
+            {
+                foreach (var returnDevice in _return.ReturnDevices)
+                {
+                    returnDevice.Device = null;
+                }
+            }
+            return returns;
+        }
+        public List<Export> GetExports(Device device)
+        {
+            List<Export> exports = db.Exports.Where(r => r.ExportDevices.Any(rd => rd.IdDevice == device.Id)).ToList();
+            foreach (var export in exports)
+            {
+                foreach (var exportDevice in export.ExportDevices)
+                {
+                    exportDevice.Device = null;
+                }
+            }
+            return exports;
+        }
+        public List<Warehouse> GetWarehouseLayouts(Device device)
+        {
+            List<Warehouse> warehouses = new List<Warehouse>();
+            foreach (var dwl in device.DeviceWarehouseLayouts)
+            {
+                Entities.WarehouseLayout layout = dwl.WarehouseLayout;
+                Entities.Warehouse warehouse = db.Warehouses.FirstOrDefault(w => w.Id == layout.IdWareHouse);
+                warehouses.Add(warehouse);
+            }
+            foreach (var warehouse in warehouses)
+            {
+                warehouse.Devices.Clear();
+                warehouse.WarehouseLayouts.Clear();
+            }
+
+            device.Warehouse = db.Warehouses.FirstOrDefault(w => w.Id == device.IdWareHouse);
+            device.Warehouse.Devices.Clear();
+            device.Warehouse.WarehouseLayouts.Clear();
+            return warehouses;
+        }
+        public List<string> GetImagePaths(Device device)
+        {
+            List<string> images = new List<string>();
+            try
+            {
+                if (!string.IsNullOrEmpty(device.ImagePath)) images = Directory.GetFiles(device.ImagePath).ToList();
+            }
+            catch 
+            {
+                
+            }
+            return images;
+        }
         #endregion
 
         /* EXCEL - INVENTORY */

@@ -161,12 +161,17 @@
                                             <span class="col-5 input-group-text fw-bold text-info" data-i18n="device.management.real_qty">Real Quantity</span>
                                             <input class="form-control" type="number" id="device_details-RealQty" details disabled>
                                         </div>
+                                        <!-- NG Quantity -->
+                                        <div class="input-group mb-3">
+                                            <span class="col-5 input-group-text fw-bold text-danger">NG_Qty</span>
+                                            <input class="form-control" type="number" id="device_details-NG_Qty" details disabled>
+                                        </div>
                                         <!-- Min Quantity -->
                                         <div class="input-group mb-3">
                                             <span class="col-5 input-group-text" data-i18n="device.management.min_quantity">Min Quantity</span>
                                             <input class="form-control" type="number" id="device_details-MinQty" details disabled>
                                         </div>
-                                        
+
                                     </div>
                                 </div>
                             </div>
@@ -230,18 +235,19 @@
                 <!-- History -->
                 <h5 class="font-weight-light text-center text-primary py-3" id="details-history" data-i18n="device.management.device_history">DEVICE HISTORY</h5>
                 <div>
-                    <table class="table table-bordered" id="device_details-history">
+                    <table class="table table-bordered" id="device_details-history" style="width: 100% !important">
                         <thead>
                             <tr class="align-middle fw-bold text-center" style="background-color: #3e464c">
-                                <td style="min-width: 200px;">Code</td>
-                                <td style="min-width: 100px;" data-i18n="device.management.type_request">Type</td>
-                                <td style="min-width: 160px;">Date Borrow/Return</td>
-                                <td style="min-width: 220px;" data-i18n="device.management.user">User</td>
-                                <td style="min-width: 100px;" >Quantity</td>
-                                <td style="min-width: 100px;">Status</td>
-                                <td style="width: 100%;" data-i18n="device.management.note">Note</td>
-                                <td style="min-width: 50px;" class="text-danger">NG</td>
-                                <td style="min-width: 50px;" class="text-info">Swap</td>
+                                <td>Id</td>
+                                <td>Code</td>
+                                <td>Type</td>
+                                <td>Created Date</td>
+                                <td>User</td>
+                                <td>Quantity</td>
+                                <td>Status</td>
+                                <td>Note</td>
+                                <td>NG</td>
+                                <td>Swap</td>
                             </tr>
                         </thead>
                         <tbody id="device_details-history-tbody"></tbody>

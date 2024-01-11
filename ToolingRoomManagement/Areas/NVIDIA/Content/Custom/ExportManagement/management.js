@@ -16,7 +16,7 @@ $(document).ready(async function () {
 var datatable;
 function InitTable() {
     const options = {
-        scrollY: 500,
+        scrollY: $('#modal-AddExportDevice .modal-body').height() - 120,
         scrollX: true,
         order: [0, 'desc'],
         autoWidth: false,
@@ -25,7 +25,7 @@ function InitTable() {
             { targets: "_all", orderable: false },
             { targets: [0], visible: false },
             { targets: [5, 6, 9, 10], className: "text-center" },
-            { targets: [11], className: " row-action order-action d-flex text-center justify-content-center"}
+            { targets: [11], className: "row-action order-action d-flex text-center justify-content-center"}
         ],
         "lengthMenu": [[10, 15, 25, 50, -1], [10, 15, 25, 50, "All"]],
         dom: "<'row'<'w-auto'B><'col-sm-12 col-md'l><'col-sm-12 col-md'f>>" +

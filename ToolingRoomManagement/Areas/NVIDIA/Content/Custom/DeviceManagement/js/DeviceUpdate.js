@@ -46,6 +46,8 @@ function GetModalData() {
     formData.append('Unit', $('#device_edit-Unit').val());
     formData.append('MOQ', $('#device_edit-MOQ').val());
 
+    formData.append('NG_Qty', $('#device_edit-NG_Qty').val());
+
 
     formData.append('Relation', $('#device_edit-Relation').val());
     formData.append('LifeCycle', $('#device_edit-LifeCycle').val());
@@ -123,6 +125,8 @@ async function FillEditDeviceData(device) {
     $('#device_edit-POQty').val(device.POQty ? device.POQty : 0);
     $('#device_edit-Unit').val(device.Unit);
     $('#device_edit-MOQ').val(device.MOQ ? device.MOQ : 0);
+
+    $('#device_edit-NG_Qty').val(device.NG_Qty ? device.NG_Qty : 0);
 
     $('#device_edit-Relation').val(device.Relation);
     $('#device_edit-LifeCycle').val(device.LifeCycle);
@@ -424,7 +428,10 @@ $('#button-save_modal').on('click', function (e) {
     e.preventDefault();
 
     var formData = GetModalData();
-    var Index = tableDeviceInfo.row(`[data-id="${$('#device_edit-DeviceId').val()}"]`).index();
+
+    var deviceId = $('#device_edit-DeviceId').val();
+    var tableRow = $('#table_Devices').find(`a[data-id="${deviceId}"]:eq(1)`).closest('tr')
+    var IndexRow = tableDeviceInfo.row(tableRow).index();
 
     $.ajax({
         type: "POST",
@@ -435,8 +442,8 @@ $('#button-save_modal').on('click', function (e) {
         contentType: false,
         success: function (response) {
             if (response.status) {
-                var row = DrawRowEditDevice(response.device);
-                tableDeviceInfo.row(Index).data(row).draw(false);
+                var row = CreateDatatableRow(response.device);
+                tableDeviceInfo.row(IndexRow).data(row).draw();
 
                 $('#device_edit-modal').modal('hide');
 
