@@ -750,8 +750,9 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 var stations = db.Stations.OrderBy(m => m.StationName).ToList();
                 var groups = db.Groups.OrderBy(m => m.GroupName).ToList();
                 var vendors = db.Vendors.OrderBy(m => m.VendorName).ToList();
+                var deviceCodes = db.Devices.Where(d => d.DeviceCode != null && !string.IsNullOrEmpty(d.DeviceCode)).Select(d => d.DeviceCode).ToList();
 
-                return Json(new { status = true, warehouses, products, models, stations, groups, vendors }, JsonRequestBehavior.AllowGet);
+                return Json(new { status = true, warehouses, products, models, stations, groups, vendors, deviceCodes }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
@@ -807,19 +808,19 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 if (device != null)
                 {
                     // Get All Borrow Of Device
-                    List<Borrow> borrows = GetBorrows(device);
+                    List<Borrow> borrows = GetDeviceBorrows(device);
 
                     // Get All Borrow Of Device               
-                    List<Return> returns = GetReturns(device);
+                    List<Return> returns = GetDeviceReturns(device);
 
                     // Get All Export Of Device               
-                    List<Export> exports = GetExports(device);
+                    List<Export> exports = GetDeviceExports(device);
 
                     // Get Warehouse by layout
-                    List<Warehouse> warehouses = GetWarehouseLayouts(device);
+                    List<Warehouse> warehouses = GetDeviceWarehouseLayouts(device);
 
                     // GetImagePaths
-                    List<string> images = GetImagePaths(device);
+                    List<string> images = GetDeviceImagePaths(device);
 
                     return Json(new { status = true, device, borrows, returns, exports, warehouses, images });
                 }
@@ -833,7 +834,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 return Json(new { status = false, message = ex.Message });
             }
         }        
-        public List<Borrow> GetBorrows(Device device)
+        public List<Borrow> GetDeviceBorrows(Device device)
         {
             List<Borrow> borrows = db.Borrows.Where(b => b.BorrowDevices.Any(bd => bd.IdDevice == device.Id)).ToList();
             foreach (var borrow in borrows)
@@ -845,7 +846,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
             }
             return borrows;
         }
-        public List<Return> GetReturns(Device device)
+        public List<Return> GetDeviceReturns(Device device)
         {
             List<Return> returns = db.Returns.Where(r => r.ReturnDevices.Any(rd => rd.IdDevice == device.Id)).ToList();
             foreach (var _return in returns)
@@ -857,7 +858,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
             }
             return returns;
         }
-        public List<Export> GetExports(Device device)
+        public List<Export> GetDeviceExports(Device device)
         {
             List<Export> exports = db.Exports.Where(r => r.ExportDevices.Any(rd => rd.IdDevice == device.Id)).ToList();
             foreach (var export in exports)
@@ -869,7 +870,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
             }
             return exports;
         }
-        public List<Warehouse> GetWarehouseLayouts(Device device)
+        public List<Warehouse> GetDeviceWarehouseLayouts(Device device)
         {
             List<Warehouse> warehouses = new List<Warehouse>();
             foreach (var dwl in device.DeviceWarehouseLayouts)
@@ -889,7 +890,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
             device.Warehouse.WarehouseLayouts.Clear();
             return warehouses;
         }
-        public List<string> GetImagePaths(Device device)
+        public List<string> GetDeviceImagePaths(Device device)
         {
             List<string> images = new List<string>();
             try

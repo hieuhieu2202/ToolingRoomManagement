@@ -87,6 +87,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                             var request = db.Borrows.FirstOrDefault(b => b.Id == IdRequest);
                             if (request != null)
                             {
+                                request.UserBorrowSigns = request.UserBorrowSigns.OrderBy(s => s.SignOrder).ToList();
                                 return Json(new { status = true, request }, JsonRequestBehavior.AllowGet);
                             }
                             else
@@ -99,6 +100,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                             var request = db.Returns.FirstOrDefault(r => r.Id == IdRequest);
                             if (request != null)
                             {
+                                request.UserReturnSigns = request.UserReturnSigns.OrderBy(s => s.SignOrder).ToList();
                                 return Json(new { status = true, request }, JsonRequestBehavior.AllowGet);
                             }
                             else
@@ -111,6 +113,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                             var request = db.Exports.FirstOrDefault(e => e.Id == IdRequest);
                             if (request != null)
                             {
+                                request.UserExportSigns = request.UserExportSigns.OrderBy(s => s.SignOrder).ToList();
                                 return Json(new { status = true, request }, JsonRequestBehavior.AllowGet);
                             }
                             else

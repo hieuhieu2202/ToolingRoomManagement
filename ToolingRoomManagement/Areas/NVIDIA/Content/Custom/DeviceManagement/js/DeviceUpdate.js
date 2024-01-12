@@ -199,6 +199,12 @@ function SetEditData(response) {
         let opt = $(`<option value="${item.VendorName}"></option>`);
         $('#device_edit-Vendor-List').append(opt);
     });
+    // Device Code
+    $('#device_edit-Devices-List').empty();
+    $.each(response.deviceCodes, function (k, item) {
+        let opt = $(`<option value="${item}"></option>`);
+        $('#device_edit-Devices-List').append(opt);
+    });
 }
 function DrawRowEditDevice(item) {
     var deviceData = {
