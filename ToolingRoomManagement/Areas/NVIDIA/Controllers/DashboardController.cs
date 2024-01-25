@@ -12,7 +12,7 @@ using ToolingRoomManagement.Attributes;
 
 namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
 {
-    [Authentication]
+    [Authentication(AllowAnonymous = true)]
     public class DashboardController : Controller
     {
         // GET: NVIDIA/Dashboard

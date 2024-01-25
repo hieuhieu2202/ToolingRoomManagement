@@ -1,4 +1,13 @@
-﻿$(function () {
+﻿var IntervalCount = 0;
+$(function () {
+    if (!$('#isHasSession').val()) {
+        $('.sidebar-wrapper').hide();
+        $('header').hide();
+        $('.page-wrapper').css("margin", 0);
+    }
+
+
+
     CreateChart1();
     CreateChart2();
     CreateChart3();
@@ -11,10 +20,28 @@
     CreateChart12();
     //GetModels();
     offcanvasDetails = new bootstrap.Offcanvas($('#offcanvasModel'));
+
+    setInterval(() => {
+        CreateChart1();
+        CreateChart2();
+        CreateChart3();
+        CreateChart4();
+        CreateChart5();
+        CreateChart6();
+        CreateChart7();
+        CreateChart8910();
+        CreateChart11();
+        CreateChart12();
+
+        IntervalCount++;
+        console.log(IntervalCount);
+    }, 60000);
 });
 
 // Chart
 {
+    var chart_1, chart_2, chart_3, chart_4, chart_5, chart_6, chart_7, chart_8, chart_9, chart_10, chart_11, chart_12;
+
     // Render Span
     function CreateSpanRate(Num_1, Num_2) {
         let percentageChange;
@@ -69,85 +96,97 @@
         });
     }
     function Chart1(data, categories) {
-        var options = {
-            series: [{
-                name: 'Weekly User',
-                data: data
-            }],
-            chart: {
-                type: 'area',
-                height: 60,
-                toolbar: {
-                    show: false
-                },
-                zoom: {
-                    enabled: false
-                },
-                dropShadow: {
-                    enabled: false,
-                    top: 3,
-                    left: 14,
-                    blur: 4,
-                    opacity: 0.12,
-                    color: '#ffc107',
-                },
-                sparkline: {
-                    enabled: true
-                }
-            },
-            markers: {
-                size: 0,
-                colors: ["#ffc107"],
-                strokeColors: "#fff",
-                strokeWidth: 2,
-                hover: {
-                    size: 7,
-                }
-            },
-            plotOptions: {
-                bar: {
-                    horizontal: false,
-                    columnWidth: '45%',
-                    endingShape: 'rounded'
-                },
-            },
-            dataLabels: {
-                enabled: false
-            },
-            stroke: {
-                show: true,
-                width: 2.5,
-                curve: 'smooth'
-            },
-            colors: ["#ffc107"],
-            xaxis: {
-                categories: categories,
-            },
-            fill: {
-                opacity: 1
-            },
-            tooltip: {
-                theme: 'dark',
-                fixed: {
-                    enabled: false
-                },
-                x: {
-                    show: true
-                },
-                y: {
-                    title: {
-                        formatter: function (seriesName) {
-                            return ''
-                        }
+        if (chart_1 == null) {
+            var options = {
+                series: [{
+                    name: 'Weekly User',
+                    data: data
+                }],
+                chart: {
+                    type: 'area',
+                    height: 60,
+                    toolbar: {
+                        show: false
+                    },
+                    zoom: {
+                        enabled: false
+                    },
+                    dropShadow: {
+                        enabled: false,
+                        top: 3,
+                        left: 14,
+                        blur: 4,
+                        opacity: 0.12,
+                        color: '#ffc107',
+                    },
+                    sparkline: {
+                        enabled: true
                     }
                 },
-                marker: {
-                    show: false
+                markers: {
+                    size: 0,
+                    colors: ["#ffc107"],
+                    strokeColors: "#fff",
+                    strokeWidth: 2,
+                    hover: {
+                        size: 7,
+                    }
+                },
+                plotOptions: {
+                    bar: {
+                        horizontal: false,
+                        columnWidth: '45%',
+                        endingShape: 'rounded'
+                    },
+                },
+                dataLabels: {
+                    enabled: false
+                },
+                stroke: {
+                    show: true,
+                    width: 2.5,
+                    curve: 'smooth'
+                },
+                colors: ["#ffc107"],
+                xaxis: {
+                    categories: categories,
+                },
+                fill: {
+                    opacity: 1
+                },
+                tooltip: {
+                    theme: 'dark',
+                    fixed: {
+                        enabled: false
+                    },
+                    x: {
+                        show: true
+                    },
+                    y: {
+                        title: {
+                            formatter: function (seriesName) {
+                                return ''
+                            }
+                        }
+                    },
+                    marker: {
+                        show: false
+                    }
                 }
-            }
-        };
-        var chart = new ApexCharts(document.querySelector("#chart1"), options);
-        chart.render();
+            };
+            chart_1 = new ApexCharts(document.querySelector("#chart1"), options);
+            chart_1.render();
+        }
+        else {
+            chart_1.updateOptions({
+                series: [{
+                    data: data
+                }],
+                xaxis: {
+                    categories: categories,
+                },
+            });
+        }       
     }
 
     //<!-- Tổng số thiết bị -->
@@ -176,86 +215,99 @@
         });
     }
     function Chart2(data, categories) {
-        // chart 1
-        var options = {
-            series: [{
-                name: 'Weekly Device',
-                data: data
-            }],
-            chart: {
-                type: 'area',
-                height: 60,
-                toolbar: {
-                    show: false
-                },
-                zoom: {
-                    enabled: false
-                },
-                dropShadow: {
-                    enabled: false,
-                    top: 3,
-                    left: 14,
-                    blur: 4,
-                    opacity: 0.12,
-                    color: '#8833ff',
-                },
-                sparkline: {
-                    enabled: true
-                }
-            },
-            markers: {
-                size: 0,
-                colors: ["#8833ff"],
-                strokeColors: "#fff",
-                strokeWidth: 2,
-                hover: {
-                    size: 7,
-                }
-            },
-            plotOptions: {
-                bar: {
-                    horizontal: false,
-                    columnWidth: '45%',
-                    endingShape: 'rounded'
-                },
-            },
-            dataLabels: {
-                enabled: false
-            },
-            stroke: {
-                show: true,
-                width: 2.5,
-                curve: 'smooth'
-            },
-            colors: ["#8833ff"],
-            xaxis: {
-                categories: categories,
-            },
-            fill: {
-                opacity: 1
-            },
-            tooltip: {
-                theme: 'dark',
-                fixed: {
-                    enabled: false
-                },
-                x: {
-                    show: true
-                },
-                y: {
-                    title: {
-                        formatter: function (seriesName) {
-                            return ''
-                        }
+        if (chart_2 == null) {
+            // chart 2
+            var options = {
+                series: [{
+                    name: 'Weekly Device',
+                    data: data
+                }],
+                chart: {
+                    type: 'area',
+                    height: 60,
+                    toolbar: {
+                        show: false
+                    },
+                    zoom: {
+                        enabled: false
+                    },
+                    dropShadow: {
+                        enabled: false,
+                        top: 3,
+                        left: 14,
+                        blur: 4,
+                        opacity: 0.12,
+                        color: '#8833ff',
+                    },
+                    sparkline: {
+                        enabled: true
                     }
                 },
-                marker: {
-                    show: false
+                markers: {
+                    size: 0,
+                    colors: ["#8833ff"],
+                    strokeColors: "#fff",
+                    strokeWidth: 2,
+                    hover: {
+                        size: 7,
+                    }
+                },
+                plotOptions: {
+                    bar: {
+                        horizontal: false,
+                        columnWidth: '45%',
+                        endingShape: 'rounded'
+                    },
+                },
+                dataLabels: {
+                    enabled: false
+                },
+                stroke: {
+                    show: true,
+                    width: 2.5,
+                    curve: 'smooth'
+                },
+                colors: ["#8833ff"],
+                xaxis: {
+                    categories: categories,
+                },
+                fill: {
+                    opacity: 1
+                },
+                tooltip: {
+                    theme: 'dark',
+                    fixed: {
+                        enabled: false
+                    },
+                    x: {
+                        show: true
+                    },
+                    y: {
+                        title: {
+                            formatter: function (seriesName) {
+                                return ''
+                            }
+                        }
+                    },
+                    marker: {
+                        show: false
+                    }
                 }
-            }
-        };
-        var chart = new ApexCharts(document.querySelector("#chart2"), options);
-        chart.render();
+            };
+            chart_2 = new ApexCharts(document.querySelector("#chart2"), options);
+            chart_2.render();
+        }
+        else {
+            chart_2.updateOptions({
+                series: [{
+                    data: data
+                }],
+                xaxis: {
+                    categories: categories,
+                },
+            });
+        }
+        
     }
 
     //<!-- Tổng số lượng -->
@@ -284,85 +336,97 @@
         });
     }
     function Chart3(data, categories) {
-        var options = {
-            series: [{
-                name: 'Weekly Request',
-                data: data
-            }],
-            chart: {
-                type: 'area',
-                height: 60,
-                toolbar: {
-                    show: false
-                },
-                zoom: {
-                    enabled: false
-                },
-                dropShadow: {
-                    enabled: false,
-                    top: 3,
-                    left: 14,
-                    blur: 4,
-                    opacity: 0.12,
-                    color: '#f41127',
-                },
-                sparkline: {
-                    enabled: true
-                }
-            },
-            markers: {
-                size: 0,
-                colors: ["#f41127"],
-                strokeColors: "#fff",
-                strokeWidth: 2,
-                hover: {
-                    size: 7,
-                }
-            },
-            plotOptions: {
-                bar: {
-                    horizontal: false,
-                    columnWidth: '40%',
-                    endingShape: 'rounded'
-                },
-            },
-            dataLabels: {
-                enabled: false
-            },
-            stroke: {
-                show: true,
-                width: 2.5,
-                curve: 'smooth'
-            },
-            colors: ["#f41127"],
-            xaxis: {
-                categories: categories,
-            },
-            fill: {
-                opacity: 1
-            },
-            tooltip: {
-                theme: 'dark',
-                fixed: {
-                    enabled: false
-                },
-                x: {
-                    show: true
-                },
-                y: {
-                    title: {
-                        formatter: function (seriesName) {
-                            return ''
-                        }
+        if (chart_3 == null) {
+            var options = {
+                series: [{
+                    name: 'Weekly Request',
+                    data: data
+                }],
+                chart: {
+                    type: 'area',
+                    height: 60,
+                    toolbar: {
+                        show: false
+                    },
+                    zoom: {
+                        enabled: false
+                    },
+                    dropShadow: {
+                        enabled: false,
+                        top: 3,
+                        left: 14,
+                        blur: 4,
+                        opacity: 0.12,
+                        color: '#f41127',
+                    },
+                    sparkline: {
+                        enabled: true
                     }
                 },
-                marker: {
-                    show: false
+                markers: {
+                    size: 0,
+                    colors: ["#f41127"],
+                    strokeColors: "#fff",
+                    strokeWidth: 2,
+                    hover: {
+                        size: 7,
+                    }
+                },
+                plotOptions: {
+                    bar: {
+                        horizontal: false,
+                        columnWidth: '40%',
+                        endingShape: 'rounded'
+                    },
+                },
+                dataLabels: {
+                    enabled: false
+                },
+                stroke: {
+                    show: true,
+                    width: 2.5,
+                    curve: 'smooth'
+                },
+                colors: ["#f41127"],
+                xaxis: {
+                    categories: categories,
+                },
+                fill: {
+                    opacity: 1
+                },
+                tooltip: {
+                    theme: 'dark',
+                    fixed: {
+                        enabled: false
+                    },
+                    x: {
+                        show: true
+                    },
+                    y: {
+                        title: {
+                            formatter: function (seriesName) {
+                                return ''
+                            }
+                        }
+                    },
+                    marker: {
+                        show: false
+                    }
                 }
-            }
-        };
-        var chart = new ApexCharts(document.querySelector("#chart3"), options);
-        chart.render();
+            };
+            chart_3 = new ApexCharts(document.querySelector("#chart3"), options);
+            chart_3.render();
+        }
+        else {
+            chart_3.updateOptions({
+                series: [{
+                    data: data
+                }],
+                xaxis: {
+                    categories: categories,
+                },
+            });
+        }        
     }
 
     //<!-- Tổng số yêu cầu được chấp nhận -->
@@ -391,85 +455,98 @@
         });
     }
     function Chart4(data, categories) {
-        var options = {
-            series: [{
-                name: 'Weekly Approved Request',
-                data: data
-            }],
-            chart: {
-                type: 'area',
-                height: 60,
-                toolbar: {
-                    show: false
-                },
-                zoom: {
-                    enabled: false
-                },
-                dropShadow: {
-                    enabled: false,
-                    top: 3,
-                    left: 14,
-                    blur: 4,
-                    opacity: 0.12,
-                    color: '#0dcaf0',
-                },
-                sparkline: {
-                    enabled: true
-                }
-            },
-            markers: {
-                size: 0,
-                colors: ["#0dcaf0"],
-                strokeColors: "#fff",
-                strokeWidth: 2,
-                hover: {
-                    size: 7,
-                }
-            },
-            plotOptions: {
-                bar: {
-                    horizontal: false,
-                    columnWidth: '40%',
-                    endingShape: 'rounded'
-                },
-            },
-            dataLabels: {
-                enabled: false
-            },
-            stroke: {
-                show: true,
-                width: 2.4,
-                curve: 'smooth'
-            },
-            colors: ["#0dcaf0"],
-            xaxis: {
-                categories: categories,
-            },
-            fill: {
-                opacity: 1
-            },
-            tooltip: {
-                theme: 'dark',
-                fixed: {
-                    enabled: false
-                },
-                x: {
-                    show: true
-                },
-                y: {
-                    title: {
-                        formatter: function (seriesName) {
-                            return ''
-                        }
+        if (chart_4 == null) {
+            var options = {
+                series: [{
+                    name: 'Weekly Approved Request',
+                    data: data
+                }],
+                chart: {
+                    type: 'area',
+                    height: 60,
+                    toolbar: {
+                        show: false
+                    },
+                    zoom: {
+                        enabled: false
+                    },
+                    dropShadow: {
+                        enabled: false,
+                        top: 3,
+                        left: 14,
+                        blur: 4,
+                        opacity: 0.12,
+                        color: '#0dcaf0',
+                    },
+                    sparkline: {
+                        enabled: true
                     }
                 },
-                marker: {
-                    show: false
+                markers: {
+                    size: 0,
+                    colors: ["#0dcaf0"],
+                    strokeColors: "#fff",
+                    strokeWidth: 2,
+                    hover: {
+                        size: 7,
+                    }
+                },
+                plotOptions: {
+                    bar: {
+                        horizontal: false,
+                        columnWidth: '40%',
+                        endingShape: 'rounded'
+                    },
+                },
+                dataLabels: {
+                    enabled: false
+                },
+                stroke: {
+                    show: true,
+                    width: 2.4,
+                    curve: 'smooth'
+                },
+                colors: ["#0dcaf0"],
+                xaxis: {
+                    categories: categories,
+                },
+                fill: {
+                    opacity: 1
+                },
+                tooltip: {
+                    theme: 'dark',
+                    fixed: {
+                        enabled: false
+                    },
+                    x: {
+                        show: true
+                    },
+                    y: {
+                        title: {
+                            formatter: function (seriesName) {
+                                return ''
+                            }
+                        }
+                    },
+                    marker: {
+                        show: false
+                    }
                 }
-            }
-        };
-        var chart = new ApexCharts(document.querySelector("#chart4"), options);
-        chart.render();
+            };
+            chart_4 = new ApexCharts(document.querySelector("#chart4"), options);
+            chart_4.render();
+        }
+        else {
+            chart_4.updateOptions({
+                series: [{
+                    data: data
+                }],
+                xaxis: {
+                    categories: categories,
+                },
+            });
+        }
+        
     }
 
     //<!-- Tổng số yêu cầu 0 được chấp nhận -->
@@ -498,97 +575,109 @@
         });
     }
     function Chart5(data, categories) {
-        var options = {
-            series: [{
-                name: 'Weekly Rejected Request',
-                data: data
-            }],
-            chart: {
-                type: 'area',
-                height: 60,
-                toolbar: {
-                    show: false
-                },
-                zoom: {
-                    enabled: false
-                },
-                dropShadow: {
-                    enabled: false,
-                    top: 3,
-                    left: 14,
-                    blur: 4,
-                    opacity: 0.12,
-                    color: '#29cc39',
-                },
-                sparkline: {
-                    enabled: true
-                }
-            },
-            markers: {
-                size: 0,
-                colors: ["#29cc39"],
-                strokeColors: "#fff",
-                strokeWidth: 2,
-                hover: {
-                    size: 7,
-                }
-            },
-            plotOptions: {
-                bar: {
-                    horizontal: false,
-                    columnWidth: '45%',
-                    endingShape: 'rounded'
-                },
-            },
-            dataLabels: {
-                enabled: false
-            },
-            stroke: {
-                show: true,
-                width: 2.4,
-                curve: 'smooth'
-            },
-            colors: ["#29cc39"],
-            xaxis: {
-                categories: categories,
-            },
-            fill: {
-                opacity: 1
-            },
-            tooltip: {
-                theme: 'dark',
-                fixed: {
-                    enabled: false
-                },
-                x: {
-                    show: true
-                },
-                y: {
-                    title: {
-                        formatter: function (seriesName) {
-                            return ''
-                        }
+        if (chart_5 == null) {
+            var options = {
+                series: [{
+                    name: 'Weekly Rejected Request',
+                    data: data
+                }],
+                chart: {
+                    type: 'area',
+                    height: 60,
+                    toolbar: {
+                        show: false
+                    },
+                    zoom: {
+                        enabled: false
+                    },
+                    dropShadow: {
+                        enabled: false,
+                        top: 3,
+                        left: 14,
+                        blur: 4,
+                        opacity: 0.12,
+                        color: '#29cc39',
+                    },
+                    sparkline: {
+                        enabled: true
                     }
                 },
-                marker: {
-                    show: false
+                markers: {
+                    size: 0,
+                    colors: ["#29cc39"],
+                    strokeColors: "#fff",
+                    strokeWidth: 2,
+                    hover: {
+                        size: 7,
+                    }
+                },
+                plotOptions: {
+                    bar: {
+                        horizontal: false,
+                        columnWidth: '45%',
+                        endingShape: 'rounded'
+                    },
+                },
+                dataLabels: {
+                    enabled: false
+                },
+                stroke: {
+                    show: true,
+                    width: 2.4,
+                    curve: 'smooth'
+                },
+                colors: ["#29cc39"],
+                xaxis: {
+                    categories: categories,
+                },
+                fill: {
+                    opacity: 1
+                },
+                tooltip: {
+                    theme: 'dark',
+                    fixed: {
+                        enabled: false
+                    },
+                    x: {
+                        show: true
+                    },
+                    y: {
+                        title: {
+                            formatter: function (seriesName) {
+                                return ''
+                            }
+                        }
+                    },
+                    marker: {
+                        show: false
+                    }
                 }
-            }
-        };
-        var chart = new ApexCharts(document.querySelector("#chart5"), options);
-        chart.render();
+            };
+            chart_5 = new ApexCharts(document.querySelector("#chart5"), options);
+            chart_5.render();
+        }
+        else {
+            chart_5.updateOptions({
+                series: [{
+                    data: data
+                }],
+                xaxis: {
+                    categories: categories,
+                },
+            });
+        }
+        
     }
 
 
     //<!-- Tổng số yêu cầu mượn theo tháng/tuần -->
-    var chart6;
     $('#chart6-selectType').on('change', function (e) {
         e.preventDefault();
         CreateChart6($(this).val());
     });
     function CreateChart6(type) {
 
-        if (!type) type = 'week';
+        if (!type) type = $('#chart6-selectType').val();
 
         $.ajax({
             type: "GET",
@@ -705,12 +794,12 @@
             }
         };
 
-        if (!chart6) {
-            chart6 = new ApexCharts(document.querySelector("#chart6"), options);
-            chart6.render();
+        if (chart_6 == null) {
+            chart_6 = new ApexCharts(document.querySelector("#chart6"), options);
+            chart_6.render();
         }
         else {
-            chart6.updateOptions({
+            chart_6.updateOptions({
                 xaxis: {
                     categories: categories,
                 },
@@ -722,14 +811,13 @@
     }
 
     //<!-- In/Out thiết bị theo tháng/tuần -->
-    var chart7;
     $('#chart7-selectType').on('change', function (e) {
         e.preventDefault();
         CreateChart7($(this).val());
     });
     function CreateChart7(type) {
 
-        if (!type) type = 'week';
+        if (!type) type = $('#chart7-selectType').val();
 
         $.ajax({
             type: "GET",
@@ -750,7 +838,7 @@
             }
         });
     }
-    function Chart7(data1, data2, data3, data4, data5, categories) {
+    function Chart7(data1 = [], data2 = [], data3 = [], data4 = [], data5 = [], categories) {
         var options = {
             series: [
                 {
@@ -816,12 +904,12 @@
                 theme: 'dark',
             }
         };
-        if (!chart7) {
-            chart7 = new ApexCharts(document.querySelector("#chart7"), options);
-            chart7.render();
+        if (chart_7 == null) {
+            chart_7 = new ApexCharts(document.querySelector("#chart7"), options);
+            chart_7.render();
         }
         else {
-            chart7.updateOptions({
+            chart_7.updateOptions({
                 xaxis: {
                     categories: categories,
                 },
@@ -967,8 +1055,21 @@
                 }
             }
         };
-        var chart = new ApexCharts(document.querySelector("#chart8"), options);
-        chart.render();
+        if (chart_8 == null) {
+            chart_8 = new ApexCharts(document.querySelector("#chart8"), options);
+            chart_8.render();
+        }
+        else {
+            chart_8.updateOptions({
+                series: [{
+                    data: data1
+                }],
+                xaxis: {
+                    categories: categories,
+                },
+            })
+        }
+        
         // chart 9
         var options = {
             series: [{
@@ -1047,8 +1148,21 @@
                 }
             }
         };
-        var chart = new ApexCharts(document.querySelector("#chart9"), options);
-        chart.render();
+        if (chart_9 == null) {
+            chart_9 = new ApexCharts(document.querySelector("#chart9"), options);
+            chart_9.render();
+        }
+        else {
+            chart_9.updateOptions({
+                series: [{
+                    data: data1
+                }],
+                xaxis: {
+                    categories: categories,
+                },
+            })
+        }
+
         // chart 10
         var options = {
             series: [{
@@ -1127,8 +1241,20 @@
                 }
             }
         };
-        var chart = new ApexCharts(document.querySelector("#chart10"), options);
-        chart.render();
+        if (chart_10 == null) {
+            chart_10 = new ApexCharts(document.querySelector("#chart10"), options);
+            chart_10.render();
+        }
+        else {
+            chart_10.updateOptions({
+                series: [{
+                    data: data1
+                }],
+                xaxis: {
+                    categories: categories,
+                },
+            })
+        }
     }
 
     //<!-- Trạng thái thiết bị -->
@@ -1261,8 +1387,17 @@
             },
             labels: ['Good Device'],
         }
-        var chart = new ApexCharts(document.querySelector("#chart11"), options);
-        chart.render();
+        
+
+        if (chart_11 == null) {
+            chart_11 = new ApexCharts(document.querySelector("#chart11"), options);
+            chart_11.render();
+        }
+        else {
+            chart_11.updateOptions({
+                series: [(data.good / data.total * 100).toFixed(2)],
+            });
+        }
     }
 
     //<!-- Thiết bị trong mỗi kho - Loại thiết bị (dynamic/static/fixture/consign/orther) -->
@@ -1348,8 +1483,17 @@
             },
         };
 
-        var chart = new ApexCharts(document.getElementById('chart12'), options);
-        chart.render();
+        
+        if (chart_12 == null) {
+            chart_12 = new ApexCharts(document.getElementById('chart12'), options);
+            chart_12.render();
+        }
+        else {
+            chart_12.updateOptions({
+                series: data,
+                labels: labels,
+            });
+        }
     }
 }
 

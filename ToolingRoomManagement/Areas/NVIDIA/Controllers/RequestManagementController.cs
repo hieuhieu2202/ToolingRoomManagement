@@ -1202,7 +1202,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                             returnDevice.Device = db.Devices.FirstOrDefault(d => d.Id == returnDevice.IdDevice);
 
                             int totalReturnQty = db.Returns
-                                            .Where(r => r.IdBorrow == data.IdBorrow && r.ReturnDevices.Any(rd => rd.IdDevice == returnDevice.IdDevice))
+                                            .Where(r => r.IdBorrow == data.IdBorrow && r.Status != "Rejected" && r.ReturnDevices.Any(rd => rd.IdDevice == returnDevice.IdDevice))
                                             .Sum(r => r.ReturnDevices.FirstOrDefault().ReturnQuantity) ?? 0;
 
                             int thisReturnQry = totalReturnQty + returnDevice.ReturnQuantity ?? 0;

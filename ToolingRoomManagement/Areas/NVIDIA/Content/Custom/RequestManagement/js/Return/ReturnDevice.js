@@ -144,7 +144,7 @@ function Return(Id) {
                 var borrow = response.request;
                 CreateReturnModal(borrow);
 
-                $('#CreateReturnRequest').attr('id', Id);
+                $('#CreateReturnRequest').attr('id', borrow.Id);
 
                 $('#return_modal').modal('show');
             }

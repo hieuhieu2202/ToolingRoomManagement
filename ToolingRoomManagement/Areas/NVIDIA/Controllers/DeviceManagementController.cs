@@ -976,184 +976,195 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
         }
         public ActionResult UploadFile(HttpPostedFileBase file)
         {
-            try
+            ExcelPackage.LicenseContext = OfficeOpenXml.LicenseContext.NonCommercial;
+
+            if (file != null && file.ContentLength > 0)
             {
-                ExcelPackage.LicenseContext = OfficeOpenXml.LicenseContext.NonCommercial;
+                string fileName = $"Devices - {DateTime.Now:yyyy.MM.dd HH.mm.ss.ff}.xlsx";
+                string folderPath = Server.MapPath("/Data/NewToolingroom");
+                string filePath = Path.Combine(folderPath, fileName);
 
-                if (file != null && file.ContentLength > 0)
+                #region Check Folder
+                if (!Directory.Exists(folderPath))
                 {
-                    string fileName = $"Devices - {DateTime.Now:yyyy.MM.dd HH.mm.ss.ff}.xlsx";
-                    string folderPath = Server.MapPath("/Data/NewToolingroom");
-                    string filePath = Path.Combine(folderPath, fileName);
-
-                    #region Check Folder
-                    if (!Directory.Exists(folderPath))
-                    {
-                        Directory.CreateDirectory(folderPath);
-                    }
-                    else
-                    {
-                        foreach (string fileii in Directory.GetFiles(folderPath))
-                        {
-                            System.IO.File.Delete(fileii);
-                        }
-                    }
-                    #endregion
-
-                    using (var outputPackage = new ExcelPackage(filePath))
-                    using (var package = new ExcelPackage(file.InputStream))
-                    {
-                        var outWorksheet = outputPackage.Workbook.Worksheets.Add("Inventory");
-                        var worksheet = package.Workbook.Worksheets[0];
-
-                        //header
-                        outWorksheet.Cells[1, 1].Value = "MTS";
-                        outWorksheet.Cells[1, 2].Value = "Product";
-                        outWorksheet.Cells[1, 3].Value = "PN";
-                        outWorksheet.Cells[1, 4].Value = "Alternative PN";
-                        outWorksheet.Cells[1, 5].Value = "Description";
-                        outWorksheet.Cells[1, 6].Value = "Group";
-                        outWorksheet.Cells[1, 7].Value = "Vendor";
-                        outWorksheet.Cells[1, 8].Value = "Quantity";
-                        outWorksheet.Cells[1, 9].Value = "AltPNQuantity";
-                        outWorksheet.Cells[1, 10].Value = "DefaultMinQuantity";
-                        outWorksheet.Cells[1, 11].Value = "Relation";
-                        outWorksheet.Cells[1, 12].Value = "LifeCycleLimit";
-                        outWorksheet.Cells[1, 13].Value = "Dynamic/Static";
-                        outWorksheet.Cells[1, 14].Value = "Buffer";
-                        outWorksheet.Cells[1, 15].Value = "LeadTime";
-                        outWorksheet.Cells[1, 16].Value = "MOQ";
-                        outWorksheet.Cells[1, 17].Value = "OnTheWayQuantity";
-                        outWorksheet.Cells[1, 18].Value = "RealQuantity";                        
-                        outWorksheet.Cells[1, 19].Value = "NG_Quantity";
-                        outWorksheet.Cells[1, 20].Value = "RequestQuantity";
-                        outWorksheet.Cells[1, 21].Value = "GAP";
-                        outWorksheet.Cells[1, 22].Value = "Risk";
-                        outWorksheet.Cells[1, 23].Value = "HavePicture (Y/N)";
-
-                        outWorksheet.Cells["A1:W1"].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
-                        outWorksheet.Cells["A1:W1"].Style.Border.Top.Style = ExcelBorderStyle.Thin;
-                        outWorksheet.Cells["A1:W1"].Style.Border.Left.Style = ExcelBorderStyle.Thin;
-                        outWorksheet.Cells["A1:W1"].Style.Border.Right.Style = ExcelBorderStyle.Thin;
-                        outWorksheet.Cells["A1:W1"].Style.Font.Bold = true;
-                        outWorksheet.Cells[$"V1:V{worksheet.Dimension.End.Row}"].Style.Font.Bold = true;
-
-                        System.Drawing.Color headerBackground = System.Drawing.ColorTranslator.FromHtml("#00B050");
-                        outWorksheet.Cells[$"A1:W1"].Style.Fill.PatternType = ExcelFillStyle.Solid;
-                        outWorksheet.Cells[$"A1:W1"].Style.Fill.BackgroundColor.SetColor(headerBackground);
-
-                        System.Drawing.Color successBackground = System.Drawing.ColorTranslator.FromHtml("#C6EFCE");
-                        System.Drawing.Color successText = System.Drawing.ColorTranslator.FromHtml("#006100");
-                        System.Drawing.Color dangerBackground = System.Drawing.ColorTranslator.FromHtml("#FFC7CE");
-                        System.Drawing.Color dangerText = System.Drawing.ColorTranslator.FromHtml("#9C0006");
-                        System.Drawing.Color warningBackground = System.Drawing.ColorTranslator.FromHtml("#FFEB9C");
-                        System.Drawing.Color warningText = System.Drawing.ColorTranslator.FromHtml("#9C5700");
-
-                        foreach (int row in Enumerable.Range(2, worksheet.Dimension.End.Row - 1))
-                        {
-                            var _PN = worksheet.Cells[row, 1].Value?.ToString();
-                            var _RequestQty = int.Parse(worksheet.Cells[row, 2].Value?.ToString());
-                            //int comingQty = CountComingDevice(_PN);
-
-                            List<Entities.Device> devices = db.Devices.Where(d => d.DeviceCode.ToUpper().Trim() == _PN.ToUpper().Trim()).ToList();
-                            if (devices.Count > 0)
-                            {
-                                Entities.Device device = devices.FirstOrDefault();
-                                device.Product = devices?.FirstOrDefault(d => d.Product != null)?.Product;
-                                device.Group = devices?.FirstOrDefault(d => d.Group != null)?.Group;
-                                device.Vendor = devices?.FirstOrDefault(d => d.Vendor != null)?.Vendor;
-                                device.AlternativeDevices = devices.FirstOrDefault(d => d.AlternativeDevices.Count > 0)?.AlternativeDevices;
-                                device.QtyConfirm = devices.Sum(d => d.QtyConfirm);
-                                device.RealQty = devices.Sum(d => d.RealQty);
-                                device.NG_Qty = devices.Sum(d => d.NG_Qty);
-                                device.DeliveryTime = devices.FirstOrDefault(d => Regex.IsMatch(d.DeliveryTime, @"\d"))?.DeliveryTime;
-                                device.MinQty = devices.FirstOrDefault(d => d.MinQty != null)?.MinQty;
-                                device.Buffer = devices.Max(d => d.Buffer);
-                                device.LifeCycle = devices.Max(d => d.LifeCycle);
-                                device.Type_BOM =  devices.FirstOrDefault(d => d.Type_BOM != null)?.Type_BOM;
-                                device.ImagePath = devices.FirstOrDefault(d => d.ImagePath != null)?.ImagePath;
-                                device.Relation = devices.FirstOrDefault(d => d.Relation != null)?.Relation;
-                                device.MOQ = devices.FirstOrDefault(d => d.MOQ != null)?.MOQ;
-
-                                int ComingQty = CountComingDevice(_PN);
-                                int AltPnQty = (device.AlternativeDevices != null) ? CountAltPNQuantity(device.AlternativeDevices.ToList().First().PNs) : 0;
-                                int GAP = (int)((device.QtyConfirm + AltPnQty + ComingQty) - (_RequestQty + device.NG_Qty));
-                                string Risk = (GAP > 0 && device.QtyConfirm > device.MinQty) ? "Low" : (GAP >= 0 && device.QtyConfirm <= device.MinQty) ? "Mid" : "High";
-
-                                // MTS, Product, PN, AlternativePN, Description
-                                outWorksheet.Cells[row, 1].Value = (device.Product != null) ? device.Product.MTS : string.Empty;
-                                outWorksheet.Cells[row, 2].Value = (device.Product != null) ? device.Product.ProductName : string.Empty;
-                                outWorksheet.Cells[row, 3].Value = (device.DeviceCode != null) ? device.DeviceCode : string.Empty;
-                                outWorksheet.Cells[row, 4].Value = (device.AlternativeDevices != null && device.AlternativeDevices.Count > 0) ? device.AlternativeDevices.First().PNs : string.Empty;
-                                outWorksheet.Cells[row, 5].Value = (device.DeviceName != null) ? device.DeviceName : string.Empty;
-                                // Group, Vendor, Quantity, AltPNQuantity, DefaultMinQuantity
-                                outWorksheet.Cells[row, 6].Value = (device.Group != null) ? device.Group.GroupName : string.Empty;
-                                outWorksheet.Cells[row, 7].Value = (device.Vendor != null) ? device.Vendor.VendorName : string.Empty;
-                                outWorksheet.Cells[row, 8].Value = (device.QtyConfirm != null) ? device.QtyConfirm : 0;
-                                outWorksheet.Cells[row, 9].Value = AltPnQty;
-                                outWorksheet.Cells[row, 10].Value = (device.MinQty != null) ? device.MinQty : 0;
-                                // Relation, LifeCycleLimit, Dynamic/Static, Buffer                               
-                                outWorksheet.Cells[row, 11].Value = (device.Relation != null) ? device.Relation : string.Empty;
-                                outWorksheet.Cells[row, 12].Value = (device.LifeCycle != null) ? device.LifeCycle : 0;
-                                outWorksheet.Cells[row, 13].Value = (device.Type_BOM != null) ? device.Type_BOM : (device.Type == "NA") ? "NA" : (device.Type.Length > 0 ? device.Type[0].ToString() : "");
-                                outWorksheet.Cells[row, 14].Value = (device.Buffer != null) ? device.Buffer : 0;
-                                // LeadTime, MOQ, OnTheWayQuantity, RealQuantity
-                                outWorksheet.Cells[row, 15].Value = (device.DeliveryTime != null) ? device.DeliveryTime : string.Empty;
-                                outWorksheet.Cells[row, 16].Value = (device.MOQ != null) ? device.MOQ : 0;
-                                outWorksheet.Cells[row, 17].Value = ComingQty;                                
-                                outWorksheet.Cells[row, 18].Value = (device.RealQty != null) ? device.RealQty : 0;
-                                // NGQuantity, RequestQuantity, GAP, Risk, HavePicture (Y/N)
-                                outWorksheet.Cells[row, 19].Value = (device.NG_Qty != null) ? device.NG_Qty : 0;
-                                outWorksheet.Cells[row, 20].Value = _RequestQty;
-                                outWorksheet.Cells[row, 21].Formula = $"(H{row}+I{row}+Q{row})-(T{row}+S{row})";
-                                outWorksheet.Cells[row, 22].Value = Risk;
-                                outWorksheet.Cells[row, 23].Value = (device.ImagePath != null) ? "Y" : "N";
-
-                                switch (Risk)
-                                {
-                                    case "Low":
-                                        outWorksheet.Cells[$"A{row}:W{row}"].Style.Fill.PatternType = ExcelFillStyle.Solid;
-                                        outWorksheet.Cells[$"A{row}:W{row}"].Style.Fill.BackgroundColor.SetColor(successBackground);
-                                        outWorksheet.Cells[$"A{row}:W{row}"].Style.Font.Color.SetColor(successText);
-                                        break;
-                                    case "Mid":
-                                        outWorksheet.Cells[$"A{row}:W{row}"].Style.Fill.PatternType = ExcelFillStyle.Solid;
-                                        outWorksheet.Cells[$"A{row}:W{row}"].Style.Fill.BackgroundColor.SetColor(warningBackground);
-                                        outWorksheet.Cells[$"A{row}:W{row}"].Style.Font.Color.SetColor(warningText);
-                                        break;
-                                    case "High":
-                                        outWorksheet.Cells[$"A{row}:W{row}"].Style.Fill.PatternType = ExcelFillStyle.Solid;
-                                        outWorksheet.Cells[$"A{row}:W{row}"].Style.Fill.BackgroundColor.SetColor(dangerBackground);
-                                        outWorksheet.Cells[$"A{row}:W{row}"].Style.Font.Color.SetColor(dangerText);
-                                        break;
-                                }
-
-                            }
-                            else
-                            {
-                                outWorksheet.Cells[row, 3].Value = _PN;
-                                outWorksheet.Cells[row, 20].Value = _RequestQty;
-
-                                outWorksheet.Cells[$"A{row}:W{row}"].Style.Fill.PatternType = ExcelFillStyle.Solid;
-                                outWorksheet.Cells[$"A{row}:W{row}"].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.LightGray);
-                            }
-
-                            outWorksheet.Cells[$"A{row}:W{row}"].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
-                            outWorksheet.Cells[$"A{row}:W{row}"].Style.Border.Top.Style = ExcelBorderStyle.Thin;
-                            outWorksheet.Cells[$"A{row}:W{row}"].Style.Border.Left.Style = ExcelBorderStyle.Thin;
-                            outWorksheet.Cells[$"A{row}:W{row}"].Style.Border.Right.Style = ExcelBorderStyle.Thin;
-                        }
-
-                        outWorksheet.Cells[outWorksheet.Dimension.Address].AutoFitColumns();
-                        outputPackage.Save();
-
-                        return Json(new { status = true, url = $"/Data/NewToolingroom/{fileName}" });
-                    }
+                    Directory.CreateDirectory(folderPath);
                 }
                 else
                 {
-                    return Json(new { status = false, message = "File is empty" });
+                    foreach (string fileii in Directory.GetFiles(folderPath))
+                    {
+                        System.IO.File.Delete(fileii);
+                    }
                 }
+                #endregion
+
+                using (var outputPackage = new ExcelPackage(filePath))
+                using (var package = new ExcelPackage(file.InputStream))
+                {
+                    var outWorksheet = outputPackage.Workbook.Worksheets.Add("Inventory");
+                    var worksheet = package.Workbook.Worksheets[0];
+
+                    //header
+                    outWorksheet.Cells[1, 1].Value = "MTS";
+                    outWorksheet.Cells[1, 2].Value = "Product";
+                    outWorksheet.Cells[1, 3].Value = "PN";
+                    outWorksheet.Cells[1, 4].Value = "Alternative PN";
+                    outWorksheet.Cells[1, 5].Value = "Description";
+                    outWorksheet.Cells[1, 6].Value = "Group";
+                    outWorksheet.Cells[1, 7].Value = "Vendor";
+                    outWorksheet.Cells[1, 8].Value = "Quantity";
+                    outWorksheet.Cells[1, 9].Value = "AltPNQuantity";
+                    outWorksheet.Cells[1, 10].Value = "DefaultMinQuantity";
+                    outWorksheet.Cells[1, 11].Value = "Relation";
+                    outWorksheet.Cells[1, 12].Value = "LifeCycleLimit";
+                    outWorksheet.Cells[1, 13].Value = "Dynamic/Static";
+                    outWorksheet.Cells[1, 14].Value = "Buffer";
+                    outWorksheet.Cells[1, 15].Value = "LeadTime";
+                    outWorksheet.Cells[1, 16].Value = "MOQ";
+                    outWorksheet.Cells[1, 17].Value = "OnTheWayQuantity";
+                    outWorksheet.Cells[1, 18].Value = "RealQuantity";
+                    outWorksheet.Cells[1, 19].Value = "NG_Quantity";
+                    outWorksheet.Cells[1, 20].Value = "RequestQuantity";
+                    outWorksheet.Cells[1, 21].Value = "GAP";
+                    outWorksheet.Cells[1, 22].Value = "Risk";
+                    outWorksheet.Cells[1, 23].Value = "HavePicture (Y/N)";
+
+                    outWorksheet.Cells["A1:W1"].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
+                    outWorksheet.Cells["A1:W1"].Style.Border.Top.Style = ExcelBorderStyle.Thin;
+                    outWorksheet.Cells["A1:W1"].Style.Border.Left.Style = ExcelBorderStyle.Thin;
+                    outWorksheet.Cells["A1:W1"].Style.Border.Right.Style = ExcelBorderStyle.Thin;
+                    outWorksheet.Cells["A1:W1"].Style.Font.Bold = true;
+                    outWorksheet.Cells[$"V1:V{worksheet.Dimension.End.Row}"].Style.Font.Bold = true;
+
+                    System.Drawing.Color headerBackground = System.Drawing.ColorTranslator.FromHtml("#00B050");
+                    outWorksheet.Cells[$"A1:W1"].Style.Fill.PatternType = ExcelFillStyle.Solid;
+                    outWorksheet.Cells[$"A1:W1"].Style.Fill.BackgroundColor.SetColor(headerBackground);
+
+                    System.Drawing.Color successBackground = System.Drawing.ColorTranslator.FromHtml("#C6EFCE");
+                    System.Drawing.Color successText = System.Drawing.ColorTranslator.FromHtml("#006100");
+                    System.Drawing.Color dangerBackground = System.Drawing.ColorTranslator.FromHtml("#FFC7CE");
+                    System.Drawing.Color dangerText = System.Drawing.ColorTranslator.FromHtml("#9C0006");
+                    System.Drawing.Color warningBackground = System.Drawing.ColorTranslator.FromHtml("#FFEB9C");
+                    System.Drawing.Color warningText = System.Drawing.ColorTranslator.FromHtml("#9C5700");
+
+                    int countLoop = 1;
+                    foreach (int row in Enumerable.Range(2, worksheet.Dimension.End.Row - 1))
+                    {
+                        var _PN = worksheet.Cells[row, 1].Value?.ToString();
+                        var _RequestQty = int.Parse(worksheet.Cells[row, 2].Value?.ToString());
+                        //int comingQty = CountComingDevice(_PN);
+
+                        List<Entities.Device> devices = db.Devices.Where(d => d.DeviceCode.ToUpper().Trim() == _PN.ToUpper().Trim()).ToList();
+                        if (devices.Count > 0)
+                        {
+                            Debug.WriteLine($"{countLoop++} - {_PN}");
+                            Entities.Device device = devices.FirstOrDefault();
+                            device.Product = devices?.FirstOrDefault(d => d.Product != null)?.Product;
+                            device.Group = devices?.FirstOrDefault(d => d.Group != null)?.Group;
+                            device.Vendor = devices?.FirstOrDefault(d => d.Vendor != null)?.Vendor;
+
+                            var dtemp1 =devices.FirstOrDefault(d => d.AlternativeDevices != null && d.AlternativeDevices.Count > 0);
+                            device.AlternativeDevices = dtemp1 != null ? dtemp1.AlternativeDevices : null;
+
+                            device.QtyConfirm = devices.Sum(d => d.QtyConfirm);
+                            device.RealQty = devices.Sum(d => d.RealQty);
+                            device.NG_Qty = devices.Sum(d => d.NG_Qty);
+
+                            var dtemp2 = devices.FirstOrDefault(d => Regex.IsMatch(d.DeliveryTime, @"\d"));
+
+                            device.DeliveryTime = dtemp2 != null ? dtemp2.DeliveryTime : "";
+                            device.MinQty = devices.FirstOrDefault(d => d.MinQty != null)?.MinQty;
+                            device.Buffer = devices.Max(d => d.Buffer);
+                            device.LifeCycle = devices.Max(d => d.LifeCycle);
+                            device.Type_BOM = devices.FirstOrDefault(d => d.Type_BOM != null)?.Type_BOM;
+                            device.ImagePath = devices.FirstOrDefault(d => d.ImagePath != null)?.ImagePath;
+                            device.Relation = devices.FirstOrDefault(d => d.Relation != null)?.Relation;
+                            device.MOQ = devices.FirstOrDefault(d => d.MOQ != null)?.MOQ;
+
+                            int ComingQty = CountComingDevice(_PN);
+                            int AltPnQty = (device.AlternativeDevices != null) ? CountAltPNQuantity(device.AlternativeDevices.ToList().First().PNs) : 0;
+                            int GAP = (int)((device.QtyConfirm + AltPnQty + ComingQty) - (_RequestQty + device.NG_Qty));
+                            string Risk = (GAP > 0 && device.QtyConfirm > device.MinQty) ? "Low" : (GAP >= 0 && device.QtyConfirm <= device.MinQty) ? "Mid" : "High";
+
+                            // MTS, Product, PN, AlternativePN, Description
+                            outWorksheet.Cells[row, 1].Value = (device.Product != null) ? device.Product.MTS : string.Empty;
+                            outWorksheet.Cells[row, 2].Value = (device.Product != null) ? device.Product.ProductName : string.Empty;
+                            outWorksheet.Cells[row, 3].Value = (device.DeviceCode != null) ? device.DeviceCode : string.Empty;
+                            outWorksheet.Cells[row, 4].Value = (device.AlternativeDevices != null && device.AlternativeDevices.Count > 0) ? device.AlternativeDevices.First().PNs : string.Empty;
+                            outWorksheet.Cells[row, 5].Value = (device.DeviceName != null) ? device.DeviceName : string.Empty;
+                            // Group, Vendor, Quantity, AltPNQuantity, DefaultMinQuantity
+                            outWorksheet.Cells[row, 6].Value = (device.Group != null) ? device.Group.GroupName : string.Empty;
+                            outWorksheet.Cells[row, 7].Value = (device.Vendor != null) ? device.Vendor.VendorName : string.Empty;
+                            outWorksheet.Cells[row, 8].Value = (device.QtyConfirm != null) ? device.QtyConfirm : 0;
+                            outWorksheet.Cells[row, 9].Value = AltPnQty;
+                            outWorksheet.Cells[row, 10].Value = (device.MinQty != null) ? device.MinQty : 0;
+                            // Relation, LifeCycleLimit, Dynamic/Static, Buffer                               
+                            outWorksheet.Cells[row, 11].Value = (device.Relation != null) ? device.Relation : string.Empty;
+                            outWorksheet.Cells[row, 12].Value = (device.LifeCycle != null) ? device.LifeCycle : 0;
+                            outWorksheet.Cells[row, 13].Value = (device.Type_BOM != null) ? device.Type_BOM : (device.Type == "NA") ? "NA" : (device.Type.Length > 0 ? device.Type[0].ToString() : "");
+                            outWorksheet.Cells[row, 14].Value = (device.Buffer != null) ? device.Buffer : 0;
+                            // LeadTime, MOQ, OnTheWayQuantity, RealQuantity
+                            outWorksheet.Cells[row, 15].Value = (device.DeliveryTime != null) ? device.DeliveryTime : string.Empty;
+                            outWorksheet.Cells[row, 16].Value = (device.MOQ != null) ? device.MOQ : 0;
+                            outWorksheet.Cells[row, 17].Value = ComingQty;
+                            outWorksheet.Cells[row, 18].Value = (device.RealQty != null) ? device.RealQty : 0;
+                            // NGQuantity, RequestQuantity, GAP, Risk, HavePicture (Y/N)
+                            outWorksheet.Cells[row, 19].Value = (device.NG_Qty != null) ? device.NG_Qty : 0;
+                            outWorksheet.Cells[row, 20].Value = _RequestQty;
+                            outWorksheet.Cells[row, 21].Formula = $"(H{row}+I{row}+Q{row})-(T{row}+S{row})";
+                            outWorksheet.Cells[row, 22].Value = Risk;
+                            outWorksheet.Cells[row, 23].Value = (device.ImagePath != null) ? "Y" : "N";
+
+                            switch (Risk)
+                            {
+                                case "Low":
+                                    outWorksheet.Cells[$"A{row}:W{row}"].Style.Fill.PatternType = ExcelFillStyle.Solid;
+                                    outWorksheet.Cells[$"A{row}:W{row}"].Style.Fill.BackgroundColor.SetColor(successBackground);
+                                    outWorksheet.Cells[$"A{row}:W{row}"].Style.Font.Color.SetColor(successText);
+                                    break;
+                                case "Mid":
+                                    outWorksheet.Cells[$"A{row}:W{row}"].Style.Fill.PatternType = ExcelFillStyle.Solid;
+                                    outWorksheet.Cells[$"A{row}:W{row}"].Style.Fill.BackgroundColor.SetColor(warningBackground);
+                                    outWorksheet.Cells[$"A{row}:W{row}"].Style.Font.Color.SetColor(warningText);
+                                    break;
+                                case "High":
+                                    outWorksheet.Cells[$"A{row}:W{row}"].Style.Fill.PatternType = ExcelFillStyle.Solid;
+                                    outWorksheet.Cells[$"A{row}:W{row}"].Style.Fill.BackgroundColor.SetColor(dangerBackground);
+                                    outWorksheet.Cells[$"A{row}:W{row}"].Style.Font.Color.SetColor(dangerText);
+                                    break;
+                            }
+
+                        }
+                        else
+                        {
+                            outWorksheet.Cells[row, 3].Value = _PN;
+                            outWorksheet.Cells[row, 20].Value = _RequestQty;
+
+                            outWorksheet.Cells[$"A{row}:W{row}"].Style.Fill.PatternType = ExcelFillStyle.Solid;
+                            outWorksheet.Cells[$"A{row}:W{row}"].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.LightGray);
+                        }
+
+                        outWorksheet.Cells[$"A{row}:W{row}"].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
+                        outWorksheet.Cells[$"A{row}:W{row}"].Style.Border.Top.Style = ExcelBorderStyle.Thin;
+                        outWorksheet.Cells[$"A{row}:W{row}"].Style.Border.Left.Style = ExcelBorderStyle.Thin;
+                        outWorksheet.Cells[$"A{row}:W{row}"].Style.Border.Right.Style = ExcelBorderStyle.Thin;
+                    }
+
+                    outWorksheet.Cells[outWorksheet.Dimension.Address].AutoFitColumns();
+                    outputPackage.Save();
+
+                    return Json(new { status = true, url = $"/Data/NewToolingroom/{fileName}" });
+                }
+            }
+            else
+            {
+                return Json(new { status = false, message = "File is empty" });
+            }
+
+
+            try
+            {
+               
             }
             catch (Exception ex)
             {
@@ -1964,6 +1975,61 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                             foreach (var device in devices)
                             {
                                 device.Type_BOM = _Type;
+                                db.Devices.AddOrUpdate(device);
+                            }
+                        }
+                        db.SaveChanges();
+
+                        return Json(new { status = true });
+                    }
+                }
+                else
+                {
+                    return Json(new { status = false, message = "File is empty" });
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = false, message = ex.Message });
+            }
+        }
+        public ActionResult UpdateRelation(HttpPostedFileBase file)
+        {
+            try
+            {
+                ExcelPackage.LicenseContext = OfficeOpenXml.LicenseContext.NonCommercial;
+
+                if (file != null && file.ContentLength > 0)
+                {
+                    string fileName = $"UpdateRelation - {DateTime.Now.ToString("yyyy.MM.dd HH.mm.ss.ff")}.xlsx";
+                    string folderPath = Server.MapPath("/Data/NewToolingroom");
+                    string filePath = Path.Combine(folderPath, fileName);
+
+                    #region Check Folder
+                    if (!Directory.Exists(folderPath))
+                    {
+                        Directory.CreateDirectory(folderPath);
+                    }
+                    else
+                    {
+                        foreach (string fileii in Directory.GetFiles(folderPath))
+                        {
+                            System.IO.File.Delete(fileii);
+                        }
+                    }
+                    #endregion
+                    using (var package = new ExcelPackage(file.InputStream))
+                    {
+                        var worksheet = package.Workbook.Worksheets[0];
+                        foreach (int row in Enumerable.Range(2, worksheet.Dimension.End.Row - 1))
+                        {
+                            var _PN = worksheet.Cells[row, 1].Value?.ToString();
+                            var _Relation = worksheet.Cells[row, 2].Value?.ToString();
+
+                            var devices = db.Devices.Where(d => d.DeviceCode.ToUpper().Trim() == _PN.ToUpper().Trim()).ToList();
+                            foreach (var device in devices)
+                            {
+                                device.Relation = _Relation;
                                 db.Devices.AddOrUpdate(device);
                             }
                         }
