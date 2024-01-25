@@ -88,6 +88,15 @@
                             <label class="form-label">Email</label>
                             <input type="text" class="form-control" id="AddUser-Email" maxlength="50">
                         </div>
+                        <div class="col-md-12 mb-3">
+                            <label class="form-label">Status</label>
+                            <select class="form-select" id="AddUser-Status">
+                                <option value="Active">Active</option>
+                                <option value="No Active">No Active</option>
+                                <option value="Locked">Locked</option>
+                                <option value="Deleted">Deleted</option>
+                            </select>
+                        </div>
                     </div>
                     <div class="col-6">
                         <div class="col-md-12 mb-3">
@@ -101,6 +110,10 @@
                         <div class="col-md-12 mb-3">
                             <label class="form-label">EN Name</label>
                             <input type="text" class="form-control" id="AddUser-EnName" maxlength="50">
+                        </div>
+                        <div class="col-md-12 mb-3">
+                            <label class="form-label">Created Date</label>
+                            <input type="datetime-local" class="form-control" id="AddUser-CreatedDate">
                         </div>
                     </div>
 
@@ -116,65 +129,120 @@
     </div>
 </div>
 <!-- UPDATE USER MODAL -->
-<div class="modal fade" id="product-modal" aria-hidden="true">
-    <div class="modal-dialog modal-xl modal-dialog-scrollable">
+<div class="modal fade" id="modal-UpdateUser" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="Modal-HeadTitle"></h5>
+                <h5 class="modal-title">USER UPDATE MODAL</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <h2 class="font-weight-light text-center text-primary py-3" id="Modal-BodyTitle"></h2>
                 <div class="row">
                     <div class="col-6">
                         <div class="col-md-12 mb-3">
-                            <label class="form-label">MTS</label>
-                            <input type="text" class="form-control" id="p-MTS" maxlength="25">
+                            <label class="form-label">Username</label>
+                            <input type="text" class="form-control" id="UpdateUser-Username" maxlength="25">
+                        </div>
+                        <div class="col-md-12 mb-3">
+                            <label class="form-label">Password</label>
+                            <input type="text" class="form-control" id="UpdateUser-Password" maxlength="25">
+                        </div>
+                        <div class="col-md-12 mb-3">
+                            <label class="form-label">Email</label>
+                            <input type="text" class="form-control" id="UpdateUser-Email" maxlength="50">
+                        </div>
+                        <div class="col-md-12 mb-3">
+                            <label class="form-label">Status</label>
+                            <select class="form-select" id="UpdateUser-Status">
+                                <option value="Active">Active</option>
+                                <option value="No Active">No Active</option>
+                                <option value="Locked">Locked</option>
+                                <option value="Deleted">Deleted</option>
+                            </select>
                         </div>
                     </div>
                     <div class="col-6">
                         <div class="col-md-12 mb-3">
-                            <label class="form-label">Product Name</label>
-                            <input type="text" class="form-control" id="p-ProductName" maxlength="255" />
+                            <label class="form-label">VN Name</label>
+                            <input type="text" class="form-control" id="UpdateUser-VnName" maxlength="50">
+                        </div>
+                        <div class="col-md-12 mb-3">
+                            <label class="form-label">CN Name</label>
+                            <input type="text" class="form-control" id="UpdateUser-CnName" maxlength="50">
+                        </div>
+                        <div class="col-md-12 mb-3">
+                            <label class="form-label">EN Name</label>
+                            <input type="text" class="form-control" id="UpdateUser-EnName" maxlength="50">
+                        </div>
+                        <div class="col-md-12 mb-3">
+                            <label class="form-label">Created Date</label>
+                            <input type="datetime-local" class="form-control" id="UpdateUser-CreatedDate">
                         </div>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" id="button_send">Save</button>
+                <button type="button" class="btn btn-primary" id="modal-UpdateUser-Save">Save</button>
             </div>
         </div>
     </div>
 </div>
 <!-- DETAILS USER MODAL -->
-<div class="modal fade" id="product-modal" aria-hidden="true">
-    <div class="modal-dialog modal-xl modal-dialog-scrollable">
+<div class="modal fade" id="modal-DetailsUser" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="Modal-HeadTitle"></h5>
+                <h5 class="modal-title">USER DETAILS MODAL</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <h2 class="font-weight-light text-center text-primary py-3" id="Modal-BodyTitle"></h2>
                 <div class="row">
                     <div class="col-6">
                         <div class="col-md-12 mb-3">
-                            <label class="form-label">MTS</label>
-                            <input type="text" class="form-control" id="p-MTS" maxlength="25">
+                            <label class="form-label">Username</label>
+                            <input type="text" class="form-control" id="DetailsUser-Username" maxlength="25" disabled>
+                        </div>
+                        <div class="col-md-12 mb-3">
+                            <label class="form-label">Password</label>
+                            <input type="text" class="form-control" id="DetailsUser-Password" maxlength="25" disabled>
+                        </div>
+                        <div class="col-md-12 mb-3">
+                            <label class="form-label">Email</label>
+                            <input type="text" class="form-control" id="DetailsUser-Email" maxlength="50" disabled>
+                        </div>
+                        <div class="col-md-12 mb-3">
+                            <label class="form-label">Status</label>
+                            <select class="form-select" id="DetailsUser-Status" disabled>
+                                <option value="Active">Active</option>
+                                <option value="No Active">No Active</option>
+                                <option value="Locked">Locked</option>
+                                <option value="Deleted">Deleted</option>
+                            </select>
                         </div>
                     </div>
                     <div class="col-6">
                         <div class="col-md-12 mb-3">
-                            <label class="form-label">Product Name</label>
-                            <input type="text" class="form-control" id="p-ProductName" maxlength="255" />
+                            <label class="form-label">VN Name</label>
+                            <input type="text" class="form-control" id="DetailsUser-VnName" maxlength="50" disabled>
+                        </div>
+                        <div class="col-md-12 mb-3">
+                            <label class="form-label">CN Name</label>
+                            <input type="text" class="form-control" id="DetailsUser-CnName" maxlength="50" disabled>
+                        </div>
+                        <div class="col-md-12 mb-3">
+                            <label class="form-label">EN Name</label>
+                            <input type="text" class="form-control" id="DetailsUser-EnName" maxlength="50" disabled>
+                        </div>
+                        <div class="col-md-12 mb-3">
+                            <label class="form-label">Created Date</label>
+                            <input type="datetime-local" class="form-control" id="DetailsUser-CreatedDate" disabled>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" id="button_send">Save</button>
             </div>
         </div>
     </div>
@@ -184,10 +252,9 @@
     <!-- Vendor -->
     <script src="~/Areas/NVIDIA/Content/Template/Sysadmin/assets/plugins/datatable/js/jquery.dataTables.min.js"></script>
     <script src="~/Areas/NVIDIA/Content/Template/Sysadmin/assets/plugins/datatable/js/dataTables.bootstrap5.min.js"></script>
-    <script src="~/Areas/NVIDIA/Content/Vendor/MomentJs/moment.js"></script>
 
     <!-- Custom -->
-    <script src="~/Areas/NVIDIA/Content/admin/AdminCommon.js"></script>
+    <script src="~/Areas/NVIDIA/Content/admin/AdminCommon.js?v=@Guid.NewGuid()"></script>
 
     <script src="~/Areas/NVIDIA/Content/admin/users/UserManagement.js"></script>
 }

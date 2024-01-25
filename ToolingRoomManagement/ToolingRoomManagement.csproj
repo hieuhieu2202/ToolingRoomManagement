@@ -3637,6 +3637,7 @@
     <Content Include="Areas\NVIDIA\Views\ExportManagement\_AddExportModal.cshtml" />
     <Content Include="Areas\NVIDIA\Views\ExportManagement\_AddExportDeviceModal.cshtml" />
     <Content Include="Areas\NVIDIA\Views\AdminManagement\UserManagement.cshtml" />
+    <Content Include="Areas\NVIDIA\Views\AdminManagement\RoleManagement.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

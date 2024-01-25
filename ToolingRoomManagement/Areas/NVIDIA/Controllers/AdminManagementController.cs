@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Web.Configuration;
 using System.Web.Mvc;
 using ToolingRoomManagement.Areas.NVIDIA.Entities;
+using static System.Collections.Specialized.BitVector32;
 
 namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
 {
@@ -38,7 +39,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
         {
             try
             {
-                var user = db.Users.Where(u => u.Id == Id);
+                var user = db.Users.FirstOrDefault(u => u.Id == Id);
                 if(user != null)
                 {
                     return Json(new { status = true, user = JsonConvert.SerializeObject(user) }, JsonRequestBehavior.AllowGet);
@@ -117,15 +118,27 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
         {
             try
             {
-                if (!db.Users.Any(u => u.Username == user.Username))
+                if (db.Users.Any(u => u.Username == user.Username))
                 {
+                    var updateUser = db.Users.FirstOrDefault(u => u.Username == user.Username);
+
+                    updateUser.Username = user.Username;
+                    updateUser.Password = user.Password;
+                    updateUser.Email = user.Email;
+                    updateUser.VnName = user.VnName;
+                    updateUser.CnName = user.CnName;
+                    updateUser.EnName = user.EnName;
+                    updateUser.Status = user.Status;
+                    updateUser.CreatedDate = user.CreatedDate;
+
                     var ValidateMessage = ValidateUser(user);
-                    if (!string.IsNullOrEmpty(ValidateMessage))
+
+                    if (string.IsNullOrEmpty(ValidateMessage))
                     {
-                        db.Users.AddOrUpdate(user);
+                        db.Users.AddOrUpdate(updateUser);
                         db.SaveChanges();
 
-                        return Json(new { status = false, user = JsonConvert.SerializeObject(user) }, JsonRequestBehavior.AllowGet);
+                        return Json(new { status = true, user = JsonConvert.SerializeObject(updateUser) }, JsonRequestBehavior.AllowGet);
                     }
                     else
                     {
@@ -134,7 +147,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 }
                 else
                 {
-                    return Json(new { status = false, message = "User already exists." }, JsonRequestBehavior.AllowGet);
+                    return Json(new { status = false, message = "User does not exists." }, JsonRequestBehavior.AllowGet);
                 }
             }
             catch (Exception ex)
@@ -148,14 +161,25 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
             try
             {
                 var user = db.Users.FirstOrDefault(u => u.Id == Id);
-                var sessionUser = Common.GetSessionUser(db);
+                var sessionUser = Common.GetSessionUser();
 
                 if (user != null && user.Username != "admin" && user.Username != sessionUser.Username)
                 {
-                    db.Users.Remove(user);
-                    db.SaveChanges();
+                    if(user.Status == "Deleted")
+                    {
+                        db.Users.Remove(user);
+                        db.SaveChanges();
 
-                    return Json(new { status = true, user });
+                        return Json(new { status = true, action = "Deleted" });
+                    }
+                    else
+                    {
+                        user.Status = "Deleted";
+                        db.Users.AddOrUpdate(user);
+                        db.SaveChanges();
+
+                        return Json(new { status = true, user = JsonConvert.SerializeObject(user), action = "Hidden" });
+                    }  
                 }
                 else
                 {
@@ -191,5 +215,9 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
         }
 
         // GET: NVIDIA/AdminManagement/UserRoleManagement
+        public ActionResult RoleManagement()
+        {
+            return View();
+        }
     }
 }

@@ -31,8 +31,7 @@ function GetUser(Id) {
             dataType: "json",
             success: function (res) {
                 if (res.status) {
-                    var resUser = JSON.parse(res.user);
-                    resolve(resUser[0]);
+                    resolve(JSON.parse(res.user));
                 }
                 else {
                     reject(res.message);
@@ -77,8 +76,7 @@ function CreateUser(user) {
             dataType: "json",
             success: function (res) {
                 if (res.status) {
-                    var resUser = JSON.parse(res.user);
-                    resolve(resUser[0]);
+                    resolve(JSON.parse(res.user));
                 }
                 else {
                     reject(res.message);
@@ -101,7 +99,7 @@ function UpdateUser(user) {
             success: function (res) {
                 if (res.status) {
                     var resUser = JSON.parse(res.user);
-                    resolve(resUser[0]);
+                    resolve(resUser);
                 }
                 else {
                     reject(res.message);
@@ -113,17 +111,22 @@ function UpdateUser(user) {
         });
     });
 };
-function DeleteUser(IdUser) {
+function DeleteUser(Id) {
     return new Promise((resolve, reject) => {
         $.ajax({
             url: "/NVIDIA/AdminManagement/DeleteUser",
             type: "POST",
-            data: JSON.stringify({ IdUser }),
+            data: JSON.stringify({ Id }),
             contentType: "application/json;charset=utf-8",
             dataType: "json",
             success: function (res) {
                 if (res.status) {
-                    resolve(true);
+                    if (res.action == "Deleted") {
+                        resolve(true);                       
+                    }
+                    else if (res.action == "Hidden"){
+                        resolve(JSON.parse(res.user));
+                    }
                 }
                 else {
                     reject(res.message);

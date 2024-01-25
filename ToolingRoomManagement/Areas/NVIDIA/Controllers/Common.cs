@@ -8,7 +8,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
 {
     public class Common
     {
-        public static User GetSessionUser(ToolingRoomEntities context)
+        public static User GetSessionUser()
         {
             return (User)HttpContext.Current.Session["SignSession"];
         }
