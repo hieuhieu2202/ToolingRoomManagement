@@ -24,9 +24,6 @@ function CreateExportDeviceModal(rows, type) {
 
     });
 
-
-
-
     $('#modal-ExportDevice').modal('show');
 }
 $('#modal-ExportDevice-btnAddSign').on('click', function (e) {

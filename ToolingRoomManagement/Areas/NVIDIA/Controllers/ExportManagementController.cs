@@ -93,7 +93,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 }
                 else
                 {
-                    return Json(new { status = false, message = "Export request does not exists." }, JsonRequestBehavior.AllowGet);
+                    return Json(new { status = false, message = "Request does not exists." }, JsonRequestBehavior.AllowGet);
                 }
             }
             catch (Exception ex)

@@ -22,18 +22,26 @@ function InitDatatable() {
         dom: "<'row'<'w-auto'B><'col-sm-12 col-md'l><'col-sm-12 col-md'f>>" +
             "<'row'<'col-sm-12'tr>>" +
             "<'row'<'col-sm-12 col-md-7'i><'col-sm-12 col-md-5'p>>",
-        buttons: [{
-            text: "Borrow History",
-            action: function () {
-                ExportBorrowHistory();
+        buttons: [
+            {
+                text: "Borrow History",
+                action: function () {
+                    ExportBorrowHistory();
+                }
+            },
+            {
+                text: "Return History",
+                action: function () {
+                    ExportReturnHistory();
+                }
+            },
+            {
+                text: "Shipping History",
+                action: function () {
+                    ExportShippingHistory();
+                }
             }
-        },
-        {
-            text: "Return History",
-            action: function () {
-                ExportReturnHistory();
-            }
-        }],
+        ],
         createdRow: function (row, data, dataIndex) {
             $(row).addClass('cursor-pointer align-middle');
             $(row).data('code', data[0]);
@@ -139,6 +147,26 @@ function ExportBorrowHistory() {
 function ExportReturnHistory() {
     $.ajax({
         url: '/NVIDIA/RequestManagement/ExportReturnHistory',
+        type: 'GET',
+        success: function (data) {
+            if (data.status) {
+                var downloadLink = document.createElement('a');
+                downloadLink.href = data.url;
+                downloadLink.download = data.filename;
+                downloadLink.click();
+            }
+            else {
+                toastr["error"]("Export error.", "ERROR");
+            }
+        },
+        error: function (error) {
+            Swal.fire("Something went wrong!", GetAjaxErrorMessage(error), "error");
+        }
+    });
+}
+function ExportShippingHistory() {
+    $.ajax({
+        url: '/NVIDIA/RequestManagement/ExportShippingHistory',
         type: 'GET',
         success: function (data) {
             if (data.status) {

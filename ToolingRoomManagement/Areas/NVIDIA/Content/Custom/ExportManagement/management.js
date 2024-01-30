@@ -16,7 +16,7 @@ $(document).ready(async function () {
 var datatable;
 function InitTable() {
     const options = {
-        scrollY: $('#modal-AddExportDevice .modal-body').height() - 120,
+        scrollY: $(window).height() * 0.6,
         scrollX: true,
         order: [0, 'desc'],
         autoWidth: false,
@@ -33,17 +33,17 @@ function InitTable() {
             "<'row'<'col-sm-12 col-md-7'i><'col-sm-12 col-md-5'p>>",
         buttons: [
             {
-                text: 'Export',
+                text: 'Shipping',
                 action: function (e, dt, button, config) {
-                    OpenCreateExportDeviceModal('Export');
+                    OpenCreateExportDeviceModal('Shipping');
                 }
             },
-            {
-                text: 'Return NG',
-                action: function (e, dt, button, config) {
-                    OpenCreateExportDeviceModal('Return NG');
-                }
-            }
+            //{
+            //    text: 'Return',
+            //    action: function (e, dt, button, config) {
+            //        OpenCreateExportDeviceModal('Return NG');
+            //    }
+            //}
         ],
         createdRow: function (row, data, dataIndex) {
             $(row).addClass('cursor-pointer');

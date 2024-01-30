@@ -97,9 +97,6 @@ function GetUserAction(user) {
     return btnDetails + btnUpdated + btnDeleted;
 };
 
-
-
-
 /* NEW USER*/
 function OpenCreateUserModal() {
     $('#AddUser-CreatedDate').val(moment().format("YYYY-MM-DDTHH:mm:ss"));
@@ -151,7 +148,6 @@ $('#modal-AddUser-Save').click(async function (e) {
     }
 
 });
-
 
 /* DETAILS USER */
 async function Details(elm, Id) {

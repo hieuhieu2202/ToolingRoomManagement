@@ -460,11 +460,11 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                                     requestDevice.Device.RealQty = (requestDevice.Device.RealQty ?? 0) - requestDevice.ExportQuantity;
                                     requestDevice.Device.SysQuantity = (requestDevice.Device.SysQuantity ?? 0) - requestDevice.ExportQuantity;
                                 }
-                                else if(request.Type == "Export")
+                                else if(request.Type == "Shipping")
                                 {
                                     requestDevice.Device.RealQty = (requestDevice.Device.RealQty ?? 0) - requestDevice.ExportQuantity;
                                     requestDevice.Device.SysQuantity = (requestDevice.Device.SysQuantity ?? 0) - requestDevice.ExportQuantity;
-                                    requestDevice.Device.QtyConfirm = (requestDevice.Device.QtyConfirm ?? 0) - requestDevice.ExportQuantity;
+                                    //requestDevice.Device.QtyConfirm = (requestDevice.Device.QtyConfirm ?? 0) - requestDevice.ExportQuantity;
                                 }
                                 db.Devices.AddOrUpdate(requestDevice.Device);
                             }
@@ -1082,8 +1082,16 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
 
                         #region Sign
                         var signs = _return.UserReturnSigns.ToList();
-                        worksheet.Cells[$"K{index}"].Value = $"{signs[signs.Count - 2].User.Username}-{signs[signs.Count - 2].User.CnName}";
-                        worksheet.Cells[$"L{index}"].Value = $"{signs[signs.Count - 1].User.Username}-{signs[signs.Count - 1].User.CnName}";
+                        if (signs != null && signs.Count >= 2)
+                        {
+                            worksheet.Cells[$"K{index}"].Value = $"{signs[signs.Count - 2].User.Username}-{signs[signs.Count - 2].User.CnName}";
+                            worksheet.Cells[$"L{index}"].Value = $"{signs[signs.Count - 1].User.Username}-{signs[signs.Count - 1].User.CnName}";
+                        }
+                        else if (signs != null && signs.Count == 1)
+                        {
+                            worksheet.Cells[$"K{index}"].Value = $"{signs[0].User.Username}-{signs[0].User.CnName}";
+                        }
+
                         #endregion
 
                         foreach (var returndevice in _return.ReturnDevices)
@@ -1435,6 +1443,129 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                     // Trả về
                     var url = Url.Content("~/Data/NewToolingroom/ReturnHistory/" + fileName);
                     return Json(new { status = true, url, filename = "ReturnHistory.xlsx" }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public ActionResult ExportShippingHistory()
+        {
+            try
+            {
+                ExcelPackage.LicenseContext = OfficeOpenXml.LicenseContext.NonCommercial;
+                using (var package = new ExcelPackage())
+                {
+                    var worksheet = package.Workbook.Worksheets.Add("Return History");
+
+                    #region Header
+                    worksheet.Cells["A1"].Value = "Date time";
+                    worksheet.Cells["B1"].Value = "Engineer";
+                    worksheet.Cells["C1"].Value = "Type";
+                    worksheet.Cells["D1"].Value = "Warehouse";
+                    worksheet.Cells["E1"].Value = "MTS";
+                    worksheet.Cells["F1"].Value = "PN";
+                    worksheet.Cells["G1"].Value = "Description";
+                    worksheet.Cells["H1"].Value = "Quantity";
+
+                    var headerStyle = worksheet.Cells["A1:H1"].Style;
+                    headerStyle.Font.Bold = true;
+                    headerStyle.Border.Top.Style = ExcelBorderStyle.Thin;
+                    headerStyle.Border.Bottom.Style = ExcelBorderStyle.Thin;
+                    headerStyle.Border.Left.Style = ExcelBorderStyle.Thin;
+                    headerStyle.Border.Right.Style = ExcelBorderStyle.Thin;
+
+
+                    System.Drawing.Color headerBackgroundColor = System.Drawing.ColorTranslator.FromHtml("#00B050");
+                    headerStyle.Fill.PatternType = ExcelFillStyle.Solid;
+                    headerStyle.Fill.BackgroundColor.SetColor(headerBackgroundColor);
+                    #endregion
+
+                    var exports = db.Exports.Where(r => r.Status == "Approved" && r.Type == "Shipping").OrderBy(b => b.CreatedDate).ToList();
+                    int index = 2;
+                    int row = 1;
+                    foreach (var export in exports)
+                    {
+                        int indexNext = index + export.ExportDevices.Count - 1;
+                        worksheet.Cells[$"A{index}:A{indexNext}"].Merge = true;
+                        worksheet.Cells[$"B{index}:B{indexNext}"].Merge = true;
+                        worksheet.Cells[$"C{index}:C{indexNext}"].Merge = true;
+                        worksheet.Cells[$"D{index}:D{indexNext}"].Merge = true;
+
+                        if (row % 2 == 0)
+                        {
+                            var borrowStyle = worksheet.Cells[$"A{index}:L{indexNext}"].Style;
+                            borrowStyle.Fill.PatternType = ExcelFillStyle.Solid;
+                            borrowStyle.Fill.BackgroundColor.SetColor(System.Drawing.Color.LightGray);
+                        }
+                        row++;
+
+                        worksheet.Cells[$"A{index}"].Value = export.CreatedDate?.ToString("yyyy-MM-dd HH:mm tt");
+                        worksheet.Cells[$"B{index}"].Value = $"{export.User.Username}-{export.User.CnName}";
+                        worksheet.Cells[$"C{index}"].Value = export.Type;
+
+
+                        var IdWarehouse = export.ExportDevices.ToList().First().Device.IdWareHouse;
+                        var warehouse = db.Warehouses.FirstOrDefault(w => w.Id == IdWarehouse);
+                        worksheet.Cells[$"D{index}"].Value = warehouse.WarehouseName;
+
+
+                        foreach (var exportdevice in export.ExportDevices)
+                        {
+                            worksheet.Cells[$"E{index}"].Value = exportdevice.Device?.Product?.MTS ?? "";
+                            worksheet.Cells[$"F{index}"].Value = exportdevice.Device?.DeviceCode ?? "";
+                            worksheet.Cells[$"G{index}"].Value = exportdevice.Device?.DeviceName ?? "";
+                            worksheet.Cells[$"H{index}"].Value = exportdevice.ExportQuantity;
+                            index++;
+                        }
+                    }
+
+                    // Data style
+                    #region Data Style
+                    worksheet.Cells[worksheet.Dimension.Address].AutoFitColumns();
+
+                    var dataStyle = worksheet.Cells[worksheet.Dimension.Address].Style;
+
+                    dataStyle.VerticalAlignment = ExcelVerticalAlignment.Center;
+
+                    dataStyle.Border.Top.Style = ExcelBorderStyle.Thin;
+                    dataStyle.Border.Bottom.Style = ExcelBorderStyle.Thin;
+                    dataStyle.Border.Left.Style = ExcelBorderStyle.Thin;
+                    dataStyle.Border.Right.Style = ExcelBorderStyle.Thin;
+
+                    worksheet.Column(3).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                    worksheet.Column(4).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                    worksheet.Column(8).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                    worksheet.Column(9).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                    worksheet.Column(10).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+
+                    worksheet.Column(1).Width = 20;
+                    worksheet.Column(2).Width = 20;
+                    worksheet.Column(3).Width = 10;
+
+                    worksheet.Column(11).Width = 20;
+                    worksheet.Column(12).Width = 20;
+
+
+                    #endregion
+                    // Lưu tệp tin
+                    #region Save File
+                    var fileData = package.GetAsByteArray();
+                    var fileName = "ShippingHistory.xlsx";
+                    var folderPath = Server.MapPath("/Data/NewToolingroom/ShippingHistory");
+                    if (!Directory.Exists(folderPath))
+                    {
+                        Directory.CreateDirectory(folderPath);
+                    }
+                    var filePath = Path.Combine(folderPath, fileName);
+                    System.IO.File.WriteAllBytes(filePath, fileData);
+                    #endregion
+
+                    // Trả về
+                    var url = Url.Content("~/Data/NewToolingroom/ShippingHistory/" + fileName);
+                    return Json(new { status = true, url, filename = "ShippingHistory.xlsx" }, JsonRequestBehavior.AllowGet);
                 }
             }
             catch (Exception ex)

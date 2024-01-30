@@ -265,8 +265,8 @@ function GetRequestType(request) {
         case "Return NG": {
             return (`<span class="badge bg-danger"><i class="fa-solid fa-arrows-turn-to-dots"></i> Return NG</span>`);
         }
-        case "Export": {
-            return (`<span class="badge bg-success"><i class="fa-solid fa-arrow-up-right-dots"></i> Export</span>`);
+        case "Shipping": {
+            return (`<span class="badge bg-success"><i class="fa-solid fa-arrow-up-right-dots"></i> Shipping</span>`);
         }
         default: {
             return (`<span class="fw-bold">NA</span></td>`);

@@ -294,12 +294,12 @@ function CreateUserOption(user) {
 }
 function GetExportType(_export) {
     switch (_export.Type) {
-        case "Export": {
-            return (`<span class="text-success fw-bold">Export</span>`);
+        case "Shipping": {
+            return (`<span class="text-success fw-bold">Shipping</span>`);
             break;
         }
         case "Return NG": {
-            return (`<span class="text-danger fw-bold">NG</span>`);
+            return (`<span class="text-danger fw-bold">Return</span>`);
             break;
         }
         default: {

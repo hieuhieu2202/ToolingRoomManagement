@@ -198,6 +198,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\NVIDIA\Content\admin\AdminCommon.js" />
+    <Content Include="Areas\NVIDIA\Content\admin\roles\RoleManagement.css" />
+    <Content Include="Areas\NVIDIA\Content\admin\roles\RoleManagement.js" />
     <Content Include="Areas\NVIDIA\Content\admin\users\UserManagement.js" />
     <Content Include="Areas\NVIDIA\Content\admin\users\UserManagement.css" />
     <Content Include="Areas\NVIDIA\Content\Custom\Authentication\css\SignIn.css" />
@@ -3667,7 +3669,6 @@
     <Folder Include="Areas\API\Data\" />
     <Folder Include="Areas\API\Views\Shared\" />
     <Folder Include="Areas\API\Views\Toolroom\" />
-    <Folder Include="Areas\NVIDIA\Content\admin\roles\" />
     <Folder Include="Areas\NVIDIA\Content\Custom\RequestManagement\js\Export\" />
     <Folder Include="Areas\NVIDIA\Data\DeviceHistoryLog\" />
     <Folder Include="Data\Image\" />

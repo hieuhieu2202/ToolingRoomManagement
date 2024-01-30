@@ -77,21 +77,28 @@ async function FillDetailsDeviceData(data) {
 }
 function CreateTableLayout(device, warehouses) {
     $('#device_details-layout-tbody').empty();
-    $.each(device.DeviceWarehouseLayouts, function (k, item) {
-        var warehouse = warehouses[k];
-        var layout = item.WarehouseLayout;
 
-        var tr = $('<tr></tr>');
-        tr.append($(`<td>${warehouse.Factory ? warehouse.Factory : ""}</td>`));
-        tr.append($(`<td>${warehouse.Floors ? warehouse.Floors : ""}</td>`));
-        tr.append($(`<td>${CreateUserName(warehouse.UserManager)}</td>`));
-        tr.append($(`<td>${warehouse.WarehouseName ? warehouse.WarehouseName : ""}</td>`));
-        tr.append($(`<td>${layout.Line ? layout.Line : ""}</td>`));
-        tr.append($(`<td>${layout.Cell ? layout.Cell : ""}</td>`));
-        tr.append($(`<td>${layout.Floor ? layout.Floor : ""}</td>`));
+    if (device.DeviceWarehouseLayouts.length > 0) {
+        $('#device-details-layout').show();
+        $.each(device.DeviceWarehouseLayouts, function (k, item) {
+            var warehouse = warehouses[k];
+            var layout = item.WarehouseLayout;
 
-        $('#device_details-layout-tbody').append(tr);
-    });
+            var tr = $('<tr></tr>');
+            tr.append($(`<td>${warehouse.Factory ? warehouse.Factory : ""}</td>`));
+            tr.append($(`<td>${warehouse.Floors ? warehouse.Floors : ""}</td>`));
+            tr.append($(`<td>${CreateUserName(warehouse.UserManager)}</td>`));
+            tr.append($(`<td>${warehouse.WarehouseName ? warehouse.WarehouseName : ""}</td>`));
+            tr.append($(`<td>${layout.Line ? layout.Line : ""}</td>`));
+            tr.append($(`<td>${layout.Cell ? layout.Cell : ""}</td>`));
+            tr.append($(`<td>${layout.Floor ? layout.Floor : ""}</td>`));
+
+            $('#device_details-layout-tbody').append(tr);
+        });
+    }
+    else {
+        $('#device-details-layout').hide();
+    }    
 }
 
 var device_history;
@@ -126,6 +133,8 @@ function CreateTableHistory(IdDevice, borrows, returns, exports) {
     device_history.clear();
 
     var RowDatas = [];
+    $('#device-details-history').show();
+
     $.each(borrows, function (k, request) {
         if (request.Status == 'Rejected') return;
         RowDatas.push(CreateHistoryTableRow(IdDevice, request, "Borrow"));  
@@ -138,8 +147,15 @@ function CreateTableHistory(IdDevice, borrows, returns, exports) {
         if (request.Status == 'Rejected') return;
         RowDatas.push(CreateHistoryTableRow(IdDevice, request, "Export"));
     });
-    device_history.rows.add(RowDatas);
-    device_history.columns.adjust().draw();
+
+    if (RowDatas.length > 0) {
+        device_history.rows.add(RowDatas);
+        device_history.columns.adjust().draw();
+    }
+    else {
+        $('#device-details-history').hide();
+    }
+    
 }
 function CreateHistoryTableRow(IdDevice, request, type) {
     switch (type) {
@@ -226,8 +242,8 @@ function GetDeviceRequestType(request) {
         case "Return NG": {
             return (`<span class="badge bg-danger"><i class="fa-solid fa-arrows-turn-to-dots"></i> Return NG</span>`);
         }
-        case "Export": {
-            return (`<span class="badge bg-success"><i class="fa-solid fa-arrow-up-right-dots"></i> Export</span>`);
+        case "Shipping": {
+            return (`<span class="badge bg-success"><i class="fa-solid fa-arrow-up-right-dots"></i> Shipping</span>`);
         }
         default: {
             return (`<span class="fw-bold">NA</span></td>`);

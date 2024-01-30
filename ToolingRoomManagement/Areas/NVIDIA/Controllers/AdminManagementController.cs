@@ -219,5 +219,31 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
         {
             return View();
         }
+
+        [HttpGet]
+        public JsonResult GetRoles()
+        {
+            try
+            {
+                var roles = db.Roles.ToList();
+                return Json(new { status = true, roles }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        public JsonResult GetRoleUsers(int IdRole)
+        {
+            try
+            {
+                var users = db.Users.Where(u => u.UserRoles.Any(ur => ur.IdRole == IdRole)).ToList();
+                return Json(new { status = true, users }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }

@@ -44,7 +44,7 @@ function InitAddTable() {
             select: true,
             columnDefs: [
                 { targets: "_all", orderable: false },
-                { targets: [1, 14, 15], visible: false },
+                { targets: [0, 1, 14, 15], visible: false },
 
                 { targets: [0], className: "select-checkbox checkbox-custom" },
                 { targets: [6], className: "text-center" },

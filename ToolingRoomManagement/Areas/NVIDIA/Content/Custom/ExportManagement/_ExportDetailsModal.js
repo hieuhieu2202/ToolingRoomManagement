@@ -21,77 +21,77 @@ function ExportDetails(IdExport, IdSign, Type, Elm) {
 
     } catch (error) {
         Swal.fire('Sorry, something went wrong!', `${error}`, 'error');
-    }      
+    }
 }
 async function CreateEXportDetailsModal(IdExport) {
-        var _export = await GetExport(IdExport);
+    var _export = await GetExport(IdExport);
 
-        var modal = $('#modal-ExportDetails');
+    var modal = $('#modal-ExportDetails');
 
-        modal.find('.modal-title').text(`${_export.Type} REQUEST MODAL`);
-        modal.find('.modal-bodytitle').text(`${_export.Type} DEVICE REQUEST`);
+    modal.find('.modal-title').text(`${_export.Type} REQUEST MODAL`);
+    modal.find('.modal-bodytitle').text(`${_export.Type} DEVICE REQUEST`);
 
-        modal.find('#ExportDetails-cardid').val(_export.User.Username);
-        modal.find('#ExportDetails-username').val(CreateUserName(_export.User));
-        modal.find('#ExportDetails-createddate').val(moment(_export.CreatedDate).format("YYYY-MM-DDTHH:mm:ss"));
-        modal.find('#ExportDetails-note').val(_export.Note);
+    modal.find('#ExportDetails-cardid').val(_export.User.Username);
+    modal.find('#ExportDetails-username').val(CreateUserName(_export.User));
+    modal.find('#ExportDetails-createddate').val(moment(_export.CreatedDate).format("YYYY-MM-DDTHH:mm:ss"));
+    modal.find('#ExportDetails-note').val(_export.Note);
 
 
-        var tablebody = modal.find('#table-ExportDetails-tbody');
-        tablebody.empty();
-        $.each(_export.ExportDevices, function (k, exportDevice) {
-            var tr = $(`<tr class="cursor-pointer align-middle" data-id="${exportDevice.Device.Id}" data-index="${k}"></tr>`);
-            tr.append(`<td class="text-center">${k + 1}</td>`);
-            tr.append(`<td class="text-center">${exportDevice.Device.Product != null ? exportDevice.Device.Product.MTS : ''}</td>`);
-            tr.append(`<td>${exportDevice.Device.DeviceCode != null ? exportDevice.Device.DeviceCode : ''}</td>`);
-            tr.append(`<td>${exportDevice.Device.DeviceName != null ? exportDevice.Device.DeviceName : ''}</td>`);
-            tr.append(`<td>${exportDevice.Device.Unit != null ? exportDevice.Device.Unit : 'NA'}</td>`);
-            tr.append(`<td class="text-center">${exportDevice.ExportQuantity}</td>`);
+    var tablebody = modal.find('#table-ExportDetails-tbody');
+    tablebody.empty();
+    $.each(_export.ExportDevices, function (k, exportDevice) {
+        var tr = $(`<tr class="cursor-pointer align-middle" data-id="${exportDevice.Device.Id}" data-index="${k}"></tr>`);
+        tr.append(`<td class="text-center">${k + 1}</td>`);
+        tr.append(`<td class="text-center">${exportDevice.Device.Product != null ? exportDevice.Device.Product.MTS : ''}</td>`);
+        tr.append(`<td>${exportDevice.Device.DeviceCode != null ? exportDevice.Device.DeviceCode : ''}</td>`);
+        tr.append(`<td>${exportDevice.Device.DeviceName != null ? exportDevice.Device.DeviceName : ''}</td>`);
+        tr.append(`<td>${exportDevice.Device.Unit != null ? exportDevice.Device.Unit : 'NA'}</td>`);
+        tr.append(`<td class="text-center">${exportDevice.ExportQuantity}</td>`);
 
-            tr.dblclick(function () {
-                var Id = exportDevice.Device.Id;
-                GetDeviceDetails(Id)
-            });
-
-            tablebody.append(tr);
-
+        tr.dblclick(function () {
+            var Id = exportDevice.Device.Id;
+            GetDeviceDetails(Id)
         });
 
-        var signcontainer = $('#ExportDetails-signcontainer');
-        signcontainer.empty();
-        $.each(_export.UserExportSigns, function (k, es) { //es == export sign
-            var username = CreateUserName(es.User);
-            var date = moment(es.SignDate).format('YYYY-MM-DD | h:mm A');
+        tablebody.append(tr);
 
-            var title = {
-                Approved: { color: 'success', text: 'Approved', icon: 'check' },
-                Rejected: { color: 'danger', text: 'Rejected', icon: 'xmark' },
-                Pending: { color: 'warning', text: 'Pending', icon: 'timer' },
-                Waitting: { color: 'secondary', text: 'Waitting', icon: 'circle-pause' },
-            }[es.Status] || { color: 'secondary', text: 'Closed' };
+    });
 
-            var line = {
-                top: k === 0 ? '' : 'border-end',
-                bot: (k === 0 && _export.UserExportSigns.length === 1) ? '' : 'border-end'
-            };
+    var signcontainer = $('#ExportDetails-signcontainer');
+    signcontainer.empty();
+    $.each(_export.UserExportSigns, function (k, es) { //es == export sign
+        var username = CreateUserName(es.User);
+        var date = moment(es.SignDate).format('YYYY-MM-DD | h:mm A');
 
-            var span = '';
-            switch (es.Type) {
-                case "Return NG": {
-                    span = `<span class="badge bg-danger"><i class="fa-solid fa-left-to-line"></i>Return NG</span>`;
-                    break;
-                }
-                case "Export": {
-                    span = `<span class="badge bg-success"><i class="fa-regular fa-inbox-full"></i>Export</span>`;
-                    break;
-                }
-                default: {
-                    span = `<td><span class="badge bg-secondary">NA</span></td>`;
-                    break;
-                }
+        var title = {
+            Approved: { color: 'success', text: 'Approved', icon: 'check' },
+            Rejected: { color: 'danger', text: 'Rejected', icon: 'xmark' },
+            Pending: { color: 'warning', text: 'Pending', icon: 'timer' },
+            Waitting: { color: 'secondary', text: 'Waitting', icon: 'circle-pause' },
+        }[es.Status] || { color: 'secondary', text: 'Closed' };
+
+        var line = {
+            top: k === 0 ? '' : 'border-end',
+            bot: (k === 0 && _export.UserExportSigns.length === 1) ? '' : 'border-end'
+        };
+
+        var span = '';
+        switch (es.Type) {
+            case "Return NG": {
+                span = `<span class="badge bg-danger"><i class="fa-solid fa-left-to-line"></i>Return NG</span>`;
+                break;
             }
+            case "Shipping": {
+                span = `<span class="badge bg-success"><i class="fa-regular fa-inbox-full"></i>Shipping</span>`;
+                break;
+            }
+            default: {
+                span = `<td><span class="badge bg-secondary">NA</span></td>`;
+                break;
+            }
+        }
 
-            var lineDot = `<div class="col-sm-1 text-center flex-column d-none d-sm-flex">
+        var lineDot = `<div class="col-sm-1 text-center flex-column d-none d-sm-flex">
                            <div class="row h-50">
                                <div class="col ${line.top}">&nbsp;</div>
                                <div class="col">&nbsp;</div>
@@ -104,7 +104,7 @@ async function CreateEXportDetailsModal(IdExport) {
                                <div class="col">&nbsp;</div>
                            </div>
                        </div>`;
-            var signCard = `<div class="row">
+        var signCard = `<div class="row">
                         ${k % 2 === 0 ? '' : '<div class="col-sm"></div>'}
                         ${k % 2 === 0 ? '' : lineDot}
                         <div class="col-sm py-2">
@@ -128,8 +128,8 @@ async function CreateEXportDetailsModal(IdExport) {
                         ${k % 2 === 0 ? '<div class="col-sm"></div>' : ''}
                     </div>`;
 
-            signcontainer.append(signCard);
-        });
+        signcontainer.append(signCard);
+    });
 
-        modal.modal('show');
+    modal.modal('show');
 }
