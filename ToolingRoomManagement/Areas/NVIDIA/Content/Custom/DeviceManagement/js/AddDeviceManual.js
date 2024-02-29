@@ -102,8 +102,7 @@ $('#device_add-WareHouse').change(async function (e) {
 $('#AddDeviceManual').on('click', function (e) {
     e.preventDefault();
 
-    const formData = GetFormData();
-    formData.append('DeliveryTime', `${$('#device_add-DeliveryTime1').val()} ${$('#device_add-DeliveryTime2').val()}`);
+    const formData = GetFormData();   
 
     selectedFiles.forEach(function (file) {
         formData.append('files', file);
@@ -161,6 +160,9 @@ function GetFormData() {
             }
         }
     });
+
+    formData.append('DeliveryTime', `${$('#device_add-DeliveryTime1').val()} ${$('#device_add-DeliveryTime2').val()}`);
+
     return formData;
 }
 

@@ -63,6 +63,8 @@ function GetModalData() {
 
     formData.append('AltPNs', $('#device_edit-AltPNs').val());
 
+    formData.append('Owner', $('#device_edit-Owner').val());
+
     // layout
     $('#layout-container option:selected').map(function () {
         formData.append('Layout', $(this).val());
@@ -143,6 +145,8 @@ async function FillEditDeviceData(device) {
     $('#device_edit-AltPNs').val(device.AlternativeDevices.length > 0 ? device.AlternativeDevices[0].PNs : '');
 
     $('#add-image').data('deviceid', device.Id);
+
+    $('#device_edit-Owner').val(device.DeviceOwner ? device.DeviceOwner : '');
 
     $('#layout-container').empty();
     var DeviceLayouts = device.DeviceWarehouseLayouts;

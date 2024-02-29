@@ -157,9 +157,8 @@
                                                     {
                                                         if (item.Part.ToUpper() == sessionPart.part.ToUpper())
                                                         {
-                                                            { dem++; }
                                                     <tr>
-                                                        <td>@dem</td>
+                                                        <td>@item.id</td>
                                                         <td>@item.Create_People</td>
                                                         <td>@item.Model_Name</td>
                                                         <td>@item.Group_Name</td>
@@ -277,10 +276,11 @@
 <script>
     $(window).on("load", function () {
         $('#tbl_Sheild').DataTable({
-            "lengthMenu": [[1000, 1000, 1000, 1000], [1000, 1000, 1000, 10000]]
+            "lengthMenu": [[1000, 1000, 1000, 1000], [1000, 1000, 1000, 10000]],
+            order: [0, 'desc']
         });
     });
-    $("#status_sheil").on("change", function () {
+    $("#status_sheilding").on("change", function () {
         var table = $('#tbl_Sheild').DataTable({
             orderCellsTop: true,
             fixedHeader: true
@@ -288,18 +288,18 @@
         var value = $("#status_sheilding :selected").text();
         //alert(value);
         if (value == "Status") {
-            if (table.column(9).search() !== '') {
+            if (table.column(10).search() !== '') {
                 table
-                    .column(9)
+                    .column(10)
                     .search('')
                     .draw();
             }
             //table.column(1).search("").draw();
         }
         else {
-            if (table.column(9).search() !== value) {
+            if (table.column(10).search() !== value) {
                 table
-                    .column(9)
+                    .column(10)
                     .search(value)
                     .draw();
             }

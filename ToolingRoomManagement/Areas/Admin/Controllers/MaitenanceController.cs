@@ -36,6 +36,7 @@ namespace ToolingRoomManagement.Areas.Admin.Controllers
                 update_data.issue_7 = model.issue_7;
                 update_data.issue_8 = model.issue_7;
                 update_data.issue_9 = model.issue_7;
+                update_data.create_date = model.create_date;
                 update_data.note = model.note;
                 context.SaveChanges();
                 return "OK";
@@ -47,7 +48,7 @@ namespace ToolingRoomManagement.Areas.Admin.Controllers
                 string create_by_name = session.Fullname;
                 var sessionPart = (ToolingRoomManagement.Common.SessionPart)Session[ToolingRoomManagement.Common.CommonConstants.SessionPart];
                 var part = sessionPart.part;
-                int id = new MaintenanceRobot_Dao().Insert(model.station_name, model.issue_1, model.issue_2, model.issue_3, model.issue_4, model.issue_5, model.issue_6, model.issue_7, model.issue_8, model.issue_9, model.note, create_by, create_by_name, part);
+                int id = new MaintenanceRobot_Dao().Insert(model.station_name, model.issue_1, model.issue_2, model.issue_3, model.issue_4, model.issue_5, model.issue_6, model.issue_7, model.issue_8, model.issue_9, model.create_date, model.note, create_by, create_by_name, part);
                 if (id > 0)
                 {
                     return "OK";

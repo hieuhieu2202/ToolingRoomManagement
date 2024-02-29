@@ -138,8 +138,10 @@
                                                         <th>
                                                             <select id="part_sheilding" style="height: 40px;background: #2d9aca;border: 0px;">
                                                                 <option>Part</option>
+                                                                <option>QE</option>
                                                                 <option>Arlo</option>
-                                                                <option>Netgear</option>
+                                                                <option>Netgear</option>    
+                                                                <option>Arlam</option>
                                                             </select>
                                                         </th>
                                                         <th>
@@ -153,40 +155,43 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody id="tbdSheildingBox">
+                                                    @{ 
+                                                       Model.Reverse();
+                                                    }
+                                                    
                                                     @foreach (var item in Model)
                                                     {
-                                                        { dem++; }
-                                                    <tr>
-                                                        <td>@dem</td>
-                                                        <td>@item.Create_People</td>
-                                                        <td>@item.Model_Name</td>
-                                                        <td>@item.Group_Name</td>
-                                                        <td>@item.Station_Name</td>
-                                                        <td>@item.Mac</td>
-                                                        <td>@item.Calibration_Date</td>
-                                                        <td>@item.End_Date</td>
-                                                        <td style="word-break: break-all;"><a href="~/Data/Shelingbox/@(item.File_Name != null ? item.File_Name : "")"> @(item.File_Name != null ? item.File_Name : "") </a></td>
-                                                        <td>@item.Part</td>
-                                                        @{
-                                                            DateTime dt = DateTime.ParseExact(item.End_Date.ToString().Trim(), "dd/MM/yyyy", CultureInfo.InvariantCulture);
-                                                            DateTime now = DateTime.Now;
-                                                            TimeSpan ts = dt.Subtract(now);
+                                                        <tr>
+                                                            <td>@item.id</td>
+                                                            <td>@item.Create_People</td>
+                                                            <td>@item.Model_Name</td>
+                                                            <td>@item.Group_Name</td>
+                                                            <td>@item.Station_Name</td>
+                                                            <td>@item.Mac</td>
+                                                            <td>@item.Calibration_Date</td>
+                                                            <td>@item.End_Date</td>
+                                                            <td style="word-break: break-all;"><a href="~/Data/Shelingbox/@(item.File_Name != null ? item.File_Name : "")"> @(item.File_Name != null ? item.File_Name : "") </a></td>
+                                                            <td>@item.Part</td>
+                                                            @{
+                                                                DateTime dt = DateTime.ParseExact(item.End_Date.ToString().Trim(), "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                                                                DateTime now = DateTime.Now;
+                                                                TimeSpan ts = dt.Subtract(now);
 
-                                                            if (ts.Days >= 10)
-                                                            {
-                                                                <td style="background:green;">Normal</td>
-                                                            }
-                                                            else if (ts.Days > 0 && ts.Days < 10)
-                                                            {
-                                                                <td style="background:orange;">Warning</td>
+                                                                if (ts.Days >= 10)
+                                                                {
+                                                                    <td style="background:green;">Normal</td>
+                                                                }
+                                                                else if (ts.Days > 0 && ts.Days < 10)
+                                                                {
+                                                                    <td style="background:orange;">Warning</td>
 
+                                                                }
+                                                                else
+                                                                {
+                                                                    <td style="background:red;">Expired</td>
+                                                                }
                                                             }
-                                                            else
-                                                            {
-                                                                <td style="background:red;">Expired</td>
-                                                            }
-                                                        }
-                                                    </tr>
+                                                        </tr>
 
                                                     }
                                                 </tbody>
@@ -239,30 +244,34 @@
 <script>
     $(window).on("load", function () {
         $('#tbl_SheildingBox').DataTable({
-            "lengthMenu": [[10000, 10000, 10000, 10000], [10000, 10000, 10000, 10000]]
+            "lengthMenu": [[10000, 10000, 10000, 10000], [10000, 10000, 10000, 10000]],
+            order: [0, 'desc']
         });
     });
 
     $("#part_sheilding").on("change", function () {
         var table = $('#tbl_SheildingBox').DataTable({
             orderCellsTop: true,
-            fixedHeader: true
+            fixedHeader: true,
         });
+
+       
+
         var value = $("#part_sheilding :selected").text();
         //alert(value);
         if (value == "Part") {
-            if (table.column(8).search() !== '') {
+            if (table.column(9).search() !== '') {
                 table
-                    .column(8)
+                    .column(9)
                     .search('')
                     .draw();
             }
             //table.column(1).search("").draw();
         }
         else {
-            if (table.column(8).search() !== value) {
+            if (table.column(9).search() !== value) {
                 table
-                    .column(8)
+                    .column(9)
                     .search(value)
                     .draw();
             }
@@ -277,18 +286,18 @@
         var value = $("#status_sheilding :selected").text();
         //alert(value);
         if (value == "Status") {
-            if (table.column(9).search() !== '') {
+            if (table.column(10).search() !== '') {
                 table
-                    .column(9)
+                    .column(10)
                     .search('')
                     .draw();
             }
             //table.column(1).search("").draw();
         }
         else {
-            if (table.column(9).search() !== value) {
+            if (table.column(10).search() !== value) {
                 table
-                    .column(9)
+                    .column(10)
                     .search(value)
                     .draw();
             }

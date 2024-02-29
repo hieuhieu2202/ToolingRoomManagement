@@ -95,6 +95,7 @@
           <Property Name="MOQ" Type="int" />
           <Property Name="isConsign" Type="bit" />
           <Property Name="NG_Qty" Type="int" />
+          <Property Name="DeviceOwner" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="DeviceUnconfirm">
           <Key>
@@ -579,7 +580,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ExportDevice_Export">
-          <End Role="Export" Type="Self.Export" Multiplicity="0..1" />
+          <End Role="Export" Type="Self.Export" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="ExportDevice" Type="Self.ExportDevice" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Export">
@@ -727,7 +730,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_UserExportSign_Export">
-          <End Role="Export" Type="Self.Export" Multiplicity="0..1" />
+          <End Role="Export" Type="Self.Export" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="UserExportSign" Type="Self.UserExportSign" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Export">
@@ -1372,6 +1377,7 @@
           <Property Name="isConsign" Type="Boolean" />
           <Property Name="NG_Qty" Type="Int32" />
           <NavigationProperty Name="AlternativeDevices" Relationship="ToolingRoomModel.FK_AlternativeDevice_Device" FromRole="Device" ToRole="AlternativeDevice" />
+          <Property Name="DeviceOwner" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_Device_Group">
           <End Type="ToolingRoomModel.Group" Role="Group" Multiplicity="0..1" />
@@ -2176,6 +2182,7 @@
           <EntitySetMapping Name="Devices">
             <EntityTypeMapping TypeName="ToolingRoomModel.Device">
               <MappingFragment StoreEntitySet="Device">
+                <ScalarProperty Name="DeviceOwner" ColumnName="DeviceOwner" />
                 <ScalarProperty Name="NG_Qty" ColumnName="NG_Qty" />
                 <ScalarProperty Name="isConsign" ColumnName="isConsign" />
                 <ScalarProperty Name="MOQ" ColumnName="MOQ" />

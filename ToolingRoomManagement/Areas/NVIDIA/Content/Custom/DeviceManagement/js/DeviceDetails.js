@@ -72,6 +72,8 @@ async function FillDetailsDeviceData(data) {
 
     $('#device_details-AltPN').val(data.AlternativeDevices.length > 0 ? data.AlternativeDevices[0].PNs : '');
 
+    $('#device_details-Owner').val(data.DeviceOwner ? data.DeviceOwner : '');
+
     $('#device_details-MinQty').val(data.MinQty ? data.MinQty : '');
 
 }

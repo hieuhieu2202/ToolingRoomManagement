@@ -53,6 +53,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Entities
         public Nullable<int> MOQ { get; set; }
         public Nullable<bool> isConsign { get; set; }
         public Nullable<int> NG_Qty { get; set; }
+        public string DeviceOwner { get; set; }
     
         public virtual Group Group { get; set; }
         public virtual Model Model { get; set; }

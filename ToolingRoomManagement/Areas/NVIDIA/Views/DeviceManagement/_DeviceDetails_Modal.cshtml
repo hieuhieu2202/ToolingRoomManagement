@@ -55,17 +55,30 @@
                                                 </div>
                                             </div>
                                         </div>
+
+                                        <!-- DeliveryTime  + Owner-->
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <!-- DeliveryTime -->
+                                                <div class="input-group mb-3">
+                                                    <span class="col-6 input-group-text" data-i18n="device.management.lead_time">Lead Time</span>
+                                                    <input class="form-control" type="text" id="device_details-DeliveryTime" details disabled>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <!-- Owner -->
+                                                <div class="input-group mb-3">
+                                                    <span class="col-6 input-group-text">Owner</span>
+                                                    <input class="form-control" type="text" id="device_details-Owner" details disabled />
+                                                </div>
+                                            </div>
+                                        </div>
                                         <!-- Device Date -->
                                         <div class="input-group mb-3">
                                             <span class="col-4 input-group-text" data-i18n="device.management.created_date">Created date</span>
                                             <input class="form-control" type="datetime-local" id="device_details-CreatedDate" details disabled>
                                         </div>
 
-                                        <!-- DeliveryTime -->
-                                        <div class="input-group mb-3">
-                                            <span class="col-4 input-group-text" data-i18n="device.management.lead_time">Lead Time</span>
-                                            <input class="form-control" type="text" id="device_details-DeliveryTime" details disabled>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -121,9 +134,9 @@
                                         </div>
                                         <!-- BOM Quantity -->
                                         @*<div class="input-group mb-3">
-                                            <span class="col-5 input-group-text" data-i18n="device.management.bom_qty">BOM Quantity</span>
-                                            <input class="form-control" type="number" id="device_details-Quantity" details disabled>
-                                        </div>*@
+            <span class="col-5 input-group-text" data-i18n="device.management.bom_qty">BOM Quantity</span>
+            <input class="form-control" type="number" id="device_details-Quantity" details disabled>
+        </div>*@
                                         <!-- PO Quantity -->
                                         <div class="input-group mb-3">
                                             <span class="col-5 input-group-text" data-i18n="device.management.po_qty">PO Quantity</span>
@@ -138,6 +151,11 @@
                                         <div class="input-group mb-3">
                                             <span class="col-5 input-group-text">MOQ</span>
                                             <input class="form-control" type="number" id="device_details-MOQ" details disabled>
+                                        </div>
+                                        <!-- Alternative PN -->
+                                        <div class="input-group mb-3">
+                                            <span class="col-5 input-group-text">Alternative PN</span>
+                                            <input class="form-control" id="device_details-AltPN" type="text" details disabled />
                                         </div>
                                     </div>
                                     <div class="col-6">
@@ -177,11 +195,7 @@
                             </div>
 
                             <div class="col-6">
-                                <!-- Alternative PN -->
-                                <div class="input-group mb-3">
-                                    <span class="col-3 input-group-text">Alternative PN</span>
-                                    <input class="col-9 form-control" id="device_details-AltPN" type="text" details disabled />
-                                </div>
+                                
                                 <!-- Product -->
                                 <div class="input-group mb-3">
                                     <span class="col-3 input-group-text" data-i18n="device.management.product">Product</span>

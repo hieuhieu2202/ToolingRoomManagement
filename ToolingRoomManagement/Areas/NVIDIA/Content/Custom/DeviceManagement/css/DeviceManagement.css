@@ -86,3 +86,16 @@ td.td-py-0 {
     padding-top: 0 !important;
     padding-bottom: 0 !important;
 }
+
+#device_edit-DeliveryTime1::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+#device_edit-DeliveryTime2 {
+    -webkit-appearance: none; /* Safari and Chrome */
+    -moz-appearance: none; /* Firefox */
+    appearance: none;
+    padding: 0;
+}
+    #device_edit-DeliveryTime2::-ms-expand {
+        display: none;
+    }

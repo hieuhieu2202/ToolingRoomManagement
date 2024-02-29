@@ -160,16 +160,16 @@
                     </div>
                     <!-- Model -->
                     @*<div class="input-group mb-3">
-                          <span class="col-4 input-group-text" data-i18n="device.new_device.manual.model">Model</span>
-                          <input class="col-8 form-control" type="text" id="device_add-Model" list="device_add-Model_List" autocomplete="off" maxlength="50">
-                          <datalist id="device_add-Model_List"></datalist>
-                      </div>*@
-                                  <!-- Station -->
-                                  @*<div class="input-group mb-3">
-                          <span class="col-4 input-group-text" data-i18n="device.new_device.manual.station">Station</span>
-                          <input class="col-8 form-control" type="text" id="device_add-Station" list="device_add-Station_List" autocomplete="off" maxlength="50">
-                          <datalist id="device_add-Station_List"></datalist>
-                      </div>*@
+            <span class="col-4 input-group-text" data-i18n="device.new_device.manual.model">Model</span>
+            <input class="col-8 form-control" type="text" id="device_add-Model" list="device_add-Model_List" autocomplete="off" maxlength="50">
+            <datalist id="device_add-Model_List"></datalist>
+        </div>*@
+                    <!-- Station -->
+                    @*<div class="input-group mb-3">
+            <span class="col-4 input-group-text" data-i18n="device.new_device.manual.station">Station</span>
+            <input class="col-8 form-control" type="text" id="device_add-Station" list="device_add-Station_List" autocomplete="off" maxlength="50">
+            <datalist id="device_add-Station_List"></datalist>
+        </div>*@
                     <!-- Group -->
                     <div class="input-group mb-3">
                         <span class="col-4 input-group-text" data-i18n="device.new_device.manual.group">Group</span>
@@ -187,6 +187,15 @@
                         <span class="col-4 input-group-text">Alternative PN</span>
                         <input class="col-8 form-control" type="email" id="device_add-AltPN" list="device_add-Device_List" multiple>
                         <datalist id="device_add-Device_List"></datalist>
+                    </div>
+                    <!-- Alt PN -->
+                    <div class="input-group mb-3">
+                        <span class="col-4 input-group-text">Owner</span>
+                        <input class="col-8 form-control" type="text" id="device_add-DeviceOwner" list="device_add-DeviceOwner_List">
+                        <datalist id="device_add-DeviceOwner_List">
+                            <option>FXNV</option>
+                            <option>NV</option>
+                        </datalist>
                     </div>
                 </div>
                 <div class="col-4 d-flex flex-column justify-content-between">

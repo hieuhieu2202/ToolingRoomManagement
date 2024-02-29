@@ -231,12 +231,14 @@
                                                 <tbody id="tbdMaintenance">
                                                     @if (Model.Count() != 0)
                                                     {
-                                                        foreach (var item in Model)
+                                                        List<Model.EF.MaintenanceRobot> models = Model.ToList();
+                                                        models.Reverse();
+                                                        foreach (var item in models)
                                                         {
                                                             { dem++; }
                                                             <tr>
                                                                 <th style="text-align: center;">@dem</th>
-                                                                <td style="text-align: center;">@item.create_date.Value.ToString("dd/MM")</td>
+                                                                <td style="text-align: center;">@item.create_date.Value.ToString("dd/MM/yyyy")</td>
                                                                 <td style="text-align: center;">@item.create_date.Value.ToString("hh:mm")</td>
                                                                 <td style="text-align: center;">@item.station_name</td>
                                                                 <td style="text-align: center;">@(item.issue_1 == 1 ? "OK" : "R")</td>
@@ -333,7 +335,7 @@
             </div>
 
             <!-- Modal body -->
-            <div class="modal-body" style="height:530px;">
+            <div class="modal-body" style="height:580px;">
                 <input hidden id="id_rb" />
                 <table class="tblCreate" style="width:80%;float: left;margin-left:100px;">
                     <tr style="height:45px;">
@@ -396,6 +398,12 @@
                         <td>Ngoại quan sạch sẽ, 5s gọn gàng : </td>
                         <td>
                             <input type="radio" id="issue_9_OK" name="issue_9" value="1" /> OK <input type="radio" id="issue_9_NG" name="issue_9" value="2" /> NG
+                        </td>
+                    </tr>
+                    <tr style="height:45px;">
+                        <td>Ngày bảo dưỡng: </td>
+                        <td>
+                            <input type="datetime-local" id="create_date" />
                         </td>
                     </tr>
                     <tr style="height:45px;">
@@ -653,6 +661,15 @@
         } else {
             note = "";
         }
+        var create_date = "";
+        if ($('#create_date').val() != "") {
+            create_date = $('#create_date').val();
+        }
+        else {
+            alert("Chọn ngày bảo dưỡng.");
+            return;
+        }
+
         var id = 0;
         if ($("#id_rb").val() != "") {
             id = document.getElementById("id_rb").value;
@@ -671,6 +688,7 @@
         data.append("issue_7", issue_7);
         data.append("issue_8", issue_8);
         data.append("issue_9", issue_9);
+        data.append("create_date", create_date);
         data.append("note", note);
 
         $.ajax({
@@ -716,7 +734,7 @@
         $("#issue_9_OK").prop("checked", false)
         $("#issue_9_NG").prop("checked", false)
         $("#id_rb").val(id);
-        
+
         $("#station_name1").val(station_name);
         if (issue_1 == 1) {
             $("#issue_1_OK").prop('checked', true);
