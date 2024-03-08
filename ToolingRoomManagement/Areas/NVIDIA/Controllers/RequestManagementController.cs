@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.ComponentModel.Composition.Primitives;
 using System.Data.Entity;
 using System.Data.Entity.Migrations;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text.Json;
@@ -34,7 +35,8 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
         {
             try
             {
-                var borrows = db.Borrows.Select(b => new {
+                var borrows = db.Borrows.Select(b => new
+                {
                     Id = b.Id,
                     CreatedDate = b.DateBorrow,
                     Status = b.Status,
@@ -47,7 +49,8 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                     User = b.User
                 }).ToList();
 
-                var returns = db.Returns.Select(r => new {
+                var returns = db.Returns.Select(r => new
+                {
                     Id = r.Id,
                     CreatedDate = r.DateReturn,
                     ReturnDate = r.DateReturn,
@@ -59,7 +62,8 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                     User = r.User
                 }).ToList();
 
-                var exports = db.Exports.Select(e => new {
+                var exports = db.Exports.Select(e => new
+                {
                     Id = e.Id,
                     CreatedDate = e.CreatedDate,
                     Note = e.Note,
@@ -88,6 +92,8 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                             if (request != null)
                             {
                                 request.UserBorrowSigns = request.UserBorrowSigns.OrderBy(s => s.SignOrder).ToList();
+                                request = CalculateBorrowQuantity(request);
+
                                 return Json(new { status = true, request }, JsonRequestBehavior.AllowGet);
                             }
                             else
@@ -139,7 +145,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 var models = db.Models.ToList();
                 var stations = db.Stations.ToList();
 
-                return Json(new {status = true, models, stations}, JsonRequestBehavior.AllowGet);
+                return Json(new { status = true, models, stations }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
@@ -151,7 +157,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
         [HttpGet]
         public ActionResult SignManagement()
         {
-            
+
 
             return View();
         }
@@ -161,7 +167,8 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
             {
                 Entities.User user = (Entities.User)Session["SignSession"];
 
-                var borrows = db.Borrows.Where(b => b.UserBorrowSigns.Any(s => s.IdUser == user.Id)).Select(b => new {
+                var borrows = db.Borrows.Where(b => b.UserBorrowSigns.Any(s => s.IdUser == user.Id)).Select(b => new
+                {
                     Id = b.Id,
                     CreatedDate = b.DateBorrow,
                     Status = b.Status,
@@ -175,7 +182,8 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                     User = b.User
                 }).ToList();
 
-                var returns = db.Returns.Where(r => r.UserReturnSigns.Any(s => s.IdUser == user.Id)).Select(r => new {
+                var returns = db.Returns.Where(r => r.UserReturnSigns.Any(s => s.IdUser == user.Id)).Select(r => new
+                {
                     Id = r.Id,
                     CreatedDate = r.DateReturn,
                     ReturnDate = r.DateReturn,
@@ -188,7 +196,8 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                     User = r.User
                 }).ToList();
 
-                var exports = db.Exports.Where(e => e.UserExportSigns.Any(s => s.IdUser == user.Id)).Select(e => new {
+                var exports = db.Exports.Where(e => e.UserExportSigns.Any(s => s.IdUser == user.Id)).Select(e => new
+                {
                     Id = e.Id,
                     CreatedDate = e.CreatedDate,
                     Note = e.Note,
@@ -213,10 +222,10 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
             try
             {
                 var request = db.Borrows.FirstOrDefault(b => b.Id == IdRequest);
-                if(request != null)
+                if (request != null)
                 {
                     var userSign = request.UserBorrowSigns.FirstOrDefault(s => s.Status == "Pending");
-                    if(userSign != null && userSign.Id == IdSign)
+                    if (userSign != null && userSign.Id == IdSign)
                     {
                         userSign.Status = "Approved";
                         userSign.DateSign = DateTime.Now;
@@ -272,14 +281,14 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 if (request != null)
                 {
                     var userSign = request.UserBorrowSigns.FirstOrDefault(u => u.Status == "Pending");
-                    if (userSign != null &&  userSign.Id == IdSign)
+                    if (userSign != null && userSign.Id == IdSign)
                     {
                         request.Status = "Rejected";
 
                         userSign.Status = "Rejected";
                         userSign.DateSign = DateTime.Now;
                         userSign.Note = Note;
-                        
+
                         // RETURN SYSTEM QUANTITY
                         foreach (var requestDevice in request.BorrowDevices)
                         {
@@ -319,7 +328,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
             try
             {
                 var request = db.Returns.FirstOrDefault(b => b.Id == IdRequest);
-                if(request != null)
+                if (request != null)
                 {
                     var userSign = request.UserReturnSigns.FirstOrDefault(u => u.Status == "Pending");
                     if (userSign != null && userSign.Id == IdSign)
@@ -332,7 +341,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                             request.Status = "Approved";
 
                             // CALCULATE QUANTITY
-                            foreach(var returnDevice in request.ReturnDevices)
+                            foreach (var returnDevice in request.ReturnDevices)
                             {
                                 if (!(returnDevice.IsNG ?? false) && !(returnDevice.IsSwap ?? false)) // Trả bình thường
                                 {
@@ -406,7 +415,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                         userSign.Status = "Rejected";
                         userSign.DateSign = DateTime.Now;
                         userSign.Note = Note;
-                        
+
                         // CLOSE SIGN
                         foreach (var closeSign in request.UserReturnSigns)
                         {
@@ -439,28 +448,28 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
             try
             {
                 var request = db.Exports.FirstOrDefault(e => e.Id == IdRequest);
-                if(request != null)
+                if (request != null)
                 {
                     var userSign = request.UserExportSigns.FirstOrDefault(s => s.Status == "Pending");
-                    if(userSign != null && userSign.Id == IdSign)
+                    if (userSign != null && userSign.Id == IdSign)
                     {
                         userSign.Status = "Approved";
                         userSign.SignDate = DateTime.Now;
 
                         // REQUEST DONE
-                        if(userSign.SignOrder == request.UserExportSigns.Count)
+                        if (userSign.SignOrder == request.UserExportSigns.Count)
                         {
                             request.Status = "Approved";
 
                             foreach (var requestDevice in request.ExportDevices)
                             {
-                                if(request.Type == "Return NG")
+                                if (request.Type == "Return NG")
                                 {
                                     requestDevice.Device.NG_Qty = (requestDevice.Device.NG_Qty ?? 0) + requestDevice.ExportQuantity;
                                     requestDevice.Device.RealQty = (requestDevice.Device.RealQty ?? 0) - requestDevice.ExportQuantity;
                                     requestDevice.Device.SysQuantity = (requestDevice.Device.SysQuantity ?? 0) - requestDevice.ExportQuantity;
                                 }
-                                else if(request.Type == "Shipping")
+                                else if (request.Type == "Shipping")
                                 {
                                     requestDevice.Device.RealQty = (requestDevice.Device.RealQty ?? 0) - requestDevice.ExportQuantity;
                                     requestDevice.Device.SysQuantity = (requestDevice.Device.SysQuantity ?? 0) - requestDevice.ExportQuantity;
@@ -514,7 +523,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                         userSign.Status = "Rejected";
                         userSign.SignDate = DateTime.Now;
                         userSign.Note = Note;
-                        
+
                         // CLOSE SIGN
                         foreach (var closeSign in request.UserExportSigns)
                         {
@@ -705,7 +714,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
         }
 
         [HttpPost]
-        public ActionResult BorrowDevice(int[] IdDevices, int[] QtyDevices, int[] SignProcess, string UserBorrow, DateTime BorrowDate, DateTime? DueDate,string Model, string Station, string Note)
+        public ActionResult BorrowDevice(int[] IdDevices, int[] QtyDevices, int[] SignProcess, string UserBorrow, DateTime BorrowDate, DateTime? DueDate, string Model, string Station, string Note)
         {
             try
             {
@@ -792,7 +801,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                         SignOrder = i,
                         Type = "Borrow"
                     };
-                    if (i == 0) 
+                    if (i == 0)
                     {
                         userBorrowSign.Status = "Pending";
                     }
@@ -803,7 +812,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
 
                     userBorrowSigns.Add(userBorrowSign);
                 }
-                
+
                 db.UserBorrowSigns.AddRange(userBorrowSigns);
                 borrow.UserBorrowSigns = userBorrowSigns;
 
@@ -955,9 +964,9 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
         {
             try
             {
-                Entities.Warehouse warehouse = db.Warehouses.FirstOrDefault(w => w.Id == IdWarehouse);               
+                Entities.Warehouse warehouse = db.Warehouses.FirstOrDefault(w => w.Id == IdWarehouse);
 
-                if(warehouse != null)
+                if (warehouse != null)
                 {
                     warehouse.UserDeputy1 = db.Users.FirstOrDefault(u => u.Id == warehouse.IdUserDeputy1);
                     warehouse.UserDeputy2 = db.Users.FirstOrDefault(u => u.Id == warehouse.IdUserDeputy2);
@@ -985,15 +994,44 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
         {
             try
             {
-                Entities.User user = (Entities.User)Session["SignSession"];
-                List<Borrow> borrows = db.Borrows.Where(b => b.IdUser == user.Id && b.Status == "Approved" && (b.Type == "Borrow" || b.Type == "Take")).ToList();
-                for (int i = 0; i < borrows.Count; i++)
+                using (var dbContext = new ToolingRoomEntities())
                 {
-                    borrows[i].DevicesName = string.Join(",", borrows[i].BorrowDevices.Where(bd => bd.Device != null).Select(bd => bd.Device.DeviceCode));
-                    borrows[i] = CalculateBorrowQuantity(borrows[i]);
-                }
+                    dbContext.Configuration.LazyLoadingEnabled = false;
+                    Entities.User user = (Entities.User)Session["SignSession"];
 
-                return Json(new { status = true, borrows }, JsonRequestBehavior.AllowGet);
+                    List<Borrow> borrows = new List<Borrow>();
+                    if (user.Id == 1 || user.Id == 22)
+                    {
+
+                        borrows = dbContext.Borrows.Where(b => b.Status == "Approved" && (b.Type == "Borrow" || b.Type == "Take"))
+                                                   .Include(b => b.User)
+                                                   .Include(b => b.BorrowDevices.Select(bd => bd.Device))
+                                                   .ToList();
+
+
+                    }
+                    else
+                    {
+                        borrows = dbContext.Borrows.Where(b => b.IdUser == user.Id && b.Status == "Approved" && (b.Type == "Borrow" || b.Type == "Take"))
+                                                   .Include(b => b.User)
+                                                   .Include(b => b.BorrowDevices.Select(bd => bd.Device))
+                                                   .ToList();
+                    }
+
+
+                    for (int i = 0; i < borrows.Count; i++)
+                    {
+                        borrows[i] = CalculateBorrowQuantity(borrows[i]);
+                        borrows[i].DevicesName = string.Join(",", borrows[i].BorrowDevices.Where(bd => bd.Device != null).Select(bd => bd.Device.DeviceCode));
+                        
+                        foreach(var bd in borrows[i].BorrowDevices)
+                        {
+                            bd.Device = null;
+                        }
+                    }
+
+                    return Json(new { status = true, borrows }, JsonRequestBehavior.AllowGet);
+                }
             }
             catch (Exception ex)
             {
@@ -1199,9 +1237,10 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 if (data.ReturnDevices.Count == 0) return Json(new { status = false, message = "Please input return quantity." });
 
                 var borrow = db.Borrows.FirstOrDefault(b => b.Id == data.IdBorrow);
-                
+
                 if (borrow != null)
                 {
+                    data.IdUser = ((Entities.User)Session["SignSession"]).Id;
                     // Check Return Quantity
                     foreach (var returnDevice in data.ReturnDevices)
                     {
@@ -1236,7 +1275,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                     db.Returns.Add(data);
                     db.SaveChanges();
 
-                    
+
 
                     var borrowAfter = CalculateBorrowQuantity(borrow);
 
@@ -1256,25 +1295,32 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
         private Borrow CalculateBorrowQuantity(Borrow borrow)
         {
             List<BorrowDevice> borrowDevices = borrow.BorrowDevices.ToList();
-
+            
             foreach (var borrowDevice in borrowDevices)
             {
-                var returns = db.Returns.Where(r => r.IdBorrow == borrow.Id).ToList();
-
-                int totalReturnQty = 0;
-                foreach(var ireturn in returns)
+                List<Return> returns = db.Returns.Where(r => r.IdBorrow == borrow.Id && 
+                                                             r.ReturnDevices.Any(rd => rd.IdDevice == borrowDevice.IdDevice) &&
+                                                             r.Status == "Approved").ToList();
+                if(borrowDevice.IdDevice == 13868)
                 {
-                    var returnDevice = ireturn.ReturnDevices.FirstOrDefault(rd => rd.IdDevice == borrowDevice.IdDevice);
-                    if(returnDevice != null) totalReturnQty += returnDevice.ReturnQuantity ?? 0;
+                    Debug.WriteLine(00);
                 }
+                var deviceReturnQty = returns.SelectMany(r => r.ReturnDevices.Where(rd => rd.IdDevice == borrowDevice.IdDevice)).Sum(rd => rd.ReturnQuantity ?? 0);
 
-                if(totalReturnQty == borrowDevice.BorrowQuantity)
+                //int totalReturnQty = 0;
+                //foreach (var ireturn in returns)
+                //{
+                //    var returnDevice = ireturn.ReturnDevices.FirstOrDefault(rd => rd.IdDevice == borrowDevice.IdDevice);
+                //    if (returnDevice != null) totalReturnQty += returnDevice.ReturnQuantity ?? 0;
+                //}
+
+                if (deviceReturnQty == borrowDevice.BorrowQuantity)
                 {
                     borrow.BorrowDevices.Remove(borrowDevice);
                 }
                 else
                 {
-                    borrowDevice.BorrowQuantity -= totalReturnQty;
+                    borrowDevice.BorrowQuantity -= deviceReturnQty;
                 }
             }
 

@@ -142,9 +142,10 @@ function Return(Id) {
         success: function (response) {
             if (response.status) {
                 var borrow = response.request;
+
                 CreateReturnModal(borrow);
 
-                $('#CreateReturnRequest').attr('id', borrow.Id);
+                $('#CreateReturnRequest').data('id', borrow.Id);
 
                 $('#return_modal').modal('show');
             }
@@ -318,8 +319,6 @@ function GetDataReturn(idborrow, iduser) {
     //    Type: "Return",
     //    IdUser: $('#sign-WarehouseManagerUser').val()
     //});
-
-    console.log(data);
 
     return data;
 }

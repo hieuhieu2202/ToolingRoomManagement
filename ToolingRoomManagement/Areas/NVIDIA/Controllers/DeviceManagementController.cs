@@ -1088,7 +1088,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
 
                             int ComingQty = CountComingDevice(_PN);
                             int AltPnQty = (device.AlternativeDevices != null) ? CountAltPNQuantity(device.AlternativeDevices.ToList().First().PNs) : 0;
-                            int GAP = (int)((device.QtyConfirm + AltPnQty + ComingQty) - (_RequestQty + device.NG_Qty));
+                            int GAP = (int)((ComingQty + device.RealQty) - _RequestQty);
                             string Risk = (GAP > 0 && device.QtyConfirm > device.MinQty) ? "Low" : (GAP >= 0 && device.QtyConfirm <= device.MinQty) ? "Mid" : "High";
 
                             // MTS, Product, PN, AlternativePN, Description
@@ -1116,7 +1116,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                             // NGQuantity, RequestQuantity, GAP, Risk, HavePicture (Y/N), Owner
                             outWorksheet.Cells[row, 19].Value = (device.NG_Qty != null) ? device.NG_Qty : 0;
                             outWorksheet.Cells[row, 20].Value = _RequestQty;
-                            outWorksheet.Cells[row, 21].Formula = $"(H{row}+I{row}+Q{row})-(T{row}+S{row})";
+                            outWorksheet.Cells[row, 21].Formula = $"(Q{row}+R{row})-T{row}";
                             outWorksheet.Cells[row, 22].Value = Risk;
                             outWorksheet.Cells[row, 23].Value = (device.ImagePath != null) ? "Y" : "N";
                             outWorksheet.Cells[row, 24].Value = (device.DeviceOwner != null) ? device.DeviceOwner : "";

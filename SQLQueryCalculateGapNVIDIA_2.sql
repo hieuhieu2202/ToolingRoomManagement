@@ -3,13 +3,16 @@ WITH Calculations AS (
         D.Id,
         D.DeviceCode,
         D.DeviceName,
-        D.QtyConfirm,
+        D.QtyConfirm AS ConfirmQty,
         D.RealQty,
-		D.NG_Qty,
-        D.SysQuantity,
+		D.SysQuantity AS SystemQty,
+		D.NG_Qty AS NotGoodQty,
+		(D.RealQty - D.SysQuantity) AS PendingQty,
         ISNULL(BQ.BorrowQty, 0) AS BorrowQty,
         ISNULL(RQ.ReturnQty, 0) AS ReturnQty,
-        D.QtyConfirm - (D.SysQuantity + ISNULL(BQ.BorrowQty, 0) - ISNULL(RQ.ReturnQty, 0)) AS GAP
+		((D.RealQty - D.SysQuantity) + ISNULL(BQ.BorrowQty, 0)) AS OutWarehouseQty,
+		(D.RealQty + (D.RealQty - D.SysQuantity) + ISNULL(RQ.ReturnQty, 0) - D.NG_Qty) AS InWarehouseQty,
+        D.QtyConfirm - (D.SysQuantity + ISNULL(BQ.BorrowQty, 0) - ISNULL(RQ.ReturnQty, 0)) AS GAP,
     FROM
         dbo.Device D
     LEFT JOIN
@@ -30,7 +33,7 @@ WITH Calculations AS (
         (
             SELECT
                 RD.IdDevice,
-                SUM(RD.ReturnQuantity) AS ReturnQty
+                SUM(RD.ReturnQuantity) AS ReturnQty				
             FROM
                 dbo.[Return] R
             JOIN
@@ -38,7 +41,9 @@ WITH Calculations AS (
             WHERE
                 R.Status IN ('Approved', 'Pending')
             GROUP BY
-                RD.IdDevice
+                RD.IdDevice,
+				RD.IsNG,
+				RD.IsSwap
         ) RQ ON D.Id = RQ.IdDevice
     LEFT JOIN
         dbo.Borrow B ON D.Id = B.IdModel
