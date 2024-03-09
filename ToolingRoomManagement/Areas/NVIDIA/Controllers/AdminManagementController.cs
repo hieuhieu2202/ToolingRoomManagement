@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Web.Configuration;
 using System.Web.Mvc;
 using ToolingRoomManagement.Areas.NVIDIA.Entities;
-using static System.Collections.Specialized.BitVector32;
+using ToolingRoomManagement.Attributes;
 
 namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
 {
@@ -16,12 +16,14 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
         ToolingRoomEntities db = new ToolingRoomEntities();
 
         // GET: NVIDIA/AdminManagement/UserManagement
+        #region User Management
         public ActionResult UserManagement()
         {
             return View();
         }
 
         [HttpGet]
+        [Authentication(Role = "admin")]
         public JsonResult GetUsers()
         {
             try
@@ -118,9 +120,10 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
         {
             try
             {
-                if (db.Users.Any(u => u.Username == user.Username))
+                var updateUser = db.Users.FirstOrDefault(u => u.Username == user.Username);
+                if (updateUser != null)
                 {
-                    var updateUser = db.Users.FirstOrDefault(u => u.Username == user.Username);
+                    var ValidateMessage = ValidateUser(user);
 
                     updateUser.Username = user.Username;
                     updateUser.Password = user.Password;
@@ -131,8 +134,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                     updateUser.Status = user.Status;
                     updateUser.CreatedDate = user.CreatedDate;
 
-                    var ValidateMessage = ValidateUser(user);
-
+                   
                     if (string.IsNullOrEmpty(ValidateMessage))
                     {
                         db.Users.AddOrUpdate(updateUser);
@@ -213,8 +215,11 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
 
             return string.Empty;
         }
+        #endregion
 
         // GET: NVIDIA/AdminManagement/UserRoleManagement
+        #region Role Management
+        [Authentication(Role = "admin")]
         public ActionResult RoleManagement()
         {
             return View();
@@ -245,5 +250,6 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 return Json(new { status = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
+        #endregion
     }
 }

@@ -1,6 +1,6 @@
 ﻿$(function () {
-    $('#hidden_function').hide();
-    GetSelectData();
+    //$('#hidden_function').hide();
+    //GetSelectData();
 });
 
 // Get Device in Warehouse
@@ -789,7 +789,8 @@ $(document).ready(function () {
     }
 });
 
-// SML 1
+
+// BUffer
 $('#add-buffer').click(function () {
     var input = $('<input type="file">');
     input.on('change', function () {
@@ -833,7 +834,7 @@ function updateBuffer(file) {
     });
 }
 
-// SML 2
+// Limit
 $('#add-limit').click(function () {
     var input = $('<input type="file">');
     input.on('change', function () {
@@ -878,7 +879,7 @@ function updateLimit(file) {
     });
 }
 
-// SMl 3
+// Comming Devices
 $('#add-otw').click(function () {
     var input = $('<input type="file">');
     input.on('change', function () {
@@ -923,7 +924,7 @@ function updateComing(file) {
     });
 }
 
-// SMl 4
+// Type
 $('#add-type').click(function () {
     var input = $('<input type="file">');
     input.on('change', function () {
@@ -967,7 +968,7 @@ function updateType(file) {
         });
     });
 }
-// SMl 5
+// Relation
 $('#add-relation').click(function () {
     var input = $('<input type="file">');
     input.on('change', function () {
@@ -1012,7 +1013,7 @@ function updateRelation(file) {
     });
 }
 
-// SMl 6
+// Owner
 $('#add-owner').click(function () {
     var input = $('<input type="file">');
     input.on('change', function () {
@@ -1042,6 +1043,230 @@ function updateOwner(file) {
             success: function (response) {
                 if (response.status) {
                     toastr["success"]("Update Owner success.", "SUCCESS");
+                }
+                else {
+                    Swal.fire(i18next.t('global.swal_title'), response.message, 'error');
+                }
+            },
+            error: function (error) {
+                Swal.fire(i18next.t('global.swal_title'), GetAjaxErrorMessage(error), 'error');
+            },
+            complete: function () {
+                Pace.stop();
+            }
+        });
+    });
+}
+// Product
+$('#add-product').click(function () {
+    var input = $('<input type="file">');
+    input.on('change', function () {
+        var file = this.files[0];
+
+        updateProduct(file);
+
+    });
+    input.click();
+});
+function updateProduct(file) {
+    const formData = new FormData();
+    formData.append('file', file);
+
+    Pace.on('progress', function (progress) {
+        var cal = progress.toFixed(2);
+        $('#process_count').text(`${cal}%`);
+        $('#process_bar').css('width', `${cal}%`);
+    });
+    Pace.track(function () {
+        $.ajax({
+            url: "/NVIDIA/DeviceManagement/UpdateProduct",
+            data: formData,
+            type: "POST",
+            processData: false,
+            contentType: false,
+            success: function (response) {
+                if (response.status) {
+                    toastr["success"]("Update Product success.", "SUCCESS");
+                }
+                else {
+                    Swal.fire(i18next.t('global.swal_title'), response.message, 'error');
+                }
+            },
+            error: function (error) {
+                Swal.fire(i18next.t('global.swal_title'), GetAjaxErrorMessage(error), 'error');
+            },
+            complete: function () {
+                Pace.stop();
+            }
+        });
+    });
+}
+
+// Group & Vendor
+$('#add-group_vendor').click(function () {
+    var input = $('<input type="file">');
+    input.on('change', function () {
+        var file = this.files[0];
+
+        updateGroupAndVendor(file);
+
+    });
+    input.click();
+});
+function updateGroupAndVendor(file) {
+    const formData = new FormData();
+    formData.append('file', file);
+
+    Pace.on('progress', function (progress) {
+        var cal = progress.toFixed(2);
+        $('#process_count').text(`${cal}%`);
+        $('#process_bar').css('width', `${cal}%`);
+    });
+    Pace.track(function () {
+        $.ajax({
+            url: "/NVIDIA/DeviceManagement/UpdateGroupAndVendor",
+            data: formData,
+            type: "POST",
+            processData: false,
+            contentType: false,
+            success: function (response) {
+                if (response.status) {
+                    toastr["success"]("Update Group And Vendor success.", "SUCCESS");
+                }
+                else {
+                    Swal.fire(i18next.t('global.swal_title'), response.message, 'error');
+                }
+            },
+            error: function (error) {
+                Swal.fire(i18next.t('global.swal_title'), GetAjaxErrorMessage(error), 'error');
+            },
+            complete: function () {
+                Pace.stop();
+            }
+        });
+    });
+}
+
+// Description
+$('#add-desc').click(function () {
+    var input = $('<input type="file">');
+    input.on('change', function () {
+        var file = this.files[0];
+
+        updateDescription(file);
+
+    });
+    input.click();
+});
+function updateDescription(file) {
+    const formData = new FormData();
+    formData.append('file', file);
+
+    Pace.on('progress', function (progress) {
+        var cal = progress.toFixed(2);
+        $('#process_count').text(`${cal}%`);
+        $('#process_bar').css('width', `${cal}%`);
+    });
+    Pace.track(function () {
+        $.ajax({
+            url: "/NVIDIA/DeviceManagement/UpdateDescription",
+            data: formData,
+            type: "POST",
+            processData: false,
+            contentType: false,
+            success: function (response) {
+                if (response.status) {
+                    toastr["success"]("Update Description success.", "SUCCESS");
+                }
+                else {
+                    Swal.fire(i18next.t('global.swal_title'), response.message, 'error');
+                }
+            },
+            error: function (error) {
+                Swal.fire(i18next.t('global.swal_title'), GetAjaxErrorMessage(error), 'error');
+            },
+            complete: function () {
+                Pace.stop();
+            }
+        });
+    });
+}
+
+// Min Qty
+$('#add-min').click(function () {
+    var input = $('<input type="file">');
+    input.on('change', function () {
+        var file = this.files[0];
+
+        updateMinQty(file);
+
+    });
+    input.click();
+});
+function updateMinQty(file) {
+    const formData = new FormData();
+    formData.append('file', file);
+
+    Pace.on('progress', function (progress) {
+        var cal = progress.toFixed(2);
+        $('#process_count').text(`${cal}%`);
+        $('#process_bar').css('width', `${cal}%`);
+    });
+    Pace.track(function () {
+        $.ajax({
+            url: "/NVIDIA/DeviceManagement/UpdateMinQty",
+            data: formData,
+            type: "POST",
+            processData: false,
+            contentType: false,
+            success: function (response) {
+                if (response.status) {
+                    toastr["success"]("Update Min quantity success.", "SUCCESS");
+                }
+                else {
+                    Swal.fire(i18next.t('global.swal_title'), response.message, 'error');
+                }
+            },
+            error: function (error) {
+                Swal.fire(i18next.t('global.swal_title'), GetAjaxErrorMessage(error), 'error');
+            },
+            complete: function () {
+                Pace.stop();
+            }
+        });
+    });
+}
+
+// Device Product
+$('#add-deviceProduct').click(function () {
+    var input = $('<input type="file">');
+    input.on('change', function () {
+        var file = this.files[0];
+
+        updateDeviceProduct(file);
+
+    });
+    input.click();
+});
+function updateDeviceProduct(file) {
+    const formData = new FormData();
+    formData.append('file', file);
+
+    Pace.on('progress', function (progress) {
+        var cal = progress.toFixed(2);
+        $('#process_count').text(`${cal}%`);
+        $('#process_bar').css('width', `${cal}%`);
+    });
+    Pace.track(function () {
+        $.ajax({
+            url: "/NVIDIA/DeviceManagement/UpdateDeviceProduct",
+            data: formData,
+            type: "POST",
+            processData: false,
+            contentType: false,
+            success: function (response) {
+                if (response.status) {
+                    toastr["success"]("Update Device Product success.", "SUCCESS");
                 }
                 else {
                     Swal.fire(i18next.t('global.swal_title'), response.message, 'error');

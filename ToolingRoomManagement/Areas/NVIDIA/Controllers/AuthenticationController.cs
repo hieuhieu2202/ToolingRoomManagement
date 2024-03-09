@@ -30,7 +30,11 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 
                 using(var db = new ToolingRoomEntities())
                 {
-                    Entities.User user = db.Users.FirstOrDefault(u => u.Username == Username);
+                    db.Configuration.LazyLoadingEnabled = false;
+
+                    Entities.User user = db.Users.Include("UserRoles.Role")
+                                                 .FirstOrDefault(u => u.Username == Username);
+
                     if (user != null && user.Status != "No Active")
                     {
                         if (HashValue(user.Password) == Password)
@@ -66,7 +70,8 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
             {
                 using(var db = new ToolingRoomEntities())
                 {
-                    Entities.User user = db.Users.FirstOrDefault(u => u.Username == Username);
+                    Entities.User user = db.Users.Include("UserRoles.Role")
+                                                 .FirstOrDefault(u => u.Username == Username);
                     if (user != null && user.Status != "No Active")
                     {
                         if (user.Password == Password)
@@ -175,7 +180,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 if(CreatePassword != ConfirmPassword) return Json(new { status = false, message = "Mismatched Create Password and Confirm Password." });
 
                 var ApiData = await GetInfoUserAPI(Username);
-                if (string.IsNullOrEmpty(ApiData) || string.IsNullOrWhiteSpace(ApiData)) return Json(new { error = true, message = "The Card ID does not exist in the system." });
+                if (string.IsNullOrEmpty(ApiData) || string.IsNullOrWhiteSpace(ApiData)) return Json(new { error = true, message = "The Card ID does not exist in the HR system." });
 
                 dynamic HrUser = JsonConvert.DeserializeObject(ApiData.ToString());
 
@@ -193,13 +198,20 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
 
                 if(DateTime.Now >= user.LeaveDate)
                 {
-                    return Json(new { status = false, message = "User does not exist in the system." });
+                    return Json(new { status = false, message = "User does not exist in the HR system." });
                 }
 
                 using(var db = new ToolingRoomEntities())
                 {
-                    db.Users.Add(user);
-                    db.SaveChanges();
+                    if( db.Users.Any(u => u.Username == user.Username))
+                    {
+                        return Json(new { status = false, message = $"User {user.Username}  has been exists. <br/>If you forgot your password, please contact: <br/>[you-nan.ruan@mail.foxconn.com] (A-IOT Team)" });
+                    }
+                    else
+                    {
+                        db.Users.Add(user);
+                        db.SaveChanges();
+                    }
                 }
 
                 return Json(new { status = true, user, redirectTo = "/NVIDIA/Authentication/SignIn" });

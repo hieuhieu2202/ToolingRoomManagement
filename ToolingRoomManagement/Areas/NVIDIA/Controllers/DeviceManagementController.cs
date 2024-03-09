@@ -24,7 +24,6 @@ using Group = ToolingRoomManagement.Areas.NVIDIA.Entities.Group;
 
 namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
 {
-    [Authentication]
     public class DeviceManagementController : Controller
     {
         private readonly ToolingRoomEntities db = new ToolingRoomEntities();
@@ -32,12 +31,14 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
         /* ADD DEVICE MANUAL */
         #region Add device manual
         [HttpGet]
+        [Authentication(Role = "CRUD")]
         public ActionResult AddDeviceManual()
         {
             return View();
         }
 
         [HttpPost]
+        [Authentication(Role = "CRUD")]
         public JsonResult AddDeviceManual(FormCollection form)
         {
             try
@@ -113,7 +114,8 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 }
 
                 // Alternative PN
-                AlternativeDevice altdevice = new AlternativeDevice {
+                AlternativeDevice altdevice = new AlternativeDevice
+                {
                     IdDevice = device.Id,
                     PNs = form["AlternativePN"]
                 };
@@ -127,6 +129,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 return Json(new { status = false, message = ex.Message });
             }
         }
+        [Authentication(Role = "CRUD")]
         private string SaveImage(HttpPostedFileBase file, int IdDevice, bool isUnconfirm = false)
         {
             try
@@ -164,13 +167,13 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 string sProductname = dProductNames[0].Trim();
                 product = db.Products.FirstOrDefault(p => p.ProductName == sProductname);
             }
-            else if(dProductNames.Length == 2)
+            else if (dProductNames.Length == 2)
             {
                 string sProductname = dProductNames[0].Trim();
                 string sMTS = dProductNames[1].Trim();
                 product = db.Products.FirstOrDefault(p => p.ProductName == sProductname && p.MTS == sMTS);
             }
-            
+
             Entities.Model model = db.Models.FirstOrDefault(p => p.ModelName == dModelName);
             Entities.Station station = db.Stations.FirstOrDefault(p => p.StationName == dStationName);
             Entities.Group group = db.Groups.FirstOrDefault(p => p.GroupName == dGroupName);
@@ -222,6 +225,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
 
             return device;
         }
+        [Authentication(Role = "CRUD")]
         private List<DeviceWarehouseLayout> AddLayout(FormCollection form, Entities.Device device)
         {
             if (form["Layout"] != null)
@@ -262,10 +266,12 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
         /* DEVICE MANAGERMENT */
         #region Device Management
         [HttpGet]
+        [Authentication]
         public ActionResult DeviceManagement()
         {
             return View();
         }
+        [Authentication(Role = "CRUD")]
         public JsonResult DeleteImage(string src)
         {
             try
@@ -296,6 +302,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
         }
 
         [HttpPost]
+        [Authentication(Role = "CRUD")]
         public JsonResult ConfirmDevice(int Id, int QtyConfirm)
         {
             try
@@ -341,6 +348,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 return Json(new { status = false, message = ex.Message });
             }
         }
+        [Authentication(Role = "CRUD")]
         public JsonResult UpdateDevice(FormCollection form)
         {
             try
@@ -354,7 +362,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 string productname = products[0].Trim();
                 string mts = products.Length == 2 ? products[1].Trim() : "";
 
-                var product = db.Products.FirstOrDefault(p => p.ProductName == productname && (mts != string.Empty ? p.MTS == mts : true ));
+                var product = db.Products.FirstOrDefault(p => p.ProductName == productname && (mts != string.Empty ? p.MTS == mts : true));
                 var group = db.Groups.FirstOrDefault(g => g.GroupName == groupname);
                 var vendor = db.Vendors.FirstOrDefault(v => v.VendorName == vendorname);
 
@@ -365,7 +373,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                     {
                         Id = oldDevice.Id,
                         DeviceCode = form["DeviceCode"],
-                        DeviceName = form["DeviceName"],                     
+                        DeviceName = form["DeviceName"],
                         DeviceDate = DateTime.Now,
                         Buffer = (double)Math.Round(double.Parse(form["Buffer"]), 2),
                         Quantity = int.Parse(form["Quantity"]),
@@ -398,7 +406,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                     };
                     // Alternative PN
                     var AltPN = oldDevice.AlternativeDevices.FirstOrDefault();
-                    if( AltPN != null)
+                    if (AltPN != null)
                     {
                         AltPN.PNs = form["AltPNs"];
                         device.AlternativeDevices.Add(AltPN);
@@ -413,7 +421,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
 
                         db.AlternativeDevices.Add(AltPN);
                         device.AlternativeDevices.Add(AltPN);
-                    }                                                    
+                    }
 
                     // *** Đừng xoá ngoặc :((
                     device.SysQuantity = device.RealQty - (oldDevice.RealQty - oldDevice.SysQuantity);
@@ -443,6 +451,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 return Json(new { status = false, message = ex.Message });
             }
         }
+        [Authentication(Role = "CRUD")]
         public JsonResult UpdateImage(FormCollection form)
         {
             try
@@ -450,7 +459,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 int id = int.Parse(form["deviceid"]);
 
                 var device = db.Devices.FirstOrDefault(d => d.Id == id);
-                if(device != null)
+                if (device != null)
                 {
                     var files = Request.Files;
                     if (Request.Files.Count > 0)
@@ -484,7 +493,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 return Json(new { status = false, message = ex.Message });
             }
         }
-        
+        [Authentication(Role = "CRUD")]
         public JsonResult DeleteDevice(int Id)
         {
             try
@@ -517,6 +526,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
         /* ADD DEVICE FORM BOM */
         #region ADD DEVICE FORM BOM
         [HttpGet]
+        [Authentication]
         public ActionResult AddDeviceBOM()
         {
             return View();
@@ -558,8 +568,8 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                             {
                                 devices.Add(device);
                                 db.DeviceUnconfirms.Add(device);
-                               
-                                if(alternativePN != string.Empty)
+
+                                if (alternativePN != string.Empty)
                                 {
                                     AlternativeDevice alternative = new AlternativeDevice
                                     {
@@ -583,10 +593,10 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                                     alternative.PNs = alternativePN;
                                     db.AlternativeDevices.AddOrUpdate(alternative);
                                 }
-                                
+
                                 db.SaveChanges();
-                            }                      
-                        }                      
+                            }
+                        }
 
                         return Json(new { status = true, devices });
                     }
@@ -607,7 +617,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
 
             // Lấy các giá trị từ worksheet
             var productName = worksheet.Cells[row, 1].Value?.ToString();
-            var productMTS = worksheet.Cells[row, 2].Value?.ToString();            
+            var productMTS = worksheet.Cells[row, 2].Value?.ToString();
 
             var deviceCode = worksheet.Cells[row, 7].Value?.ToString();
             var deviceName = worksheet.Cells[row, 8].Value?.ToString();
@@ -617,7 +627,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
             int minQty = int.TryParse(worksheet.Cells[row, 12].Value?.ToString(), out minQty) ? minQty : 0;
             var ACC_KIT = worksheet.Cells[row, 15].Value?.ToString();
             var relation = worksheet.Cells[row, 16].Value?.ToString();
-            
+
             //var modelName = worksheet.Cells[row, 15].Value?.ToString();
             //var stationName = worksheet.Cells[row, 16].Value?.ToString();
 
@@ -694,7 +704,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
             #region Device
             device.DeviceCode = deviceCode;
             device.DeviceName = deviceName;
-            
+
             device.MinQty = minQty;
             device.ACC_KIT = ACC_KIT;
             device.Relation = relation;
@@ -728,11 +738,12 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 d.DeviceCode == device.DeviceCode &&
                 d.DeviceName == device.DeviceName);
 
-            if (dbDevice != null) {
+            if (dbDevice != null)
+            {
                 dbDevice.IdWareHouse = device.IdWareHouse;
                 return dbDevice;
             }
-            
+
             else return null;
         }
         #endregion
@@ -752,7 +763,11 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 var stations = db.Stations.OrderBy(m => m.StationName).ToList();
                 var groups = db.Groups.OrderBy(m => m.GroupName).ToList();
                 var vendors = db.Vendors.OrderBy(m => m.VendorName).ToList();
-                var deviceCodes = db.Devices.Where(d => d.DeviceCode != null && !string.IsNullOrEmpty(d.DeviceCode)).Select(d => d.DeviceCode).ToList();
+                var deviceCodes = db.Devices.Where(d => d.DeviceCode != null && !string.IsNullOrEmpty(d.DeviceCode))
+                                            .Select(d => d.DeviceCode)
+                                            .Distinct()
+                                            .ToList();
+
 
                 return Json(new { status = true, warehouses, products, models, stations, groups, vendors, deviceCodes }, JsonRequestBehavior.AllowGet);
             }
@@ -799,6 +814,25 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
             {
                 return Json(new { status = false, message = ex.Message });
             }
+        }      
+        public JsonResult GetDeviceByCode(string DeviceCode)
+        {
+            try
+            {
+                Device device = db.Devices.FirstOrDefault(d => d.DeviceCode.ToUpper().Trim() == DeviceCode.ToUpper().Trim());
+                if (device != null)
+                {                  
+                    return Json(new { status = true, device }, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    return Json(new { status = false, message = "Device not found." }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
         }
 
         [HttpPost]
@@ -835,7 +869,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
             {
                 return Json(new { status = false, message = ex.Message });
             }
-        }        
+        }
         public List<Borrow> GetDeviceBorrows(Device device)
         {
             List<Borrow> borrows = db.Borrows.Where(b => b.BorrowDevices.Any(bd => bd.IdDevice == device.Id)).ToList();
@@ -899,9 +933,9 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
             {
                 if (!string.IsNullOrEmpty(device.ImagePath)) images = Directory.GetFiles(device.ImagePath).ToList();
             }
-            catch 
+            catch
             {
-                
+
             }
             return images;
         }
@@ -1068,7 +1102,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                             device.Group = devices?.FirstOrDefault(d => d.Group != null)?.Group;
                             device.Vendor = devices?.FirstOrDefault(d => d.Vendor != null)?.Vendor;
 
-                            var dtemp1 =devices.FirstOrDefault(d => d.AlternativeDevices != null && d.AlternativeDevices.Count > 0);
+                            var dtemp1 = devices.FirstOrDefault(d => d.AlternativeDevices != null && d.AlternativeDevices.Count > 0);
                             device.AlternativeDevices = dtemp1 != null ? dtemp1.AlternativeDevices : null;
 
                             device.QtyConfirm = devices.Sum(d => d.QtyConfirm);
@@ -1170,7 +1204,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
 
             try
             {
-               
+
             }
             catch (Exception ex)
             {
@@ -1181,7 +1215,8 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
 
         /* CONFIRM  DEVICE */
         #region Device Confirm
-        // [HttpGet]
+        [HttpGet]
+        [Authentication]
         public ActionResult ConfirmDevice()
         {
             return View();
@@ -1196,7 +1231,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
             }
             catch (Exception ex)
             {
-                return Json(new {status = false, message = ex.Message}, JsonRequestBehavior.AllowGet);
+                return Json(new { status = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
         public JsonResult GetDeviceUnconfirm(int Id)
@@ -1215,7 +1250,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 else
                 {
                     return Json(new { status = false, message = "Device not found." });
-                }              
+                }
             }
             catch (Exception ex)
             {
@@ -1292,7 +1327,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
             {
                 return Json(new { status = false, message = ex.Message });
             }
-        }     
+        }
         public JsonResult AddConfirmDevice(FormCollection form)
         {
             try
@@ -1318,7 +1353,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                         MinQty = int.Parse(form["MinQty"]),
                         Relation = form["Relation"],
                         LifeCycle = int.Parse(form["LifeCycle"]),
-                        
+
                         QtyConfirm = int.Parse(form["QtyConfirm"]),
                         Unit = form["Unit"],
 
@@ -1355,11 +1390,11 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 else
                 {
                     return Json(new { status = false, message = "Device not found." });
-                } 
+                }
             }
             catch (Exception ex)
             {
-                return Json(new {status = false, message = ex.Message});
+                return Json(new { status = false, message = ex.Message });
             }
         }
         private string CopyImages(DeviceUnconfirm deviceUnconfirm, Entities.Device device)
@@ -1392,7 +1427,8 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
 
         /* COMING DEVICE */
         #region Coming
-        // [HttpGet]
+        [HttpGet]
+        [Authentication]
         public ActionResult ComingDevice()
         {
             return View();
@@ -1401,12 +1437,12 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
         {
             try
             {
-                var ComingDevices = db.ComingDevices.OrderByDescending(d => d.Id).ToList();              
+                var ComingDevices = db.ComingDevices.OrderByDescending(d => d.Id).ToList();
                 return Json(new { status = true, ComingDevices }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
-                return Json(new { status = false, message = ex.Message}, JsonRequestBehavior.AllowGet);
+                return Json(new { status = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
         public JsonResult GetComingDevice(int Id)
@@ -1414,7 +1450,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
             try
             {
                 var ComingDevice = db.ComingDevices.FirstOrDefault(d => d.Id == Id);
-                if(ComingDevice != null)
+                if (ComingDevice != null)
                 {
                     if (ComingDevice.Device != null)
                     {
@@ -1434,7 +1470,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 else
                 {
                     return Json(new { status = false, message = "Coming device not found." }, JsonRequestBehavior.AllowGet);
-                } 
+                }
             }
             catch (Exception ex)
             {
@@ -1445,7 +1481,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
         {
             try
             {
-                if(Type == "confirm")
+                if (Type == "confirm")
                 {
                     var device = db.Devices.FirstOrDefault(d => d.Id == Id);
                     if (device != null)
@@ -1461,7 +1497,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                         return Json(new { status = false, message = "Device not found." }, JsonRequestBehavior.AllowGet);
                     }
                 }
-                else if(Type == "unconfirm")
+                else if (Type == "unconfirm")
                 {
                     var device = db.DeviceUnconfirms.FirstOrDefault(d => d.Id == Id);
                     if (device != null)
@@ -1480,7 +1516,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 else
                 {
                     return Json(new { status = false, message = "Type not found." }, JsonRequestBehavior.AllowGet);
-                }               
+                }
             }
             catch (Exception ex)
             {
@@ -1506,17 +1542,17 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
             }
             catch (Exception ex)
             {
-                return Json(new {status = false, message = ex.Message}, JsonRequestBehavior.AllowGet);
+                return Json(new { status = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
             }
-            
+
         }
 
-        // [HttpPost]
+        [HttpPost]
         public JsonResult AddComingDevice(ComingDevice ComingDevice)
         {
             try
             {
-                if(ComingDevice.ComingQty <= 0 || ComingDevice.ComingQty == null || (ComingDevice.IdDevice == null && ComingDevice.IdDeviceUnconfirm == null))
+                if (ComingDevice.ComingQty <= 0 || ComingDevice.ComingQty == null || (ComingDevice.IdDevice == null && ComingDevice.IdDeviceUnconfirm == null))
                 {
                     return Json(new { status = false, message = "Please double check data." });
                 }
@@ -1550,7 +1586,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                     return Json(new { status = false, message = "Please double check data." });
                 }
 
-                var dbComingDevice = db.ComingDevices.FirstOrDefault(db => db.Id ==  ComingDevice.Id);
+                var dbComingDevice = db.ComingDevices.FirstOrDefault(db => db.Id == ComingDevice.Id);
                 dbComingDevice.ComingQty = ComingDevice.ComingQty;
                 dbComingDevice.Type = ComingDevice.Type;
                 dbComingDevice.IsConsign = ComingDevice.IsConsign;
@@ -1572,7 +1608,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
             {
                 var ComingDevice = db.ComingDevices.FirstOrDefault(d => d.Id == Id);
 
-                if(ComingDevice != null)
+                if (ComingDevice != null)
                 {
                     db.ComingDevices.Remove(ComingDevice);
                     db.SaveChanges();
@@ -1593,7 +1629,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
             try
             {
                 var ComingDevice = db.ComingDevices.FirstOrDefault(d => d.Id == cDeviceId);
-                if(ComingDevice != null)
+                if (ComingDevice != null)
                 {
                     var device = CreateDeviceInfo(ComingDevice);
 
@@ -1619,7 +1655,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
 
                         return Json(new { status = true, ComingDevice });
                     }
-                    else if(ConfirmQty > ComingDevice.ComingQty)
+                    else if (ConfirmQty > ComingDevice.ComingQty)
                     {
                         return Json(new { status = false, message = $"Please double check confirm quantity. Max = {ComingDevice.ComingQty}." });
                     }
@@ -1908,7 +1944,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                                         Debug.WriteLine($"PN: {_PN}, Row: {row}");
                                         continue;
                                     }
-                                    
+
                                 }
                             }
 
@@ -2109,6 +2145,362 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 return Json(new { status = false, message = ex.Message });
             }
         }
+        public ActionResult UpdateProduct(HttpPostedFileBase file)
+        {
+            try
+            {
+                ExcelPackage.LicenseContext = OfficeOpenXml.LicenseContext.NonCommercial;
+
+                if (file != null && file.ContentLength > 0)
+                {
+                    string fileName = $"UpdateMTS - {DateTime.Now.ToString("yyyy.MM.dd HH.mm.ss.ff")}.xlsx";
+                    string folderPath = Server.MapPath("/Data/NewToolingroom");
+                    string filePath = Path.Combine(folderPath, fileName);
+
+                    #region Check Folder
+                    if (!Directory.Exists(folderPath))
+                    {
+                        Directory.CreateDirectory(folderPath);
+                    }
+                    else
+                    {
+                        foreach (string fileii in Directory.GetFiles(folderPath))
+                        {
+                            System.IO.File.Delete(fileii);
+                        }
+                    }
+                    #endregion
+
+                    using (var package = new ExcelPackage(file.InputStream))
+                    {
+                        var worksheet = package.Workbook.Worksheets[0];
+                        foreach (int row in Enumerable.Range(2, worksheet.Dimension.End.Row - 1))
+                        {
+                            var _MTS = worksheet.Cells[row, 1].Value?.ToString();
+                            var _Product = worksheet.Cells[row, 2].Value?.ToString();
+
+                            var products = db.Products.Where(p => p.MTS.ToUpper().Trim() == _MTS.ToUpper().Trim()).ToList();
+
+                            if (_MTS != null && products.Count > 0)
+                            {
+                                products.First().ProductName = _Product;
+                                db.Products.AddOrUpdate(products.First());
+
+                                for (int i = 1; i < products.Count; i++)
+                                {
+                                    var IdProduct = products[i].Id;
+                                    var devices = db.Devices.Where(d => d.IdProduct == IdProduct).ToList();
+                                    foreach (var device in devices)
+                                    {
+                                        device.IdProduct = products.First().Id;
+                                        db.Devices.AddOrUpdate(device);
+                                    }
+
+                                    db.Products.Remove(products[i]);
+                                    db.SaveChanges();
+                                }
+                            }
+                            else
+                            {
+                                var product = new Product
+                                {
+                                    MTS = _MTS,
+                                    ProductName = _Product,
+                                };
+                                db.Products.Add(product);
+                                db.SaveChanges();
+                            }
+                        }
+
+
+                        return Json(new { status = true });
+                    }
+                }
+                else
+                {
+                    return Json(new { status = false, message = "File is empty" });
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = false, message = ex.Message });
+            }
+        }
+        public ActionResult UpdateDescription(HttpPostedFileBase file)
+        {
+            try
+            {
+                ExcelPackage.LicenseContext = OfficeOpenXml.LicenseContext.NonCommercial;
+
+                if (file != null && file.ContentLength > 0)
+                {
+                    string fileName = $"UpdateDescription - {DateTime.Now.ToString("yyyy.MM.dd HH.mm.ss.ff")}.xlsx";
+                    string folderPath = Server.MapPath("/Data/NewToolingroom");
+                    string filePath = Path.Combine(folderPath, fileName);
+
+                    #region Check Folder
+                    if (!Directory.Exists(folderPath))
+                    {
+                        Directory.CreateDirectory(folderPath);
+                    }
+                    else
+                    {
+                        foreach (string fileii in Directory.GetFiles(folderPath))
+                        {
+                            System.IO.File.Delete(fileii);
+                        }
+                    }
+                    #endregion
+
+                    using (var package = new ExcelPackage(file.InputStream))
+                    {
+                        var worksheet = package.Workbook.Worksheets[0];
+                        foreach (int row in Enumerable.Range(2, worksheet.Dimension.End.Row - 1))
+                        {
+                            var _PN = worksheet.Cells[row, 1].Value?.ToString();
+                            var _Desc = worksheet.Cells[row, 2].Value?.ToString();
+
+                            var devices = db.Devices.Where(d => d.DeviceCode.ToUpper().Trim() == _PN.ToUpper().Trim()).ToList();
+
+                            if (_PN != null && devices.Count > 0)
+                            {
+                                foreach (var device in devices)
+                                {
+                                    device.DeviceName = _Desc.Trim();
+                                    db.Devices.AddOrUpdate(device);
+                                }
+                            }
+                        }
+                        db.SaveChanges();
+
+                        return Json(new { status = true });
+                    }
+                }
+                else
+                {
+                    return Json(new { status = false, message = "File is empty" });
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = false, message = ex.Message });
+            }
+        }
+        public ActionResult UpdateGroupAndVendor(HttpPostedFileBase file)
+        {
+            try
+            {
+                ExcelPackage.LicenseContext = OfficeOpenXml.LicenseContext.NonCommercial;
+
+                if (file != null && file.ContentLength > 0)
+                {
+                    string fileName = $"UpdateGroupVendor - {DateTime.Now.ToString("yyyy.MM.dd HH.mm.ss.ff")}.xlsx";
+                    string folderPath = Server.MapPath("/Data/NewToolingroom");
+                    string filePath = Path.Combine(folderPath, fileName);
+
+                    #region Check Folder
+                    if (!Directory.Exists(folderPath))
+                    {
+                        Directory.CreateDirectory(folderPath);
+                    }
+                    else
+                    {
+                        foreach (string fileii in Directory.GetFiles(folderPath))
+                        {
+                            System.IO.File.Delete(fileii);
+                        }
+                    }
+                    #endregion
+
+                    using (var package = new ExcelPackage(file.InputStream))
+                    {
+                        var worksheet = package.Workbook.Worksheets[0];
+                        foreach (int row in Enumerable.Range(2, worksheet.Dimension.End.Row - 1))
+                        {
+                            var _PN = worksheet.Cells[row, 1].Value?.ToString();
+                            var _Group = worksheet.Cells[row, 2].Value?.ToString();
+                            var _Vendor = worksheet.Cells[row, 3].Value?.ToString();
+
+                            var devices = db.Devices.Where(d => d.DeviceCode.ToUpper().Trim() == _PN.ToUpper().Trim()).ToList();
+
+                            if (_PN != null && devices.Count > 0)
+                            {
+                                foreach (var device in devices)
+                                {
+                                    var group = db.Groups.FirstOrDefault(g => g.GroupName.ToUpper().Trim() == _Group.ToUpper().Trim());
+                                    var vendor = db.Vendors.FirstOrDefault(g => g.VendorName.ToUpper().Trim() == _Vendor.ToUpper().Trim());
+
+                                    if (group == null)
+                                    {
+                                        group = new Group
+                                        {
+                                            GroupName = _Group
+                                        };
+                                        db.Groups.Add(group);
+                                    }
+                                    else
+                                    {
+                                        group.GroupName = _Group.Trim();
+                                        db.Groups.AddOrUpdate(group);
+                                    }
+                                    if (vendor == null)
+                                    {
+                                        vendor = new Vendor
+                                        {
+                                            VendorName = _Vendor
+                                        };
+                                        db.Vendors.Add(vendor);
+                                    }
+                                    else
+                                    {
+                                        vendor.VendorName = _Vendor.Trim();
+                                        db.Vendors.AddOrUpdate(vendor);
+                                    }
+
+                                    device.IdGroup = group.Id;
+                                    device.IdVendor = vendor.Id;
+                                    db.Devices.AddOrUpdate(device);
+                                }
+                            }
+                        }
+                        db.SaveChanges();
+
+                        return Json(new { status = true });
+                    }
+                }
+                else
+                {
+                    return Json(new { status = false, message = "File is empty" });
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = false, message = ex.Message });
+            }
+        }
+        public ActionResult UpdateMinQty(HttpPostedFileBase file)
+        {
+            try
+            {
+                ExcelPackage.LicenseContext = OfficeOpenXml.LicenseContext.NonCommercial;
+
+                if (file != null && file.ContentLength > 0)
+                {
+                    string fileName = $"UpdateMinQty - {DateTime.Now.ToString("yyyy.MM.dd HH.mm.ss.ff")}.xlsx";
+                    string folderPath = Server.MapPath("/Data/NewToolingroom");
+                    string filePath = Path.Combine(folderPath, fileName);
+
+                    #region Check Folder
+                    if (!Directory.Exists(folderPath))
+                    {
+                        Directory.CreateDirectory(folderPath);
+                    }
+                    else
+                    {
+                        foreach (string fileii in Directory.GetFiles(folderPath))
+                        {
+                            System.IO.File.Delete(fileii);
+                        }
+                    }
+                    #endregion
+
+                    using (var package = new ExcelPackage(file.InputStream))
+                    {
+                        var worksheet = package.Workbook.Worksheets[0];
+                        foreach (int row in Enumerable.Range(2, worksheet.Dimension.End.Row - 1))
+                        {
+                            var _PN = worksheet.Cells[row, 1].Value?.ToString();
+                            var _MinQty = worksheet.Cells[row, 2].Value?.ToString();
+
+                            var devices = db.Devices.Where(d => d.DeviceCode.ToUpper().Trim() == _PN.ToUpper().Trim()).ToList();
+
+                            if (_PN != null && devices.Count > 0)
+                            {
+                                foreach (var device in devices)
+                                {
+                                    device.MinQty = int.Parse(_MinQty);
+                                    db.Devices.AddOrUpdate(device);
+                                }
+                            }
+                        }
+                        db.SaveChanges();
+
+                        return Json(new { status = true });
+                    }
+                }
+                else
+                {
+                    return Json(new { status = false, message = "File is empty" });
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = false, message = ex.Message });
+            }
+        }
+        public ActionResult UpdateDeviceProduct(HttpPostedFileBase file)
+        {
+            try
+            {
+                ExcelPackage.LicenseContext = OfficeOpenXml.LicenseContext.NonCommercial;
+
+                if (file != null && file.ContentLength > 0)
+                {
+                    string fileName = $"UpdateDeviceProduct - {DateTime.Now.ToString("yyyy.MM.dd HH.mm.ss.ff")}.xlsx";
+                    string folderPath = Server.MapPath("/Data/NewToolingroom");
+                    string filePath = Path.Combine(folderPath, fileName);
+
+                    #region Check Folder
+                    if (!Directory.Exists(folderPath))
+                    {
+                        Directory.CreateDirectory(folderPath);
+                    }
+                    else
+                    {
+                        foreach (string fileii in Directory.GetFiles(folderPath))
+                        {
+                            System.IO.File.Delete(fileii);
+                        }
+                    }
+                    #endregion
+
+                    using (var package = new ExcelPackage(file.InputStream))
+                    {
+                        var worksheet = package.Workbook.Worksheets[0];
+                        foreach (int row in Enumerable.Range(2, worksheet.Dimension.End.Row - 1))
+                        {
+                            var _PN = worksheet.Cells[row, 1].Value?.ToString();
+                            var _MTS = worksheet.Cells[row, 2].Value?.ToString();
+
+                            var devices = db.Devices.Where(d => d.DeviceCode.ToUpper().Trim() == _PN.ToUpper().Trim()).ToList();
+
+                            if (_PN != null && devices.Count > 0)
+                            {
+                                foreach (var device in devices)
+                                {
+                                    var product = db.Products.FirstOrDefault(p => p.MTS.ToUpper().Trim() == _MTS.ToUpper().Trim());
+
+                                    device.IdProduct = product.Id;
+                                    db.Devices.AddOrUpdate(device);
+                                }
+                            }
+                        }
+                        db.SaveChanges();
+
+                        return Json(new { status = true });
+                    }
+                }
+                else
+                {
+                    return Json(new { status = false, message = "File is empty" });
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = false, message = ex.Message });
+            }
+        }
+
         private int CountComingDevice(string PN)
         {
             var comingDevices = db.ComingDevices.Where(d => d.Device.DeviceCode.ToUpper().Trim() == PN.ToUpper().Trim()).ToList();
@@ -2142,7 +2534,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
             else
             {
                 return 0;
-            }         
+            }
         }
         #endregion
     }

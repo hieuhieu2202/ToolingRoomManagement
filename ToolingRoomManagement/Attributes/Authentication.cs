@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using System.Data.Entity.Migrations;
 using ToolingRoomManagement.Areas.NVIDIA.Entities;
 using Entities = ToolingRoomManagement.Areas.NVIDIA.Entities;
+using Model.EF;
 
 namespace ToolingRoomManagement.Attributes
 {
@@ -14,31 +15,60 @@ namespace ToolingRoomManagement.Attributes
     public class Authentication : AuthorizeAttribute
     {
         public bool AllowAnonymous { get; set; } = false;
+        public string Role { get; set; } = null;
+
         protected override bool AuthorizeCore(HttpContextBase httpContext)
         {
-            if(IsAjaxRequest(httpContext.Request)) return true;
-
+            Entities.User user = (Entities.User)HttpContext.Current.Session["SignSession"];
             string NextUrl = httpContext.Request.RawUrl.ToString();
+            var IsAjax = IsAjaxRequest(httpContext.Request);
+           
             if (!AllowAnonymous)
             {
-                Entities.User user = (Entities.User)HttpContext.Current.Session["SignSession"];
-                if (user == null)
+                if (user != null)
                 {
-                    return false;
+                    if (Role != null)
+                    {
+                        if (user.UserRoles.Any(ur => ur.Role.RoleName == Role) || user.UserRoles.Any(ur => ur.Role.Id == 1))
+                        {
+                            HttpContext.Current.Session["PrevUrl"] = NextUrl;
+                            return true;
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    }
+                    else
+                    {
+                        HttpContext.Current.Session["PrevUrl"] = NextUrl;
+                        return true;
+                    }
+                    
                 }
                 else
                 {
-                    return true;
+                    return false;
                 }
             }
             else
             {
+                HttpContext.Current.Session["PrevUrl"] = NextUrl;
                 return true;
             }
         }
         protected override void HandleUnauthorizedRequest(AuthorizationContext filterContext)
         {
-            filterContext.Result = new RedirectResult("~/NVIDIA/Authentication/SignIn");
+            string PrevUrl = HttpContext.Current.Session["PrevUrl"]?.ToString();
+            if (PrevUrl != null)
+            {
+                filterContext.Result = new RedirectResult(PrevUrl);
+            }
+            else
+            {
+                filterContext.Result = new RedirectResult("~/NVIDIA/Dashboard/Index");
+            }
+           
         }
         public override void OnAuthorization(AuthorizationContext filterContext)
         {

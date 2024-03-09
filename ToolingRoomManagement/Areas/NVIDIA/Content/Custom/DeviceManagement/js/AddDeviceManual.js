@@ -1,5 +1,6 @@
-﻿$(function () {
-    GetSelectData(); 
+﻿var _data;
+$(function () {
+    GetSelectData();
 
     $('.carousel').carousel();
 });
@@ -22,7 +23,18 @@ function GetSelectData() {
         dataType: "json",
         contentType: "application/json;charset=utf-8",
         success: function (response) {
+
             if (response.status) {
+                _data = {
+                    Warehouses: response.warehouses,
+                    Products: response.products,
+                    Models: response.models,
+                    Stations: response.stations,
+                    Groups: response.groups,
+                    Vendors: response.vendors,
+                    Device: response.deviceCodes
+                }
+
                 // WareHouse
                 populateSelect("device_add-WareHouse", response.warehouses, "Id", "WarehouseName");
 
@@ -40,6 +52,12 @@ function GetSelectData() {
 
                 // Vendor
                 populateSelect("device_add-Vendor_List", response.vendors, "VendorName", "");
+
+                // Device
+                $('#device_add-ListDeviceCode').empty();
+                $(response.deviceCodes).each(function (index, deviceCode) {
+                    $('#device_add-ListDeviceCode').append(`<option value="${deviceCode}"></option>`)
+                });
 
                 $('#device_add-WareHouse').change();
             } else {
@@ -102,7 +120,7 @@ $('#device_add-WareHouse').change(async function (e) {
 $('#AddDeviceManual').on('click', function (e) {
     e.preventDefault();
 
-    const formData = GetFormData();   
+    const formData = GetFormData();
 
     selectedFiles.forEach(function (file) {
         formData.append('files', file);
@@ -189,7 +207,7 @@ $('#new-layout').on('click', async function (e) {
                             <span class="col-4 input-group-text">Layout ${layoutlength + 1} </span>
                         </div>`);
     inputGroup.append(selectLayout);
-    inputGroup.append(deleteButton)   
+    inputGroup.append(deleteButton)
 
     $('#layout-container').append(inputGroup);
 });
@@ -207,7 +225,7 @@ $('#btn-new-image').click(function (e) {
     var selectFile = $('<input type="file" accept="image/*" multiple/>');
     selectFile.change(function () {
         var newFiles = Array.from(selectFile[0].files);
-        selectedFiles = newFiles;    
+        selectedFiles = newFiles;
 
         InsertCarousel();
     });
@@ -231,7 +249,7 @@ function InsertCarousel() {
     $('#images').empty();
 
     $.each(selectedFiles, function (k, file) {
-         // CarouselSlides
+        // CarouselSlides
         var CarouselSlides = $('.carousel-indicators');
         var SlideItem = $(`<li data-bs-target="#carousel" data-bs-slide-to="${k}"></li>`);
 
@@ -240,16 +258,16 @@ function InsertCarousel() {
         var img = $(`<img class="d-block w-100" src="${URL.createObjectURL(file)}">`);
         img.click(() => { viewPreview.show() });
         CarouselItem.append(img);
-        
+
         // Carousel First check
         if (CarouselSlides.find('li').length == 0) {
             SlideItem.addClass('active');
             CarouselItem.addClass('active');
-        }    
+        }
 
         // Append Carousel
         $('.carousel-indicators').append(SlideItem);
-        $('.carousel-inner').append(CarouselItem);  
+        $('.carousel-inner').append(CarouselItem);
 
         // Galley
         var GalleyItem = $(`<li><img src="${URL.createObjectURL(file)}"><li>`);
@@ -323,3 +341,45 @@ async function LayoutOption() {
     });
     return html;
 }
+
+/* Auto generate data*/
+$('#device_add-DeviceCode').change(function () {
+    $.ajax({
+        type: "GET",
+        url: `/NVIDIA/DeviceManagement/GetDeviceByCode?DeviceCode=${$(this).val()}`,
+        dataType: "json",
+        contentType: "application/json;charset=utf-8",
+        success: function (response) {
+            if (response.status) {
+                var device = response.device;
+
+                $('#device_add-DeviceName').val(device.DeviceName);
+                $('#device_add-Specification').val(device.Specification);
+                $('#device_add-CreatedDate').val(moment().format('YYYY-MM-DDTHH:MM:ss'));
+                $('#device_add-Buffer').val(device.Buffer * 100);
+                $('#device_add-LifeCycle').val(device.LifeCycle)
+                $('#device_add-Unit').val(device.Unit);
+                $('#device_add-Type').val(device.isConsign ? "consign_" + device.Type : "normal_" + device.Type);
+                $('#device_add-DeliveryTime1').val(device.DeliveryTime != ' null' ? device.DeliveryTime.split(' ')[0] : '');
+                $('#device_add-DeliveryTime2').val(device.DeliveryTime != ' null' ? device.DeliveryTime.split(' ')[1] : 'Week');
+                $('#device_add-Product').val(device.Product.ProductName);
+                $('#device_add-Group').val(device.Group.GroupName);
+                $('#device_add-Vendor').val(device.Vendor.VendorName);
+                $('#device_add-MinQty').val(device.MinQty);
+
+                $(device.AlternativeDevices).each(function (index, item) {
+                    $('#device_add-AltPN').val(item.PNs);
+                });
+                $('#device_add-DeviceOwner').val(device.DeviceOwner);
+
+
+            }
+            else {
+                //toastr["error"](response.message, "ERROR");
+            }
+        },
+        error: function (error) {
+            Swal.fire(i18next.t('global.swal_title'), GetAjaxErrorMessage(error), "error");
+        }
+    });
+});

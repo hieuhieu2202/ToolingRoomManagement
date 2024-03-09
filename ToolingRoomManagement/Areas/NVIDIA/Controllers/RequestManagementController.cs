@@ -242,7 +242,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                             }
 
                             // SEND EMAIL
-                            //Data.Common.SendApproveMail(borrow);
+                            Data.Common.SendApproveMail(request);
                         }
                         else
                         {
@@ -251,7 +251,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                             nextUserSign.Status = "Pending";
 
                             // SEND EMAIL
-                            //Data.Common.SendSignMail(borrow);
+                            Data.Common.SendSignMail(request);
                         }
 
                         db.SaveChanges();
@@ -303,7 +303,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                         }
 
                         // SEND EMAIL
-                        //Data.Common.SendRejectMail(borrow);
+                        Data.Common.SendRejectMail(request);
 
                         db.SaveChanges();
                         return Json(new { status = true, request });
@@ -423,7 +423,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                         }
 
                         // SEND EMAIL
-                        //Data.Common.SendRejectMail(_return);
+                        Data.Common.SendRejectMail(request);
 
                         db.SaveChanges();
                         return Json(new { status = true, request });
@@ -486,7 +486,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                             nextUserSign.Status = "Pending";
 
                             // SEND EMAIL
-                            //Data.Common.SendSignMail(_return);
+                            //Data.Common.SendSignMail(request);
                         }
 
                         db.Exports.AddOrUpdate(request);
@@ -531,7 +531,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                         }
 
                         // SEND EMAIL
-                        //Data.Common.SendRejectMail(_return);
+                        //Data.Common.SendRejectMail(request);
 
                         db.SaveChanges();
                         return Json(new { status = true, request });
