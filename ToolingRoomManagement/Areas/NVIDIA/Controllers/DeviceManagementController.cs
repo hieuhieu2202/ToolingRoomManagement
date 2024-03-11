@@ -60,43 +60,53 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 device.Type = types[1];
                 device.isConsign = types[0] == "normal" ? false : true;
 
+                // Warehouse
                 int dIdWarehouse = int.TryParse(form["Warehouse"], out dIdWarehouse) ? dIdWarehouse : 0;
-
                 device.IdWareHouse = dIdWarehouse;
 
+                // Buffer
                 double dBuffer = double.TryParse(form["Buffer"], out dBuffer) ? dBuffer : 0;
                 device.Buffer = dBuffer / 100;
 
+                // LifeCycle
                 int dLifeCycle = int.TryParse(form["LifeCycle"], out dLifeCycle) ? dLifeCycle : 0;
                 device.LifeCycle = dLifeCycle;
 
+                // Forcat
                 int dForcast = int.TryParse(form["Forcast"], out dForcast) ? dForcast : 0;
                 device.Forcast = dForcast;
 
+                // Qty
                 int dQuantity = int.TryParse(form["Quantity"], out dQuantity) ? dQuantity : 0;
                 device.Quantity = dQuantity;
 
+                // Qty Confirm
                 int dQtyConfirm = int.TryParse(form["Quantity"], out dQtyConfirm) ? dQtyConfirm : 0;
                 device.QtyConfirm = dQtyConfirm;
 
+                // Qty Min
                 int dMinQty = int.TryParse(form["MinQuantity"], out dMinQty) ? dMinQty : 0;
                 device.MinQty = dMinQty;
 
-                int dPOQty = int.TryParse(form["POQuantity"], out dPOQty) ? dPOQty : 0;
-                device.POQty = dPOQty;
+                // Qty PO
+                //int dPOQty = int.TryParse(form["POQuantity"], out dPOQty) ? dPOQty : 0;
+                //device.POQty = dPOQty;
 
+                // Product, group, vendor
                 device = AddNavigation(form, device);
 
+                // Other
                 device.DeviceDate = DateTime.Now;
                 device.CreatedDate = DateTime.Now;
                 device.RealQty = dQtyConfirm;
                 device.SysQuantity = dQtyConfirm;
 
+                // Statys
                 device.Status = Data.Common.CheckStatus(device);
 
                 db.Devices.Add(device);
 
-                // Create Layout
+                //  Layout
                 device.DeviceWarehouseLayouts = AddLayout(form, device);
 
                 // Images
@@ -2484,6 +2494,108 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                                     db.Devices.AddOrUpdate(device);
                                 }
                             }
+                        }
+                        db.SaveChanges();
+
+                        return Json(new { status = true });
+                    }
+                }
+                else
+                {
+                    return Json(new { status = false, message = "File is empty" });
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = false, message = ex.Message });
+            }
+        }
+        public ActionResult UpdateDeviceFile(HttpPostedFileBase file)
+        {
+            try
+            {
+                ExcelPackage.LicenseContext = OfficeOpenXml.LicenseContext.NonCommercial;
+
+                if (file != null && file.ContentLength > 0)
+                {
+                    string fileName = $"UpdateDevice - {DateTime.Now.ToString("yyyy.MM.dd HH.mm.ss.ff")}.xlsx";
+                    string folderPath = Server.MapPath("/Data/NewToolingroom");
+                    string filePath = Path.Combine(folderPath, fileName);
+
+                    #region Check Folder
+                    if (!Directory.Exists(folderPath))
+                    {
+                        Directory.CreateDirectory(folderPath);
+                    }
+                    else
+                    {
+                        foreach (string fileii in Directory.GetFiles(folderPath))
+                        {
+                            System.IO.File.Delete(fileii);
+                        }
+                    }
+                    #endregion
+
+                    using (var package = new ExcelPackage(file.InputStream))
+                    {
+                        var worksheet = package.Workbook.Worksheets[0];
+                        foreach (int row in Enumerable.Range(2, worksheet.Dimension.End.Row - 1))
+                        {
+                            var _MTS = worksheet.Cells[row, 1].Value?.ToString();
+                            var _PRODUCT = worksheet.Cells[row, 2].Value?.ToString();
+                            var _PN = worksheet.Cells[row, 3].Value?.ToString();
+                            var _DESC = worksheet.Cells[row, 5].Value?.ToString();
+                            var _GROUP = worksheet.Cells[row, 6].Value?.ToString();
+                            var _VENDOR = worksheet.Cells[row, 7].Value?.ToString();
+                            var _MINQTY = int.Parse(worksheet.Cells[row, 10].Value?.ToString());
+                            var _RELATION = worksheet.Cells[row, 11].Value?.ToString();
+                            var _LIMIT = int.Parse(worksheet.Cells[row, 12].Value?.ToString());
+                            var _TYPE = worksheet.Cells[row, 13].Value?.ToString();
+                            var _BUFFER = (double)Math.Round(double.Parse(worksheet.Cells[row, 14].Value?.ToString()), 2);
+
+                            var product = new Product();
+                            if (_MTS != null)
+                            {
+                                product = db.Products.FirstOrDefault(p => p.MTS == _MTS);
+                            }
+                            else if (_PRODUCT != null)
+                            {
+                                product = db.Products.FirstOrDefault(p => p.ProductName == _PRODUCT);
+                            }
+                            else
+                            {
+                                product = db.Products.FirstOrDefault(p => p.MTS == null);
+                            }
+                            
+                            var group = db.Groups.FirstOrDefault(g => g.GroupName == _GROUP);
+                            var vendor = db.Vendors.FirstOrDefault(v => v.VendorName.ToUpper().Trim() == _VENDOR.ToUpper().Trim());
+
+                            Debug.WriteLine(_PN);
+
+                            var device = new Device
+                            {
+                                IdProduct = product.Id,
+                                DeviceCode = _PN,
+                                DeviceName = _DESC,
+                                IdGroup = group.Id,
+                                IdVendor = vendor.Id,
+                                MinQty = _MINQTY,
+                                Relation = _RELATION,
+                                LifeCycle = _LIMIT,
+                                Type_BOM = _TYPE,
+                                Buffer = _BUFFER,
+
+                                CreatedDate = DateTime.Now,
+                                IdWareHouse = 1,
+                                DeliveryTime = " Weel",
+                                
+                                Quantity = 0,                               
+                                QtyConfirm = 0,
+                                RealQty = 0,
+                                SysQuantity = 0
+                            };
+
+                            db.Devices.Add(device);
                         }
                         db.SaveChanges();
 

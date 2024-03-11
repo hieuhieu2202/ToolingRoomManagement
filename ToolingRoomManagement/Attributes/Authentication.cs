@@ -31,7 +31,11 @@ namespace ToolingRoomManagement.Attributes
                     {
                         if (user.UserRoles.Any(ur => ur.Role.RoleName == Role) || user.UserRoles.Any(ur => ur.Role.Id == 1))
                         {
-                            HttpContext.Current.Session["PrevUrl"] = NextUrl;
+                            if(!IsAjax)
+                            {
+                                HttpContext.Current.Session["PrevUrl"] = NextUrl;
+                            }
+                            
                             return true;
                         }
                         else
@@ -41,7 +45,10 @@ namespace ToolingRoomManagement.Attributes
                     }
                     else
                     {
-                        HttpContext.Current.Session["PrevUrl"] = NextUrl;
+                        if (!IsAjax)
+                        {
+                            HttpContext.Current.Session["PrevUrl"] = NextUrl;
+                        }
                         return true;
                     }
                     
@@ -53,7 +60,10 @@ namespace ToolingRoomManagement.Attributes
             }
             else
             {
-                HttpContext.Current.Session["PrevUrl"] = NextUrl;
+                if (!IsAjax)
+                {
+                    HttpContext.Current.Session["PrevUrl"] = NextUrl;
+                }
                 return true;
             }
         }

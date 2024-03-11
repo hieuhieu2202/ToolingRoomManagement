@@ -372,6 +372,7 @@ $('#device_add-DeviceCode').change(function () {
                 });
                 $('#device_add-DeviceOwner').val(device.DeviceOwner);
 
+                $('#device_add-Quantity').focus();
 
             }
             else {
