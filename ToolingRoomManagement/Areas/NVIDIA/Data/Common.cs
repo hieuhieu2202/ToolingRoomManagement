@@ -1,18 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Net;
-using System.Web;
 using System.IO;
-using ToolingRoomManagement.Areas.NVIDIA.Data;
-using ToolingRoomManagement.Areas.NVIDIA.Entities;
-using System.Threading.Tasks;
-using System.Threading;
-using System.Web.UI.WebControls;
+using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Text.Json;
-using Model.EF;
-using System.Xml.Linq;
+using System.Threading;
+using System.Web;
+using ToolingRoomManagement.Areas.NVIDIA.Entities;
 
 namespace ToolingRoomManagement.Areas.NVIDIA.Data
 {
@@ -20,7 +14,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Data
     {
 
         // CheckStatus
-        public static string CheckStatus(Entities.Device device)
+        public static string CheckStatus(Device device)
         {
             string status = "NA";
 
@@ -40,7 +34,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Data
         }
 
 
-        public static void SendSignMail(Entities.Borrow borrow)
+        public static void SendSignMail(Borrow borrow)
         {
             Entities.UserBorrowSign sign = borrow.UserBorrowSigns.FirstOrDefault(b => b.Status == "Pending");
             Model_Service.Sendmail md = new Model_Service.Sendmail
@@ -101,7 +95,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Data
             thread.Start();
             thread.IsBackground = true;
         }
-        public static void SendSignMail(Entities.Return @return)
+        public static void SendSignMail(Return @return)
         {
             Entities.UserReturnSign sign = @return.UserReturnSigns.FirstOrDefault(b => b.Status == "Pending");
             Model_Service.Sendmail md = new Model_Service.Sendmail
@@ -165,7 +159,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Data
             thread.IsBackground = true;
         }
 
-        public static void SendApproveMail(Entities.Borrow borrow)
+        public static void SendApproveMail(Borrow borrow)
         {
             Model_Service.Sendmail md = new Model_Service.Sendmail
             {
@@ -224,7 +218,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Data
             thread.Start();
             thread.IsBackground = true;
         }
-        public static void SendApproveMail(Entities.Return @return)
+        public static void SendApproveMail(Return @return)
         {
             Model_Service.Sendmail md = new Model_Service.Sendmail
             {
@@ -285,7 +279,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Data
             thread.IsBackground = true;
         }
 
-        public static void SendRejectMail(Entities.Borrow borrow)
+        public static void SendRejectMail(Borrow borrow)
         {
             Entities.UserBorrowSign reject = borrow.UserBorrowSigns.FirstOrDefault(b => b.Status == "Rejected");
             Model_Service.Sendmail md = new Model_Service.Sendmail
@@ -344,7 +338,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Data
             thread.Start();
             thread.IsBackground = true;
         }
-        public static void SendRejectMail(Entities.Return @return)
+        public static void SendRejectMail(Return @return)
         {
             Entities.UserReturnSign reject = @return.UserReturnSigns.FirstOrDefault(b => b.Status == "Rejected");
             Model_Service.Sendmail md = new Model_Service.Sendmail
@@ -433,7 +427,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Data
             }
             return false;
         }
-        private static string RenderUserName(Entities.User user)
+        private static string RenderUserName(User user)
         {
             string name = $"{user.Username}";
             if (!string.IsNullOrEmpty(user.VnName))
@@ -452,7 +446,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Data
             return name;
         }
 
-        public static void SaveDeviceHistoryLog(Entities.User user, Entities.Device before, Entities.Device after, string ServerPath)
+        public static void SaveDeviceHistoryLog(User user, Device before, Device after, string ServerPath)
         {
             try
             {
@@ -506,6 +500,11 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Data
             {
                 throw new Exception("History Log Errr" + ex.Message);
             }
+        }
+
+        public static User GetSessionUser()
+        {
+            return (User)HttpContext.Current.Session["SignSession"];
         }
     }
 

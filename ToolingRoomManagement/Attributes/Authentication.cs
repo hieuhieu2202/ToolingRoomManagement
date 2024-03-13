@@ -15,33 +15,38 @@ namespace ToolingRoomManagement.Attributes
     public class Authentication : AuthorizeAttribute
     {
         public bool AllowAnonymous { get; set; } = false;
-        public string Role { get; set; } = null;
+        public string[] Roles { get; set; } = null;
 
         protected override bool AuthorizeCore(HttpContextBase httpContext)
         {
             Entities.User user = (Entities.User)HttpContext.Current.Session["SignSession"];
             string NextUrl = httpContext.Request.RawUrl.ToString();
             var IsAjax = IsAjaxRequest(httpContext.Request);
-           
+
+            // Nếu không chấp nhận Anonymous
             if (!AllowAnonymous)
             {
+                // Nêu có session user
                 if (user != null)
                 {
-                    if (Role != null)
+                    // Nếu yêu cầu quyền
+                    if(Roles.Length > 0)
                     {
-                        if (user.UserRoles.Any(ur => ur.Role.RoleName == Role) || user.UserRoles.Any(ur => ur.Role.Id == 1))
+                        foreach(var role in Roles)
                         {
-                            if(!IsAjax)
+                            if(user.UserRoles.Any(r => r.Role.RoleName.ToUpper().Trim() == role.ToUpper().Trim() || r.Role.RoleName.ToUpper().Trim() == "ADMIN"))
                             {
-                                HttpContext.Current.Session["PrevUrl"] = NextUrl;
+                                
+                                if (!IsAjax)
+                                {
+                                    HttpContext.Current.Session["PrevUrl"] = NextUrl;
+                                }
+
+                                return true;
                             }
-                            
-                            return true;
                         }
-                        else
-                        {
-                            return false;
-                        }
+
+                        return false;
                     }
                     else
                     {
@@ -51,7 +56,6 @@ namespace ToolingRoomManagement.Attributes
                         }
                         return true;
                     }
-                    
                 }
                 else
                 {

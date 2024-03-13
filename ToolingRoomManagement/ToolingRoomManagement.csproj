@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.Net.Compilers.4.2.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.4.2.0\build\Microsoft.Net.Compilers.props')" />
   <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
-  <Import Project="..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -197,15 +197,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\NVIDIA\Content\admin\AdminCommon.js" />
-    <Content Include="Areas\NVIDIA\Content\admin\roles\RoleManagement.css" />
-    <Content Include="Areas\NVIDIA\Content\admin\roles\RoleManagement.js" />
-    <Content Include="Areas\NVIDIA\Content\admin\users\UserManagement.js" />
-    <Content Include="Areas\NVIDIA\Content\admin\users\UserManagement.css" />
+    <Content Include="Areas\NVIDIA\Content\Custom\Admin\css\Role\RoleManagement.css" />
+    <Content Include="Areas\NVIDIA\Content\Custom\Admin\js\Role\RoleManagement.js" />
+    <Content Include="Areas\NVIDIA\Content\Custom\Admin\js\User\UserManagement.js" />
+    <Content Include="Areas\NVIDIA\Content\Custom\Admin\css\User\UserManagement.css" />
     <Content Include="Areas\NVIDIA\Content\Custom\Authentication\css\SignIn.css" />
     <Content Include="Areas\NVIDIA\Content\Custom\Authentication\css\SignUp.css" />
     <Content Include="Areas\NVIDIA\Content\Custom\Authentication\js\SignIn.js" />
     <Content Include="Areas\NVIDIA\Content\Custom\Authentication\js\SignUp.js" />
+    <Content Include="Areas\NVIDIA\Content\Custom\Common\js\RoleCommon.js" />
+    <Content Include="Areas\NVIDIA\Content\Custom\Common\js\UserCommon.js" />
     <Content Include="Areas\NVIDIA\Content\Custom\RequestManagement\css\TakeDevice.css" />
     <Content Include="Areas\NVIDIA\Content\Custom\RequestManagement\css\BorrowDevice.css" />
     <Content Include="Areas\NVIDIA\Content\Custom\RequestManagement\css\RequestManagement.css" />
@@ -3143,12 +3144,12 @@
     <Compile Include="Areas\API\Controllers\ToolroomController.cs" />
     <Compile Include="Areas\NVIDIA\Controllers\AdminManagementController.cs" />
     <Compile Include="Areas\NVIDIA\Controllers\AuthenticationController.cs" />
-    <Compile Include="Areas\NVIDIA\Controllers\Common.cs" />
     <Compile Include="Areas\NVIDIA\Controllers\RequestManagementController.cs" />
     <Compile Include="Areas\NVIDIA\Controllers\DashboardController.cs" />
     <Compile Include="Areas\NVIDIA\Controllers\DeviceManagementController.cs" />
     <Compile Include="Areas\NVIDIA\Controllers\InfoController.cs" />
     <Compile Include="Areas\NVIDIA\Controllers\ExportManagementController.cs" />
+    <Compile Include="Areas\NVIDIA\Controllers\RoleManagementController.cs" />
     <Compile Include="Areas\NVIDIA\Controllers\UserManagementController.cs" />
     <Compile Include="Areas\NVIDIA\Controllers\WarehouseController.cs" />
     <Compile Include="Areas\NVIDIA\Data\Common.cs" />
@@ -3251,6 +3252,8 @@
       <DependentUpon>ToolingRoomModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Areas\NVIDIA\NVIDIAAreaRegistration.cs" />
+    <Compile Include="Areas\NVIDIA\Reseptory\RRole.cs" />
+    <Compile Include="Areas\NVIDIA\Reseptory\RUser.cs" />
     <Compile Include="Attributes\Authentication.cs" />
     <Compile Include="Common\CheckCode.cs" />
     <Compile Include="Common\CommonConstants.cs" />
@@ -3669,8 +3672,10 @@
     <Folder Include="Areas\API\Data\" />
     <Folder Include="Areas\API\Views\Shared\" />
     <Folder Include="Areas\API\Views\Toolroom\" />
+    <Folder Include="Areas\NVIDIA\Content\Custom\Common\css\" />
     <Folder Include="Areas\NVIDIA\Content\Custom\RequestManagement\js\Export\" />
     <Folder Include="Areas\NVIDIA\Data\DeviceHistoryLog\" />
+    <Folder Include="Areas\NVIDIA\Views\RoleManagement\" />
     <Folder Include="Data\Image\" />
     <Folder Include="Views\Register\" />
   </ItemGroup>
@@ -3715,8 +3720,8 @@
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props'))" />
     <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.4.2.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.4.2.0\build\Microsoft.Net.Compilers.props'))" />
   </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

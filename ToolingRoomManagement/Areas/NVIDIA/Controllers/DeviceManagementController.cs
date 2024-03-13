@@ -31,14 +31,14 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
         /* ADD DEVICE MANUAL */
         #region Add device manual
         [HttpGet]
-        [Authentication(Role = "CRUD")]
+        [Authentication(Roles = new[] { "CRUD" })]
         public ActionResult AddDeviceManual()
         {
             return View();
         }
 
         [HttpPost]
-        [Authentication(Role = "CRUD")]
+        [Authentication(Roles = new[] { "CRUD" })]
         public JsonResult AddDeviceManual(FormCollection form)
         {
             try
@@ -139,7 +139,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 return Json(new { status = false, message = ex.Message });
             }
         }
-        [Authentication(Role = "CRUD")]
+        [Authentication(Roles = new[] { "CRUD" })]
         private string SaveImage(HttpPostedFileBase file, int IdDevice, bool isUnconfirm = false)
         {
             try
@@ -235,7 +235,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
 
             return device;
         }
-        [Authentication(Role = "CRUD")]
+        [Authentication(Roles = new[] { "CRUD" })]
         private List<DeviceWarehouseLayout> AddLayout(FormCollection form, Entities.Device device)
         {
             if (form["Layout"] != null)
@@ -281,7 +281,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
         {
             return View();
         }
-        [Authentication(Role = "CRUD")]
+        [Authentication(Roles = new[] { "CRUD" })]
         public JsonResult DeleteImage(string src)
         {
             try
@@ -312,7 +312,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
         }
 
         [HttpPost]
-        [Authentication(Role = "CRUD")]
+        [Authentication(Roles = new[] { "CRUD" })]
         public JsonResult ConfirmDevice(int Id, int QtyConfirm)
         {
             try
@@ -358,7 +358,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 return Json(new { status = false, message = ex.Message });
             }
         }
-        [Authentication(Role = "CRUD")]
+        [Authentication(Roles = new[] { "CRUD" })]
         public JsonResult UpdateDevice(FormCollection form)
         {
             try
@@ -461,7 +461,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 return Json(new { status = false, message = ex.Message });
             }
         }
-        [Authentication(Role = "CRUD")]
+        [Authentication(Roles = new[] { "CRUD" })]
         public JsonResult UpdateImage(FormCollection form)
         {
             try
@@ -503,7 +503,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 return Json(new { status = false, message = ex.Message });
             }
         }
-        [Authentication(Role = "CRUD")]
+        [Authentication(Roles = new[] { "CRUD" })]
         public JsonResult DeleteDevice(int Id)
         {
             try
@@ -536,7 +536,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
         /* ADD DEVICE FORM BOM */
         #region ADD DEVICE FORM BOM
         [HttpGet]
-        [Authentication]
+        [Authentication(Roles = new[] { "CRUD" })]
         public ActionResult AddDeviceBOM()
         {
             return View();
@@ -1226,7 +1226,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
         /* CONFIRM  DEVICE */
         #region Device Confirm
         [HttpGet]
-        [Authentication]
+        [Authentication(Roles = new[] { "CRUD" })]
         public ActionResult ConfirmDevice()
         {
             return View();
@@ -1746,6 +1746,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
 
         /* HIDDEN UPDATE */
         #region Hidden Update
+        [Authentication(Roles = new[] { "CRUD" })]
         public ActionResult UpdateBuffer(HttpPostedFileBase file)
         {
             try
@@ -1801,6 +1802,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 return Json(new { status = false, message = ex.Message });
             }
         }
+        [Authentication(Roles = new[] { "CRUD" })]
         public ActionResult UpdateLimit(HttpPostedFileBase file)
         {
             try
@@ -1856,6 +1858,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 return Json(new { status = false, message = ex.Message });
             }
         }
+        [Authentication(Roles = new[] { "CRUD" })]
         public ActionResult UpdateComingDevicesss(HttpPostedFileBase file)
         {
             try
@@ -1990,6 +1993,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 return Json(new { status = false, message = ex.Message });
             }
         }
+        [Authentication(Roles = new[] { "CRUD" })]
         public ActionResult UpdateType(HttpPostedFileBase file)
         {
             try
@@ -2045,6 +2049,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 return Json(new { status = false, message = ex.Message });
             }
         }
+        [Authentication(Roles = new[] { "CRUD" })]
         public ActionResult UpdateRelation(HttpPostedFileBase file)
         {
             try
@@ -2100,6 +2105,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 return Json(new { status = false, message = ex.Message });
             }
         }
+        [Authentication(Roles = new[] { "CRUD" })]
         public ActionResult UpdateOwner(HttpPostedFileBase file)
         {
             try
@@ -2155,6 +2161,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 return Json(new { status = false, message = ex.Message });
             }
         }
+        [Authentication(Roles = new[] { "CRUD" })]
         public ActionResult UpdateProduct(HttpPostedFileBase file)
         {
             try
@@ -2236,6 +2243,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 return Json(new { status = false, message = ex.Message });
             }
         }
+        [Authentication(Roles = new[] { "CRUD" })]
         public ActionResult UpdateDescription(HttpPostedFileBase file)
         {
             try
@@ -2296,6 +2304,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 return Json(new { status = false, message = ex.Message });
             }
         }
+        [Authentication(Roles = new[] { "CRUD" })]
         public ActionResult UpdateGroupAndVendor(HttpPostedFileBase file)
         {
             try
@@ -2388,6 +2397,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 return Json(new { status = false, message = ex.Message });
             }
         }
+        [Authentication(Roles = new[] { "CRUD" })]
         public ActionResult UpdateMinQty(HttpPostedFileBase file)
         {
             try
@@ -2448,6 +2458,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 return Json(new { status = false, message = ex.Message });
             }
         }
+        [Authentication(Roles = new[] { "CRUD" })]
         public ActionResult UpdateDeviceProduct(HttpPostedFileBase file)
         {
             try
@@ -2481,15 +2492,38 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                         {
                             var _PN = worksheet.Cells[row, 1].Value?.ToString();
                             var _MTS = worksheet.Cells[row, 2].Value?.ToString();
+                            var _PRODUCT = worksheet.Cells[row, 3].Value?.ToString();
+
+                            Debug.WriteLine(_MTS);
 
                             var devices = db.Devices.Where(d => d.DeviceCode.ToUpper().Trim() == _PN.ToUpper().Trim()).ToList();
+
+                            var product = new Product();
+                            if(_MTS != null)
+                            {
+                                product = db.Products.FirstOrDefault(p => p.MTS.ToUpper().Trim() == _MTS.ToUpper().Trim());
+                            }
+
+                            if(product == null && _PRODUCT != null)
+                            {
+                                product = db.Products.FirstOrDefault(p => p.ProductName.ToUpper().Trim() == _PRODUCT.ToUpper().Trim());
+                            }
+                            
+                            if(product.MTS == null && product.ProductName == null)
+                            {
+                                product = new Product
+                                {
+                                    ProductName = _PRODUCT,
+                                    MTS = _MTS,
+                                };
+                                db.Products.Add(product);
+                                db.SaveChanges();
+                            }
 
                             if (_PN != null && devices.Count > 0)
                             {
                                 foreach (var device in devices)
                                 {
-                                    var product = db.Products.FirstOrDefault(p => p.MTS.ToUpper().Trim() == _MTS.ToUpper().Trim());
-
                                     device.IdProduct = product.Id;
                                     db.Devices.AddOrUpdate(device);
                                 }
@@ -2510,6 +2544,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 return Json(new { status = false, message = ex.Message });
             }
         }
+        [Authentication(Roles = new[] { "CRUD" })]
         public ActionResult UpdateDeviceFile(HttpPostedFileBase file)
         {
             try

@@ -217,6 +217,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
         }
 
         [HttpPost]
+        [Authentication(Roles = new[] { "ADMIN", "CRUD", "MANAGER", "Warehouse Manager", "TE Leader", "QA Leader" })]
         public ActionResult Borrow_Approved(int IdRequest, int IdSign)
         {
             try
@@ -273,6 +274,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 return Json(new { status = false, message = ex.Message });
             }
         }
+        [Authentication(Roles = new[] { "ADMIN", "CRUD", "MANAGER", "Warehouse Manager", "TE Leader", "QA Leader" })]
         public ActionResult Borrow_Rejected(int IdRequest, int IdSign, string Note)
         {
             try
@@ -323,6 +325,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 return Json(new { status = false, message = ex.Message });
             }
         }
+        [Authentication(Roles = new[] { "ADMIN", "CRUD", "MANAGER", "Warehouse Manager", "TE Leader", "QA Leader" })]
         public ActionResult Return_Approved(int IdRequest, int IdSign)
         {
             try
@@ -400,6 +403,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 return Json(new { status = false, message = ex.Message });
             }
         }
+        [Authentication(Roles = new[] { "ADMIN", "CRUD", "MANAGER", "Warehouse Manager", "TE Leader", "QA Leader" })]
         public ActionResult Return_Rejected(int IdRequest, int IdSign, string Note)
         {
             try
@@ -443,6 +447,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 return Json(new { status = false, message = ex.Message });
             }
         }
+        [Authentication(Roles = new[] { "ADMIN", "CRUD", "MANAGER", "Warehouse Manager", "TE Leader", "QA Leader" })]
         public ActionResult Export_Approved(int IdRequest, int IdSign)
         {
             try
@@ -508,6 +513,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 return Json(new { status = false, message = ex.Message });
             }
         }
+        [Authentication(Roles = new[] { "ADMIN", "CRUD", "MANAGER", "Warehouse Manager", "TE Leader", "QA Leader" })]
         public ActionResult Export_Rejected(int IdRequest, int IdSign, string Note)
         {
             try
