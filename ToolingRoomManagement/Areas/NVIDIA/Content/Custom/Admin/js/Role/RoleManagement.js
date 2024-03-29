@@ -1,14 +1,15 @@
-﻿$(document).ready(function () {
-    InitRoleDatatable();
-    CreateRoleDatatable();
+﻿var RoleManagementTable, _roles;
+var UserManagementTable, _users;
 
-    InitUserDatatable();
-    //CreateUserDatatable();
+$(document).ready(function () {
+    CreateRoleTable();
+    GetRoleTableData();
+
+    CreateUserTable();
 });
 
 /* ROLE DATATABLE */
-var roledatatable;
-function InitRoleDatatable() {
+function CreateRoleTable() {
     const options = {
         scrollY: 480,
         scrollX: true,
@@ -26,51 +27,53 @@ function InitRoleDatatable() {
             $(row).data('id', data[0]);
         },
     };
-    roledatatable = $('#roledatatable').DataTable(options);
+    RoleManagementTable = $('#role-datatable').DataTable(options);
 
-    $('#roledatatable_filter').hide();
-    $('#roledatatable_info').hide();
+    $('#role-datatable_filter').hide();
+    $('#role-datatable_info').hide();
 };
-async function CreateRoleDatatable() {
-    try {
-        roles = await GetRoles();
+async function GetRoleTableData() {
+    try
+    {
+        _roles = await GetRoles();
 
         var RowDatas = [];
-        $.each(roles, function (k, role) {
-            var rowdata = CreateRoleDatatableRow(role);
+        $.each(_roles, function (k, role) {
+            var rowdata = CreateRoleTableRow(role);
             RowDatas.push(rowdata);
         });
 
-        roledatatable.rows.add(RowDatas);
-        roledatatable.columns.adjust().draw(true);
-
-    } catch (error) {
+        RoleManagementTable.rows.add(RowDatas);
+        RoleManagementTable.columns.adjust().draw(true);
+    }
+    catch (error)
+    {
         Swal.fire('Sorry, something went wrong!', `${error}`, 'error');
+        console.error(error);
     }
 };
-function CreateRoleDatatableRow(role) {
+
+/* ROLE DATATABLE ROW */
+function CreateRoleTableRow(role) {
     return row = [
         role.Id,
         role.RoleName,
-        GetRoleAction(role),
+        CreateRoleTableCellAction(role),
     ]
 };
-function GetRoleAction(role) {
-    var btnDetails = `<a href="javascript:;" class="text-info    bg-light-info    border-0" onclick="CreateUserDatatable(${role.Id})"><i class="fa-regular fa-circle-info"></i></a>`;
-
+function CreateRoleTableCellAction(role) {
+    var btnDetails = `<a href="javascript:;" class="text-info    bg-light-info    border-0" data-id="${role.Id}" onclick="GetUserTableData(this)"><i class="fa-regular fa-circle-info"></i></a>`;
     return btnDetails;
 };
 
-$('#roledatatable tbody').on('dblclick', 'tr', function (event) {
-
-    var IdRole = $(this).data('id');
-
-    CreateUserDatatable(IdRole)
+/* ROLE DATATABLE EVENT */
+$('#role-datatable tbody').on('dblclick', 'tr', function (event) {
+    GetUserTableData($(this));
 });
 
-/* ROLE DATATABLE */
-var userdatatable;
-function InitUserDatatable() {
+
+/* USER DATATABLE */
+function CreateUserTable() {
     const options = {
         scrollY: 480,
         scrollX: true,
@@ -88,28 +91,30 @@ function InitUserDatatable() {
             $(row).data('id', data[0]);
         },
     };
-    userdatatable = $('#userdatatable').DataTable(options);
+    UserManagementTable = $('#user-datatable').DataTable(options);
 };
-async function CreateUserDatatable(IdRole) {
+async function GetUserTableData(elm) {
     try {
-        users = await GetRoleUsers(IdRole);
+        var IdRole = $(elm).data('id');
 
-        userdatatable.clear().draw();
+        _users = await GetRoleUsers(IdRole);
 
+        UserManagementTable.clear();
         var RowDatas = [];
-        $.each(users, function (k, user) {
-            var rowdata = CreateUserDatatableRow(user);
+        $.each(_users, function (k, user) {
+            var rowdata = CreateUserTableRow(user);
             RowDatas.push(rowdata);
         });
 
-        userdatatable.rows.add(RowDatas);
-        userdatatable.columns.adjust().draw(true);
+        UserManagementTable.rows.add(RowDatas);
+        UserManagementTable.columns.adjust().draw(true);
 
     } catch (error) {
         Swal.fire('Sorry, something went wrong!', `${error}`, 'error');
+        console.error(error);
     }
 };
-function CreateUserDatatableRow(user) {
+function CreateUserTableRow(user) {
     return row = [
         user.Id,
         user.Username,
@@ -117,13 +122,13 @@ function CreateUserDatatableRow(user) {
         user.CnName != null ? user.CnName : '',
         user.EnName != null ? user.EnName : '',
         user.Email,
-        GetUserAction(user),
+        GetUserTableCellAction(user),
     ]
 };
-function GetUserAction(user) {
-    var btnDetails = `<a href="javascript:;" class="text-info    bg-light-info    border-0" onclick="Details(this, ${user.Id})"><i class="fa-regular fa-circle-info"></i></a>`;
-    var btnUpdated = `<a href="javascript:;" class="text-warning bg-light-warning border-0" onclick="Updated(this, ${user.Id})   "><i class="fa-duotone fa-pen"></i></a>`;
-    var btnDeleted = `<a href="javascript:;" class="text-danger  bg-light-danger  border-0" onclick="Deleted(this, ${user.Id}) "><i class="fa-duotone fa-trash"></i></a>`;
+function GetUserTableCellAction(user) {
+    var btnDetails = `<a href="javascript:;" class="text-info    bg-light-info    border-0" data-id="${user.Id}" onclick="Details(this)"><i class="fa-regular fa-circle-info"></i></a>`;
+    var btnUpdated = `<a href="javascript:;" class="text-warning bg-light-warning border-0" data-id="${user.Id}" onclick="Updated(this)   "><i class="fa-duotone fa-pen"></i></a>`;
+    var btnDeleted = `<a href="javascript:;" class="text-danger  bg-light-danger  border-0" data-id="${user.Id}" onclick="Deleted(this) "><i class="fa-duotone fa-trash"></i></a>`;
 
     return btnDetails + btnUpdated + btnDeleted;
 };

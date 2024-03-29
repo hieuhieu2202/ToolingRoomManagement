@@ -1,29 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using ToolingRoomManagement.Areas.NVIDIA.Entities;
-using ToolingRoomManagement.Areas.NVIDIA.Data;
 using ToolingRoomManagement.Areas.NVIDIA.Reseptory;
-using ToolingRoomManagement.Attributes;
 
 namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
 {
-    [Authentication]
-    public class UserManagementController : Controller
+    public class ProductManagementController : Controller
     {
-        // GET: NVIDIA/UserManagement
-        
-
-        /* GET*/
-        [Authentication(Roles = new[] { "ADMIN" })]
-        public JsonResult GetUsers()
+        /* GET */
+        public JsonResult GetProducts()
         {
             try
             {
-                var result = RUser.GetUsers();
+                var result = RProduct.GetProducts();
 
                 return Json(new { status = true, data = result }, JsonRequestBehavior.AllowGet);
             }
@@ -32,14 +24,11 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 return Json(new { status = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
-
-        [Authentication(Roles = new[] { "ADMIN" })]
-        public JsonResult GetUser(int IdUser)
+        public JsonResult GetProduct(int IdProduct)
         {
             try
             {
-                var result = RUser.GetUser(IdUser);
-
+                var result = RProduct.GetProduct(IdProduct);
                 return Json(new { status = true, data = result }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -48,11 +37,50 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
             }
         }
 
-        public async Task<JsonResult> GetUserInformation(string username)
+        public JsonResult GetDataAndProducts()
         {
             try
             {
-                var result = await RUser.GetUserInformation(username);
+                var result = RProduct.GetDataAndProducts();
+
+                return Json(new { status = true, data = result }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        public JsonResult GetDataAndProduct(int IdProduct)
+        {
+            try
+            {
+                var result = RProduct.GetDataAndProduct(IdProduct);
+                return Json(new { status = true, data = result }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult GetDevicesAndProducts()
+        {
+            try
+            {
+                var result = RProduct.GetDevicesAndProducts();
+
+                return Json(new { status = true, data = result }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        public JsonResult GetDevicesAndProduct(int IdProduct)
+        {
+            try
+            {
+                var result = RProduct.GetDevicesAndProduct(IdProduct);
                 return Json(new { status = true, data = result }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -62,12 +90,11 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
         }
 
         /* POST */
-        [Authentication(Roles = new[] { "ADMIN" })]
-        public JsonResult CreateUser(User user)
+        public JsonResult CreateProduct(Product product)
         {
             try
             {
-                var result = RUser.CreateUser(user);
+                var result = RProduct.CreateProduct(product);
 
                 return Json(new { status = true, data = result }, JsonRequestBehavior.AllowGet);
             }
@@ -75,15 +102,12 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
             {
                 return Json(new { status = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
             }
-
         }
-
-        [Authentication(Roles = new[] { "ADMIN" })]
-        public JsonResult UpdateUser(User user)
+        public JsonResult UpdateProduct(Product product)
         {
             try
             {
-                var result = RUser.UpdateUser(user);
+                var result = RProduct.UpdateProduct(product);
 
                 return Json(new { status = true, data = result }, JsonRequestBehavior.AllowGet);
             }
@@ -91,15 +115,12 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
             {
                 return Json(new { status = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
             }
-
         }
-
-        [Authentication(Roles = new[] { "ADMIN" })]
-        public JsonResult DeleteUser(int IdUser)
+        public JsonResult DeleteProduct(int IdProduct)
         {
             try
             {
-                var result = RUser.DeleteUser(new User { Id = IdUser });
+                var result = RProduct.DeleteProduct(new Product { Id = IdProduct});
 
                 return Json(new { status = true, data = result }, JsonRequestBehavior.AllowGet);
             }

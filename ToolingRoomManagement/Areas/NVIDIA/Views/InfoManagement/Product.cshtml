@@ -1,0 +1,169 @@
+﻿
+@{
+    ViewBag.Title = "Product Management";
+    Layout = "~/Areas/NVIDIA/Views/Shared/_NvidiaLayoutShared.cshtml";
+}
+
+@section styles{
+    <!-- Vendor -->
+    <!-- Custom -->
+    <link href="~/Areas/NVIDIA/Content/Custom/InfoManagement/css/ProductManagement.css" rel="stylesheet" />
+}
+
+<!-- Breadcrumb -->
+<section>
+    <div class="page-breadcrumb d-none d-sm-flex align-items-center py-3">
+        <div class="breadcrumb-title pe-3">Product</div>
+        <div class="ps-3">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-0 p-0">
+                    <li class="breadcrumb-item">
+                        <a href="/NVIDIA/Dashboard"><i class="bx bx-home-alt"></i></a>
+                    </li>
+                    <li class="breadcrumb-item active" aria-current="page">Infomation</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+</section>
+
+
+<!-- Product datatable -->
+<section>
+    <div class="card" id="card-product">
+        <div class="card-body">
+            <div class="card-title"> <h5>Product Details</h5></div>
+            <hr />
+            <div class="form-body">
+                <table id="product-datatable" class="table table-striped table-hover table-bordered text-nowrap">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>MTS</th>
+                            <th>Product Name</th>
+                            <th>Total Devices</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- Create product modal -->
+<section>
+    <div class="modal fade" id="CreateProductModal" aria-hidden="true">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Create Product</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="col-md-12 mb-3">
+                        <label class="form-label">MTS</label>
+                        <input type="text" class="form-control" id="create-MTS" maxlength="25">
+                    </div>
+                    <div class="col-md-12 mb-3">
+                        <label class="form-label">Product Name</label>
+                        <input type="text" class="form-control" id="create-ProductName" maxlength="255" />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="CreateProductModal_Save" onclick="CreateProductModal_Save()">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Update product modal -->
+<section>
+    <div class="modal fade" id="UpdateProductModal" aria-hidden="true">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Update Product</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="col-md-12 mb-3">
+                        <label class="form-label">MTS</label>
+                        <input type="text" class="form-control" id="update-MTS" maxlength="25">
+                    </div>
+                    <div class="col-md-12 mb-3">
+                        <label class="form-label">Product Name</label>
+                        <input type="text" class="form-control" id="update-ProductName" maxlength="255" />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="UpdateProductModal_Save" onclick="UpdateProductModal_Save(this)">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Details modal -->
+<div class="modal fade" id="details-modal" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="details-HeadTitle">Product Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <h5 class="font-weight-light text-center text-primary py-3" id="details-BodyTitle">PRODUCT INFORMATION</h5>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="col-md-12 mb-3">
+                            <label class="form-label">MTS</label>
+                            <input type="text" class="form-control" id="details-MTS" maxlength="25" disabled>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="col-md-12 mb-3">
+                            <label class="form-label">Product Name</label>
+                            <input type="text" class="form-control" id="details-ProductName" maxlength="255" disabled />
+                        </div>
+                    </div>
+                </div>
+                <h5 class="font-weight-light text-center text-primary py-3" id="details-BodyTitle">DEVICES</h5>
+                <table id="device-datatable" class="table table-striped table-hover table-bordered text-nowrap">
+                    <thead>
+                        <tr>
+                            <!-- 1 --><td>Id</td>
+                            <!-- 2 --><td>PN</td>
+                            <!-- 3 --><td>Description</td>
+                            <!-- 4 --><td>Group</td>
+                            <!-- 5 --><td>Vendor</td>
+                            <!-- 6 --><td>Quantity</td>
+                            <!-- 7 --><td>Unit</td>
+                            <!-- 8 --><td>Type</td>
+                            <!-- 9 --><td>Status</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <!-- Vendor -->
+    <!-- Custom -->
+    <script src="~/Areas/NVIDIA/Content/Custom/Common/js/ProductCommon.js"></script>
+
+    <script src="~/Areas/NVIDIA/Content/Custom/InfoManagement/js/ProductManagement.js"></script>
+}

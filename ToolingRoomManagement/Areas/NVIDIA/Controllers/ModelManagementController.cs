@@ -1,58 +1,34 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using ToolingRoomManagement.Areas.NVIDIA.Entities;
-using ToolingRoomManagement.Areas.NVIDIA.Data;
 using ToolingRoomManagement.Areas.NVIDIA.Reseptory;
-using ToolingRoomManagement.Attributes;
 
 namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
 {
-    [Authentication]
-    public class UserManagementController : Controller
+    public class ModelManagementController : Controller
     {
-        // GET: NVIDIA/UserManagement
-        
-
-        /* GET*/
-        [Authentication(Roles = new[] { "ADMIN" })]
-        public JsonResult GetUsers()
+        /* GET */
+        public JsonResult GetModels()
         {
             try
             {
-                var result = RUser.GetUsers();
+                var result = RModel.GetModels();
 
-                return Json(new { status = true, data = result }, JsonRequestBehavior.AllowGet);
+                return Json(new { status = true, result }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
                 return Json(new { status = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
-
-        [Authentication(Roles = new[] { "ADMIN" })]
-        public JsonResult GetUser(int IdUser)
+        public JsonResult GetModel(int IdModel)
         {
             try
             {
-                var result = RUser.GetUser(IdUser);
-
-                return Json(new { status = true, data = result }, JsonRequestBehavior.AllowGet);
-            }
-            catch (Exception ex)
-            {
-                return Json(new { status = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
-            }
-        }
-
-        public async Task<JsonResult> GetUserInformation(string username)
-        {
-            try
-            {
-                var result = await RUser.GetUserInformation(username);
+                var result = RModel.GetModel(IdModel);
                 return Json(new { status = true, data = result }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -62,12 +38,11 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
         }
 
         /* POST */
-        [Authentication(Roles = new[] { "ADMIN" })]
-        public JsonResult CreateUser(User user)
+        public JsonResult CreateModel(Entities.Model model)
         {
             try
             {
-                var result = RUser.CreateUser(user);
+                var result = RModel.CreateModel(model);
 
                 return Json(new { status = true, data = result }, JsonRequestBehavior.AllowGet);
             }
@@ -75,15 +50,12 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
             {
                 return Json(new { status = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
             }
-
         }
-
-        [Authentication(Roles = new[] { "ADMIN" })]
-        public JsonResult UpdateUser(User user)
+        public JsonResult EditModel(Entities.Model model)
         {
             try
             {
-                var result = RUser.UpdateUser(user);
+                var result = RModel.UpdateModel(model);
 
                 return Json(new { status = true, data = result }, JsonRequestBehavior.AllowGet);
             }
@@ -91,15 +63,12 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
             {
                 return Json(new { status = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
             }
-
         }
-
-        [Authentication(Roles = new[] { "ADMIN" })]
-        public JsonResult DeleteUser(int IdUser)
+        public JsonResult DeleteModel(int IdModel)
         {
             try
             {
-                var result = RUser.DeleteUser(new User { Id = IdUser });
+                var result = RModel.DeleteModel(new Entities.Model { Id = IdModel });
 
                 return Json(new { status = true, data = result }, JsonRequestBehavior.AllowGet);
             }

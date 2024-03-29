@@ -1,4 +1,5 @@
 ﻿$(document).ready(function () {
+$(document).ready(function () {
     InitDatatable();
     CreateSignRequestsTable();
 });
@@ -149,7 +150,7 @@ function CreateApprovedAlert(IdRequest, IdSign, Type, elm) {
                 var request = await Approved(IdRequest, IdSign, Type);
 
                 var rowData = CreateRequestTableRow(request, Type);
-                datatable.row(indexRow).data(rowData).draw();
+                datatable.row(indexRow).data(rowData).draw(false);
 
                 $('#borrow_modal').modal('hide');
                 $('#return_modal').modal('hide');
@@ -197,7 +198,7 @@ function CreateRejectedAlert(IdRequest, IdSign, Type, elm) {
                 var request = await Rejected(IdRequest, IdSign, Type, Note);
 
                 var rowData = CreateRequestTableRow(request, Type);
-                datatable.row(indexRow).data(rowData).draw();
+                datatable.row(indexRow).data(rowData).draw(false);
 
 
                 $('#borrow_modal').modal('hide');

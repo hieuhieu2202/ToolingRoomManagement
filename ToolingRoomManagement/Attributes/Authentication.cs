@@ -30,7 +30,7 @@ namespace ToolingRoomManagement.Attributes
                 if (user != null)
                 {
                     // Nếu yêu cầu quyền
-                    if(Roles.Length > 0)
+                    if(Roles != null && Roles.Length > 0)
                     {
                         foreach(var role in Roles)
                         {

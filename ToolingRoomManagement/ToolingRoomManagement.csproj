@@ -205,6 +205,8 @@
     <Content Include="Areas\NVIDIA\Content\Custom\Authentication\css\SignUp.css" />
     <Content Include="Areas\NVIDIA\Content\Custom\Authentication\js\SignIn.js" />
     <Content Include="Areas\NVIDIA\Content\Custom\Authentication\js\SignUp.js" />
+    <Content Include="Areas\NVIDIA\Content\Custom\Common\js\PageCommon.js" />
+    <Content Include="Areas\NVIDIA\Content\Custom\Common\js\ProductCommon.js" />
     <Content Include="Areas\NVIDIA\Content\Custom\Common\js\RoleCommon.js" />
     <Content Include="Areas\NVIDIA\Content\Custom\Common\js\UserCommon.js" />
     <Content Include="Areas\NVIDIA\Content\Custom\RequestManagement\css\TakeDevice.css" />
@@ -239,12 +241,12 @@
     <Content Include="Areas\NVIDIA\Content\Custom\ExportManagement\_AddExportModal.js" />
     <Content Include="Areas\NVIDIA\Content\Custom\ExportManagement\_ExportCommon.js" />
     <Content Include="Areas\NVIDIA\Content\Custom\ExportManagement\_ExportDetailsModal.js" />
-    <Content Include="Areas\NVIDIA\Content\Custom\Info\css\GroupVendor.css" />
-    <Content Include="Areas\NVIDIA\Content\Custom\Info\css\ModelStation.css" />
-    <Content Include="Areas\NVIDIA\Content\Custom\Info\css\product.css" />
-    <Content Include="Areas\NVIDIA\Content\Custom\Info\js\GroupVendor.js" />
-    <Content Include="Areas\NVIDIA\Content\Custom\Info\js\ModelStation.js" />
-    <Content Include="Areas\NVIDIA\Content\Custom\Info\js\product.js" />
+    <Content Include="Areas\NVIDIA\Content\Custom\InfoManagement\css\GroupAndVendorManagement.css" />
+    <Content Include="Areas\NVIDIA\Content\Custom\InfoManagement\css\ModelAndStationManagement.css" />
+    <Content Include="Areas\NVIDIA\Content\Custom\InfoManagement\css\ProductManagement.css" />
+    <Content Include="Areas\NVIDIA\Content\Custom\InfoManagement\js\GroupAndVendorManagement.js" />
+    <Content Include="Areas\NVIDIA\Content\Custom\InfoManagement\js\ModelAndStationManagement.js" />
+    <Content Include="Areas\NVIDIA\Content\Custom\InfoManagement\js\ProductManagement.js" />
     <Content Include="Areas\NVIDIA\Content\Custom\Layout\CustomLayout.css" />
     <Content Include="Areas\NVIDIA\Content\Custom\Layout\CustomLayout.js" />
     <Content Include="Areas\NVIDIA\Content\Custom\ExportManagement\management.css" />
@@ -3144,10 +3146,12 @@
     <Compile Include="Areas\API\Controllers\ToolroomController.cs" />
     <Compile Include="Areas\NVIDIA\Controllers\AdminManagementController.cs" />
     <Compile Include="Areas\NVIDIA\Controllers\AuthenticationController.cs" />
+    <Compile Include="Areas\NVIDIA\Controllers\ModelManagementController.cs" />
+    <Compile Include="Areas\NVIDIA\Controllers\ProductManagementController.cs" />
     <Compile Include="Areas\NVIDIA\Controllers\RequestManagementController.cs" />
     <Compile Include="Areas\NVIDIA\Controllers\DashboardController.cs" />
     <Compile Include="Areas\NVIDIA\Controllers\DeviceManagementController.cs" />
-    <Compile Include="Areas\NVIDIA\Controllers\InfoController.cs" />
+    <Compile Include="Areas\NVIDIA\Controllers\InfoManagementController.cs" />
     <Compile Include="Areas\NVIDIA\Controllers\ExportManagementController.cs" />
     <Compile Include="Areas\NVIDIA\Controllers\RoleManagementController.cs" />
     <Compile Include="Areas\NVIDIA\Controllers\UserManagementController.cs" />
@@ -3252,7 +3256,12 @@
       <DependentUpon>ToolingRoomModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Areas\NVIDIA\NVIDIAAreaRegistration.cs" />
+    <Compile Include="Areas\NVIDIA\Reseptory\RModel.cs" />
+    <Compile Include="Areas\NVIDIA\Reseptory\RStation.cs" />
+    <Compile Include="Areas\NVIDIA\Reseptory\RVendor.cs" />
+    <Compile Include="Areas\NVIDIA\Reseptory\RGroup.cs" />
     <Compile Include="Areas\NVIDIA\Reseptory\RRole.cs" />
+    <Compile Include="Areas\NVIDIA\Reseptory\RProduct.cs" />
     <Compile Include="Areas\NVIDIA\Reseptory\RUser.cs" />
     <Compile Include="Attributes\Authentication.cs" />
     <Compile Include="Common\CheckCode.cs" />
@@ -3627,9 +3636,9 @@
     <Content Include="Areas\NVIDIA\Views\Warehouse\Management.cshtml" />
     <Content Include="Areas\NVIDIA\Views\Warehouse\Layout.cshtml" />
     <Content Include="Areas\NVIDIA\Views\RequestManagement\TakeDevice.cshtml" />
-    <Content Include="Areas\NVIDIA\Views\Info\Product.cshtml" />
-    <Content Include="Areas\NVIDIA\Views\Info\ModelStation.cshtml" />
-    <Content Include="Areas\NVIDIA\Views\Info\GroupVendor.cshtml" />
+    <Content Include="Areas\NVIDIA\Views\InfoManagement\Product.cshtml" />
+    <Content Include="Areas\NVIDIA\Views\InfoManagement\ModelStation.cshtml" />
+    <Content Include="Areas\NVIDIA\Views\InfoManagement\GroupVendor.cshtml" />
     <Content Include="Areas\NVIDIA\Views\DeviceManagement\_DeviceDetails_Modal.cshtml" />
     <Content Include="Areas\NVIDIA\Views\RequestManagement\Modal\_RequestDetailsModal.cshtml" />
     <Content Include="Areas\NVIDIA\Views\DeviceManagement\ConfirmDevice.cshtml" />
@@ -3643,6 +3652,7 @@
     <Content Include="Areas\NVIDIA\Views\ExportManagement\_AddExportDeviceModal.cshtml" />
     <Content Include="Areas\NVIDIA\Views\AdminManagement\UserManagement.cshtml" />
     <Content Include="Areas\NVIDIA\Views\AdminManagement\RoleManagement.cshtml" />
+    <Content Include="Areas\NVIDIA\Views\Shared\_NvidiaNavigationBarShared.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -3675,6 +3685,8 @@
     <Folder Include="Areas\NVIDIA\Content\Custom\Common\css\" />
     <Folder Include="Areas\NVIDIA\Content\Custom\RequestManagement\js\Export\" />
     <Folder Include="Areas\NVIDIA\Data\DeviceHistoryLog\" />
+    <Folder Include="Areas\NVIDIA\Views\ModelManagement\" />
+    <Folder Include="Areas\NVIDIA\Views\ProductManagement\" />
     <Folder Include="Areas\NVIDIA\Views\RoleManagement\" />
     <Folder Include="Data\Image\" />
     <Folder Include="Views\Register\" />
@@ -3706,7 +3718,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>52432</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:42151/</IISUrl>
+          <IISUrl>http://localhost:5511/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

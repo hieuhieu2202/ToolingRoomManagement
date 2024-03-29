@@ -109,14 +109,18 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Reseptory
 
                     var dbUser = dbContext.Users.FirstOrDefault(u => u.Username == user.Username);
 
-                    dbUser.Username = user.Username;
-                    dbUser.Password = user.Password;
+                    dbUser.Username = user.Username;                  
                     dbUser.Email = user.Email;
                     dbUser.VnName = user.VnName;
                     dbUser.CnName = user.CnName;
                     dbUser.EnName = user.EnName;
                     dbUser.Status = user.Status;
                     dbUser.CreatedDate = user.CreatedDate;
+
+                    if ((user.Password != null || !string.IsNullOrEmpty(user.Password)) && dbUser.Password != user.Password)
+                    {
+                        dbUser.Password = user.Password;
+                    }
 
                     dbContext.Users.AddOrUpdate(dbUser);
                     dbContext.SaveChanges();
@@ -135,6 +139,8 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Reseptory
             {
                 using (ToolingRoomEntities dbContext = new ToolingRoomEntities())
                 {
+                    dbContext.Configuration.LazyLoadingEnabled = false;
+
                     var dbUser = dbContext.Users.FirstOrDefault(u => u.Id == user.Id);
                     var sessionUser = Data.Common.GetSessionUser();
 
@@ -142,15 +148,19 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Reseptory
                     {
                         if(dbUser.Status == "DELETED")
                         {
-                            dbContext.Users.AddOrUpdate(user);
+                            dbContext.Users.Remove(dbUser);
                             dbContext.SaveChanges();
+                            return null;
                         }
                         else
                         {
-                            user.Status = "DELETED";
-                        }
+                            dbUser.Status = "DELETED";
+                            dbContext.Users.AddOrUpdate(dbUser);
+                            dbContext.SaveChanges();
+                            return GetUser(dbUser.Id);
+                        }                        
 
-                        return user;
+                        
                     }
                     else
                     {
@@ -167,20 +177,20 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Reseptory
         /* VALIDATE */
         private static bool CreateValidate_User(ToolingRoomEntities dbContext,  User user)
         {
-            if (user.Username == null || user.Username == string.Empty || user.Username.Length < 6)
+            if (string.IsNullOrEmpty(user.Username) || user.Username.Length < 6)
             {
                 throw new Exception ("Please double check your username.");
             }
-            if (user.Password == null || user.Password == string.Empty || user.Password.Length < 6)
+            if (string.IsNullOrEmpty(user.Password) && user.Password.Length < 6)
             {
                 throw new Exception("Please double check your password.");
             }
-            if ((user.VnName == null || user.VnName == string.Empty) && 
-                (user.EnName == null || user.EnName == string.Empty) && 
-                (user.CnName == null || user.CnName == string.Empty))
+            if (string.IsNullOrEmpty(user.VnName) && string.IsNullOrEmpty(user.EnName) && string.IsNullOrEmpty(user.CnName))
             {
                 throw new Exception("Please double check your name.");
             }
+
+            // Kiểm tra user đã tồn tại chưa
             if(dbContext.Users.Any(u => u.Username == user.Username))
             {
                 throw new Exception("User already exists.");
@@ -193,19 +203,20 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Reseptory
             user.Username = user.Username.Trim().ToUpper();
             var dbUser = dbContext.Users.FirstOrDefault(u => u.Username == user.Username);
 
-            if (user.Username == null || user.Username == string.Empty || user.Username.Length < 6)
+            if (string.IsNullOrEmpty(user.Username) || user.Username.Length < 6)
             {
                 throw new Exception("Please double check your username.");
             }
 
-            if (user.Password == null || user.Password == string.Empty || user.Password.Length < 6)
+            if(!string.IsNullOrEmpty(user.Password) && dbUser.Password != user.Password)
             {
-                throw new Exception("Please double check your password.");
-            }
+                if (user.Password.Length < 6)
+                {
+                    throw new Exception("Please double check your password.");
+                }
+            }           
 
-            if ((user.VnName == null || user.VnName == string.Empty) &&
-                (user.EnName == null || user.EnName == string.Empty) &&
-                (user.CnName == null || user.CnName == string.Empty))
+            if (string.IsNullOrEmpty(user.VnName) && string.IsNullOrEmpty(user.EnName) && string.IsNullOrEmpty(user.CnName))
             {
                 throw new Exception("Please double check your name.");
             }

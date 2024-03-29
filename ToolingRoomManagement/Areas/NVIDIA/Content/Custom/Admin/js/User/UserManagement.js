@@ -1,11 +1,11 @@
-﻿$(document).ready(function () {
-    InitDatatable();
-    CreateDatatable();
+﻿var UserManagementTable, _users;
+$(document).ready(function () {
+    CreateUserTable();
+    GetUserTableData();
 });
 
 /* DATATABLE */
-var datatable, users;
-function InitDatatable() {
+function CreateUserTable() {
     const options = {
         scrollY: 480,
         scrollX: true,
@@ -13,11 +13,11 @@ function InitDatatable() {
         autoWidth: false,
         columnDefs: [
             { targets: "_all", orderable: false },
-            { targets: [7], className: 'text-center' },
-            { targets: [2, 4, 5], width: 150 },
-            { targets: [3], width: 200 },
-            { targets: [6], width: 350 },
-            { targets: [8], className: "row-action order-action d-flex text-center justify-content-center" },
+            { targets: [6], className: 'text-center' },
+            { targets: [1, 3, 5], width: 150 },
+            { targets: [2], width: 200 },
+            { targets: [5], width: 350 },
+            { targets: [7], className: "row-action order-action d-flex text-center justify-content-center" },
             { targets: [0], visible: false },
 
         ],
@@ -29,7 +29,7 @@ function InitDatatable() {
             {
                 text: 'New User',
                 action: function (e, dt, button, config) {
-                    OpenCreateUserModal();
+                    CreateUserModal_Open();
                 }
             }
         ],
@@ -38,50 +38,59 @@ function InitDatatable() {
             $(row).data('id', data[0]);
         },
     };
-    datatable = $('#datatable').DataTable(options);
+    UserManagementTable = $('#user-datatable').DataTable(options);
 };
-async function CreateDatatable() {
-    try {
-        users = await GetUsers();
+async function GetUserTableData() {
+    try
+    {
+        _users = await GetUsers();
 
         var RowDatas = [];
-        $.each(users, function (k, user) {
-            var rowdata = CreateDatatableRow(user);
+        $.each(_users, function (k, user) {
+            var rowdata = CreateUserTableRow(user);
             RowDatas.push(rowdata);
         });
 
-        datatable.rows.add(RowDatas);
-        datatable.columns.adjust().draw(true);
+        UserManagementTable.rows.add(RowDatas);
+        UserManagementTable.columns.adjust().draw(true);
 
-    } catch (error) {
+    }
+    catch (error)
+    {
         Swal.fire('Sorry, something went wrong!', `${error}`, 'error');
+        console.error(error);
     }
 };
-function CreateDatatableRow(user) {
+
+/* DATATABLE ROW */
+function CreateUserTableRow(user) {
     return row = [
         user.Id,
         user.Username,
-        user.Password != null ? user.Password : '',
         user.VnName != null ? user.VnName : '',
         user.CnName != null ? user.CnName : '',
         user.EnName != null ? user.EnName : '',
         user.Email,
-        GetUserStatus(user),
-        GetUserAction(user),
+        CreateUserTableCellStatus(user),
+        CreateUserTableCellAction(user),
     ]
 };
-function GetUserStatus(user) {
-    switch (user.Status) {
-        case "Active": {
+function CreateUserTableCellStatus(user) {
+    if (user.Status == null) {
+        user.Status = 'NA'
+    }
+
+    switch (user.Status.toUpperCase()) {
+        case "ACTIVE": {
             return (`<span class="fw-bold text-success"><i class="fa-duotone fa-shield-check"></i> Active</span>`);
         }
-        case "No Active": {
+        case "NO ACTIVE": {
             return (`<span class="fw-bold text-warning"><i class="fa-duotone fa-shield-slash"></i> No Active</span>`);
         }
-        case "Locked": {
+        case "LOCKED": {
             return (`<span class="fw-bold text-danger"><i class="fa-duotone fa-shield-keyhole"></i> Locked</span>`);
         }
-        case "Deleted": {
+        case "DELETED": {
             return (`<span class="fw-bold text-secondary"><i class="fa-duotone fa-shield-exclamation"></i> Deleted</span>`);
         }
         default: {
@@ -89,166 +98,154 @@ function GetUserStatus(user) {
         }
     }
 }
-function GetUserAction(user) {
-    var btnDetails = `<a href="javascript:;" class="text-info    bg-light-info    border-0" onclick="Details(this, ${user.Id})"><i class="fa-regular fa-circle-info"></i></a>`;
-    var btnUpdated = `<a href="javascript:;" class="text-warning bg-light-warning border-0" onclick="Updated(this, ${user.Id})   "><i class="fa-duotone fa-pen"></i></a>`;
-    var btnDeleted = `<a href="javascript:;" class="text-danger  bg-light-danger  border-0" onclick="Deleted(this, ${user.Id}) "><i class="fa-duotone fa-trash"></i></a>`;
+function CreateUserTableCellAction(user) {
+    var btnDetails = `<a href="javascript:;" class="text-info    bg-light-info    border-0" data-id="${user.Id}" onclick="DetailUserModal_Open(this)"><i class="fa-regular fa-circle-info"></i></a>`;
+    var btnUpdated = `<a href="javascript:;" class="text-warning bg-light-warning border-0" data-id="${user.Id}" onclick="UpdateUserModal_Open(this)"><i class="fa-duotone fa-pen"></i></a>`;
+    var btnDeleted = `<a href="javascript:;" class="text-danger  bg-light-danger  border-0" data-id="${user.Id}" onclick="DeleteUserModal_Open(this)"><i class="fa-duotone fa-trash"></i></a>`;
 
     return btnDetails + btnUpdated + btnDeleted;
 };
 
-/* NEW USER*/
-function OpenCreateUserModal() {
-    $('#AddUser-CreatedDate').val(moment().format("YYYY-MM-DDTHH:mm:ss"));
+/* MAIN EVENT */
 
-    $('#modal-AddUser').modal('show');
+// Create
+function CreateUserModal_Open() {
+    $('#create-CreatedDate').val(moment().format("YYYY-MM-DDTHH:mm:ss"));
+    $('#CreateUserModal').modal('show');
 };
-$('#AddUser-Username').keydown(async function (e) {
-    if (e.keyCode === 13) {
-        try {
-            var username = $('#AddUser-Username').val();
-            var userinfo = await GetUserInformation(username);
-
-            $('#AddUser-CnName').val(userinfo.USER_NAME);
-            $('#AddUser-Email').val(userinfo.NOTES_ID);
-            $('#AddUser-HireDate').val(userinfo.HIREDATE);
-            $('#AddUser-LeaveDate').val(userinfo.LEAVEDAY);
+async function CreateUserModal_Save(elm) {
+    try
+    {
+        var user = {
+            Username: $('#create-Username').val(),
+            Password: $('#create-Password').val(),
+            Email: $('#create-Email').val(),
+            VnName: $('#create-VnName').val(),
+            CnName: $('#create-CnName').val(),
+            EnName: $('#create-EnName').val(),
+            Status: $('#create-Status').val(),
+            CreatedDate: $('#create-CreatedDate').val(),
+            HireDate: $('#create-HireDate').val(),
+            LeaveDate: $('#create-LeaveDate').val(),
         }
-        catch (error) {
-            console.log(error);
+
+        var result = await CreateUser(user);
+
+        if (result) {
+
+            var rowData = CreateTableRow(user);
+            UserManagementTable.row.add(rowData).draw(false);
+
+            toastr["success"](`Create user ${user.Username} success.`);
+            $('#CreateUserModal').modal('hide');
         }
     }
-});
-$('#AddUser-Username').blur(async function (e) {
-    try {
-        var username = $('#AddUser-Username').val();
-        var userinfo = await GetUserInformation(username);
-
-        $('#AddUser-CnName').val(userinfo.USER_NAME);
-        $('#AddUser-Email').val(userinfo.NOTES_ID);
-        $('#AddUser-HireDate').val(userinfo.HIREDATE);
-        $('#AddUser-LeaveDate').val(userinfo.LEAVEDAY);
-    }
-    catch (error) {
-        console.log(error);
-    }
-});
-$('#modal-AddUser-Save').click(async function (e) {
-    try {
-        e.preventDefault();
-        var user = await CreateUser(GetUserData('create'));
-
-        var rowData = CreateDatatableRow(user);
-        datatable.row.add(rowData).draw();
-
-        toastr["success"](`Create user ${user.Username} success.`);
-        $('#modal-AddUser').modal('hide');
-    } catch (error) {
+    catch (error)
+    {
         Swal.fire('Sorry, something went wrong!', `${error}`, 'error');
-    }
-
-});
-
-/* DETAILS USER */
-async function Details(elm, Id) {
-    try {
-        var user = await GetUser(Id);
-
-        $('#DetailsUser-Username').val(user.Username);
-        $('#DetailsUser-Password').val(user.Password);
-        $('#DetailsUser-Email').val(user.Email);
-        $('#DetailsUser-VnName').val(user.VnName);
-        $('#DetailsUser-CnName').val(user.CnName);
-        $('#DetailsUser-EnName').val(user.EnName);
-        $('#DetailsUser-Status').val(user.Status);
-        $('#DetailsUser-CreatedDate').val(moment(user.CreatedDate).format("YYYY-MM-DDTHH:mm:ss"));
-
-        $('#modal-DetailsUser').modal('show');
-
-    } catch (error) {
-        Swal.fire('Sorry, something went wrong!', `${error}`, 'error');
+        console.error(error);
     }
 }
 
-/* UPDATE USER */
-async function Updated(elm, Id) {
-    try {
-        var user = await GetUser(Id);
+// Update
+async function UpdateUserModal_Open(elm) {
+    try
+    {
+        var IdUser = $(elm).data('id');
+        var IndexRow = UserManagementTable.row($(elm).closest('tr'));
 
-        $('#UpdateUser-Username').val(user.Username);
-        $('#UpdateUser-Password').val(user.Password);
-        $('#UpdateUser-Email').val(user.Email);
-        $('#UpdateUser-VnName').val(user.VnName);
-        $('#UpdateUser-CnName').val(user.CnName);
-        $('#UpdateUser-EnName').val(user.EnName);
-        $('#UpdateUser-Status').val(user.Status);
-        $('#UpdateUser-CreatedDate').val(moment(user.CreatedDate).format("YYYY-MM-DDTHH:mm:ss"));
+        var result = await GetUser(IdUser);
 
-        var index = datatable.row($(elm).closest('tr'));
-        $('#modal-UpdateUser-Save').data('id', user.Id);
-        $('#modal-UpdateUser-Save').data('index', index);
+        $('#update-Username').val(result.Username);
+        $('#update-Password').val(result.Password);
+        $('#update-Email').val(result.Email);
+        $('#update-VnName').val(result.VnName);
+        $('#update-CnName').val(result.CnName);
+        $('#update-EnName').val(result.EnName);
+        $('#update-Status').val(result.Status);
+        $('#update-CreatedDate').val(moment(result.CreatedDate).format("YYYY-MM-DDTHH:mm:ss"));
 
-        $('#modal-UpdateUser').modal('show');
+        
+        $('#UpdateUserModel_Save').data('id', IdUser);
+        $('#UpdateUserModel_Save').data('index', IndexRow);
 
-    } catch (error) {
+        $('#UpdateUserModal').modal('show');
+
+    }
+    catch (error)
+    {
         Swal.fire('Sorry, something went wrong!', `${error}`, 'error');
-    }
-};
-$('#UpdateUser-Username').keydown(async function (e) {
-    if (e.keyCode === 13) {
-        try {
-            var username = $('#AddUser-Username').val();
-            var userinfo = await GetUserInformation(username);
-
-            $('#AddUser-CnName').val(userinfo.USER_NAME);
-            $('#AddUser-Email').val(userinfo.NOTES_ID);
-            $('#AddUser-HireDate').val(userinfo.HIREDATE);
-            $('#AddUser-LeaveDate').val(userinfo.LEAVEDAY);
-        }
-        catch (error) {
-            console.log(error);
-        }
-    }
-});
-$('#UpdateUser-Username').blur(async function (e) {
-    try {
-        var username = $('#AddUser-Username').val();
-        var userinfo = await GetUserInformation(username);
-
-        $('#AddUser-CnName').val(userinfo.USER_NAME);
-        $('#AddUser-Email').val(userinfo.NOTES_ID);
-        $('#AddUser-HireDate').val(userinfo.HIREDATE);
-        $('#AddUser-LeaveDate').val(userinfo.LEAVEDAY);
-    }
-    catch (error) {
         console.log(error);
     }
-});
-$('#modal-UpdateUser-Save').click(async function (e) {
-    try {
-        e.preventDefault();
-        var user = await UpdateUser(GetUserData('update'));
+}
+async function UpdateUserModal_Save(elm) {
+    try
+    {
+        var IdUser = $(elm).data('id');
+        var IndexRow = $(elm).data('index');
 
-        var index = $('#modal-UpdateUser-Save').data('index');
+        var user = {
+            Id: IdUser,
+            Username: $('#update-Username').val(),
+            Password: $('#update-Password').val(),
+            Email: $('#update-Email').val(),
+            VnName: $('#update-VnName').val(),
+            CnName: $('#update-CnName').val(),
+            EnName: $('#update-EnName').val(),
+            Status: $('#update-Status').val(),
+            CreatedDate: $('#update-CreatedDate').val(),
+        }
 
-        var rowdata = CreateDatatableRow(user);
-        datatable.row(index).data(rowdata).draw();
+        var result = await UpdateUser(user);
 
-        toastr["success"](`Update user ${user.Username} success.`);
-        $('#modal-UpdateUser').modal('hide');
-    } catch (error) {
-        Swal.fire('Sorry, something went wrong!', `${error}`, 'error');
+        if (result) {
+            var rowdata = CreateUserTableRow(user);
+            UserManagementTable.row(IndexRow).data(rowdata).draw(false);
+            toastr["success"](`Update user ${user.Username} success.`);
+            $('#UpdateUserModal').modal('hide');
+        }
     }
+    catch (error)
+    {
+        Swal.fire('Sorry, something went wrong!', `${error}`, 'error');
+        console.error(error);
+    }
+}
 
-});
+// Details
+async function DetailUserModal_Open(elm) {
+    try
+    {
+        var IdUser = $(elm).data('id');
+        var result = await GetUser(IdUser);
 
-/* DELETE USER */
-async function Deleted(elm, Id) {
+        $('#details-Username').val(result.Username);
+        $('#details-Password').val(result.Password);
+        $('#details-Email').val(result.Email);
+        $('#details-VnName').val(result.VnName);
+        $('#details-CnName').val(result.CnName);
+        $('#details-EnName').val(result.EnName);
+        $('#details-Status').val(result.Status);
+        $('#details-CreatedDate').val(moment(result.CreatedDate).format("YYYY-MM-DDTHH:mm:ss"));
+
+        $('#DetailUserModal').modal('show');
+    }
+    catch (error) {
+        Swal.fire('Sorry, something went wrong!', `${error}`, 'error');
+        console.error(error);
+    }
+}
+
+// Delete
+async function DeleteUserModal_Open(elm) {
     try {
-        var user = await GetUser(Id);
+        var IdUser = $(elm).data('id');
+        var IndexRow = UserManagementTable.row($(elm).closest('tr'));
+
+        var user = await GetUser(IdUser);
 
         Swal.fire({
-            title: 'Are you sure?',
+            title: 'Are you sure?',UserManagementTable.row(IndexRow).remove().draw(false);
             html: `Do you want delete user '${user.Username}'?`,
             icon: 'question',
             iconColor: '#dc3545',
@@ -262,65 +259,64 @@ async function Deleted(elm, Id) {
                 cancelButton: 'btn btn-outline-secondary fw-bold me-3',
                 confirmButton: 'btn btn-danger fw-bold'
             },
-        }).then(async (result) => {
-            if (result.isConfirmed) {
-                try {
-                    var result = await DeleteUser(Id);
-                    var index = datatable.row($(elm).closest('tr'));
+        }).then(async (swarResult) => {
+            if (swarResult.isConfirmed) {
+                try
+                {
+                    var result = await DeleteUser(IdUser);
 
-                    if (result === true) {                       
-                        datatable.row(index).remove().draw();  
+                    if (result != null) {
+                        var rowdata = CreateUserTableRow(result);
+                        UserManagementTable.row(IndexRow).data(rowdata).draw(false);                       
                     }
                     else {
-                        var rowdata = CreateDatatableRow(result);
-                        datatable.row(index).data(rowdata).draw();
+                        UserManagementTable.row(IndexRow).remove().draw(false);
                     }
 
                     toastr["success"](`Delete user ${user.Username} success.`);
-                } catch (error) {
+                }
+                catch (error)
+                {
                     Swal.fire('Sorry, something went wrong!', `${error}`, 'error');
+                    console.error(error);
                 }
             }
         });
 
     } catch (error) {
         Swal.fire('Sorry, something went wrong!', `${error}`, 'error');
+        console.error(error);
     }
 }
 
-/* OTHER */
-function GetUserData(type) {
-    switch (type) {
-        case "create": {
-            return user = {
-                Username: $('#AddUser-Username').val(),
-                Password: $('#AddUser-Password').val(),
-                Email: $('#AddUser-Email').val(),
-                VnName: $('#AddUser-VnName').val(),
-                CnName: $('#AddUser-CnName').val(),
-                EnName: $('#AddUser-EnName').val(),
-                Status: $('#AddUser-Status').val(),
-                CreatedDate: $('#AddUser-CreatedDate').val(),
+/* OTHER EVENT */
+$('#create-Username').blur(async function (e) {
+    try {
+        var username = $('#create-Username').val();
+        var userinfo = await GetUserInformation(username);
 
-                HireDate: $('#AddUser-HireDate').val(),
-                LeaveDate: $('#AddUser-LeaveDate').val(),
-            }
-        }
-        case "update": {
-            return user = {
-                Username: $('#UpdateUser-Username').val(),
-                Password: $('#UpdateUser-Password').val(),
-                Email: $('#UpdateUser-Email').val(),
-                VnName: $('#UpdateUser-VnName').val(),
-                CnName: $('#UpdateUser-CnName').val(),
-                EnName: $('#UpdateUser-EnName').val(),
-                Status: $('#UpdateUser-Status').val(),
-                CreatedDate: $('#UpdateUser-CreatedDate').val(),
-            }
-        }
-        default: {
-            return null;
-        }
+        $('#create-CnName').val(userinfo.USER_NAME);
+        $('#create-Email').val(userinfo.NOTES_ID);
+        $('#create-HireDate').val(userinfo.HIREDATE);
+        $('#create-LeaveDate').val(userinfo.LEAVEDAY);
     }
-    
-}
+    catch (error) {
+        console.error(error);
+    }
+});
+$('#update-Username').blur(async function (e) {
+    try
+    {
+        var username = $('#update-Username').val();
+        var userinfo = await GetUserInformation(username);
+
+        $('#update-CnName').val(userinfo.USER_NAME);
+        $('#update-Email').val(userinfo.NOTES_ID);
+        $('#update-HireDate').val(userinfo.HIREDATE);
+        $('#update-LeaveDate').val(userinfo.LEAVEDAY);
+    }
+    catch (error)
+    {
+        console.error(error);
+    }
+});

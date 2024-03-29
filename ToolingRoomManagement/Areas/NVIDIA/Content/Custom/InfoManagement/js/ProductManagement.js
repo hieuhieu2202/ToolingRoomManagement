@@ -1,30 +1,232 @@
-﻿$(function () {
+﻿var ProductManagementTable, _productsData;
+var DeviceManagementTable, _devicesData;
+$(document).ready(function () {
     CreateProductTable();
+    GetProductTableData();
 });
 
-// Table
-function GetProducts() {
-    return new Promise((resolve, reject) => {
-        $.ajax({
-            type: "GET",
-            url: "/NVIDIA/Info/GetProducts",
-            dataType: "json",
-            contentType: "application/json;charset=utf-8",
-            success: function (response) {
-                if (response.status) {
-                    resolve(response.products);
-                } else {
-                    toastr["error"](response.message, "ERROR");
+/* DATATABLE */
+function CreateProductTable() {
+    const options = {
+        scrollY: 480,
+        scrollX: false,
+        order: [0, 'desc'],
+        autoWidth: true,
+        columnDefs: [
+            { targets: "_all", orderable: false },
+            { targets: [0, 3], className: 'text-center' },
+            { targets: [0], visible: false },
+            { targets: [4], with: 10, className: 'order-action' },
+        ],
+        dom: "<'row'<'w-auto'B><'col-sm-12 col-md'l><'col-sm-12 col-md'f>>" +
+            "<'row'<'col-sm-12'tr>>" +
+            "<'row'<'col-sm-12 col-md-7'i><'col-sm-12 col-md-5'p>>",
+        buttons: [
+            {
+                text: 'New Product',
+                action: function (e, dt, button, config) {
+                    CreateProductModal_Open();
                 }
+            }
+        ],
+        createdRow: function (row, data, dataIndex) {
+            $(row).data('id', data[0]);
+        },
+    };
+    ProductManagementTable = $('#product-datatable').DataTable(options);
+}
+async function GetProductTableData() {
+    try {
+        _productsData = await GetDataAndProducts();
+
+        var RowDatas = [];
+        $.each(_productsData, function (k, data) {
+            var rowdata = CreateProductTableRow(data);
+            RowDatas.push(rowdata);
+        });
+
+        ProductManagementTable.rows.add(RowDatas);
+        ProductManagementTable.columns.adjust().draw(true);
+
+    }
+    catch (error) {
+        Swal.fire('Sorry, something went wrong!', `${error}`, 'error');
+        console.error(error);
+    }
+}
+
+function CreateDeviceTable() {
+    const options = {
+        scrollY: 480,
+        scrollX: false,
+        order: [0, 'desc'],
+        autoWidth: true,
+        columnDefs: [
+            { targets: "_all", orderable: false },
+            { targets: [0], visible: false },
+        ],      
+        createdRow: function (row, data, dataIndex) {
+            $(row).data('id', data[0]);
+        },
+    };
+    ProductManagementTable = $('#product-datatable').DataTable(options);
+}
+
+/* DATATABLE ROW */
+function CreateProductTableRow(data) {
+    return row = [
+        data.Product.Id,
+        data.Product.MTS ? data.Product.MTS : '',
+        data.Product.ProductName ? data.Product.ProductName : '',
+        data.Total.Device,
+        CreateProductTableCellAction(data.Product),
+    ]
+};
+function CreateProductTableCellAction(product) {
+    var btnDetails = `<a href="javascript:;" class="text-info    bg-light-info    border-0" data-id="${product.Id}" onclick="DetailProductModal_Open(this)"><i class="fa-regular fa-circle-info"></i></a>`;
+    var btnUpdate  = `<a href="javascript:;" class="text-warning bg-light-warning border-0" data-id="${product.Id}" onclick="UpdateProductModal_Open(this)"><i class="fa-duotone fa-pen"></i></a>`;
+    var btnDelete  = `<a href="javascript:;" class="text-danger  bg-light-danger  border-0" data-id="${product.Id}" onclick="DeleteProductModal_Open(this)"><i class="fa-duotone fa-trash"></i></a>`;
+
+    return btnDetails + btnUpdate + btnDelete;
+};
+
+/* MAIN EVENT */
+
+// Create
+function CreateProductModal_Open() {
+    $('#CreateProductModal').modal('show');
+}
+async function CreateProductModal_Save() {
+    try
+    {
+        var product = {
+            MTS: $('#create-MTS').val(),
+            ProductName: $('#create-ProductName').val()
+        }
+
+        var result = await CreateProduct(product);
+
+        if (result) {
+
+            var rowData = CreateProductTableRow(result);
+            ProductManagementTable.row.add(rowData).draw(false);
+
+            toastr["success"](`Create Product ${product.ProductName} success.`);
+            $('#CreateProductModal').modal('hide');
+        }
+    }
+    catch (error)
+    {
+        Swal.fire('Sorry, something went wrong!', `${error}`, 'error');
+        console.error(error);
+    }
+}
+
+// Update
+async function UpdateProductModal_Open(elm) {
+    try
+    {
+        var IdProduct = $(elm).data('id');
+        var IndexRow = ProductManagementTable.row($(elm).closest('tr'));
+
+        var product = await GetProduct(IdProduct);
+
+        $('#update-MTS').val(product.MTS);
+        $('#update-ProductName').val(product.ProductName);
+
+        $('#UpdateProductModal_Save').data('id', IdProduct);
+        $('#UpdateProductModal_Save').data('index', IndexRow);
+
+        $('#UpdateProductModal').modal('show');
+    }
+    catch (error)
+    {
+        Swal.fire('Sorry, something went wrong!', `${error}`, 'error');
+        console.log(error);
+    }
+}
+async function UpdateProductModal_Save(elm) {
+    try
+    {
+        var IdProduct = $(elm).data('id');
+        var IndexRow = $(elm).data('index');
+
+        var product = {
+            Id: IdProduct,
+            MTS: $('#update-MTS').val(),
+            ProductName: $('#update-ProductName').val(),
+        }
+
+        var result = await UpdateProduct(product);
+
+        if (result) {
+            var rowdata = CreateProductTableRow(result);
+            ProductManagementTable.row(IndexRow).data(rowdata).draw(false);
+
+            toastr["success"](`Update Product ${product.ProductName} success.`);
+            $('#UpdateProductModal').modal('hide');
+        }
+    }
+    catch (error)
+    {
+        Swal.fire('Sorry, something went wrong!', `${error}`, 'error');
+        console.error(error);
+    }
+}
+
+// Delete
+async function DeleteProductModal_Open(elm) {
+    try {
+        var IdProduct = $(elm).data('id');
+        var IndexRow = ProductManagementTable.row($(elm).closest('tr'));
+
+        var product = await GetProduct(IdProduct);
+
+        Swal.fire({
+            title: 'Are you sure?',
+            html: `Do you want delete Product '${product.MTS} - ${product.ProductName}'?`,
+            icon: 'question',
+            iconColor: '#dc3545',
+            reverseButtons: false,
+            confirmButtonText: "Delete",
+            showCancelButton: true,
+            cancelButtonText: "Cancel",
+            buttonsStyling: false,
+            reverseButtons: true,
+            customClass: {
+                cancelButton: 'btn btn-outline-secondary fw-bold me-3',
+                confirmButton: 'btn btn-danger fw-bold'
             },
-            error: function (error) {
-                Swal.fire("Something went wrong!", GetAjaxErrorMessage(error), "error");
+        }).then(async (swarResult) => {
+            if (swarResult.isConfirmed) {
+                try {
+                    var result = await DeleteProduct(IdProduct);
+
+                    if (result) {
+                        ProductManagementTable.row(IndexRow).remove().draw(false);
+
+                        toastr["success"](`Delete Product '${product.MTS} - ${product.ProductName}' success.`);
+                    }
+                }
+                catch (error) {
+                    Swal.fire('Sorry, something went wrong!', `${error}`, 'error');
+                    console.error(error);
+                }
             }
         });
-    });
+
+    } catch (error) {
+        Swal.fire('Sorry, something went wrong!', `${error}`, 'error');
+        console.error(error);
+    }
 }
-var table_Products;
-async function CreateProductTable() {
+
+// Details
+function DetailProductModal_Open() {
+
+}
+
+async function sss() {
     var products = await GetProducts();
 
     // Destroy Old Table
@@ -49,31 +251,35 @@ async function CreateProductTable() {
                          <a href="javascript:;" class="text-warning bg-light-warning border-0" title="Edit"    data-id="${product.Id}" onclick="Edit(this, event)   "><i class="fa-duotone fa-pen"></i></a>
                          <a href="javascript:;" class="text-danger bg-light-danger border-0  " title="Delete"  data-id="${product.Id}" onclick="Delete(this, event) "><i class="fa-duotone fa-trash"></i></a>
                     </td>`);
-        
+
 
         $('#table_Products-body').append(row);
     });
-
-    // Create Datatable
-    const options = {
-        scrollY: 480,
-        scrollX: false,
-        order: [0, 'desc'],
-        autoWidth: true,
-        columnDefs: [
-            { targets: "_all", orderable: false },
-            { targets: [0, 3], className: 'text-center' },
-            { targets: [0], width: "100px" },
-            { targets: [4], className: 'order-action d-flex text-center justify-content-center' },
-        ],  
-        createdRow: function (row, data, dataIndex) {
-            $(row).data('id', data[0]);
-        },
-    };
-
-    table_Products = $('#table_Products').DataTable(options);
-    table_Products.columns.adjust();
 }
+
+// Table
+function GetProducts() {
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            type: "GET",
+            url: "/NVIDIA/Info/GetProducts",
+            dataType: "json",
+            contentType: "application/json;charset=utf-8",
+            success: function (response) {
+                if (response.status) {
+                    resolve(response.products);
+                } else {
+                    toastr["error"](response.message, "ERROR");
+                }
+            },
+            error: function (error) {
+                Swal.fire("Something went wrong!", GetAjaxErrorMessage(error), "error");
+            }
+        });
+    });
+}
+var table_Products;
+
 $(".toggle-icon").click(function () {
     setTimeout(() => {
         table_Products.columns.adjust();
