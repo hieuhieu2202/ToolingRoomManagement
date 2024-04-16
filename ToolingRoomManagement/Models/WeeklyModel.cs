@@ -19,5 +19,6 @@ namespace ToolingRoomManagement.Models
         public int issue_7 { get; set; }
         public int issue_8 { get; set; }
         public string note { get; set; }
+        public DateTime create_date { get; set; }
     }
 }

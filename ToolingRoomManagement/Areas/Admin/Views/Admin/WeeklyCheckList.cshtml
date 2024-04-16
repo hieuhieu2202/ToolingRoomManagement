@@ -154,7 +154,7 @@
                                                         <th style="width:3%;">STT</th>
                                                         <th style="width:6%;">Tên trạm</th>
                                                         <th style="width:6%;">日期 <br /> Ngày tháng</th>
-                                                        <th style="width:6%;">時間 <br />Thời gian</th>
+                                                        @*<th style="width:6%;">時間 <br />Thời gian</th>*@
                                                         <th style="width:7%;">編號 <br /> Mã SN</th>
                                                         <th style="width:7%;">
                                                             能正常開
@@ -193,7 +193,7 @@
                                                         <th style="width:5%;">Ngoại quan xốp cách âm, bông cách âm không hỏng</th>
                                                         <th style="width:8%;">備注 <br /> Ghi chú</th>
                                                         <th style="width:8%;">負責人 <br /> Người phụ trách</th>
-                                                        <th style="width:5%;">Part</th>
+                                                        <th style="width:5%;">Customer</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody id="tbdCheckList">
@@ -206,7 +206,7 @@
                                                                 <th style="text-align: center;">@dem</th>
                                                                 <td style="text-align: center;">@(item.station != null ? item.station.station_name : "")</td>
                                                                 <td style="text-align: center;">@item.weekly.create_date.Value.ToString("dd/MM/yyyy")</td>
-                                                                <td style="text-align: center;">@item.weekly.create_date.Value.ToString("hh:mm")</td>
+                                                                @*<td style="text-align: center;">@item.weekly.create_date.Value.ToString("hh:mm")</td>*@
                                                                 <td style="text-align: center;">@item.weekly.sheilding_mac</td>
                                                                 <td style="text-align: center;">@(item.weekly.issue_1 == 1 ? "OK" : "R")</td>
                                                                 <td style="text-align: center;">@(item.weekly.issue_2 == 1 ? "OK" : "R")</td>
@@ -314,7 +314,7 @@
             <!-- Modal footer -->
             <div class="modal-footer">
                 @*<button type="button" class="btn btn-secondary close">Close</button>*@
-                <button type="button" class="btn btn-secondary btnClick" onclick="Login_Golden()">Complete</button>
+                <button type="button" class="btn btn-secondary btnClick" id="btn-login" onclick="Login_Golden()">Complete</button>
             </div>
 
         </div>
@@ -380,13 +380,11 @@
                 }
             },
             error: function (err) {
-                //debugger
                 alert("FAIL!");
             }
         });
     }
     function fnExcelReport() {
-        debugger
         var tab_text = "<table border='2px'><tr bgcolor='#87AFC6'>";
         var textRange; var j = 0;
         tab = document.getElementById('tbl_CheckList'); // id of table
@@ -419,5 +417,14 @@
         a.download = "Goldens.xls";
         a.click();
     }
+    $(document).keyup(function (event) {
+        // Kiểm tra xem phím được nhả ra có phải là phím "enter" không
+        if (event.keyCode === 13) {
+            if ($('#myModal').is(':visible')) {
+                Login_Golden();
+            }
+            
+        }
+    });
 </script>
 

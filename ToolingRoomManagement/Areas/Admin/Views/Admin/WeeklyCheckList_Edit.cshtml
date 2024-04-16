@@ -179,7 +179,7 @@
                                                         <th style="width:3%;">STT</th>
                                                         <th style="width:6%;">Tên trạm</th>
                                                         <th style="width:6%;">日期 <br /> Ngày tháng</th>
-                                                        <th style="width:6%;">時間 <br />Thời gian</th>
+                                                        @*<th style="width:6%;">時間 <br />Thời gian</th>*@
                                                         <th style="width:7%;">編號 <br /> Mã SN</th>
                                                         <th style="width:7%;">
                                                             能正常開
@@ -218,7 +218,7 @@
                                                         <th style="width:5%;">Ngoại quan xốp cách âm, bông cách âm không hỏng</th>
                                                         <th style="width:7%;">備注 <br /> Ghi chú</th>
                                                         <th style="width:7%;">負責人 <br /> Người phụ trách</th>
-                                                        <th style="width:5%;">Part</th>
+                                                        <th style="width:5%;">Customer</th>
                                                         <th style="width:5%;">Action</th>
                                                     </tr>
                                                 </thead>
@@ -237,7 +237,7 @@
                                                                         <th style="text-align: center;">@dem</th>
                                                                         <td style="text-align: center;">@(item.station != null ? item.station.station_name : "")</td>
                                                                         <td style="text-align: center;">@item.weekly.create_date.Value.ToString("dd/MM/yyyy")</td>
-                                                                        <td style="text-align: center;">@item.weekly.create_date.Value.ToString("hh:mm")</td>
+                                                                        @*<td style="text-align: center;">@item.weekly.create_date.Value.ToString("hh:mm")</td>*@
                                                                         @if (item.weekly.sheilding_mac == null)
                                                                         {
                                                                             <td style="text-align: center;"></td>
@@ -258,8 +258,25 @@
                                                                         <td style="text-align: center;">@item.weekly.create_by_name</td>
                                                                         <td style="text-align: center;">@item.weekly.part</td>
                                                                         <td style="text-align:center;">
-                                                                            <button class="fa fa-edit" style="width: 40%;height: 25px;background: #1b2a47;color: chartreuse;border: 0px;" onclick="OpenModel_Edit('@item.weekly.id','@item.weekly.station_id','@item.station.station_name','@item.weekly.sheilding_mac.Trim()','@item.weekly.issue_1','@item.weekly.issue_2','@item.weekly.issue_3','@item.weekly.issue_4','@item.weekly.issue_5','@item.weekly.issue_6','@item.weekly.issue_7','@item.weekly.issue_8','@(item.weekly.note != null ? item.weekly.note : "")')"></button>
-                                                                            <button class="fa fa-trash" style="width: 40%;height: 25px;background: #1b2a47;color: red;border: 0px;" onclick="Delete('@item.weekly.id')"></button>
+                                                                            <div style="display: flex; justify-content: center; align-items: center;">
+                                                                                <button class="fa fa-edit" style="background: #1b2a47;color: chartreuse;border: 0px;"
+                                                                                        onclick="OpenModel_Edit('@item.weekly.id',
+                                                                                                                '@item.weekly.station_id',
+                                                                                                                '@item.station.station_name',
+                                                                                                                '@item.weekly.sheilding_mac.Trim()',
+                                                                                                                '@item.weekly.issue_1',
+                                                                                                                '@item.weekly.issue_2',
+                                                                                                                '@item.weekly.issue_3',
+                                                                                                                '@item.weekly.issue_4',
+                                                                                                                '@item.weekly.issue_5',
+                                                                                                                '@item.weekly.issue_6',
+                                                                                                                '@item.weekly.issue_7',
+                                                                                                                '@item.weekly.issue_8',
+                                                                                                                '@(item.weekly.note != null ? item.weekly.note : "")',
+                                                                                                                '@item.weekly.create_date')"></button>
+                                                                                <button class="fa fa-trash" style="background: #1b2a47;color: red;border: 0px;" onclick="Delete('@item.weekly.id')"></button>
+                                                                            </div>
+
                                                                         </td>
                                                                     </tr>
                                                                 }
@@ -336,139 +353,244 @@
         </div>
     </div>
 </div>
-<div class="modal" id="myModal">
+
+
+<!-- Modal: -->
+<section>
+
+    <style>
+        .form-control-bs {
+            background-color: #FFFFFF;
+            background-image: none;
+            border: 1px solid #e5e6e7;
+            border-radius: 1px;
+            color: inherit;
+            display: block;
+            padding: 6px 12px;
+            transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+            width: 100%;
+        }
+    </style>
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <label class="modal-title fs-4 fw-bold" style="font-size: 1.5rem" id="exampleModalLabel">Tạo mới</label>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <input hidden id="id_weekly" />
+                    <table class="table table-bordered table-striped w-100">
+                        <tr style="height:45px;">
+                            <td>Ngày tháng: </td>
+                            <td><input type="date" class="form-control-bs" id="datetime" /></td>
+                        </tr>
+                        <tr style="height:45px;">
+                            <td>Tên trạm : </td>
+                            <td id="station" style=" display: flex;"></td>
+                        </tr>
+                        <tr style="height:45px;">
+                            <td>Mã lỗi : </td>
+                            <td id="sheildingbox_mac" contenteditable="true"></td>
+                        </tr>
+                        <tr style="height:45px;">
+                            <td>Khởi động bình thường, k có âm thanh bất thường : </td>
+                            <td>
+                                <input type="radio" name="issue_1" id="issue_1_OK" value="1" /> OK <input type="radio" id="issue_1_NG" name="issue_1" value="2" /> NG
+                            </td>
+                        </tr>
+                        <tr style="height:45px;">
+                            <td>Các cút nối đường ống dẫn khí k bị dò rỉ, lỏng lên : </td>
+                            <td>
+                                <input type="radio" id="issue_2_OK" name="issue_2" value="1" /> OK<input type="radio" id="issue_2_NG" name="issue_2" value="2" /> NG
+                            </td>
+                        </tr>
+                        <tr style="height:45px;">
+                            <td>Sensor cố định tốt, Công năng bình thường : </td>
+                            <td>
+                                <input type="radio" id="issue_3_OK" name="issue_3" value="1" /> OK <input type="radio" id="issue_3_NG" name="issue_3" value="2" /> NG
+                            </td>
+                        </tr>
+
+                        <tr style="height:45px;">
+                            <td>Tính đóng kín tốt, liệu bắt sóng k bị lỏng lên, long tróc : </td>
+                            <td>
+                                <input type="radio" id="issue_4_OK" name="issue_4" value="1" /> OK <input type="radio" id="issue_4_NG" name="issue_4" value="2" /> NG
+                            </td>
+                        </tr>
+                        <tr style="height:45px;">
+                            <td>Công tắc điện khí bình thường, tiếp xúc nguồn điện tốt : </td>
+                            <td>
+                                <input type="radio" id="issue_5_OK" name="issue_5" value="1" /> OK <input type="radio" id="issue_5_NG" name="issue_5" value="2" /> NG
+                            </td>
+                        </tr>
+                        <tr style="height:45px;">
+                            <td>Các ốc vít và linh kiện kết nối cố định tốt : </td>
+                            <td>
+                                <input type="radio" id="issue_6_OK" name="issue_6" value="1" /> OK <input type="radio" id="issue_6_NG" name="issue_6" value="2" /> NG
+                            </td>
+                        </tr>
+                        <tr style="height:45px;">
+
+                            <td>Ngoại quan sạch sẽ, tem mác hoàn chỉnh : </td>
+                            <td>
+                                <input type="radio" id="issue_7_OK" name="issue_7" value="1" /> OK <input type="radio" id="issue_7_NG" name="issue_7" value="2" /> NG
+                            </td>
+                        </tr>
+                        <tr style="height:45px;">
+
+                            <td>Ngoại quan xốp cách âm, bông cách âm không hỏng : </td>
+                            <td>
+                                <input type="radio" id="issue_8_OK" name="issue_8" value="1" /> OK <input type="radio" id="issue_8_NG" name="issue_8" value="2" /> NG
+                            </td>
+                        </tr>
+                        <tr style="height:45px;">
+                            <td>Ghi chú : </td>
+                            <td id="note" contenteditable="true"></td>
+                        </tr>
+
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="AddWeekly()">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="myModalAddStation">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content" style="width: 630px;margin-left: 128px;">
+                <div class="modal-header">
+                    <h4 class="modal-title">Thêm trạm</h4>
+                    <button type="button" class="btnClose" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body" style="height:150px;">
+                    <input hidden id="id_station" />
+                    <table class="tblCreate" style="width:80%;float: left;margin-left:100px;">
+
+                        <tr style="height:45px;">
+                            <td>Tên trạm : </td>
+                            <td>
+                                <input type="text" id="station_name" class="" style="border-radius: 5px;width: 300px;height: 35px;border: 1px solid;" />
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary btnClick" onclick="AddStation()" style="background:green;color:white;">Thêm</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!--<div class="modal" id="myModal">
     <div class="modal-dialog modal-sm">
         <div class="modal-content" style="">
 
             <!-- Modal Header -->
-            <div class="modal-header">
-                <h4 class="modal-title">Tạo mới</h4>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
+<!--<div class="modal-header">
+    <h4 class="modal-title">Tạo mới</h4>
+    <button type="button" class="close" data-dismiss="modal">&times;</button>
+</div>-->
+<!-- Modal body -->
+<!--<div class="modal-body" style="height:500px;">
+    <input hidden id="id_weekly" />
+    <table class="tblCreate" style="width:80%;float: left;margin-left:100px;">
+        <tr style="height:45px;">
+            <td>Tên trạm : </td>
+            <td id="station">-->
+@*<select class="" style="width: 165px;height: 40px;border: 1px solid #a58147;border-radius: 20px;">
+            @foreach(var item in listAllStation)
+            {
+                <option value="@item.id">@item.station_name</option>
+            }
+        </select>
+    <button class="fa fa-plus" id="btnAddStation"></button>*@
+<!--</td>
+        </tr>
+        <tr style="height:45px;">
+            <td>Mã lỗi : </td>
+            <td><input class="form-control" id="sheildingbox_mac" style="border: 1px solid #a58147;border-radius: 20px;background: white;color: black; width: 80%;" /></td>
+        </tr>
+        <tr style="height:45px;">
+            <td>Khởi động bình thường, k có âm thanh bất thường : </td>
+            <td>
+                <input type="radio" name="issue_1" id="issue_1_OK" value="1" /> OK <input type="radio" id="issue_1_NG" name="issue_1" value="2" /> NG
+            </td>
+        </tr>
+        <tr style="height:45px;">
+            <td>Các cút nối đường ống dẫn khí k bị dò rỉ, lỏng lên : </td>
+            <td>
+                <input type="radio" id="issue_2_OK" name="issue_2" value="1" /> OK<input type="radio" id="issue_2_NG" name="issue_2" value="2" /> NG
+            </td>
+        </tr>
+        <tr style="height:45px;">
+            <td>Sensor cố định tốt, Công năng bình thường : </td>
+            <td>
+                <input type="radio" id="issue_3_OK" name="issue_3" value="1" /> OK <input type="radio" id="issue_3_NG" name="issue_3" value="2" /> NG
+            </td>
+        </tr>
 
-            <!-- Modal body -->
-            <div class="modal-body" style="height:500px;">
-                <input hidden id="id_weekly" />
-                <table class="tblCreate" style="width:80%;float: left;margin-left:100px;">
-                    <tr style="height:45px;">
-                        <td>Tên trạm : </td>
-                        <td id="station">
-                            @*<select class="" style="width: 165px;height: 40px;border: 1px solid #a58147;border-radius: 20px;">
-                                        @foreach(var item in listAllStation)
-                                        {
-                                            <option value="@item.id">@item.station_name</option>
-                                        }
-                                    </select>
-                                <button class="fa fa-plus" id="btnAddStation"></button>*@
-                        </td>
-                    </tr>
-                    <tr style="height:45px;">
-                        <td>Mã lỗi : </td>
-                        <td><input class="form-control" id="sheildingbox_mac" style="border: 1px solid #a58147;border-radius: 20px;background: white;color: black; width: 80%;" /></td>
-                    </tr>
-                    <tr style="height:45px;">
-                        <td>Khởi động bình thường, k có âm thanh bất thường : </td>
-                        <td>
-                            <input type="radio" name="issue_1" id="issue_1_OK" value="1" /> OK <input type="radio" id="issue_1_NG" name="issue_1" value="2" /> NG
-                        </td>
-                    </tr>
-                    <tr style="height:45px;">
-                        <td>Các cút nối đường ống dẫn khí k bị dò rỉ, lỏng lên : </td>
-                        <td>
-                            <input type="radio" id="issue_2_OK" name="issue_2" value="1" /> OK<input type="radio" id="issue_2_NG" name="issue_2" value="2" /> NG
-                        </td>
-                    </tr>
-                    <tr style="height:45px;">
-                        <td>Sensor cố định tốt, Công năng bình thường : </td>
-                        <td>
-                            <input type="radio" id="issue_3_OK" name="issue_3" value="1" /> OK <input type="radio" id="issue_3_NG" name="issue_3" value="2" /> NG
-                        </td>
-                    </tr>
+        <tr style="height:45px;">
+            <td>Tính đóng kín tốt, liệu bắt sóng k bị lỏng lên, long tróc : </td>
+            <td>
+                <input type="radio" id="issue_4_OK" name="issue_4" value="1" /> OK <input type="radio" id="issue_4_NG" name="issue_4" value="2" /> NG
+            </td>
+        </tr>
+        <tr style="height:45px;">
+            <td>Công tắc điện khí bình thường, tiếp xúc nguồn điện tốt : </td>
+            <td>
+                <input type="radio" id="issue_5_OK" name="issue_5" value="1" /> OK <input type="radio" id="issue_5_NG" name="issue_5" value="2" /> NG
+            </td>
+        </tr>
+        <tr style="height:45px;">
+            <td>Các ốc vít và linh kiện kết nối cố định tốt : </td>
+            <td>
+                <input type="radio" id="issue_6_OK" name="issue_6" value="1" /> OK <input type="radio" id="issue_6_NG" name="issue_6" value="2" /> NG
+            </td>
+        </tr>
+        <tr style="height:45px;">
 
-                    <tr style="height:45px;">
-                        <td>Tính đóng kín tốt, liệu bắt sóng k bị lỏng lên, long tróc : </td>
-                        <td>
-                            <input type="radio" id="issue_4_OK" name="issue_4" value="1" /> OK <input type="radio" id="issue_4_NG" name="issue_4" value="2" /> NG
-                        </td>
-                    </tr>
-                    <tr style="height:45px;">
-                        <td>Công tắc điện khí bình thường, tiếp xúc nguồn điện tốt : </td>
-                        <td>
-                            <input type="radio" id="issue_5_OK" name="issue_5" value="1" /> OK <input type="radio" id="issue_5_NG" name="issue_5" value="2" /> NG
-                        </td>
-                    </tr>
-                    <tr style="height:45px;">
-                        <td>Các ốc vít và linh kiện kết nối cố định tốt : </td>
-                        <td>
-                            <input type="radio" id="issue_6_OK" name="issue_6" value="1" /> OK <input type="radio" id="issue_6_NG" name="issue_6" value="2" /> NG
-                        </td>
-                    </tr>
-                    <tr style="height:45px;">
+            <td>Ngoại quan sạch sẽ, tem mác hoàn chỉnh : </td>
+            <td>
+                <input type="radio" id="issue_7_OK" name="issue_7" value="1" /> OK <input type="radio" id="issue_7_NG" name="issue_7" value="2" /> NG
+            </td>
+        </tr>
+        <tr style="height:45px;">
 
-                        <td>Ngoại quan sạch sẽ, tem mác hoàn chỉnh : </td>
-                        <td>
-                            <input type="radio" id="issue_7_OK" name="issue_7" value="1" /> OK <input type="radio" id="issue_7_NG" name="issue_7" value="2" /> NG
-                        </td>
-                    </tr>
-                    <tr style="height:45px;">
+            <td>Ngoại quan xốp cách âm, bông cách âm không hỏng : </td>
+            <td>
+                <input type="radio" id="issue_8_OK" name="issue_8" value="1" /> OK <input type="radio" id="issue_8_NG" name="issue_8" value="2" /> NG
+            </td>
+        </tr>
+        <tr style="height:45px;">
+            <td>Ghi chú : </td>
+            <td>
+                <textarea type="file" class="form-control" id="note" style="border: 1px solid #a58147;border-radius: 20px;background: white;color: black;width: 80%;"></textarea>
+            </td>
+        </tr>
 
-                        <td>Ngoại quan xốp cách âm, bông cách âm không hỏng : </td>
-                        <td>
-                            <input type="radio" id="issue_8_OK" name="issue_8" value="1" /> OK <input type="radio" id="issue_8_NG" name="issue_8" value="2" /> NG
-                        </td>
-                    </tr>
-                    <tr style="height:45px;">
-                        <td>Ghi chú : </td>
-                        <td>
-                            <textarea type="file" class="form-control" id="note" style="border: 1px solid #a58147;border-radius: 20px;background: white;color: black;width: 80%;"></textarea>
-                        </td>
-                    </tr>
-
-                </table>
-            </div>
-
-            <!-- Modal footer -->
-            <div class="modal-footer">
-                @*<button type="button" class="btn btn-secondary btnclose">Close</button>*@
-                <button type="button" class="btn btn-secondary btnClick" onclick="AddWeekly()">Hoàn thành</button>
-            </div>
-
-        </div>
-    </div>
-</div>
-<div class="modal" id="myModalAddStation">
-    <div class="modal-dialog modal-sm">
-        <div class="modal-content" style="width: 630px;margin-left: 128px;">
-
-            <!-- Modal Header -->
-            <div class="modal-header">
-                <h4 class="modal-title">Thêm trạm</h4>
-                <button type="button" class="btnClose" data-dismiss="modal">&times;</button>
-            </div>
-
-            <!-- Modal body -->
-            <div class="modal-body" style="height:150px;">
-                <input hidden id="id_station" />
-                <table class="tblCreate" style="width:80%;float: left;margin-left:100px;">
-
-                    <tr style="height:45px;">
-                        <td>Tên trạm : </td>
-                        <td>
-                            <input type="text" id="station_name" class="" style="border-radius: 5px;width: 300px;height: 35px;border: 1px solid;" />
-                        </td>
-                    </tr>
-                </table>
-            </div>
-
-            <!-- Modal footer -->
-            <div class="modal-footer">
-                @*<button type="button" class="btn btn-secondary btnclose">Close</button>*@
-                <button type="button" class="btn btn-secondary btnClick" onclick="AddStation()" style="background:green;color:white;">Thêm</button>
+    </table>
+</div>-->
+<!-- Modal footer -->
+<!--<div class="modal-footer">-->
+@*<button type="button" class="btn btn-secondary btnclose">Close</button>*@
+<!--<button type="button" class="btn btn-secondary btnClick" onclick="AddWeekly()">Hoàn thành</button>
             </div>
 
         </div>
     </div>
-</div>
+</div>-->
+<link href="~/Areas/NVIDIA/Content/Template/Sysadmin/assets/plugins/select2/css/select2.min.css" rel="stylesheet" />
+<script src="~/Areas/NVIDIA/Content/Template/Sysadmin/assets/plugins/select2/js/select2.min.js"></script>
+
 <script>
     $(document).ready(function () {
         $("#station").empty();
@@ -482,17 +604,23 @@
             contentType: false,
             processData: false,
             success: function (data) {
-                debugger
+                //debugger
                 var row = "";
                 var row1 = "";
                 var length = JSON.parse(data).length;
                 for (i = 0; i < length; i++) {
                     row1 = row1 + '<option value="' + JSON.parse(data)[i].id + '">' + JSON.parse(data)[i].station_name + '</option>';
                 }
-                row = '<select id="station_id" class="" style="width: 165px;height: 40px;border: 1px solid #a58147;border-radius: 20px;"><option value="0">Chọn trạm</option>' +
+                row = '<select id="station_id" class="form-control-bs"><option value="0">Chọn trạm</option>' +
                     row1
                     + '</select><button class="fa fa-plus" id="btnAddStation" style="border-radius: 10px;background: #eae4e4;border: 1px solid #888c881a;height: 35px;color: #121515;width: 33px;margin-left: 4px;" onclick="OpenModalStation()"></button>';
                 $("#station").append(row);
+
+                $('#station_id').select2({
+                    // dropdownParent: $('myModal')
+                   width: '100%',
+                });
+
             },
             error: function (err) {
                 //debugger
@@ -504,27 +632,33 @@
     var modal_Station = document.getElementById("myModalAddStation");
     function openModal_Create() {
         $("#id_weekly").val("");
-        $("#sheildingbox_mac").val("");
-        $("#issue_1_OK").prop("checked", false)
+
+        $('#exampleModalLabel').text('Tạo mới');
+        $('#datetime').val(moment().format('YYYY-MM-DD'));
+
+        $("#sheildingbox_mac").text("");
+        $("#issue_1_OK").prop("checked", true)
         $("#issue_1_NG").prop("checked", false)
-        $("#issue_2_OK").prop("checked", false)
+        $("#issue_2_OK").prop("checked", true)
         $("#issue_2_NG").prop("checked", false)
-        $("#issue_3_OK").prop("checked", false)
+        $("#issue_3_OK").prop("checked", true)
         $("#issue_3_NG").prop("checked", false)
-        $("#issue_4_OK").prop("checked", false)
+        $("#issue_4_OK").prop("checked", true)
         $("#issue_4_NG").prop("checked", false)
-        $("#issue_5_OK").prop("checked", false)
+        $("#issue_5_OK").prop("checked", true)
         $("#issue_5_NG").prop("checked", false)
-        $("#issue_6_OK").prop("checked", false)
+        $("#issue_6_OK").prop("checked", true)
         $("#issue_6_NG").prop("checked", false)
-        $("#issue_7_OK").prop("checked", false)
+        $("#issue_7_OK").prop("checked", true)
         $("#issue_7_NG").prop("checked", false)
-        $("#issue_8_OK").prop("checked", false)
+        $("#issue_8_OK").prop("checked", true)
         $("#issue_8_NG").prop("checked", false)
 
-        $("#note").val("");
-        modal.style.display = "block";
+        $("#note").text("");
+        $('#myModal').modal('show');
+        //modal.style.display = "block";
     }
+
     $(document).on("click", ".close", function () {
         modal.style.display = "none";
     });
@@ -550,7 +684,7 @@
             alert("Vui lòng nhập vào tên trạm!");
             return;
         }
-        debugger
+        //debugger
         $.ajax({
             type: "Post",
             url: "/Station/Insert?id=" + id + "&station_name=" + station_name,
@@ -558,7 +692,7 @@
             contentType: false,
             processData: false,
             success: function (data) {
-                debugger
+                //debugger
                 if (data == "OK") {
                     alert("Thành Công!");
                     modal_Station.style.display = "none";
@@ -584,8 +718,8 @@
             return;
         }
         var sheildingbox_mac = "";
-        if ($("#sheildingbox_mac").val() != "") {
-            sheildingbox_mac = document.getElementById("sheildingbox_mac").value;
+        if ($("#sheildingbox_mac").text() != "") {
+            sheildingbox_mac = $("#sheildingbox_mac").text();
 
         } else {
             alert("Vui lòng nhập mã lỗi(Sheilding-Box MAC)!");
@@ -655,20 +789,29 @@
             issue_8 = 0;
         }
         var note = "";
-        if ($("#note").val() != "") {
-            note = document.getElementById("note").value;
+        if ($("#note").text() != "") {
+            note = $("#note").text();
 
         } else {
             note = "";
         }
         var id = 0;
         if ($("#id_weekly").val() != "") {
-            id = document.getElementById("id_weekly").value;
+            if ($('#exampleModalLabel input').length > 0) {
+                if ($('#exampleModalLabel input').is(':checked')) {
+                    id = document.getElementById("id_weekly").value;
+                }
+                else {
+                    id = 0;
+                }
+            }
         } else {
             id = 0;
         }
+
         var data = new FormData;
         data.append("id", id);
+        data.append("create_date", $('#datetime').val());
         data.append("station_id", station_id);
         data.append("sheilding_mac", sheildingbox_mac);
         data.append("issue_1", issue_1);
@@ -689,7 +832,7 @@
             contentType: false,
             processData: false,
             success: function (data) {
-                debugger
+                //debugger
                 if (data == "OK") {
                     alert("Thành Công!");
                     location.reload();
@@ -703,7 +846,26 @@
             }
         });
     }
-    function OpenModel_Edit(id, station_id, station_name, sheilding_mac, issue_1, issue_2, issue_3, issue_4, issue_5, issue_6, issue_7, issue_8, note) {
+    function OpenModel_Edit(id, station_id, station_name, sheilding_mac, issue_1, issue_2, issue_3, issue_4, issue_5, issue_6, issue_7, issue_8, note, createDate) {       
+        $('#datetime').val(moment(createDate).format('YYYY-MM-DD'));
+
+        if ($('#exampleModalLabel input').length == 0) {
+            var checkbox = $('<input class="form-check-input" type="checkbox" value="" checked="checked"/> <label>Cập nhật</label>');
+
+            checkbox.click(function () {
+                if (checkbox.is(':checked')) {
+                    $('#datetime').val(moment(createDate).format('YYYY-MM-DD'));
+                }
+                else {
+                    $('#datetime').val(moment().format('YYYY-MM-DD'));
+                }
+            });
+
+            $('#exampleModalLabel').html(checkbox);
+        }
+
+        
+
         $("#id_weekly").val("");
         $("#sheildingbox_mac").val("");
         $("#issue_1_OK").prop("checked", false)
@@ -724,8 +886,8 @@
         $("#issue_8_NG").prop("checked", false)
         $("#id_weekly").val(id);
         $("#station_id option:selected").text(station_name);
-        $("#station_id").val(station_id);
-        $("#sheildingbox_mac").val(sheilding_mac);
+        $("#station_id").val(station_id).trigger('change');
+        $("#sheildingbox_mac").text(sheilding_mac);
         if (issue_1 == 1) {
             $("#issue_1_OK").prop('checked', true);
         } else {
@@ -766,8 +928,9 @@
         } else if (issue_8 == 2) {
             $("#issue_8_NG").prop('checked', true);
         }
-        $("#note").val(note);
-        modal.style.display = "block";
+        $("#note").text(note);
+        $('#myModal').modal('show');
+        //modal.style.display = "block";
     }
     function Delete(id) {
         if (confirm("Bạn có chắc chắn muốn xóa?")) {
@@ -778,7 +941,7 @@
                 contentType: false,
                 processData: false,
                 success: function (data) {
-                    debugger
+                    //debugger
                     if (data == "OK") {
                         alert("Xóa Thành Công!");
                         location.reload();

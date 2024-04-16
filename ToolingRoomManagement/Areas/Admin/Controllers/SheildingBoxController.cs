@@ -109,7 +109,7 @@ namespace ToolingRoomManagement.Areas.Admin.Controllers
                 update_data.issue_7 = model.issue_7;
                 update_data.issue_8 = model.issue_8;
                 update_data.note = model.note;
-                update_data.create_date= DateTime.Now;
+                update_data.create_date= model.create_date;
                 context.SaveChanges();
                 return "OK";
             }
@@ -120,7 +120,20 @@ namespace ToolingRoomManagement.Areas.Admin.Controllers
                 string create_by_name = session.Fullname;
                 var sessionPart = (ToolingRoomManagement.Common.SessionPart)Session[ToolingRoomManagement.Common.CommonConstants.SessionPart];
                 var part = sessionPart.part;
-                int id = new WeeklyCheckList_Dao().Insert(model.station_id, model.sheilding_mac, model.issue_1, model.issue_2, model.issue_3, model.issue_4, model.issue_5, model.issue_6, model.issue_7,model.issue_8, model.note, create_by, create_by_name,part.ToUpper());
+                int id = new WeeklyCheckList_Dao().Insert(model.station_id,
+                                                          model.sheilding_mac, 
+                                                          model.issue_1, 
+                                                          model.issue_2, 
+                                                          model.issue_3, 
+                                                          model.issue_4, 
+                                                          model.issue_5, 
+                                                          model.issue_6, 
+                                                          model.issue_7,
+                                                          model.issue_8, 
+                                                          model.note, 
+                                                          create_by, 
+                                                          create_by_name,part.ToUpper(),
+                                                          model.create_date);
                 if(id > 0)
                 {
                     return "OK";

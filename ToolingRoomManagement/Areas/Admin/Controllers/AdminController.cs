@@ -730,6 +730,7 @@ namespace ToolingRoomManagement.Areas.Admin.Controllers
                 List<Station> station = context.Stations.ToList();
                 var model = new WeeklyCheckList_Dao().listAllWeeklyCheckList();
                 var data = from w in model
+                           where w.create_date > new DateTime(DateTime.Now.Year, 01, 01)
                            join st in station on w.station_id equals st.id
                            into tbl_W_S
                            from ws in tbl_W_S.DefaultIfEmpty()
@@ -739,6 +740,7 @@ namespace ToolingRoomManagement.Areas.Admin.Controllers
                                weekly = w,
                                station = ws,
                            };
+                data = data.Take(1000);
                 return View(data);
             }
             else
@@ -757,6 +759,7 @@ namespace ToolingRoomManagement.Areas.Admin.Controllers
                 List<Station> station = context.Stations.ToList();
                 var model = new WeeklyCheckList_Dao().listAllWeeklyCheckList();
                 var data = from w in model
+                           where w.create_date > new DateTime(DateTime.Now.Year, 01, 01)
                            join st in station on w.station_id equals st.id
                            into tbl_W_S
                            from ws in tbl_W_S.DefaultIfEmpty()
@@ -767,6 +770,7 @@ namespace ToolingRoomManagement.Areas.Admin.Controllers
                                weekly = w,
                                station = ws,
                            };
+                data = data.Take(1000);
                 return View(data);
             }
             else
