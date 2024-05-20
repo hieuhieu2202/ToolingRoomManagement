@@ -209,6 +209,10 @@
     <Content Include="Areas\NVIDIA\Content\Custom\Common\js\ProductCommon.js" />
     <Content Include="Areas\NVIDIA\Content\Custom\Common\js\RoleCommon.js" />
     <Content Include="Areas\NVIDIA\Content\Custom\Common\js\UserCommon.js" />
+    <Content Include="Areas\NVIDIA\Content\Custom\DeviceManagement\js\DeviceCommon.js" />
+    <Content Include="Areas\NVIDIA\Content\Custom\PurchaseRequest\css\PurchaseRequest.css" />
+    <Content Include="Areas\NVIDIA\Content\Custom\PurchaseRequest\js\PurchaseRequest.js" />
+    <Content Include="Areas\NVIDIA\Content\Custom\PurchaseRequest\js\PurchaseRequestCommon.js" />
     <Content Include="Areas\NVIDIA\Content\Custom\RequestManagement\css\TakeDevice.css" />
     <Content Include="Areas\NVIDIA\Content\Custom\RequestManagement\css\BorrowDevice.css" />
     <Content Include="Areas\NVIDIA\Content\Custom\RequestManagement\css\RequestManagement.css" />
@@ -3177,6 +3181,9 @@
     <Compile Include="Areas\NVIDIA\Entities\Device.cs">
       <DependentUpon>ToolingRoomModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Areas\NVIDIA\Entities\DevicePR.cs">
+      <DependentUpon>ToolingRoomModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Areas\NVIDIA\Entities\DeviceUnconfirm.cs">
       <DependentUpon>ToolingRoomModel.tt</DependentUpon>
     </Compile>
@@ -3199,6 +3206,9 @@
       <DependentUpon>ToolingRoomModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Areas\NVIDIA\Entities\Product.cs">
+      <DependentUpon>ToolingRoomModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\NVIDIA\Entities\PurchaseRequest.cs">
       <DependentUpon>ToolingRoomModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Areas\NVIDIA\Entities\Return.cs">
@@ -3256,8 +3266,10 @@
       <DependentUpon>ToolingRoomModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Areas\NVIDIA\NVIDIAAreaRegistration.cs" />
+    <Compile Include="Areas\NVIDIA\Reseptory\RDevice.cs" />
     <Compile Include="Areas\NVIDIA\Reseptory\RModel.cs" />
     <Compile Include="Areas\NVIDIA\Reseptory\RStation.cs" />
+    <Compile Include="Areas\NVIDIA\Reseptory\RPurchaseRequest.cs" />
     <Compile Include="Areas\NVIDIA\Reseptory\RVendor.cs" />
     <Compile Include="Areas\NVIDIA\Reseptory\RGroup.cs" />
     <Compile Include="Areas\NVIDIA\Reseptory\RRole.cs" />
@@ -3653,6 +3665,8 @@
     <Content Include="Areas\NVIDIA\Views\AdminManagement\UserManagement.cshtml" />
     <Content Include="Areas\NVIDIA\Views\AdminManagement\RoleManagement.cshtml" />
     <Content Include="Areas\NVIDIA\Views\Shared\_NvidiaNavigationBarShared.cshtml" />
+    <Content Include="Areas\NVIDIA\Views\RequestManagement\PurchaseRequest.cshtml" />
+    <Content Include="Areas\NVIDIA\Views\RequestManagement\Modal\_CreatePurchaseRequestModal.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

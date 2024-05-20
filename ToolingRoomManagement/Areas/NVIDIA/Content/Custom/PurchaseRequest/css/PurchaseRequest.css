@@ -1,0 +1,23 @@
+﻿.dataTables_filter {
+    
+}
+
+    .dataTables_filter label {
+        padding-left: 0.5rem;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        border-radius: 4px;
+        background-color: #6c757d;
+    }
+
+        .dataTables_filter label input {
+            width: 250px !important;
+        }
+
+.resize-none {
+    resize: none !important;
+}
+td button i {
+    margin: 0;
+    margin-right: 1px !important;
+    font-size: unset !important;
+}

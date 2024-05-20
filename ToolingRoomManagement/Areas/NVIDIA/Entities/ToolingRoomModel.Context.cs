@@ -52,5 +52,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Entities
         public virtual DbSet<Export> Exports { get; set; }
         public virtual DbSet<ExportDevice> ExportDevices { get; set; }
         public virtual DbSet<UserExportSign> UserExportSigns { get; set; }
+        public virtual DbSet<DevicePR> DevicePRs { get; set; }
+        public virtual DbSet<PurchaseRequest> PurchaseRequests { get; set; }
     }
 }

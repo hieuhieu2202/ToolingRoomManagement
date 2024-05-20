@@ -1,0 +1,85 @@
+﻿<div class="modal fade" id="CreatePurchaseRequestModal" aria-hidden="true" data-bs-backdrop="static">
+    <div class="modal-dialog modal-xl modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-uppercase">Create Purchase Request Modal</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Request -->
+                <div class="card">
+                    <div class="card-body">
+                        <h6 class="mb-0 text-primary text-uppercase">Request</h6>
+                        <hr>
+
+                        <div class="row">
+                            <div class="col-6">
+                                <!-- User Request -->
+                                <div class="input-group mb-3">
+                                    <span class="col-4 input-group-text">User</span>
+                                    <input type="text" id="CreatePurchaseRequestModal-UserRequest" class="form-control" disabled />
+                                </div>
+                                <!-- Date Request-->
+                                <div class="input-group mb-3">
+                                    <span class="col-4 input-group-text">Date Request</span>
+                                    <input type="datetime-local" id="CreatePurchaseRequestModal-DateRequest" class="form-control" disabled />
+                                </div>
+                                <!-- Date Required -->
+                                <div class="input-group mb-3">
+                                    <span class="col-4 input-group-text">Date Required</span>
+                                    <input type="datetime-local" id="CreatePurchaseRequestModal-DateRequired" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <!-- Note -->
+                                <div class="input-group mb-3" style="height: calc(100% - 1rem);">
+                                    <span class="input-group-text">Note</span>
+                                    <textarea type="text" id="CreatePurchaseRequestModal-Note" class="form-control resize-none"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Device -->
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h6 class="mb-0 text-primary text-uppercase">Devices</h6>
+                            <button class="btn btn-sm btn-primary" onclick="CreatePurchaseRequestDevice()"><i class="fa-solid fa-plus"></i> Add Device</button>
+                        </div>
+                       
+                        <hr>
+
+                        <table id="CreatePurchaseRequestModal-TableDevice" class="table table-striped table-hover table-bordered text-nowrap w-100 p-3">
+                            <thead class="text-center">
+                                <tr class="bg-secondary text-uppercase">
+                                    <!-- 0 -->
+                                    <th>No.</th>
+                                    <!-- 1 -->
+                                    <th>PN</th>
+                                    <!-- 2 -->
+                                    <th>Device Name</th>
+                                    <!-- 3 -->
+                                    <th>Request Quantity</th>
+                                    <!-- 4 -->
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-center align-middle">
+                                <tr>
+                                    <td colspan="5">No devices.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer" id="details_modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="CreatePurchaseRequestSave()"><i class="fa-duotone fa-floppy-disk"></i> Send Request</button>
+            </div>
+        </div>
+    </div>
+</div>

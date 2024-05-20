@@ -12,76 +12,37 @@ using ToolingRoomManagement.Areas.NVIDIA.Data;
 
 namespace ToolingRoomManagement.Areas.NVIDIA.Reseptory
 {
-    internal class RUser
+    internal class RPurchaseRequest
     {
         /* GET */
-        public static List<User> GetUsers()
+        public static List<PurchaseRequest> GetPurchaseRequests()
         {
-            using(ToolingRoomEntities dbContext = new ToolingRoomEntities())
+            using(ToolingRoomEntities context = new ToolingRoomEntities())
             {
-                dbContext.Configuration.LazyLoadingEnabled = false;
+                context.Configuration.LazyLoadingEnabled = false;
 
-                var users = dbContext.Users.Include(u => u.UserRoles.Select(ur => ur.Role))
-                                           .Include(u => u.UserDepartments.Select(ud => ud.Department))
-                                           .ToList();
+                var prs = context.PurchaseRequests
+                    .Include(p => p.UserRequest)
+                    .ToList();
 
-                users.RemoveAt(0);
-
-                return users;
+                return prs;
 
             }
         }
-        public static User GetUser(int IdUser)
+        public static PurchaseRequest GetPurchaseRequest(int IdPurchaseRequest)
         {
-            using (ToolingRoomEntities dbContext = new ToolingRoomEntities())
+            using (ToolingRoomEntities context = new ToolingRoomEntities())
             {
-                dbContext.Configuration.LazyLoadingEnabled = false;
+                context.Configuration.LazyLoadingEnabled = false;
 
-                var user = dbContext.Users.Include(u => u.UserRoles.Select(ur => ur.Role))
-                                           .Include(u => u.UserDepartments.Select(ud => ud.Department))
-                                           .FirstOrDefault(u => u.Id == IdUser);
+                var pr = context.PurchaseRequests
+                    .Include(p => p.UserRequest)
+                    .Include(p => p.DevicePRs.Select(dp => dp.UserCreated))
+                    .Include(p => p.DevicePRs.Select(dp => dp.Device))
+                    .FirstOrDefault(p => p.Id == IdPurchaseRequest);
 
-                return user;
+                return pr;
 
-            }
-        }
-        public static User GetUserByUsername(string Username)
-        {
-            using (ToolingRoomEntities dbContext = new ToolingRoomEntities())
-            {
-                dbContext.Configuration.LazyLoadingEnabled = false;
-
-                var user = dbContext.Users.Include(u => u.UserRoles.Select(ur => ur.Role))
-                                           .Include(u => u.UserDepartments.Select(ud => ud.Department))
-                                           .FirstOrDefault(u => u.Username == Username);
-
-                return user;
-
-            }
-        }
-        public static async Task<string> GetUserInformation(string username)
-
-        {
-            try
-            {
-                string apiUrl = WebConfigurationManager.AppSettings["HR_API"];
-                using (HttpClient client = new HttpClient())
-                {
-                    HttpResponseMessage response = await client.GetAsync($"{apiUrl}{username}");
-
-                    if (response.IsSuccessStatusCode)
-                    {
-                        return await response.Content.ReadAsStringAsync();
-                    }
-                    else
-                    {
-                        throw new Exception("User does not exists.");
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                throw ex;
             }
         }
 
@@ -171,7 +132,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Reseptory
                             dbUser.Status = "DELETED";
                             dbContext.Users.AddOrUpdate(dbUser);
                             dbContext.SaveChanges();
-                            return GetUser(dbUser.Id);
+                            return RUser.GetUser(dbUser.Id);
                         }                        
 
                         

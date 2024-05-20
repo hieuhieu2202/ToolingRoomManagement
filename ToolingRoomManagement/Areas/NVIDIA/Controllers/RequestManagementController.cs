@@ -14,11 +14,12 @@ using System.Web.Mvc;
 using System.Web.Script.Serialization;
 using ToolingRoomManagement.Areas.NVIDIA.Data;
 using ToolingRoomManagement.Areas.NVIDIA.Entities;
+using ToolingRoomManagement.Areas.NVIDIA.Reseptory;
 using ToolingRoomManagement.Attributes;
 
 namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
 {
-    [Authentication]
+    //[Authentication]
     public class RequestManagementController : Controller
     {
         private ToolingRoomEntities db = new ToolingRoomEntities();
@@ -1618,6 +1619,38 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                     var url = Url.Content("~/Data/NewToolingroom/ShippingHistory/" + fileName);
                     return Json(new { status = true, url, filename = "ShippingHistory.xlsx" }, JsonRequestBehavior.AllowGet);
                 }
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        /* PURCHASE REQUEST */
+        public ActionResult PurchaseRequest()
+        {
+            return View();
+        }
+
+        // get
+        public JsonResult GetPurchaseRequests()
+        {
+            try
+            {
+                var result = RPurchaseRequest.GetPurchaseRequests();
+                return Json(new { status = true, data = result }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        public JsonResult GetPurchaseRequest(int IdPurchaseRequest)
+        {
+            try
+            {
+                var result = RPurchaseRequest.GetPurchaseRequest(IdPurchaseRequest);
+                return Json(new { status = false, data = result }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {

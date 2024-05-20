@@ -48,6 +48,20 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
             }
         }
 
+        public JsonResult GetUserByUsername(string Username)
+        {
+            try
+            {
+                var result = RUser.GetUserByUsername(Username);
+
+                return Json(new { status = true, data = result }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
         public async Task<JsonResult> GetUserInformation(string username)
         {
             try

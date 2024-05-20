@@ -19,6 +19,7 @@ using System.Web.Mvc;
 using System.Web.Services.Description;
 using System.Windows.Media.Media3D;
 using ToolingRoomManagement.Areas.NVIDIA.Entities;
+using ToolingRoomManagement.Areas.NVIDIA.Reseptory;
 using ToolingRoomManagement.Attributes;
 using Group = ToolingRoomManagement.Areas.NVIDIA.Entities.Group;
 
@@ -2684,5 +2685,19 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
             }
         }
         #endregion
+
+        /* NEW FUNC */
+        public JsonResult GetSimpleDevices()
+        {
+            try
+            {
+                var result = RDevice.GetSimpleDevices();
+                return Json(new { status = true, data = result }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }

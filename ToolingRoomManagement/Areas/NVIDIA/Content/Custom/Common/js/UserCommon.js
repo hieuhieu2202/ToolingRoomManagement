@@ -45,6 +45,27 @@ function GetUser(IdUser) {
         });
     });
 };
+function GetUserByUsername(Username) {
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: "/NVIDIA/UserManagement/GetUserByUsername?Username=" + Username,
+            type: "GET",
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            success: function (res) {
+                if (res.status) {
+                    resolve(res.data);
+                }
+                else {
+                    reject(res.message);
+                }
+            },
+            error: function (error) {
+                reject(error);
+            }
+        });
+    });
+};
 function GetUserInformation(username) {
     return new Promise((resolve, reject) => {
         $.ajax({

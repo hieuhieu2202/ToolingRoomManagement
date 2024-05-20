@@ -97,6 +97,25 @@
           <Property Name="NG_Qty" Type="int" />
           <Property Name="DeviceOwner" Type="nvarchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="DevicePR">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdPurchaseRequest" Type="int" />
+          <Property Name="IdDevice" Type="int" />
+          <Property Name="Quantity" Type="int" />
+          <Property Name="PR_No" Type="nvarchar" MaxLength="50" />
+          <Property Name="PO_No" Type="nvarchar" MaxLength="50" />
+          <Property Name="PR_Quantity" Type="int" />
+          <Property Name="PR_CreatedDate" Type="datetime" />
+          <Property Name="PO_CreatedDate" Type="datetime" />
+          <Property Name="IdUserCreated" Type="int" />
+          <Property Name="ETD_Date" Type="datetime" />
+          <Property Name="ETA_Date" Type="datetime" />
+          <Property Name="ATA_Date" Type="datetime" />
+          <Property Name="Status" Type="nvarchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="DeviceUnconfirm">
           <Key>
             <PropertyRef Name="Id" />
@@ -195,6 +214,17 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="MTS" Type="nvarchar" MaxLength="25" />
           <Property Name="ProductName" Type="nvarchar" MaxLength="120" />
+        </EntityType>
+        <EntityType Name="PurchaseRequest">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdUserRequest" Type="int" />
+          <Property Name="DateRequest" Type="datetime" />
+          <Property Name="DateRequired" Type="datetime" />
+          <Property Name="Note" Type="nvarchar" MaxLength="500" />
+          <Property Name="Status" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Return">
           <Key>
@@ -481,6 +511,44 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_DevicePR_Device">
+          <End Role="Device" Type="Self.Device" Multiplicity="0..1" />
+          <End Role="DevicePR" Type="Self.DevicePR" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Device">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DevicePR">
+              <PropertyRef Name="IdDevice" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DevicePR_PurchaseRequest">
+          <End Role="PurchaseRequest" Type="Self.PurchaseRequest" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="DevicePR" Type="Self.DevicePR" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PurchaseRequest">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DevicePR">
+              <PropertyRef Name="IdPurchaseRequest" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DevicePR_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="DevicePR" Type="Self.DevicePR" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DevicePR">
+              <PropertyRef Name="IdUserCreated" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_DeviceUnconfirm_Group">
           <End Role="Group" Type="Self.Group" Multiplicity="0..1" />
           <End Role="DeviceUnconfirm" Type="Self.DeviceUnconfirm" Multiplicity="*" />
@@ -614,6 +682,18 @@
             </Principal>
             <Dependent Role="ComingDevice">
               <PropertyRef Name="IdDeviceUnconfirm" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PurchaseRequest_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="PurchaseRequest" Type="Self.PurchaseRequest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PurchaseRequest">
+              <PropertyRef Name="IdUserRequest" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -838,6 +918,7 @@
           <EntitySet Name="ComingDevice" EntityType="Self.ComingDevice" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Department" EntityType="Self.Department" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Device" EntityType="Self.Device" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DevicePR" EntityType="Self.DevicePR" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DeviceUnconfirm" EntityType="Self.DeviceUnconfirm" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DeviceWarehouseLayout" EntityType="Self.DeviceWarehouseLayout" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Export" EntityType="Self.Export" Schema="dbo" store:Type="Tables" />
@@ -846,6 +927,7 @@
           <EntitySet Name="HistoryUpdateDevice" EntityType="Self.HistoryUpdateDevice" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Model" EntityType="Self.Model" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PurchaseRequest" EntityType="Self.PurchaseRequest" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Return" EntityType="Self.Return" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ReturnDevice" EntityType="Self.ReturnDevice" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
@@ -907,6 +989,18 @@
             <End Role="Warehouse" EntitySet="Warehouse" />
             <End Role="Device" EntitySet="Device" />
           </AssociationSet>
+          <AssociationSet Name="FK_DevicePR_Device" Association="Self.FK_DevicePR_Device">
+            <End Role="Device" EntitySet="Device" />
+            <End Role="DevicePR" EntitySet="DevicePR" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DevicePR_PurchaseRequest" Association="Self.FK_DevicePR_PurchaseRequest">
+            <End Role="PurchaseRequest" EntitySet="PurchaseRequest" />
+            <End Role="DevicePR" EntitySet="DevicePR" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DevicePR_User" Association="Self.FK_DevicePR_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="DevicePR" EntitySet="DevicePR" />
+          </AssociationSet>
           <AssociationSet Name="FK_DeviceUnconfirm_Group" Association="Self.FK_DeviceUnconfirm_Group">
             <End Role="Group" EntitySet="Group" />
             <End Role="DeviceUnconfirm" EntitySet="DeviceUnconfirm" />
@@ -950,6 +1044,10 @@
           <AssociationSet Name="FK_OnthewayDevice_DeviceUnconfirm" Association="Self.FK_OnthewayDevice_DeviceUnconfirm">
             <End Role="DeviceUnconfirm" EntitySet="DeviceUnconfirm" />
             <End Role="ComingDevice" EntitySet="ComingDevice" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PurchaseRequest_User" Association="Self.FK_PurchaseRequest_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="PurchaseRequest" EntitySet="PurchaseRequest" />
           </AssociationSet>
           <AssociationSet Name="FK_Return_Borrow" Association="Self.FK_Return_Borrow">
             <End Role="Borrow" EntitySet="Borrow" />
@@ -1215,6 +1313,24 @@
           <AssociationSet Name="FK_UserExportSign_User" Association="ToolingRoomModel.FK_UserExportSign_User">
             <End Role="User" EntitySet="Users" />
             <End Role="UserExportSign" EntitySet="UserExportSigns" />
+          </AssociationSet>
+          <EntitySet Name="DevicePRs" EntityType="ToolingRoomModel.DevicePR" />
+          <AssociationSet Name="FK_DevicePR_Device" Association="ToolingRoomModel.FK_DevicePR_Device">
+            <End Role="Device" EntitySet="Devices" />
+            <End Role="DevicePR" EntitySet="DevicePRs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DevicePR_User" Association="ToolingRoomModel.FK_DevicePR_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="DevicePR" EntitySet="DevicePRs" />
+          </AssociationSet>
+          <EntitySet Name="PurchaseRequests" EntityType="ToolingRoomModel.PurchaseRequest" />
+          <AssociationSet Name="FK_DevicePR_PurchaseRequest" Association="ToolingRoomModel.FK_DevicePR_PurchaseRequest">
+            <End Role="PurchaseRequest" EntitySet="PurchaseRequests" />
+            <End Role="DevicePR" EntitySet="DevicePRs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PurchaseRequest_User" Association="ToolingRoomModel.FK_PurchaseRequest_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="PurchaseRequest" EntitySet="PurchaseRequests" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="Product">
@@ -2087,6 +2203,90 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="DevicePR">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdPurchaseRequest" Type="Int32" />
+          <Property Name="IdDevice" Type="Int32" />
+          <Property Name="Quantity" Type="Int32" />
+          <Property Name="PR_No" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PO_No" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PR_Quantity" Type="Int32" />
+          <Property Name="PR_CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="PO_CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="IdUserCreated" Type="Int32" />
+          <Property Name="ETD_Date" Type="DateTime" Precision="3" />
+          <Property Name="ETA_Date" Type="DateTime" Precision="3" />
+          <Property Name="ATA_Date" Type="DateTime" Precision="3" />
+          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Device" Relationship="ToolingRoomModel.FK_DevicePR_Device" FromRole="DevicePR" ToRole="Device" />
+          <NavigationProperty Name="UserCreated" Relationship="ToolingRoomModel.FK_DevicePR_User" FromRole="DevicePR" ToRole="User" />
+        </EntityType>
+        <Association Name="FK_DevicePR_Device">
+          <End Type="ToolingRoomModel.Device" Role="Device" Multiplicity="0..1" />
+          <End Type="ToolingRoomModel.DevicePR" Role="DevicePR" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Device">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DevicePR">
+              <PropertyRef Name="IdDevice" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DevicePR_User">
+          <End Type="ToolingRoomModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="ToolingRoomModel.DevicePR" Role="DevicePR" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DevicePR">
+              <PropertyRef Name="IdUserCreated" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="PurchaseRequest">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdUserRequest" Type="Int32" />
+          <Property Name="DateRequest" Type="DateTime" Precision="3" />
+          <Property Name="DateRequired" Type="DateTime" Precision="3" />
+          <Property Name="Note" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="DevicePRs" Relationship="ToolingRoomModel.FK_DevicePR_PurchaseRequest" FromRole="PurchaseRequest" ToRole="DevicePR" />
+          <NavigationProperty Name="UserRequest" Relationship="ToolingRoomModel.FK_PurchaseRequest_User" FromRole="PurchaseRequest" ToRole="User" />
+        </EntityType>
+        <Association Name="FK_DevicePR_PurchaseRequest">
+          <End Type="ToolingRoomModel.PurchaseRequest" Role="PurchaseRequest" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="ToolingRoomModel.DevicePR" Role="DevicePR" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PurchaseRequest">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DevicePR">
+              <PropertyRef Name="IdPurchaseRequest" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PurchaseRequest_User">
+          <End Type="ToolingRoomModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="ToolingRoomModel.PurchaseRequest" Role="PurchaseRequest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PurchaseRequest">
+              <PropertyRef Name="IdUserRequest" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2446,6 +2646,38 @@
                 <ScalarProperty Name="SignDate" ColumnName="SignDate" />
                 <ScalarProperty Name="IdUser" ColumnName="IdUser" />
                 <ScalarProperty Name="IdExport" ColumnName="IdExport" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DevicePRs">
+            <EntityTypeMapping TypeName="ToolingRoomModel.DevicePR">
+              <MappingFragment StoreEntitySet="DevicePR">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="ATA_Date" ColumnName="ATA_Date" />
+                <ScalarProperty Name="ETA_Date" ColumnName="ETA_Date" />
+                <ScalarProperty Name="ETD_Date" ColumnName="ETD_Date" />
+                <ScalarProperty Name="IdUserCreated" ColumnName="IdUserCreated" />
+                <ScalarProperty Name="PO_CreatedDate" ColumnName="PO_CreatedDate" />
+                <ScalarProperty Name="PR_CreatedDate" ColumnName="PR_CreatedDate" />
+                <ScalarProperty Name="PR_Quantity" ColumnName="PR_Quantity" />
+                <ScalarProperty Name="PO_No" ColumnName="PO_No" />
+                <ScalarProperty Name="PR_No" ColumnName="PR_No" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="IdDevice" ColumnName="IdDevice" />
+                <ScalarProperty Name="IdPurchaseRequest" ColumnName="IdPurchaseRequest" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PurchaseRequests">
+            <EntityTypeMapping TypeName="ToolingRoomModel.PurchaseRequest">
+              <MappingFragment StoreEntitySet="PurchaseRequest">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="DateRequired" ColumnName="DateRequired" />
+                <ScalarProperty Name="DateRequest" ColumnName="DateRequest" />
+                <ScalarProperty Name="IdUserRequest" ColumnName="IdUserRequest" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
