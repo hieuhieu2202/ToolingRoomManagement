@@ -852,14 +852,7 @@
         if ($('#exampleModalLabel input').length == 0) {
             var checkbox = $('<input class="form-check-input" type="checkbox" value="" checked="checked"/> <label>Cập nhật</label>');
 
-            checkbox.click(function () {
-                if (checkbox.is(':checked')) {
-                    $('#datetime').val(moment(createDate).format('YYYY-MM-DD'));
-                }
-                else {
-                    $('#datetime').val(moment().format('YYYY-MM-DD'));
-                }
-            });
+            //$('#datetime').val(moment(createDate).format('YYYY-MM-DD'));
 
             $('#exampleModalLabel').html(checkbox);
         }

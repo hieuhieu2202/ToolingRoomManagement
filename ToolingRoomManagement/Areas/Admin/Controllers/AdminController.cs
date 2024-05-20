@@ -740,7 +740,6 @@ namespace ToolingRoomManagement.Areas.Admin.Controllers
                                weekly = w,
                                station = ws,
                            };
-                data = data.Take(1000);
                 return View(data);
             }
             else
@@ -770,7 +769,6 @@ namespace ToolingRoomManagement.Areas.Admin.Controllers
                                weekly = w,
                                station = ws,
                            };
-                data = data.Take(1000);
                 return View(data);
             }
             else

@@ -1103,7 +1103,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                         var _RequestQty = int.Parse(worksheet.Cells[row, 2].Value?.ToString());
                         //int comingQty = CountComingDevice(_PN);
 
-                        List<Entities.Device> devices = db.Devices.Where(d => d.DeviceCode.ToUpper().Trim() == _PN.ToUpper().Trim()).ToList();
+                        List<Entities.Device> devices = db.Devices.Where(d => d.DeviceCode.ToUpper().Trim() == _PN.ToUpper().Trim() && d.Status != "Deleted").ToList();
                         if (devices.Count > 0)
                         {
                             Debug.WriteLine($"{countLoop++} - {_PN}");
