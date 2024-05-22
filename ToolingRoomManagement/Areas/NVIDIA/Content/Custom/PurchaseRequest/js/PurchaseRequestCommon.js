@@ -15,7 +15,7 @@ function GetPurchaseRequests() {
                 }
             },
             error: function (e) {
-                reject(GetAjaxErrorMessage(error));
+                reject(GetAjaxErrorMessage(e));
             },
         });
     });
@@ -36,7 +36,7 @@ function GetPurchaseRequest(IdPurchaseRequest) {
                 }
             },
             error: function (e) {
-                reject(GetAjaxErrorMessage(error));
+                reject(GetAjaxErrorMessage(e));
             },
         });
     });
@@ -60,7 +60,7 @@ function CreatePurchaseRequest(PurchaseRequest) {
                 }
             },
             error: function (e) {
-                reject(GetAjaxErrorMessage(error));
+                reject(GetAjaxErrorMessage(e));
             },
         });
     });
@@ -82,7 +82,7 @@ function UpdatePurchaseRequest(PurchaseRequest) {
                 }
             },
             error: function (e) {
-                reject(GetAjaxErrorMessage(error));
+                reject(GetAjaxErrorMessage(e));
             },
         });
     });
@@ -91,10 +91,9 @@ function DeletePurchaseRequest(IdPurchaseRequest) {
     return new Promise((resolve, reject) => {
         $.ajax({
             url: `/NVIDIA/RequestManagement/DeletePurchaseRequest?IdPurchaseRequest=${IdPurchaseRequest}`,
-            type: 'DELETE',
+            type: 'GET',
             dataType: 'json',
             contentType: 'application/json;charset=utf-8',
-            data: JSON.stringify({ PurchaseRequest }),
             success: function (response) {
                 if (response.status) {
                     resolve(response.data);
@@ -104,7 +103,7 @@ function DeletePurchaseRequest(IdPurchaseRequest) {
                 }
             },
             error: function (e) {
-                reject(GetAjaxErrorMessage(error));
+                reject(GetAjaxErrorMessage(e));
             },
         });
     });

@@ -21,3 +21,12 @@ td button i {
     margin-right: 1px !important;
     font-size: unset !important;
 }
+.btn-group button.btn-sm{
+    width: 31px;
+    height: 31px;
+}
+    .btn-group button.btn-sm i {
+        margin: 0;
+        margin-right: 1px !important;
+        font-size: unset !important;
+    }

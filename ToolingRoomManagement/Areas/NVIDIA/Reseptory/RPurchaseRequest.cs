@@ -46,23 +46,21 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Reseptory
             }
         }
 
-        /* SET */
-        public static User CreateUser(User user)
+        /* POST */
+        public static PurchaseRequest CreatePurchaseRequest(PurchaseRequest PurchaseRequest)
         {
             try
             {
-                using(ToolingRoomEntities dbContext = new ToolingRoomEntities())
+                using(ToolingRoomEntities context = new ToolingRoomEntities())
                 {
-                    dbContext.Configuration.LazyLoadingEnabled = false;
+                    context.Configuration.LazyLoadingEnabled = false;
 
-                    CreateValidate_User(dbContext, user);
+                    CreateValidatePurchaseRequest(context, PurchaseRequest);
 
-                    user.Username = user.Username.Trim().ToUpper();
-                    user.UserRoles.Add(new UserRole { IdUser = user.Id, IdRole = 7 }); // 7 = GUEST
-                    dbContext.Users.Add(user);
-                    dbContext.SaveChanges();
+                    context.PurchaseRequests.Add(PurchaseRequest);
+                    context.SaveChanges();
 
-                    return user;
+                    return GetPurchaseRequest(PurchaseRequest.Id);
                 }
             }
             catch (Exception ex)
@@ -71,104 +69,117 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Reseptory
             }
 
         }
-        public static User UpdateUser(User user)
+        public static PurchaseRequest UpdatePurchaseRequest(PurchaseRequest PurchaseRequest)
         {
             try
             {
-                using(ToolingRoomEntities dbContext = new ToolingRoomEntities())
+                using (ToolingRoomEntities context = new ToolingRoomEntities())
                 {
-                    dbContext.Configuration.LazyLoadingEnabled = false;
+                    context.Configuration.LazyLoadingEnabled = false;
 
-                    user.Username = user.Username.Trim().ToUpper();
-                    UpdateValidate_User(dbContext, user);
 
-                    var dbUser = dbContext.Users.FirstOrDefault(u => u.Username == user.Username);
-
-                    dbUser.Username = user.Username;                  
-                    dbUser.Email = user.Email;
-                    dbUser.VnName = user.VnName;
-                    dbUser.CnName = user.CnName;
-                    dbUser.EnName = user.EnName;
-                    dbUser.Status = user.Status;
-                    dbUser.CreatedDate = user.CreatedDate;
-
-                    if ((user.Password != null || !string.IsNullOrEmpty(user.Password)) && dbUser.Password != user.Password)
+                    var minLevel = 0;
+                    foreach (var dpr in PurchaseRequest.DevicePRs)
                     {
-                        dbUser.Password = user.Password;
-                    }
+                        if (string.IsNullOrEmpty(dpr.PR_No)) continue;
 
-                    dbContext.Users.AddOrUpdate(dbUser);
-                    dbContext.SaveChanges();
-
-                    return user;
-                }               
-            }
-            catch (Exception ex)
-            {
-                throw ex; 
-            }
-        }
-        public static User DeleteUser(User user)
-        {
-            try
-            {
-                using (ToolingRoomEntities dbContext = new ToolingRoomEntities())
-                {
-                    dbContext.Configuration.LazyLoadingEnabled = false;
-
-                    var dbUser = dbContext.Users.FirstOrDefault(u => u.Id == user.Id);
-                    var sessionUser = Data.Common.GetSessionUser();
-
-                    if (dbUser != null && dbUser.Username != "admin" && user.Username != sessionUser.Username)
-                    {
-                        if(dbUser.Status == "DELETED")
+                        var thisLevel = 1;
+                        if(dpr.PR_No != null && dpr.PR_CreatedDate != null && dpr.PR_Quantity != null)
                         {
-                            dbContext.Users.Remove(dbUser);
-                            dbContext.SaveChanges();
-                            return null;
+                            thisLevel = 2;
                         }
-                        else
+                        if (dpr.PO_No != null && dpr.PO_CreatedDate != null)
                         {
-                            dbUser.Status = "DELETED";
-                            dbContext.Users.AddOrUpdate(dbUser);
-                            dbContext.SaveChanges();
-                            return RUser.GetUser(dbUser.Id);
-                        }                        
+                            thisLevel = 3;
+                        }
+                        if (dpr.ETD_Date != null)
+                        {
+                            thisLevel = 4;
+                        }
+                        if (dpr.ETA_Date != null)
+                        {
+                            thisLevel = 5;
+                        }
 
-                        
+                        if (minLevel == 0) minLevel = thisLevel;
+                        else if (minLevel > thisLevel) minLevel = thisLevel;
+
+                        dpr.Status = UpdatePurchaseRequestStatus(thisLevel);
+                        context.DevicePRs.AddOrUpdate(dpr);
                     }
-                    else
-                    {
-                        throw new Exception("You can't delete this user.");
-                    }
+
+                    PurchaseRequest.Status = UpdatePurchaseRequestStatus(minLevel);
+                    context.PurchaseRequests.AddOrUpdate(PurchaseRequest);
+                    context.SaveChanges();
+
+                    return GetPurchaseRequest(PurchaseRequest.Id);
                 }
             }
             catch (Exception ex)
             {
                 throw ex;
             }
+
+        }
+        public static bool DeletePurchaseRequest(int IdPurchaseRequest)
+        {
+            try
+            {
+                using (ToolingRoomEntities context = new ToolingRoomEntities())
+                {
+                    context.Configuration.LazyLoadingEnabled = false;
+
+                    var purchase = context.PurchaseRequests.FirstOrDefault(p => p.Id == IdPurchaseRequest);
+                    if(purchase != null)
+                    {
+                        context.PurchaseRequests.Remove(purchase);
+                        context.SaveChanges();
+                    }
+                   
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
         }
 
         /* VALIDATE */
-        private static bool CreateValidate_User(ToolingRoomEntities dbContext,  User user)
+        private static bool CreateValidatePurchaseRequest(ToolingRoomEntities context, PurchaseRequest PurchaseRequest)
         {
-            if (string.IsNullOrEmpty(user.Username) || user.Username.Length < 6)
+            if(!context.Users.Any(u => u.Id == PurchaseRequest.IdUserRequest))
             {
-                throw new Exception ("Please double check your username.");
+                throw new Exception("User does not exists. Please login again or contact us.");
             }
-            if (string.IsNullOrEmpty(user.Password) && user.Password.Length < 6)
+            if(PurchaseRequest.DateRequest == null)
             {
-                throw new Exception("Please double check your password.");
+                throw new Exception("Please chosse Date Request.");
             }
-            if (string.IsNullOrEmpty(user.VnName) && string.IsNullOrEmpty(user.EnName) && string.IsNullOrEmpty(user.CnName))
+            if(PurchaseRequest.DateRequired == null)
             {
-                throw new Exception("Please double check your name.");
+                throw new Exception("Please chosse Date Required.");
+            }
+            if(PurchaseRequest.DateRequest > PurchaseRequest.DateRequired)
+            {
+                throw new Exception("Please double check Date Request and Date Required.");
+            }
+            if (PurchaseRequest.Note == null)
+            {
+                throw new Exception("Please enter note.");
+            }
+            if(PurchaseRequest.DevicePRs.Count < 1)
+            {
+                throw new Exception("Please added any devices.");
             }
 
-            // Kiểm tra user đã tồn tại chưa
-            if(dbContext.Users.Any(u => u.Username == user.Username))
+            foreach(var devicePr in PurchaseRequest.DevicePRs)
             {
-                throw new Exception("User already exists.");
+                if(devicePr.Quantity == 0)
+                {
+                    throw new Exception("Quantity of at least one device is invalid");
+                }
             }
 
             return true;
@@ -203,6 +214,26 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Reseptory
             }
 
             return true;
+        }
+        private static string UpdatePurchaseRequestStatus(int level)
+        {
+            switch (level)
+            {
+                case 0:
+                    return "Rejected";
+                case 1:
+                    return "Open";
+                case 2:
+                    return "PR Created";
+                case 3:
+                    return "PO Created";
+                case 4:
+                    return "Shipping";
+                case 5:
+                    return "Closed";
+                default:
+                    return "Unknown";
+            }
         }
     }
 }

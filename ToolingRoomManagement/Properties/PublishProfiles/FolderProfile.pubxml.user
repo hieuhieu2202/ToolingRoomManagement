@@ -5,7 +5,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
 <Project>
   <PropertyGroup>
     <_PublishTargetUrl>F:\Public\ToolingRoom_V3</_PublishTargetUrl>
-    <History>True|2024-04-16T08:06:02.1881891Z;True|2024-03-29T09:48:04.2630670+07:00;True|2024-03-11T10:24:57.9861112+07:00;True|2024-03-02T09:58:06.8170594+07:00;True|2024-02-29T10:07:22.9930997+07:00;True|2024-02-24T09:35:19.8922227+07:00;True|2024-01-11T09:16:57.2666445+07:00;True|2024-01-05T09:52:21.0560071+07:00;True|2023-12-27T08:27:36.6280657+07:00;True|2023-12-13T08:11:43.6746352+07:00;True|2023-12-09T09:01:00.7382745+07:00;True|2023-12-08T08:17:32.6655326+07:00;True|2023-12-01T07:59:37.4006067+07:00;True|2023-11-14T08:43:45.5421167+07:00;True|2023-11-08T17:32:41.6532722+07:00;True|2023-11-08T09:48:59.4657341+07:00;True|2023-10-26T18:23:49.8525711+07:00;True|2023-10-19T13:32:02.7161131+07:00;True|2023-10-14T17:29:48.7327724+07:00;True|2023-10-13T17:31:01.4191325+07:00;True|2023-10-13T08:00:06.4627604+07:00;True|2023-10-12T14:53:11.4490410+07:00;True|2023-10-09T14:39:00.2912881+07:00;True|2023-10-07T15:21:08.2392175+07:00;True|2023-10-04T15:32:14.6306513+07:00;True|2023-10-04T09:37:19.5363218+07:00;True|2023-09-30T16:58:08.4367193+07:00;True|2023-09-30T16:49:01.9262751+07:00;True|2023-09-28T17:32:45.6940711+07:00;True|2023-09-26T14:02:15.2395222+07:00;True|2023-09-26T09:50:10.1621336+07:00;True|2023-09-22T14:12:45.8962833+07:00;True|2023-09-19T14:07:04.3436822+07:00;True|2023-09-16T11:10:01.3281401+07:00;True|2023-09-14T16:42:23.9405834+07:00;True|2023-09-08T15:19:25.7343426+07:00;True|2023-09-08T10:49:16.8034172+07:00;True|2023-07-17T14:46:44.7052598+07:00;True|2023-07-15T17:24:21.2949736+07:00;</History>
+    <History>True|2024-05-22T06:03:44.6891742Z;True|2024-04-16T15:06:02.1881891+07:00;True|2024-03-29T09:48:04.2630670+07:00;True|2024-03-11T10:24:57.9861112+07:00;True|2024-03-02T09:58:06.8170594+07:00;True|2024-02-29T10:07:22.9930997+07:00;True|2024-02-24T09:35:19.8922227+07:00;True|2024-01-11T09:16:57.2666445+07:00;True|2024-01-05T09:52:21.0560071+07:00;True|2023-12-27T08:27:36.6280657+07:00;True|2023-12-13T08:11:43.6746352+07:00;True|2023-12-09T09:01:00.7382745+07:00;True|2023-12-08T08:17:32.6655326+07:00;True|2023-12-01T07:59:37.4006067+07:00;True|2023-11-14T08:43:45.5421167+07:00;True|2023-11-08T17:32:41.6532722+07:00;True|2023-11-08T09:48:59.4657341+07:00;True|2023-10-26T18:23:49.8525711+07:00;True|2023-10-19T13:32:02.7161131+07:00;True|2023-10-14T17:29:48.7327724+07:00;True|2023-10-13T17:31:01.4191325+07:00;True|2023-10-13T08:00:06.4627604+07:00;True|2023-10-12T14:53:11.4490410+07:00;True|2023-10-09T14:39:00.2912881+07:00;True|2023-10-07T15:21:08.2392175+07:00;True|2023-10-04T15:32:14.6306513+07:00;True|2023-10-04T09:37:19.5363218+07:00;True|2023-09-30T16:58:08.4367193+07:00;True|2023-09-30T16:49:01.9262751+07:00;True|2023-09-28T17:32:45.6940711+07:00;True|2023-09-26T14:02:15.2395222+07:00;True|2023-09-26T09:50:10.1621336+07:00;True|2023-09-22T14:12:45.8962833+07:00;True|2023-09-19T14:07:04.3436822+07:00;True|2023-09-16T11:10:01.3281401+07:00;True|2023-09-14T16:42:23.9405834+07:00;True|2023-09-08T15:19:25.7343426+07:00;True|2023-09-08T10:49:16.8034172+07:00;True|2023-07-17T14:46:44.7052598+07:00;True|2023-07-15T17:24:21.2949736+07:00;</History>
     <LastFailureDetails />
   </PropertyGroup>
   <ItemGroup>
@@ -157,7 +157,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>04/16/2024 13:44:34</publishTime>
     </File>
     <File Include="Areas/Admin/Views/Admin/WeeklyCheckList_Edit.cshtml">
-      <publishTime>04/16/2024 14:57:11</publishTime>
+      <publishTime>04/17/2024 08:18:13</publishTime>
     </File>
     <File Include="Areas/Admin/Views/BorrowProduct/AccountantPD.cshtml">
       <publishTime>12/13/2023 08:16:40</publishTime>
@@ -301,7 +301,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>03/13/2024 14:07:21</publishTime>
     </File>
     <File Include="Areas/NVIDIA/Content/Custom/Common/js/UserCommon.js">
-      <publishTime>03/13/2024 13:19:49</publishTime>
+      <publishTime>05/20/2024 16:56:14</publishTime>
     </File>
     <File Include="Areas/NVIDIA/Content/Custom/Dashboard/Dashboard.css">
       <publishTime>12/13/2023 08:16:40</publishTime>
@@ -342,11 +342,14 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
     <File Include="Areas/NVIDIA/Content/Custom/DeviceManagement/js/DatatableFilter.js">
       <publishTime>12/13/2023 08:16:41</publishTime>
     </File>
+    <File Include="Areas/NVIDIA/Content/Custom/DeviceManagement/js/DeviceCommon.js">
+      <publishTime>05/20/2024 15:58:34</publishTime>
+    </File>
     <File Include="Areas/NVIDIA/Content/Custom/DeviceManagement/js/DeviceDetails.js">
       <publishTime>02/29/2024 08:54:30</publishTime>
     </File>
     <File Include="Areas/NVIDIA/Content/Custom/DeviceManagement/js/DeviceManagement.js">
-      <publishTime>01/11/2024 14:04:59</publishTime>
+      <publishTime>05/20/2024 14:24:38</publishTime>
     </File>
     <File Include="Areas/NVIDIA/Content/Custom/DeviceManagement/js/DeviceUpdate.js">
       <publishTime>02/29/2024 09:20:46</publishTime>
@@ -406,7 +409,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>10/14/2023 11:27:53</publishTime>
     </File>
     <File Include="Areas/NVIDIA/Content/Custom/InfoManagement/js/ProductManagement.js">
-      <publishTime>03/13/2024 17:14:35</publishTime>
+      <publishTime>05/21/2024 15:13:25</publishTime>
     </File>
     <File Include="Areas/NVIDIA/Content/Custom/language/en.json">
       <publishTime>12/13/2023 08:16:41</publishTime>
@@ -418,7 +421,16 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>03/13/2024 17:17:42</publishTime>
     </File>
     <File Include="Areas/NVIDIA/Content/Custom/Layout/CustomLayout.js">
-      <publishTime>01/04/2024 16:33:14</publishTime>
+      <publishTime>05/21/2024 10:51:27</publishTime>
+    </File>
+    <File Include="Areas/NVIDIA/Content/Custom/PurchaseRequest/css/PurchaseRequest.css">
+      <publishTime>05/21/2024 13:18:43</publishTime>
+    </File>
+    <File Include="Areas/NVIDIA/Content/Custom/PurchaseRequest/js/PurchaseRequest.js">
+      <publishTime>05/22/2024 10:01:59</publishTime>
+    </File>
+    <File Include="Areas/NVIDIA/Content/Custom/PurchaseRequest/js/PurchaseRequestCommon.js">
+      <publishTime>05/21/2024 15:55:10</publishTime>
     </File>
     <File Include="Areas/NVIDIA/Content/Custom/RequestManagement/css/BorrowDevice.css">
       <publishTime>10/09/2023 13:07:15</publishTime>
@@ -5629,7 +5641,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>09/18/2023 17:21:39</publishTime>
     </File>
     <File Include="Areas/NVIDIA/Entities/ToolingRoomModel.edmx.diagram">
-      <publishTime>03/13/2024 10:07:12</publishTime>
+      <publishTime>05/20/2024 14:04:59</publishTime>
     </File>
     <File Include="Areas/NVIDIA/Views/AdminManagement/RoleManagement.cshtml">
       <publishTime>03/13/2024 16:02:26</publishTime>
@@ -5730,11 +5742,20 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
     <File Include="Areas/NVIDIA/Views/RequestManagement/BorrowDevice.cshtml">
       <publishTime>01/25/2024 13:41:32</publishTime>
     </File>
+    <File Include="Areas/NVIDIA/Views/RequestManagement/Modal/_CreatePurchaseRequestModal.cshtml">
+      <publishTime>05/21/2024 13:31:25</publishTime>
+    </File>
     <File Include="Areas/NVIDIA/Views/RequestManagement/Modal/_RequestDetailsModal.cshtml">
       <publishTime>01/11/2024 08:32:52</publishTime>
     </File>
     <File Include="Areas/NVIDIA/Views/RequestManagement/Modal/_ReturnDetails.cshtml">
       <publishTime>01/11/2024 08:33:37</publishTime>
+    </File>
+    <File Include="Areas/NVIDIA/Views/RequestManagement/Modal/_UpdatePurchaseRequestModal.cshtml">
+      <publishTime>05/22/2024 08:14:27</publishTime>
+    </File>
+    <File Include="Areas/NVIDIA/Views/RequestManagement/PurchaseRequest.cshtml">
+      <publishTime>05/21/2024 16:50:41</publishTime>
     </File>
     <File Include="Areas/NVIDIA/Views/RequestManagement/RequestManagement.cshtml">
       <publishTime>01/25/2024 13:41:51</publishTime>
@@ -5755,10 +5776,10 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>12/13/2023 08:16:53</publishTime>
     </File>
     <File Include="Areas/NVIDIA/Views/Shared/_NvidiaLayoutShared.cshtml">
-      <publishTime>03/13/2024 15:55:24</publishTime>
+      <publishTime>05/20/2024 16:52:42</publishTime>
     </File>
     <File Include="Areas/NVIDIA/Views/Shared/_NvidiaNavigationBarShared.cshtml">
-      <publishTime>03/13/2024 15:56:26</publishTime>
+      <publishTime>05/20/2024 14:10:03</publishTime>
     </File>
     <File Include="Areas/NVIDIA/Views/Warehouse/Layout.cshtml">
       <publishTime>01/25/2024 13:41:11</publishTime>
@@ -10798,10 +10819,10 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>12/13/2023 08:17:01</publishTime>
     </File>
     <File Include="bin/ToolingRoomManagement.dll">
-      <publishTime>04/16/2024 15:05:30</publishTime>
+      <publishTime>05/22/2024 13:03:10</publishTime>
     </File>
     <File Include="bin/ToolingRoomManagement.pdb">
-      <publishTime>04/16/2024 15:05:30</publishTime>
+      <publishTime>05/22/2024 13:03:10</publishTime>
     </File>
     <File Include="Global.asax">
       <publishTime>12/13/2023 08:17:01</publishTime>
@@ -10828,7 +10849,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>12/13/2023 08:17:01</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>04/16/2024 15:05:34</publishTime>
+      <publishTime>05/22/2024 13:03:13</publishTime>
     </File>
   </ItemGroup>
 </Project>

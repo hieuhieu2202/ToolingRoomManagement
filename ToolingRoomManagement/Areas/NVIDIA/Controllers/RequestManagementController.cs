@@ -1650,7 +1650,45 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
             try
             {
                 var result = RPurchaseRequest.GetPurchaseRequest(IdPurchaseRequest);
-                return Json(new { status = false, data = result }, JsonRequestBehavior.AllowGet);
+                return Json(new { status = true, data = result }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        // post
+        public JsonResult CreatePurchaseRequest(PurchaseRequest PurchaseRequest)
+        {
+            try
+            {
+                var result = RPurchaseRequest.CreatePurchaseRequest(PurchaseRequest);
+                return Json(new { status = true, data = result }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        public JsonResult UpdatePurchaseRequest(PurchaseRequest PurchaseRequest)
+        {
+            try
+            {
+                var result = RPurchaseRequest.UpdatePurchaseRequest(PurchaseRequest);
+                return Json(new { status = true, data = result }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        //delete
+        public JsonResult DeletePurchaseRequest(int IdPurchaseRequest)
+        {
+            try
+            {
+                var result = RPurchaseRequest.DeletePurchaseRequest(IdPurchaseRequest);
+                return Json(new { status = true, data = result }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {

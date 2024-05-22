@@ -123,20 +123,19 @@ function CreateNavUserName(user) {
     return username;
 }
 function CreateUserName(user) {
-    var username = '';
-    if (user == null) return username;
+    if (user == null) return 'Unknown';
 
     if (user.VnName && user.VnName != '') {
-        username = `${user.Username} - ${user.VnName}`;
-    }
-    else if (user.CnName && user.CnName != '') {
-        username = `${user.Username} - ${user.CnName}`;
-    }
-    if (user.EnName != null && user.EnName != '') {
-        username += ` (${user.EnName})`;
+        return `${user.Username} - ${user.VnName}`;
     }
 
-    return username;
+    if (user.CnName && user.CnName != '') {
+        return `${user.Username} - ${user.CnName}`;
+    }
+
+    if (user.EnName != null && user.EnName != '') {
+        return `${user.Username} - ${user.CnName} (${user.EnName})`;
+    }
 }
 
 
