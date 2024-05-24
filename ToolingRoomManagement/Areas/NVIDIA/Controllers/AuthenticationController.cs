@@ -284,6 +284,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
         {
             HttpCookie rememberSignInCookie = new HttpCookie("UserInfo");
 
+            rememberSignInCookie["Id"] = user.Id.ToString();
             rememberSignInCookie["CardID"] = user.Username;
             rememberSignInCookie["VnName"] = user.VnName;
             rememberSignInCookie["CnName"] = user.CnName;

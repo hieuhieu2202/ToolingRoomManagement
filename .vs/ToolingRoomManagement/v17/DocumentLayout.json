@@ -3,8 +3,24 @@
   "WorkspaceRootPath": "F:\\Projects\\WebApp\\ToolingRoomManagement\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{07C800A9-1E8C-4D7C-9159-A66BC7093279}|ToolingRoomManagement\\ToolingRoomManagement.csproj|f:\\projects\\webapp\\toolingroommanagement\\toolingroommanagement\\areas\\nvidia\\controllers\\devicemanagementcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{07C800A9-1E8C-4D7C-9159-A66BC7093279}|ToolingRoomManagement\\ToolingRoomManagement.csproj|solutionrelative:toolingroommanagement\\areas\\nvidia\\controllers\\devicemanagementcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{07C800A9-1E8C-4D7C-9159-A66BC7093279}|ToolingRoomManagement\\ToolingRoomManagement.csproj|f:\\projects\\webapp\\toolingroommanagement\\toolingroommanagement\\areas\\nvidia\\content\\custom\\requestmanagement\\js\\return\\returndetails.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{07C800A9-1E8C-4D7C-9159-A66BC7093279}|ToolingRoomManagement\\ToolingRoomManagement.csproj|solutionrelative:toolingroommanagement\\areas\\nvidia\\content\\custom\\requestmanagement\\js\\return\\returndetails.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{07C800A9-1E8C-4D7C-9159-A66BC7093279}|ToolingRoomManagement\\ToolingRoomManagement.csproj|f:\\projects\\webapp\\toolingroommanagement\\toolingroommanagement\\areas\\nvidia\\content\\custom\\exportmanagement\\_exportdetailsmodal.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{07C800A9-1E8C-4D7C-9159-A66BC7093279}|ToolingRoomManagement\\ToolingRoomManagement.csproj|solutionrelative:toolingroommanagement\\areas\\nvidia\\content\\custom\\exportmanagement\\_exportdetailsmodal.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{07C800A9-1E8C-4D7C-9159-A66BC7093279}|ToolingRoomManagement\\ToolingRoomManagement.csproj|f:\\projects\\webapp\\toolingroommanagement\\toolingroommanagement\\areas\\nvidia\\content\\custom\\requestmanagement\\js\\requestdetails.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{07C800A9-1E8C-4D7C-9159-A66BC7093279}|ToolingRoomManagement\\ToolingRoomManagement.csproj|solutionrelative:toolingroommanagement\\areas\\nvidia\\content\\custom\\requestmanagement\\js\\requestdetails.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{07C800A9-1E8C-4D7C-9159-A66BC7093279}|ToolingRoomManagement\\ToolingRoomManagement.csproj|f:\\projects\\webapp\\toolingroommanagement\\toolingroommanagement\\areas\\nvidia\\content\\custom\\requestmanagement\\js\\requestcommon.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{07C800A9-1E8C-4D7C-9159-A66BC7093279}|ToolingRoomManagement\\ToolingRoomManagement.csproj|solutionrelative:toolingroommanagement\\areas\\nvidia\\content\\custom\\requestmanagement\\js\\requestcommon.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{07C800A9-1E8C-4D7C-9159-A66BC7093279}|ToolingRoomManagement\\ToolingRoomManagement.csproj|f:\\projects\\webapp\\toolingroommanagement\\toolingroommanagement\\areas\\nvidia\\content\\custom\\requestmanagement\\js\\sign\\requestsign.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{07C800A9-1E8C-4D7C-9159-A66BC7093279}|ToolingRoomManagement\\ToolingRoomManagement.csproj|solutionrelative:toolingroommanagement\\areas\\nvidia\\content\\custom\\requestmanagement\\js\\sign\\requestsign.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
     }
   ],
   "DocumentGroupContainers": [
@@ -14,7 +30,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 19,
+          "SelectedChildIndex": 22,
           "Children": [
             {
               "$type": "Bookmark",
@@ -94,15 +110,67 @@
             },
             {
               "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "RequestSign.js",
+              "DocumentMoniker": "F:\\Projects\\WebApp\\ToolingRoomManagement\\ToolingRoomManagement\\Areas\\NVIDIA\\Content\\Custom\\RequestManagement\\js\\Sign\\RequestSign.js",
+              "RelativeDocumentMoniker": "ToolingRoomManagement\\Areas\\NVIDIA\\Content\\Custom\\RequestManagement\\js\\Sign\\RequestSign.js",
+              "ToolTip": "F:\\Projects\\WebApp\\ToolingRoomManagement\\ToolingRoomManagement\\Areas\\NVIDIA\\Content\\Custom\\RequestManagement\\js\\Sign\\RequestSign.js",
+              "RelativeToolTip": "ToolingRoomManagement\\Areas\\NVIDIA\\Content\\Custom\\RequestManagement\\js\\Sign\\RequestSign.js",
+              "ViewState": "AQIAAIYAAAAAAAAAAAAcwH8AAAAxAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2024-05-24T03:17:50.08Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "RequestCommon.js",
+              "DocumentMoniker": "F:\\Projects\\WebApp\\ToolingRoomManagement\\ToolingRoomManagement\\Areas\\NVIDIA\\Content\\Custom\\RequestManagement\\js\\RequestCommon.js",
+              "RelativeDocumentMoniker": "ToolingRoomManagement\\Areas\\NVIDIA\\Content\\Custom\\RequestManagement\\js\\RequestCommon.js",
+              "ToolTip": "F:\\Projects\\WebApp\\ToolingRoomManagement\\ToolingRoomManagement\\Areas\\NVIDIA\\Content\\Custom\\RequestManagement\\js\\RequestCommon.js",
+              "RelativeToolTip": "ToolingRoomManagement\\Areas\\NVIDIA\\Content\\Custom\\RequestManagement\\js\\RequestCommon.js",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAEUBAAAlAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2024-05-24T03:17:10.053Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "RequestDetails.js",
+              "DocumentMoniker": "F:\\Projects\\WebApp\\ToolingRoomManagement\\ToolingRoomManagement\\Areas\\NVIDIA\\Content\\Custom\\RequestManagement\\js\\RequestDetails.js",
+              "RelativeDocumentMoniker": "ToolingRoomManagement\\Areas\\NVIDIA\\Content\\Custom\\RequestManagement\\js\\RequestDetails.js",
+              "ToolTip": "F:\\Projects\\WebApp\\ToolingRoomManagement\\ToolingRoomManagement\\Areas\\NVIDIA\\Content\\Custom\\RequestManagement\\js\\RequestDetails.js",
+              "RelativeToolTip": "ToolingRoomManagement\\Areas\\NVIDIA\\Content\\Custom\\RequestManagement\\js\\RequestDetails.js",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABUAAAAuAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2024-05-24T03:15:13.009Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "DeviceManagementController.cs",
-              "DocumentMoniker": "F:\\Projects\\WebApp\\ToolingRoomManagement\\ToolingRoomManagement\\Areas\\NVIDIA\\Controllers\\DeviceManagementController.cs",
-              "RelativeDocumentMoniker": "ToolingRoomManagement\\Areas\\NVIDIA\\Controllers\\DeviceManagementController.cs",
-              "ToolTip": "F:\\Projects\\WebApp\\ToolingRoomManagement\\ToolingRoomManagement\\Areas\\NVIDIA\\Controllers\\DeviceManagementController.cs",
-              "RelativeToolTip": "ToolingRoomManagement\\Areas\\NVIDIA\\Controllers\\DeviceManagementController.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAALsDAAAhAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-22T07:40:11.149Z",
+              "Title": "ReturnDetails.js",
+              "DocumentMoniker": "F:\\Projects\\WebApp\\ToolingRoomManagement\\ToolingRoomManagement\\Areas\\NVIDIA\\Content\\Custom\\RequestManagement\\js\\Return\\ReturnDetails.js",
+              "RelativeDocumentMoniker": "ToolingRoomManagement\\Areas\\NVIDIA\\Content\\Custom\\RequestManagement\\js\\Return\\ReturnDetails.js",
+              "ToolTip": "F:\\Projects\\WebApp\\ToolingRoomManagement\\ToolingRoomManagement\\Areas\\NVIDIA\\Content\\Custom\\RequestManagement\\js\\Return\\ReturnDetails.js",
+              "RelativeToolTip": "ToolingRoomManagement\\Areas\\NVIDIA\\Content\\Custom\\RequestManagement\\js\\Return\\ReturnDetails.js",
+              "ViewState": "AQIAAAUAAAAAAAAAAAAQwBcAAAAWAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2024-05-24T03:14:29.534Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "_ExportDetailsModal.js",
+              "DocumentMoniker": "F:\\Projects\\WebApp\\ToolingRoomManagement\\ToolingRoomManagement\\Areas\\NVIDIA\\Content\\Custom\\ExportManagement\\_ExportDetailsModal.js",
+              "RelativeDocumentMoniker": "ToolingRoomManagement\\Areas\\NVIDIA\\Content\\Custom\\ExportManagement\\_ExportDetailsModal.js",
+              "ToolTip": "F:\\Projects\\WebApp\\ToolingRoomManagement\\ToolingRoomManagement\\Areas\\NVIDIA\\Content\\Custom\\ExportManagement\\_ExportDetailsModal.js",
+              "RelativeToolTip": "ToolingRoomManagement\\Areas\\NVIDIA\\Content\\Custom\\ExportManagement\\_ExportDetailsModal.js",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA0AAAAsAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2024-05-24T03:15:28.242Z",
               "EditorCaption": ""
             }
           ]

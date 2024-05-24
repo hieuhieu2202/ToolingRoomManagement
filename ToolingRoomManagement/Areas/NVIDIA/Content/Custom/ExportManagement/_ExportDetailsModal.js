@@ -1,17 +1,17 @@
 ﻿/* EXPORT DETAILS */
-function ExportDetails(IdExport, IdSign, Type, Elm) {
+function ExportDetails(IdExport, SignStatus, Type, Elm) {
     try {
         CreateEXportDetailsModal(IdExport);
 
-        if (IdSign != null) {
+        if (SignStatus != null && SignStatus == "Pending") {
             $('#export_action_footer').show();
             $('#export_normal_footer').hide();
 
             $('#export-Approved').click(function () {
-                CreateApprovedAlert(IdExport, IdSign, Type, Elm);
+                CreateApprovedAlert(IdExport, Type, Elm);
             });
             $('#export-Rejected').click(function () {
-                CreateRejectedAlert(IdExport, IdSign, Type, Elm);
+                CreateRejectedAlert(IdExport, Type, Elm);
             });
         }
         else {

@@ -88,7 +88,7 @@ function CreateRequestTableRow(request, type) {
 
     return row = [
         `${type[0]}-${moment(request.CreatedDate).format('YYYYMMDDHHmm')}-${request.Id}`,
-        CreateUserName(request.User),
+        CreateUserName(request.UserCreated),
         moment(request.CreatedDate).format('YYYY-MM-DD HH:mm:ss'),
         `${duadate}`,
         `${datereturn}`,

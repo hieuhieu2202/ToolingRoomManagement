@@ -47,25 +47,7 @@ function GetUserRequests() {
             dataType: "json",
             success: function (res) {
                 if (res.status) {
-                    var result = {
-                        borrows: res.borrows,
-                        returns: res.returns,
-                        exports: res.exports,
-                        cTotal: res.borrows.length + res.returns.length + res.exports.length,
-                        cApproved:
-                            res.borrows.filter(b => b.Status === "Approved").length +
-                            res.returns.filter(r => r.Status === "Approved").length +
-                            res.exports.filter(e => e.Status === "Approved").length,
-                        cPending:
-                            res.borrows.filter(b => b.Status === "Pending").length +
-                            res.returns.filter(r => r.Status === "Pending").length +
-                            res.exports.filter(e => e.Status === "Pending").length,
-                        cRejected:
-                            res.borrows.filter(b => b.Status === "Rejected").length +
-                            res.returns.filter(r => r.Status === "Rejected").length +
-                            res.exports.filter(e => e.Status === "Rejected").length
-                    }
-                    resolve(result);
+                    resolve(res.requests);
                 }
                 else {
                     reject(res.message);
@@ -123,10 +105,11 @@ function GetModelAndStations() {
 
 
 /* POST */
-function Approved(IdRequest, IdSign, Type) {
+function Approved(IdRequest, Type) {
     return new Promise((resolve, reject) => {
         var approvedUrl = '';
         switch (Type) {
+            case "Take":
             case "Borrow": {
                 approvedUrl = '/NVIDIA/RequestManagement/Borrow_Approved';
                 break;
@@ -135,7 +118,8 @@ function Approved(IdRequest, IdSign, Type) {
                 approvedUrl = '/NVIDIA/RequestManagement/Return_Approved';
                 break;
             }
-            case "Export": {
+            case "Return NG":
+            case "Shipping": {
                 approvedUrl = '/NVIDIA/RequestManagement/Export_Approved';
                 break;
             }
@@ -144,7 +128,7 @@ function Approved(IdRequest, IdSign, Type) {
         $.ajax({
             type: "POST",
             url: approvedUrl,
-            data: JSON.stringify({ IdRequest, IdSign }),
+            data: JSON.stringify({ IdRequest }),
             dataType: "json",
             contentType: "application/json;charset=utf-8",
             success: function (res) {
@@ -162,10 +146,11 @@ function Approved(IdRequest, IdSign, Type) {
         });
     });
 }
-function Rejected(IdRequest, IdSign, Type, Note) {
+function Rejected(IdRequest, Type, Note) {
     return new Promise((resolve, reject) => {
         var rejectedUrl = '';
         switch (Type) {
+            case "Take":
             case "Borrow": {
                 rejectedUrl = '/NVIDIA/RequestManagement/Borrow_Rejected';
                 break;
@@ -174,7 +159,8 @@ function Rejected(IdRequest, IdSign, Type, Note) {
                 rejectedUrl = '/NVIDIA/RequestManagement/Return_Rejected';
                 break;
             }
-            case "Export": {
+            case "Return NG":
+            case "Shipping": {
                 rejectedUrl = '/NVIDIA/RequestManagement/Export_Rejected';
                 break;
             }
@@ -183,7 +169,7 @@ function Rejected(IdRequest, IdSign, Type, Note) {
         $.ajax({
             type: "POST",
             url: rejectedUrl,
-            data: JSON.stringify({ IdRequest, IdSign, Note }),
+            data: JSON.stringify({ IdRequest, Note }),
             dataType: "json",
             contentType: "application/json;charset=utf-8",
             success: function (res) {
@@ -204,20 +190,25 @@ function Rejected(IdRequest, IdSign, Type, Note) {
 
 /* FUNCTION */
 function CustomRequest(request, type) {
+
+    console.log(request);
+
     switch (type) {
+        case "Take":
         case "Borrow": {
             var customRequest = {
                 Id: request.Id,
                 CreatedDate: request.DateBorrow,
                 Status: request.Status,
                 Type: request.Type,
-                DuaDate: request.DateDue,
+                DueDate: request.DateDue,
                 Note: request.Note,
                 IdModel: request.IdModel,
                 IdStation: request.IdStation,
                 DeviceName: request.BorrowDevices.map(d => d.Device.DeviceCode),
                 UserSigns: request.UserBorrowSigns,
-                User: request.User
+                UserCreated: request.User,
+                SignStatus: (request.UserBorrowSigns.find((us) => { return us.IdUser == GetCookieValue('UserInfo', 'Id') })).Status
             }
             return customRequest;
         }
@@ -232,11 +223,13 @@ function CustomRequest(request, type) {
                 IdBorrow: request.IdBorrow,
                 DeviceName: request.ReturnDevices.map(d => d.Device.DeviceCode),
                 UserSigns: request.UserReturnSigns,
-                User: request.User
+                UserCreated: request.User,
+                SignStatus: (request.UserReturnSigns.find((us) => { return us.IdUser == GetCookieValue('UserInfo', 'Id') })).Status
             }
             return customRequest;
         }
-        case "Export": {
+        case "Return NG":
+        case "Shipping": {
             var customRequest = {
                 Id: request.Id,
                 CreatedDate: request.CreatedDate,
@@ -245,7 +238,8 @@ function CustomRequest(request, type) {
                 Type: request.Type,
                 DeviceName: request.ExportDevices.map(d => d.Device.DeviceCode),
                 UserSigns: request.UserExportSigns,
-                User: request.User
+                UserCreated: request.User,
+                SignStatus: (request.UserExportSigns.find((us) => { return us.IdUser == GetCookieValue('UserInfo', 'Id') })).Status
             }
             return customRequest;
         }
@@ -300,57 +294,66 @@ function GetRequestAction(request, type) {
         case "Export": {
             return (`<a href="javascript:;" class="text-info bg-light-info border-0" title="Details" data-id="${request.Id}" onclick="ExportDetails(${request.Id})"><i class="fa-regular fa-circle-info"></i></a>`);
         }
+        default: {
+            return "NA";
+        }
     }   
 }
-function GetSignStatus(request) {
-    const userSign = request.UserSigns.find(s => s.User.Username === $('#CardID').text());
-
-    switch (userSign.Status) {
+function GetSignStatus(status) {
+    switch (status) {
         case 'Waitting': {
-            return `<span class="fw-bold text-primary">${userSign.Status}</span>`;
+            return `<span class="fw-bold text-primary">Waitting</span>`;
         }
         case 'Closed': {
-            return `<span class="fw-bold text-secondary">${userSign.Status}</span>`;
+            return `<span class="fw-bold text-secondary">Closed</span>`;
         }
         case 'Pending': {
-            return `<span class="fw-bold text-warning">${userSign.Status}</span>`;
+            return `<span class="fw-bold text-warning">Pending</span>`;
         }
         case 'Approved': {
-            return `<span class="fw-bold text-success">${userSign.Status}</span>`;
+            return `<span class="fw-bold text-success">Approved</span>`;
         }
         case 'Rejected': {
-            return `<span class="fw-bold text-danger">${userSign.Status}</span>`;
+            return `<span class="fw-bold text-danger">Rejected</span>`;
+        }
+        default: {
+            return `<span class="fw-bold text-dark">Unknown</span>`;
+
         }
     }
 
 }
 function GetSignAction(request, type) {
-    const userSign = request.UserSigns.find(s => s.User.Username === $('#CardID').text());
-
     var btnDetails, btnApproved, btnRejected;
    
-    if (userSign.Status == "Pending") {
+    if (request.SignStatus == "Pending") {
         switch (type) {
+            case "Take":
             case "Borrow": {
-                btnDetails = `<a href="javascript:;" class="text-info bg-light-info border-0" title="Details" data-id="${request.Id}" onclick="RequestDetails(${request.Id}, ${userSign.Id}, 'Borrow', this)"><i class="fa-regular fa-circle-info"></i></a>`;
+                btnDetails = `<a href="javascript:;" class="text-info bg-light-info border-0" title="Details" onclick="RequestDetails(${request.Id}, '${request.SignStatus}', 'Borrow', this)"><i class="fa-regular fa-circle-info"></i></a>`;
                 break;
             }
             case "Return": {
-                btnDetails = `<a href="javascript:;" class="text-info bg-light-info border-0" title="Details" data-id="${request.Id}" onclick="ReturnDetails(${request.Id}, ${userSign.Id}, 'Return', this)"><i class="fa-regular fa-circle-info"></i></a>`;
+                btnDetails = `<a href="javascript:;" class="text-info bg-light-info border-0" title="Details" onclick="ReturnDetails(${request.Id}, '${request.SignStatus}', 'Return', this)"><i class="fa-regular fa-circle-info"></i></a>`;
                 break;
             }
-            case "Export": {
-                btnDetails = `<a href="javascript:;" class="text-info bg-light-info border-0" title="Details" data-id="${request.Id}" onclick="ExportDetails(${request.Id}, ${userSign.Id}, 'Export', this)"><i class="fa-regular fa-circle-info"></i></a>`;
+            case "Return NG":
+            case "Shipping": {
+                btnDetails = `<a href="javascript:;" class="text-info bg-light-info border-0" title="Details" onclick="ExportDetails(${request.Id},'${request.SignStatus}', 'Export', this)"><i class="fa-regular fa-circle-info"></i></a>`;
                 break;
+            }
+            default: {
+                return btnDetails;
             }
         }
-        btnApproved = `<a href="javascript:;" class="text-success bg-light-success border-0" data-id="${request.Id}" data-idsign="${userSign.Id}" onclick="CreateApprovedAlert(${request.Id}, ${userSign.Id}, '${type}', this)"><i class="fa-duotone fa-check"></i></a>`;
-        btnRejected = `<a href="javascript:;" class="text-danger  bg-light-danger  border-0" data-id="${request.Id}" data-idsign="${userSign.Id}" onclick="CreateRejectedAlert(${request.Id}, ${userSign.Id}, '${type}', this)"><i class="fa-solid fa-x"></i></a>`;
+        btnApproved = `<a href="javascript:;" class="text-success bg-light-success border-0" data-id="${request.Id}" onclick="CreateApprovedAlert(${request.Id}, '${type}', this)"><i class="fa-duotone fa-check"></i></a>`;
+        btnRejected = `<a href="javascript:;" class="text-danger  bg-light-danger  border-0" data-id="${request.Id}" onclick="CreateRejectedAlert(${request.Id}, '${type}', this)"><i class="fa-solid fa-x"></i></a>`;
 
         return btnDetails + btnApproved + btnRejected;
     }
     else {
         switch (type) {
+            case "Take":
             case "Borrow": {
                 btnDetails = `<a href="javascript:;" class="text-info bg-light-info border-0" title="Details" data-id="${request.Id}" onclick="RequestDetails(${request.Id})"><i class="fa-regular fa-circle-info"></i></a>`;
                 break;
@@ -359,12 +362,16 @@ function GetSignAction(request, type) {
                 btnDetails = `<a href="javascript:;" class="text-info bg-light-info border-0" title="Details" data-id="${request.Id}" onclick="ReturnDetails(${request.Id})"><i class="fa-regular fa-circle-info"></i></a>`;
                 break;
             }
-            case "Export": {
+            case "Return NG":
+            case "Shipping": {
                 btnDetails = `<a href="javascript:;" class="text-info bg-light-info border-0" title="Details" data-id="${request.Id}" onclick="ExportDetails(${request.Id})"><i class="fa-regular fa-circle-info"></i></a>`;
                 break;
             }
+            default: {
+                btnDetails = "NA";
+            }
         }
-
         return btnDetails;
+       
     }
 }

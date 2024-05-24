@@ -1139,15 +1139,25 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                             device.MOQ = devices.FirstOrDefault(d => d.MOQ != null)?.MOQ;
 
                             //int ComingQty = CountComingDevice(_PN);
-                            int? PR_Qty = db.DevicePRs
-                                .Where(d => d.Device.DeviceCode.ToUpper().Trim() == _PN.ToUpper().Trim())
-                                .Sum(d => d.PR_Quantity);
+                            int PR_Qty = CountPRDevice(_PN);
 
                             int AltPnQty = (device.AlternativeDevices != null) ? CountAltPNQuantity(device.AlternativeDevices.ToList().First().PNs) : 0;
-                            int GAP = (int)((PR_Qty ?? 0 + device.RealQty) - _RequestQty);
-                            int totalQty = device.QtyConfirm + PR_Qty ?? 0;
+                            int GAP = (PR_Qty + (device.RealQty ?? 0)) - _RequestQty;
+                            int totalQty = (device.QtyConfirm ?? 0) + PR_Qty;
 
-                            string Risk = (GAP > 0 && totalQty > device.MinQty) ? "Low" : (GAP >= 0 && totalQty <= device.MinQty) ? "Mid" : "High";
+                            string Risk = "High";
+                            if (GAP > 0 && totalQty >= (device.MinQty ?? 0))
+                            {
+                                Risk = "Low";
+                            }
+                            else if (GAP >= 0 && totalQty < (device.MinQty ?? 0))
+                            {
+                                Risk = "Mid";
+                            }
+                            else
+                            {
+                                Risk = "High";
+                            }
 
 
                             // MTS, Product, PN, AlternativePN, Description

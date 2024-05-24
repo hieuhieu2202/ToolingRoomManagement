@@ -1,4 +1,4 @@
-﻿function RequestDetails(Id, IdSign = null, Type = null, Elm = null) {
+﻿function RequestDetails(Id, SignStatus, Type = null, Elm = null) {
     $.ajax({
         type: "GET",
         url: "/NVIDIA/RequestManagement/GetRequest",
@@ -11,15 +11,15 @@
 
                 CreateModal(borrow);
 
-                if (IdSign != null) {
+                if (SignStatus != null && SignStatus == "Pending") {
                     $('#borrow_action_footer').show();
                     $('#borrow_normal_footer').hide();
 
                     $('#request-Approved').click(function () {
-                        CreateApprovedAlert(Id, IdSign, Type, Elm);
+                        CreateApprovedAlert(Id, Type, Elm);
                     });
                     $('#request-Rejected').click(function () {
-                        CreateRejectedAlert(Id, IdSign, Type, Elm);
+                        CreateRejectedAlert(Id, Type, Elm);
                     });
                 }
                 else {

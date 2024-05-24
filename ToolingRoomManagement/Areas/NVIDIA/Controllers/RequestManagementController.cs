@@ -10,6 +10,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text.Json;
+using System.Web;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
 using ToolingRoomManagement.Areas.NVIDIA.Data;
@@ -36,6 +37,8 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
         {
             try
             {
+                var sessionUser = (Entities.User)Session["SignSession"];
+
                 var borrows = db.Borrows.Select(b => new
                 {
                     Id = b.Id,
@@ -47,7 +50,8 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                     IdModel = b.IdModel,
                     IdStation = b.IdStation,
                     DeviceName = b.BorrowDevices.Select(d => d.Device.DeviceCode).ToList(),
-                    User = b.User
+                    UserCreated = b.User,
+                    IsUserSign = (b.UserBorrowSigns.FirstOrDefault(ubs => ubs.Status == "Pending").IdUser == sessionUser.Id) ? true: false,
                 }).ToList();
 
                 var returns = db.Returns.Select(r => new
@@ -60,7 +64,8 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                     Type = r.Type,
                     IdBorrow = r.IdBorrow,
                     DeviceName = r.ReturnDevices.Select(d => d.Device.DeviceCode).ToList(),
-                    User = r.User
+                    UserCreated = r.User,
+                    IsUserSign = (r.UserReturnSigns.FirstOrDefault(urs => urs.Status == "Pending").IdUser == sessionUser.Id) ? true : false,
                 }).ToList();
 
                 var exports = db.Exports.Select(e => new
@@ -71,7 +76,8 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                     Status = e.Status,
                     Type = e.Type,
                     DeviceName = e.ExportDevices.Select(d => d.Device.DeviceCode).ToList(),
-                    User = e.User
+                    UserCreated = e.User,
+                    IsUserSign = (e.UserExportSigns.FirstOrDefault(ues => ues.Status == "Pending").IdUser == sessionUser.Id) ? true : false,
                 }).ToList();
 
                 return Json(new { status = true, borrows, returns, exports }, JsonRequestBehavior.AllowGet);
@@ -166,24 +172,21 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
         {
             try
             {
-                Entities.User user = (Entities.User)Session["SignSession"];
+                Entities.User sessionUuser = (Entities.User)Session["SignSession"];
 
-                var borrows = db.Borrows.Where(b => b.UserBorrowSigns.Any(s => s.IdUser == user.Id)).Select(b => new
+                var borrows = db.Borrows.Where(b => b.UserBorrowSigns.Any(s => s.IdUser == sessionUuser.Id)).Select(b => new RequestSignDatas
                 {
                     Id = b.Id,
                     CreatedDate = b.DateBorrow,
                     Status = b.Status,
                     Type = b.Type,
-                    DuaDate = b.DateDue,
+                    DueDate = b.DateDue,
                     Note = b.Note,
-                    IdModel = b.IdModel,
-                    IdStation = b.IdStation,
                     DeviceName = b.BorrowDevices.Select(d => d.Device.DeviceCode).ToList(),
-                    UserSigns = b.UserBorrowSigns,
-                    User = b.User
-                }).ToList();
-
-                var returns = db.Returns.Where(r => r.UserReturnSigns.Any(s => s.IdUser == user.Id)).Select(r => new
+                    UserCreated = b.User,
+                    SignStatus = b.UserBorrowSigns.FirstOrDefault(u => u.IdUser == sessionUuser.Id).Status
+                });
+                var returns = db.Returns.Where(r => r.UserReturnSigns.Any(s => s.IdUser == sessionUuser.Id)).Select(r => new RequestSignDatas
                 {
                     Id = r.Id,
                     CreatedDate = r.DateReturn,
@@ -193,11 +196,10 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                     Type = r.Type,
                     IdBorrow = r.IdBorrow,
                     DeviceName = r.ReturnDevices.Select(d => d.Device.DeviceCode).ToList(),
-                    UserSigns = r.UserReturnSigns,
-                    User = r.User
-                }).ToList();
-
-                var exports = db.Exports.Where(e => e.UserExportSigns.Any(s => s.IdUser == user.Id)).Select(e => new
+                    UserCreated = r.User,
+                    SignStatus = r.UserReturnSigns.FirstOrDefault(u => u.IdUser == sessionUuser.Id).Status
+                });
+                var exports = db.Exports.Where(e => e.UserExportSigns.Any(s => s.IdUser == sessionUuser.Id)).Select(e => new RequestSignDatas
                 {
                     Id = e.Id,
                     CreatedDate = e.CreatedDate,
@@ -205,11 +207,13 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                     Status = e.Status,
                     Type = e.Type,
                     DeviceName = e.ExportDevices.Select(d => d.Device.DeviceCode).ToList(),
-                    UserSigns = e.UserExportSigns,
-                    User = e.User
-                }).ToList();
+                    UserCreated = e.User,
+                    SignStatus = e.UserExportSigns.FirstOrDefault(u => u.IdUser == sessionUuser.Id).Status
+                });
 
-                return Json(new { status = true, borrows, returns, exports }, JsonRequestBehavior.AllowGet);
+                var requests = borrows.ToList().Concat(returns.ToList().Concat(exports.ToList()));
+
+                return Json(new { status = true, requests }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
@@ -219,15 +223,16 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
 
         [HttpPost]
         [Authentication(Roles = new[] { "ADMIN", "CRUD", "MANAGER", "Warehouse Manager", "TE Leader", "QA Leader" })]
-        public ActionResult Borrow_Approved(int IdRequest, int IdSign)
+        public ActionResult Borrow_Approved(int IdRequest)
         {
             try
             {
+                var sessionUser = (Entities.User)Session["SignSession"];
                 var request = db.Borrows.FirstOrDefault(b => b.Id == IdRequest);
                 if (request != null)
                 {
                     var userSign = request.UserBorrowSigns.FirstOrDefault(s => s.Status == "Pending");
-                    if (userSign != null && userSign.Id == IdSign)
+                    if (userSign != null && userSign.IdUser == sessionUser.Id)
                     {
                         userSign.Status = "Approved";
                         userSign.DateSign = DateTime.Now;
@@ -276,15 +281,16 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
             }
         }
         [Authentication(Roles = new[] { "ADMIN", "CRUD", "MANAGER", "Warehouse Manager", "TE Leader", "QA Leader" })]
-        public ActionResult Borrow_Rejected(int IdRequest, int IdSign, string Note)
+        public ActionResult Borrow_Rejected(int IdRequest, string Note)
         {
             try
             {
+                var sessionUser = (Entities.User)Session["SignSession"];
                 var request = db.Borrows.FirstOrDefault(b => b.Id == IdRequest);
                 if (request != null)
                 {
                     var userSign = request.UserBorrowSigns.FirstOrDefault(u => u.Status == "Pending");
-                    if (userSign != null && userSign.Id == IdSign)
+                    if (userSign != null && userSign.IdUser == sessionUser.Id)
                     {
                         request.Status = "Rejected";
 
@@ -327,15 +333,16 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
             }
         }
         [Authentication(Roles = new[] { "ADMIN", "CRUD", "MANAGER", "Warehouse Manager", "TE Leader", "QA Leader" })]
-        public ActionResult Return_Approved(int IdRequest, int IdSign)
+        public ActionResult Return_Approved(int IdRequest)
         {
             try
             {
+                var sessionUser = (Entities.User)Session["SignSession"];
                 var request = db.Returns.FirstOrDefault(b => b.Id == IdRequest);
                 if (request != null)
                 {
                     var userSign = request.UserReturnSigns.FirstOrDefault(u => u.Status == "Pending");
-                    if (userSign != null && userSign.Id == IdSign)
+                    if (userSign != null && userSign.IdUser == sessionUser.Id)
                     {
                         userSign.Status = "Approved";
                         userSign.DateSign = DateTime.Now;
@@ -405,15 +412,16 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
             }
         }
         [Authentication(Roles = new[] { "ADMIN", "CRUD", "MANAGER", "Warehouse Manager", "TE Leader", "QA Leader" })]
-        public ActionResult Return_Rejected(int IdRequest, int IdSign, string Note)
+        public ActionResult Return_Rejected(int IdRequest, string Note)
         {
             try
             {
+                var sessionUser = (Entities.User)Session["SignSession"];
                 var request = db.Returns.FirstOrDefault(b => b.Id == IdRequest);
                 if (request != null)
                 {
                     var userSign = request.UserReturnSigns.FirstOrDefault(u => u.Status == "Pending");
-                    if (userSign != null && userSign.Id == IdSign)
+                    if (userSign != null && userSign.IdUser == sessionUser.Id)
                     {
                         request.Status = "Rejected";
 
@@ -449,15 +457,16 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
             }
         }
         [Authentication(Roles = new[] { "ADMIN", "CRUD", "MANAGER", "Warehouse Manager", "TE Leader", "QA Leader" })]
-        public ActionResult Export_Approved(int IdRequest, int IdSign)
+        public ActionResult Export_Approved(int IdRequest)
         {
             try
             {
+                var sessionUser = (Entities.User)Session["SignSession"];
                 var request = db.Exports.FirstOrDefault(e => e.Id == IdRequest);
                 if (request != null)
                 {
                     var userSign = request.UserExportSigns.FirstOrDefault(s => s.Status == "Pending");
-                    if (userSign != null && userSign.Id == IdSign)
+                    if (userSign != null && userSign.IdUser == sessionUser.Id)
                     {
                         userSign.Status = "Approved";
                         userSign.SignDate = DateTime.Now;
@@ -515,15 +524,16 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
             }
         }
         [Authentication(Roles = new[] { "ADMIN", "CRUD", "MANAGER", "Warehouse Manager", "TE Leader", "QA Leader" })]
-        public ActionResult Export_Rejected(int IdRequest, int IdSign, string Note)
+        public ActionResult Export_Rejected(int IdRequest, string Note)
         {
             try
             {
+                var sessionUser = (Entities.User)Session["SignSession"];
                 var request = db.Exports.FirstOrDefault(e => e.Id == IdRequest);
                 if (request != null)
                 {
                     var userSign = request.UserExportSigns.FirstOrDefault(u => u.Status == "Pending");
-                    if (userSign != null && userSign.Id == IdSign)
+                    if (userSign != null && userSign.IdUser == sessionUser.Id)
                     {
                         request.Status = "Rejected";
 
@@ -972,6 +982,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
             try
             {
                 Entities.Warehouse warehouse = db.Warehouses.FirstOrDefault(w => w.Id == IdWarehouse);
+                //warehouse.Devices = warehouse.Devices.Where(d => d.Status != "Deleted").ToList();
 
                 if (warehouse != null)
                 {
@@ -1695,5 +1706,20 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 return Json(new { status = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
+    }
+
+    public class RequestSignDatas
+    {
+        public int Id { get; set; }
+        public DateTime? CreatedDate { get; set; }
+        public string Status { get; set; }
+        public string Type { get; set; }
+        public List<string> DeviceName { get; set; }
+        public string Note { get; set; }
+        public DateTime? DueDate { get; set; } // For borrow's DueDate
+        public DateTime? ReturnDate { get; set; } // For return's ReturnDate
+        public int? IdBorrow { get; set; } // For return's IdBorrow
+        public User UserCreated { get; set; }
+        public string SignStatus { get; set; }
     }
 }

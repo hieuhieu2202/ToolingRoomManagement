@@ -23,7 +23,8 @@ $(function () {
         CardID: GetCookieValue('UserInfo', 'CardID'),
         VnName: GetCookieValue('UserInfo', 'VnName'),
         CnName: GetCookieValue('UserInfo', 'CnName'),
-        EnName: GetCookieValue('UserInfo', 'EnName')
+        EnName: GetCookieValue('UserInfo', 'EnName'),
+        EnName: GetCookieValue('UserInfo', 'Id'),
     }
 
     $('#CardID').text(User.CardID);

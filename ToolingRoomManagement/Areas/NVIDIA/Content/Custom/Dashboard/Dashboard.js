@@ -4,7 +4,8 @@ $(function () {
         $('.sidebar-wrapper').hide();
         $('header').hide();
         $('.page-wrapper').css("margin", 0);
-    }
+        $('#SignIn').show();
+    }    
 
 
 

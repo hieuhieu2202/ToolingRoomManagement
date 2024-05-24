@@ -34,46 +34,50 @@ function InitDatatable(){
     datatable = $('#datatable').DataTable(options);
 }
 async function CreateSignRequestsTable() {
+    requests = await GetUserRequests();
+
+    var headerData = {
+        total: requests.length,
+        pending: 0,
+        approved: 0,
+        rejected: 0,
+    }
+
+
+    var RowDatas = [];
+    $.each(requests, function (k, request) {
+        (request.Status === "Pending") ? headerData.pending++ : (request.Status === "Approved") ? headerData.approved++ : headerData.rejected++;
+
+        var rowdata = CreateRequestTableRow(request);
+        RowDatas.push(rowdata);
+    });
+
+    $('#info-request').text(headerData.total);
+    $('#info-pending').text(headerData.pending);
+    $('#info-approved').text(headerData.approved);
+    $('#info-rejected').text(headerData.rejected);
+
+    datatable.rows.add(RowDatas);
+    datatable.columns.adjust().draw(true);
+
     try {
-        requests = await GetUserRequests();
-
-        $('#info-request').text(requests.cTotal);
-        $('#info-pending').text(requests.cPending);
-        $('#info-approved').text(requests.cApproved);
-        $('#info-rejected').text(requests.cRejected);
-
-        var RowDatas = [];
-        $.each(requests.borrows, function (k, request) {
-            var rowdata = CreateRequestTableRow(request, "Borrow");
-            RowDatas.push(rowdata);
-        });
-        $.each(requests.returns, function (k, request) {
-            var rowdata = CreateRequestTableRow(request, "Return");
-            RowDatas.push(rowdata);
-        });
-        $.each(requests.exports, function (k, request) {
-            var rowdata = CreateRequestTableRow(request, "Export");
-            RowDatas.push(rowdata);
-        });
-
-        datatable.rows.add(RowDatas);
-        datatable.columns.adjust().draw(true);
+        
 
     } catch (error) {
+        console.error(e);
         Swal.fire('Sorry, something went wrong!', `${error}`, 'error');
     }
 }
-function CreateRequestTableRow(request, type) {
-    var signStatus = GetSignStatus(request);
+function CreateRequestTableRow(request) {
     return row = [
-        `${type[0]}-${moment(request.CreatedDate).format('YYYYMMDDHHmm')}-${request.Id}`,
-        CreateUserName(request.User),
+        `${request.Type}-${moment(request.CreatedDate).format('YYYYMMDDHHmm')}-${request.Id}`,
+        CreateUserName(request.UserCreated),
         moment(request.CreatedDate).format('YYYY-MM-DD HH:mm:ss'),
         request.Note,
         GetRequestType(request),
         GetRequestStatus(request),
-        signStatus,
-        GetSignAction(request, type),
+        GetSignStatus(request.SignStatus),
+        GetSignAction(request, request.Type),
         request.DeviceName.join(','),
     ]
 }
@@ -118,7 +122,7 @@ $('#datatable tbody').on('dblclick', 'tr', function (event) {
 
 /* SIGN */
 
-function CreateApprovedAlert(IdRequest, IdSign, Type, elm) {
+function CreateApprovedAlert(IdRequest, Type, elm) {
     indexRow = datatable.row($(elm).closest('tr')).index();
 
     var rowData = datatable.row(indexRow).data();
@@ -146,7 +150,7 @@ function CreateApprovedAlert(IdRequest, IdSign, Type, elm) {
     }).then(async (result) => {
         if (result.isConfirmed) {
             try {
-                var request = await Approved(IdRequest, IdSign, Type);
+                var request = await Approved(IdRequest, Type);
 
                 var rowData = CreateRequestTableRow(request, Type);
                 datatable.row(indexRow).data(rowData).draw(false);
@@ -161,7 +165,7 @@ function CreateApprovedAlert(IdRequest, IdSign, Type, elm) {
         }
     });
 }
-function CreateRejectedAlert(IdRequest, IdSign, Type, elm) {
+function CreateRejectedAlert(IdRequest, Type, elm) {
     indexRow = datatable.row($(elm).closest('tr')).index();
     var rowData = datatable.row(indexRow).data();
     var content = `
@@ -194,7 +198,7 @@ function CreateRejectedAlert(IdRequest, IdSign, Type, elm) {
             try {
                 var Note = $('#reject-Note').val();
 
-                var request = await Rejected(IdRequest, IdSign, Type, Note);
+                var request = await Rejected(IdRequest, Type, Note);
 
                 var rowData = CreateRequestTableRow(request, Type);
                 datatable.row(indexRow).data(rowData).draw(false);

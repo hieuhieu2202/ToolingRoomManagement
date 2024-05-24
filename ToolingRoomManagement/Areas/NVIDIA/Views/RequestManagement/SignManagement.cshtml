@@ -1,6 +1,8 @@
 ﻿@{
     ViewBag.Title = "Borrow - Return Sign";
     Layout = "~/Areas/NVIDIA/Views/Shared/_NvidiaLayoutShared.cshtml";
+
+    var newGuid = Guid.NewGuid();
 }
 
 
@@ -8,7 +10,7 @@
     <!-- Vendor -->
     <link href="~/Areas/NVIDIA/Content/Vendor/Viewer JS/viewer.min.css" rel="stylesheet" />
     <!-- Custom -->
-    <link href="~/Areas/NVIDIA/Content/Custom/RequestManagement/css/SignManagement.css?v=@Guid.NewGuid()" rel="stylesheet" />
+    <link href="~/Areas/NVIDIA/Content/Custom/RequestManagement/css/SignManagement.css?v=@newGuid" rel="stylesheet" />
 }
 
 <!-- Breadcrumb -->
@@ -150,14 +152,14 @@
     <script src="~/Areas/NVIDIA/Content/Vendor/Viewer JS/viewer.min.js"></script>
 
     <!-- Custom -->
-    <script src="~/Areas/NVIDIA/Content/Custom/RequestManagement/js/RequestCommon.js?v=@Guid.NewGuid()"></script>
-    <script src="~/Areas/NVIDIA/Content/Custom/ExportManagement/_ExportCommon.js?v=@Guid.NewGuid()"></script>
+    <script src="~/Areas/NVIDIA/Content/Custom/RequestManagement/js/RequestCommon.js?v=@newGuid"></script>
+    <script src="~/Areas/NVIDIA/Content/Custom/ExportManagement/_ExportCommon.js?v=@newGuid"></script>
 
-    <script src="~/Areas/NVIDIA/Content/Custom/DeviceManagement/js/DeviceDetails.js?v=@Guid.NewGuid()"></script>
+    <script src="~/Areas/NVIDIA/Content/Custom/DeviceManagement/js/DeviceDetails.js?v=@newGuid"></script>
 
-    <script src="~/Areas/NVIDIA/Content/Custom/RequestManagement/js/Sign/RequestSign.js?v=@Guid.NewGuid()"></script>
+    <script src="~/Areas/NVIDIA/Content/Custom/RequestManagement/js/Sign/RequestSign.js?v=@newGuid"></script>
 
-    <script src="~/Areas/NVIDIA/Content/Custom/RequestManagement/js/RequestDetails.js?v=@Guid.NewGuid()"></script>
-    <script src="~/Areas/NVIDIA/Content/Custom/RequestManagement/js/Return/ReturnDetails.js?v=@Guid.NewGuid()"></script>
-    <script src="~/Areas/NVIDIA/Content/Custom/ExportManagement/_ExportDetailsModal.js?v=@Guid.NewGuid()"></script>s
+    <script src="~/Areas/NVIDIA/Content/Custom/RequestManagement/js/RequestDetails.js?v=@newGuid"></script>
+    <script src="~/Areas/NVIDIA/Content/Custom/RequestManagement/js/Return/ReturnDetails.js?v=@newGuid"></script>
+    <script src="~/Areas/NVIDIA/Content/Custom/ExportManagement/_ExportDetailsModal.js?v=@newGuid"></script>s
 }

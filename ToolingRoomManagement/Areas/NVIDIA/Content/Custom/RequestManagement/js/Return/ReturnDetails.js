@@ -1,4 +1,4 @@
-﻿function ReturnDetails(Id, IdSign, Type, Elm) {
+﻿function ReturnDetails(Id, SignStatus = null, Type, Elm) {
     $.ajax({
         type: "GET",
         url: "/NVIDIA/RequestManagement/GetReturn?Id=" + Id,
@@ -10,15 +10,15 @@
 
                 CreateReturnDetailsModal(_return);
 
-                if (IdSign != null) {
+                if (SignStatus != null && SignStatus == "Pending") {
                     $('#return_action_footer').show();
                     $('#return_normal_footer').hide();
 
                     $('#return-Approved').click(function () {
-                        CreateApprovedAlert(Id, IdSign, Type, Elm);
+                        CreateApprovedAlert(Id, Type, Elm);
                     });
                     $('#return-Rejected').click(function () {
-                        CreateRejectedAlert(Id, IdSign, Type, Elm);
+                        CreateRejectedAlert(Id, Type, Elm);
                     });
                 }
                 else {

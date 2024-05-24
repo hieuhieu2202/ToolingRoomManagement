@@ -125,6 +125,8 @@ async function CreateTableAddDevice(devices) {
     $('#table_Devices_tbody').html('');
 
     await $.each(devices, function (no, item) {
+        if (item.Status === "Deleted") return true;
+
         var row = $(`<tr class="align-middle" data-id="${item.Id}"></tr>`);
 
         // 0 ID

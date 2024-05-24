@@ -10,7 +10,9 @@
     <link href="~/Areas/NVIDIA/Content/Custom/Dashboard/Dashboard.css?v=@Guid.NewGuid()" rel="stylesheet" />
 }
 
-<input type="hidden" value="@(HttpContext.Current.Session.Count > 0 ? true : false)" id="isHasSession"/>
+<input type="hidden" value="@(HttpContext.Current.Session["SignSession"] != null ? true : false)" id="isHasSession"/>
+
+<a class="btn btn-primary" href="/NVIDIA/Authentication/SignIn" style="display: none" id="SignIn">Sign In</a>
 
 <div class="dash-wrapper bg-dark">
     <div class="row row-cols-1 row-cols-md-2 row-cols-xl-5">
