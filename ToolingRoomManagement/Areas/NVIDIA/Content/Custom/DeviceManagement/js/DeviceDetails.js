@@ -310,7 +310,7 @@ function CreateImages(images) {
     }
 
     $.each(images, function (k, file) {
-        var src = file.replace(/^.*\\Data/, "/Data");
+        var src = file.replace(/^.*\\Data/, "/Data").replace(/^.*\\\\server\\Storage/, "/Data");
         // CarouselSlides
         var CarouselSlides = $('#images-details-container .carousel-indicators');
         var SlideItem = $(`<li data-bs-target="#carousel" data-bs-slide-to="${k}"></li>`);

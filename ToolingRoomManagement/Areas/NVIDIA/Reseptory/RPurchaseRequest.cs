@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Web.Configuration;
 using ToolingRoomManagement.Areas.NVIDIA.Entities;
 using ToolingRoomManagement.Areas.NVIDIA.Data;
+using System.Runtime.Remoting.Contexts;
 
 namespace ToolingRoomManagement.Areas.NVIDIA.Reseptory
 {
@@ -23,6 +24,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Reseptory
 
                 var prs = context.PurchaseRequests
                     .Include(p => p.UserRequest)
+                    .Include(p => p.DevicePRs)
                     .ToList();
 
                 return prs;
@@ -57,6 +59,8 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Reseptory
 
                     CreateValidatePurchaseRequest(context, PurchaseRequest);
 
+                    PurchaseRequest = CheckPurchaseRequestStatus(context, PurchaseRequest);
+
                     context.PurchaseRequests.Add(PurchaseRequest);
                     context.SaveChanges();
 
@@ -77,38 +81,8 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Reseptory
                 {
                     context.Configuration.LazyLoadingEnabled = false;
 
+                    PurchaseRequest = CheckPurchaseRequestStatus(context, PurchaseRequest);
 
-                    var minLevel = 0;
-                    foreach (var dpr in PurchaseRequest.DevicePRs)
-                    {
-                        if (string.IsNullOrEmpty(dpr.PR_No)) continue;
-
-                        var thisLevel = 1;
-                        if(dpr.PR_No != null && dpr.PR_CreatedDate != null && dpr.PR_Quantity != null)
-                        {
-                            thisLevel = 2;
-                        }
-                        if (dpr.PO_No != null && dpr.PO_CreatedDate != null)
-                        {
-                            thisLevel = 3;
-                        }
-                        if (dpr.ETD_Date != null)
-                        {
-                            thisLevel = 4;
-                        }
-                        if (dpr.ETA_Date != null)
-                        {
-                            thisLevel = 5;
-                        }
-
-                        if (minLevel == 0) minLevel = thisLevel;
-                        else if (minLevel > thisLevel) minLevel = thisLevel;
-
-                        dpr.Status = UpdatePurchaseRequestStatus(thisLevel);
-                        context.DevicePRs.AddOrUpdate(dpr);
-                    }
-
-                    PurchaseRequest.Status = UpdatePurchaseRequestStatus(minLevel);
                     context.PurchaseRequests.AddOrUpdate(PurchaseRequest);
                     context.SaveChanges();
 
@@ -184,43 +158,47 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Reseptory
 
             return true;
         }
-        private static bool UpdateValidate_User(ToolingRoomEntities dbContext, User user)
+        private static PurchaseRequest CheckPurchaseRequestStatus(ToolingRoomEntities context, PurchaseRequest PurchaseRequest)
         {
-            user.Username = user.Username.Trim().ToUpper();
-            var dbUser = dbContext.Users.FirstOrDefault(u => u.Username == user.Username);
-
-            if (string.IsNullOrEmpty(user.Username) || user.Username.Length < 6)
+            var minLevel = 0;
+            foreach (var dpr in PurchaseRequest.DevicePRs)
             {
-                throw new Exception("Please double check your username.");
-            }
+                if (string.IsNullOrEmpty(dpr.PR_No)) continue;
 
-            if(!string.IsNullOrEmpty(user.Password) && dbUser.Password != user.Password)
-            {
-                if (user.Password.Length < 6)
+                var thisLevel = 1;
+                if (dpr.PR_No != null && dpr.PR_CreatedDate != null && dpr.PR_Quantity != null)
                 {
-                    throw new Exception("Please double check your password.");
+                    thisLevel = 2;
                 }
-            }           
+                if (dpr.PO_No != null && dpr.PO_CreatedDate != null)
+                {
+                    thisLevel = 3;
+                }
+                if (dpr.ETD_Date != null)
+                {
+                    thisLevel = 4;
+                }
+                if (dpr.ETA_Date != null)
+                {
+                    thisLevel = 5;
+                }
 
-            if (string.IsNullOrEmpty(user.VnName) && string.IsNullOrEmpty(user.EnName) && string.IsNullOrEmpty(user.CnName))
-            {
-                throw new Exception("Please double check your name.");
+                if (minLevel == 0) minLevel = thisLevel;
+                else if (minLevel > thisLevel) minLevel = thisLevel;
+
+                dpr.Status = GetPurchaseRequestLevel(thisLevel);
+                context.DevicePRs.AddOrUpdate(dpr);
             }
+            PurchaseRequest.Status = GetPurchaseRequestLevel(minLevel);
 
-            // Nếu thay đổi Card Id thì kiểm tra Card Id đó đã tồn tại chưa?
-            if (dbUser.Username != user.Username && dbContext.Users.Any(u => u.Username == user.Username))
-            {
-                throw new Exception("User already exists.");
-            }
 
-            return true;
+            return PurchaseRequest;
         }
-        private static string UpdatePurchaseRequestStatus(int level)
+        private static string GetPurchaseRequestLevel(int level)
         {
             switch (level)
             {
                 case 0:
-                    return "Rejected";
                 case 1:
                     return "Open";
                 case 2:

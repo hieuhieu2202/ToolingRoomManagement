@@ -213,6 +213,10 @@
     <Content Include="Areas\NVIDIA\Content\Custom\PurchaseRequest\css\PurchaseRequest.css" />
     <Content Include="Areas\NVIDIA\Content\Custom\PurchaseRequest\js\PurchaseRequest.js" />
     <Content Include="Areas\NVIDIA\Content\Custom\PurchaseRequest\js\PurchaseRequestCommon.js" />
+    <Content Include="Areas\NVIDIA\Content\Custom\PurchaseRequest\js\_CreateFxnBuy.js" />
+    <Content Include="Areas\NVIDIA\Content\Custom\PurchaseRequest\js\_CreateNvBuy.js" />
+    <Content Include="Areas\NVIDIA\Content\Custom\PurchaseRequest\js\_Delete.js" />
+    <Content Include="Areas\NVIDIA\Content\Custom\PurchaseRequest\js\_Update.js" />
     <Content Include="Areas\NVIDIA\Content\Custom\RequestManagement\css\TakeDevice.css" />
     <Content Include="Areas\NVIDIA\Content\Custom\RequestManagement\css\BorrowDevice.css" />
     <Content Include="Areas\NVIDIA\Content\Custom\RequestManagement\css\RequestManagement.css" />
@@ -3668,6 +3672,8 @@
     <Content Include="Areas\NVIDIA\Views\RequestManagement\PurchaseRequest.cshtml" />
     <Content Include="Areas\NVIDIA\Views\RequestManagement\Modal\_CreatePurchaseRequestModal.cshtml" />
     <Content Include="Areas\NVIDIA\Views\RequestManagement\Modal\_UpdatePurchaseRequestModal.cshtml" />
+    <Content Include="Areas\NVIDIA\Views\RequestManagement\Modal\_CreateNvidiaBuyModal.cshtml" />
+    <Content Include="Areas\NVIDIA\Views\AdminManagement\_UserModal.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

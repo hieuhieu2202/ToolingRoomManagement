@@ -26,8 +26,6 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Entities
         public string Description { get; set; }
         public Nullable<int> IdUserManager { get; set; }
         public string Factory { get; set; }
-        public Nullable<int> IdUserDeputy1 { get; set; }
-        public Nullable<int> IdUserDeputy2 { get; set; }
         public string Floors { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -35,7 +33,6 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Entities
         public virtual User UserManager { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<WarehouseLayout> WarehouseLayouts { get; set; }
-        public virtual User UserDeputy1 { get; set; }
-        public virtual User UserDeputy2 { get; set; }
+        public List<User> WarehouseUsers { get; set; }
     }
 }

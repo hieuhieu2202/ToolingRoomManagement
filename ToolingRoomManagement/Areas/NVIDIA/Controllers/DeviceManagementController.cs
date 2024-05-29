@@ -146,10 +146,16 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
             try
             {
                 var fileName = Path.GetFileNameWithoutExtension(file.FileName);
+
+                Debug.WriteLine(fileName);
+
                 var fileExtention = Path.GetExtension(file.FileName);
                 string folderName = isUnconfirm ? "DeviceUnconfirmImages" : "DeviceImages";
 
                 var folderPath = Server.MapPath($"~/Data/NewToolingRoom/{folderName}/{IdDevice}");
+
+                Debug.WriteLine(folderPath);
+
                 if (!Directory.Exists(folderPath)) Directory.CreateDirectory(folderPath);
 
                 var savePath = Path.Combine(folderPath, $"{fileName} - {DateTime.Now:yyyy-MM-dd HH.mm.ss.ff}{fileExtention}");
@@ -1074,28 +1080,29 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                     outWorksheet.Cells[1, 20].Value = "PO No";
                     outWorksheet.Cells[1, 21].Value = "PO Date";
                     outWorksheet.Cells[1, 22].Value = "Days (PO - PR)";
-                    outWorksheet.Cells[1, 23].Value = "ETD";
-                    outWorksheet.Cells[1, 24].Value = "ETA";
-                    outWorksheet.Cells[1, 25].Value = "RealQuantity";
-                    outWorksheet.Cells[1, 26].Value = "NG_Quantity";
-                    outWorksheet.Cells[1, 27].Value = "RequestQuantity";
-                    outWorksheet.Cells[1, 28].Value = "GAP";
-                    outWorksheet.Cells[1, 29].Value = "Risk";
-                    outWorksheet.Cells[1, 30].Value = "HavePicture (Y/N)";
-                    outWorksheet.Cells[1, 31].Value = "Owner";
-                    outWorksheet.Cells[1, 32].Value = "Remark";
+                    outWorksheet.Cells[1, 23].Value = "Type";
+                    outWorksheet.Cells[1, 24].Value = "ETD";
+                    outWorksheet.Cells[1, 25].Value = "ETA";
+                    outWorksheet.Cells[1, 26].Value = "RealQuantity";
+                    outWorksheet.Cells[1, 27].Value = "NG_Quantity";
+                    outWorksheet.Cells[1, 28].Value = "RequestQuantity";
+                    outWorksheet.Cells[1, 29].Value = "GAP";
+                    outWorksheet.Cells[1, 30].Value = "Risk";
+                    outWorksheet.Cells[1, 31].Value = "HavePicture (Y/N)";
+                    outWorksheet.Cells[1, 32].Value = "Owner";
+                    outWorksheet.Cells[1, 33].Value = "Remark";
 
-                    outWorksheet.Cells["A1:AF1"].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
-                    outWorksheet.Cells["A1:AF1"].Style.Border.Top.Style = ExcelBorderStyle.Thin;
-                    outWorksheet.Cells["A1:AF1"].Style.Border.Left.Style = ExcelBorderStyle.Thin;
-                    outWorksheet.Cells["A1:AF1"].Style.Border.Right.Style = ExcelBorderStyle.Thin;
-                    outWorksheet.Cells["A1:AF1"].Style.Font.Bold = true;
+                    outWorksheet.Cells["A1:AG1"].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
+                    outWorksheet.Cells["A1:AG1"].Style.Border.Top.Style = ExcelBorderStyle.Thin;
+                    outWorksheet.Cells["A1:AG1"].Style.Border.Left.Style = ExcelBorderStyle.Thin;
+                    outWorksheet.Cells["A1:AG1"].Style.Border.Right.Style = ExcelBorderStyle.Thin;
+                    outWorksheet.Cells["A1:AG1"].Style.Font.Bold = true;
 
-                    outWorksheet.Cells[$"AC1:AC{worksheet.Dimension.End.Row}"].Style.Font.Bold = true;
+                    outWorksheet.Cells[$"AD1:AD{worksheet.Dimension.End.Row}"].Style.Font.Bold = true;
 
                     System.Drawing.Color headerBackground = System.Drawing.ColorTranslator.FromHtml("#00B050");
-                    outWorksheet.Cells[$"A1:AF1"].Style.Fill.PatternType = ExcelFillStyle.Solid;
-                    outWorksheet.Cells[$"A1:AF1"].Style.Fill.BackgroundColor.SetColor(headerBackground);
+                    outWorksheet.Cells[$"A1:AG1"].Style.Fill.PatternType = ExcelFillStyle.Solid;
+                    outWorksheet.Cells[$"A1:AG1"].Style.Fill.BackgroundColor.SetColor(headerBackground);
 
                     System.Drawing.Color successBackground = System.Drawing.ColorTranslator.FromHtml("#C6EFCE");
                     System.Drawing.Color successText = System.Drawing.ColorTranslator.FromHtml("#006100");
@@ -1187,7 +1194,8 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                             var i = 0;
                             foreach (var dpr in PRDevices)
                             {
-                                if(i < PRDevices.Count - 1)
+                                var type = db.PurchaseRequests.FirstOrDefault(p => p.Id == dpr.IdPurchaseRequest).Type;
+                                if (i < PRDevices.Count - 1)
                                 {
                                     outWorksheet.Cells[row, 18].Value += (dpr.PR_No ?? "") + "\r\n";
                                     outWorksheet.Cells[row, 19].Value += (dpr.PR_CreatedDate?.ToString("yyyy-MM-dd HH:mm") ?? "") + "\r\n";
@@ -1197,8 +1205,9 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                                     var days = (dpr.PR_CreatedDate != null && dpr.PO_CreatedDate != null) ? ((dpr.PO_CreatedDate ?? DateTime.Now) - (dpr.PR_CreatedDate ?? DateTime.Now)).Days : 0;
                                     outWorksheet.Cells[row, 22].Value += days + "\r\n";
 
-                                    outWorksheet.Cells[row, 23].Value += (dpr.PO_CreatedDate?.ToString("yyyy-MM-dd HH:mm") ?? "") + "\r\n";
+                                    outWorksheet.Cells[row, 23].Value += $"{type}\r\n";
                                     outWorksheet.Cells[row, 24].Value += (dpr.PO_CreatedDate?.ToString("yyyy-MM-dd HH:mm") ?? "") + "\r\n";
+                                    outWorksheet.Cells[row, 25].Value += (dpr.PO_CreatedDate?.ToString("yyyy-MM-dd HH:mm") ?? "") + "\r\n";
                                 }
                                 else
                                 {
@@ -1210,39 +1219,40 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                                     var days = (dpr.PR_CreatedDate != null && dpr.PO_CreatedDate != null) ? ((dpr.PO_CreatedDate ?? DateTime.Now) - (dpr.PR_CreatedDate ?? DateTime.Now)).Days : 0;
                                     outWorksheet.Cells[row, 22].Value += days.ToString();
 
-                                    outWorksheet.Cells[row, 23].Value += (dpr.PO_CreatedDate?.ToString("yyyy-MM-dd HH:mm") ?? "");
+                                    outWorksheet.Cells[row, 23].Value += $"{type}";
                                     outWorksheet.Cells[row, 24].Value += (dpr.PO_CreatedDate?.ToString("yyyy-MM-dd HH:mm") ?? "");
+                                    outWorksheet.Cells[row, 25].Value += (dpr.PO_CreatedDate?.ToString("yyyy-MM-dd HH:mm") ?? "");
                                 }
                                 i++;
                                 
                             }
-                            outWorksheet.Cells[row, 18, row, 24].Style.WrapText = true;
+                            outWorksheet.Cells[row, 18, row, 25].Style.WrapText = true;
 
                             // RealQuantity, NGQuantity, RequestQuantity, GAP, Risk, HavePicture (Y/N), Owner
-                            outWorksheet.Cells[row, 25].Value = (device.RealQty != null) ? device.RealQty : 0;
-                            outWorksheet.Cells[row, 26].Value = (device.NG_Qty != null) ? device.NG_Qty : 0;
-                            outWorksheet.Cells[row, 27].Value = _RequestQty;
-                            outWorksheet.Cells[row, 28].Formula = $"(Q{row}+Y{row})-AA{row}";
-                            outWorksheet.Cells[row, 29].Value = Risk;
-                            outWorksheet.Cells[row, 30].Value = (device.ImagePath != null) ? "Y" : "N";
-                            outWorksheet.Cells[row, 31].Value = (device.DeviceOwner != null) ? device.DeviceOwner : "";
+                            outWorksheet.Cells[row, 26].Value = (device.RealQty != null) ? device.RealQty : 0;
+                            outWorksheet.Cells[row, 27].Value = (device.NG_Qty != null) ? device.NG_Qty : 0;
+                            outWorksheet.Cells[row, 28].Value = _RequestQty;
+                            outWorksheet.Cells[row, 29].Formula = $"(Q{row}+Z{row})-AB{row}";
+                            outWorksheet.Cells[row, 30].Value = Risk;
+                            outWorksheet.Cells[row, 31].Value = (device.ImagePath != null) ? "Y" : "N";
+                            outWorksheet.Cells[row, 32].Value = (device.DeviceOwner != null) ? device.DeviceOwner : "";
 
                             switch (Risk)
                             {
                                 case "Low":
-                                    outWorksheet.Cells[$"A{row}:AF{row}"].Style.Fill.PatternType = ExcelFillStyle.Solid;
-                                    outWorksheet.Cells[$"A{row}:AF{row}"].Style.Fill.BackgroundColor.SetColor(successBackground);
-                                    outWorksheet.Cells[$"A{row}:AF{row}"].Style.Font.Color.SetColor(successText);
+                                    outWorksheet.Cells[$"A{row}:AG{row}"].Style.Fill.PatternType = ExcelFillStyle.Solid;
+                                    outWorksheet.Cells[$"A{row}:AG{row}"].Style.Fill.BackgroundColor.SetColor(successBackground);
+                                    outWorksheet.Cells[$"A{row}:AG{row}"].Style.Font.Color.SetColor(successText);
                                     break;
                                 case "Mid":                                    
-                                    outWorksheet.Cells[$"A{row}:AF{row}"].Style.Fill.PatternType = ExcelFillStyle.Solid;
-                                    outWorksheet.Cells[$"A{row}:AF{row}"].Style.Fill.BackgroundColor.SetColor(warningBackground);
-                                    outWorksheet.Cells[$"A{row}:AF{row}"].Style.Font.Color.SetColor(warningText);
+                                    outWorksheet.Cells[$"A{row}:AG{row}"].Style.Fill.PatternType = ExcelFillStyle.Solid;
+                                    outWorksheet.Cells[$"A{row}:AG{row}"].Style.Fill.BackgroundColor.SetColor(warningBackground);
+                                    outWorksheet.Cells[$"A{row}:AG{row}"].Style.Font.Color.SetColor(warningText);
                                     break;
                                 case "High":
-                                    outWorksheet.Cells[$"A{row}:AF{row}"].Style.Fill.PatternType = ExcelFillStyle.Solid;
-                                    outWorksheet.Cells[$"A{row}:AF{row}"].Style.Fill.BackgroundColor.SetColor(dangerBackground);
-                                    outWorksheet.Cells[$"A{row}:AF{row}"].Style.Font.Color.SetColor(dangerText);
+                                    outWorksheet.Cells[$"A{row}:AG{row}"].Style.Fill.PatternType = ExcelFillStyle.Solid;
+                                    outWorksheet.Cells[$"A{row}:AG{row}"].Style.Fill.BackgroundColor.SetColor(dangerBackground);
+                                    outWorksheet.Cells[$"A{row}:AG{row}"].Style.Font.Color.SetColor(dangerText);
                                     break;
                             }
 
@@ -1252,14 +1262,14 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                             outWorksheet.Cells[row, 3].Value = _PN;
                             outWorksheet.Cells[row, 27].Value = _RequestQty;
 
-                            outWorksheet.Cells[$"A{row}:AF{row}"].Style.Fill.PatternType = ExcelFillStyle.Solid;
-                            outWorksheet.Cells[$"A{row}:AF{row}"].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.LightGray);
+                            outWorksheet.Cells[$"A{row}:AG{row}"].Style.Fill.PatternType = ExcelFillStyle.Solid;
+                            outWorksheet.Cells[$"A{row}:AG{row}"].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.LightGray);
                         }
 
-                        outWorksheet.Cells[$"A{row}:AF{row}"].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
-                        outWorksheet.Cells[$"A{row}:AF{row}"].Style.Border.Top.Style = ExcelBorderStyle.Thin;
-                        outWorksheet.Cells[$"A{row}:AF{row}"].Style.Border.Left.Style = ExcelBorderStyle.Thin;
-                        outWorksheet.Cells[$"A{row}:AF{row}"].Style.Border.Right.Style = ExcelBorderStyle.Thin;
+                        outWorksheet.Cells[$"A{row}:AG{row}"].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
+                        outWorksheet.Cells[$"A{row}:AG{row}"].Style.Border.Top.Style = ExcelBorderStyle.Thin;
+                        outWorksheet.Cells[$"A{row}:AG{row}"].Style.Border.Left.Style = ExcelBorderStyle.Thin;
+                        outWorksheet.Cells[$"A{row}:AG{row}"].Style.Border.Right.Style = ExcelBorderStyle.Thin;
                     }
                 
 
@@ -1272,6 +1282,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                     outWorksheet.Column(21).Width = 20;
                     outWorksheet.Column(23).Width = 20;
                     outWorksheet.Column(24).Width = 20;
+                    outWorksheet.Column(25).Width = 20;
 
                     outputPackage.Save();
 

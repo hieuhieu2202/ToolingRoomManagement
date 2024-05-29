@@ -33,15 +33,9 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                     if (warehouse.IdUserManager != null)
                     {
                         warehouse.UserManager = db.Users.FirstOrDefault(u => u.Id == warehouse.IdUserManager);
+                        warehouse.WarehouseUsers = db.Users.Where(u => u.UserRoles.Any(ur => ur.IdRole == 3) && u.Id != warehouse.IdUserManager).ToList();
                     }
-                    if (warehouse.IdUserDeputy1 != null)
-                    {
-                        warehouse.UserDeputy1 = db.Users.FirstOrDefault(u => u.Id == warehouse.IdUserDeputy1);
-                    }
-                    if (warehouse.IdUserDeputy2 != null)
-                    {
-                        warehouse.UserDeputy2 = db.Users.FirstOrDefault(u => u.Id == warehouse.IdUserDeputy2);
-                    }
+                    
                 }
 
                 return Json(new { status = true, warehouses = JsonSerializer.Serialize(warehouses) }, JsonRequestBehavior.AllowGet);
@@ -76,6 +70,12 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                 if (warehouse != null)
                 {
                     warehouse.Devices.Clear();
+                    if (warehouse.IdUserManager != null)
+                    {
+                        warehouse.UserManager = db.Users.FirstOrDefault(u => u.Id == warehouse.IdUserManager);
+                        warehouse.WarehouseUsers = db.Users.Where(u => u.UserRoles.Any(ur => ur.IdRole == 3) && u.Id != warehouse.IdUserManager).ToList();
+                    }
+
                     return Json(new { status = true, warehouse = JsonSerializer.Serialize(warehouse) }, JsonRequestBehavior.AllowGet);
                 }
                 else
@@ -92,9 +92,11 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
         {
             try
             {
-                if (warehouse.IdUserManager != null) warehouse.UserManager = db.Users.FirstOrDefault(u => u.Id == warehouse.IdUserManager);
-                if (warehouse.IdUserDeputy1 != null) warehouse.UserDeputy1 = db.Users.FirstOrDefault(u => u.Id == warehouse.IdUserDeputy1);
-                if (warehouse.IdUserDeputy1 != null) warehouse.UserDeputy2 = db.Users.FirstOrDefault(u => u.Id == warehouse.IdUserDeputy2);
+                if (warehouse.IdUserManager != null)
+                {
+                    warehouse.UserManager = db.Users.FirstOrDefault(u => u.Id == warehouse.IdUserManager);
+                    warehouse.WarehouseUsers = db.Users.Where(u => u.UserRoles.Any(ur => ur.IdRole == 3) && u.Id != warehouse.IdUserManager).ToList();
+                }
 
                 if (!db.Warehouses.Any(w => w.WarehouseName.Trim().ToUpper() == warehouse.WarehouseName.Trim().ToUpper()))
                 {
@@ -118,9 +120,11 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
             {
                 if (db.Warehouses.Any(w => w.Id == warehouse.Id))
                 {
-                    if (warehouse.IdUserManager != null) warehouse.UserManager = db.Users.FirstOrDefault(u => u.Id == warehouse.IdUserManager);
-                    if (warehouse.IdUserDeputy1 != null) warehouse.UserDeputy1 = db.Users.FirstOrDefault(u => u.Id == warehouse.IdUserDeputy1);
-                    if (warehouse.IdUserDeputy1 != null) warehouse.UserDeputy2 = db.Users.FirstOrDefault(u => u.Id == warehouse.IdUserDeputy2);
+                    if (warehouse.IdUserManager != null)
+                    {
+                        warehouse.UserManager = db.Users.FirstOrDefault(u => u.Id == warehouse.IdUserManager);
+                        warehouse.WarehouseUsers = db.Users.Where(u => u.UserRoles.Any(ur => ur.IdRole == 3) && u.Id != warehouse.IdUserManager).ToList();
+                    }
 
                     db.Warehouses.AddOrUpdate(warehouse);
 
@@ -165,18 +169,12 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
         // private
         private Warehouse GetUserWarehouse(Warehouse warehouse)
         {
-            if(warehouse.IdUserManager != null)
+            if (warehouse.IdUserManager != null)
             {
                 warehouse.UserManager = db.Users.FirstOrDefault(u => u.Id == warehouse.IdUserManager);
+                warehouse.WarehouseUsers = db.Users.Where(u => u.UserRoles.Any(ur => ur.IdRole == 3) && u.Id != warehouse.IdUserManager).ToList();
             }
-            if (warehouse.IdUserDeputy1 != null)
-            {
-                warehouse.UserDeputy1 = db.Users.FirstOrDefault(u => u.Id == warehouse.IdUserDeputy1);
-            }
-            if (warehouse.IdUserDeputy2 != null)
-            {
-                warehouse.UserDeputy2 = db.Users.FirstOrDefault(u => u.Id == warehouse.IdUserDeputy2);
-            }
+
             return warehouse;
         }
         

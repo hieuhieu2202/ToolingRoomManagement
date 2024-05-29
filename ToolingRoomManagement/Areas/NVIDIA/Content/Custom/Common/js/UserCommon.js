@@ -89,6 +89,29 @@ function GetUserInformation(username) {
 }
 
 /* SET */
+function CreateUserRole(IdUser, IdRole) {
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: "/NVIDIA/UserManagement/CreateUserRole",
+            type: "POST",
+            //data: JSON.stringify({ IdUser: IdUser, IdRole: IdRole }),
+            data: JSON.stringify({ IdUser, IdRole }),
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            success: function (res) {
+                if (res.status) {
+                    resolve(res.data);
+                }
+                else {
+                    reject(res.message);
+                }
+            },
+            error: function (error) {
+                reject(error);
+            }
+        });
+    });
+};
 function CreateUser(user) {
     return new Promise((resolve, reject) => {
         $.ajax({
@@ -133,14 +156,14 @@ function UpdateUser(user) {
         });
     });
 };
-function DeleteUser(IdUser) {
+function DeleteUser(IdUser, IdRole = null) {
     return new Promise((resolve, reject) => {
         $.ajax({
             url: "/NVIDIA/UserManagement/DeleteUser",
             type: "POST",            
             contentType: "application/json;charset=utf-8",
             dataType: "json",
-            data: JSON.stringify({ IdUser }),
+            data: JSON.stringify({ IdUser, IdRole }),
             success: function (res) {
                 if (res.status) {
                     resolve(res.data);

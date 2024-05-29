@@ -86,6 +86,34 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Reseptory
         }
 
         /* SET */
+        public static User CreateUserRole(int IdUser, int IdRole)
+        {
+            try
+            {
+                using (ToolingRoomEntities dbContext = new ToolingRoomEntities())
+                {
+                    dbContext.Configuration.LazyLoadingEnabled = false;
+
+                    if(dbContext.UserRoles.Any(ur => ur.IdUser == IdUser && ur.IdRole == IdRole)){
+                        throw new Exception("User already exists in role.");
+                    }
+
+                    dbContext.UserRoles.Add(new UserRole
+                    {
+                        IdUser = IdUser,
+                        IdRole = IdRole,
+                    });
+                    dbContext.SaveChanges();
+
+                    return GetUser(IdUser);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+        }
         public static User CreateUser(User user)
         {
             try
@@ -97,11 +125,15 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Reseptory
                     CreateValidate_User(dbContext, user);
 
                     user.Username = user.Username.Trim().ToUpper();
-                    user.UserRoles.Add(new UserRole { IdUser = user.Id, IdRole = 7 }); // 7 = GUEST
                     dbContext.Users.Add(user);
+                    foreach (var userRole in user.UserRoles)
+                    {
+                        userRole.IdUser = user.Id;
+                        dbContext.UserRoles.Add(userRole);
+                    }                   
                     dbContext.SaveChanges();
 
-                    return user;
+                    return GetUser(user.Id);
                 }
             }
             catch (Exception ex)
@@ -147,7 +179,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Reseptory
                 throw ex; 
             }
         }
-        public static User DeleteUser(User user)
+        public static bool DeleteUser(User user, int? IdRole)
         {
             try
             {
@@ -160,21 +192,21 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Reseptory
 
                     if (dbUser != null && dbUser.Username != "admin" && user.Username != sessionUser.Username)
                     {
-                        if(dbUser.Status == "DELETED")
+                        if (IdRole != null && IdRole > 0) // remove role
                         {
-                            dbContext.Users.Remove(dbUser);
+                            var userRole = dbContext.UserRoles.FirstOrDefault(ur => ur.IdUser == user.Id && ur.IdRole == IdRole);
+                            dbContext.UserRoles.Remove(userRole);
                             dbContext.SaveChanges();
-                            return null;
+
+                            return true;
                         }
                         else
                         {
-                            dbUser.Status = "DELETED";
-                            dbContext.Users.AddOrUpdate(dbUser);
+                            dbContext.Users.Remove(dbUser);
                             dbContext.SaveChanges();
-                            return GetUser(dbUser.Id);
-                        }                        
 
-                        
+                            return true;
+                        }
                     }
                     else
                     {
@@ -195,7 +227,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Reseptory
             {
                 throw new Exception ("Please double check your username.");
             }
-            if (string.IsNullOrEmpty(user.Password) && user.Password.Length < 6)
+            if (string.IsNullOrEmpty(user.Password) || user.Password.Length < 6)
             {
                 throw new Exception("Please double check your password.");
             }

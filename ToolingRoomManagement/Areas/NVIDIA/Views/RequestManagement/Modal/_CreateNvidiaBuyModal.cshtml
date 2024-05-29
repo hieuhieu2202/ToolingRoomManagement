@@ -1,17 +1,17 @@
-﻿<div class="modal fade" id="UpdatePurchaseRequestModal" aria-hidden="true" data-bs-backdrop="static">
+﻿<div class="modal fade" id="CreateNvidiaBuyModal" aria-hidden="true" data-bs-backdrop="static">
     <div class="modal-dialog modal-fullscreen modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title text-uppercase">Update Purchase Request Modal</h5>
+                <h5 class="modal-title text-uppercase">Nvidia Buy Modal</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             
             <div class="modal-body">
+
                 <!-- Hidden -->
-                <input type="hidden" id="UpdatePurchaseRequestModal-Id" />
-                <input type="hidden" id="UpdatePurchaseRequestModal-RowIndex" />
-                <input type="hidden" id="UpdatePurchaseRequestModal-Status" />
-                <input type="hidden" id="UpdatePurchaseRequestModal-Type" />
+                <input type="hidden" id="CreateNvidiaBuyModal-Id" />
+                <input type="hidden" id="CreateNvidiaBuyModal-RowIndex" />
+                <input type="hidden" id="CreateNvidiaBuyModal-Status" />
 
                 <!-- Request -->
                 <div class="card">
@@ -24,24 +24,24 @@
                                 <!-- User Request -->
                                 <div class="input-group mb-3">
                                     <span class="col-4 input-group-text">User</span>
-                                    <input type="text" id="UpdatePurchaseRequestModal-UserRequest" class="form-control" disabled />
+                                    <input type="text" id="CreateNvidiaBuyModal-UserRequest" class="form-control" disabled />
                                 </div>
                                 <!-- Date Request-->
                                 <div class="input-group mb-3">
                                     <span class="col-4 input-group-text">Date Request</span>
-                                    <input type="datetime-local" id="UpdatePurchaseRequestModal-DateRequest" class="form-control" disabled />
+                                    <input type="datetime-local" id="CreateNvidiaBuyModal-DateRequest" class="form-control" />
                                 </div>
                                 <!-- Date Required -->
                                 <div class="input-group mb-3">
                                     <span class="col-4 input-group-text">Date Required</span>
-                                    <input type="datetime-local" id="UpdatePurchaseRequestModal-DateRequired" class="form-control" />
+                                    <input type="datetime-local" id="CreateNvidiaBuyModal-DateRequired" class="form-control" />
                                 </div>
                             </div>
                             <div class="col-6">
                                 <!-- Note -->
                                 <div class="input-group mb-3" style="height: calc(100% - 1rem);">
                                     <span class="input-group-text">Note</span>
-                                    <textarea type="text" id="UpdatePurchaseRequestModal-Note" class="form-control resize-none"></textarea>
+                                    <textarea type="text" id="CreateNvidiaBuyModal-Note" class="form-control resize-none"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -51,10 +51,13 @@
                 <!-- Device -->
                 <div class="card">
                     <div class="card-body">
-                        <h6 class="mb-0 text-primary text-uppercase">Devices</h6>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h6 class="mb-0 text-primary text-uppercase">Devices</h6>
+                            <button class="btn btn-sm btn-primary" onclick="CreateNvidiaBuyAddDevice()"><i class="fa-solid fa-plus"></i> Add Device</button>
+                        </div>
                         <hr>
 
-                        <table id="UpdatePurchaseRequestModal-TableDevice" class="table table-striped table-hover table-bordered text-nowrap w-100 align-middle">
+                        <table id="CreateNvidiaBuyModal-TableDevice" class="table table-striped table-hover table-bordered text-nowrap w-100 align-middle">
                             <thead>
                                 <tr class="bg-secondary text-uppercase">
                                     <!-- 0 -->
@@ -64,7 +67,7 @@
                                     <!-- 2 -->
                                     <th>PN</th>
                                     <!-- 3 -->
-                                    <th>Request Qty</th>
+                                    <th>Quantity</th>
                                     <!-- 4 -->
                                     <th>PR No.</th>
                                     <!-- 5 -->
@@ -79,8 +82,6 @@
                                     <th>ETD</th>
                                     <!-- 10 -->
                                     <th>ETA</th>
-                                    <!-- 11 -->
-                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody></tbody>
@@ -93,7 +94,7 @@
         
             <div class="modal-footer" id="details_modal-footer">
                 <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" onclick="UpdatePurchaseRequestSave()"><i class="fa-duotone fa-floppy-disk"></i> Save Change</button>
+                <button type="button" class="btn btn-primary" onclick="CreateNvidiaBuySave()"><i class="fa-duotone fa-floppy-disk"></i> Save</button>
             </div>
         </div>
     </div>

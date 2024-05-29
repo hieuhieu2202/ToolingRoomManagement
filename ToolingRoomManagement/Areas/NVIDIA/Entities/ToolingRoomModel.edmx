@@ -225,6 +225,7 @@
           <Property Name="DateRequired" Type="datetime" />
           <Property Name="Note" Type="nvarchar" MaxLength="500" />
           <Property Name="Status" Type="nvarchar" MaxLength="50" />
+          <Property Name="Type" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Return">
           <Key>
@@ -635,6 +636,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Export_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Export" Type="Self.Export" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Export">
+              <PropertyRef Name="IdUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_ExportDevice_Device">
           <End Role="Device" Type="Self.Device" Multiplicity="0..1" />
           <End Role="ExportDevice" Type="Self.ExportDevice" Multiplicity="*" />
@@ -648,9 +661,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ExportDevice_Export">
-          <End Role="Export" Type="Self.Export" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
+          <End Role="Export" Type="Self.Export" Multiplicity="0..1" />
           <End Role="ExportDevice" Type="Self.ExportDevice" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Export">
@@ -747,18 +758,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ReturnNG_User">
-          <End Role="User" Type="Self.User" Multiplicity="0..1" />
-          <End Role="Export" Type="Self.Export" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Export">
-              <PropertyRef Name="IdUser" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_UserBorrowSign_Borrow">
           <End Role="Borrow" Type="Self.Borrow" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
@@ -810,9 +809,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_UserExportSign_Export">
-          <End Role="Export" Type="Self.Export" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
+          <End Role="Export" Type="Self.Export" Multiplicity="0..1" />
           <End Role="UserExportSign" Type="Self.UserExportSign" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Export">
@@ -1029,6 +1026,10 @@
             <End Role="WarehouseLayout" EntitySet="WarehouseLayout" />
             <End Role="DeviceWarehouseLayout" EntitySet="DeviceWarehouseLayout" />
           </AssociationSet>
+          <AssociationSet Name="FK_Export_User" Association="Self.FK_Export_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Export" EntitySet="Export" />
+          </AssociationSet>
           <AssociationSet Name="FK_ExportDevice_Device" Association="Self.FK_ExportDevice_Device">
             <End Role="Device" EntitySet="Device" />
             <End Role="ExportDevice" EntitySet="ExportDevice" />
@@ -1064,10 +1065,6 @@
           <AssociationSet Name="FK_ReturnDevice_Return" Association="Self.FK_ReturnDevice_Return">
             <End Role="Return" EntitySet="Return" />
             <End Role="ReturnDevice" EntitySet="ReturnDevice" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ReturnNG_User" Association="Self.FK_ReturnNG_User">
-            <End Role="User" EntitySet="User" />
-            <End Role="Export" EntitySet="Export" />
           </AssociationSet>
           <AssociationSet Name="FK_UserBorrowSign_Borrow" Association="Self.FK_UserBorrowSign_Borrow">
             <End Role="Borrow" EntitySet="Borrow" />
@@ -1748,14 +1745,10 @@
           <Property Name="Description" Type="String" MaxLength="120" FixedLength="false" Unicode="true" />
           <Property Name="IdUserManager" Type="Int32" />
           <Property Name="Factory" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="IdUserDeputy1" Type="Int32" />
-          <Property Name="IdUserDeputy2" Type="Int32" />
           <Property Name="Floors" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Devices" Relationship="ToolingRoomModel.FK_Device_Warehouse" FromRole="Warehouse" ToRole="Device" />
           <NavigationProperty Name="UserManager" Relationship="ToolingRoomModel.FK_Warehouse_User" FromRole="Warehouse" ToRole="User" />
           <NavigationProperty Name="WarehouseLayouts" Relationship="ToolingRoomModel.FK_WarehouseLayout_Warehouse" FromRole="Warehouse" ToRole="WarehouseLayout" />
-          <NavigationProperty Name="UserDeputy1" Relationship="ToolingRoomModel.FK_Warehouse_User" FromRole="Warehouse" ToRole="User" />
-          <NavigationProperty Name="UserDeputy2" Relationship="ToolingRoomModel.FK_Warehouse_User" FromRole="Warehouse" ToRole="User" />
         </EntityType>
         <Association Name="FK_Device_Warehouse">
           <End Type="ToolingRoomModel.Warehouse" Role="Warehouse" Multiplicity="0..1" />
@@ -2260,6 +2253,7 @@
           <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="DevicePRs" Relationship="ToolingRoomModel.FK_DevicePR_PurchaseRequest" FromRole="PurchaseRequest" ToRole="DevicePR" />
           <NavigationProperty Name="UserRequest" Relationship="ToolingRoomModel.FK_PurchaseRequest_User" FromRole="PurchaseRequest" ToRole="User" />
+          <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_DevicePR_PurchaseRequest">
           <End Type="ToolingRoomModel.PurchaseRequest" Role="PurchaseRequest" Multiplicity="0..1">
@@ -2496,8 +2490,6 @@
             <EntityTypeMapping TypeName="ToolingRoomModel.Warehouse">
               <MappingFragment StoreEntitySet="Warehouse">
                 <ScalarProperty Name="Floors" ColumnName="Floors" />
-                <ScalarProperty Name="IdUserDeputy2" ColumnName="IdUserDeputy2" />
-                <ScalarProperty Name="IdUserDeputy1" ColumnName="IdUserDeputy1" />
                 <ScalarProperty Name="Factory" ColumnName="Factory" />
                 <ScalarProperty Name="IdUserManager" ColumnName="IdUserManager" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
@@ -2673,6 +2665,7 @@
           <EntitySetMapping Name="PurchaseRequests">
             <EntityTypeMapping TypeName="ToolingRoomModel.PurchaseRequest">
               <MappingFragment StoreEntitySet="PurchaseRequest">
+                <ScalarProperty Name="Type" ColumnName="Type" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="Note" ColumnName="Note" />
                 <ScalarProperty Name="DateRequired" ColumnName="DateRequired" />

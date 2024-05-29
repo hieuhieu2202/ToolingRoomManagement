@@ -1,0 +1,211 @@
+﻿<!-- Add user modal -->
+<section>
+    <div class="modal fade" id="AddUserModal" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">ADD USER MODAL</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <select class="form-select" id="add-User"></select>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="AddUserModal_Save" onclick="AddUserModal_Save(this)">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Create user modal -->
+<section>
+    <div class="modal fade" id="CreateUserModal" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">ADD USER MODAL</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="col-md-12 mb-3">
+                                <label class="form-label">Username <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="create-Username" maxlength="25">
+                            </div>
+                            <div class="col-md-12 mb-3">
+                                <label class="form-label">Password <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="create-Password" maxlength="25">
+                            </div>
+                            <div class="col-md-12 mb-3">
+                                <label class="form-label">Email</label>
+                                <input type="text" class="form-control" id="create-Email" maxlength="50">
+                            </div>
+                            <div class="col-md-12 mb-3">
+                                <label class="form-label">Status</label>
+                                <select class="form-select" id="create-Status">
+                                    <option value="Active">Active</option>
+                                    <option value="No Active">No Active</option>
+                                    <option value="Locked">Locked</option>
+                                    <option value="Deleted">Deleted</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="col-md-12 mb-3">
+                                <label class="form-label">VN Name</label>
+                                <input type="text" class="form-control" id="create-VnName" maxlength="50">
+                            </div>
+                            <div class="col-md-12 mb-3">
+                                <label class="form-label">CN Name <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="create-CnName" maxlength="50">
+                            </div>
+                            <div class="col-md-12 mb-3">
+                                <label class="form-label">EN Name</label>
+                                <input type="text" class="form-control" id="create-EnName" maxlength="50">
+                            </div>
+                            <div class="col-md-12 mb-3">
+                                <label class="form-label">Created Date</label>
+                                <input type="datetime-local" class="form-control" id="create-CreatedDate">
+                            </div>
+                        </div>
+
+                        <input type="hidden" id="create-HireDate" />
+                        <input type="hidden" id="create-LeaveDate" />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="CreateUserModal_Save" onclick="CreateUserModal_Save(this)">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Update user modal -->
+<section>
+    <div class="modal fade" id="UpdateUserModal" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">UPDATE USER MODAL</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="col-md-12 mb-3">
+                                <label class="form-label">Username</label>
+                                <input type="text" class="form-control" id="update-Username" maxlength="25">
+                            </div>
+                            <div class="col-md-12 mb-3">
+                                <label class="form-label">Password</label>
+                                <input type="text" class="form-control" id="update-Password" maxlength="25">
+                            </div>
+                            <div class="col-md-12 mb-3">
+                                <label class="form-label">Email</label>
+                                <input type="text" class="form-control" id="update-Email" maxlength="50">
+                            </div>
+                            <div class="col-md-12 mb-3">
+                                <label class="form-label">Status</label>
+                                <select class="form-select" id="update-Status">
+                                    <option value="Active">Active</option>
+                                    <option value="No Active">No Active</option>
+                                    <option value="Locked">Locked</option>
+                                    <option value="Deleted">Deleted</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="col-md-12 mb-3">
+                                <label class="form-label">VN Name</label>
+                                <input type="text" class="form-control" id="update-VnName" maxlength="50">
+                            </div>
+                            <div class="col-md-12 mb-3">
+                                <label class="form-label">CN Name</label>
+                                <input type="text" class="form-control" id="update-CnName" maxlength="50">
+                            </div>
+                            <div class="col-md-12 mb-3">
+                                <label class="form-label">EN Name</label>
+                                <input type="text" class="form-control" id="update-EnName" maxlength="50">
+                            </div>
+                            <div class="col-md-12 mb-3">
+                                <label class="form-label">Created Date</label>
+                                <input type="datetime-local" class="form-control" id="update-CreatedDate">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="UpdateUserModel_Save" onclick="UpdateUserModal_Save(this)">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Detail user modal -->
+<section>
+    <div class="modal fade" id="DetailUserModal" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">DETAILS USER MODAL</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="col-md-12 mb-3">
+                                <label class="form-label">Username</label>
+                                <input type="text" class="form-control" id="details-Username" maxlength="25" disabled>
+                            </div>
+                            <div class="col-md-12 mb-3">
+                                <label class="form-label">Password</label>
+                                <input type="text" class="form-control" id="details-Password" maxlength="25" disabled>
+                            </div>
+                            <div class="col-md-12 mb-3">
+                                <label class="form-label">Email</label>
+                                <input type="text" class="form-control" id="details-Email" maxlength="50" disabled>
+                            </div>
+                            <div class="col-md-12 mb-3">
+                                <label class="form-label">Status</label>
+                                <select class="form-select" id="details-Status" disabled>
+                                    <option value="Active">Active</option>
+                                    <option value="No Active">No Active</option>
+                                    <option value="Locked">Locked</option>
+                                    <option value="Deleted">Deleted</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="col-md-12 mb-3">
+                                <label class="form-label">VN Name</label>
+                                <input type="text" class="form-control" id="details-VnName" maxlength="50" disabled>
+                            </div>
+                            <div class="col-md-12 mb-3">
+                                <label class="form-label">CN Name</label>
+                                <input type="text" class="form-control" id="details-CnName" maxlength="50" disabled>
+                            </div>
+                            <div class="col-md-12 mb-3">
+                                <label class="form-label">EN Name</label>
+                                <input type="text" class="form-control" id="details-EnName" maxlength="50" disabled>
+                            </div>
+                            <div class="col-md-12 mb-3">
+                                <label class="form-label">Created Date</label>
+                                <input type="datetime-local" class="form-control" id="details-CreatedDate" disabled>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

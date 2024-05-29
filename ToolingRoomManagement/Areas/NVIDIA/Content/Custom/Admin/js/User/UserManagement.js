@@ -133,7 +133,7 @@ async function CreateUserModal_Save(elm) {
 
         if (result) {
 
-            var rowData = CreateTableRow(user);
+            var rowData = CreateUserTableRow(result);
             UserManagementTable.row.add(rowData).draw(false);
 
             toastr["success"](`Create user ${user.Username} success.`);
@@ -152,7 +152,7 @@ async function UpdateUserModal_Open(elm) {
     try
     {
         var IdUser = $(elm).data('id');
-        var IndexRow = UserManagementTable.row($(elm).closest('tr'));
+        var IndexRow = UserManagementTable.row($(elm).closest('tr')).index();
 
         var result = await GetUser(IdUser);
 
@@ -199,7 +199,7 @@ async function UpdateUserModal_Save(elm) {
         var result = await UpdateUser(user);
 
         if (result) {
-            var rowdata = CreateUserTableRow(user);
+            var rowdata = CreateUserTableRow(result);
             UserManagementTable.row(IndexRow).data(rowdata).draw(false);
             toastr["success"](`Update user ${user.Username} success.`);
             $('#UpdateUserModal').modal('hide');
@@ -240,12 +240,12 @@ async function DetailUserModal_Open(elm) {
 async function DeleteUserModal_Open(elm) {
     try {
         var IdUser = $(elm).data('id');
-        var IndexRow = UserManagementTable.row($(elm).closest('tr'));
+        var IndexRow = UserManagementTable.row($(elm).closest('tr')).index();
 
         var user = await GetUser(IdUser);
 
         Swal.fire({
-            title: 'Are you sure?',UserManagementTable.row(IndexRow).remove().draw(false);
+            title: 'Are you sure?',
             html: `Do you want delete user '${user.Username}'?`,
             icon: 'question',
             iconColor: '#dc3545',
@@ -265,13 +265,7 @@ async function DeleteUserModal_Open(elm) {
                 {
                     var result = await DeleteUser(IdUser);
 
-                    if (result != null) {
-                        var rowdata = CreateUserTableRow(result);
-                        UserManagementTable.row(IndexRow).data(rowdata).draw(false);                       
-                    }
-                    else {
-                        UserManagementTable.row(IndexRow).remove().draw(false);
-                    }
+                    UserManagementTable.row(IndexRow).remove().draw(false);
 
                     toastr["success"](`Delete user ${user.Username} success.`);
                 }

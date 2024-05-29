@@ -159,8 +159,8 @@ function Edit(elm, e) {
                 $('#wh-Factory').val(warehouse.Factory);
                 $('#wh-Floors').val(warehouse.Floors);
                 $('#wh-Manager1').val(warehouse.IdUserManager).trigger('change');
-                $('#wh-Manager2').val(warehouse.IdUserDeputy1).trigger('change');
-                $('#wh-Manager3').val(warehouse.IdUserDeputy2).trigger('change');
+                $('#wh-Manager2').val(warehouse?.WarehouseUsers[0].Id).trigger('change');
+                $('#wh-Manager3').val(warehouse?.WarehouseUsers[1].Id).trigger('change');
                 $('#wh-Description').val(warehouse.Description);
 
                 $('#warehouse-modal').modal('show');
@@ -271,8 +271,8 @@ function Details(elm, e) {
                 $('#wh-Factory').val(warehouse.Factory);
                 $('#wh-Floors').val(warehouse.Floors);
                 $('#wh-Manager1').val(warehouse.IdUserManager).trigger('change');
-                $('#wh-Manager2').val(warehouse.IdUserDeputy1).trigger('change');
-                $('#wh-Manager3').val(warehouse.IdUserDeputy2).trigger('change');
+                $('#wh-Manager2').val(warehouse?.WarehouseUsers[0].Id).trigger('change');
+                $('#wh-Manager3').val(warehouse?.WarehouseUsers[1].Id).trigger('change');
                 $('#wh-Description').val(warehouse.Description);
 
                 $('#warehouse-modal').modal('show');

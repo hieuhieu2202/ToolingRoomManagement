@@ -585,6 +585,8 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
             try
             {
                 var users = db.Users.ToList();
+                users.RemoveAt(0);
+
                 var roles = db.Roles.Where(r => r.RoleName != "admin").ToList();
                 foreach (var user in users)
                 {
@@ -986,8 +988,11 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
 
                 if (warehouse != null)
                 {
-                    warehouse.UserDeputy1 = db.Users.FirstOrDefault(u => u.Id == warehouse.IdUserDeputy1);
-                    warehouse.UserDeputy2 = db.Users.FirstOrDefault(u => u.Id == warehouse.IdUserDeputy2);
+                    if (warehouse.IdUserManager != null)
+                    {
+                        warehouse.UserManager = db.Users.FirstOrDefault(u => u.Id == warehouse.IdUserManager);
+                        warehouse.WarehouseUsers = db.Users.Where(u => u.UserRoles.Any(ur => ur.IdRole == 3) && u.Id != warehouse.IdUserManager).ToList();
+                    }
 
                     return Json(new { status = true, warehouse });
                 }

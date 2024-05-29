@@ -92,17 +92,14 @@ function GetWarehouseDevices(IdWarehouse = 0) {
 
                     $('#sign-WarehouseManagerUser').empty();
                     if (warehouse.UserManager != null) {
-                        var opt = CreateWarehouseUserOption(warehouse.UserManager);
+                        let opt = CreateWarehouseUserOption(warehouse.UserManager);
                         $('#sign-WarehouseManagerUser').append(opt);
-                    }
 
-                    if (warehouse.UserDeputy1 != null) {
-                        var opt = CreateWarehouseUserOption(warehouse.UserDeputy1);
-                        $('#sign-WarehouseManagerUser').append(opt);
-                    }
-                    if (warehouse.UserDeputy2 != null) {
-                        var opt = CreateWarehouseUserOption(warehouse.UserDeputy2);
-                        $('#sign-WarehouseManagerUser').append(opt);
+                        warehouse.WarehouseUsers.forEach((user) => {
+                            let opt = CreateWarehouseUserOption(user);
+                            $('#sign-WarehouseManagerUser').append(opt);
+                        });
+
                     }
                 }
                 else {
@@ -620,11 +617,6 @@ function CreateUserOption(user) {
         addUserEnName += ` (${user.EnName})`;
         opt.text(addUserEnName);
     }
-    //if (user.Email != null && user.Email != '') {
-    //    var addUserEnName = opt.text();
-    //    addUserEnName += ` - [${user.Email}]`;
-    //    opt.text(addUserEnName);
-    //}
     return opt;
 }
 function ValidateSendFormData(BorrowData) {
