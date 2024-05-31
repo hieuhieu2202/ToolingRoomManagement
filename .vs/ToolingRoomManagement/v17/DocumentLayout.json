@@ -1,36 +1,7 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "F:\\Projects\\WebApp\\ToolingRoomManagement\\",
-  "Documents": [
-    {
-      "AbsoluteMoniker": "D:0:0:{07C800A9-1E8C-4D7C-9159-A66BC7093279}|ToolingRoomManagement\\ToolingRoomManagement.csproj|f:\\projects\\webapp\\toolingroommanagement\\toolingroommanagement\\areas\\nvidia\\content\\custom\\admin\\js\\user\\usermanagement.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
-      "RelativeMoniker": "D:0:0:{07C800A9-1E8C-4D7C-9159-A66BC7093279}|ToolingRoomManagement\\ToolingRoomManagement.csproj|solutionrelative:toolingroommanagement\\areas\\nvidia\\content\\custom\\admin\\js\\user\\usermanagement.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{07C800A9-1E8C-4D7C-9159-A66BC7093279}|ToolingRoomManagement\\ToolingRoomManagement.csproj|f:\\projects\\webapp\\toolingroommanagement\\toolingroommanagement\\areas\\nvidia\\content\\custom\\admin\\js\\role\\rolemanagement.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
-      "RelativeMoniker": "D:0:0:{07C800A9-1E8C-4D7C-9159-A66BC7093279}|ToolingRoomManagement\\ToolingRoomManagement.csproj|solutionrelative:toolingroommanagement\\areas\\nvidia\\content\\custom\\admin\\js\\role\\rolemanagement.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{07C800A9-1E8C-4D7C-9159-A66BC7093279}|ToolingRoomManagement\\ToolingRoomManagement.csproj|f:\\projects\\webapp\\toolingroommanagement\\toolingroommanagement\\areas\\nvidia\\reseptory\\ruser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{07C800A9-1E8C-4D7C-9159-A66BC7093279}|ToolingRoomManagement\\ToolingRoomManagement.csproj|solutionrelative:toolingroommanagement\\areas\\nvidia\\reseptory\\ruser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{07C800A9-1E8C-4D7C-9159-A66BC7093279}|ToolingRoomManagement\\ToolingRoomManagement.csproj|f:\\projects\\webapp\\toolingroommanagement\\toolingroommanagement\\areas\\nvidia\\views\\adminmanagement\\rolemanagement.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{07C800A9-1E8C-4D7C-9159-A66BC7093279}|ToolingRoomManagement\\ToolingRoomManagement.csproj|solutionrelative:toolingroommanagement\\areas\\nvidia\\views\\adminmanagement\\rolemanagement.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{07C800A9-1E8C-4D7C-9159-A66BC7093279}|ToolingRoomManagement\\ToolingRoomManagement.csproj|f:\\projects\\webapp\\toolingroommanagement\\toolingroommanagement\\areas\\nvidia\\controllers\\usermanagementcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{07C800A9-1E8C-4D7C-9159-A66BC7093279}|ToolingRoomManagement\\ToolingRoomManagement.csproj|solutionrelative:toolingroommanagement\\areas\\nvidia\\controllers\\usermanagementcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{07C800A9-1E8C-4D7C-9159-A66BC7093279}|ToolingRoomManagement\\ToolingRoomManagement.csproj|f:\\projects\\webapp\\toolingroommanagement\\toolingroommanagement\\areas\\nvidia\\content\\custom\\common\\js\\usercommon.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
-      "RelativeMoniker": "D:0:0:{07C800A9-1E8C-4D7C-9159-A66BC7093279}|ToolingRoomManagement\\ToolingRoomManagement.csproj|solutionrelative:toolingroommanagement\\areas\\nvidia\\content\\custom\\common\\js\\usercommon.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{07C800A9-1E8C-4D7C-9159-A66BC7093279}|ToolingRoomManagement\\ToolingRoomManagement.csproj|f:\\projects\\webapp\\toolingroommanagement\\toolingroommanagement\\areas\\nvidia\\views\\adminmanagement\\_usermodal.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{07C800A9-1E8C-4D7C-9159-A66BC7093279}|ToolingRoomManagement\\ToolingRoomManagement.csproj|solutionrelative:toolingroommanagement\\areas\\nvidia\\views\\adminmanagement\\_usermodal.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    }
-  ],
+  "Documents": [],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -38,7 +9,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 19,
+          "SelectedChildIndex": -1,
           "Children": [
             {
               "$type": "Bookmark",
@@ -115,97 +86,6 @@
             {
               "$type": "Bookmark",
               "Name": "ST:130:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "UserManagement.js",
-              "DocumentMoniker": "F:\\Projects\\WebApp\\ToolingRoomManagement\\ToolingRoomManagement\\Areas\\NVIDIA\\Content\\Custom\\Admin\\js\\User\\UserManagement.js",
-              "RelativeDocumentMoniker": "ToolingRoomManagement\\Areas\\NVIDIA\\Content\\Custom\\Admin\\js\\User\\UserManagement.js",
-              "ToolTip": "F:\\Projects\\WebApp\\ToolingRoomManagement\\ToolingRoomManagement\\Areas\\NVIDIA\\Content\\Custom\\Admin\\js\\User\\UserManagement.js",
-              "RelativeToolTip": "ToolingRoomManagement\\Areas\\NVIDIA\\Content\\Custom\\Admin\\js\\User\\UserManagement.js",
-              "ViewState": "AQIAACoAAAAAAAAAAAAkwJYAAAAoAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
-              "WhenOpened": "2024-05-29T11:01:44.553Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "_UserModal.cshtml",
-              "DocumentMoniker": "F:\\Projects\\WebApp\\ToolingRoomManagement\\ToolingRoomManagement\\Areas\\NVIDIA\\Views\\AdminManagement\\_UserModal.cshtml",
-              "RelativeDocumentMoniker": "ToolingRoomManagement\\Areas\\NVIDIA\\Views\\AdminManagement\\_UserModal.cshtml",
-              "ToolTip": "F:\\Projects\\WebApp\\ToolingRoomManagement\\ToolingRoomManagement\\Areas\\NVIDIA\\Views\\AdminManagement\\_UserModal.cshtml",
-              "RelativeToolTip": "ToolingRoomManagement\\Areas\\NVIDIA\\Views\\AdminManagement\\_UserModal.cshtml",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA4AAABXAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-05-29T10:48:54.464Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "RoleManagement.js",
-              "DocumentMoniker": "F:\\Projects\\WebApp\\ToolingRoomManagement\\ToolingRoomManagement\\Areas\\NVIDIA\\Content\\Custom\\Admin\\js\\Role\\RoleManagement.js",
-              "RelativeDocumentMoniker": "ToolingRoomManagement\\Areas\\NVIDIA\\Content\\Custom\\Admin\\js\\Role\\RoleManagement.js",
-              "ToolTip": "F:\\Projects\\WebApp\\ToolingRoomManagement\\ToolingRoomManagement\\Areas\\NVIDIA\\Content\\Custom\\Admin\\js\\Role\\RoleManagement.js",
-              "RelativeToolTip": "ToolingRoomManagement\\Areas\\NVIDIA\\Content\\Custom\\Admin\\js\\Role\\RoleManagement.js",
-              "ViewState": "AQIAANEAAAAAAAAAAAAiwPEAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
-              "WhenOpened": "2024-05-29T09:44:45.465Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "RoleManagement.cshtml",
-              "DocumentMoniker": "F:\\Projects\\WebApp\\ToolingRoomManagement\\ToolingRoomManagement\\Areas\\NVIDIA\\Views\\AdminManagement\\RoleManagement.cshtml",
-              "RelativeDocumentMoniker": "ToolingRoomManagement\\Areas\\NVIDIA\\Views\\AdminManagement\\RoleManagement.cshtml",
-              "ToolTip": "F:\\Projects\\WebApp\\ToolingRoomManagement\\ToolingRoomManagement\\Areas\\NVIDIA\\Views\\AdminManagement\\RoleManagement.cshtml",
-              "RelativeToolTip": "ToolingRoomManagement\\Areas\\NVIDIA\\Views\\AdminManagement\\RoleManagement.cshtml",
-              "ViewState": "AQIAAFQAAAAAAAAAAAAAAGAAAABLAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-05-29T10:18:15.991Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "UserCommon.js",
-              "DocumentMoniker": "F:\\Projects\\WebApp\\ToolingRoomManagement\\ToolingRoomManagement\\Areas\\NVIDIA\\Content\\Custom\\Common\\js\\UserCommon.js",
-              "RelativeDocumentMoniker": "ToolingRoomManagement\\Areas\\NVIDIA\\Content\\Custom\\Common\\js\\UserCommon.js",
-              "ToolTip": "F:\\Projects\\WebApp\\ToolingRoomManagement\\ToolingRoomManagement\\Areas\\NVIDIA\\Content\\Custom\\Common\\js\\UserCommon.js",
-              "RelativeToolTip": "ToolingRoomManagement\\Areas\\NVIDIA\\Content\\Custom\\Common\\js\\UserCommon.js",
-              "ViewState": "AQIAABoAAAAAAAAAAAAQwJ4AAAApAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
-              "WhenOpened": "2024-05-29T10:31:19.39Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "UserManagementController.cs",
-              "DocumentMoniker": "F:\\Projects\\WebApp\\ToolingRoomManagement\\ToolingRoomManagement\\Areas\\NVIDIA\\Controllers\\UserManagementController.cs",
-              "RelativeDocumentMoniker": "ToolingRoomManagement\\Areas\\NVIDIA\\Controllers\\UserManagementController.cs",
-              "ToolTip": "F:\\Projects\\WebApp\\ToolingRoomManagement\\ToolingRoomManagement\\Areas\\NVIDIA\\Controllers\\UserManagementController.cs",
-              "RelativeToolTip": "ToolingRoomManagement\\Areas\\NVIDIA\\Controllers\\UserManagementController.cs",
-              "ViewState": "AQIAAFcAAAAAAAAAAAAcwIQAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-29T10:47:03.701Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "RUser.cs",
-              "DocumentMoniker": "F:\\Projects\\WebApp\\ToolingRoomManagement\\ToolingRoomManagement\\Areas\\NVIDIA\\Reseptory\\RUser.cs",
-              "RelativeDocumentMoniker": "ToolingRoomManagement\\Areas\\NVIDIA\\Reseptory\\RUser.cs",
-              "ToolTip": "F:\\Projects\\WebApp\\ToolingRoomManagement\\ToolingRoomManagement\\Areas\\NVIDIA\\Reseptory\\RUser.cs",
-              "RelativeToolTip": "ToolingRoomManagement\\Areas\\NVIDIA\\Reseptory\\RUser.cs",
-              "ViewState": "AQIAABEAAAAAAAAAAAA3wIcAAAAsAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-29T10:05:15.394Z",
-              "EditorCaption": ""
             }
           ]
         }

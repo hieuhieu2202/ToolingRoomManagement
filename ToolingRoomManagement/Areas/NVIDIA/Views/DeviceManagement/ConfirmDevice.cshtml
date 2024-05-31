@@ -2,6 +2,8 @@
 @{
     ViewBag.Title = "Confirm Device";
     Layout = "~/Areas/NVIDIA/Views/Shared/_NvidiaLayoutShared.cshtml";
+
+    var newGuid = Guid.NewGuid();
 }
 
 
@@ -11,7 +13,7 @@
     <link href="~/Areas/NVIDIA/Content/Template/Sysadmin/assets/plugins/select2/css/select2-bootstrap4.css" rel="stylesheet" />
     <link href="~/Areas/NVIDIA/Content/Vendor/Viewer JS/viewer.min.css" rel="stylesheet" />
     <!-- Custom -->
-    <link href="~/Areas/NVIDIA/Content/Custom/DeviceManagement/css/ConfirmDevice.css" rel="stylesheet" />
+    <link href="~/Areas/NVIDIA/Content/Custom/DeviceManagement/css/ConfirmDevice.css?v=@newGuid" rel="stylesheet" />
 
 }
 
@@ -421,6 +423,6 @@
     <script src="~/Areas/NVIDIA/Content/Vendor/Viewer JS/viewer.js"></script>
 
     <!-- Custom -->
-    <script src="~/Areas/NVIDIA/Content/Custom/DeviceManagement/js/ConfirmDevice.js"></script>
+    <script src="~/Areas/NVIDIA/Content/Custom/DeviceManagement/js/ConfirmDevice.js?v=@newGuid"></script>
 }
 

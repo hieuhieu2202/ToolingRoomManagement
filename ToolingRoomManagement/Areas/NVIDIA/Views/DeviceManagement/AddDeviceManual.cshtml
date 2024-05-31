@@ -1,13 +1,15 @@
 ﻿@{
     ViewBag.Title = "New Device Manual";
     Layout = "~/Areas/NVIDIA/Views/Shared/_NvidiaLayoutShared.cshtml";
+
+    var newGuid = Guid.NewGuid();
 }
 
 @section styles{
     <!-- Vendor -->
     <link href="~/Areas/NVIDIA/Content/Vendor/Viewer JS/viewer.min.css" rel="stylesheet" />
     <!-- Custom -->
-    <link href="~/Areas/NVIDIA/Content/Custom/DeviceManagement/css/AddDeviceManual.css?v=@Guid.NewGuid()" rel="stylesheet" />
+    <link href="~/Areas/NVIDIA/Content/Custom/DeviceManagement/css/AddDeviceManual.css?v=@newGuid" rel="stylesheet" />
 }
 
 <!-- Image viewer -->
@@ -244,7 +246,7 @@
     <!-- Vendor -->
     <script src="~/Areas/NVIDIA/Content/Vendor/Viewer JS/viewer.min.js"></script>
     <!-- Custom -->
-    <script src="~/Areas/NVIDIA/Content/Custom/DeviceManagement/js/AddDeviceManual.js?v=@Guid.NewGuid()"></script>
+    <script src="~/Areas/NVIDIA/Content/Custom/DeviceManagement/js/AddDeviceManual.js?v=@newGuid"></script>
 
     <script type="text/javascript">
 

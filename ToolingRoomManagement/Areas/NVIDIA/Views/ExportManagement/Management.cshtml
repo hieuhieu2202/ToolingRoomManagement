@@ -2,6 +2,8 @@
 @{
     ViewBag.Title = "Shipping Out";
     Layout = "~/Areas/NVIDIA/Views/Shared/_NvidiaLayoutShared.cshtml";
+
+    var newGuid = Guid.NewGuid();
 }
 
 @section styles{
@@ -10,7 +12,7 @@
     <link href="~/Areas/NVIDIA/Content/Template/Sysadmin/assets/plugins/select2/css/select2-bootstrap4.css" rel="stylesheet" />
     <link href="~/Areas/NVIDIA/Content/Vendor/Viewer JS/viewer.min.css" rel="stylesheet" />
     <!-- Custom -->
-    <link href="~/Areas/NVIDIA/Content/Custom/ExportManagement/management.css" rel="stylesheet" />
+    <link href="~/Areas/NVIDIA/Content/Custom/ExportManagement/management.css?v=@newGuid" rel="stylesheet" />
 }
 
 <!-- Breadcrumb -->
