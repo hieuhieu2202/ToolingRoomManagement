@@ -23,13 +23,13 @@ function InitPRDatatable() {
         lengthMenu: calc.LengthMenu,
         order: [0, 'desc'],
         columnDefs: [
-            { targets: 0, visible: false },
-            { targets: [6, 7, 8, 9], className: 'text-center' },
-            { targets: [1], width: 150 },
-            { targets: [2], width: 200 },
-            { targets: [3, 4, 6], width: 120 },
-            { targets: [7, 8], width: 60 },
-            { targets: [9], width: 90 },
+            { targets: [0, 1], visible: false },
+            { targets: [7, 8, 9, 10], className: 'text-center' },
+            { targets: [2], width: 150 },
+            { targets: [3], width: 200 },
+            { targets: [4, 5, 7], width: 120 },
+            { targets: [8, 9], width: 60 },
+            { targets: [10], width: 90 },
             { targets: "_all", orderable: false },
             
         ],     
@@ -94,8 +94,10 @@ async function CreatePRDatatable() {
     }
 }
 function CreatePRDatatableRow(purchaseRequest) {
-    var totalDays = 0;
+    let totalDays = 0;
+    let pns = '';
     purchaseRequest.DevicePRs.forEach((prDevice) => {
+        //pns += prDevice.
         if (prDevice.PR_CreatedDate && prDevice.PO_CreatedDate) {
             const thisDays = moment(prDevice.PO_CreatedDate).diff(moment(prDevice.PR_CreatedDate), 'days');
             if (thisDays > totalDays) totalDays = thisDays;
@@ -104,6 +106,7 @@ function CreatePRDatatableRow(purchaseRequest) {
 
     return [
         purchaseRequest.Id,
+        purchaseRequest.PNs.join(', '),
         moment(purchaseRequest.DateRequest).format('YYYYMMDDHHmm_') + purchaseRequest.Id,
         CreateUserName(purchaseRequest.UserRequest),
         moment(purchaseRequest.DateRequest).format('YYYY-MM-DD HH:mm'),

@@ -10,13 +10,14 @@ using System.Web.Configuration;
 using ToolingRoomManagement.Areas.NVIDIA.Entities;
 using ToolingRoomManagement.Areas.NVIDIA.Data;
 using System.Runtime.Remoting.Contexts;
+using System.Web;
 
 namespace ToolingRoomManagement.Areas.NVIDIA.Reseptory
 {
     internal class RPurchaseRequest
     {
         /* GET */
-        public static List<PurchaseRequest> GetPurchaseRequests()
+        public static object GetPurchaseRequests()
         {
             using(ToolingRoomEntities context = new ToolingRoomEntities())
             {
@@ -24,32 +25,65 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Reseptory
 
                 var prs = context.PurchaseRequests
                     .Include(p => p.UserRequest)
-                    .Include(p => p.DevicePRs)
+                    .Select(p => new
+                    {
+                        p.Id,
+                        p.UserRequest,
+                        p.DateRequest,
+                        p.DateRequired,
+                        p.Note,
+                        p.Status,
+                        p.Type,
+                        p.DevicePRs,
+                        PNs = p.DevicePRs.Select(dpr => dpr.Device.DeviceCode).ToList(),
+                    })
                     .ToList();
 
                 return prs;
 
             }
         }
-        public static PurchaseRequest GetPurchaseRequest(int IdPurchaseRequest)
+        public static object GetPurchaseRequest(int IdPurchaseRequest)
         {
-            using (ToolingRoomEntities context = new ToolingRoomEntities())
+            try
             {
-                context.Configuration.LazyLoadingEnabled = false;
+                using (ToolingRoomEntities context = new ToolingRoomEntities())
+                {
+                    context.Configuration.LazyLoadingEnabled = false;
 
-                var pr = context.PurchaseRequests
-                    .Include(p => p.UserRequest)
-                    .Include(p => p.DevicePRs.Select(dp => dp.UserCreated))
-                    .Include(p => p.DevicePRs.Select(dp => dp.Device))
-                    .FirstOrDefault(p => p.Id == IdPurchaseRequest);
+                    var pr = context.PurchaseRequests
+                        .Include(p => p.UserRequest)
+                        .Include(p => p.DevicePRs.Select(dp => dp.UserCreated))
+                        .Include(p => p.DevicePRs.Select(dp => dp.Device))
+                        .FirstOrDefault(p => p.Id == IdPurchaseRequest);
 
-                return pr;
+                    var result = new
+                    {
+                        pr.Id,
+                        pr.IdUserRequest,
+                        pr.UserRequest,
+                        pr.DateRequest,
+                        pr.DateRequired,
+                        pr.Note,
+                        pr.Status,
+                        pr.Type,
+                        pr.DevicePRs,
+                        PNs = pr.DevicePRs.Select(dpr => dpr.Device.DeviceCode).ToList()
+                    };
 
+                    return result;
+
+                }
             }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            
         }
 
         /* POST */
-        public static PurchaseRequest CreatePurchaseRequest(PurchaseRequest PurchaseRequest)
+        public static object CreatePurchaseRequest(PurchaseRequest PurchaseRequest)
         {
             try
             {
@@ -73,7 +107,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Reseptory
             }
 
         }
-        public static PurchaseRequest UpdatePurchaseRequest(PurchaseRequest PurchaseRequest)
+        public static object UpdatePurchaseRequest(PurchaseRequest PurchaseRequest)
         {
             try
             {
@@ -158,7 +192,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Reseptory
 
             return true;
         }
-        private static PurchaseRequest CheckPurchaseRequestStatus(ToolingRoomEntities context, PurchaseRequest PurchaseRequest)
+        public static PurchaseRequest CheckPurchaseRequestStatus(ToolingRoomEntities context, PurchaseRequest PurchaseRequest)
         {
             var minLevel = 0;
             foreach (var dpr in PurchaseRequest.DevicePRs)

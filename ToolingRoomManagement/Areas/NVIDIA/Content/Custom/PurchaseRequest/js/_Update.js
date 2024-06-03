@@ -167,7 +167,9 @@ async function UpdatePurchaseRequestSave() {
                 });
             }
             return datas
-        }).get()
+        }).get();
+
+
 
         const responseResult = await UpdatePurchaseRequest(data);
         if (responseResult) {

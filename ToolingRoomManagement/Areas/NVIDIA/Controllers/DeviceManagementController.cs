@@ -3,6 +3,7 @@ using OfficeOpenXml;
 using OfficeOpenXml.Style;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder;
 using System.Data.Entity.Migrations;
 using System.Diagnostics;
@@ -2706,6 +2707,91 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                             db.Devices.Add(device);
                         }
                         db.SaveChanges();
+
+                        return Json(new { status = true });
+                    }
+                }
+                else
+                {
+                    return Json(new { status = false, message = "File is empty" });
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = false, message = ex.Message });
+            }
+        }
+        [Authentication(Roles = new[] { "CRUD" })]
+        public ActionResult UpdatePurchaseRequest(HttpPostedFileBase file)
+        {
+            try
+            {
+                ExcelPackage.LicenseContext = OfficeOpenXml.LicenseContext.NonCommercial;
+
+                if (file != null && file.ContentLength > 0)
+                {
+                    string fileName = $"UpdatePurchaseRequest - {DateTime.Now.ToString("yyyy.MM.dd HH.mm.ss.ff")}.xlsx";
+                    string folderPath = Server.MapPath("/Data/NewToolingroom");
+                    string filePath = Path.Combine(folderPath, fileName);
+
+                    #region Check Folder
+                    if (!Directory.Exists(folderPath))
+                    {
+                        Directory.CreateDirectory(folderPath);
+                    }
+                    else
+                    {
+                        foreach (string fileii in Directory.GetFiles(folderPath))
+                        {
+                            System.IO.File.Delete(fileii);
+                        }
+                    }
+                    #endregion
+                    using (var context = new ToolingRoomEntities())
+                    using (var package = new ExcelPackage(file.InputStream))
+                    {
+                        var worksheet = package.Workbook.Worksheets[0];
+
+                        var devices = context.DevicePRs.Include(dpr => dpr.Device).ToList();
+                        foreach(var device in devices)
+                        {
+                            var d_pn = device.Device.DeviceCode.Trim().ToUpper();
+                            var d_qty = device.Quantity;
+
+                            for (int row = 2; row <= worksheet.Dimension.End.Row; row++)
+                            {
+                                var pr_pn = worksheet.Cells[row, 2].Text.Trim().ToUpper();
+                                int.TryParse(worksheet.Cells[row, 3].Text, out int pr_qty);
+
+                                if (d_pn == pr_pn && d_qty == pr_qty)
+                                {
+                                    device.PR_No = worksheet.Cells[row, 4].Text.Trim().ToUpper();
+                                    device.PR_Quantity = d_qty;
+                                    if (DateTime.TryParse(worksheet.Cells[row, 6].Text, out DateTime pr_date)) device.PR_CreatedDate = pr_date;
+
+                                    device.PO_No = worksheet.Cells[row, 7].Text.Trim().ToUpper();
+                                    if (DateTime.TryParse(worksheet.Cells[row, 8].Text, out DateTime po_date)) device.PO_CreatedDate = po_date;
+
+                                    if (DateTime.TryParse(worksheet.Cells[row, 9].Text, out DateTime eta)) device.ETA_Date = eta;
+                                    if (DateTime.TryParse(worksheet.Cells[row, 10].Text, out DateTime etd)) device.ETD_Date = etd;
+
+                                    device.IdUserCreated = 17;
+
+                                    context.DevicePRs.AddOrUpdate(device);
+
+                                    break;
+                                }
+                            }
+                        }
+
+                        context.SaveChanges();
+
+                        foreach(var purchaseRequest in context.PurchaseRequests)
+                        {
+                            RPurchaseRequest.CheckPurchaseRequestStatus(context, purchaseRequest);
+                        }
+
+                        context.SaveChanges();
 
                         return Json(new { status = true });
                     }

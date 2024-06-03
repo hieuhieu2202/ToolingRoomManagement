@@ -170,14 +170,16 @@ async function AddUserModal_Open() {
 
         if (!_allUsers) _allUsers = await GetUsers();
 
+        let addUserSelect = $("#add-User");
+        addUserSelect.empty();
         _allUsers.forEach((user) => {
-            if (!user.UserRoles.some((ur) => { return ur.IdRole != IdSelectedRole })) {
+            if (!user.UserRoles.some((ur) => { return ur.IdRole == IdSelectedRole })) {
                 let username = `${user.Username} - ${user.VnName ? user.VnName : user.CnName ? user.CnName : user.EnName ? user.EnName : ''}`;
-                $("#add-User").append(`<option value="${user.Id}">${username}</option>`);
+                addUserSelect.append(`<option value="${user.Id}">${username}</option>`);
             }
         });
 
-        $("#add-User").select2({
+        addUserSelect.select2({
             theme: 'bootstrap4',
             dropdownParent: $('#AddUserModal'),
         });

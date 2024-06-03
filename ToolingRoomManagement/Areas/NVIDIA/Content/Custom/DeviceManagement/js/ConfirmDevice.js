@@ -1326,3 +1326,47 @@ function UpdateDeviceFile(file) {
         });
     });
 }
+// Device
+$('#add-purchaserequest').click(function () {
+    var input = $('<input type="file">');
+    input.on('change', function () {
+        var file = this.files[0];
+
+        UpdatePurchaseRequestFile(file);
+
+    });
+    input.click();
+});
+function UpdatePurchaseRequestFile(file) {
+    const formData = new FormData();
+    formData.append('file', file);
+
+    Pace.on('progress', function (progress) {
+        var cal = progress.toFixed(2);
+        $('#process_count').text(`${cal}%`);
+        $('#process_bar').css('width', `${cal}%`);
+    });
+    Pace.track(function () {
+        $.ajax({
+            url: "/NVIDIA/DeviceManagement/UpdatePurchaseRequest",
+            data: formData,
+            type: "POST",
+            processData: false,
+            contentType: false,
+            success: function (response) {
+                if (response.status) {
+                    toastr["success"]("Update Purchase Request success.", "SUCCESS");
+                }
+                else {
+                    Swal.fire(i18next.t('global.swal_title'), response.message, 'error');
+                }
+            },
+            error: function (error) {
+                Swal.fire(i18next.t('global.swal_title'), GetAjaxErrorMessage(error), 'error');
+            },
+            complete: function () {
+                Pace.stop();
+            }
+        });
+    });
+}
