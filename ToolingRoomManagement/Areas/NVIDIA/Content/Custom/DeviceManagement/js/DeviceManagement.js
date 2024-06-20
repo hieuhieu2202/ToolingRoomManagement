@@ -129,7 +129,7 @@ function InitDatatable() {
     const options = {
         scrollY: tableHeight,
         scrollX: true,
-        order: [],
+        order: [0, 'desc'],
         autoWidth: false,
         deferRender: true,
         columnDefs: [
@@ -196,8 +196,9 @@ function GetWarehouseDevices(IdWarehouse = 0) {
             success: async function (response) {
                 if (response.status) {
 
-                    var devices = response.warehouse.Devices;
+                    var devices = response.devices;
                     //CreateTableAddDevice(devices);
+                    getObjectSize(response);
 
                     var rowsToAdd = [];
                     $.each(devices, function (k, device) {
@@ -226,30 +227,30 @@ function GetWarehouseDevices(IdWarehouse = 0) {
 function CreateDatatableRow(device) {
     var row = [
         device.Id,
-        (device.Product && device.Product.MTS) ? device.Product.MTS : "NA",
-        (device.Product && device.Product.ProductName !== "") ? device.Product.ProductName : "NA",
-        (device.Model && device.Model.ModelName !== "") ? device.Model.ModelName : "NA",
-        (device.Station && device.Station.StationName !== "") ? device.Station.StationName : "NA",
-        device.DeviceCode !== "null" ? device.DeviceCode : "NA",
-        device.DeviceName !== "" ? device.DeviceName : "NA",
-        (device.Group && device.Group.GroupName !== "") ? device.Group.GroupName : "NA",
-        (device.Vendor && device.Vendor.VendorName !== "") ? device.Vendor.VendorName : "NA",
-        (device.Specification !== "NA") ? device.Specification : "NA",
+        device?.Product?.MTS ?? "NA",
+        device?.Product?.ProductName ? device.Product.ProductName : "NA",
+        device?.Model?.ModelName ? device.Model.ModelName : "NA",
+        device?.Station?.StationName ? device.Station.StationName : "NA",
+        device.DeviceCode ? device.DeviceCode : "NA",
+        device.DeviceName ? device.DeviceName : "NA",
+        device?.Group?.GroupName ? device.Group.GroupName : "NA",
+        device?.Vendor?.VendorName ? device.Vendor.VendorName : "NA",
+        device.Specification ? device.Specification : "NA",
         GetDeviceLocation(device),
         (device.Buffer * 100) + "%",
-        device.Quantity || 0,
-        device.POQty || 0,
-        device.QtyConfirm || 0,
-        device.RealQty || 0,
-        device.NG_Qty || 0,
-        device.Unit || '',
+        device.Quantity ?? 0,
+        device.POQty ?? 0,
+        device.QtyConfirm ?? 0,
+        device.SysQuantity ?? 0,
+        device.NG_Qty ?? 0,
+        device.Unit ?? '',
         /\d/.test(device.DeliveryTime) ? device.DeliveryTime : "NA",
         GetDeviceType(device),
         GetDeviceStatus(device),
         GetDeviceAction(device.Id),
         device.isConsign ? "consign" : "normal",
-        (device.AlternativeDevices != null && device.AlternativeDevices.length == 1) ? device.AlternativeDevices[0].PNs ? device.AlternativeDevices[0].PNs : "" : ""
-    ]
+        device.AlternativeDevices?.length === 1 ? (device.AlternativeDevices[0] ?? "") : ""
+    ];
     return row;
 }
 function GetDeviceLocation(device) {
@@ -599,7 +600,7 @@ async function Delete(elm, e) {
                                    </tr>
                                    <tr>
                                        <td>${i18next.t('device.management.real_qty')}</td>
-                                       <td>${device.RealQty}</td>
+                                       <td>${device.SysQuantity}</td>
                                    </tr>
                                </tbody>
                            </table>

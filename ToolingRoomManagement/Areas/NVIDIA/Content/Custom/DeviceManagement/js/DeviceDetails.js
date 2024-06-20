@@ -51,7 +51,7 @@ async function FillDetailsDeviceData(data) {
     $('#device_details-Forcast').val(data.Forcast);
     $('#device_details-Quantity').val(data.Quantity);
     $('#device_details-QtyConfirm').val(data.QtyConfirm);
-    $('#device_details-RealQty').val(data.RealQty);
+    $('#device_details-RealQty').val(data.SysQuantity);
     $('#device_details-POQty').val(data.POQty ? data.POQty : 0);
     $('#device_details-MOQ').val(data.MOQ ? data.MOQ : 0);
 

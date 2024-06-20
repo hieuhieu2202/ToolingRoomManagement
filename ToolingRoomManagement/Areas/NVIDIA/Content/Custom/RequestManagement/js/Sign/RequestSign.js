@@ -36,6 +36,8 @@ function InitDatatable(){
 async function CreateSignRequestsTable() {
     requests = await GetUserRequests();
 
+    getObjectSize(requests);
+
     var headerData = {
         total: requests.length,
         pending: 0,

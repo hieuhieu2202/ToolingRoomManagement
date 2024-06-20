@@ -133,7 +133,7 @@ async function FillEditDeviceData(device) {
     $('#device_edit-Relation').val(device.Relation);
     $('#device_edit-LifeCycle').val(device.LifeCycle);
     $('#device_edit-QtyConfirm').val(device.QtyConfirm);
-    $('#device_edit-RealQty').val(device.RealQty);
+    $('#device_edit-RealQty').val(device.SysQuantity);
     $('#device_edit-MinQty').val(device.MinQty);
 
     $('#device_edit-Product').val(device.Product ? device.Product.ProductName : '');

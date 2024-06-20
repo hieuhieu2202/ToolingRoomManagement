@@ -84,7 +84,7 @@ function GetWarehouseDevices(IdWarehouse = 0) {
             success: function (response) {
                 if (response.status) {
                     let warehouse = response.warehouse;
-                    let devices = warehouse.Devices;
+                    let devices = response.devices;
 
                     CreateTableAddDevice(devices);
 
@@ -120,7 +120,7 @@ async function CreateTableAddDevice(devices) {
     $('#table_Devices_tbody').html('');
 
     await $.each(devices, function (no, item) {
-        if (item.Status != "Confirmed" && item.Status != "Part Confirmed") return true;
+        //if (item.Status != "Confirmed" && item.Status != "Part Confirmed") return true;
 
         var row = $(`<tr class="align-middle" data-id="${item.Id}"></tr>`);
 
@@ -129,23 +129,23 @@ async function CreateTableAddDevice(devices) {
         // 1 MTS
         row.append(`<td title="${(item.Product) ? item.Product.MTS ? item.Product.MTS : "NA" : "NA"}">${(item.Product) ? item.Product.MTS ? item.Product.MTS : "NA" : "NA"}</td>`);
         // 2 Model
-        row.append(`<td>${(item.Model) ? item.Model.ModelName : ""}</td>`);
+        row.append(`<td></td>`);
         // 3 Station
-        row.append(`<td>${(item.Station) ? item.Station.StationName : ""}</td>`);
+        row.append(`<td></td>`);
         // 4 DeviceCode - PN
         row.append(`<td data-id="${item.Id}" data-code="${item.DeviceCode}" title="${item.DeviceCode}">${item.DeviceCode ? item.DeviceCode != 'null' ? item.DeviceCode : 'NA' : "NA"}</td>`);
         // 5 DeviceName
         row.append(`<td title="${item.DeviceName}">${item.DeviceName}</td>`);
         // 6 Group
-        row.append(`<td>${(item.Group) ? item.Group.GroupName : ""}</td>`);
+        row.append(`<td></td>`);
         // 7 Vendor
-        row.append(`<td title="${(item.Vendor) ? item.Vendor.VendorName : ""}">${(item.Vendor) ? item.Vendor.VendorName : ""}</td>`);
+        row.append(`<td></td>`);
         // 8 Specification
-        row.append(`<td title="${item.Specification}">${(item.Specification) ? item.Specification : ""}</td>`);
+        row.append(`<td></td>`);
         // 9 Buffer
-        row.append(`<td title="${item.Buffer}">${item.Buffer * 100}%</td>`);
+        row.append(`<td></td>`);
         // 10 Quantity
-        row.append(`<td title="Real Quantity">${(item.RealQty != null) ? item.RealQty : 0}</td>`);
+        row.append(`<td class="text-primary fw-bold">${(item.SysQuantity != null) ? item.SysQuantity : 0}</td>`);
         // 11 Unit
         row.append(`<td class="text-center">${item.Unit ? item.Unit : ''}</td>`);
         // 12 Type
@@ -217,25 +217,13 @@ async function CreateTableAddDevice(devices) {
                         <a href="javascript:;" class="text-primary bg-light-primary border-0" title="Select This Device"><i class="fa-regular fa-circle-check"></i></a> 
                     </td>`);
         // 15 Location 
-        var html = ''
-        var title = ''
-        $.each(item.DeviceWarehouseLayouts, function (k, sss) {
-            var layout = sss.WarehouseLayout;
-            if (k == 0) {
-                html += `<lable>${layout.Line}${layout.Floor ? ' - ' + layout.Floor : ''}${layout.Cell ? ' - ' + layout.Cell : ''}</lable>`;
-            }
-            else {
-                html += `<lable class="d-none">${layout.Line}${layout.Floor ? ' - ' + layout.Floor : ''}${layout.Cell ? ' - ' + layout.Cell : ''}</lable>`;
-            }
-            title += `[${layout.Line}${layout.Floor ? ' - ' + layout.Floor : ''}${layout.Cell ? ' - ' + layout.Cell : ''}], `;
-        });
-        row.append(`<td title="${title}">${html}</td>`);
+        row.append(`<td></td>`);
         // 16 SysQuantity
         row.append(`<td>${item.SysQuantity}</td>`);
         // 17 IsConsign
-        row.append(`<td>${item.isConsign ? "Consign" : "Normal"}</td>`);
+        row.append(`<td></td>`);
         // 18 ProductName
-        row.append(`<td>${(item.Product) ? item.Product.ProductName ? item.Product.ProductName : "NA" : "NA"}</td>`);
+        row.append(`<td></td>`);
 
         $('#table_Devices_tbody').append(row);
     });
@@ -245,7 +233,7 @@ async function CreateTableAddDevice(devices) {
     const options = {
         scrollY: 500,
         scrollX: true,
-        order: [0, 'asc'],
+        order: [0, 'desc'],
         autoWidth: false,
         columnDefs: [
             { targets: "_all", orderable: false },

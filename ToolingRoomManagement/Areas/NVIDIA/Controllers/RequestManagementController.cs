@@ -21,6 +21,9 @@ using ToolingRoomManagement.Attributes;
 namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
 {
     //[Authentication]
+
+    // 06-20 - Tommy request change logic borrow device. After borrow, apart realQty now
+
     public class RequestManagementController : Controller
     {
         private ToolingRoomEntities db = new ToolingRoomEntities();
@@ -984,7 +987,22 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
             try
             {
                 Entities.Warehouse warehouse = db.Warehouses.FirstOrDefault(w => w.Id == IdWarehouse);
-                //warehouse.Devices = warehouse.Devices.Where(d => d.Status != "Deleted").ToList();
+                warehouse.Devices = warehouse.Devices.Where(d => d.Status != "Deleted").ToList();
+
+                var devices = warehouse.Devices.Select(d => new
+                {
+                    d.Id,
+                    d.Product,
+                    d.DeviceCode,
+                    d.DeviceName,
+                    d.SysQuantity,
+                    d.Unit,
+                    d.Type,
+                    d.Type_BOM,
+                    d.Status,
+                }).ToList();
+
+                warehouse.Devices.Clear();
 
                 if (warehouse != null)
                 {
@@ -994,7 +1012,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                         warehouse.WarehouseUsers = db.Users.Where(u => u.UserRoles.Any(ur => ur.IdRole == 3) && u.Id != warehouse.IdUserManager).ToList();
                     }
 
-                    return Json(new { status = true, warehouse });
+                    return Json(new { status = true, warehouse, devices });
                 }
                 else
                 {

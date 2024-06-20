@@ -27,7 +27,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Data
             else if (device.QtyConfirm >= device.Quantity)
                 status = "Confirmed";
 
-            if (device.RealQty <= (device.QtyConfirm * device.Buffer))
+            if (device.SysQuantity <= (device.QtyConfirm * device.Buffer))
                 status = "Out Range";
 
             return status;

@@ -5,6 +5,7 @@
 
 var datatable;
 var requests;
+
 function InitDatatable() {
     const options = {
         scrollY: 480,
@@ -54,6 +55,8 @@ function InitDatatable() {
 async function CreateRequestTable() {
     try {
         requests = await GetRequests();
+        getObjectSize(requests);
+        
 
         $('#info-request').text(requests.cTotal);
         $('#info-pending').text(requests.cPending);

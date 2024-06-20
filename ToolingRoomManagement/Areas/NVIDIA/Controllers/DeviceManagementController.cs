@@ -407,8 +407,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                         LifeCycle = int.Parse(form["LifeCycle"]),
                         Forcast = oldDevice.Forcast,
                         QtyConfirm = int.Parse(form["QtyConfirm"]),
-                        ACC_KIT = oldDevice.ACC_KIT,
-                        RealQty = int.Parse(form["RealQty"]),
+                        ACC_KIT = oldDevice.ACC_KIT,                        
                         ImagePath = oldDevice.ImagePath,
                         Specification = form["Specification"],
                         Unit = form["Unit"],
@@ -441,8 +440,11 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                         device.AlternativeDevices.Add(AltPN);
                     }
 
-                    // *** Đừng xoá ngoặc :((
-                    device.SysQuantity = device.RealQty - (oldDevice.RealQty - oldDevice.SysQuantity);
+                    // *** 
+                    var newRealQty = int.Parse(form["RealQty"]);
+                    var gap = newRealQty - oldDevice.SysQuantity;
+                    device.RealQty = oldDevice.RealQty + gap;
+                    device.SysQuantity = newRealQty;
 
                     // Add Navigation Data
                     device = AddNavigation(form, device);
@@ -824,15 +826,37 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
 
                 //var Devices = db.Devices.Where(d => d.IdWareHouse == warehouse.Id).OrderByDescending(d => d.Id).Skip(skipAmount).Take(1000).ToList();
 
-                warehouse.Devices = warehouse.Devices.Where(d => d.IdWareHouse == warehouse.Id && d.Status != "Deleted").OrderByDescending(d => d.Id).ToList();
+                var devices = warehouse.Devices.Select(d => new
+                {
+                    d.Id,
+                    d.IdWareHouse,
+                    d.DeviceCode,
+                    d.DeviceName,
+                    d.Status,
+                    d.Product,
+                    d.DeviceWarehouseLayouts,
+                    d.Buffer,
+                    d.QtyConfirm,
+                    d.RealQty,
+                    d.SysQuantity,
+                    d.NG_Qty,
+                    d.Unit,
+                    d.DeliveryTime,
+                    d.Type,
+                    d.Type_BOM,
+                    d.isConsign,
+                    AlternativeDevices = d.AlternativeDevices.Select(apn => apn.PNs).ToList()
+                }).Where(d => d.IdWareHouse == warehouse.Id && d.Status != "Deleted").ToList();
 
-                return Json(new { status = true, warehouse });
+                warehouse.Devices = null;
+
+                return Json(new { status = true, devices });
             }
             catch (Exception ex)
             {
                 return Json(new { status = false, message = ex.Message });
             }
-        }      
+        }
         public JsonResult GetDeviceByCode(string DeviceCode)
         {
             try
@@ -1132,7 +1156,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                             device.AlternativeDevices = dtemp1 != null ? dtemp1.AlternativeDevices : null;
 
                             device.QtyConfirm = devices.Sum(d => d.QtyConfirm);
-                            device.RealQty = devices.Sum(d => d.RealQty);
+                            device.SysQuantity = devices.Sum(d => d.SysQuantity);
                             device.NG_Qty = devices.Sum(d => d.NG_Qty);
 
                             var dtemp2 = devices.FirstOrDefault(d => Regex.IsMatch(d.DeliveryTime, @"\d"));
@@ -1150,7 +1174,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                             int PR_Qty = CountPRDevice(_PN);
 
                             int AltPnQty = (device.AlternativeDevices != null) ? CountAltPNQuantity(device.AlternativeDevices.ToList().First().PNs) : 0;
-                            int GAP = (PR_Qty + (device.RealQty ?? 0)) - _RequestQty;
+                            int GAP = (PR_Qty + (device.SysQuantity ?? 0)) - _RequestQty;
                             int totalQty = (device.QtyConfirm ?? 0) + PR_Qty;
 
                             string Risk = "High";
@@ -1230,7 +1254,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                             outWorksheet.Cells[row, 18, row, 25].Style.WrapText = true;
 
                             // RealQuantity, NGQuantity, RequestQuantity, GAP, Risk, HavePicture (Y/N), Owner
-                            outWorksheet.Cells[row, 26].Value = (device.RealQty != null) ? device.RealQty : 0;
+                            outWorksheet.Cells[row, 26].Value = (device.SysQuantity != null) ? device.SysQuantity : 0;
                             outWorksheet.Cells[row, 27].Value = (device.NG_Qty != null) ? device.NG_Qty : 0;
                             outWorksheet.Cells[row, 28].Value = _RequestQty;
                             outWorksheet.Cells[row, 29].Formula = $"(Q{row}+Z{row})-AB{row}";

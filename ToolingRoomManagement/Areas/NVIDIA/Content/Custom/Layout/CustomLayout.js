@@ -274,3 +274,23 @@ async function TableAdjust(table, container) {
         }      
     }
 }
+
+
+
+function getObjectSize(obj) {
+    // Chuyển đổi object thành chuỗi JSON
+    const jsonString = JSON.stringify(obj);
+
+    // Tính số ký tự
+    const numCharacters = jsonString.length;
+
+    // Tính kích thước của chuỗi JSON theo byte
+    const numBytes = new TextEncoder().encode(jsonString).length;
+
+    // Chuyển đổi byte thành KB
+    const numKilobytes = numBytes / 1024;
+
+    console.log(`Number of characters: ${numCharacters}`);
+    console.log(`Size in bytes: ${numBytes} bytes`);
+    console.log(`Size in kilobytes: ${numKilobytes} KB`);
+}
