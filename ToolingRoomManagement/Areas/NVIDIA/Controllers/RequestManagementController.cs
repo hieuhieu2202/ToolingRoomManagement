@@ -15,7 +15,7 @@ using System.Web.Mvc;
 using System.Web.Script.Serialization;
 using ToolingRoomManagement.Areas.NVIDIA.Data;
 using ToolingRoomManagement.Areas.NVIDIA.Entities;
-using ToolingRoomManagement.Areas.NVIDIA.Reseptory;
+using ToolingRoomManagement.Areas.NVIDIA.Repositories;
 using ToolingRoomManagement.Attributes;
 
 namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
@@ -1671,7 +1671,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
         {
             try
             {
-                var result = RPurchaseRequest.GetPurchaseRequests();
+                var result = RPurchases.GetPurchaseRequests();
                 return Json(new { status = true, data = result }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -1683,7 +1683,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
         {
             try
             {
-                var result = RPurchaseRequest.GetPurchaseRequest(IdPurchaseRequest);
+                var result = RPurchases.GetPurchaseRequest(IdPurchaseRequest);
                 return Json(new { status = true, data = result }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -1696,7 +1696,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
         {
             try
             {
-                var result = RPurchaseRequest.CreatePurchaseRequest(PurchaseRequest);
+                var result = RPurchases.CreatePurchaseRequest(PurchaseRequest);
                 return Json(new { status = true, data = result }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -1708,7 +1708,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
         {
             try
             {
-                var result = RPurchaseRequest.UpdatePurchaseRequest(PurchaseRequest);
+                var result = RPurchases.UpdatePurchaseRequest(PurchaseRequest);
                 return Json(new { status = true, data = result }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -1721,7 +1721,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
         {
             try
             {
-                var result = RPurchaseRequest.DeletePurchaseRequest(IdPurchaseRequest);
+                var result = RPurchases.DeletePurchaseRequest(IdPurchaseRequest);
                 return Json(new { status = true, data = result }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)

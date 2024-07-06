@@ -151,7 +151,7 @@ function InitDatatable() {
                 text: i18next.t('device.management.export_excel'),
                 extend: 'excel',
                 exportOptions: {
-                    columns: [1, 2, 5, 6, 11, 14, 15]
+                    columns: [1, 2, 5, 6, 10, 11, 14, 15]
                 },
                 customize: function (xlsx) {
                     $('sheets sheet', xlsx.xl['workbook.xml']).attr('name', 'Devices');
@@ -200,7 +200,9 @@ function GetWarehouseDevices(IdWarehouse = 0) {
                     //CreateTableAddDevice(devices);
                     getObjectSize(response);
 
-                    var rowsToAdd = [];
+                    tableDeviceInfo.clear();
+
+                    var rowsToAdd = [];                   
                     $.each(devices, function (k, device) {
                         var tablerow = CreateDatatableRow(device);
                         rowsToAdd.push(tablerow);

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using ToolingRoomManagement.Areas.NVIDIA.Entities;
-using ToolingRoomManagement.Areas.NVIDIA.Reseptory;
+using ToolingRoomManagement.Areas.NVIDIA.Repositories;
 
 namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
 {
@@ -15,7 +15,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
         {
             try
             {
-                var result = RModel.GetModels();
+                var result = RModels.GetModels();
 
                 return Json(new { status = true, result }, JsonRequestBehavior.AllowGet);
             }
@@ -28,7 +28,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
         {
             try
             {
-                var result = RModel.GetModel(IdModel);
+                var result = RModels.GetModel(IdModel);
                 return Json(new { status = true, data = result }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -42,7 +42,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
         {
             try
             {
-                var result = RModel.CreateModel(model);
+                var result = RModels.CreateModel(model);
 
                 return Json(new { status = true, data = result }, JsonRequestBehavior.AllowGet);
             }
@@ -55,7 +55,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
         {
             try
             {
-                var result = RModel.UpdateModel(model);
+                var result = RModels.UpdateModel(model);
 
                 return Json(new { status = true, data = result }, JsonRequestBehavior.AllowGet);
             }
@@ -68,7 +68,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
         {
             try
             {
-                var result = RModel.DeleteModel(new Entities.Model { Id = IdModel });
+                var result = RModels.DeleteModel(new Entities.Model { Id = IdModel });
 
                 return Json(new { status = true, data = result }, JsonRequestBehavior.AllowGet);
             }

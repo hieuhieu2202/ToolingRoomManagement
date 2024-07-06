@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Web.Configuration;
 using System.Web.Mvc;
 using ToolingRoomManagement.Areas.NVIDIA.Entities;
-using ToolingRoomManagement.Areas.NVIDIA.Reseptory;
+using ToolingRoomManagement.Areas.NVIDIA.Repositories;
 using ToolingRoomManagement.Attributes;
 
 namespace ToolingRoomManagement.Areas.NVIDIA.Controllers

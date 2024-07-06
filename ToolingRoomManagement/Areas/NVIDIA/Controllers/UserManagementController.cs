@@ -6,7 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using ToolingRoomManagement.Areas.NVIDIA.Entities;
 using ToolingRoomManagement.Areas.NVIDIA.Data;
-using ToolingRoomManagement.Areas.NVIDIA.Reseptory;
+using ToolingRoomManagement.Areas.NVIDIA.Repositories;
 using ToolingRoomManagement.Attributes;
 
 namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
@@ -23,7 +23,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
         {
             try
             {
-                var result = RUser.GetUsers();
+                var result = RUsers.GetUsers();
 
                 return Json(new { status = true, data = result }, JsonRequestBehavior.AllowGet);
             }
@@ -38,7 +38,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
         {
             try
             {
-                var result = RUser.GetUser(IdUser);
+                var result = RUsers.GetUser(IdUser);
 
                 return Json(new { status = true, data = result }, JsonRequestBehavior.AllowGet);
             }
@@ -52,7 +52,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
         {
             try
             {
-                var result = RUser.GetUserByUsername(Username);
+                var result = RUsers.GetUserByUsername(Username);
 
                 return Json(new { status = true, data = result }, JsonRequestBehavior.AllowGet);
             }
@@ -66,7 +66,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
         {
             try
             {
-                var result = await RUser.GetUserInformation(username);
+                var result = await RUsers.GetUserInformation(username);
                 return Json(new { status = true, data = result }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -81,7 +81,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
         {
             try
             {
-                var result = RUser.CreateUserRole(IdUser, IdRole);
+                var result = RUsers.CreateUserRole(IdUser, IdRole);
 
                 return Json(new { status = true, data = result }, JsonRequestBehavior.AllowGet);
             }
@@ -97,7 +97,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
         {
             try
             {
-                var result = RUser.CreateUser(user);
+                var result = RUsers.CreateUser(user);
 
                 return Json(new { status = true, data = result }, JsonRequestBehavior.AllowGet);
             }
@@ -113,7 +113,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
         {
             try
             {
-                var result = RUser.UpdateUser(user);
+                var result = RUsers.UpdateUser(user);
 
                 return Json(new { status = true, data = result }, JsonRequestBehavior.AllowGet);
             }
@@ -129,7 +129,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
         {
             try
             {
-                var result = RUser.DeleteUser(new User { Id = IdUser }, IdRole);
+                var result = RUsers.DeleteUser(new User { Id = IdUser }, IdRole);
 
                 return Json(new { status = true, data = result }, JsonRequestBehavior.AllowGet);
             }

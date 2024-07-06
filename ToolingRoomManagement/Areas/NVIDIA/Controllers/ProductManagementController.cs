@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using ToolingRoomManagement.Areas.NVIDIA.Entities;
-using ToolingRoomManagement.Areas.NVIDIA.Reseptory;
+using ToolingRoomManagement.Areas.NVIDIA.Repositories;
 
 namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
 {
@@ -15,7 +15,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
         {
             try
             {
-                var result = RProduct.GetProducts();
+                var result = RProducts.GetProducts();
 
                 return Json(new { status = true, data = result }, JsonRequestBehavior.AllowGet);
             }
@@ -28,7 +28,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
         {
             try
             {
-                var result = RProduct.GetProduct(IdProduct);
+                var result = RProducts.GetProduct(IdProduct);
                 return Json(new { status = true, data = result }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -41,7 +41,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
         {
             try
             {
-                var result = RProduct.GetDataAndProducts();
+                var result = RProducts.GetDataAndProducts();
 
                 return Json(new { status = true, data = result }, JsonRequestBehavior.AllowGet);
             }
@@ -54,7 +54,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
         {
             try
             {
-                var result = RProduct.GetDataAndProduct(IdProduct);
+                var result = RProducts.GetDataAndProduct(IdProduct);
                 return Json(new { status = true, data = result }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -67,7 +67,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
         {
             try
             {
-                var result = RProduct.GetDevicesAndProducts();
+                var result = RProducts.GetDevicesAndProducts();
 
                 return Json(new { status = true, data = result }, JsonRequestBehavior.AllowGet);
             }
@@ -80,7 +80,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
         {
             try
             {
-                var result = RProduct.GetDevicesAndProduct(IdProduct);
+                var result = RProducts.GetDevicesAndProduct(IdProduct);
                 return Json(new { status = true, data = result }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -94,7 +94,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
         {
             try
             {
-                var result = RProduct.CreateProduct(product);
+                var result = RProducts.CreateProduct(product);
 
                 return Json(new { status = true, data = result }, JsonRequestBehavior.AllowGet);
             }
@@ -107,7 +107,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
         {
             try
             {
-                var result = RProduct.UpdateProduct(product);
+                var result = RProducts.UpdateProduct(product);
 
                 return Json(new { status = true, data = result }, JsonRequestBehavior.AllowGet);
             }
@@ -120,7 +120,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
         {
             try
             {
-                var result = RProduct.DeleteProduct(new Product { Id = IdProduct});
+                var result = RProducts.DeleteProduct(new Product { Id = IdProduct});
 
                 return Json(new { status = true, data = result }, JsonRequestBehavior.AllowGet);
             }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using ToolingRoomManagement.Areas.NVIDIA.Reseptory;
+using ToolingRoomManagement.Areas.NVIDIA.Repositories;
 using ToolingRoomManagement.Attributes;
 
 namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
@@ -17,7 +17,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
         {
             try
             {
-                var result  = RRole.GetRoles();
+                var result  = RRoles.GetRoles();
                 return Json(new { status = true, data = result }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -31,7 +31,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
         {
             try
             {
-                var result = RRole.GetRoleUsers(IdRole);
+                var result = RRoles.GetRoleUsers(IdRole);
                 return Json(new { status = true, data = result }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
