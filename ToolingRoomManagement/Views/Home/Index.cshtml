@@ -1,148 +1,78 @@
-﻿@model IEnumerable<ToolingRoomManagement.Models.View_Device_UserModel>
-@{
+﻿@{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout_HomePage.cshtml";
-    var listManager = (List<Model.EF.User>)ViewBag.listManage;
-    int dem = 0;
 }
-<script src="~/Assets/client/vendor/jquery/jquery.min.js"></script>
-<script src="~/Assets/client/vendor/jquery/table.min.js"></script>
-<link rel="stylesheet" href="/Assets/admin/style.css">
-<div class="content">
-    <div class="" style="margin-top:50px;width:80%;margin-left:10%;">
-        <div>
-            <div class="col-lg-6 col-md-7 col-sm-6 col-xs-12" style="float:right;width: 300px;">
-                <div class="header-top-menu tabl-d-n hd-search-rp">
-                    <div class="breadcome-heading" style="margin: 0px 0px 10px 0px;">
-                        <form role="search" class="">
-                            <input id="input_search" type="text" placeholder="Search..." class="form-control" style="width: 283px;color: #fffaf0;height: 39px;background:#1b2a47;">
-                            <a href="" style="left: 257px;margin-top: -23px;"><i class="fa fa-search"></i></a>
-                        </form>
+
+@section styles{
+    <link href="~/Areas/NVIDIA/Content/Vendor/Bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Areas/NVIDIA/Content/Vendor/Font-Awesome-640-Pro/css/all.css" rel="stylesheet" />
+    <link href="~/Assets/homePage/css/Jayc_custom.css?v=@Guid.NewGuid()" rel="stylesheet" />
+}
+
+<div class="content p-5">
+    <div class="row">
+        <div class="col-6 col-md-4">
+            <div class="card glass">
+                <div class="card-header">
+                    <div class="d-flex justify-content-center align-items-center">
+                        <img src="~/Assets/homePage/img/brandlogo/arlo.png" class="img-fluid me-2" style="height: 20px;">
+                        <span class="fw-bold">ARLO / </span>
+                        <img src="~/Assets/homePage/img/brandlogo/netgear.png" class="img-fluid mx-2" style="height: 20px;">
+                        <span class="fw-bold">NETGEAR</span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="list-group glass">
+                        <a class="list-group-item text-reset text-decoration-none w-100" href="/Admin/Login/Index">
+                            <i class="fa-duotone fa-solid fa-list-check fa-fade" style="--fa-animation-duration: 2s;"></i> TOOLINGROOM MANAGEMENT
+                        </a>
+                        <a class="list-group-item text-reset text-decoration-none" href="/Admin/LoginBorrow/LoginPage">
+                            <i class="fa-duotone fa-solid fa-rotate fa-spin" style="--fa-animation-duration: 2s;"></i> BORROW DEVICES
+                        </a>
                     </div>
                 </div>
             </div>
         </div>
-        <table id="tblDevice" class="table table-bordered" style="color:floralwhite;text-align:center;">
-            <thead style="background:#5c7096;">
-                <tr>
-                    <th class="th_" scope="col" style="text-align:center;" langKey="">STT</th>
-                    <th class="th_" scope="col" style="text-align:center;" langKey="code_device">Mã TB</th>
-                    <th class="th_" scope="col" style="text-align:center;" langKey="name_device">Tên TB</th>
-                    <th class="th_" scope="col" style="text-align:center;" langKey="quantity">Số lượng</th>
-                    <th class="th_" scope="col" style="text-align:center;" langKey="parameter">Quy cách</th>
-                    <th class="th_" scope="col" style="text-align:center;" langKey="location">Kho</th>
-                    <th class="th_" scope="col" style="text-align:center;margin:0;padding:0;width:200px;">
-                        <select id="manager" style="margin:0;height: 44px;width: 100%;padding: 0;font-weight: 700;color: #fffaea;background-color: #5c7096;border:0;padding-left: 75px;">
-                            <option value="0" langKey="manager">Quản lý</option>
-                            @foreach (var manager in listManager)
-                            {
-                                <option value="@manager.id">@manager.fullname</option>
-                            }
-                        </select>
-                    </th>
-                    <th class="th_" scope="col" style="text-align:center;" langKey="status">Trạng thái</th>
-                </tr>
-            </thead>
-            <tbody id="tbdDevice">
-                @foreach (var device in Model)
-                {
-                    { dem++; }
-                <tr>
-
-                    <td scope="row">@dem</td>
-                    <td>@device.device.code_device</td>
-                    <td>@device.device.device_name</td>
-                    <td>@device.device.quantity</td>
-                    <td>@device.device.parameter</td>
-                    <td>@device.device.location</td>
-                    <td>@device.username</td>
-                    @if (device.device.quantity > 25)
-                    {
-                        <td style="background-color:#62ad3c;" langKey="many">Nhiều</td>
-                    }
-                    else if (device.device.quantity <= 25 && device.device.quantity > 0)
-                    {
-                        <td style="background-color:orange;" langKey="little">Ít</td>
-                    }
-                    else
-                    {
-                        <td style="background-color:red;" langKey="over">Hết</td>
-                    }
-
-                </tr>
-                }
-            </tbody>
-        </table>
+        <div class="col-6 col-md-4">
+            <div class="card glass">
+                <div class="card-header">
+                    <div class="d-flex justify-content-center align-items-center">
+                        <img src="~/Assets/homePage/img/brandlogo/nvidia.png" class="img-fluid me-2" style="height: 20px;">
+                        <span class="fw-bold">NVIDIA NIC</span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="list-group glass">
+                        <a class="list-group-item text-reset text-decoration-none w-100" href="/NVIDIA/Authentication/SignIn">
+                            <i class="fa-duotone fa-solid fa-right-to-bracket fa-fade" style="--fa-animation-duration: 2s;"></i> LOGIN
+                        </a>
+                        <a class="list-group-item text-reset text-decoration-none" href="/NVIDIA/Dashboard">
+                            <i class="fa-duotone fa-solid fa-chart-simple fa-fade" style="--fa-animation-duration: 2s;"></i> DASHBOARD
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6 col-md-4">
+            <div class="card glass">
+                <div class="card-header">
+                    <div class="d-flex justify-content-center align-items-center">
+                        <img src="~/Assets/homePage/img/brandlogo/nvidia.png" class="img-fluid me-2" style="height: 20px;">
+                        <span class="fw-bold">NVIDIA LC SWITCH</span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="list-group glass">
+                        <a class="list-group-item text-reset text-decoration-none w-100" href="https://10.220.130.117:6666/NVIDIA/Authentication/SignIn">
+                            <i class="fa-duotone fa-solid fa-right-to-bracket fa-fade" style="--fa-animation-duration: 2s;"></i> LOGIN
+                        </a>
+                        <a class="list-group-item text-reset text-decoration-none" href="https://10.220.130.117:6666/NVIDIA/Dashboard">
+                            <i class="fa-duotone fa-solid fa-chart-simple fa-fade" style="--fa-animation-duration: 2s;"></i> DASHBOARD
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
-
-<script>
-    
-    $("#input_search").on("keyup", function () {
-        //get the input value, trimmed, and lowercased
-        var value = this.value.trim().toLowerCase();
-        //get the associated table
-        var $table;
-        $table = $("#tbdDevice");
-
-        //show all the rows to "undo" previous filtering
-        $table.find('tr').show();
-
-        //only filter if the value is not blank
-        if (value) {
-            $table.find('thead tr').show();
-            //find all the rows that do not match the filter, and hide them
-            $table.find('tr').filter(function () {
-
-                return this.innerText.toLowerCase().indexOf(value) < 0;
-            }).hide();
-        }
-    });
-    $(window).on("load", function () {
-        //$.ajax({
-        //    type: "Post",
-        //    url: "/Home/get_DataByMonth",
-        //    contentType: "application/json; charset=utf-8",
-        //    dataType: "json",
-        //    success: function (data) {
-        //        //alert(data);
-        //    },
-        //    error: function (err) {
-        //        //debugger
-        //        alert("FAIL!");
-        //    }
-        //});
-        $('#tblDevice').DataTable({
-            "lengthMenu": [[1000, 1000, 1000, 1000], [1000, 1000, 1000, 10000]]
-        });
-    });
-    $("#manager").on("change", function () {
-        var table = $('#tblDevice').DataTable({
-            orderCellsTop: true,
-            fixedHeader: true
-        });
-        var value = $("#manager :selected").text();
-        //alert(value);
-        if (value == "Quản lý"||value=="Manager") {
-            if (table.column(6).search() !== '') {
-                table
-                    .column(6)
-                    .search('')
-                    .draw();
-            }
-            //table.column(1).search("").draw();
-        }
-        else {
-            if (table.column(6).search() !== value) {
-                table
-                    .column(6)
-                    .search(value)
-                    .draw();
-            }
-        }
-
-
-
-    });
-</script>
 

@@ -6,17 +6,11 @@
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <link rel="icon" href="~/Assets/img/logo3.PNG" type="image/gif" sizes="150x150">
     <title>Home</title>
     <meta content="" name="descriptison">
     <meta content="" name="keywords">
-
     <!-- Favicons -->
-    @*<link href="/Assets/homePage/img/favicon.png" rel="icon">
-        <link href="/Assets/homePage/img/apple-touch-icon.png" rel="apple-touch-icon">*@
-
-    <!-- Google Fonts -->
-    @*<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Muli:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">*@
+    <link href="~/Assets/admin/img/favicon.ico" rel="icon">
 
     <!-- Vendor CSS Files -->
     <link href="/Assets/homePage/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -24,115 +18,21 @@
     <link href="/Assets/homePage/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
     <link href="/Assets/homePage/vendor/animate.css/animate.min.css" rel="stylesheet">
     <link href="/Assets/homePage/vendor/venobox/venobox.css" rel="stylesheet">
-    @*<link href="/Assets/homePage/vendor/owl.carousel//Assets/homePage/vendor/owl.carousel.min.css" rel="stylesheet">*@
     <link href="/Assets/homePage/vendor/aos/aos.css" rel="stylesheet">
     <link href="~/Assets/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" />
     <!-- Template Main CSS File -->
-    <link href="/Assets/homePage/css/style.css" rel="stylesheet">
+    <link href="/Assets/homePage/css/style.css?v=@Guid.NewGuid()" rel="stylesheet">
+    @RenderSection("styles", required: false)
 
-    <!-- =======================================================
-    * Template Name: Flattern - v2.1.0
-    * Template URL: https://bootstrapmade.com/flattern-multipurpose-bootstrap-template/
-    * Author: BootstrapMade.com
-    * License: https://bootstrapmade.com/license/
-    ======================================================== -->
 </head>
 
 <body data-aos-easing="ease-in-out" data-aos-duration="1000" data-aos-delay="0" style="background:#14100f;">
-    <style>
-        .menu-top li a {
-            color: antiquewhite;
-        }
-
-        .menu-top {
-            padding-top: 40px;
-        }
-
-        .title {
-            color: #fff;
-            font-weight: 500;
-        }
-
-            .title span {
-                animation: glowing 2s linear infinite;
-            }
-
-                .title span:nth-child(2) {
-                    animation-delay: 0.2s;
-                }
-
-                .title span:nth-child(3) {
-                    animation-delay: 0.4s;
-                }
-
-                .title span:nth-child(4) {
-                    animation-delay: 0.6s;
-                }
-
-                .title span:nth-child(5) {
-                    animation-delay: 0.8s;
-                }
-
-
-        @@keyframes glowing {
-            0%, 80% {
-                text-shadow: none;
-                color: #fff;
-            }
-
-            100% {
-                color: #fff;
-                text-shadow: 0 0 10px #ffffff, 0 0 20px #ffffff, 0 0 40px #ffffff, 0 0 80px #ffffff, 0 0 120px #ffffff, 0 0 160px #ffffff;
-            }
-        }
-
-        ::-webkit-scrollbar {
-            width: 5px;
-            height: 5px;
-        }
-    </style>
-    <button type="button" class="mobile-nav-toggle d-lg-none"><i class="icofont-navigation-menu"></i></button>
-
-    <!-- ======= Top Bar ======= -->
-    <section id="topbar" class="d-none d-lg-block" style="background:#152036;">
-        <div class="container d-flex" style="color:antiquewhite">
-            <div class="contact-info mr-auto">
-                <i class="icofont-envelope"></i><a href="#" style="color:antiquewhite;" class="title"><span>Automation</span><span> | </span><span>IOT Team</span><span> | </span><span>BanNguyen</span></a>
-                <i class="icofont-phone"></i> +31746
-            </div>
-            <div class="social-links">
-                <a href="/Home/ChangeCulTure/cn"><img src="~/Assets/img/Chinese.PNG" style="width: 30px;height: 20px; border-radius: 5px;" /></a>
-                <a href="/Home/ChangeCulTure/vi" style="padding:3px;"><img src="~/Assets/img/download (1).png" style="width: 30px;height: 20px; border-radius: 5px;" /></a>
-                <a href="/Home/ChangeCulTure/en" style="padding:0px;"><img src="~/Assets/img/Engand.PNG" style="width: 30px;height: 20px; border-radius: 5px;" /></a>
-                <a href="/Admin/Login/Index" class="twitter" style="color:antiquewhite;"><i class="fa fa-sign-in" style="color:#f03c02"></i> <b langKey="login_title">Đăng nhập</b></a>
-            </div>
-        </div>
-    </section>
-
     <!-- ======= Header ======= -->
     <div id="header-sticky-wrapper" class="sticky-wrapper" style="height: 120px;background:#1b2a47;">
         <header id="header" style="background: #1B2A47;" class="">
-            <div class="container d-flex" style="height: 110px;">
-
-                <div class="logo mr-auto">
-                    @*<h1 class="text-light"><a href="index.html">Manage File Fixture</a></h1>*@
-                    <img src="/Assets/img/Capture4.PNG" style="width: 500px;height: 209px;max-height: 107px;" />
-                    <!-- Uncomment below if you prefer to use an image logo -->
-                    <!-- <a href="index.html"><img src="/Assets/homePage/img/logo.png" alt="" class="img-fluid"></a>-->
-                </div>
-
-                <nav class="nav-menu d-none d-lg-block">
-                    <ul class="menu-top">
-                        <li class="active"><a href="/Home/Index" langKey="home_title">Trang chủ</a></li>
-                        <li class=""><a href="/Admin/LoginBorrow/LoginPage" langKey="">Borrow Product</a></li>
-                        <li class="">
-                            <a class="p-0" href="/NVIDIA/Authentication/SignIn" langKey=""><img src="~/Assets/img/nvdia-logo.png" style="height: 45px;"/></a>
-                        </li>
-                        @*<li><a href="/Home/Receive_By_Month">Receive By Month</a></li>*@
-                        @*<li><a href="services.html">Services</a></li>*@
-                    </ul>
-                </nav><!-- .nav-menu -->
-
+            <div class="container d-flex justify-content-center align-items-center" style="height: 110px;">
+                <i class="fa-duotone fa-solid fa-gear me-3 fa-spin" style="font-size: 90px; color: #ffc849; --fa-animation-duration: 5s; "></i>
+                <span class="title-animate">TOOLING ROOM SYSTEM</span>
             </div>
         </header>
     </div><!-- End Header -->
@@ -142,101 +42,19 @@
             @RenderBody()
         </div>
     </section><!-- End Hero -->
-    @*<main id="main">
-            <section id="cta" class="cta">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-9 text-center text-lg-left">
-
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-        </main>*@
     <!-- ======= Footer ======= -->
     <footer id="footer">
-
-        @*<div class="footer-top">
-                <div class="container">
-
-                </div>
-            </div>*@
-
-        <div class="container d-md-flex py-4">
-
-            <div class="mr-md-auto text-center text-md-left">
-                <div class="copyright">
-                    © Automation <strong><span>| IOT</span></strong>
-                </div>
-                <div class="credits">
-                    <!-- All the links in the footer should remain intact. -->
-                    <!-- You can delete the links only if you purchased the pro version. -->
-                    <!-- Licensing information: https://bootstrapmade.com/license/ -->
-                    <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/flattern-multipurpose-bootstrap-template/ -->
-                    Designed by <a href="#">BanNguyen</a>
-                </div>
-            </div>
-            <input type="hidden" id="langCode" value="@ViewBag.LangCode" />
-        </div>
+        <div class="text-center fs-6 py-3">@DateTime.Now.Year © <strong>MBD AUTOMATION-IOT</strong></div>
     </footer><!-- End Footer -->
 
     <a href="#" class="back-to-top" style="display: none;"><i class="icofont-simple-up"></i></a>
 
-    <!-- Vendor JS Files -->
-    @*<script src="~/Assets/client/vendor/jquery/jquery.min.js"></script>
-        <script src="/Assets/homePage/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>*@
-    @*<script src="/Assets/homePage/vendor/jquery.easing/jquery.easing.min.js"></script>*@
-    @*<script src="/Assets/homePage/vendor/php-email-form/validate.js"></script>
-        <script src="/Assets/homePage/vendor/jquery-sticky/jquery.sticky.js"></script>
-        <script src="/Assets/homePage/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-        <script src="/Assets/homePage/vendor/venobox/venobox.min.js"></script>
-        <script src="/Assets/homePage/vendor/waypoints/jquery.waypoints.min.js"></script>
-        <script src="/Assets/homePage/vendor/owl.carousel/owl.carousel.min.js"></script>
-        <script src="/Assets/homePage/vendor/aos/aos.js"></script>*@
-
     <!-- Template Main JS File -->
-    @*<script src="/Assets/homePage/js/main.js"></script>*@
-    <nav class="mobile-nav d-lg-none">
-        <ul></ul>
-    </nav>
-    <div class="mobile-nav-overly"></div>
 
-
-    <!-- Visual Studio Browser Link -->
-    @*<script type="application/json" id="__browserLink_initializationData">
-            {"appName":"Chrome","requestId":"045d4cddeef342d5bec03409883f44e6"}
-        </script>*@
-    @*<script type="text/javascript" src="http://localhost:49860/f7b585d907124301bf7d98458c83303f/browserLink" async="async"></script>*@
-    <!-- End Browser Link -->
-
-
-
-
-
+    @RenderSection("javascript", required: false)
 </body>
 </html>
-<script>
-    var langCode = $('#langCode').val() || 'en';
-    var jsonUrl = '../Assets/lang/' + langCode + '.json';
-    $.ajax({
-        url: jsonUrl,
-        dataType: "json",
-        async: false,
-        type: 'GET',
-        success: function (jsdata) {
-            $("[langKey]").each(function (index) {
-                var strTr = jsdata[$(this).attr("langKey")];
-                $(this).html(strTr);
-                $(this).attr("placeholder", strTr);
-            });
-        },
-        error: function (exception) {
-            alert(exception);
-        }
-    });
-</script>
-@RenderSection("javascript", required: false)
+
 
 
 

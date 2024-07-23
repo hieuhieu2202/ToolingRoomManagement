@@ -2039,6 +2039,8 @@
     <Content Include="Assets\admin\fonts\fontawesome-webfont.svg" />
     <Content Include="Assets\admin\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Assets\admin\fonts\nalika.svg" />
+    <Content Include="Assets\homePage\css\Jayc_custom.css" />
+    <Content Include="Assets\homePage\img\animated-text-fill.png" />
     <Content Include="Assets\admin\img\blog-details\1.jpg" />
     <Content Include="Assets\admin\img\contact\1.jpg" />
     <Content Include="Assets\admin\img\contact\2.jpg" />
@@ -3017,6 +3019,9 @@
     <Content Include="Assets\homePage\img\blog-recent-posts-3.jpg" />
     <Content Include="Assets\homePage\img\blog-recent-posts-4.jpg" />
     <Content Include="Assets\homePage\img\blog-recent-posts-5.jpg" />
+    <Content Include="Assets\homePage\img\brandlogo\arlo.png" />
+    <Content Include="Assets\homePage\img\brandlogo\netgear.png" />
+    <Content Include="Assets\homePage\img\brandlogo\nvidia.png" />
     <Content Include="Assets\homePage\img\clients\client-1.png" />
     <Content Include="Assets\homePage\img\clients\client-2.png" />
     <Content Include="Assets\homePage\img\clients\client-3.png" />

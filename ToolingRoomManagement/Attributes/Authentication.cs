@@ -15,7 +15,7 @@ namespace ToolingRoomManagement.Attributes
     public class Authentication : AuthorizeAttribute
     {
         public bool AllowAnonymous { get; set; } = false;
-        public string[] Role { get; set; } = null;
+        public string[] Roles { get; set; } = null;
 
         protected override bool AuthorizeCore(HttpContextBase httpContext)
         {
@@ -30,9 +30,9 @@ namespace ToolingRoomManagement.Attributes
                 if (user != null)
                 {
                     // Nếu yêu cầu quyền
-                    if(Role != null && Role.Length > 0)
+                    if(Roles != null && Roles.Length > 0)
                     {
-                        foreach(var role in Role)
+                        foreach(var role in Roles)
                         {
                             if(user.UserRoles.Any(r => r.Role.RoleName.ToUpper().Trim() == role.ToUpper().Trim() || r.Role.RoleName.ToUpper().Trim() == "ADMIN"))
                             {

@@ -1,3 +1,31 @@
+span.title-animate {
+    font: 700 4em/1 "Oswald", sans-serif;
+    letter-spacing: 0;
+    display: block;
+    text-shadow: 0 0 80px rgba(255, 255, 255, 0.5);
+    /* Clip Background Image */
+    background: url("../img/animated-text-fill.png") repeat-y;
+    -webkit-background-clip: text;
+    background-clip: text;
+    /* Animate Background Image */
+    -webkit-text-fill-color: transparent;
+    -webkit-animation: aitf 80s linear infinite;
+    /* Activate hardware acceleration for smoother animations */
+    -webkit-transform: translate3d(0, 0, 0);
+    -webkit-backface-visibility: hidden;
+}
+
+/* Animate Background Image */
+@-webkit-keyframes aitf {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    100% {
+        background-position: 100% 50%;
+    }
+}
+
 /**
 * Template Name: Flattern - v2.1.0
 * Template URL: https://bootstrapmade.com/flattern-multipurpose-bootstrap-template/
@@ -371,7 +399,7 @@ h1, h2, h3, h4, h5, h6 {
 --------------------------------------------------------------*/
 #hero_nam {
   width: 100%;
-  min-height: 70vh;
+  min-height: 80vh;
   /*overflow: auto;*/
   position: relative;
   padding: 0;
