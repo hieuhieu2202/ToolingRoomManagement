@@ -192,7 +192,7 @@ namespace ToolingRoomManagement.Areas.NVIDIA.Controllers
                     CnName = HrUser.USER_NAME,
                     HireDate = HrUser.HIREDATE,
                     LeaveDate = HrUser.LEAVEDAY,
-                    Status = "No Active",
+                    Status = "Active",
                     CreatedDate = DateTime.Now
                 };
 

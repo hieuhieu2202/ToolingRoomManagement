@@ -3,24 +3,8 @@
   "WorkspaceRootPath": "F:\\Projects\\WebApp\\ToolingRoomManagement\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{07C800A9-1E8C-4D7C-9159-A66BC7093279}|ToolingRoomManagement\\ToolingRoomManagement.csproj|F:\\Projects\\WebApp\\ToolingRoomManagement\\toolingroommanagement\\app_start\\routeconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{07C800A9-1E8C-4D7C-9159-A66BC7093279}|ToolingRoomManagement\\ToolingRoomManagement.csproj|solutionrelative:toolingroommanagement\\app_start\\routeconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{07C800A9-1E8C-4D7C-9159-A66BC7093279}|ToolingRoomManagement\\ToolingRoomManagement.csproj|f:\\projects\\webapp\\toolingroommanagement\\toolingroommanagement\\views\\shared\\_layout_homepage.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{07C800A9-1E8C-4D7C-9159-A66BC7093279}|ToolingRoomManagement\\ToolingRoomManagement.csproj|solutionrelative:toolingroommanagement\\views\\shared\\_layout_homepage.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{07C800A9-1E8C-4D7C-9159-A66BC7093279}|ToolingRoomManagement\\ToolingRoomManagement.csproj|F:\\Projects\\WebApp\\ToolingRoomManagement\\toolingroommanagement\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{07C800A9-1E8C-4D7C-9159-A66BC7093279}|ToolingRoomManagement\\ToolingRoomManagement.csproj|solutionrelative:toolingroommanagement\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{07C800A9-1E8C-4D7C-9159-A66BC7093279}|ToolingRoomManagement\\ToolingRoomManagement.csproj|F:\\Projects\\WebApp\\ToolingRoomManagement\\toolingroommanagement\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{07C800A9-1E8C-4D7C-9159-A66BC7093279}|ToolingRoomManagement\\ToolingRoomManagement.csproj|solutionrelative:toolingroommanagement\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{07C800A9-1E8C-4D7C-9159-A66BC7093279}|ToolingRoomManagement\\ToolingRoomManagement.csproj|F:\\Projects\\WebApp\\ToolingRoomManagement\\toolingroommanagement\\assets\\homepage\\css\\jayc_custom.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
-      "RelativeMoniker": "D:0:0:{07C800A9-1E8C-4D7C-9159-A66BC7093279}|ToolingRoomManagement\\ToolingRoomManagement.csproj|solutionrelative:toolingroommanagement\\assets\\homepage\\css\\jayc_custom.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+      "AbsoluteMoniker": "D:0:0:{07C800A9-1E8C-4D7C-9159-A66BC7093279}|ToolingRoomManagement\\ToolingRoomManagement.csproj|f:\\projects\\webapp\\toolingroommanagement\\toolingroommanagement\\areas\\nvidia\\areas\\devices\\devicemanagementcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{07C800A9-1E8C-4D7C-9159-A66BC7093279}|ToolingRoomManagement\\ToolingRoomManagement.csproj|solutionrelative:toolingroommanagement\\areas\\nvidia\\areas\\devices\\devicemanagementcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -30,7 +14,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 23,
+          "SelectedChildIndex": 21,
           "Children": [
             {
               "$type": "Bookmark",
@@ -109,68 +93,24 @@
               "Name": "ST:132:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
             },
             {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "Jayc_custom.css",
-              "DocumentMoniker": "F:\\Projects\\WebApp\\ToolingRoomManagement\\ToolingRoomManagement\\Assets\\homePage\\css\\Jayc_custom.css",
-              "RelativeDocumentMoniker": "ToolingRoomManagement\\Assets\\homePage\\css\\Jayc_custom.css",
-              "ToolTip": "F:\\Projects\\WebApp\\ToolingRoomManagement\\ToolingRoomManagement\\Assets\\homePage\\css\\Jayc_custom.css",
-              "RelativeToolTip": "ToolingRoomManagement\\Assets\\homePage\\css\\Jayc_custom.css",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABUAAAAoAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
-              "WhenOpened": "2024-07-22T10:07:54.645Z",
-              "EditorCaption": ""
+              "$type": "Bookmark",
+              "Name": "ST:129:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
             },
             {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Index.cshtml",
-              "DocumentMoniker": "F:\\Projects\\WebApp\\ToolingRoomManagement\\ToolingRoomManagement\\Views\\Home\\Index.cshtml",
-              "RelativeDocumentMoniker": "ToolingRoomManagement\\Views\\Home\\Index.cshtml",
-              "ToolTip": "F:\\Projects\\WebApp\\ToolingRoomManagement\\ToolingRoomManagement\\Views\\Home\\Index.cshtml",
-              "RelativeToolTip": "ToolingRoomManagement\\Views\\Home\\Index.cshtml",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAoAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-07-22T09:50:22.127Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "_Layout_HomePage.cshtml",
-              "DocumentMoniker": "F:\\Projects\\WebApp\\ToolingRoomManagement\\ToolingRoomManagement\\Views\\Shared\\_Layout_HomePage.cshtml",
-              "RelativeDocumentMoniker": "ToolingRoomManagement\\Views\\Shared\\_Layout_HomePage.cshtml",
-              "ToolTip": "F:\\Projects\\WebApp\\ToolingRoomManagement\\ToolingRoomManagement\\Views\\Shared\\_Layout_HomePage.cshtml",
-              "RelativeToolTip": "ToolingRoomManagement\\Views\\Shared\\_Layout_HomePage.cshtml",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABkAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-07-22T02:28:45.072Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "HomeController.cs",
-              "DocumentMoniker": "F:\\Projects\\WebApp\\ToolingRoomManagement\\ToolingRoomManagement\\Controllers\\HomeController.cs",
-              "RelativeDocumentMoniker": "ToolingRoomManagement\\Controllers\\HomeController.cs",
-              "ToolTip": "F:\\Projects\\WebApp\\ToolingRoomManagement\\ToolingRoomManagement\\Controllers\\HomeController.cs",
-              "RelativeToolTip": "ToolingRoomManagement\\Controllers\\HomeController.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABEAAAAfAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-22T02:28:28.263Z",
-              "EditorCaption": ""
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "RouteConfig.cs",
-              "DocumentMoniker": "F:\\Projects\\WebApp\\ToolingRoomManagement\\ToolingRoomManagement\\App_Start\\RouteConfig.cs",
-              "RelativeDocumentMoniker": "ToolingRoomManagement\\App_Start\\RouteConfig.cs",
-              "ToolTip": "F:\\Projects\\WebApp\\ToolingRoomManagement\\ToolingRoomManagement\\App_Start\\RouteConfig.cs",
-              "RelativeToolTip": "ToolingRoomManagement\\App_Start\\RouteConfig.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABsAAABPAAAA",
+              "Title": "DeviceManagementController.cs",
+              "DocumentMoniker": "F:\\Projects\\WebApp\\ToolingRoomManagement\\ToolingRoomManagement\\Areas\\NVIDIA\\Areas\\Devices\\DeviceManagementController.cs",
+              "RelativeDocumentMoniker": "ToolingRoomManagement\\Areas\\NVIDIA\\Areas\\Devices\\DeviceManagementController.cs",
+              "ToolTip": "F:\\Projects\\WebApp\\ToolingRoomManagement\\ToolingRoomManagement\\Areas\\NVIDIA\\Areas\\Devices\\DeviceManagementController.cs",
+              "RelativeToolTip": "ToolingRoomManagement\\Areas\\NVIDIA\\Areas\\Devices\\DeviceManagementController.cs",
+              "ViewState": "AQIAAB0EAAAAAAAAAAA3wDUEAAAXAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-22T02:21:35.881Z",
+              "WhenOpened": "2024-07-29T01:41:59.602Z",
               "EditorCaption": ""
             }
           ]
