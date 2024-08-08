@@ -3,8 +3,15 @@
   "WorkspaceRootPath": "F:\\Projects\\WebApp\\ToolingRoomManagement\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{07C800A9-1E8C-4D7C-9159-A66BC7093279}|ToolingRoomManagement\\ToolingRoomManagement.csproj|f:\\projects\\webapp\\toolingroommanagement\\toolingroommanagement\\areas\\nvidia\\areas\\devices\\devicemanagementcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{07C800A9-1E8C-4D7C-9159-A66BC7093279}|ToolingRoomManagement\\ToolingRoomManagement.csproj|solutionrelative:toolingroommanagement\\areas\\nvidia\\areas\\devices\\devicemanagementcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Administrator\\Desktop\\lcr_dashboard.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{07C800A9-1E8C-4D7C-9159-A66BC7093279}|ToolingRoomManagement\\ToolingRoomManagement.csproj|f:\\projects\\webapp\\toolingroommanagement\\toolingroommanagement\\areas\\admin\\controllers\\loginborrowcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{07C800A9-1E8C-4D7C-9159-A66BC7093279}|ToolingRoomManagement\\ToolingRoomManagement.csproj|solutionrelative:toolingroommanagement\\areas\\admin\\controllers\\loginborrowcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{07C800A9-1E8C-4D7C-9159-A66BC7093279}|ToolingRoomManagement\\ToolingRoomManagement.csproj|f:\\projects\\webapp\\toolingroommanagement\\toolingroommanagement\\areas\\nvidia\\content\\custom\\devicemanagement\\js\\devicemanagement.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{07C800A9-1E8C-4D7C-9159-A66BC7093279}|ToolingRoomManagement\\ToolingRoomManagement.csproj|solutionrelative:toolingroommanagement\\areas\\nvidia\\content\\custom\\devicemanagement\\js\\devicemanagement.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
     }
   ],
   "DocumentGroupContainers": [
@@ -14,7 +21,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 21,
+          "SelectedChildIndex": 20,
           "Children": [
             {
               "$type": "Bookmark",
@@ -97,20 +104,40 @@
               "Name": "ST:129:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
             },
             {
-              "$type": "Bookmark",
-              "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "lcr_dashboard.js",
+              "DocumentMoniker": "C:\\Users\\Administrator\\Desktop\\lcr_dashboard.js",
+              "ToolTip": "C:\\Users\\Administrator\\Desktop\\lcr_dashboard.js",
+              "ViewState": "AQIAADACAAAAAAAAAAA6wNgDAAABAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2024-08-06T04:15:36.294Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "DeviceManagementController.cs",
-              "DocumentMoniker": "F:\\Projects\\WebApp\\ToolingRoomManagement\\ToolingRoomManagement\\Areas\\NVIDIA\\Areas\\Devices\\DeviceManagementController.cs",
-              "RelativeDocumentMoniker": "ToolingRoomManagement\\Areas\\NVIDIA\\Areas\\Devices\\DeviceManagementController.cs",
-              "ToolTip": "F:\\Projects\\WebApp\\ToolingRoomManagement\\ToolingRoomManagement\\Areas\\NVIDIA\\Areas\\Devices\\DeviceManagementController.cs",
-              "RelativeToolTip": "ToolingRoomManagement\\Areas\\NVIDIA\\Areas\\Devices\\DeviceManagementController.cs",
-              "ViewState": "AQIAAB0EAAAAAAAAAAA3wDUEAAAXAAAA",
+              "DocumentIndex": 2,
+              "Title": "DeviceManagement.js",
+              "DocumentMoniker": "F:\\Projects\\WebApp\\ToolingRoomManagement\\ToolingRoomManagement\\Areas\\NVIDIA\\Content\\Custom\\DeviceManagement\\js\\DeviceManagement.js",
+              "RelativeDocumentMoniker": "ToolingRoomManagement\\Areas\\NVIDIA\\Content\\Custom\\DeviceManagement\\js\\DeviceManagement.js",
+              "ToolTip": "F:\\Projects\\WebApp\\ToolingRoomManagement\\ToolingRoomManagement\\Areas\\NVIDIA\\Content\\Custom\\DeviceManagement\\js\\DeviceManagement.js",
+              "RelativeToolTip": "ToolingRoomManagement\\Areas\\NVIDIA\\Content\\Custom\\DeviceManagement\\js\\DeviceManagement.js",
+              "ViewState": "AQIAAHwAAAAAAAAAAAAQwJoAAAASAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2024-08-06T03:49:18.74Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "LoginBorrowController.cs",
+              "DocumentMoniker": "F:\\Projects\\WebApp\\ToolingRoomManagement\\ToolingRoomManagement\\Areas\\Admin\\Controllers\\LoginBorrowController.cs",
+              "RelativeDocumentMoniker": "ToolingRoomManagement\\Areas\\Admin\\Controllers\\LoginBorrowController.cs",
+              "ToolTip": "F:\\Projects\\WebApp\\ToolingRoomManagement\\ToolingRoomManagement\\Areas\\Admin\\Controllers\\LoginBorrowController.cs",
+              "RelativeToolTip": "ToolingRoomManagement\\Areas\\Admin\\Controllers\\LoginBorrowController.cs",
+              "ViewState": "AQIAAF8AAAAAAAAAAAAcwHsAAAAcAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-29T01:41:59.602Z",
+              "WhenOpened": "2024-07-29T07:38:11.143Z",
               "EditorCaption": ""
             }
           ]
