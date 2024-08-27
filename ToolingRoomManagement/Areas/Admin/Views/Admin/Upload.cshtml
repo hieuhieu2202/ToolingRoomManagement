@@ -1,0 +1,22 @@
+﻿@{
+    ViewBag.Title = "Upload Fixture Acceptance Data";
+}
+
+<h2>Upload Fixture Acceptance Data</h2>
+
+@using (Html.BeginForm("Upload", "FixtureAcceptance", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="form-group">
+        <label for="file">Upload Excel File</label>
+        <input type="file" name="file" id="file" class="form-control" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Upload</button>
+}
+
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-info">
+        @TempData["Message"]
+    </div>
+}

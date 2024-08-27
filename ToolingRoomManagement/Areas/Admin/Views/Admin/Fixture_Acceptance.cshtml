@@ -1,0 +1,458 @@
+﻿@model List<Model.EF.FixtureAcceptance>
+
+@{
+    ViewBag.Title = "Fixture Acceptance";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout_AdminPage.cshtml";
+    var session = (ToolingRoomManagement.Common.UserLogin)Session[ToolingRoomManagement.Common.CommonConstants.USER_SESSION];
+    int dem = 0;
+}
+
+@using System.Globalization;
+<script src="~/Assets/admin/js/vendor/jquery-1.12.4.min.js"></script>
+<script src="~/Assets/client/vendor/jquery/table.min.js"></script>
+
+<title>@ViewBag.Title</title>
+<link href="~/Assets/admin/css/vendor/bootstrap.min.css" rel="stylesheet" />
+<script src="~/Assets/admin/js/vendor/jquery-1.12.4.min.js"></script>
+<script src="~/Assets/client/vendor/jquery/table.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.6/xlsx.full.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
+
+<style>
+
+
+    #message {
+        width: 300px;
+        text-align: center;
+    }
+
+        #message.hidden {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+
+    .form-group {
+        margin-bottom: 20px; /* Khoảng cách dưới cùng của form-group */
+    }
+
+        .form-group label {
+            display: block; /* Đảm bảo label chiếm toàn bộ chiều rộng của div */
+            margin-bottom: 10px; /* Khoảng cách dưới label */
+        }
+
+        .form-group input {
+            margin-bottom: 10px; /* Khoảng cách dưới input */
+        }
+
+        .form-group button {
+            margin-top: 10px; /* Khoảng cách trên button */
+        }
+
+    .table-container {
+        margin-top: 20px;
+        overflow-x: auto; /* Cho phép cuộn ngang nếu cần */
+        height: 600px; /* Điều chỉnh chiều cao theo yêu cầu của bạn */
+        overflow-y: auto; /* Bật cuộn dọc */
+        border: 1px solid #ddd; /* Thêm viền để dễ thấy khu vực chứa */
+    }
+
+        .table-container table {
+            width: 100%; /* Đảm bảo bảng mở rộng toàn bộ chiều rộng của khu vực chứa */
+            border-collapse: collapse; /* Hợp nhất các viền bảng */
+        }
+
+    .header-top-menu {
+        margin-bottom: 10px; /* Khoảng cách giữa ô tìm kiếm và bảng */
+        display: flex;
+        justify-content: flex-end; /* Đặt ô tìm kiếm ở góc phải */
+    }
+
+        .header-top-menu form {
+            display: flex;
+            align-items: center;
+        }
+
+        .header-top-menu input {
+            margin-right: 10px; /* Khoảng cách giữa ô tìm kiếm và nút tìm kiếm */
+        }
+
+    .tblShow thead tr th {
+        background: #2d9aca; /* Màu nền của tiêu đề bảng */
+        color: white; /* Màu chữ của tiêu đề bảng */
+        padding: 10px;
+        position: sticky;
+        top: 0; /* Đặt tiêu đề bảng ở vị trí cố định khi cuộn */
+    }
+
+    .tblShow tbody tr td {
+        padding: 8px;
+        border-bottom: 1px solid #ddd; /* Thêm viền dưới các ô dữ liệu */
+        color: white; /* Màu chữ của dữ liệu trong bảng */
+    }
+
+    .header-advance-area {
+        margin-bottom: 20px;
+    }
+
+    .product-sales-area {
+        margin-top: 20px;
+    }
+
+    .modal-content {
+        width: 750px;
+        margin-left: 50px;
+    }
+
+    .form-group {
+        margin-bottom: 15px; /* Khoảng cách giữa các trường trong form */
+    }
+
+        .form-group label {
+            font-size: 24px;
+            font-weight: bold; /* Làm đậm chữ cho nhãn */
+            color: #CCFF99; /* Màu chữ của nhãn */
+            display: block; /* Đảm bảo nhãn nằm trên cùng của input */
+            margin-bottom: 5px; /* Khoảng cách giữa nhãn và input */
+        }
+
+    .form-control {
+        border-radius: 4px; /* Bo tròn các góc của input */
+        border: 1px solid #ccc; /* Màu viền của input */
+        padding: 10px; /* Khoảng cách giữa nội dung và viền của input */
+        width: 300px;
+    }
+
+    .btn-primary {
+        background-color: #007bff; /* Màu nền của nút */
+        border: none; /* Loại bỏ viền của nút */
+        color: white; /* Màu chữ của nút */
+        padding: 10px 20px; /* Khoảng cách trong nút */
+        border-radius: 4px; /* Bo tròn các góc của nút */
+        cursor: pointer; /* Hiển thị con trỏ chuột khi di chuột qua nút */
+    }
+
+        .btn-primary:hover {
+            background-color: #0056b3; /* Màu nền của nút khi di chuột qua */
+        }
+
+    .alert-info {
+        background-color: #d9edf7; /* Màu nền của thông báo */
+        border-color: #bce8f1; /* Màu viền của thông báo */
+        color: #31708f; /* Màu chữ của thông báo */
+        padding: 15px; /* Khoảng cách trong thông báo */
+        border-radius: 4px; /* Bo tròn các góc của thông báo */
+    }
+</style>
+<div>
+    <div class="header-advance-area">
+        <!-- Mobile Menu start -->
+        <div class="mobile-menu-area">
+            <div class="container">
+
+            </div>
+        </div>
+        <div class="breadcome-area" style="margin-top: 40px;">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="breadcome-list" style="padding: 10px 20px 10px 20px;margin: 30px 0px 10px 0px;">
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                    <div class="breadcomb-wp">
+                                        <div class="breadcomb-icon zoom" data-toggle="tooltip" data-placement="bottom" title="Home">
+                                            @if (session.GroupID == 1)
+                                            {
+                                                <a href="/Admin/Admin/Index"><i class="icon nalika-home"></i></a>
+                                            }
+                                            else if (session.GroupID == 2)
+                                            {
+                                                <a href="/Admin/Admin/UserPage"><i class="icon nalika-home"></i></a>
+                                            }
+                                            else if (session.GroupID == 3)
+                                            {
+                                                <a href="/Admin/Admin/StaffPage"><i class="icon nalika-home"></i></a>
+                                            }
+                                            else if (session.GroupID == 4)
+                                            {
+                                                <a href="/Admin/Admin/Confirm_Page"><i class="icon nalika-home"></i></a>
+                                            }
+                                        </div>
+                                        <div class="breadcomb-ctn">
+                                            <h2>Fixture Management</h2>
+                                            <p>Welcome to Tooling <span class="bread-ntd">Room</span></p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                    <div class="breadcomb-report">
+                                        <button data-toggle="tooltip" data-placement="left" title="Export To Excel" class="btn" onclick="fnExcelReport()"><i class="icon nalika-download"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="product-sales-area mg-tb-30" style="margin: 10px 0px;">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="product-sales-chart" style="padding: 5px 10px 5px 20px;">
+                            <div class="portlet-title">
+                                <div class="row">
+
+                                    @using (Html.BeginForm("Upload", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                                    {
+                                        <div class="form-group">
+                                            <label for="file" class="label-upload">Upload Excel File</label>
+                                            <input type="file" name="file" id="file" class="form-control" />
+                                            <button type="submit" class="btn btn-primary">Upload</button>
+                                        </div>
+                                    }
+
+                                    @if (TempData["Message"] != null)
+                                    {
+                                        <div id="message" class="alert alert-info" role="alert">
+                                            @TempData["Message"]
+                                        </div>
+                                    }
+
+                                    <!-- Tìm kiếm -->
+                                    <div class="header-top-menu">
+                                        <form role="search">
+                                            <input id="input_search" type="text" placeholder="Search..." class="form-control" style="width: 283px; color: #fffaf0; height: 39px;">
+                                            @*<button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>*@
+                                        </form>
+                                    </div>
+
+                                    <!-- Bảng dữ liệu -->
+                                    <div class="table-container">
+                                        <table id="tbl_Fixture" class="tblShow table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Product</th>
+                                                    <th>Description</th>
+                                                    <th>Pn</th>
+                                                    <th>Revision</th>
+                                                    <th>Sn</th>
+                                                    <th>MfgDate</th>
+                                                    <th>MfgBy</th>
+                                                    <th>MfgOrigin</th>
+                                                    <th>Station</th>
+                                                    <th>SG</th>
+                                                    <th>MVT</th>
+                                                    <th>VV</th>
+                                                    <th>Result</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="tbdFixture">
+                                                @if (Model.Any())
+                                                {
+                                                    dem = 0;
+
+                                                    foreach (var fixture in Model)
+                                                    {
+                                                        var resultColor = fixture.Result.Equals("FAIL", StringComparison.OrdinalIgnoreCase) ? "background-color: red;" :
+                                                        fixture.Result.Equals("PASS", StringComparison.OrdinalIgnoreCase) ? "background-color: green;" : "";
+                                                        dem++;
+                                                        <tr>
+                                                            <td>@dem</td>
+                                                            <td>@fixture.Product</td>
+                                                            <td>@fixture.Description</td>
+                                                            <td>@fixture.Pn</td>
+                                                            <td>@fixture.Revision</td>
+                                                            <td>@fixture.Sn</td>
+                                                            <td>@fixture.MfgDate</td>
+                                                            <td>@fixture.MfgBy</td>
+                                                            <td>@fixture.MfgOrigin</td>
+                                                            <td>@fixture.Station</td>
+                                                            <td>@fixture.SG</td>
+                                                            <td>@fixture.MVT</td>
+                                                            <td>@fixture.VV</td>
+                                                            <td style="@resultColor">@fixture.Result</td>
+                                                        </tr>
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    <tr>
+                                                        <td colspan="14">No data available</td>
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var message = document.getElementById("message");
+        if (message) {
+            setTimeout(function () {
+                message.style.display = 'none';
+            }, 5000); // 5000ms = 5s
+        }
+    });
+    // ĐÃ tải OK
+    
+    //function fnExcelReport() {
+    //    debugger
+    //    var tab_text = "<table border='2px'><tr bgcolor='#87AFC6'>"; // Tạo hàng tiêu đề bắt đầu từ ô A1
+    //    var textRange;
+    //    var j = 0;
+    //    var tab = document.getElementById('tbl_Fixture'); // id of table
+
+    //    // Get the index of the last column (Result column in this case)
+    //    var lastColumnIndex = tab.rows[0].cells.length - 1;
+
+    //    function getCellStyle(value) {
+    //        if (value.toLowerCase() === 'pass') {
+    //            return 'background-color: green; color: white;';
+    //        } else if (value.toLowerCase() === 'fail') {
+    //            return 'background-color: red; color: white;';
+    //        }
+    //        return ''; // Default style
+    //    }
+
+    //    // Thêm tiêu đề cột vào hàng đầu tiên (ô A1, B1, C1, ...)
+    //    for (var i = 1; i < tab.rows[0].cells.length; i++) {
+    //        tab_text += "<td style='font-weight: bold;'>" + tab.rows[0].cells[i].innerText + "</td>";
+    //    }
+    //    tab_text += "</tr>";
+
+    //    // Thêm dữ liệu từ hàng thứ hai (dữ liệu bắt đầu từ ô A2, B2, C2, ...)
+    //    for (j = 1; j < tab.rows.length; j++) {
+    //        tab_text += "<tr>";
+    //        for (var i = 1; i < tab.rows[j].cells.length; i++) {
+    //            var cellValue = tab.rows[j].cells[i].innerText || tab.rows[j].cells[i].textContent;
+
+    //            // Apply style only to the last column (Result column)
+    //            var cellStyle = (i === lastColumnIndex) ? getCellStyle(cellValue) : '';
+
+    //            // If it's the "Result" column, add the formula
+    //            if (i === lastColumnIndex && j >= 2) { // Assuming data starts from the second row
+    //                var formula = '=IF(AND(J' + (j + 1) + '="OK",K' + (j + 1) + '="OK",L' + (j + 1) + '="OK"),"PASS","FAIL")';
+    //                tab_text += "<td style='" + cellStyle + "'>" + formula + "</td>";
+    //            } else {
+    //                tab_text += "<td style='" + cellStyle + "'>" + tab.rows[j].cells[i].innerHTML + "</td>";
+    //            }
+    //        }
+    //        tab_text += "</tr>";
+    //    }
+
+    //    tab_text += "</table>";
+    //    /*tab_text = tab_text.replace(/<A[^>]*>|<\/A>/g, "");*///remove if u want links in your table
+    //    /* tab_text = tab_text.replace(/<img[^>]*>/gi, "");*/ // remove if u want images in your table
+    //    tab_text = tab_text.replace(/<input[^>]*>|<\/input>/gi, ""); // remove input params
+
+    //    var ua = window.navigator.userAgent;
+    //    var msie = ua.indexOf("MSIE ");
+
+    //    if (msie > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./)) { // If Internet Explorer
+    //        var txtArea1 = document.createElement('iframe');
+    //        txtArea1.style.display = 'none';
+    //        document.body.appendChild(txtArea1);
+    //        txtArea1.contentWindow.document.open("txt/html", "replace");
+    //        txtArea1.contentWindow.document.write(tab_text);
+    //        txtArea1.contentWindow.document.close();
+    //        txtArea1.contentWindow.focus();
+    //        txtArea1.contentWindow.document.execCommand("SaveAs", true, "Fixture.xlsx");
+    //    } else { // Other browsers
+    //        var a = document.createElement('a');
+    //        a.href = 'data:application/vnd.ms-excel,' + encodeURIComponent(tab_text);
+    //        a.download = "Fixture.xls";
+    //        a.click();
+    //    }
+    //}
+    function fnExcelReport() {
+        var table = document.getElementById('tbl_Fixture');
+        var ws_data = [];
+
+        // Add headers to ws_data (First row)
+        var header = [];
+        for (var i = 1; i < table.rows[0].cells.length; i++) {
+            header.push({
+                v: table.rows[0].cells[i].innerText,
+                s: { fill: { fgColor: { rgb: "FFFF00" } }, font: { bold: true } } // Yellow background with bold font
+            });
+        }
+        ws_data.push(header);
+
+        // Add data rows to ws_data
+        for (var j = 1; j < table.rows.length; j++) {
+            var row = [];
+            for (var i = 1; i < table.rows[j].cells.length; i++) {
+                if (i === table.rows[j].cells.length - 1) { // Last column (Result column)
+                    var formula = '=IF(AND(J' + (j + 1) + '="OK",K' + (j + 1) + '="OK",L' + (j + 1) + '="OK"),"PASS","FAIL")';
+                    row.push({
+                        f: formula,
+                        s: { fill: { fgColor: { rgb: "FFFFFF" } } } // Default background color (white)
+                    });
+                } else {
+                    row.push({ v: table.rows[j].cells[i].innerText });
+                }
+            }
+            ws_data.push(row);
+        }
+
+        // Create a new workbook
+        var wb = XLSX.utils.book_new();
+
+        // Convert the data to a worksheet
+        var ws = XLSX.utils.aoa_to_sheet(ws_data);
+
+        // Apply styles based on the result value (PASS/FAIL) pre-evaluation
+        for (var j = 2; j <= table.rows.length; j++) {
+            var cellRef = "M" + j;
+            var formulaResult = table.rows[j - 1].cells[table.rows[j - 1].cells.length - 1].innerText;
+
+            if (formulaResult === "PASS") {
+                ws[cellRef].s = { fill: { fgColor: { rgb: "00FF00" } }, font: { color: { rgb: "FFFFFF" } } }; // Green background, white text
+            } else if (formulaResult === "FAIL") {
+                ws[cellRef].s = { fill: { fgColor: { rgb: "FF0000" } }, font: { color: { rgb: "FFFFFF" } } }; // Red background, white text
+            }
+        }
+
+        // Add the worksheet to the workbook
+        XLSX.utils.book_append_sheet(wb, ws, "Fixture");
+
+        // Generate and download the Excel file
+        XLSX.writeFile(wb, "Fixture.xlsx");
+    }
+
+
+
+    $("#input_search").on("keyup", function () {
+
+        //get the input value, trimmed, and lowercased
+        var value = this.value.trim().toLowerCase();
+        //get the associated table
+        var $table;
+        $table = $("#tbdFixture");
+
+        //show all the rows to "undo" previous filtering
+        $table.find('tr').show();
+
+        //only filter if the value is not blank
+        if (value) {
+            $table.find('thead tr').show();
+            //find all the rows that do not match the filter, and hide them
+            $table.find('tr').filter(function () {
+
+                return this.innerText.toLowerCase().indexOf(value) < 0;
+            }).hide();
+        }
+    });
+
+
+</script>
+

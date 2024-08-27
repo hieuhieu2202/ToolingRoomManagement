@@ -1,17 +1,130 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "F:\\Projects\\WebApp\\ToolingRoomManagement\\",
+  "WorkspaceRootPath": "F:\\Test C\u1EE7a H\u00EDu\\ToolingRoomManagement\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Administrator\\Desktop\\lcr_dashboard.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+      "AbsoluteMoniker": "D:0:0:{07C800A9-1E8C-4D7C-9159-A66BC7093279}|ToolingRoomManagement\\ToolingRoomManagement.csproj|F:\\Test C\u1EE7a H\u00EDu\\ToolingRoomManagement\\toolingroommanagement\\areas\\admin\\controllers\\admincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{07C800A9-1E8C-4D7C-9159-A66BC7093279}|ToolingRoomManagement\\ToolingRoomManagement.csproj|solutionrelative:toolingroommanagement\\areas\\admin\\controllers\\admincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{07C800A9-1E8C-4D7C-9159-A66BC7093279}|ToolingRoomManagement\\ToolingRoomManagement.csproj|f:\\projects\\webapp\\toolingroommanagement\\toolingroommanagement\\areas\\admin\\controllers\\loginborrowcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{07C800A9-1E8C-4D7C-9159-A66BC7093279}|ToolingRoomManagement\\ToolingRoomManagement.csproj|solutionrelative:toolingroommanagement\\areas\\admin\\controllers\\loginborrowcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{07C800A9-1E8C-4D7C-9159-A66BC7093279}|ToolingRoomManagement\\ToolingRoomManagement.csproj|f:\\test c\u1EE7a h\u00EDu\\toolingroommanagement\\toolingroommanagement\\areas\\admin\\views\\admin\\fixture_acceptance.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{07C800A9-1E8C-4D7C-9159-A66BC7093279}|ToolingRoomManagement\\ToolingRoomManagement.csproj|solutionrelative:toolingroommanagement\\areas\\admin\\views\\admin\\fixture_acceptance.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{07C800A9-1E8C-4D7C-9159-A66BC7093279}|ToolingRoomManagement\\ToolingRoomManagement.csproj|f:\\projects\\webapp\\toolingroommanagement\\toolingroommanagement\\areas\\nvidia\\content\\custom\\devicemanagement\\js\\devicemanagement.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
-      "RelativeMoniker": "D:0:0:{07C800A9-1E8C-4D7C-9159-A66BC7093279}|ToolingRoomManagement\\ToolingRoomManagement.csproj|solutionrelative:toolingroommanagement\\areas\\nvidia\\content\\custom\\devicemanagement\\js\\devicemanagement.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+      "AbsoluteMoniker": "D:0:0:{AFCEFD0E-D1B1-4834-B534-003A13DFBA06}|Model\\Model.csproj|F:\\Test C\u1EE7a H\u00EDu\\ToolingRoomManagement\\Model\\Dao\\Fixture_Dao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AFCEFD0E-D1B1-4834-B534-003A13DFBA06}|Model\\Model.csproj|solutionrelative:Model\\Dao\\Fixture_Dao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AFCEFD0E-D1B1-4834-B534-003A13DFBA06}|Model\\Model.csproj|F:\\Test C\u1EE7a H\u00EDu\\ToolingRoomManagement\\model\\dao\\fixtureacceptancedao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AFCEFD0E-D1B1-4834-B534-003A13DFBA06}|Model\\Model.csproj|solutionrelative:model\\dao\\fixtureacceptancedao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{07C800A9-1E8C-4D7C-9159-A66BC7093279}|ToolingRoomManagement\\ToolingRoomManagement.csproj|F:\\Test C\u1EE7a H\u00EDu\\ToolingRoomManagement\\toolingroommanagement\\areas\\admin\\controllers\\fixtureacceptancecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{07C800A9-1E8C-4D7C-9159-A66BC7093279}|ToolingRoomManagement\\ToolingRoomManagement.csproj|solutionrelative:toolingroommanagement\\areas\\admin\\controllers\\fixtureacceptancecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{07C800A9-1E8C-4D7C-9159-A66BC7093279}|ToolingRoomManagement\\ToolingRoomManagement.csproj|F:\\Test C\u1EE7a H\u00EDu\\ToolingRoomManagement\\toolingroommanagement\\global.asax.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{07C800A9-1E8C-4D7C-9159-A66BC7093279}|ToolingRoomManagement\\ToolingRoomManagement.csproj|solutionrelative:toolingroommanagement\\global.asax.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AFCEFD0E-D1B1-4834-B534-003A13DFBA06}|Model\\Model.csproj|f:\\test c\u1EE7a h\u00EDu\\toolingroommanagement\\model\\app.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{AFCEFD0E-D1B1-4834-B534-003A13DFBA06}|Model\\Model.csproj|solutionrelative:model\\app.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{07C800A9-1E8C-4D7C-9159-A66BC7093279}|ToolingRoomManagement\\ToolingRoomManagement.csproj|F:\\Test C\u1EE7a H\u00EDu\\ToolingRoomManagement\\ToolingRoomManagement\\Areas\\Admin\\Views\\Admin\\Fixture_Edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{07C800A9-1E8C-4D7C-9159-A66BC7093279}|ToolingRoomManagement\\ToolingRoomManagement.csproj|solutionrelative:ToolingRoomManagement\\Areas\\Admin\\Views\\Admin\\Fixture_Edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{07C800A9-1E8C-4D7C-9159-A66BC7093279}|ToolingRoomManagement\\ToolingRoomManagement.csproj|F:\\Test C\u1EE7a H\u00EDu\\ToolingRoomManagement\\toolingroommanagement\\views\\web.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
+      "RelativeMoniker": "D:0:0:{07C800A9-1E8C-4D7C-9159-A66BC7093279}|ToolingRoomManagement\\ToolingRoomManagement.csproj|solutionrelative:toolingroommanagement\\views\\web.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AFCEFD0E-D1B1-4834-B534-003A13DFBA06}|Model\\Model.csproj|F:\\Test C\u1EE7a H\u00EDu\\ToolingRoomManagement\\model\\dao\\edit_history_device.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AFCEFD0E-D1B1-4834-B534-003A13DFBA06}|Model\\Model.csproj|solutionrelative:model\\dao\\edit_history_device.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AFCEFD0E-D1B1-4834-B534-003A13DFBA06}|Model\\Model.csproj|F:\\Test C\u1EE7a H\u00EDu\\ToolingRoomManagement\\model\\dao\\output_dao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AFCEFD0E-D1B1-4834-B534-003A13DFBA06}|Model\\Model.csproj|solutionrelative:model\\dao\\output_dao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AFCEFD0E-D1B1-4834-B534-003A13DFBA06}|Model\\Model.csproj|F:\\Test C\u1EE7a H\u00EDu\\ToolingRoomManagement\\model\\dao\\receive_dao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AFCEFD0E-D1B1-4834-B534-003A13DFBA06}|Model\\Model.csproj|solutionrelative:model\\dao\\receive_dao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AFCEFD0E-D1B1-4834-B534-003A13DFBA06}|Model\\Model.csproj|F:\\Test C\u1EE7a H\u00EDu\\ToolingRoomManagement\\model\\dao\\input_dao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AFCEFD0E-D1B1-4834-B534-003A13DFBA06}|Model\\Model.csproj|solutionrelative:model\\dao\\input_dao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AFCEFD0E-D1B1-4834-B534-003A13DFBA06}|Model\\Model.csproj|F:\\Test C\u1EE7a H\u00EDu\\ToolingRoomManagement\\Model\\EF\\Golden.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AFCEFD0E-D1B1-4834-B534-003A13DFBA06}|Model\\Model.csproj|solutionrelative:Model\\EF\\Golden.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{07C800A9-1E8C-4D7C-9159-A66BC7093279}|ToolingRoomManagement\\ToolingRoomManagement.csproj|F:\\Test C\u1EE7a H\u00EDu\\ToolingRoomManagement\\ToolingRoomManagement\\Web.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{07C800A9-1E8C-4D7C-9159-A66BC7093279}|ToolingRoomManagement\\ToolingRoomManagement.csproj|solutionrelative:ToolingRoomManagement\\Web.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{07C800A9-1E8C-4D7C-9159-A66BC7093279}|ToolingRoomManagement\\ToolingRoomManagement.csproj|F:\\Test C\u1EE7a H\u00EDu\\ToolingRoomManagement\\ToolingRoomManagement\\App_Start\\RouteConfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{07C800A9-1E8C-4D7C-9159-A66BC7093279}|ToolingRoomManagement\\ToolingRoomManagement.csproj|solutionrelative:ToolingRoomManagement\\App_Start\\RouteConfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{07C800A9-1E8C-4D7C-9159-A66BC7093279}|ToolingRoomManagement\\ToolingRoomManagement.csproj|F:\\Test C\u1EE7a H\u00EDu\\ToolingRoomManagement\\ToolingRoomManagement\\Areas\\Admin\\Views\\Admin\\EqipmentMaintainEdit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{07C800A9-1E8C-4D7C-9159-A66BC7093279}|ToolingRoomManagement\\ToolingRoomManagement.csproj|solutionrelative:ToolingRoomManagement\\Areas\\Admin\\Views\\Admin\\EqipmentMaintainEdit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{07C800A9-1E8C-4D7C-9159-A66BC7093279}|ToolingRoomManagement\\ToolingRoomManagement.csproj|F:\\Test C\u1EE7a H\u00EDu\\ToolingRoomManagement\\ToolingRoomManagement\\Areas\\Admin\\Views\\Admin\\Eit_QuantityLimit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{07C800A9-1E8C-4D7C-9159-A66BC7093279}|ToolingRoomManagement\\ToolingRoomManagement.csproj|solutionrelative:ToolingRoomManagement\\Areas\\Admin\\Views\\Admin\\Eit_QuantityLimit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{07C800A9-1E8C-4D7C-9159-A66BC7093279}|ToolingRoomManagement\\ToolingRoomManagement.csproj|F:\\Test C\u1EE7a H\u00EDu\\ToolingRoomManagement\\ToolingRoomManagement\\Areas\\Admin\\Views\\Admin\\EqipmentMaintainView.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{07C800A9-1E8C-4D7C-9159-A66BC7093279}|ToolingRoomManagement\\ToolingRoomManagement.csproj|solutionrelative:ToolingRoomManagement\\Areas\\Admin\\Views\\Admin\\EqipmentMaintainView.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{07C800A9-1E8C-4D7C-9159-A66BC7093279}|ToolingRoomManagement\\ToolingRoomManagement.csproj|F:\\Test C\u1EE7a H\u00EDu\\ToolingRoomManagement\\ToolingRoomManagement\\Areas\\Admin\\Controllers\\GoldenController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{07C800A9-1E8C-4D7C-9159-A66BC7093279}|ToolingRoomManagement\\ToolingRoomManagement.csproj|solutionrelative:ToolingRoomManagement\\Areas\\Admin\\Controllers\\GoldenController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{07C800A9-1E8C-4D7C-9159-A66BC7093279}|ToolingRoomManagement\\ToolingRoomManagement.csproj|F:\\Test C\u1EE7a H\u00EDu\\ToolingRoomManagement\\ToolingRoomManagement\\Areas\\Admin\\Controllers\\GetDataController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{07C800A9-1E8C-4D7C-9159-A66BC7093279}|ToolingRoomManagement\\ToolingRoomManagement.csproj|solutionrelative:ToolingRoomManagement\\Areas\\Admin\\Controllers\\GetDataController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{07C800A9-1E8C-4D7C-9159-A66BC7093279}|ToolingRoomManagement\\ToolingRoomManagement.csproj|F:\\Test C\u1EE7a H\u00EDu\\ToolingRoomManagement\\ToolingRoomManagement\\Areas\\Admin\\Controllers\\EquipmentMaintainController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{07C800A9-1E8C-4D7C-9159-A66BC7093279}|ToolingRoomManagement\\ToolingRoomManagement.csproj|solutionrelative:ToolingRoomManagement\\Areas\\Admin\\Controllers\\EquipmentMaintainController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{07C800A9-1E8C-4D7C-9159-A66BC7093279}|ToolingRoomManagement\\ToolingRoomManagement.csproj|F:\\Test C\u1EE7a H\u00EDu\\ToolingRoomManagement\\ToolingRoomManagement\\Areas\\Admin\\Controllers\\DeviceController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{07C800A9-1E8C-4D7C-9159-A66BC7093279}|ToolingRoomManagement\\ToolingRoomManagement.csproj|solutionrelative:ToolingRoomManagement\\Areas\\Admin\\Controllers\\DeviceController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AFCEFD0E-D1B1-4834-B534-003A13DFBA06}|Model\\Model.csproj|F:\\Test C\u1EE7a H\u00EDu\\ToolingRoomManagement\\Model\\EF\\Fixture.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AFCEFD0E-D1B1-4834-B534-003A13DFBA06}|Model\\Model.csproj|solutionrelative:Model\\EF\\Fixture.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AFCEFD0E-D1B1-4834-B534-003A13DFBA06}|Model\\Model.csproj|F:\\Test C\u1EE7a H\u00EDu\\ToolingRoomManagement\\Model\\Dao\\LUXFT1_Dao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AFCEFD0E-D1B1-4834-B534-003A13DFBA06}|Model\\Model.csproj|solutionrelative:Model\\Dao\\LUXFT1_Dao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AFCEFD0E-D1B1-4834-B534-003A13DFBA06}|Model\\Model.csproj|F:\\Test C\u1EE7a H\u00EDu\\ToolingRoomManagement\\Model\\EF\\OrderPurchase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AFCEFD0E-D1B1-4834-B534-003A13DFBA06}|Model\\Model.csproj|solutionrelative:Model\\EF\\OrderPurchase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AFCEFD0E-D1B1-4834-B534-003A13DFBA06}|Model\\Model.csproj|F:\\Test C\u1EE7a H\u00EDu\\ToolingRoomManagement\\Model\\EF\\LUXFT3.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AFCEFD0E-D1B1-4834-B534-003A13DFBA06}|Model\\Model.csproj|solutionrelative:Model\\EF\\LUXFT3.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AFCEFD0E-D1B1-4834-B534-003A13DFBA06}|Model\\Model.csproj|F:\\Test C\u1EE7a H\u00EDu\\ToolingRoomManagement\\Model\\EF\\LUXFT1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AFCEFD0E-D1B1-4834-B534-003A13DFBA06}|Model\\Model.csproj|solutionrelative:Model\\EF\\LUXFT1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AFCEFD0E-D1B1-4834-B534-003A13DFBA06}|Model\\Model.csproj|F:\\Test C\u1EE7a H\u00EDu\\ToolingRoomManagement\\Model\\EF\\LineProduct.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AFCEFD0E-D1B1-4834-B534-003A13DFBA06}|Model\\Model.csproj|solutionrelative:Model\\EF\\LineProduct.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AFCEFD0E-D1B1-4834-B534-003A13DFBA06}|Model\\Model.csproj|F:\\Test C\u1EE7a H\u00EDu\\ToolingRoomManagement\\Model\\EF\\History_Device.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AFCEFD0E-D1B1-4834-B534-003A13DFBA06}|Model\\Model.csproj|solutionrelative:Model\\EF\\History_Device.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AFCEFD0E-D1B1-4834-B534-003A13DFBA06}|Model\\Model.csproj|F:\\Test C\u1EE7a H\u00EDu\\ToolingRoomManagement\\Model\\EF\\DeviceBackRoom.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AFCEFD0E-D1B1-4834-B534-003A13DFBA06}|Model\\Model.csproj|solutionrelative:Model\\EF\\DeviceBackRoom.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -21,8 +134,20 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 20,
+          "SelectedChildIndex": 24,
           "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:129:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
             {
               "$type": "Bookmark",
               "Name": "ST:132:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
@@ -105,39 +230,405 @@
             },
             {
               "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "App.config",
+              "DocumentMoniker": "F:\\Test C\u1EE7a H\u00EDu\\ToolingRoomManagement\\Model\\App.config",
+              "RelativeDocumentMoniker": "Model\\App.config",
+              "ToolTip": "F:\\Test C\u1EE7a H\u00EDu\\ToolingRoomManagement\\Model\\App.config",
+              "RelativeToolTip": "Model\\App.config",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABQAAAALAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000601|",
+              "WhenOpened": "2024-08-27T06:47:22.804Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "lcr_dashboard.js",
-              "DocumentMoniker": "C:\\Users\\Administrator\\Desktop\\lcr_dashboard.js",
-              "ToolTip": "C:\\Users\\Administrator\\Desktop\\lcr_dashboard.js",
-              "ViewState": "AQIAADACAAAAAAAAAAA6wNgDAAABAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
-              "WhenOpened": "2024-08-06T04:15:36.294Z",
+              "Title": "AdminController.cs",
+              "DocumentMoniker": "F:\\Test C\u1EE7a H\u00EDu\\ToolingRoomManagement\\ToolingRoomManagement\\Areas\\Admin\\Controllers\\AdminController.cs",
+              "RelativeDocumentMoniker": "ToolingRoomManagement\\Areas\\Admin\\Controllers\\AdminController.cs",
+              "ToolTip": "F:\\Test C\u1EE7a H\u00EDu\\ToolingRoomManagement\\ToolingRoomManagement\\Areas\\Admin\\Controllers\\AdminController.cs",
+              "RelativeToolTip": "ToolingRoomManagement\\Areas\\Admin\\Controllers\\AdminController.cs",
+              "ViewState": "AQIAAB8DAAAAAAAAAAAAwIMDAAA9AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-19T08:15:14.608Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "FixtureAcceptanceDAO.cs",
+              "DocumentMoniker": "F:\\Test C\u1EE7a H\u00EDu\\ToolingRoomManagement\\Model\\Dao\\FixtureAcceptanceDAO.cs",
+              "RelativeDocumentMoniker": "Model\\Dao\\FixtureAcceptanceDAO.cs",
+              "ToolTip": "F:\\Test C\u1EE7a H\u00EDu\\ToolingRoomManagement\\Model\\Dao\\FixtureAcceptanceDAO.cs",
+              "RelativeToolTip": "Model\\Dao\\FixtureAcceptanceDAO.cs",
+              "ViewState": "AQIAACYAAAAAAAAAAAAIwAwAAAAtAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-21T01:41:51.681Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "DeviceManagement.js",
-              "DocumentMoniker": "F:\\Projects\\WebApp\\ToolingRoomManagement\\ToolingRoomManagement\\Areas\\NVIDIA\\Content\\Custom\\DeviceManagement\\js\\DeviceManagement.js",
-              "RelativeDocumentMoniker": "ToolingRoomManagement\\Areas\\NVIDIA\\Content\\Custom\\DeviceManagement\\js\\DeviceManagement.js",
-              "ToolTip": "F:\\Projects\\WebApp\\ToolingRoomManagement\\ToolingRoomManagement\\Areas\\NVIDIA\\Content\\Custom\\DeviceManagement\\js\\DeviceManagement.js",
-              "RelativeToolTip": "ToolingRoomManagement\\Areas\\NVIDIA\\Content\\Custom\\DeviceManagement\\js\\DeviceManagement.js",
-              "ViewState": "AQIAAHwAAAAAAAAAAAAQwJoAAAASAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
-              "WhenOpened": "2024-08-06T03:49:18.74Z",
+              "Title": "Fixture_Dao.cs",
+              "DocumentMoniker": "F:\\Test C\u1EE7a H\u00EDu\\ToolingRoomManagement\\Model\\Dao\\Fixture_Dao.cs",
+              "RelativeDocumentMoniker": "Model\\Dao\\Fixture_Dao.cs",
+              "ToolTip": "F:\\Test C\u1EE7a H\u00EDu\\ToolingRoomManagement\\Model\\Dao\\Fixture_Dao.cs",
+              "RelativeToolTip": "Model\\Dao\\Fixture_Dao.cs",
+              "ViewState": "AQIAAA0AAAAAAAAAAAAgwBAAAAAdAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-20T02:28:00.077Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "LoginBorrowController.cs",
-              "DocumentMoniker": "F:\\Projects\\WebApp\\ToolingRoomManagement\\ToolingRoomManagement\\Areas\\Admin\\Controllers\\LoginBorrowController.cs",
-              "RelativeDocumentMoniker": "ToolingRoomManagement\\Areas\\Admin\\Controllers\\LoginBorrowController.cs",
-              "ToolTip": "F:\\Projects\\WebApp\\ToolingRoomManagement\\ToolingRoomManagement\\Areas\\Admin\\Controllers\\LoginBorrowController.cs",
-              "RelativeToolTip": "ToolingRoomManagement\\Areas\\Admin\\Controllers\\LoginBorrowController.cs",
-              "ViewState": "AQIAAF8AAAAAAAAAAAAcwHsAAAAcAAAA",
+              "Title": "Fixture_Acceptance.cshtml",
+              "DocumentMoniker": "F:\\Test C\u1EE7a H\u00EDu\\ToolingRoomManagement\\ToolingRoomManagement\\Areas\\Admin\\Views\\Admin\\Fixture_Acceptance.cshtml",
+              "RelativeDocumentMoniker": "ToolingRoomManagement\\Areas\\Admin\\Views\\Admin\\Fixture_Acceptance.cshtml",
+              "ToolTip": "F:\\Test C\u1EE7a H\u00EDu\\ToolingRoomManagement\\ToolingRoomManagement\\Areas\\Admin\\Views\\Admin\\Fixture_Acceptance.cshtml",
+              "RelativeToolTip": "ToolingRoomManagement\\Areas\\Admin\\Views\\Admin\\Fixture_Acceptance.cshtml",
+              "ViewState": "AQIAAMYAAAAAAAAAAAAAAOsAAABIAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-08-19T08:12:49.055Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Global.asax.cs",
+              "DocumentMoniker": "F:\\Test C\u1EE7a H\u00EDu\\ToolingRoomManagement\\ToolingRoomManagement\\Global.asax.cs",
+              "RelativeDocumentMoniker": "ToolingRoomManagement\\Global.asax.cs",
+              "ToolTip": "F:\\Test C\u1EE7a H\u00EDu\\ToolingRoomManagement\\ToolingRoomManagement\\Global.asax.cs",
+              "RelativeToolTip": "ToolingRoomManagement\\Global.asax.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABMAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-29T07:38:11.143Z",
+              "WhenOpened": "2024-08-26T08:15:42.029Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "FixtureAcceptanceController.cs",
+              "DocumentMoniker": "F:\\Test C\u1EE7a H\u00EDu\\ToolingRoomManagement\\ToolingRoomManagement\\Areas\\Admin\\Controllers\\FixtureAcceptanceController.cs",
+              "RelativeDocumentMoniker": "ToolingRoomManagement\\Areas\\Admin\\Controllers\\FixtureAcceptanceController.cs",
+              "ToolTip": "F:\\Test C\u1EE7a H\u00EDu\\ToolingRoomManagement\\ToolingRoomManagement\\Areas\\Admin\\Controllers\\FixtureAcceptanceController.cs",
+              "RelativeToolTip": "ToolingRoomManagement\\Areas\\Admin\\Controllers\\FixtureAcceptanceController.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAUAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-21T01:40:53.878Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Fixture_Edit.cshtml",
+              "DocumentMoniker": "F:\\Test C\u1EE7a H\u00EDu\\ToolingRoomManagement\\ToolingRoomManagement\\Areas\\Admin\\Views\\Admin\\Fixture_Edit.cshtml",
+              "RelativeDocumentMoniker": "ToolingRoomManagement\\Areas\\Admin\\Views\\Admin\\Fixture_Edit.cshtml",
+              "ToolTip": "F:\\Test C\u1EE7a H\u00EDu\\ToolingRoomManagement\\ToolingRoomManagement\\Areas\\Admin\\Views\\Admin\\Fixture_Edit.cshtml",
+              "RelativeToolTip": "ToolingRoomManagement\\Areas\\Admin\\Views\\Admin\\Fixture_Edit.cshtml",
+              "ViewState": "AQIAAH0AAAAAAAAAAAAswJAAAABOAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-08-20T03:17:00.297Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "web.config",
+              "DocumentMoniker": "F:\\Test C\u1EE7a H\u00EDu\\ToolingRoomManagement\\ToolingRoomManagement\\Views\\web.config",
+              "RelativeDocumentMoniker": "ToolingRoomManagement\\Views\\web.config",
+              "ToolTip": "F:\\Test C\u1EE7a H\u00EDu\\ToolingRoomManagement\\ToolingRoomManagement\\Views\\web.config",
+              "RelativeToolTip": "ToolingRoomManagement\\Views\\web.config",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABIAAAAxAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000601|",
+              "WhenOpened": "2024-08-20T10:43:26.642Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "Web.config",
+              "DocumentMoniker": "F:\\Test C\u1EE7a H\u00EDu\\ToolingRoomManagement\\ToolingRoomManagement\\Web.config",
+              "RelativeDocumentMoniker": "ToolingRoomManagement\\Web.config",
+              "ToolTip": "F:\\Test C\u1EE7a H\u00EDu\\ToolingRoomManagement\\ToolingRoomManagement\\Web.config",
+              "RelativeToolTip": "ToolingRoomManagement\\Web.config",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAACXAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000601|",
+              "WhenOpened": "2024-08-20T01:23:16.229Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "Input_Dao.cs",
+              "DocumentMoniker": "F:\\Test C\u1EE7a H\u00EDu\\ToolingRoomManagement\\Model\\Dao\\Input_Dao.cs",
+              "RelativeDocumentMoniker": "Model\\Dao\\Input_Dao.cs",
+              "ToolTip": "F:\\Test C\u1EE7a H\u00EDu\\ToolingRoomManagement\\Model\\Dao\\Input_Dao.cs",
+              "RelativeToolTip": "Model\\Dao\\Input_Dao.cs",
+              "ViewState": "AQIAACwAAAAAAAAAAAAIwAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-20T09:57:18.653Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "Receive_Dao.cs",
+              "DocumentMoniker": "F:\\Test C\u1EE7a H\u00EDu\\ToolingRoomManagement\\Model\\Dao\\Receive_Dao.cs",
+              "RelativeDocumentMoniker": "Model\\Dao\\Receive_Dao.cs",
+              "ToolTip": "F:\\Test C\u1EE7a H\u00EDu\\ToolingRoomManagement\\Model\\Dao\\Receive_Dao.cs",
+              "RelativeToolTip": "Model\\Dao\\Receive_Dao.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-20T09:57:28.428Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "Output_Dao.cs",
+              "DocumentMoniker": "F:\\Test C\u1EE7a H\u00EDu\\ToolingRoomManagement\\Model\\Dao\\Output_Dao.cs",
+              "RelativeDocumentMoniker": "Model\\Dao\\Output_Dao.cs",
+              "ToolTip": "F:\\Test C\u1EE7a H\u00EDu\\ToolingRoomManagement\\Model\\Dao\\Output_Dao.cs",
+              "RelativeToolTip": "Model\\Dao\\Output_Dao.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAIBJwAMAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-20T09:57:29.775Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Edit_History_Device.cs",
+              "DocumentMoniker": "F:\\Test C\u1EE7a H\u00EDu\\ToolingRoomManagement\\Model\\Dao\\Edit_History_Device.cs",
+              "RelativeDocumentMoniker": "Model\\Dao\\Edit_History_Device.cs",
+              "ToolTip": "F:\\Test C\u1EE7a H\u00EDu\\ToolingRoomManagement\\Model\\Dao\\Edit_History_Device.cs",
+              "RelativeToolTip": "Model\\Dao\\Edit_History_Device.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-20T10:02:13.619Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "Golden.cs",
+              "DocumentMoniker": "F:\\Test C\u1EE7a H\u00EDu\\ToolingRoomManagement\\Model\\EF\\Golden.cs",
+              "RelativeDocumentMoniker": "Model\\EF\\Golden.cs",
+              "ToolTip": "F:\\Test C\u1EE7a H\u00EDu\\ToolingRoomManagement\\Model\\EF\\Golden.cs",
+              "RelativeToolTip": "Model\\EF\\Golden.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-20T02:43:53.435Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "RouteConfig.cs",
+              "DocumentMoniker": "F:\\Test C\u1EE7a H\u00EDu\\ToolingRoomManagement\\ToolingRoomManagement\\App_Start\\RouteConfig.cs",
+              "RelativeDocumentMoniker": "ToolingRoomManagement\\App_Start\\RouteConfig.cs",
+              "ToolTip": "F:\\Test C\u1EE7a H\u00EDu\\ToolingRoomManagement\\ToolingRoomManagement\\App_Start\\RouteConfig.cs",
+              "RelativeToolTip": "ToolingRoomManagement\\App_Start\\RouteConfig.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABcAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-20T07:59:59.4Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "EqipmentMaintainEdit.cshtml",
+              "DocumentMoniker": "F:\\Test C\u1EE7a H\u00EDu\\ToolingRoomManagement\\ToolingRoomManagement\\Areas\\Admin\\Views\\Admin\\EqipmentMaintainEdit.cshtml",
+              "RelativeDocumentMoniker": "ToolingRoomManagement\\Areas\\Admin\\Views\\Admin\\EqipmentMaintainEdit.cshtml",
+              "ToolTip": "F:\\Test C\u1EE7a H\u00EDu\\ToolingRoomManagement\\ToolingRoomManagement\\Areas\\Admin\\Views\\Admin\\EqipmentMaintainEdit.cshtml",
+              "RelativeToolTip": "ToolingRoomManagement\\Areas\\Admin\\Views\\Admin\\EqipmentMaintainEdit.cshtml",
+              "ViewState": "AQIAABAAAAAAAAAAAABhwAIAAAApAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-08-20T03:20:58.265Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "Eit_QuantityLimit.cshtml",
+              "DocumentMoniker": "F:\\Test C\u1EE7a H\u00EDu\\ToolingRoomManagement\\ToolingRoomManagement\\Areas\\Admin\\Views\\Admin\\Eit_QuantityLimit.cshtml",
+              "RelativeDocumentMoniker": "ToolingRoomManagement\\Areas\\Admin\\Views\\Admin\\Eit_QuantityLimit.cshtml",
+              "ToolTip": "F:\\Test C\u1EE7a H\u00EDu\\ToolingRoomManagement\\ToolingRoomManagement\\Areas\\Admin\\Views\\Admin\\Eit_QuantityLimit.cshtml",
+              "RelativeToolTip": "ToolingRoomManagement\\Areas\\Admin\\Views\\Admin\\Eit_QuantityLimit.cshtml",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-08-20T03:20:59.159Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "EqipmentMaintainView.cshtml",
+              "DocumentMoniker": "F:\\Test C\u1EE7a H\u00EDu\\ToolingRoomManagement\\ToolingRoomManagement\\Areas\\Admin\\Views\\Admin\\EqipmentMaintainView.cshtml",
+              "RelativeDocumentMoniker": "ToolingRoomManagement\\Areas\\Admin\\Views\\Admin\\EqipmentMaintainView.cshtml",
+              "ToolTip": "F:\\Test C\u1EE7a H\u00EDu\\ToolingRoomManagement\\ToolingRoomManagement\\Areas\\Admin\\Views\\Admin\\EqipmentMaintainView.cshtml",
+              "RelativeToolTip": "ToolingRoomManagement\\Areas\\Admin\\Views\\Admin\\EqipmentMaintainView.cshtml",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-08-20T03:20:54.626Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "GoldenController.cs",
+              "DocumentMoniker": "F:\\Test C\u1EE7a H\u00EDu\\ToolingRoomManagement\\ToolingRoomManagement\\Areas\\Admin\\Controllers\\GoldenController.cs",
+              "RelativeDocumentMoniker": "ToolingRoomManagement\\Areas\\Admin\\Controllers\\GoldenController.cs",
+              "ToolTip": "F:\\Test C\u1EE7a H\u00EDu\\ToolingRoomManagement\\ToolingRoomManagement\\Areas\\Admin\\Controllers\\GoldenController.cs",
+              "RelativeToolTip": "ToolingRoomManagement\\Areas\\Admin\\Controllers\\GoldenController.cs",
+              "ViewState": "AQIAACQAAAAAAAAAAAAowAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-19T06:20:07.573Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "GetDataController.cs",
+              "DocumentMoniker": "F:\\Test C\u1EE7a H\u00EDu\\ToolingRoomManagement\\ToolingRoomManagement\\Areas\\Admin\\Controllers\\GetDataController.cs",
+              "RelativeDocumentMoniker": "ToolingRoomManagement\\Areas\\Admin\\Controllers\\GetDataController.cs",
+              "ToolTip": "F:\\Test C\u1EE7a H\u00EDu\\ToolingRoomManagement\\ToolingRoomManagement\\Areas\\Admin\\Controllers\\GetDataController.cs",
+              "RelativeToolTip": "ToolingRoomManagement\\Areas\\Admin\\Controllers\\GetDataController.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAxwAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-20T03:18:39.81Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "EquipmentMaintainController.cs",
+              "DocumentMoniker": "F:\\Test C\u1EE7a H\u00EDu\\ToolingRoomManagement\\ToolingRoomManagement\\Areas\\Admin\\Controllers\\EquipmentMaintainController.cs",
+              "RelativeDocumentMoniker": "ToolingRoomManagement\\Areas\\Admin\\Controllers\\EquipmentMaintainController.cs",
+              "ToolTip": "F:\\Test C\u1EE7a H\u00EDu\\ToolingRoomManagement\\ToolingRoomManagement\\Areas\\Admin\\Controllers\\EquipmentMaintainController.cs",
+              "RelativeToolTip": "ToolingRoomManagement\\Areas\\Admin\\Controllers\\EquipmentMaintainController.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-20T03:17:58.689Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "DeviceController.cs",
+              "DocumentMoniker": "F:\\Test C\u1EE7a H\u00EDu\\ToolingRoomManagement\\ToolingRoomManagement\\Areas\\Admin\\Controllers\\DeviceController.cs",
+              "RelativeDocumentMoniker": "ToolingRoomManagement\\Areas\\Admin\\Controllers\\DeviceController.cs",
+              "ToolTip": "F:\\Test C\u1EE7a H\u00EDu\\ToolingRoomManagement\\ToolingRoomManagement\\Areas\\Admin\\Controllers\\DeviceController.cs",
+              "RelativeToolTip": "ToolingRoomManagement\\Areas\\Admin\\Controllers\\DeviceController.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAxwAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-20T03:17:57.667Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "Fixture.cs",
+              "DocumentMoniker": "F:\\Test C\u1EE7a H\u00EDu\\ToolingRoomManagement\\Model\\EF\\Fixture.cs",
+              "RelativeDocumentMoniker": "Model\\EF\\Fixture.cs",
+              "ToolTip": "F:\\Test C\u1EE7a H\u00EDu\\ToolingRoomManagement\\Model\\EF\\Fixture.cs",
+              "RelativeToolTip": "Model\\EF\\Fixture.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABgAAAAsAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-20T02:43:50.896Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
+              "Title": "LUXFT1_Dao.cs",
+              "DocumentMoniker": "F:\\Test C\u1EE7a H\u00EDu\\ToolingRoomManagement\\Model\\Dao\\LUXFT1_Dao.cs",
+              "RelativeDocumentMoniker": "Model\\Dao\\LUXFT1_Dao.cs",
+              "ToolTip": "F:\\Test C\u1EE7a H\u00EDu\\ToolingRoomManagement\\Model\\Dao\\LUXFT1_Dao.cs",
+              "RelativeToolTip": "Model\\Dao\\LUXFT1_Dao.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-20T02:44:02.063Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 25,
+              "Title": "OrderPurchase.cs",
+              "DocumentMoniker": "F:\\Test C\u1EE7a H\u00EDu\\ToolingRoomManagement\\Model\\EF\\OrderPurchase.cs",
+              "RelativeDocumentMoniker": "Model\\EF\\OrderPurchase.cs",
+              "ToolTip": "F:\\Test C\u1EE7a H\u00EDu\\ToolingRoomManagement\\Model\\EF\\OrderPurchase.cs",
+              "RelativeToolTip": "Model\\EF\\OrderPurchase.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-20T02:43:59.639Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 26,
+              "Title": "LUXFT3.cs",
+              "DocumentMoniker": "F:\\Test C\u1EE7a H\u00EDu\\ToolingRoomManagement\\Model\\EF\\LUXFT3.cs",
+              "RelativeDocumentMoniker": "Model\\EF\\LUXFT3.cs",
+              "ToolTip": "F:\\Test C\u1EE7a H\u00EDu\\ToolingRoomManagement\\Model\\EF\\LUXFT3.cs",
+              "RelativeToolTip": "Model\\EF\\LUXFT3.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-20T02:43:57.405Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 27,
+              "Title": "LUXFT1.cs",
+              "DocumentMoniker": "F:\\Test C\u1EE7a H\u00EDu\\ToolingRoomManagement\\Model\\EF\\LUXFT1.cs",
+              "RelativeDocumentMoniker": "Model\\EF\\LUXFT1.cs",
+              "ToolTip": "F:\\Test C\u1EE7a H\u00EDu\\ToolingRoomManagement\\Model\\EF\\LUXFT1.cs",
+              "RelativeToolTip": "Model\\EF\\LUXFT1.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-20T02:43:56.417Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 28,
+              "Title": "LineProduct.cs",
+              "DocumentMoniker": "F:\\Test C\u1EE7a H\u00EDu\\ToolingRoomManagement\\Model\\EF\\LineProduct.cs",
+              "RelativeDocumentMoniker": "Model\\EF\\LineProduct.cs",
+              "ToolTip": "F:\\Test C\u1EE7a H\u00EDu\\ToolingRoomManagement\\Model\\EF\\LineProduct.cs",
+              "RelativeToolTip": "Model\\EF\\LineProduct.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-20T02:43:55.199Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 29,
+              "Title": "History_Device.cs",
+              "DocumentMoniker": "F:\\Test C\u1EE7a H\u00EDu\\ToolingRoomManagement\\Model\\EF\\History_Device.cs",
+              "RelativeDocumentMoniker": "Model\\EF\\History_Device.cs",
+              "ToolTip": "F:\\Test C\u1EE7a H\u00EDu\\ToolingRoomManagement\\Model\\EF\\History_Device.cs",
+              "RelativeToolTip": "Model\\EF\\History_Device.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-20T02:43:54.353Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 30,
+              "Title": "DeviceBackRoom.cs",
+              "DocumentMoniker": "F:\\Test C\u1EE7a H\u00EDu\\ToolingRoomManagement\\Model\\EF\\DeviceBackRoom.cs",
+              "RelativeDocumentMoniker": "Model\\EF\\DeviceBackRoom.cs",
+              "ToolTip": "F:\\Test C\u1EE7a H\u00EDu\\ToolingRoomManagement\\Model\\EF\\DeviceBackRoom.cs",
+              "RelativeToolTip": "Model\\EF\\DeviceBackRoom.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-20T02:43:52.04Z",
               "EditorCaption": ""
             }
           ]

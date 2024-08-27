@@ -86,6 +86,8 @@
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
     <style>
+
+
         @@media (min-width: 900px) {
             .modal-sm {
                 width: 900px;
@@ -294,12 +296,40 @@
                                 <li><a title="Golden" href="/Admin/Admin/Golden_View"><span class="mini-sub-pro" langKey="golden_management">Golden Management</span></a></li>
                             </ul>
                         </li>
+                        @*<li>
+                                <a class="has-arrow" href="/Admin/Admin/Fixture_View" aria-expanded="false"><i class="icon nalika-gear icon-wrap"></i> <span class="mini-click-non">Fixture</span></a>
+                                <ul class="submenu-angle" aria-expanded="false">
+                                    <li>
+                                        <a title="Fixture" href="/Admin/Admin/Fixture_View">
+                                            <span class="mini-sub-pro" langKey="fixture_management">Fixture Management</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a title="Fixture" href="/Admin/Admin/Fixture_Acceptance">
+                                            <span class="mini-sub-pro" langKey="fixture_acceptance">Fixture Acceptance </span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>*@
                         <li>
-                            <a class="has-arrow" href="/Admin/Admin/Fixture_View" aria-expanded="false"><i class="icon nalika-gear icon-wrap"></i> <span class="mini-click-non">Fixture</span></a>
+                            <a class="has-arrow" href="#" aria-expanded="false">
+                                <i class="icon nalika-gear icon-wrap"></i>
+                                <span class="mini-click-non">Fixture</span>
+                            </a>
                             <ul class="submenu-angle" aria-expanded="false">
-                                <li><a title="Fixture" href="/Admin/Admin/Fixture_View"><span class="mini-sub-pro" langKey="fixture_management">Fixture Management</span></a></li>
+                                <li>
+                                    <a title="Fixture Management" href="/Admin/Admin/Fixture_View">
+                                        <span class="mini-sub-pro" langKey="fixture_management">Fixture Management</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a title="Fixture Acceptance" href="/Admin/Admin/Fixture_Acceptance">
+                                        <span class="mini-sub-pro" langKey="fixture_acceptance">Fixture Acceptance</span>
+                                    </a>
+                                </li>
                             </ul>
                         </li>
+
                         <li>
                             <a class="has-arrow" href="/Admin/Admin/SheildingBox_View" aria-expanded="false"><i class="icon nalika-inbox"></i> <span class="mini-click-non">Sheilding-Box</span></a>
                             <ul class="submenu-angle" aria-expanded="false">
@@ -389,16 +419,16 @@
                                             @if (session.GroupID == 2)
                                             {
                                                 @*<li class="nav-item">
-                                                    <a href="/Admin/Admin/Receive_User_NotYet" data-toggle="tooltip" data-placement="bottom" title="Đơn đợi quản lý kí" role="button" class="zoom">
-                                                        <i class="icon nalika-half-filled-rating-star"></i><sup class="sup" id="dem_user"></sup>
-                                                    </a>
-                                                </li>
+                                                        <a href="/Admin/Admin/Receive_User_NotYet" data-toggle="tooltip" data-placement="bottom" title="Đơn đợi quản lý kí" role="button" class="zoom">
+                                                            <i class="icon nalika-half-filled-rating-star"></i><sup class="sup" id="dem_user"></sup>
+                                                        </a>
+                                                    </li>
 
-                                                <li class="nav-item">
-                                                    <a href="/Admin/Admin/Receive_AThanOK_User" data-toggle="tooltip" data-placement="bottom" title="Đơn đợi C.Thản kí" role="button" class="zoom">
-                                                        <i class="icon nalika-happiness" aria-hidden="true"></i><sup  id="dem_waitCThan" class="sup"></sup>
-                                                    </a>
-                                                </li>*@
+                                                    <li class="nav-item">
+                                                        <a href="/Admin/Admin/Receive_AThanOK_User" data-toggle="tooltip" data-placement="bottom" title="Đơn đợi C.Thản kí" role="button" class="zoom">
+                                                            <i class="icon nalika-happiness" aria-hidden="true"></i><sup  id="dem_waitCThan" class="sup"></sup>
+                                                        </a>
+                                                    </li>*@
                                                 <li>
                                                     <a href="/Admin/Admin/Receive_User_Get" data-toggle="tooltip" data-placement="bottom" title="Đơn Lĩnh" role="button" aria-expanded="false" class="nav-link dropdown-toggle zoom">
                                                         <i class="icon nalika-shopping-cart" style="color:green;"></i><sup @*class="indicator-ms"*@ class="sup" id="dem5"></sup>
@@ -559,17 +589,28 @@
         <input type="hidden" id="langCode" value="@ViewBag.LangCode" />
     </div>
 
-    <div class="footer-copyright-area" style="padding:5px 0px;margin-top:3vh;">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="footer-copy-right">
-                        <p>Design © 2020 <a href="#">by BanNguyen</a> (Automation | IOT Team)</p>
+    @*<div class="footer-copyright-area" style="padding:5px 0px;margin-top:3vh;">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="footer-copy-right">
+                            <p>Design © 2020 <a href="#">by BanNguyen</a> (Automation | IOT Team)</p>
+                        </div>
                     </div>
+                </div>
+            </div>
+        </div>*@
+<footer class="footer-copyright-area" style="padding:5px 0px;margin-top:3vh;">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="footer-copy-right">
+                    <p>Design © 2020 <a href="#">by BanNguyen</a> (Automation | IOT Team)</p>
                 </div>
             </div>
         </div>
     </div>
+</footer>
     <div class="modal" id="ModalUpdatePass">
         <div class="modal-dialog modal-sm">
             <div class="modal-content">

@@ -1,8 +1,15 @@
-﻿using Model.Dao;
+﻿using Fluent.Infrastructure.FluentModel;
+using Model.Dao;
 using Model.EF;
 using Newtonsoft.Json;
+using OfficeOpenXml;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
+using System.Data.Entity;
+using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -16,6 +23,8 @@ namespace ToolingRoomManagement.Areas.Admin.Controllers
         const string DefaultLangCode = "en";
         // GET: Admin/Admin
         ToolingRoomDbContext context = new ToolingRoomDbContext();
+        private readonly string connectionString = ConfigurationManager.ConnectionStrings["ToolingRoomDbContext"].ConnectionString;
+
         public ActionResult Index()
         {
             ViewBag.LangCode = Session["LANGUAGE"] ?? DefaultLangCode;
@@ -677,6 +686,110 @@ namespace ToolingRoomManagement.Areas.Admin.Controllers
                 return RedirectToAction("Index", "Home");
             }
         }
+        public ActionResult Fixture_Acceptance(HttpPostedFileBase file)
+        {
+            var session_log = (Common.UserLogin)Session[ToolingRoomManagement.Common.CommonConstants.USER_SESSION];
+            if (session_log != null)
+            {
+                ViewBag.LangCode = Session["LANGUAGE"] ?? DefaultLangCode;
+                FixtureAcceptanceDAO _fixtureAcceptanceDAO;
+                _fixtureAcceptanceDAO = new FixtureAcceptanceDAO(new ToolingRoomDbContext());
+                var fixtureAcceptances = _fixtureAcceptanceDAO.GetAll();
+                return View(fixtureAcceptances);
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
+        }
+        public ActionResult Upload()
+        {
+            return View();
+        }
+
+        // POST: FixtureAcceptance/Upload
+        [HttpPost]
+        
+        public ActionResult Upload(HttpPostedFileBase file)
+        {
+            if (file != null && file.ContentLength > 0)
+            {
+                try
+                {
+                    using (var package = new ExcelPackage(file.InputStream))
+                {
+                    var worksheet = package.Workbook.Worksheets[0];
+                    int rowCount = worksheet.Dimension.Rows;
+
+                    using (var context = new ToolingRoomDbContext())
+                    {
+                        for (int row = 2; row <= rowCount; row++) // Bắt đầu từ hàng 2, giả sử hàng 1 là tiêu đề
+                        {
+                            //string product = worksheet.Cells[row, 1].Text; // Giả sử `Product` nằm ở cột 1
+                            string pn = worksheet.Cells[row, 3].Text; // Giả sử `Pn` nằm ở cột 3
+
+                            var existingFixture = context.FixtureAcceptances
+                                .FirstOrDefault(f => f.Pn.Equals(pn, StringComparison.OrdinalIgnoreCase));
+                            if (existingFixture != null)
+                            {
+                                // Đối tượng đã tồn tại, cập nhật các thuộc tính
+                                existingFixture.Product = worksheet.Cells[row, 1].Text;
+                                existingFixture.Description = worksheet.Cells[row, 2].Text;
+                                existingFixture.Revision = worksheet.Cells[row, 4].Text;
+                                existingFixture.Sn = worksheet.Cells[row, 5].Text;
+                                existingFixture.MfgDate = worksheet.Cells[row, 6].Text;
+                                existingFixture.MfgBy = worksheet.Cells[row, 7].Text;
+                                existingFixture.MfgOrigin = worksheet.Cells[row, 8].Text;
+                                existingFixture.Station = worksheet.Cells[row, 9].Text;
+                                existingFixture.SG = worksheet.Cells[row, 10].Text;
+                                existingFixture.MVT = worksheet.Cells[row, 11].Text;
+                                existingFixture.VV = worksheet.Cells[row, 12].Text;
+                                existingFixture.Result = worksheet.Cells[row, 13].Text;
+
+                                // Đánh dấu đối tượng là đã được sửa đổi
+                                context.Entry(existingFixture).State = EntityState.Modified;
+                            }
+                            else
+                            {
+                                // Đối tượng không tồn tại, thêm mới
+                                var fixtureAcceptance = new FixtureAcceptance
+                                {
+                                    Product = worksheet.Cells[row, 1].Text,
+                                    Description = worksheet.Cells[row, 2].Text,
+                                    Pn = worksheet.Cells[row, 3].Text,
+                                    Revision = worksheet.Cells[row, 4].Text,
+                                    Sn = worksheet.Cells[row, 5].Text,
+                                    MfgDate = worksheet.Cells[row, 6].Text,
+                                    MfgBy = worksheet.Cells[row, 7].Text,
+                                    MfgOrigin = worksheet.Cells[row, 8].Text,
+                                    Station = worksheet.Cells[row, 9].Text,
+                                    SG = worksheet.Cells[row, 10].Text,
+                                    MVT = worksheet.Cells[row, 11].Text,
+                                    VV = worksheet.Cells[row, 12].Text,
+                                    Result = worksheet.Cells[row, 13].Text
+                                };
+
+                                context.FixtureAcceptances.Add(fixtureAcceptance);
+                            }
+                            context.SaveChanges();
+                        }
+
+                        
+                    }
+                }
+                }catch (InvalidDataException e)
+                {
+                    TempData["Message"] = "Vui lòng tải lên một tệp Excel hợp lệ.";
+                }
+                TempData["Message"] = "Dữ liệu đã được nhập thành công!";
+                return RedirectToAction("Fixture_Acceptance");
+            }
+
+            TempData["Message"] = "Vui lòng tải lên một tệp Excel hợp lệ.";
+            return RedirectToAction("Fixture_Acceptance");
+        }
+
+
         public ActionResult Fixture_Edit()
         {
             var session_log = (Common.UserLogin)Session[ToolingRoomManagement.Common.CommonConstants.USER_SESSION];
